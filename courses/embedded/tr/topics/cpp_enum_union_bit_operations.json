@@ -1,0 +1,74 @@
+{
+  "id": "cpp_enum_union_bit_operations",
+  "title": "enum class, union ve bit işlemleri",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/enum.html",
+    "https://en.cppreference.com/w/cpp/language/union.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "enum",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " durumlara ad verir; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "enum class",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " adları kapsam içinde tutar ve kazara tam sayıya dönüşümü önler. Gerektiğinde ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "static_cast<uint8_t>(Mode::Sample)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " açık dönüşümdür. Bit işlemleri maskeyle register bayrağı kurma, denetleme ve temizleme için kullanılır. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "union",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üyeleri aynı belleği paylaşır; yalnızca en son yazılan üyenin değeri geçerlidir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "enum class Mode : uint8_t { Idle, Sample, Alarm };\nuint8_t flags = 0;\nconstexpr uint8_t READY = 1u << 0;\nflags |= READY;                 // Set bit\nbool ready = (flags & READY) != 0;\nflags &= static_cast<uint8_t>(~READY); // Clear bit\n\nunion RawValue { uint16_t word; uint8_t bytes[2]; };\nstruct StatusBits { unsigned ready : 1; unsigned mode : 2; };",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Register'a doğrudan yazmak diğer bitleri de değiştirebilir; çip belgesini ve üretici API'sini izleyin. Bitfield yerleşimi derleyiciye/karta göre değişebilir. `union` üzerinden tür değiştirme taşınabilir değildir; bayt sırası da platforma bağlıdır."
+    }
+  ],
+  "testId": "embedded_test_cpp_enum_union_bit_operations_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

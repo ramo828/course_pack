@@ -1,0 +1,35 @@
+{
+  "id": "protocols_can_twai",
+  "title": "CAN veriyolu ve ESP32 TWAI: otomotiv ve endüstri iletişimi",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/twai.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "CAN, gürültüye dayanıklı diferansiyel ve mesaj temelli bir veriyoludur; araç ECU'ları, endüstriyel kontrol ve robotlarda kullanılır. ESP32'de TWAI, CAN 2.0 controller çevrebirimi API'sinin adıdır; controller pinleri CAN kablosuna doğrudan bağlanamaz.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_can_bus",
+      "caption": "CAN veriyolu ve ESP32 TWAI: otomotiv ve endüstri iletişimi"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"driver/twai.h\"\n\nvoid setup() {\n  auto general = TWAI_GENERAL_CONFIG_DEFAULT(\n      GPIO_NUM_5, GPIO_NUM_4, TWAI_MODE_NORMAL);\n  auto timing = TWAI_TIMING_CONFIG_500KBITS();\n  auto filter = TWAI_FILTER_CONFIG_ACCEPT_ALL();\n  ESP_ERROR_CHECK(twai_driver_install(&general, &timing, &filter));\n  ESP_ERROR_CHECK(twai_start());\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Ayrı CAN alıcı-vericisi gerekir; CANH/CANL hattının iki ucunda topolojiye uygun 120 Ω sonlandırma kullanılır. Örnek ESP-IDF programlama arayüzü'sidir; CAN-FD varsaymayın. Bit hızını eşleyip iki düğümlü test bus'ında sınayın."
+    }
+  ],
+  "testId": "embedded_test_protocols_can_twai_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

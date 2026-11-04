@@ -1,0 +1,48 @@
+{
+  "id": "bluetooth_audio_hid_and_network",
+  "title": "Bluetooth applications: keyboards, audio, and internet limits",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://github.com/pschatzmann/ESP32-A2DP",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/i2s.html",
+    "https://www.bluetooth.com/learn-about-bluetooth/tech-overview/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Bluetooth can carry sensor data, act as an input device, provide a serial console, or stream audio to a speaker. Each job requires the right profile and chip.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "HOW IT WORKS\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Keyboard use has two distinct roles: as a HID device, an ESP32 sends key events to a computer; as a HID host, it receives input from a real keyboard. BLE-HID libraries and board support vary. Key events should follow deliberate, visible user actions; hidden or unauthorized keystroke injection is unsafe. An A2DP sink can connect an original Classic-Bluetooth ESP32 to an audio source; audible output usually also needs an I2S DAC/amplifier (for example MAX98357A) and a speaker. Software alone is not a speaker.\n\nBluetooth itself is not internet access. A phone/PC gets internet via Wi-Fi or cellular and may use Bluetooth to control the ESP32. Bluetooth tethering over PAN works only when the exact device, profile, operating system, and stack support a PAN role; standard BLE GATT does not create an internet tunnel. Wi-Fi STA is the normal ESP32 internet path.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "// Requires the external ESP32-A2DP library.\n#include \"BluetoothA2DPSink.h\"\n\nBluetoothA2DPSink speaker;\n\nvoid setup() {\n  speaker.start(\"ESP32 Audio\");\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important safety and compatibility note",
+      "text": "A2DP requires Classic Bluetooth and will not work on every BLE-capable ESP32. Check the library's chip support and I2S DAC wiring. Do not assume Bluetooth tethering is available on every phone or ESP32."
+    }
+  ],
+  "testId": "embedded_test_bluetooth_audio_hid_and_network_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

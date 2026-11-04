@@ -1,0 +1,62 @@
+{
+  "id": "rust_test_rust_error_design_az",
+  "title": "Result, ? və xəta dizaynı",
+  "questions": [
+    {
+      "id": "rust_rust_error_design_1",
+      "topicId": "rust_rust_error_design",
+      "type": "multiple_choice",
+      "prompt": "“Result, ? və xəta dizaynı” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "? uğursuz nəticəni çağırana ötürür, uğurlu dəyəri isə növbəti ifadəyə verir.",
+        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir."
+      ],
+      "answer": "? uğursuz nəticəni çağırana ötürür, uğurlu dəyəri isə növbəti ifadəyə verir.",
+      "explanation": "? uğursuz nəticəni çağırana ötürür, uğurlu dəyəri isə növbəti ifadəyə verir.\nİzah: Result<T, E> uğuru və uğursuzluğu tip səviyyəsində ifadə edir; `?` error-u uyğun qaytarma tipinə ötürərək çağırış zəncirini qısa saxlayır. Proqramın sərhədində konkret xətanı istifadəçi üçün anlaşılan mesaja çevirin, daxili layer-lərdə isə səbəb və konteksti qoruyun. `unwrap()` yalnız invariantın sübut olunduğu və çöküşün qəbul edildiyi kiçik nümunələrdə münasibdir.\n\n`Option<T>` təbii olaraq olmayan nəticəni (`None`), `Result<T, E>` isə izah edilə bilən uğur/xətanı göstərir. `?` xətanı çağırana ötürür və lazımsız panic yaratmır; `main -> Result` proqramın sərhədində xəta qaytarmağa imkan verir. `unwrap()` yalnız testdə və ya invariant sübut olunmuş yerdə məqsədli seçilməlidir."
+    },
+    {
+      "id": "rust_rust_error_design_2",
+      "topicId": "rust_rust_error_design",
+      "type": "multiple_choice",
+      "prompt": "“Result, ? və xəta dizaynı” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "Dəyişənliyi yalnız həqiqətən lazım olduqda aktiv edin.",
+        "Xətanı udub saxta uğur qaytarmayın; retry yalnız əməliyyat təkrarlana biləndə və limitlə olmalıdır.",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir."
+      ],
+      "answer": "Xətanı udub saxta uğur qaytarmayın; retry yalnız əməliyyat təkrarlana biləndə və limitlə olmalıdır.",
+      "explanation": "Xətanı udub saxta uğur qaytarmayın; retry yalnız əməliyyat təkrarlana biləndə və limitlə olmalıdır.\nİzah: Result<T, E> uğuru və uğursuzluğu tip səviyyəsində ifadə edir; `?` error-u uyğun qaytarma tipinə ötürərək çağırış zəncirini qısa saxlayır. Proqramın sərhədində konkret xətanı istifadəçi üçün anlaşılan mesaja çevirin, daxili layer-lərdə isə səbəb və konteksti qoruyun. `unwrap()` yalnız invariantın sübut olunduğu və çöküşün qəbul edildiyi kiçik nümunələrdə münasibdir.\n\n`Option<T>` təbii olaraq olmayan nəticəni (`None`), `Result<T, E>` isə izah edilə bilən uğur/xətanı göstərir. `?` xətanı çağırana ötürür və lazımsız panic yaratmır; `main -> Result` proqramın sərhədində xəta qaytarmağa imkan verir. `unwrap()` yalnız testdə və ya invariant sübut olunmuş yerdə məqsədli seçilməlidir."
+    },
+    {
+      "id": "rust_rust_error_design_3",
+      "topicId": "rust_rust_error_design",
+      "type": "multiple_choice",
+      "prompt": "“Result, ? və xəta dizaynı” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Result<T, E> uğuru və uğursuzluğu tip səviyyəsində ifadə edir; `?` error-u uyğun qaytarma tipinə ötürərək çağırış zəncirini qısa saxlayır",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir."
+      ],
+      "answer": "Result<T, E> uğuru və uğursuzluğu tip səviyyəsində ifadə edir; `?` error-u uyğun qaytarma tipinə ötürərək çağırış zəncirini qısa saxlayır",
+      "explanation": "Result<T, E> uğuru və uğursuzluğu tip səviyyəsində ifadə edir; `?` error-u uyğun qaytarma tipinə ötürərək çağırış zəncirini qısa saxlayır\nİzah: Result<T, E> uğuru və uğursuzluğu tip səviyyəsində ifadə edir; `?` error-u uyğun qaytarma tipinə ötürərək çağırış zəncirini qısa saxlayır. Proqramın sərhədində konkret xətanı istifadəçi üçün anlaşılan mesaja çevirin, daxili layer-lərdə isə səbəb və konteksti qoruyun. `unwrap()` yalnız invariantın sübut olunduğu və çöküşün qəbul edildiyi kiçik nümunələrdə münasibdir.\n\n`Option<T>` təbii olaraq olmayan nəticəni (`None`), `Result<T, E>` isə izah edilə bilən uğur/xətanı göstərir. `?` xətanı çağırana ötürür və lazımsız panic yaratmır; `main -> Result` proqramın sərhədində xəta qaytarmağa imkan verir. `unwrap()` yalnız testdə və ya invariant sübut olunmuş yerdə məqsədli seçilməlidir."
+    },
+    {
+      "id": "rust_rust_error_design_4",
+      "topicId": "rust_rust_error_design",
+      "type": "multiple_choice",
+      "prompt": "“Result, ? və xəta dizaynı” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "Proqramın sərhədində konkret xətanı istifadəçi üçün anlaşılan mesaja çevirin, daxili layer-lərdə isə səbəb və konteksti qoruyun",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir."
+      ],
+      "answer": "Proqramın sərhədində konkret xətanı istifadəçi üçün anlaşılan mesaja çevirin, daxili layer-lərdə isə səbəb və konteksti qoruyun",
+      "explanation": "Proqramın sərhədində konkret xətanı istifadəçi üçün anlaşılan mesaja çevirin, daxili layer-lərdə isə səbəb və konteksti qoruyun\nİzah: Result<T, E> uğuru və uğursuzluğu tip səviyyəsində ifadə edir; `?` error-u uyğun qaytarma tipinə ötürərək çağırış zəncirini qısa saxlayır. Proqramın sərhədində konkret xətanı istifadəçi üçün anlaşılan mesaja çevirin, daxili layer-lərdə isə səbəb və konteksti qoruyun. `unwrap()` yalnız invariantın sübut olunduğu və çöküşün qəbul edildiyi kiçik nümunələrdə münasibdir.\n\n`Option<T>` təbii olaraq olmayan nəticəni (`None`), `Result<T, E>` isə izah edilə bilən uğur/xətanı göstərir. `?` xətanı çağırana ötürür və lazımsız panic yaratmır; `main -> Result` proqramın sərhədində xəta qaytarmağa imkan verir. `unwrap()` yalnız testdə və ya invariant sübut olunmuş yerdə məqsədli seçilməlidir."
+    }
+  ]
+}

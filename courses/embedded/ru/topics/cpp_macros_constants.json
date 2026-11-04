@@ -1,0 +1,157 @@
+{
+  "id": "cpp_macros_constants",
+  "title": "C++ для Arduino: #define, const и constexpr",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/constexpr.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "#define",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " выполняет текстовую подстановку до компиляции; у него нет типа и области видимости переменной. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "constexpr",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — типизированное значение C++, вычисляемое при компиляции, когда это возможно. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "const",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " запрещает изменение, но не всегда является константой времени компиляции. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#if",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#ifdef",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#ifndef",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#elif",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#else",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#endif",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " выбирают код для платы. Макрос, похожий на функцию, например ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "DOUBLE_BAD(x)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", остаётся текстовой подстановкой; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "inline",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " функция проверяется по типам и безопасно вычисляет аргумент.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#define DOUBLE_BAD(x) x * 2\ninline int doubleValue(int value) { return value * 2; }\n\n#if defined(ARDUINO_ARCH_ESP32)\nconstexpr uint8_t LED_PIN = 2;\n#elif defined(ARDUINO_ARCH_AVR)\nconstexpr uint8_t LED_PIN = LED_BUILTIN;\n#else\n#error Unsupported board\n#endif\n\nvoid setup() {\n  pinMode(LED_PIN, OUTPUT);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "`#define` подходит прежде всего для защиты заголовков и условной компиляции; для значений предпочитайте `constexpr`. Функциональный макрос может нарушить приоритет операций и вычислить аргумент несколько раз; не вызывайте `DOUBLE_BAD(i++)`. `F`, `PROGMEM` и `IRAM_ATTR` зависят от платы и библиотеки."
+    }
+  ],
+  "testId": "embedded_test_cpp_macros_constants_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

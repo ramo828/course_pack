@@ -1,0 +1,76 @@
+{
+  "id": "python_test_18_file_io_tr",
+  "title": "Dosyalarla çalışma",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_18_file_io_tr",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 1. kod örneği tam olarak ne yazdırır?\n\nfrom pathlib import Path\nfrom tempfile import TemporaryDirectory\n\nwith TemporaryDirectory() as folder:\n    path = Path(folder) / 'notes.txt'\n    path.write_text('First line\\nSecond line', encoding='utf-8')\n    print(path.read_text(encoding='utf-8'))",
+      "options": [
+        "fIRST LINE\nsECOND LINE",
+        "First line\nSecond line",
+        "first line\nsecond line",
+        "['Ada', '10']"
+      ],
+      "answer": "First line\nSecond line",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`from pathlib import Path` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`from tempfile import TemporaryDirectory` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`with TemporaryDirectory() as folder:` — Kaynağı blok boyunca yönetir; bağlam yöneticisi olmazsa dosya veya bağlantı açık kalabilir.\n`path = Path(folder) / 'notes.txt'` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`path.write_text('First line\\nSecond line', encoding='utf-8')` — Verilen metni dosyaya yazar; dosyanın mevcut içeriği yenilenir ve encoding açıkça belirtilir.\n`print(path.read_text(encoding='utf-8'))` — Dosyanın metnini okur; encoding metnin doğru çözümlenmesine yardımcı olur."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_18_file_io_tr",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 2. kod örneği tam olarak ne yazdırır?\n\nfrom pathlib import Path\nfrom tempfile import TemporaryDirectory\n\nwith TemporaryDirectory() as folder:\n    path = Path(folder) / 'notes.txt'\n    path.write_text('first line\\nsecond line', encoding='utf-8')\n    print(path.read_text(encoding='utf-8'))",
+      "options": [
+        "First line\nSecond line",
+        "first line\nsecond line",
+        "FIRST LINE\nSECOND LINE",
+        "['Ada', '10']"
+      ],
+      "answer": "first line\nsecond line",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`from pathlib import Path` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`from tempfile import TemporaryDirectory` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`with TemporaryDirectory() as folder:` — Kaynağı blok boyunca yönetir; bağlam yöneticisi olmazsa dosya veya bağlantı açık kalabilir.\n`path = Path(folder) / 'notes.txt'` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`path.write_text('first line\\nsecond line', encoding='utf-8')` — Verilen metni dosyaya yazar; dosyanın mevcut içeriği yenilenir ve encoding açıkça belirtilir.\n`print(path.read_text(encoding='utf-8'))` — Dosyanın metnini okur; encoding metnin doğru çözümlenmesine yardımcı olur."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_18_file_io_tr",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 3. kod örneği tam olarak ne yazdırır?\n\nimport csv\nfrom io import StringIO\nrows = list(csv.reader(StringIO('name,score\\nAda,10\\n')))\nprint(rows[1])",
+      "options": [
+        "['Ada']",
+        "['Ada', '10']",
+        "first line\nsecond line",
+        "First line\nSecond line"
+      ],
+      "answer": "['Ada', '10']",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`import csv` — Modül işlevini getirir; satır olmazsa ad kullanılamaz ve NameError oluşabilir.\n`from io import StringIO` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`rows = list(csv.reader(StringIO('name,score\\nAda,10\\n')))` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`print(rows[1])` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_18_file_io_tr",
+      "type": "multiple_choice",
+      "prompt": "“Dosyalarla çalışma” konusunu doğru tanımlayan ifade hangisidir?",
+      "options": [
+        "Modüller kodu yönetilebilir dosyalara ayırır; istisnalar ise başarısızlığı gizlemek yerine doğru biçimde ele almayı sağlar.",
+        "Standart kütüphane tarih, dosya yolu ve istatistik için hazır araçlar sağlar; yeniden yazmadan önce uygun modülü kontrol edin.",
+        "Dosya işlemleri, program kapandıktan sonra da kalması gereken raporları, ayarları ve kayıtları okumak veya saklamak için kullanılır.",
+        "Paketler projeye ek işlev ekler; regex metin biçimini denetler."
+      ],
+      "answer": "Dosya işlemleri, program kapandıktan sonra da kalması gereken raporları, ayarları ve kayıtları okumak veya saklamak için kullanılır.",
+      "explanation": "Dosya işlemleri, program kapandıktan sonra da kalması gereken raporları, ayarları ve kayıtları okumak veya saklamak için kullanılır.\n\nSATIR SATIR AÇIKLAMA\n`from pathlib import Path` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`from tempfile import TemporaryDirectory` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`with TemporaryDirectory() as folder:` — Kaynağı blok boyunca yönetir; bağlam yöneticisi olmazsa dosya veya bağlantı açık kalabilir.\n`path = Path(folder) / 'notes.txt'` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`path.write_text('first line\\nsecond line', encoding='utf-8')` — Verilen metni dosyaya yazar; dosyanın mevcut içeriği yenilenir ve encoding açıkça belirtilir.\n`print(path.read_text(encoding='utf-8'))` — Dosyanın metnini okur; encoding metnin doğru çözümlenmesine yardımcı olur."
+    },
+    {
+      "id": "q5",
+      "topicId": "python_18_file_io_tr",
+      "type": "multiple_choice",
+      "prompt": "`writelines(['a', 'b'])` satırlar arasına otomatik `\\n` ekler mi?",
+      "options": [
+        "Evet, her zaman ekler",
+        "Hayır, newline karakterini biz eklemeliyiz",
+        "Yalnızca dosya binary ise",
+        "Sadece ilk satırda ekler"
+      ],
+      "answer": "Hayır, newline karakterini biz eklemeliyiz",
+      "explanation": "writelines ayraç eklemez; gerekiyorsa her metne `\\n` ekleyin."
+    }
+  ]
+}

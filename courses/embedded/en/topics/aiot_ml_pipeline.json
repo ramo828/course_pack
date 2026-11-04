@@ -1,0 +1,52 @@
+{
+  "id": "aiot_ml_pipeline",
+  "title": "An AIoT project: from measurements to a model",
+  "difficulty": "medium",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://www.tensorflow.org/lite/microcontrollers",
+    "https://ai.google.dev/edge/litert/conversion/tensorflow/overview"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "We usually do not train a model on the microcontroller itself. Collect and label examples on a computer, train and evaluate a small model there, then convert it to a supported format and run inference on the board.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "How it works\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A simple path: 1) read the sensor correctly; 2) collect fixed-length windows; 3) label each window clearly, such as “normal” or “unusual”; 4) evaluate on separate test data; 5) shrink the model and measure it on the board; 6) test again with the real sensor. Splitting neighboring pieces of the same recording between training and test can make results look too good, so separate recordings or days.\n\nAccuracy is not the only metric: record false alarms, missed events, memory, latency, and energy. Compare with a simple threshold rule first; a model is not needed for every project.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Example code\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# On a computer: prepare labeled examples, then train and test.\nfeatures, labels = collect_and_label_sensor_windows()\ntrain, test = split_by_recording_session(features, labels)\nmodel = train_small_classifier(train, labels)\nprint(\"test accuracy:\", evaluate(model, test))\n# Convert and optimize only after checking test results.",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_tflite_pipeline",
+      "caption": "Diagram: An AIoT project: from measurements to a model"
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Keep final test data separate from training data. Changes in sensor placement, sampling rate, or scaling can change model performance."
+    }
+  ],
+  "testId": "embedded_test_aiot_ml_pipeline_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

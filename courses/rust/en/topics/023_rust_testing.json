@@ -1,0 +1,184 @@
+{
+  "id": "rust_rust_testing",
+  "title": "Unit, integration, and documentation tests",
+  "difficulty": "medium",
+  "testId": "rust_test_rust_testing_en",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch11-00-testing.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Unit, integration, and documentation tests” to a real program or device. The key principle is: cargo test runs both #[test] functions and eligible rustdoc examples. In a project, follow this guidance: Keep tests deterministic; isolate network and time dependencies behind fakes or fixtures.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[test]\nfn adds_values() {\n    assert_eq!(2 + 2, 4);\n}\n\n/// Adds two values.\n///\n/// ```\n/// assert_eq!(2 + 2, 4);\n/// ```\npub fn add(a: i32, b: i32) -> i32 { a + b }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The unit and documentation assertions pass; Cargo's summary varies by version.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Unit tests can check private module behavior; integration tests exercise a crate's public API as a consumer would. Documentation tests execute examples alongside docs and catch stale snippets. Test both successful and boundary/error cases; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "cargo test",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " runs the suite.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#[test]",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: cargo test runs both #[test] functions and eligible rustdoc examples.\nWhy it is used: Keep tests deterministic; isolate network and time dependencies behind fakes or fixtures.\nIf omitted or changed: Keep tests deterministic; isolate network and time dependencies behind fakes or fixtures.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Skipping this check before applying the rule: Keep tests deterministic; isolate network and time dependencies behind fakes or fixtures."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "cargo test runs both #[test] functions and eligible rustdoc examples.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Keep tests deterministic; isolate network and time dependencies behind fakes or fixtures."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "pub fn add(a: i32, b: i32) -> i32 { a + b }\n#[test]\nfn adds() { assert_eq!(add(2, 2), 4); }\n// Save as src/lib.rs and run cargo test.",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The unit test and eligible documentation tests pass.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Test both successful and boundary/error cases; `cargo test` runs the suite."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Examples focus on the concept; compile and test with the selected toolchain and target because APIs and diagnostics can vary by version."
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement gives the core rule for “Unit, integration, and documentation tests”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: cargo test runs both #[test] functions and eligible rustdoc examples.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "A separate visual is not essential; a small runnable code example and its expected output explain the topic."
+}

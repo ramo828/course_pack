@@ -1,0 +1,604 @@
+{
+  "id": "rust_rust_libraries",
+  "title": "Önemli Rust crate'leri: ne işe yarar, kim geliştirir?",
+  "difficulty": "medium",
+  "testId": "rust_test_rust_libraries_tr",
+  "sources": [
+    "https://serde.rs/",
+    "https://github.com/serde-rs/serde",
+    "https://tokio.rs/",
+    "https://tokio.rs/tokio/team",
+    "https://docs.rs/anyhow/",
+    "https://docs.rs/thiserror/",
+    "https://docs.rs/clap/",
+    "https://github.com/rust-embedded/embedded-hal"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Önemli Rust crate'leri: ne işe yarar, kim geliştirir?” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Serde derive alanları serileştirir; ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "serde_json",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " JSON üretir ve Cargo'ya eklenmelidir. Gerçek projede şu öneriyi izleyin: Serde örneği için ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "cargo add serde --features derive",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ve ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "cargo add serde_json",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " çalıştırın; belgeleri okuyun ve gizli anahtarları kaynak koda koymayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_serde_flow",
+      "caption": "Önemli Rust crate'leri: ne işe yarar, kim geliştirir?"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use serde::Serialize;\n#[derive(Serialize)]\nstruct Reading { name: String, score: u8 }\nfn main() -> Result<(), serde_json::Error> {\n    let reading = Reading { name: \"Ada\".into(), score: 10 };\n    println!(\"{}\", serde_json::to_string(&reading)?);\n    Ok(())\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serde serileştirme yapar ve JSON sonucu ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "{\"name\":\"Ada\",\"score\":10}",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " olur.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust crate'i hazır işlevler sunar; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Cargo.toml",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " dosyasına eklenir ve ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "use",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile kullanılır. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "serde",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " JSON gibi biçimlerde veri yazıp okur; David Tolnay ve açık kaynak katkıcılarınca geliştirilir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "tokio",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", asenkron sunucu ve ağ işlerini yöneten runtime'dır; Carl Lerche'nin başlattığı projeyi topluluk sürdürür. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "clap",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " terminal argümanlarını, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "reqwest",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " HTTP isteklerini, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "embedded-hal",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " mikrodenetleyici sürücüleri için ortak arayüzleri kolaylaştırır. Standart kütüphane Rust'la gelir; bu crate'ler ayrı bağımlılıktır. Sürüm, lisans, uyumluluk ve güvenlik güncellemelerini denetleyin.\n\nCargo.toml bağımlılık örneği: ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "tokio = { version = \"1\", features = [\"macros\", \"rt-multi-thread\", \"time\"] }",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "serde = { version = \"1\", features = [\"derive\"] }",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "serde_json = \"1\"",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "anyhow = \"1\"",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "thiserror = \"2\"",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "embedded-hal = \"1\"",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". Tokio async runtime/zamanlayıcı, Serde biçimden bağımsız serileştirme, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "anyhow",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " uygulama düzeyinde bağlamlı hata, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "thiserror",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kütüphane için belirgin hata türü, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "embedded-hal",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ise karta özel HAL üzerinde taşınabilir sürücü trait'leri sağlar. Tokio ekibi, Serde topluluğu ve Rust Embedded WG ekosistemin temel bakıcılarıdır. HAL uygulaması olmadan embedded-hal fiziksel GPIO'yu yönetmez.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let reading = Reading { name: \"Ada\".into(), score: 10 };",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Serde derive alanları serileştirir; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "serde_json",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " JSON üretir ve Cargo'ya eklenmelidir.\nNeden seçildi: Serde örneği için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "cargo add serde --features derive",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "cargo add serde_json",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " çalıştırın; belgeleri okuyun ve gizli anahtarları kaynak koda koymayın.\nAtlanır veya değiştirilirse: Kütüphane seçimi platformaya ve projeye bağlıdır: örneğin ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "embedded-hal",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " mikrodenetleyici sürücülerine, Tokio ise genel amaçlı asenkron I/O'ya yöneliktir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Crate API'leri ve feature flag'leri sürüme göre değişebilir; uygulamada Cargo.lock dosyasını saklayın ve örneği kendi araç zincirinizde sınayın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serde derive alanları serileştirir; ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "serde_json",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " JSON üretir ve Cargo'ya eklenmelidir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Serde örneği için `cargo add serde --features derive` ve `cargo add serde_json` çalıştırın; belgeleri okuyun ve gizli anahtarları kaynak koda koymayın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use serde::Serialize;\n#[derive(Serialize)]\nstruct Device { name: String, online: bool }\nfn main() -> Result<(), serde_json::Error> {\n    let device = Device { name: \"sensor-1\".into(), online: true };\n    println!(\"{}\", serde_json::to_string(&device)?);\n    Ok(())\n}\n// Add serde with the derive feature and serde_json in Cargo.toml.",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "{\"name\":\"sensor-1\",\"online\":true}\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Tokio: async runtime ve zaman aşımı\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[tokio::main]\nasync fn main() {\n    tokio::time::sleep(std::time::Duration::from_millis(1)).await;\n    println!(\"task complete\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "task complete\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "thiserror: uygulamaya özel hata türü\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[derive(Debug, thiserror::Error)]\nenum PortError {\n    #[error(\"invalid port\")]\n    Invalid(#[from] std::num::ParseIntError),\n}\nfn parse_port(text: &str) -> Result<u16, PortError> {\n    Ok(text.parse()?)\n}\nfn main() {\n    match parse_port(\"bad\") {\n        Ok(port) => println!(\"{port}\"),\n        Err(error) => println!(\"{error}\"),\n    }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "invalid port\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "anyhow: uygulama düzeyinde hata bağlamı\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use anyhow::Context;\nfn load_port(text: &str) -> anyhow::Result<u16> {\n    let port = text.parse::<u16>().context(\"port must be a number\")?;\n    anyhow::ensure!(port != 0, \"port must be non-zero\");\n    Ok(port)\n}\nfn main() {\n    match load_port(\"8080\") {\n        Ok(port) => println!(\"port={port}\"),\n        Err(error) => eprintln!(\"{error:#}\"),\n    }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "port=8080\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "embedded-hal 1.0: taşınabilir GPIO sürücü arayüzü\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use embedded_hal::digital::OutputPin;\nfn set_indicator<P: OutputPin>(pin: &mut P) -> Result<(), P::Error> {\n    pin.set_high()?;\n    pin.set_low()\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Genel sürücü kodu embedded-hal 1.0 OutputPin uygulamasıyla derlenir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Kütüphane seçimi platformaya ve projeye bağlıdır: örneğin `embedded-hal` mikrodenetleyici sürücülerine, Tokio ise genel amaçlı asenkron I/O'ya yöneliktir."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Crate API'leri ve feature flag'leri sürüme göre değişebilir; uygulamada Cargo.lock dosyasını saklayın ve örneği kendi araç zincirinizde sınayın."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Önemli Rust crate'leri: ne işe yarar, kim geliştirir?” konusunda hangi ifade temel kuralı doğru açıklar?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Serde derive alanları serileştirir; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "serde_json",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " JSON üretir ve Cargo'ya eklenmelidir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı."
+}

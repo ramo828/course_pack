@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_sqlalchemy_tr",
+  "title": "SQLAlchemy ile veritabanı",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_sqlalchemy",
+      "type": "multiple_choice",
+      "prompt": "Bu gerçek HTTP isteğine API nasıl yanıt vermelidir?\nPOST /users  body={\"name\":\"Ada\"}; sonra GET /users/1",
+      "options": [
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "İlk çağrı 200 JSON `{id:1,name:Ada}` döndürür; SQLite dosyasına yazılır ve sonraki istekte okunur.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin."
+      ],
+      "answer": "İlk çağrı 200 JSON `{id:1,name:Ada}` döndürür; SQLite dosyasına yazılır ve sonraki istekte okunur.",
+      "explanation": "Bu, `POST /users  body={\"name\":\"Ada\"}; sonra GET /users/1` isteğinin beklenen davranışıdır. İlk çağrı 200 JSON `{id:1,name:Ada}` döndürür; SQLite dosyasına yazılır ve sonraki istekte okunur."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_sqlalchemy",
+      "type": "multiple_choice",
+      "prompt": "Bu konuda hangi tasarım ilkesi doğrudur?",
+      "options": [
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "İsteğe özel SQLAlchemy oturumu sorguları ve işlemleri yönetir; bağımlılık oturumu uç noktaya sağlar."
+      ],
+      "answer": "İsteğe özel SQLAlchemy oturumu sorguları ve işlemleri yönetir; bağımlılık oturumu uç noktaya sağlar.",
+      "explanation": "İsteğe özel SQLAlchemy oturumu sorguları ve işlemleri yönetir; bağımlılık oturumu uç noktaya sağlar. SQLite öğrenme ve küçük yerel uygulamalar için uygundur; yoğun yazma ve çok sunuculu sistemlerde ayrı DB sunucusu ve migration aracı seçin."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_sqlalchemy",
+      "type": "multiple_choice",
+      "prompt": "Derste gösterilen önemli bölüm çıkarılırsa ne değişir?",
+      "options": [
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "Kalıcı saklama olmazsa sunucu yeniden başlatıldığında bellekteki veri kaybolur; ORM sorgu sonuçlarını yönetilebilir nesnelere dönüştürür.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın."
+      ],
+      "answer": "Kalıcı saklama olmazsa sunucu yeniden başlatıldığında bellekteki veri kaybolur; ORM sorgu sonuçlarını yönetilebilir nesnelere dönüştürür.",
+      "explanation": "Kalıcı saklama olmazsa sunucu yeniden başlatıldığında bellekteki veri kaybolur; ORM sorgu sonuçlarını yönetilebilir nesnelere dönüştürür. SQLAlchemy ORM, Python nesnelerini SQL tablolarına bağlar. Bu örnek SQLAlchemy 2.x eşzamanlı API'si ve yerel SQLite kullanır: model tabloyu tanımlar, oturum işlemi yönetir, bağımlılık her istek için oturumu açıp kapatır. Önce `pip install fastapi uvicorn httpx sqlalchemy` kurun."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_sqlalchemy",
+      "type": "multiple_choice",
+      "prompt": "Dersteki yaygın hatayı önlemek için hangi adım daha doğrudur?",
+      "options": [
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "`yield` sonrasında `finally` ile oturumu kapatın; testlerde `get_db` bağımlılığını test veritabanıyla değiştirin.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın."
+      ],
+      "answer": "`yield` sonrasında `finally` ile oturumu kapatın; testlerde `get_db` bağımlılığını test veritabanıyla değiştirin.",
+      "explanation": "`yield` sonrasında `finally` ile oturumu kapatın; testlerde `get_db` bağımlılığını test veritabanıyla değiştirin. Üretimde SQLite dosyasının yedekleme/volume planını doğrulayın; her istekte `create_all` çalıştırmak migration yerine geçmez."
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "id": "arduino_digital_read_write",
+  "title": "pinMode, digitalRead və digitalWrite: rəqəmsal pinlər",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/digital-io/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Əvvəl ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "pinMode",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ilə pinin istiqamətini seçin. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "digitalRead",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "HIGH",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və ya ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "LOW",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " oxuyur; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "digitalWrite",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " çıxışın səviyyəsini dəyişir. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "INPUT_PULLUP",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " daxili zəif rezistoru qoşur, ona görə düymə D2 ilə GND arasında olduqda basılmış vəziyyət ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "LOW",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_button_circuit",
+      "caption": "pinMode, digitalRead və digitalWrite: rəqəmsal pinlər"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "constexpr uint8_t BUTTON_PIN = 2;\nconstexpr uint8_t LED_PIN = LED_BUILTIN;\n\nvoid setup() {\n  pinMode(BUTTON_PIN, INPUT_PULLUP);\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  bool pressed = digitalRead(BUTTON_PIN) == LOW;\n  digitalWrite(LED_PIN, pressed ? HIGH : LOW);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "UNO-da 5 V, ESP32-də adətən 3.3 V məntiq səviyyəsidir. Pin cərəyanı texniki sənəd həddini keçməməlidir; LED-i rezistorsuz GPIO-ya qoşmayın."
+    }
+  ],
+  "testId": "embedded_test_arduino_digital_read_write_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

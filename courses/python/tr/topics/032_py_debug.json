@@ -1,0 +1,337 @@
+{
+  "id": "python_py_debug",
+  "title": "Hata iletileri ve hata ayıklama",
+  "difficulty": "medium",
+  "testId": "python_test_py_debug_tr",
+  "sources": [
+    "https://docs.python.org/3/library/pdb.html",
+    "https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NEDEN KULLANILIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Hata ayıklayıcı değişkenleri ve adımları gösterir; tahminle düzeltmek yerine hangi varsayımın bozulduğunu bulun.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Traceback hata türünü ve çağrı zincirinde oluştuğu satırı gösterir. Sondaki exception'a bakın, girdiyi küçük bir örneğe indirgeyin ve hata ayıklayıcıda adım adım izleyin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "value = int('42')\nassert value == 42\nprint(value)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "42",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "value = int('42')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "assert value == 42",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Geliştirici varsayımını erkenden sınar; tek başına kullanıcı girdisini korumaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(value)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "breakpoint()",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " yürütmeyi hata ayıklayıcıda durdurur.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Hatayı gizlemek yerine hangi girdi ve koşulda oluştuğunu kaydedin."
+    },
+    {
+      "type": "text",
+      "text": "UYGULAMALI ÖRNEK 2 · Hata iletileri ve hata ayıklama\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "total = 4 + 5\nassert total == 9\nprint('invariant holds')",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "invariant holds",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "total = 4 + 5",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "assert total == 9",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Geliştirici varsayımını erkenden sınar; tek başına kullanıcı girdisini korumaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print('invariant holds')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "UYGULAMALI ÖRNEK 3 · Hata iletileri ve hata ayıklama\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "values = [2, 4, 6]\nprint(list(enumerate(values, start=1)))",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "[(1, 2), (2, 4), (3, 6)]",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "values = [2, 4, 6]",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(list(enumerate(values, start=1)))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "detail",
+      "title": "Neden önemli?",
+      "text": "Hata ayıklayıcı değişkenleri ve adımları gösterir; tahminle düzeltmek yerine hangi varsayımın bozulduğunu bulun."
+    },
+    {
+      "type": "warning",
+      "title": "Dikkat",
+      "text": "Günlüğe parola, token veya kişisel veri yazmayın; tür ipucu çalışma zamanı doğrulaması değildir."
+    },
+    {
+      "type": "text",
+      "text": "SIK YAPILAN HATALAR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Testlerde aynı girdi için aynı sonucu bekleyin; günlük seviyesini ve tür sözleşmesini açık tutun.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Hata iletileri ve hata ayıklama” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Hata ayıklayıcı değişkenleri ve adımları gösterir; tahminle düzeltmek yerine hangi varsayımın bozulduğunu bulun.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Hata iletileri ve hata ayıklama” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Hata ayıklayıcı değişkenleri ve adımları gösterir; tahminle düzeltmek yerine hangi varsayımın bozulduğunu bulun.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar.",
+  "estimatedMinutes": 14
+}

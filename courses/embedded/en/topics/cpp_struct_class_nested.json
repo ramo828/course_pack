@@ -1,0 +1,114 @@
+{
+  "id": "cpp_struct_class_nested",
+  "title": "struct, class, and nested data types",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/class.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "A ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "struct",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " groups related data under one name and can contain another ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "struct",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", methods, or arrays of instances. The main language difference from ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "class",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " is default access: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "struct",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " members are public by default; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "class",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " members are private. Use a ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "struct",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " for simple sensor records and a ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "class",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " when data and invariants should be protected together.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "struct Point {\n  int16_t x;\n  int16_t y;\n};\n\nstruct SensorReading {\n  Point location;\n  float celsius;\n  bool valid;\n  bool isHot(float limit) const { return valid && celsius > limit; }\n};\n\nclass Threshold {\n public:\n  explicit Threshold(float limit) : limit_(limit) {}\n  bool exceeded(float value) const { return value > limit_; }\n private:\n  float limit_;\n};\n\nSensorReading readings[2] = {{{1, 2}, 24.5f, true},\n                             {{3, 4}, 0.0f, false}};",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "A `float` affects layout and size. Sending a structure as raw bytes is not portable: padding and byte order can differ between boards."
+    }
+  ],
+  "testId": "embedded_test_cpp_struct_class_nested_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

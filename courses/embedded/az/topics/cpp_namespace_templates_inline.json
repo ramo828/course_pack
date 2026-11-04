@@ -1,0 +1,87 @@
+{
+  "id": "cpp_namespace_templates_inline",
+  "title": "namespace, template və inline funksiyalar",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/namespace.html",
+    "https://en.cppreference.com/w/cpp/language/templates.html",
+    "https://en.cppreference.com/w/cpp/language/inline.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "namespace",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " eyni adlı funksiyaların toqquşmasının qarşısını alır; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sensors::",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ilə aydın çağırılır. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "template",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " eyni tip təhlükəsiz funksiyanı müxtəlif tiplər üçün yaradır və kompilyator istifadə olunan variantları qurur. Header-də verilən ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "inline",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " funksiya bir neçə mənbə faylından qoşulanda təkrar tərif xətasının qarşısını alır; kompilyatorun funksiyanı mütləq yerləşdirəcəyinə zəmanət vermir. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "inline",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kiçik funksiya üçün makrodan daha təhlükəsizdir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "namespace Sensors {\n  inline int clampReading(int value, int limit) {\n    return value > limit ? limit : value;\n  }\n  template <typename T>\n  T larger(T a, T b) { return a > b ? a : b; }\n}\n\nint safeValue = Sensors::clampReading(analogRead(A0), 1023);\nint peak = Sensors::larger(12, 18);",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Şablon hər istifadə olunan tip üçün kod yarada bilər və proqramı böyüdə bilər. Bir çox Arduino kitabxanası C++-ın məhdud alt dəstəyini hədəfləyir; şablon və ad sahələrini lövhənin seçilmiş kompilyatoru ilə yoxlayın. Makro arqumentləri təkrar hesablaya və tip yoxlamasını keçə bilər."
+    }
+  ],
+  "testId": "embedded_test_cpp_namespace_templates_inline_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

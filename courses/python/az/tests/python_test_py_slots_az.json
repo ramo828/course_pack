@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_slots_az",
+  "title": "__slots__ ile bellek kullanımını ölçerek azaltma",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_slots",
+      "type": "multiple_choice",
+      "prompt": "Bu dərsdəki 1-ci kod nümunəsi dəqiq olaraq nə çap edir?\n\nclass Sample:\n    __slots__ = ('value',)\n\n    def __init__(self, value: int) -> None:\n        self.value = value\n\nsample = Sample(7)\nprint(sample.value)",
+      "options": [
+        "7",
+        "8",
+        "False 12",
+        "6"
+      ],
+      "answer": "7",
+      "explanation": "SƏTİR-SƏTİR İZAH\n`class Sample:` — Əlaqəli məlumat və davranış üçün yeni tip yaradır; sinif olmasa nümunə obyektini həmin müqavilə ilə yaratmaq olmaz.\n`__slots__ = ('value',)` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`def __init__(self, value: int) -> None:` — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n`self.value = value` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`sample = Sample(7)` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`print(sample.value)` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_slots",
+      "type": "multiple_choice",
+      "prompt": "Bu dərsdəki 2-ci kod nümunəsi dəqiq olaraq nə çap edir?\n\nfrom dataclasses import dataclass\n\n@dataclass(slots=True)\nclass Point:\n    x: float\n    y: float\n\npoint = Point(3, 4)\nprint(point.x + point.y)",
+      "options": [
+        "False 12",
+        "6",
+        "7",
+        "8"
+      ],
+      "answer": "7",
+      "explanation": "SƏTİR-SƏTİR İZAH\n`from dataclasses import dataclass` — Moduldan konkret adları gətirir; sətir olmasa idxal edilən ad əlçatan olmaz.\n`@dataclass(slots=True)` — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n`class Point:` — Əlaqəli məlumat və davranış üçün yeni tip yaradır; sinif olmasa nümunə obyektini həmin müqavilə ilə yaratmaq olmaz.\n`x: float` — Dəyəri ada bağlayır, annotasiya isə tipi oxucuya və statik alətə bildirir; annotasiya runtime yoxlaması etmir.\n`y: float` — Dəyəri ada bağlayır, annotasiya isə tipi oxucuya və statik alətə bildirir; annotasiya runtime yoxlaması etmir.\n`point = Point(3, 4)` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`print(point.x + point.y)` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_slots",
+      "type": "multiple_choice",
+      "prompt": "Bu dərsdəki 3-ci kod nümunəsi dəqiq olaraq nə çap edir?\n\nclass Reading:\n    __slots__ = ('value',)\n\n    def __init__(self, value: int) -> None:\n        self.value = value\n\nreading = Reading(12)\nprint(hasattr(reading, '__dict__'), reading.value)",
+      "options": [
+        "7",
+        "fALSE 12",
+        "False 12",
+        "True 12"
+      ],
+      "answer": "False 12",
+      "explanation": "SƏTİR-SƏTİR İZAH\n`class Reading:` — Əlaqəli məlumat və davranış üçün yeni tip yaradır; sinif olmasa nümunə obyektini həmin müqavilə ilə yaratmaq olmaz.\n`__slots__ = ('value',)` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`def __init__(self, value: int) -> None:` — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n`self.value = value` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`reading = Reading(12)` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`print(hasattr(reading, '__dict__'), reading.value)` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_slots",
+      "type": "multiple_choice",
+      "prompt": "“__slots__ ile bellek kullanımını ölçerek azaltma” mövzusunu dəqiq təsvir edən fikir hansıdır?",
+      "options": [
+        "`__slots__` yaddaş düzənini dəyişir: instance üçün avtomatik `__dict__` olmur, yalnız elan edilmiş atributlara icazə verilir.",
+        "Python oxunaqlı sintaksisi və geniş kitabxanası sayəsində avtomatlaşdırma, veb xidmətlər və məlumat təhlilində istifadə olunur; proqramı kiçik, yoxlanıla bilən addımlarla qurmaq öyrənməyə kömək edir.",
+        "Şərh qeyri-aşkar qərarın səbəbini izah edir; yaxşı şərh kodu təkrarlamır, məsələn, niyə xüsusi limit seçildiyini qeyd edir.",
+        "Sintaksis və girinti kod bloklarının harada başladığını bildirir; web marşrutlarında və şərt bloklarında səhv girinti proqramın işə düşməsinə mane olur."
+      ],
+      "answer": "`__slots__` yaddaş düzənini dəyişir: instance üçün avtomatik `__dict__` olmur, yalnız elan edilmiş atributlara icazə verilir.",
+      "explanation": "`__slots__` yaddaş düzənini dəyişir: instance üçün avtomatik `__dict__` olmur, yalnız elan edilmiş atributlara icazə verilir. Bu, çox sayda kiçik obyekt üçün faydalı ola bilər, amma ölçmə ilə təsdiqlənməlidir. `dataclass(slots=True)` rahat variantdır; dynamic atribut, weak reference və inheritance tələblərini yoxlayın."
+    }
+  ]
+}

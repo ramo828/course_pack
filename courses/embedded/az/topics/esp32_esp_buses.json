@@ -1,0 +1,160 @@
+{
+  "id": "esp32_esp_buses",
+  "title": "I2C, SPI və UART periferiyaları",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_buses_az",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/i2c.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “I2C, SPI və UART periferiyaları” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: I2C-də hər cihazın ünvanı düzgün seçilməlidir. Real layihədə bu göstərişə əməl edin: Rabitə xətasını axtararkən əvvəlcə naqil, GND, tezlik və ünvanı yoxlayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <Wire.h>\nvoid setup() {\n    Serial.begin(115200);\n    Wire.begin();\n    Serial.println(\"I2C controller ready\");\n}\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "I2C bus yalnız pinlər və API seçilmiş ESP-IDF hədəf sistem-ə uyğun gəldikdə başlayır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ESP32 periferiyasını seçərkən pin matrix, lövhə-da ayrılmış pin və sürücü API-ni birlikdə nəzərə alın. I2C pull-up rezistoru tələb edə bilər; SPI chip-select, UART isə uyğun baud və xətt səviyyəsi tələb edir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#include <Wire.h>",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: I2C-də hər cihazın ünvanı düzgün seçilməlidir.\nNiyə seçilib: Rabitə xətasını axtararkən əvvəlcə naqil, GND, tezlik və ünvanı yoxlayın.\nBuraxılsa və ya dəyişdirilsə: Rabitə xətasını axtararkən əvvəlcə naqil, GND, tezlik və ünvanı yoxlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Rabitə xətasını axtararkən əvvəlcə naqil, GND, tezlik və ünvanı yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "I2C-də hər cihazın ünvanı düzgün seçilməlidir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Rabitə xətasını axtararkən əvvəlcə naqil, GND, tezlik və ünvanı yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "Arduino Nüvə nümunəsi\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Wire.h>\nvoid setup() { Serial.begin(115200); Wire.begin(); Serial.println(\"I2C ready\"); }\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "I2C ready\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "I2C pull-up rezistoru tələb edə bilər; SPI chip-select, UART isə uyğun baud və xətt səviyyəsi tələb edir."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Pinlər, gərginlik/cərəyan limitləri, timing və periferik imkanlar lövhədən asılıdır; naqilləmədən və yükləmədən əvvəl dəqiq lövhə sənədini yoxlayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

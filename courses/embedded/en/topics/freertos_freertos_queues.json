@@ -1,0 +1,184 @@
+{
+  "id": "freertos_freertos_queues",
+  "title": "Passing messages with queues",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_queues_en",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/02-Queues-mutexes-and-semaphores/01-Queues"
+  ],
+  "estimatedMinutes": 22,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Passing messages with queues” to a real program or device. The key principle is: A queue gives a clearer ownership and synchronization boundary than an unprotected global. In a project, follow this guidance: Size the queue for bursts and consumer rate, and define what happens when it fills.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nQueueHandle_t readings = nullptr;\nvoid producer(void*) { int value = 0; for (;;) { ++value; if (xQueueSend(readings, &value, pdMS_TO_TICKS(100)) != pdPASS) vTaskDelay(pdMS_TO_TICKS(100)); vTaskDelay(pdMS_TO_TICKS(500)); } }\nvoid setup() { Serial.begin(115200); readings = xQueueCreate(4, sizeof(int)); if (readings == nullptr || xTaskCreate(producer, \"producer\", 2048, nullptr, 1, nullptr) != pdPASS) { if (readings) vQueueDelete(readings); readings = nullptr; } }\nvoid loop() { int value; if (readings && xQueueReceive(readings, &value, portMAX_DELAY) == pdPASS) Serial.println(value); else vTaskDelay(pdMS_TO_TICKS(100)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor prints incrementing integers produced by one task and consumed by another.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A queue stores fixed-size items in FIFO order and decouples producer and consumer tasks. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "xQueueSend",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "xQueueReceive",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " can block with a timeout; payloads are copied, so large objects need deliberate pointer-lifetime management. Check the send result instead of silently losing data when a queue is full.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void producer(void*) { int value = 0; for (;;) { ++value; if (xQueueSend(readings, &value, pdMS_TO_TICKS(100)) != pdPASS) vTaskDelay(pdMS_TO_TICKS(100)); vTaskDelay(pdMS_TO_TICKS(500)); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: A queue gives a clearer ownership and synchronization boundary than an unprotected global.\nWhy it is used: Size the queue for bursts and consumer rate, and define what happens when it fills.\nIf omitted or changed: Check that queue creation succeeded; larger queues consume more RAM.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Check that queue creation succeeded; larger queues consume more RAM."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A queue gives a clearer ownership and synchronization boundary than an unprotected global.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Size the queue for bursts and consumer rate, and define what happens when it fills."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nQueueHandle_t readings = nullptr;\nvoid setup() { Serial.begin(115200); readings = xQueueCreate(4, sizeof(int)); const int sample = 23; if (readings && xQueueSend(readings, &sample, 0) != pdPASS) Serial.println(\"queue send failed\"); }\nvoid loop() { int sample; if (readings && xQueueReceive(readings, &sample, pdMS_TO_TICKS(100)) == pdPASS) Serial.println(sample); vTaskDelay(pdMS_TO_TICKS(100)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "23\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Check the send result instead of silently losing data when a queue is full."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Check that queue creation succeeded; larger queues consume more RAM."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a diagram showing task states, priorities, queue/synchronization relationships, and timing."
+}

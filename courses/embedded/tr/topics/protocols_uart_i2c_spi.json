@@ -1,0 +1,35 @@
+{
+  "id": "protocols_uart_i2c_spi",
+  "title": "UART, I2C ve SPI: hangi iletişim seçilmeli?",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/learn/communication/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "UART, iki cihaz arasında TX/RX ve ortak GND ile asenkron seri haberleşmedir; baud hızları eşleşmelidir. I2C, SDA/SCL ve adresleri paylaşan çok cihazlı bir veriyoludur; pull-up dirençleri gerekir. SPI; SCK/MOSI/MISO ve her cihaz için CS ile hızlı, çift yönlü iletişim sağlar.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_protocol_buses",
+      "caption": "UART, I2C ve SPI: hangi iletişim seçilmeli?"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "// UART: Serial.begin(115200); Serial.println(\"hello\");\n// I2C: Wire.begin(); Wire.beginTransmission(0x3C);\n// SPI: SPI.begin(); use a separate CS pin per device.",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Kablo uzunluğu, hız, gerilim seviyesi ve pin uygunluğu önemlidir. 5 V sensörü 3.3 V ESP32'ye doğrudan bağlamadan seviye uyumunu doğrulayın."
+    }
+  ],
+  "testId": "embedded_test_protocols_uart_i2c_spi_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

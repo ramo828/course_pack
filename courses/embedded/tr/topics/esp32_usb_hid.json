@@ -1,0 +1,35 @@
+{
+  "id": "esp32_usb_hid",
+  "title": "ESP32 USB, USB CDC ve USB HID özellikleri",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Kartta USB-C soketi olması yonganın USB HID desteklediği anlamına gelmez. Bazı kartlarda USB yalnızca USB-seri köprüsüyle program yükler. Native USB OTG bulunan bazı ESP32-S2/S3 kartları CDC ve HID sunabilir; tam kartı ve Arduino çekirdek ayarını doğrulayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_usb_hid",
+      "caption": "ESP32 USB, USB CDC ve USB HID özellikleri"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"USB.h\"\n#include \"USBHIDKeyboard.h\"\n\nUSBHIDKeyboard Keyboard;\n\nvoid setup() {\n  USB.begin();\n  Keyboard.begin();\n  delay(1000);\n  Keyboard.print(\"Hello from my ESP32\");\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Kod yalnızca kendi bilgisayarınızda, güvenli test ortamında klavye girdisi içindir. USB HID'yi başka cihazlarda izinsiz işlem yapmak için kullanmayın. USB pinleri ve besleme devresi karta özeldir."
+    }
+  ],
+  "testId": "embedded_test_esp32_usb_hid_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

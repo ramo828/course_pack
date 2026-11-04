@@ -1,0 +1,63 @@
+{
+  "id": "usb_device_profiles_custom",
+  "title": "USB device: CDC, HID, MSC и собственные классы",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb.html",
+    "https://github.com/espressif/arduino-esp32/tree/master/libraries/USB/examples",
+    "https://www.usb.org/defined-class-codes"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "USB device — периферия, подключённая к компьютеру. Платы с USB-периферией, например ESP32-S2/S3, могут представляться serial-портом, клавиатурой, накопителем или собственным устройством.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "КАК ЭТО РАБОТАЕТ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "CDC предоставляет serial-диагностику и простой обмен с компьютером; HID реализует стандартную клавиатуру/мышь; MSC может представить flash устройства как диск. Composite-устройство показывает несколько интерфейсов по одному кабелю. Для custom/vendor-интерфейса нужна соответствующая программа или драйвер на компьютере.\n\nUSB API Arduino-ESP32 требует микросхему со встроенной USB-периферией. Начните с примера native CDC, затем используйте примеры HID, MSC и composite из core и проверьте USB Mode. Параметр descriptor "
+    },
+    {
+      "type": "text",
+      "text": "USB.usbPower()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " не меняет физическое питание.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"USB.h\"\n#include \"USBHIDKeyboard.h\"\n\nUSBHIDKeyboard keyboard;\nconstexpr int BUTTON_PIN = 4;\nbool previous = HIGH;\n\nvoid setup() {\n  pinMode(BUTTON_PIN, INPUT_PULLUP);\n  keyboard.begin();\n  USB.begin();\n}\n\nvoid loop() {\n  const bool pressed = digitalRead(BUTTON_PIN) == LOW;\n  if (pressed && previous == HIGH) {\n    keyboard.write('a');  // Test in a text editor on your own computer.\n  }\n  previous = pressed;\n  delay(25);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "USB device: CDC, HID, MSC и собственные классы"
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание о безопасности и совместимости",
+      "text": "Нужна совместимая плата со встроенной USB-периферией; проверьте Tools/USB Mode и распиновку. HID создаёт настоящий ввод: отправляйте безвредный символ только после явного нажатия кнопки, не скрытые последовательности. Потеря питания при записи MSC может повредить файловую систему."
+    }
+  ],
+  "testId": "embedded_test_usb_device_profiles_custom_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

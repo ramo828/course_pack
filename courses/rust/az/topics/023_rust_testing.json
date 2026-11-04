@@ -1,0 +1,184 @@
+{
+  "id": "rust_rust_testing",
+  "title": "Unit test, integration test və documentation test",
+  "difficulty": "medium",
+  "testId": "rust_test_rust_testing_az",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch11-00-testing.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Unit test, integration test və documentation test” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: cargo test həm #[test] funksiyalarını, həm də uyğun rustdoc nümunələrini yoxlayır. Real layihədə bu göstərişə əməl edin: Testləri deterministik saxlayın; real şəbəkə və vaxtdan asılılığı azaltmaq üçün sərhədləri mock və ya fixture ilə əvəz edin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[test]\nfn adds_values() {\n    assert_eq!(2 + 2, 4);\n}\n\n/// Adds two values.\n///\n/// ```\n/// assert_eq!(2 + 2, 4);\n/// ```\npub fn add(a: i32, b: i32) -> i32 { a + b }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Unit və documentation testlərindəki yoxlamalar keçir; Cargo xülasəsinin formatı versiyaya görə dəyişir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Unit test-lər modul daxilində private davranışı yoxlaya bilər; integration test-lər crate-in public API-sini istifadəçi kimi yoxlayır. Documentation test-lər kod nümunələrini sənədlə birlikdə icra edərək nümunənin köhnəlməsinin qarşısını alır. Test yalnız happy path-i deyil, səhv nəticələri və sərhəd dəyərlərini də yoxlamalıdır; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "cargo test",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " testləri işə salır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#[test]",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: cargo test həm #[test] funksiyalarını, həm də uyğun rustdoc nümunələrini yoxlayır.\nNiyə seçilib: Testləri deterministik saxlayın; real şəbəkə və vaxtdan asılılığı azaltmaq üçün sərhədləri mock və ya fixture ilə əvəz edin.\nBuraxılsa və ya dəyişdirilsə: Testləri deterministik saxlayın; real şəbəkə və vaxtdan asılılığı azaltmaq üçün sərhədləri mock və ya fixture ilə əvəz edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Testləri deterministik saxlayın; real şəbəkə və vaxtdan asılılığı azaltmaq üçün sərhədləri mock və ya fixture ilə əvəz edin."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "cargo test həm #[test] funksiyalarını, həm də uyğun rustdoc nümunələrini yoxlayır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Testləri deterministik saxlayın; real şəbəkə və vaxtdan asılılığı azaltmaq üçün sərhədləri mock və ya fixture ilə əvəz edin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "pub fn add(a: i32, b: i32) -> i32 { a + b }\n#[test]\nfn adds() { assert_eq!(add(2, 2), 4); }\n// Save as src/lib.rs and run cargo test.",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Unit test və uyğun documentation testlərindən keçilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Test yalnız happy path-i deyil, səhv nəticələri və sərhəd dəyərlərini də yoxlamalıdır; `cargo test` testləri işə salır."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Kod nümunələri fokuslanmış hissələrdir; seçilmiş toolchain və target-də compile/test edin, çünki API və diaqnostika versiyaya görə dəyişə bilər."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Unit test, integration test və documentation test” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: cargo test həm #[test] funksiyalarını, həm də uyğun rustdoc nümunələrini yoxlayır.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

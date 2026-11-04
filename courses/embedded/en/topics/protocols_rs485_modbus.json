@@ -1,0 +1,36 @@
+{
+  "id": "protocols_rs485_modbus",
+  "title": "RS-485 and Modbus RTU: long-distance industrial links",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://www.modbus.org/specs.php",
+    "https://www.ti.com/lit/an/slla272d/slla272d.pdf"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "RS-485 is a differential physical signaling layer for long, electrically noisy links. Modbus RTU is a message protocol over that link, with device address, function code, data, and CRC check. It is common in meters, building automation, and industrial sensors.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_rs485_modbus",
+      "caption": "RS-485 and Modbus RTU: long-distance industrial links"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "constexpr int RX_PIN = 16;\nconstexpr int TX_PIN = 17;\n\nvoid setup() {\n  Serial.begin(115200);\n  Serial2.begin(9600, SERIAL_8N1, RX_PIN, TX_PIN);\n}\n\nvoid loop() {\n  while (Serial2.available()) {\n    Serial.write(Serial2.read());\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Connect the MCU UART to an RS-485 transceiver, never directly to A/B. The bus needs suitable 120 Ω termination at its ends, a reference ground, and direction control for two-wire half-duplex."
+    }
+  ],
+  "testId": "embedded_test_protocols_rs485_modbus_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

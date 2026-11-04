@@ -1,0 +1,98 @@
+{
+  "id": "cpp_const_pointer",
+  "title": "const and constexpr: immutable values and pointers",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/cv.html",
+    "https://en.cppreference.com/w/cpp/language/constexpr.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "const",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " prevents later changes; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "constexpr",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " makes a value available at compile time when possible. With ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "const int* p",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", the pointer may change but the value cannot be changed through ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "p",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". With ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int* const p",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", the pointer address is fixed but the pointed-to value may change. Using ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "const",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " on both sides protects both.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n\nint reading = 512;\nconst int* readOnlyValue = &reading;\nint* const fixedAddress = &reading;\nconst int* const fixedReadOnly = &reading;\n\nvoid setup() {\n  Serial.begin(115200);\n  Serial.println(*readOnlyValue);\n  *fixedAddress = 600;\n  Serial.println(*fixedReadOnly);\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Check which side of `*` has `const`. A pointer must not outlive its target, and never write through a pointer to a constant value."
+    }
+  ],
+  "testId": "embedded_test_cpp_const_pointer_en",
+  "requires_visual": true,
+  "visual_description": "Add a memory diagram showing stack/heap, lifetime, ownership, or data flow."
+}

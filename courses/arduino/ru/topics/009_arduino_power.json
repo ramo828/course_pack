@@ -1,0 +1,160 @@
+{
+  "id": "arduino_arduino_power",
+  "title": "Датчики, исполнительные устройства и питание",
+  "difficulty": "medium",
+  "testId": "arduino_test_arduino_power_ru",
+  "sources": [
+    "https://docs.arduino.cc/learn/electronics/power-pins/"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Датчики, исполнительные устройства и питание» в программе или устройстве. Основной принцип: GPIO должен работать только в документированных пределах тока. В проекте следуйте рекомендации: Перед включением проверьте напряжение питания, ток и схему земли.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int sensorPin = A0;\nconst int ledPin = LED_BUILTIN;\nvoid setup() { pinMode(ledPin, OUTPUT); }\nvoid loop() {\n  int reading = analogRead(sensorPin);\n  digitalWrite(ledPin, reading > 500);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Встроенный LED загорается при показании ADC выше 500; значения датчика и ADC зависят от оборудования.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Датчики измеряют физические величины, исполнительные устройства создают движение, свет или звук. Не подключайте моторы и реле напрямую к GPIO; используйте драйверы и защиту.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int reading = analogRead(sensorPin);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: GPIO должен работать только в документированных пределах тока.\nЗачем она нужна: Перед включением проверьте напряжение питания, ток и схему земли.\nЕсли пропустить или изменить: При выборе компонентов ориентируйтесь на рекомендуемый режим, а не absolute maximum.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Сетевое напряжение опасно; для учебных проектов используйте низковольтное питание с ограничением тока."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "GPIO должен работать только в документированных пределах тока.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Перед включением проверьте напряжение питания, ток и схему земли."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int sensorPin = A0;\nvoid setup() { Serial.begin(115200); }\nvoid loop() {\n  int raw = analogRead(sensorPin);\n  Serial.println(raw);\n  delay(500);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Выводятся сырые отсчёты ADC; диапазон и значение датчика требуют калибровки для платы.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "При выборе компонентов ориентируйтесь на рекомендуемый режим, а не absolute maximum."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Сетевое напряжение опасно; для учебных проектов используйте низковольтное питание с ограничением тока."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

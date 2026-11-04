@@ -1,0 +1,98 @@
+{
+  "id": "aiot_tflite_micro",
+  "title": "Running a model with TensorFlow Lite for Microcontrollers",
+  "difficulty": "medium",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://ai.google.dev/edge/litert/microcontrollers",
+    "https://github.com/tensorflow/tflite-micro"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "TensorFlow Lite for Microcontrollers (TFLM) is a small C/C++ runtime for running a prepared TensorFlow Lite model on a microcontroller, often without internet. It does not train the model; training and conversion usually happen on a computer.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "How it works\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "model_data.h",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " is a generated project file containing the converted model bytes. "
+    },
+    {
+      "type": "text",
+      "text": "tensorArena",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " is a fixed memory buffer for inputs, intermediate calculations, and outputs. "
+    },
+    {
+      "type": "text",
+      "text": "AllocateTensors()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " prepares it; write a normalized sensor sample to the input tensor; "
+    },
+    {
+      "type": "text",
+      "text": "Invoke()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " runs the model; read the predicted class or value from the output tensor.\n\nAn "
+    },
+    {
+      "type": "text",
+      "text": "int8",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " model can use less memory, but inputs must be mapped using the model's quantization scale and zero point. This is a teaching skeleton, not a drop-in sketch: generate the model, operator resolver, library configuration, and tensor sizes for your project. Check that the selected ESP32 Arduino core/library and available flash/RAM support them.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Example code\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"model_data.h\"\n#include \"tensorflow/lite/micro/micro_interpreter.h\"\n#include \"tensorflow/lite/micro/micro_mutable_op_resolver.h\"\n#include \"tensorflow/lite/schema/schema_generated.h\"\n\nalignas(16) uint8_t tensorArena[20 * 1024];\n// Setup: create resolver + interpreter, then AllocateTensors().\nTfLiteTensor* input = interpreter->input(0);\ninput->data.int8[0] = quantizedSample;\nif (interpreter->Invoke() == kTfLiteOk) {\n  int8_t prediction = interpreter->output(0)->data.int8[0];\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_tflite_pipeline",
+      "caption": "Diagram: Running a model with TensorFlow Lite for Microcontrollers"
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "The 20 KB arena is only an example. Too little memory makes allocation or inference fail; measure with the actual model. ESP32/Arduino library support varies by version."
+    }
+  ],
+  "testId": "embedded_test_aiot_tflite_micro_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

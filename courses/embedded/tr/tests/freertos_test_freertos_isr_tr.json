@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_isr_tr",
+  "title": "ISR'den güvenli olay aktarmak",
+  "questions": [
+    {
+      "id": "freertos_freertos_isr_1",
+      "topicId": "freertos_freertos_isr",
+      "type": "multiple_choice",
+      "prompt": "“ISR'den güvenli olay aktarmak” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "Queue olayı ISR'den göreve aktarır; görev uzun işi interrupt'ları engellemeden yapar."
+      ],
+      "answer": "Queue olayı ISR'den göreve aktarır; görev uzun işi interrupt'ları engellemeden yapar.",
+      "explanation": "Queue olayı ISR'den göreve aktarır; görev uzun işi interrupt'ları engellemeden yapar.\nAçıklama: Interrupt service routine (ISR) donanım olayına hemen yanıt verir; içinde yalnızca kısa ve bloklamayan işlem olmalıdır. FreeRTOS `FromISR` API'leri ISR'den queue veya notification kullanır; sensör okuma, günlükleme ve protokol işini normal göreve bırakın. ISR API'si, IRAM gereksinimi ve pin interrupt desteği target/karta bağlıdır."
+    },
+    {
+      "id": "freertos_freertos_isr_2",
+      "topicId": "freertos_freertos_isr",
+      "type": "multiple_choice",
+      "prompt": "“ISR'den güvenli olay aktarmak” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "ISR içinde delay, mutex, dinamik allocation veya uzun Serial çıktısı kullanmayın.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "ISR içinde delay, mutex, dinamik allocation veya uzun Serial çıktısı kullanmayın.",
+      "explanation": "ISR içinde delay, mutex, dinamik allocation veya uzun Serial çıktısı kullanmayın.\nAçıklama: Interrupt service routine (ISR) donanım olayına hemen yanıt verir; içinde yalnızca kısa ve bloklamayan işlem olmalıdır. FreeRTOS `FromISR` API'leri ISR'den queue veya notification kullanır; sensör okuma, günlükleme ve protokol işini normal göreve bırakın. ISR API'si, IRAM gereksinimi ve pin interrupt desteği target/karta bağlıdır."
+    },
+    {
+      "id": "freertos_freertos_isr_3",
+      "topicId": "freertos_freertos_isr",
+      "type": "multiple_choice",
+      "prompt": "“ISR'den güvenli olay aktarmak” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Interrupt service routine (ISR) donanım olayına hemen yanıt verir; içinde yalnızca kısa ve bloklamayan işlem olmalıdır",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır."
+      ],
+      "answer": "Interrupt service routine (ISR) donanım olayına hemen yanıt verir; içinde yalnızca kısa ve bloklamayan işlem olmalıdır",
+      "explanation": "Interrupt service routine (ISR) donanım olayına hemen yanıt verir; içinde yalnızca kısa ve bloklamayan işlem olmalıdır\nAçıklama: Interrupt service routine (ISR) donanım olayına hemen yanıt verir; içinde yalnızca kısa ve bloklamayan işlem olmalıdır. FreeRTOS `FromISR` API'leri ISR'den queue veya notification kullanır; sensör okuma, günlükleme ve protokol işini normal göreve bırakın. ISR API'si, IRAM gereksinimi ve pin interrupt desteği target/karta bağlıdır."
+    },
+    {
+      "id": "freertos_freertos_isr_4",
+      "topicId": "freertos_freertos_isr",
+      "type": "multiple_choice",
+      "prompt": "“ISR'den güvenli olay aktarmak” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+        "Buton bounce üretir; gerçek cihazda debounce ve queue doluyken davranışı da planlayın.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır."
+      ],
+      "answer": "Buton bounce üretir; gerçek cihazda debounce ve queue doluyken davranışı da planlayın.",
+      "explanation": "Buton bounce üretir; gerçek cihazda debounce ve queue doluyken davranışı da planlayın.\nAçıklama: Interrupt service routine (ISR) donanım olayına hemen yanıt verir; içinde yalnızca kısa ve bloklamayan işlem olmalıdır. FreeRTOS `FromISR` API'leri ISR'den queue veya notification kullanır; sensör okuma, günlükleme ve protokol işini normal göreve bırakın. ISR API'si, IRAM gereksinimi ve pin interrupt desteği target/karta bağlıdır."
+    }
+  ]
+}

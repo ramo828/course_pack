@@ -1,0 +1,59 @@
+{
+  "id": "esp32_rgb_builtin",
+  "title": "ESP32 dahili RGB LED: önce kart pinini doğrula",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/led.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Birçok ESP32 kartında dahili RGB LED yoktur. Olanlarda adreslenebilir LED, sıradan üç renkli LED ve pin/sürücü yapısı değişebilir. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "RGB_BUILTIN",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "rgbLedWrite",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yalnızca desteklenen Arduino-ESP32 sürümü ve kartta çalışır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_esp32_rgb",
+      "caption": "ESP32 dahili RGB LED: önce kart pinini doğrula"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n\n#if defined(RGB_BUILTIN)\nvoid setup() {}\nvoid loop() {\n  rgbLedWrite(RGB_BUILTIN, 16, 0, 0);\n  delay(300);\n  rgbLedWrite(RGB_BUILTIN, 0, 0, 16);\n  delay(300);\n}\n#else\n#error \"This board package does not define RGB_BUILTIN\"\n#endif",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Derleme hatası çoğu zaman kart seçimi veya çekirdek sürümünün uyumsuz olduğunu gösterir. Kart şemasını kontrol edin; LED GPIO'sunu tahmin etmeyin."
+    }
+  ],
+  "testId": "embedded_test_esp32_rgb_builtin_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

@@ -1,0 +1,197 @@
+{
+  "id": "freertos_freertos_notifications",
+  "title": "Уведомления задач и event group",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_notifications_ru",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/03-Direct-to-task-notifications/01-Task-notifications"
+  ],
+  "estimatedMinutes": 22,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Уведомления задач и event group» в программе или устройстве. Основной принцип: Notification адресуется одной задаче и не заменяет очередь произвольных данных. В проекте следуйте рекомендации: Для одного получателя используйте notification; event group подходит для нескольких битов событий.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nTaskHandle_t receiver = nullptr;\nvoid receiverTask(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"one event\"); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(receiverTask, \"receiver\", 2048, nullptr, 1, &receiver) != pdPASS) { receiver = nullptr; Serial.println(\"receiver task creation failed\"); } }\nvoid loop() { if (receiver) xTaskNotifyGive(receiver); vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "После получения notification задача выводит в Serial Monitor ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "one event",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Task notification отправляет лёгкий сигнал непосредственно одной задаче и часто расходует меньше RAM, чем отдельная очередь. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ulTaskNotifyTake",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ожидает сигнал; event group удобнее для нескольких получателей или набора битов. Убедитесь, что handle задачи действителен, и заранее определите накопление и сброс событий.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void receiverTask(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"one event\"); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Notification адресуется одной задаче и не заменяет очередь произвольных данных.\nЗачем она нужна: Для одного получателя используйте notification; event group подходит для нескольких битов событий.\nЕсли пропустить или изменить: Режимы счётчика, битовой маски и перезаписи различаются; отправитель и получатель должны согласовать семантику.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: Для одного получателя используйте notification; event group подходит для нескольких битов событий."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Notification адресуется одной задаче и не заменяет очередь произвольных данных.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Для одного получателя используйте notification; event group подходит для нескольких битов событий."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nTaskHandle_t workerHandle = nullptr;\nvoid worker(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"event received\"); } }\nvoid setup() { Serial.begin(115200); xTaskCreate(worker, \"worker\", 2048, nullptr, 1, &workerHandle); }\nvoid loop() { if (workerHandle) xTaskNotifyGive(workerHandle); vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "При получении notification Serial Monitor выводит ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "one event",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Режимы счётчика, битовой маски и перезаписи различаются; отправитель и получатель должны согласовать семантику."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Выводы, пределы напряжения/тока, тайминги и периферия зависят от платы; проверьте её документацию перед подключением и загрузкой."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму состояний и приоритетов задач, очередей/синхронизации и временную шкалу."
+}

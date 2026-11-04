@@ -1,0 +1,172 @@
+{
+  "id": "esp32_esp_sleep",
+  "title": "Deep sleep ve güç bütçesi",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_sleep_tr",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/sleep_modes.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Deep sleep ve güç bütçesi” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Deep sleep öncesinde uyanma kaynağı yapılandırılmalıdır. Gerçek projede şu öneriyi izleyin: Veri sayfasındaki yonga akımı tüm geliştirme kartının uyku akımı değildir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_attr.h>\n#include <esp_sleep.h>\nRTC_DATA_ATTR uint32_t wakeCount = 0;\nvoid setup() {\n    Serial.begin(115200);\n    const esp_sleep_wakeup_cause_t cause = esp_sleep_get_wakeup_cause();\n    ++wakeCount;\n    Serial.printf(\"wake cause=%d count=%lu\\n\", static_cast<int>(cause), static_cast<unsigned long>(wakeCount));\n    if (esp_sleep_enable_timer_wakeup(10ULL * 1000000ULL) != ESP_OK) {\n        Serial.println(\"timer wake setup failed\");\n        return;\n    }\n    Serial.flush();\n    esp_deep_sleep_start();\n}\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "GPIO 33 için LOW seviyesinde uyanma istenir; pin desteği, bağlantı ve uyanma davranışı çip/karta bağlıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Pilli cihazın güç bütçesi CPU, radyo, sensör, regülatör ve uyku akımını içerir. Deep sleep'te uyanma kaynağını, korunan durumu ve yeniden provisioning ihtiyacını planlayıp kartta ölçün.\n\nÖrnekteki ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "esp_sleep_*",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " işlevleri Espressif ESP-IDF programlama arayüzü'sidir ve Arduino-ESP32 çekirdeğinde dışa açılır; genel Arduino kartlarında aynı API garanti edilmez.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "if (esp_sleep_enable_timer_wakeup(10ULL * 1000000ULL) != ESP_OK) {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Deep sleep öncesinde uyanma kaynağı yapılandırılmalıdır.\nNeden seçildi: Veri sayfasındaki yonga akımı tüm geliştirme kartının uyku akımı değildir.\nAtlanır veya değiştirilirse: Veri sayfasındaki yonga akımı tüm geliştirme kartının uyku akımı değildir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: Veri sayfasındaki yonga akımı tüm geliştirme kartının uyku akımı değildir."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Deep sleep öncesinde uyanma kaynağı yapılandırılmalıdır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Veri sayfasındaki yonga akımı tüm geliştirme kartının uyku akımı değildir."
+    },
+    {
+      "type": "text",
+      "text": "Arduino-ESP32 uyku örneği\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_sleep.h>\nvoid setup() { Serial.begin(115200); if (esp_sleep_enable_timer_wakeup(5000000ULL) != ESP_OK) { Serial.println(\"wake timer setup failed\"); return; } Serial.flush(); esp_deep_sleep_start(); }\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kart yaklaşık beş saniye uyur ve yeniden başlar; uyanma davranışı çipe özeldir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Deep sleep'te uyanma kaynağını, korunan durumu ve yeniden provisioning ihtiyacını planlayıp kartta ölçün.\n\nÖrnekteki `esp_sleep_*` işlevleri Espressif ESP-IDF programlama arayüzü'sidir ve Arduino-ESP32 çekirdeğinde dışa açılır; genel Arduino kartlarında aynı API garanti edilmez."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Pinler, gerilim/akım sınırları, zamanlama ve çevre birimleri karta bağlıdır; bağlantı veya yükleme öncesinde kart belgesini doğrulayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

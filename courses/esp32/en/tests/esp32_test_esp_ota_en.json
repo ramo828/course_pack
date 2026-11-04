@@ -1,0 +1,62 @@
+{
+  "id": "esp32_test_esp_ota_en",
+  "title": "OTA, partitions, and rollback",
+  "questions": [
+    {
+      "id": "esp32_esp_ota_1",
+      "topicId": "esp32_esp_ota",
+      "type": "multiple_choice",
+      "prompt": "Which statement gives the core rule for “OTA, partitions, and rollback”?",
+      "options": [
+        "ESP-IDF selects the chip target before building.",
+        "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
+        "Rollback provides a path back to a known-good image.",
+        "ESP32 family members do not all have the same radios and peripherals."
+      ],
+      "answer": "Rollback provides a path back to a known-good image.",
+      "explanation": "Rollback provides a path back to a known-good image.\nWhy: OTA can write firmware to an inactive partition. Design partition layout, image size, signature/version checks, health confirmation, and rollback together.\n\nThis example calls the ESP-IDF OTA partition API from an Arduino-ESP32 sketch. Partition selection, rollback, and signature verification are not generic Arduino APIs. ArduinoOTA/Update can support simpler update flows, but secure rollback needs explicit ESP-IDF partition and verification configuration."
+    },
+    {
+      "id": "esp32_esp_ota_2",
+      "topicId": "esp32_esp_ota",
+      "type": "multiple_choice",
+      "prompt": "When applying “OTA, partitions, and rollback” in a project, which action is recommended?",
+      "options": [
+        "Test update recovery under power loss, poor connectivity, and incompatible versions.",
+        "ESP32 family members do not all have the same radios and peripherals.",
+        "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
+        "Keep board package, toolchain, and framework versions stable while diagnosing a first build."
+      ],
+      "answer": "Test update recovery under power loss, poor connectivity, and incompatible versions.",
+      "explanation": "Test update recovery under power loss, poor connectivity, and incompatible versions.\nWhy: OTA can write firmware to an inactive partition. Design partition layout, image size, signature/version checks, health confirmation, and rollback together.\n\nThis example calls the ESP-IDF OTA partition API from an Arduino-ESP32 sketch. Partition selection, rollback, and signature verification are not generic Arduino APIs. ArduinoOTA/Update can support simpler update flows, but secure rollback needs explicit ESP-IDF partition and verification configuration."
+    },
+    {
+      "id": "esp32_esp_ota_3",
+      "topicId": "esp32_esp_ota",
+      "type": "multiple_choice",
+      "prompt": "Which implementation detail matters in the “OTA, partitions, and rollback” example?",
+      "options": [
+        "ESP32 family members do not all have the same radios and peripherals.",
+        "OTA can write firmware to an inactive partition",
+        "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
+        "Some variants, such as ESP32-H2, focus on IEEE 802.15.4/Bluetooth LE rather than Wi-Fi."
+      ],
+      "answer": "OTA can write firmware to an inactive partition",
+      "explanation": "OTA can write firmware to an inactive partition\nWhy: OTA can write firmware to an inactive partition. Design partition layout, image size, signature/version checks, health confirmation, and rollback together.\n\nThis example calls the ESP-IDF OTA partition API from an Arduino-ESP32 sketch. Partition selection, rollback, and signature verification are not generic Arduino APIs. ArduinoOTA/Update can support simpler update flows, but secure rollback needs explicit ESP-IDF partition and verification configuration."
+    },
+    {
+      "id": "esp32_esp_ota_4",
+      "topicId": "esp32_esp_ota",
+      "type": "multiple_choice",
+      "prompt": "Which additional constraint or condition should be checked for “OTA, partitions, and rollback”?",
+      "options": [
+        "ESP32 family members do not all have the same radios and peripherals.",
+        "ESP-IDF selects the chip target before building.",
+        "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
+        "Do not boot an OTA image before validating its signature."
+      ],
+      "answer": "Do not boot an OTA image before validating its signature.",
+      "explanation": "Do not boot an OTA image before validating its signature.\nWhy: OTA can write firmware to an inactive partition. Design partition layout, image size, signature/version checks, health confirmation, and rollback together.\n\nThis example calls the ESP-IDF OTA partition API from an Arduino-ESP32 sketch. Partition selection, rollback, and signature verification are not generic Arduino APIs. ArduinoOTA/Update can support simpler update flows, but secure rollback needs explicit ESP-IDF partition and verification configuration."
+    }
+  ]
+}

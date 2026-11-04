@@ -1,0 +1,134 @@
+{
+  "id": "bluetooth_ble_hid_button",
+  "title": "Клавиатура BLE HID: пример с физической кнопкой",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://github.com/ramo828/iBle-HID",
+    "https://github.com/ramo828/iBle-HID/blob/main/README.az.md",
+    "https://github.com/ramo828/iBle-HID/blob/main/README.en.md",
+    "https://www.bluetooth.com/specifications/specs/human-interface-device-profile-1-1/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Библиотека iBle-HID позволяет совместимой плате ESP32 работать как клавиатура, мышь или игровой контроллер Bluetooth Low Energy (BLE). Пример отправляет одну букву только после нажатия физической кнопки.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "КАК ЭТО РАБОТАЕТ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Скачайте библиотеку с [GitHub](https://github.com/ramo828/iBle-HID), поместите её в "
+    },
+    {
+      "type": "text",
+      "text": "Arduino/libraries/iBle_HID",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", перезапустите Arduino IDE и выберите плату ESP32. Общий заголовок "
+    },
+    {
+      "type": "text",
+      "text": "#include <iBleHID.h>",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " подключает клавиатуру, мышь и другие HID-устройства. Устанавливать NimBLE-Arduino не нужно: iBle-HID использует BLE из ядра Arduino для ESP32.\n\nПосле сопряжения с именем платы по Bluetooth на компьютере или телефоне "
+    },
+    {
+      "type": "text",
+      "text": "isConnected()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " показывает, установлено ли соединение. "
+    },
+    {
+      "type": "text",
+      "text": "write('a')",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " отправляет один символ, "
+    },
+    {
+      "type": "text",
+      "text": "print()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и "
+    },
+    {
+      "type": "text",
+      "text": "println()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — текст, а "
+    },
+    {
+      "type": "text",
+      "text": "press()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и "
+    },
+    {
+      "type": "text",
+      "text": "release()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — нажатие и отпускание клавиши. Библиотека также поддерживает мышь, игровой контроллер и объединённое устройство «клавиатура+мышь». Их можно использовать, например, в пульте для презентаций или кнопке доступности.\n\nБиблиотека рассчитана на Arduino-ESP32 3.3.11 и более поздние версии ветки 3.x; для других плат и ядер заранее проверьте совместимость. Инструкции по установке и API приведены в [руководстве на английском языке](https://github.com/ramo828/iBle-HID/blob/main/README.en.md).\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <iBleHID.h>\n\nconstexpr uint8_t BUTTON_PIN = 4;\nBleKeyboard keyboard;\nbool wasPressed = false;\n\nvoid setup() {\n  pinMode(BUTTON_PIN, INPUT_PULLUP);\n  keyboard.begin();\n}\n\nvoid loop() {\n  const bool pressed = digitalRead(BUTTON_PIN) == LOW;\n  if (pressed && !wasPressed && keyboard.isConnected()) {\n    keyboard.write('a');\n  }\n  wasPressed = pressed;\n  delay(25);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Клавиатура BLE HID: пример с физической кнопкой"
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание о безопасности и совместимости",
+      "text": "Подключите внешнюю кнопку между GPIO 4 и GND; если на плате нет такого вывода, выберите доступный вход. В Arduino IDE выберите Arduino-ESP32 3.3.11 или более позднее ядро ветки 3.x. HID-клавиатура передаёт настоящий ввод: реагируйте только на явное действие пользователя и тестируйте на своём устройстве."
+    }
+  ],
+  "testId": "embedded_test_bluetooth_ble_hid_button_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

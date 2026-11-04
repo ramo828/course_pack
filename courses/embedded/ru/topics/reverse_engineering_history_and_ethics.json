@@ -1,0 +1,48 @@
+{
+  "id": "reverse_engineering_history_and_ethics",
+  "title": "Реверс-инжиниринг: история, анализ протоколов и этика",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Clean_room_design",
+    "https://www.usenix.org/legacy/publications/library/proceedings/usenix98/full_papers/schulman/schulman_html/",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/uart.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Реверс-инжиниринг изучает и документирует работу готового устройства. Он помогает ремонту, совместимости, переносу данных и диагностике собственного или разрешённого к исследованию оборудования.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "КАК ЭТО РАБОТАЕТ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Исторический пример: в 1980-х компании, выпускавшие совместимые с IBM PC компьютеры, изучали поведение BIOS и писали независимые реализации; clean-room-подход разделял наблюдение и разработку. Это пример совместимости, а не общее юридическое разрешение.\n\nДля собственного датчика сначала изучите документацию и открытый протокол. Логическим анализатором наблюдайте UART/I²C/SPI именно своей платы, опишите байты, контрольную сумму и единицы, затем проверьте декодер. Пример разбирает простой кадр своего устройства. Перед анализом прошивки подтвердите право и разрешение, запишите версию, сохраните исходную копию и проводите проверку только в лаборатории.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <stddef.h>\n#include <stdint.h>\n\nbool decodeFrame(const uint8_t* frame, size_t length,\n                 uint16_t& millivolts) {\n  if (frame == nullptr || length != 4 || frame[0] != 0xA5) {\n    return false;\n  }\n  if ((frame[1] ^ frame[2]) != frame[3]) return false;\n  millivolts = (uint16_t(frame[1]) << 8) | frame[2];\n  return true;\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание о безопасности и совместимости",
+      "text": "Исследуйте только принадлежащие вам устройства или устройства с явным разрешением. Не используйте урок для обхода защиты, извлечения чужих данных или проверки сторонних сетей. Авторское право, патенты, договоры и законы различаются."
+    }
+  ],
+  "testId": "embedded_test_reverse_engineering_history_and_ethics_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

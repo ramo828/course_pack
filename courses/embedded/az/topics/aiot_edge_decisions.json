@@ -1,0 +1,52 @@
+{
+  "id": "aiot_edge_decisions",
+  "title": "Model nəticəsini təhlükəsiz qərara çevirmək",
+  "difficulty": "medium",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://ai.google.dev/edge/litert/microcontrollers",
+    "https://www.tensorflow.org/lite/microcontrollers"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Model yalnız nəticə təklif edir; Arduino proqramı həmin nəticəni nə vaxt qəbul edəcəyinə qərar verir. Etibarlılıq göstəricisi aşağıdırsa və ya sensor xətalıdırsa, cihazın əvvəlcədən seçilmiş təhlükəsiz davranışını saxlayın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Mövzunun izahı\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Məsələn, vibrasiya modeli “qeyri-adi” deyəndə nasazlığı dərhal qəti elan etmək əvəzinə nəticəni qeyd edib növbəti ölçmələri yoxlamaq olar. Modeli müxtəlif temperatur, səs, sensor fərqi və zəif Wi-Fi şəraitində sınayın. Giriş ölçüsü, nümunə tezliyi və normallaşdırma təlimdəki ilə eyni olmalıdır.\n\nESP32 nəticəni cihazda hesablayıb MQTT ilə yalnız qısa xəbər göndərə bilər; xam sensor məlumatı göndərmək məcburi deyil. Modeli yenilədikdə əvvəlki modelə qayıtmaq, versiyanı izləmək və cihazda uğursuzluğu qeyd etmək planı qurun.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Nümunə kodu\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "if (!sensorReadingIsValid()) {\n  keepSafeDefault();\n} else {\n  const float confidence = runModel();\n  if (confidence >= 0.85f) {\n    reportPrediction();\n  } else {\n    reportUncertain();\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_aiot_architecture",
+      "caption": "Sxem: Model nəticəsini təhlükəsiz qərara çevirmək"
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Etibarlılıq faizi bütün model və kitabxanalarda eyni məna daşımır. Həddi sınaq məlumatı ilə seçin; kritik sistemlərdə model qərarını müstəqil təhlükəsizlik mexanizmi ilə məhdudlaşdırın."
+    }
+  ],
+  "testId": "embedded_test_aiot_edge_decisions_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

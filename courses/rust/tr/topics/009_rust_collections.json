@@ -1,0 +1,191 @@
+{
+  "id": "rust_rust_collections",
+  "title": "Vec, String ve HashMap",
+  "difficulty": "medium",
+  "testId": "rust_test_rust_collections_tr",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch08-00-common-collections.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Vec, String ve HashMap” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: get geçerli indiste Some, değilse None döndürür. Gerçek projede şu öneriyi izleyin: İndisin varlığından emin değilseniz get kullanın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn main() {\n    let values = vec![10, 20, 30];\n    match values.get(1) {\n        Some(value) => println!(\"{value}\"),\n        None => println!(\"index missing\"),\n    }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "20\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Vec<T> dinamik dizi, String UTF-8 metin, HashMap ise anahtar-değer koleksiyonudur. İndekslerken sınırları ve sahipliği gözetin; yineleme çoğu zaman indisten daha açıktır.\n\nVec<T> büyüyebilen bir dizi, HashMap<K,V> anahtar-değer haritası, HashSet<T> benzersiz değerler kümesidir; array sabit boyutludur. Koleksiyonlar öğelerine sahiptir ve ekleme/ödünç alma ownership kurallarına uymalıdır. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "get()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmayan indeks için Option döndürür, doğrudan indeksleme panic oluşturabilir. Veri yapısını kullanım örüntüsüne göre seçip gerçek yükte ölçün.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let values = vec![10, 20, 30];",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: get geçerli indiste Some, değilse None döndürür.\nNeden seçildi: İndisin varlığından emin değilseniz get kullanın.\nAtlanır veya değiştirilirse: İndisin varlığından emin değilseniz get kullanın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: İndisin varlığından emin değilseniz get kullanın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "get geçerli indiste Some, değilse None döndürür.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "İndisin varlığından emin değilseniz get kullanın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::collections::HashMap;\nfn main() { let mut scores = HashMap::new(); scores.insert(\"Ada\", 10); println!(\"{:?}\", scores.get(\"Ada\")); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Some(10)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "İndekslerken sınırları ve sahipliği gözetin; yineleme çoğu zaman indisten daha açıktır."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Kod örnekleri odaklı parçalardır; seçilen araç zinciri ve hedefte derleyip test edin, çünkü API ve tanılamalar sürüme göre değişebilir."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Vec, String ve HashMap” konusunda hangi ifade temel kuralı doğru açıklar?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: get geçerli indiste Some, değilse None döndürür.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı."
+}

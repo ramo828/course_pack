@@ -1,0 +1,92 @@
+{
+  "id": "cpp_namespace_templates_inline",
+  "title": "namespace, templates, and inline functions",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/namespace.html",
+    "https://en.cppreference.com/w/cpp/language/templates.html",
+    "https://en.cppreference.com/w/cpp/language/inline.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "A ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "namespace",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " prevents same-named functions from colliding and makes calls explicit with ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sensors::",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". A ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "template",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " creates one type-safe function for multiple types; the compiler generates the used versions. An ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "inline",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " function defined in a header avoids duplicate-definition errors across source files; it does not force the compiler to inline machine code. For small functions, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "inline",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " is safer than a macro.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "namespace Sensors {\n  inline int clampReading(int value, int limit) {\n    return value > limit ? limit : value;\n  }\n  template <typename T>\n  T larger(T a, T b) { return a > b ? a : b; }\n}\n\nint safeValue = Sensors::clampReading(analogRead(A0), 1023);\nint peak = Sensors::larger(12, 18);",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Templates can generate code for each used type and increase program size. Some Arduino libraries target a limited C++ subset; check the selected board's compiler. Macros can evaluate arguments more than once and bypass type checking."
+    }
+  ],
+  "testId": "embedded_test_cpp_namespace_templates_inline_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

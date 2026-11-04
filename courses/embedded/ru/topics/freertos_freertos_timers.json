@@ -1,0 +1,160 @@
+{
+  "id": "freertos_freertos_timers",
+  "title": "Программные таймеры и правила обратный вызов",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_timers_ru",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/06-software-timers/01-Software-timers"
+  ],
+  "estimatedMinutes": 22,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Программные таймеры и правила обратный вызов» в программе или устройстве. Основной принцип: Программный таймер не равен точному аппаратному; измеряйте jitter и нагрузку планировщика. В проекте следуйте рекомендации: В обратный вызов установите флаг или отправьте сообщение; длительную работу передайте обычной задаче.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nTaskHandle_t timerWorker = nullptr;\nTimerHandle_t sampleTimer = nullptr;\nvoid timerCallback(TimerHandle_t) { if (timerWorker) xTaskNotifyGive(timerWorker); }\nvoid timerWorkerTask(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"timer event\"); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(timerWorkerTask, \"timer-worker\", 2048, nullptr, 1, &timerWorker) != pdPASS) { Serial.println(\"timer worker creation failed\"); return; } sampleTimer = xTimerCreate(\"sample\", pdMS_TO_TICKS(1000), pdTRUE, nullptr, timerCallback); if (sampleTimer == nullptr) { Serial.println(\"timer creation failed\"); return; } if (xTimerStart(sampleTimer, 0) != pdPASS) { Serial.println(\"timer start failed\"); xTimerDelete(sampleTimer, 0); sampleTimer = nullptr; } }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Timer обратный вызов только отправляет уведомление задаче; worker-задача выводит событие в Serial Monitor.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Обратный вызов программного таймера выполняется в timer-служба задача. Он должен быть коротким: блокировка, долгий Serial или тяжёлое чтение датчика задержит все таймеры. Передавайте длительную работу worker-задаче через очередь или notification.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { Serial.begin(115200); if (xTaskCreate(timerWorkerTask, \"timer-worker\", 2048, nullptr, 1, &timerWorker) != pdPASS) { Serial.println(\"timer worker creation failed\"); return; } sampleTimer = xTimerCreate(\"sample\", pdMS_TO_TICKS(1000), pdTRUE, nullptr, timerCallback); if (sampleTimer == nullptr) { Serial.println(\"timer creation failed\"); return; } if (xTimerStart(sampleTimer, 0) != pdPASS) { Serial.println(\"timer start failed\"); xTimerDelete(sampleTimer, 0); sampleTimer = nullptr; } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Программный таймер не равен точному аппаратному; измеряйте jitter и нагрузку планировщика.\nЗачем она нужна: В обратный вызов установите флаг или отправьте сообщение; длительную работу передайте обычной задаче.\nЕсли пропустить или изменить: Переполнение очереди команд таймера задерживает start/stop/reset.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: В обратный вызов установите флаг или отправьте сообщение; длительную работу передайте обычной задаче."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Программный таймер не равен точному аппаратному; измеряйте jitter и нагрузку планировщика.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "В обратный вызов установите флаг или отправьте сообщение; длительную работу передайте обычной задаче."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nTaskHandle_t timerWorker = nullptr;\nTimerHandle_t timerHandle = nullptr;\nvoid onTimer(TimerHandle_t) { if (timerWorker) xTaskNotifyGive(timerWorker); }\nvoid timerWorkerTask(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"timer event\"); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(timerWorkerTask, \"timer-worker\", 2048, nullptr, 1, &timerWorker) != pdPASS) return; timerHandle = xTimerCreate(\"sample\", pdMS_TO_TICKS(1000), pdTRUE, nullptr, onTimer); if (timerHandle == nullptr || xTimerStart(timerHandle, 0) != pdPASS) Serial.println(\"timer setup failed\"); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Timer обратный вызов только отправляет уведомление; событие обрабатывает worker-задача.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Переполнение очереди команд таймера задерживает start/stop/reset."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Выводы, пределы напряжения/тока, тайминги и периферия зависят от платы; проверьте её документацию перед подключением и загрузкой."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму состояний и приоритетов задач, очередей/синхронизации и временную шкалу."
+}

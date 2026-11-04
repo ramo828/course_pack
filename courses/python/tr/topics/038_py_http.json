@@ -1,0 +1,575 @@
+{
+  "id": "python_py_http",
+  "title": "HTTP API kullanımı",
+  "difficulty": "hard",
+  "testId": "python_test_py_http_tr",
+  "sources": [
+    "https://docs.python.org/3/library/urllib.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NEDEN KULLANILIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HTTP istemcisi başka hizmetlerle istek/yanıt alışverişi yapar; zaman aşımı, durum ve yanıt biçimi ayrıca ele alınmalıdır.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HTTP isteğinde durum kodu, yanıt başlıkları ve gövdeyi ayrı denetleyin. Harici API yavaşlayabilir veya başarısız olabilir; zaman aşımı belirleyin, yanıt boyutunu sınırlayın ve JSON'u güvenilir varsaymayın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer\nfrom threading import Thread\nfrom urllib.request import urlopen\n\nclass HealthHandler(BaseHTTPRequestHandler):\n    def do_GET(self):\n        self.send_response(200)\n        self.end_headers()\n        self.wfile.write(b'healthy')\n    def log_message(self, format, *args):\n        pass\n\nserver = ThreadingHTTPServer(('127.0.0.1', 0), HealthHandler)\nthread = Thread(target=server.serve_forever, daemon=True)\nthread.start()\ntry:\n    url = f'http://127.0.0.1:{server.server_port}/health'\n    with urlopen(url, timeout=2) as response:\n        print(response.status, response.read().decode())\nfinally:\n    server.shutdown()\n    thread.join()\n    server.server_close()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "200 healthy",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from threading import Thread",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from urllib.request import urlopen",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class HealthHandler(BaseHTTPRequestHandler):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def do_GET(self):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "self.send_response(200)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "self.end_headers()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "self.wfile.write(b'healthy')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def log_message(self, format, *args):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "pass",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "server = ThreadingHTTPServer(('127.0.0.1', 0), HealthHandler)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "thread = Thread(target=server.serve_forever, daemon=True)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "thread.start()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "try:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Hata olabilecek bölümü ayırır; işleyici olmazsa beklenen hata çağırana taşınabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "url = f'http://127.0.0.1:{server.server_port}/health'",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with urlopen(url, timeout=2) as response:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Kaynağı blok boyunca yönetir; bağlam yöneticisi olmazsa dosya veya bağlantı açık kalabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(response.status, response.read().decode())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "finally:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "server.shutdown()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "thread.join()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "server.server_close()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Zaman aşımı ağ çağrısının belirsiz süre bloklanmasını önler.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "İstekleri yinelerken yalnız tekrarlanabilir işlemleri ve sınırlı deneme sayısını seçin."
+    },
+    {
+      "type": "text",
+      "text": "UYGULAMALI ÖRNEK 2 · HTTP API kullanımı\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from urllib.parse import urlencode\nquery = urlencode({'q': 'python basics', 'page': 2})\nprint(query)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "q=python+basics&page=2",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from urllib.parse import urlencode",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "query = urlencode({'q': 'python basics', 'page': 2})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(query)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "UYGULAMALI ÖRNEK 3 · HTTP API kullanımı\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from urllib.request import Request\nrequest = Request('https://example.com/items', method='GET')\nprint(request.method, request.full_url)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "GET https://example.com/items",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from urllib.request import Request",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "request = Request('https://example.com/items', method='GET')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(request.method, request.full_url)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "detail",
+      "title": "Neden önemli?",
+      "text": "HTTP istemcisi başka hizmetlerle istek/yanıt alışverişi yapar; zaman aşımı, durum ve yanıt biçimi ayrıca ele alınmalıdır."
+    },
+    {
+      "type": "warning",
+      "title": "Dikkat",
+      "text": "Ağ yanıtı gecikebilir veya güvenilmez olabilir; dış API verisini doğrulamadan kabul etmeyin."
+    },
+    {
+      "type": "text",
+      "text": "SIK YAPILAN HATALAR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HTTP isteğine zaman aşımı ve durum denetimi ekleyin; 401/403 ve 4xx/5xx farkını gözetin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Soru: “HTTP API kullanımı” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: HTTP istemcisi başka hizmetlerle istek/yanıt alışverişi yapar; zaman aşımı, durum ve yanıt biçimi ayrıca ele alınmalıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “HTTP API kullanımı” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: HTTP istemcisi başka hizmetlerle istek/yanıt alışverişi yapar; zaman aşımı, durum ve yanıt biçimi ayrıca ele alınmalıdır.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar.",
+  "estimatedMinutes": 18
+}

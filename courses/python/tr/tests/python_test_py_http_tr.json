@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_http_tr",
+  "title": "HTTP API kullanımı",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_http",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 1. kod örneği tam olarak ne yazdırır?\n\nfrom http.server import BaseHTTPRequestHandler, ThreadingHTTPServer\nfrom threading import Thread\nfrom urllib.request import urlopen\n\nclass HealthHandler(BaseHTTPRequestHandler):\n    def do_GET(self):\n        self.send_response(200)\n        self.end_headers()\n        self.wfile.write(b'healthy')\n    def log_message(self, format, *args):\n        pass\n\nserver = ThreadingHTTPServer(('127.0.0.1', 0), HealthHandler)\nthread = Thread(target=server.serve_forever, daemon=True)\nthread.start()\ntry:\n    url = f'http://127.0.0.1:{server.server_port}/health'\n    with urlopen(url, timeout=2) as response:\n        print(response.status, response.read().decode())\nfinally:\n    server.shutdown()\n    thread.join()\n    server.server_close()",
+      "options": [
+        "200 HEALTHY",
+        "GET https://example.com/items",
+        "200 healthy",
+        "q=python+basics&page=2"
+      ],
+      "answer": "200 healthy",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`from threading import Thread` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`from urllib.request import urlopen` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`class HealthHandler(BaseHTTPRequestHandler):` — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n`def do_GET(self):` — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n`self.send_response(200)` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`self.end_headers()` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`self.wfile.write(b'healthy')` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`def log_message(self, format, *args):` — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n`pass` — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n`server = ThreadingHTTPServer(('127.0.0.1', 0), HealthHandler)` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`thread = Thread(target=server.serve_forever, daemon=True)` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`thread.start()` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`try:` — Hata olabilecek bölümü ayırır; işleyici olmazsa beklenen hata çağırana taşınabilir.\n`url = f'http://127.0.0.1:{server.server_port}/health'` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`with urlopen(url, timeout=2) as response:` — Kaynağı blok boyunca yönetir; bağlam yöneticisi olmazsa dosya veya bağlantı açık kalabilir.\n`print(response.status, response.read().decode())` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`finally:` — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n`server.shutdown()` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`thread.join()` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`server.server_close()` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_http",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 2. kod örneği tam olarak ne yazdırır?\n\nfrom urllib.parse import urlencode\nquery = urlencode({'q': 'python basics', 'page': 2})\nprint(query)",
+      "options": [
+        "q=python+basics&page=2",
+        "200 healthy",
+        "GET https://example.com/items",
+        "Q=PYTHON+BASICS&PAGE=2"
+      ],
+      "answer": "q=python+basics&page=2",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`from urllib.parse import urlencode` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`query = urlencode({'q': 'python basics', 'page': 2})` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`print(query)` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_http",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 3. kod örneği tam olarak ne yazdırır?\n\nfrom urllib.request import Request\nrequest = Request('https://example.com/items', method='GET')\nprint(request.method, request.full_url)",
+      "options": [
+        "get HTTPS://EXAMPLE.COM/ITEMS",
+        "200 healthy",
+        "q=python+basics&page=2",
+        "GET https://example.com/items"
+      ],
+      "answer": "GET https://example.com/items",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`from urllib.request import Request` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`request = Request('https://example.com/items', method='GET')` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`print(request.method, request.full_url)` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_http",
+      "type": "multiple_choice",
+      "prompt": "“HTTP API kullanımı” konusunu doğru tanımlayan ifade hangisidir?",
+      "options": [
+        "sqlite3 küçük uygulamalarda sunucu gerektirmeden yapılandırılmış veri saklar.",
+        "Dosya yollarını platformadan bağımsız biçimde pathlib ile kurun.",
+        "HTTP istemcisi başka hizmetlerle istek/yanıt alışverişi yapar; zaman aşımı, durum ve yanıt biçimi ayrıca ele alınmalıdır.",
+        "JSON iç içe nesneler ve listeler, CSV ise tablo verileri için uygundur."
+      ],
+      "answer": "HTTP istemcisi başka hizmetlerle istek/yanıt alışverişi yapar; zaman aşımı, durum ve yanıt biçimi ayrıca ele alınmalıdır.",
+      "explanation": "HTTP istemcisi başka hizmetlerle istek/yanıt alışverişi yapar; zaman aşımı, durum ve yanıt biçimi ayrıca ele alınmalıdır.\n\nSATIR SATIR AÇIKLAMA\n`from urllib.parse import urlencode` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`query = urlencode({'q': 'python basics', 'page': 2})` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`print(query)` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    }
+  ]
+}

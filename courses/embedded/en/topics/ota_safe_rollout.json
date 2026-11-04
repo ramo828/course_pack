@@ -1,0 +1,52 @@
+{
+  "id": "ota_safe_rollout",
+  "title": "Testing and safely rolling out OTA updates",
+  "difficulty": "advanced",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.arduino.cc/learn/programming/ota-getting-started/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Updating one device is simple; updating hundreds at once is risky. A staged rollout updates a test device first, then a small group, and expands only after success.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "How it works\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Before updating, verify the board model, firmware version, file size, and cryptographic signature. Use TLS/HTTPS and validate the server certificate; provision a distinct key or certificate per device. Test power loss, weak Wi-Fi, full storage, incompatible images, and incomplete downloads.\n\nAfter an update, check that the device boots, sensors respond, readings are plausible, and network connectivity returns. Pause the rollout if failures rise. Keep a path back to a known-good version when possible. Never put passwords or private keys in logs.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Example code\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "1. Test on a spare device.\n2. Verify model, version, size, and signature.\n3. Update a small test group.\n4. Check boot, sensor readings, and connectivity.\n5. Pause rollout if failures rise; recover if needed.",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Diagram: Testing and safely rolling out OTA updates"
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Install only images whose signature and compatibility are verified. Check power, storage, and recovery capacity before each update."
+    }
+  ],
+  "testId": "embedded_test_ota_safe_rollout_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

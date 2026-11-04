@@ -1,0 +1,234 @@
+{
+  "id": "rust_rust_struct_enum",
+  "title": "Struct, enum və Result",
+  "difficulty": "medium",
+  "testId": "rust_test_rust_struct_enum_az",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch05-00-structs.html",
+    "https://doc.rust-lang.org/book/ch06-00-enums.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Struct, enum və Result” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Result<T, E> uğur və xəta alternativlərini tipdə göstərir. Real layihədə bu göstərişə əməl edin: Xətanı Result ilə qaytardıqda çağıran kodun necə davam edəcəyi aydın olur.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[derive(Debug)]\nenum Reading { Valid(u32), Missing }\nfn parse(text: &str) -> Result<Reading, std::num::ParseIntError> {\n    Ok(Reading::Valid(text.parse()?))\n}\nfn main() { println!(\"{:?}\", parse(\"23\")); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ok(",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "Valid(23)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ")\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "struct əlaqəli sahələri, enum isə məhdud alternativləri modelləşdirir. Result<T, E> uğur və xətanı açıq göstərir; match, ? operatoru və çevirmə tətbiqin xəta siyasətini görünən edir.\n\nstruct əlaqəli sahələri bir dəyərdə qruplaşdırır; tuple struct sahələrə ad vermədən yeni tip yarada bilər. enum sonlu variantlar toplusudur və hər variant öz məlumatını daşıya bilər. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "impl",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " metod və associated function-ları həmin tipə bağlayır, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "match",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " variantı açaraq tamlıq yoxlaması verir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Option<T>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " mümkün olmayan dəyəri, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Result<T,E>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " isə uğur/xətanı açıq modelləşdirərək null və gizli exception əvəzinə tip təhlükəsizliyi yaradır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Ok(Reading::Valid(text.parse()?))",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Result<T, E> uğur və xəta alternativlərini tipdə göstərir.\nNiyə seçilib: Xətanı Result ilə qaytardıqda çağıran kodun necə davam edəcəyi aydın olur.\nBuraxılsa və ya dəyişdirilsə: Xətanı Result ilə qaytardıqda çağıran kodun necə davam edəcəyi aydın olur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Xətanı Result ilə qaytardıqda çağıran kodun necə davam edəcəyi aydın olur."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Result<T, E> uğur və xəta alternativlərini tipdə göstərir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Xətanı Result ilə qaytardıqda çağıran kodun necə davam edəcəyi aydın olur."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "enum State { Ready, Failed }\nfn main() { let state = State::Ready; println!(\"{}\", matches!(state, State::Ready)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "true\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Result<T, E> uğur və xətanı açıq göstərir; match, ? operatoru və çevirmə tətbiqin xəta siyasətini görünən edir."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Kod nümunələri fokuslanmış hissələrdir; seçilmiş toolchain və target-də compile/test edin, çünki API və diaqnostika versiyaya görə dəyişə bilər."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Struct, enum və Result” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Result<T, E> uğur və xəta alternativlərini tipdə göstərir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

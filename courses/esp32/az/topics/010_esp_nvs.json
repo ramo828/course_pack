@@ -1,0 +1,173 @@
+{
+  "id": "esp32_esp_nvs",
+  "title": "NVS və davamlı konfiqurasiya",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_nvs_az",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/storage/nvs_flash.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “NVS və davamlı konfiqurasiya” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: NVS flash-da enerji kəsildikdən sonra qalan konfiqurasiya saxlayır. Real layihədə bu göstərişə əməl edin: Tez-tez dəyişən sayğacı hər dövrədə flash-a yazmaq yaddaş ömrünü azalda bilər.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <Preferences.h>\nPreferences preferences;\nvoid setup() {\n    Serial.begin(115200);\n    preferences.begin(\"settings\", false);\n    preferences.putInt(\"sample_rate\", 10);\n    Serial.println(preferences.getInt(\"sample_rate\", 0));\n    preferences.end();\n}\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Init və commit uğurlu olduqda ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "sample_rate",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " saxlanılır; flash vəziyyəti və bərpa xətaları nəzərə alınmalıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NVS kiçik açar-dəyər konfiqurasiyasını flash-da saxlamaq üçün nəzərdə tutulub. Yazma tezliyini məhdudlaşdırın, format versiyası saxlayın və uğursuz migrasiyada default-a təhlükəsiz qayıdış təmin edin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "preferences.putInt(\"sample_rate\", 10);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: NVS flash-da enerji kəsildikdən sonra qalan konfiqurasiya saxlayır.\nNiyə seçilib: Tez-tez dəyişən sayğacı hər dövrədə flash-a yazmaq yaddaş ömrünü azalda bilər.\nBuraxılsa və ya dəyişdirilsə: Tez-tez dəyişən sayğacı hər dövrədə flash-a yazmaq yaddaş ömrünü azalda bilər.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Tez-tez dəyişən sayğacı hər dövrədə flash-a yazmaq yaddaş ömrünü azalda bilər."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NVS flash-da enerji kəsildikdən sonra qalan konfiqurasiya saxlayır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Tez-tez dəyişən sayğacı hər dövrədə flash-a yazmaq yaddaş ömrünü azalda bilər."
+    },
+    {
+      "type": "text",
+      "text": "Arduino Preferences nümunəsi\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Preferences.h>\nPreferences p;\nvoid setup() { Serial.begin(115200); p.begin(\"app\", false); p.putBool(\"ready\", true); Serial.println(p.getBool(\"ready\", false)); p.end(); }\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "1\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Yazma tezliyini məhdudlaşdırın, format versiyası saxlayın və uğursuz migrasiyada default-a təhlükəsiz qayıdış təmin edin."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Pinlər, gərginlik/cərəyan limitləri, timing və periferik imkanlar lövhədən asılıdır; naqilləmədən və yükləmədən əvvəl dəqiq board sənədini yoxlayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

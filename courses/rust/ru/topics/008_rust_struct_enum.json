@@ -1,0 +1,234 @@
+{
+  "id": "rust_rust_struct_enum",
+  "title": "Struct, enum и Result",
+  "difficulty": "medium",
+  "testId": "rust_test_rust_struct_enum_ru",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch05-00-structs.html",
+    "https://doc.rust-lang.org/book/ch06-00-enums.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Struct, enum и Result» в программе или устройстве. Основной принцип: Result<T, E> кодирует успех и ошибку в типе. В проекте следуйте рекомендации: Возврат Result явно задаёт обработку ошибки вызывающим кодом.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[derive(Debug)]\nenum Reading { Valid(u32), Missing }\nfn parse(text: &str) -> Result<Reading, std::num::ParseIntError> {\n    Ok(Reading::Valid(text.parse()?))\n}\nfn main() { println!(\"{:?}\", parse(\"23\")); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ok(",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "Valid(23)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ")\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "struct объединяет поля, enum задаёт варианты. Result<T, E> явно представляет успех или ошибку; match и ? делают поток ошибок видимым.\n\nstruct объединяет связанные поля, а tuple struct создаёт новый тип без именованных полей. enum задаёт конечный набор вариантов, каждый из которых может содержать данные. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "impl",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " связывает методы и associated function с типом; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "match",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " разбирает варианты и проверяет полноту. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Option<T>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " явно представляет отсутствие, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Result<T,E>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — успех или ошибку, заменяя неявные null и ошибки типизированными вариантами.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Ok(Reading::Valid(text.parse()?))",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Result<T, E> кодирует успех и ошибку в типе.\nЗачем она нужна: Возврат Result явно задаёт обработку ошибки вызывающим кодом.\nЕсли пропустить или изменить: Возврат Result явно задаёт обработку ошибки вызывающим кодом.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: Возврат Result явно задаёт обработку ошибки вызывающим кодом."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Result<T, E> кодирует успех и ошибку в типе.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Возврат Result явно задаёт обработку ошибки вызывающим кодом."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "enum State { Ready, Failed }\nfn main() { let state = State::Ready; println!(\"{}\", matches!(state, State::Ready)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "true\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Result<T, E> явно представляет успех или ошибку; match и ? делают поток ошибок видимым."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Примеры сосредоточены на теме; компилируйте и тестируйте их для выбранного toolchain и target, поскольку API и диагностика зависят от версии."
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение верно передаёт основное правило темы «Struct, enum и Result»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Result<T, E> кодирует успех и ошибку в типе.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

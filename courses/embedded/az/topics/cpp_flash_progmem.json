@@ -1,0 +1,91 @@
+{
+  "id": "cpp_flash_progmem",
+  "title": "PROGMEM, F() və fleş yaddaşı yaddaş",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/variables/utilities/PROGMEM",
+    "https://docs.arduino.cc/language-reference/en/structure/further-syntax/define/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "UNO kimi AVR lövhələrində ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "PROGMEM",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " böyük sabit cədvəli SRAM əvəzinə fleş yaddaşı-da saxlaya bilər; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "pgm_read_byte()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "pgm_read_word()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " həmin yaddaşdan oxuyur. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "F(\"...\")",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Serial.print",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kimi dəstəkləyən funksiyalara mətn sabitini RAM-a köçürmədən vermək üçündür. Bu, RAM az olan cihazlarda sərfəli ola bilər.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#if defined(ARDUINO_ARCH_AVR)\n#include <avr/pgmspace.h>\n        #include <stdint.h>\nconst char label[] PROGMEM = \"Sensor ready\";\nconst uint16_t points[] PROGMEM = {300, 600};\nuint8_t first = pgm_read_byte(label);\nuint16_t point = pgm_read_word(&points[0]);\n#endif\n\nvoid setup() {\n  Serial.begin(9600);\n  Serial.println(F(\"Startup\")); // AVR: keep literal in flash\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Bu üsul platformaya xasdır. `ARDUINO_ARCH_AVR` ilə şərti kompilyasiya edin; ESP32-nin fleş yaddaşı yaddaşı fərqli xəritələndiyindən AVR oxuma funksiyalarını orada istifadə etməyin. Böyük mətnlərdə kitabxananın `Print` dəstəyini yoxlayın."
+    }
+  ],
+  "testId": "embedded_test_cpp_flash_progmem_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: stack/heap və yaddaş ömrünü, sahiblik və ya məlumat axınını göstərən yaddaş diaqramı."
+}

@@ -1,0 +1,575 @@
+{
+  "id": "python_py_http",
+  "title": "HTTP API ilə işləmək",
+  "difficulty": "hard",
+  "testId": "python_test_py_http_az",
+  "sources": [
+    "https://docs.python.org/3/library/urllib.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NİYƏ LAZIMDIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HTTP klienti başqa xidmətlərlə sorğu/cavab mübadiləsi edir; şəbəkə vaxt aşımı, status və cavab formatını ayrıca idarə etmək lazımdır.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HTTP sorğusunda status kodu, cavab başlıqları və cavab gövdəsini ayrıca yoxlayın. Xarici API yavaşıya və ya uğursuz ola bilər; timeout təyin edin, cavabı ölçüləndirin və JSON-u etibarlı saymayın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer\nfrom threading import Thread\nfrom urllib.request import urlopen\n\nclass HealthHandler(BaseHTTPRequestHandler):\n    def do_GET(self):\n        self.send_response(200)\n        self.end_headers()\n        self.wfile.write(b'healthy')\n    def log_message(self, format, *args):\n        pass\n\nserver = ThreadingHTTPServer(('127.0.0.1', 0), HealthHandler)\nthread = Thread(target=server.serve_forever, daemon=True)\nthread.start()\ntry:\n    url = f'http://127.0.0.1:{server.server_port}/health'\n    with urlopen(url, timeout=2) as response:\n        print(response.status, response.read().decode())\nfinally:\n    server.shutdown()\n    thread.join()\n    server.server_close()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "200 healthy",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SƏTİR-SƏTİR İZAH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Moduldan konkret adları gətirir; sətir olmasa idxal edilən ad əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from threading import Thread",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Moduldan konkret adları gətirir; sətir olmasa idxal edilən ad əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from urllib.request import urlopen",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Moduldan konkret adları gətirir; sətir olmasa idxal edilən ad əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class HealthHandler(BaseHTTPRequestHandler):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Əlaqəli məlumat və davranış üçün yeni tip yaradır; sinif olmasa nümunə obyektini həmin müqavilə ilə yaratmaq olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def do_GET(self):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "self.send_response(200)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "self.end_headers()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "self.wfile.write(b'healthy')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def log_message(self, format, *args):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "pass",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "server = ThreadingHTTPServer(('127.0.0.1', 0), HealthHandler)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "thread = Thread(target=server.serve_forever, daemon=True)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "thread.start()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "try:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Xəta verə bilən hissəni ayırır; tutma bloku olmasa gözlənən xəta çağıranı dayandıra bilər.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "url = f'http://127.0.0.1:{server.server_port}/health'",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with urlopen(url, timeout=2) as response:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Resursu blok boyunca idarə edir; kontekst meneceri olmasa fayl və ya əlaqə bağlanmaya bilər.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(response.status, response.read().decode())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "finally:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "server.shutdown()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "thread.join()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "server.server_close()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Timeout şəbəkə çağırışının qeyri-müəyyən müddət bloklanmasının qarşısını alır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Sorğunu təkrarlayarkən yalnız təkrar oluna bilən əməliyyatları və məhdud sayda cəhdi seçin."
+    },
+    {
+      "type": "text",
+      "text": "PRAKTİK NÜMUNƏ 2 · HTTP API ilə işləmək\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from urllib.parse import urlencode\nquery = urlencode({'q': 'python basics', 'page': 2})\nprint(query)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "q=python+basics&page=2",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SƏTİR-SƏTİR İZAH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from urllib.parse import urlencode",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Moduldan konkret adları gətirir; sətir olmasa idxal edilən ad əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "query = urlencode({'q': 'python basics', 'page': 2})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(query)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "PRAKTİK NÜMUNƏ 3 · HTTP API ilə işləmək\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from urllib.request import Request\nrequest = Request('https://example.com/items', method='GET')\nprint(request.method, request.full_url)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "GET https://example.com/items",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SƏTİR-SƏTİR İZAH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from urllib.request import Request",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Moduldan konkret adları gətirir; sətir olmasa idxal edilən ad əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "request = Request('https://example.com/items', method='GET')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(request.method, request.full_url)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "detail",
+      "title": "Niyə vacibdir?",
+      "text": "HTTP klienti başqa xidmətlərlə sorğu/cavab mübadiləsi edir; şəbəkə vaxt aşımı, status və cavab formatını ayrıca idarə etmək lazımdır."
+    },
+    {
+      "type": "warning",
+      "title": "Diqqət",
+      "text": "Şəbəkə cavabı gecikə və ya etibarsız ola bilər; xarici API məlumatını avtomatik etibarlı saymayın."
+    },
+    {
+      "type": "text",
+      "text": "TEZ-TEZ BURAXILAN SƏHVLƏR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HTTP sorğusuna timeout və status yoxlaması əlavə edin; API nümunələrində 401/403 və 4xx/5xx fərqini nəzərə alın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Sual: “HTTP API ilə işləmək” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: HTTP klienti başqa xidmətlərlə sorğu/cavab mübadiləsi edir; şəbəkə vaxt aşımı, status və cavab formatını ayrıca idarə etmək lazımdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “HTTP API ilə işləmək” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: HTTP klienti başqa xidmətlərlə sorğu/cavab mübadiləsi edir; şəbəkə vaxt aşımı, status və cavab formatını ayrıca idarə etmək lazımdır.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir.",
+  "estimatedMinutes": 18
+}

@@ -1,0 +1,49 @@
+{
+  "id": "arduino_millis_timing",
+  "title": "millis(): timing and button input without delay",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/time/millis/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "delay",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " prevents other work during the wait. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "millis()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " returns elapsed milliseconds; compare elapsed time to schedule LED, sensor, and communication work cooperatively. Unsigned subtraction handles counter rollover.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "constexpr uint8_t LED_PIN = LED_BUILTIN;\nuint32_t previousMs = 0;\nbool ledOn = false;\n\nvoid setup() {\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  uint32_t now = millis();\n  if ((uint32_t)(now - previousMs) >= 500) {\n    previousMs = now;\n    ledOn = !ledOn;\n    digitalWrite(LED_PIN, ledOn);\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "`millis()` is not a hard real-time guarantee. Use a suitable hardware timer, interrupt, or RTOS mechanism when deadlines require it."
+    }
+  ],
+  "testId": "embedded_test_arduino_millis_timing_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

@@ -1,0 +1,272 @@
+{
+  "id": "cpp_memory_management",
+  "title": "Bellek ölçme ve ayırma: sizeof, malloc ve free",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/sizeof.html",
+    "https://en.cppreference.com/w/c/memory/malloc.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/mem_alloc.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "RAM, program çalışırken kullanılan çalışma masasıdır: yerel değişkenler çoğunlukla yığın'te, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "malloc",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "new",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile ayrılan alan heap'te bulunur. Global ve ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "static",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " değişkenler programın tüm çalışma süresince yaşar. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sizeof(tür)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " türün bayt boyutunu; tam dizi üzerindeki ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sizeof(dizi)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " dizinin toplam boyutunu verir. Örneğin 10 adet ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "uint16_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " genellikle 20 bayttır; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sizeof(dizi) / sizeof(dizi[0])",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " öğe sayısını bulur. Bir işleve aktarılan dizi işaretçiye dönüşür; orada ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sizeof(pointer)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " dizi boyutu değildir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "malloc(n)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bellek ister, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "calloc(n, size)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " sıfırlanmış alan ayırır, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "realloc(p, n)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " boyutu değiştirir. Başarısızlık ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "nullptr",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile denetlenir; bu C tarzı işlevlerin belleği ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "free(p)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile bırakılır. C++ ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "new",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nesne oluşturur ve ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "delete",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile eşleşir. Yerel diziye ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "free",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "new",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile alınana ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "free",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "malloc",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile alınana ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "delete",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " uygulamayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <stdint.h>\n#include <stddef.h>\n#include <stdlib.h>\n\nvoid setup() {\n  uint16_t samples[10];\n  const size_t bytes = sizeof(samples);\n  const size_t count = sizeof(samples) / sizeof(samples[0]);\n  (void)bytes;\n  (void)count;\n\n  uint8_t* buffer = static_cast<uint8_t*>(malloc(32));\n  if (buffer != nullptr) {\n    buffer[0] = 42;\n    uint8_t* cleared = static_cast<uint8_t*>(calloc(8, sizeof(uint16_t)));\n    if (cleared != nullptr) free(cleared);\n    void* resized = realloc(buffer, 64);\n    if (resized != nullptr) buffer = static_cast<uint8_t*>(resized);\n    free(buffer);\n    buffer = nullptr;\n  }\n\n  int* reading = new int(42);\n  delete reading;\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Küçük kartlarda sabit boyutlu dizi ve otomatik ömür çoğu zaman daha yalın, hızlı ve güvenlidir. Heap'ten sık bellek alıp bırakmak parçalanmaya neden olabilir; toplam boş bellek yeterli görünse de büyük ve bitişik bir alan bulunamayabilir. Her alanı yalnız bir kez, eşleşen işlevle bırakın; sonra işaretçiyi `nullptr` yapın. Boyutlar için `size_t` kullanın. Arduino UNO gibi kartlarda SRAM çok azdır; ESP32'de `ESP.getFreeHeap()` ve en düşük boş heap değerini ölçmek bellek planlamasının yerini tutmaz. `realloc` sonucunu ayrı bir işaretçide denetleyin; başarısız olursa eski alan kaybolmasın."
+    }
+  ],
+  "testId": "embedded_test_cpp_memory_management_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: stack/heap ve bellek ömrünü, sahipliği veya veri akışını gösteren bellek diyagramı."
+}

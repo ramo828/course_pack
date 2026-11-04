@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_testing_en",
+  "title": "Testing FastAPI endpoints",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_testing",
+      "type": "multiple_choice",
+      "prompt": "How should the API respond to this practical HTTP request?\nTestClient GET /ping → status 200 və {\"message\":\"pong\"}",
+      "options": [
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "`GET /ping` returns 200 and `{\"message\":\"pong\"}`; the script prints `route test passed`.",
+        "Return the same response to every request without checking its data.",
+        "Keep all state in a global variable and skip authentication."
+      ],
+      "answer": "`GET /ping` returns 200 and `{\"message\":\"pong\"}`; the script prints `route test passed`.",
+      "explanation": "This is the expected behavior for `TestClient GET /ping → status 200 və {\"message\":\"pong\"}`. `GET /ping` returns 200 and `{\"message\":\"pong\"}`; the script prints `route test passed`."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_testing",
+      "type": "multiple_choice",
+      "prompt": "Which design principle is correct for this topic?",
+      "options": [
+        "Keep all state in a global variable and skip authentication.",
+        "Return the same response to every request without checking its data.",
+        "A test checks the HTTP status and JSON response together without opening a server port.",
+        "Ignore HTTP status codes and present failures as successful responses."
+      ],
+      "answer": "A test checks the HTTP status and JSON response together without opening a server port.",
+      "explanation": "A test checks the HTTP status and JSON response together without opening a server port. `TestClient` lets synchronous tests exercise HTTP behavior; replacing external services with fakes keeps tests fast and reliable."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_testing",
+      "type": "multiple_choice",
+      "prompt": "What changes if the important part shown in the lesson is omitted?",
+      "options": [
+        "Without tests, a change can break a working endpoint and the first report may come from a user.",
+        "Keep all state in a global variable and skip authentication.",
+        "Return the same response to every request without checking its data.",
+        "Ignore HTTP status codes and present failures as successful responses."
+      ],
+      "answer": "Without tests, a change can break a working endpoint and the first report may come from a user.",
+      "explanation": "Without tests, a change can break a working endpoint and the first report may come from a user. FastAPI's `TestClient` calls endpoints without starting a live server. Tests check status codes, JSON bodies, and error behavior; keep them repeatable and independent of the external network. Install with `pip install fastapi httpx`."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_testing",
+      "type": "multiple_choice",
+      "prompt": "Which action best prevents the common mistake from this lesson?",
+      "options": [
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Return the same response to every request without checking its data.",
+        "Keep all state in a global variable and skip authentication.",
+        "Reset application state per test; use an isolated test database and dependency override when testing database routes."
+      ],
+      "answer": "Reset application state per test; use an isolated test database and dependency override when testing database routes.",
+      "explanation": "Reset application state per test; use an isolated test database and dependency override when testing database routes. Tests should not use real user data or a production database; use isolated state that can be reset."
+    }
+  ]
+}

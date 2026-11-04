@@ -1,0 +1,173 @@
+{
+  "id": "arduino_arduino_gpio",
+  "title": "Цифровые входы и выходы GPIO",
+  "difficulty": "medium",
+  "testId": "arduino_test_arduino_gpio_ru",
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/digital-io/pinMode/"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Цифровые входы и выходы GPIO» в программе или устройстве. Основной принцип: INPUT_PULLUP включает внутреннюю подтяжку входа. В проекте следуйте рекомендации: Задайте входу кнопки устойчивый уровень, чтобы уменьшить ложные переключения.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int buttonPin = 2;\nvoid setup() {\n  pinMode(buttonPin, INPUT_PULLUP);\n}\nvoid loop() {\n  bool pressed = digitalRead(buttonPin) == LOW;\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вывода нет; при ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "INPUT_PULLUP",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " нажатая кнопка даёт LOW на входе.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "pinMode задаёт направление, digitalRead/digitalWrite работают с логическим уровнем. Не оставляйте вход плавающим; используйте pull-up/down и учитывайте дребезг.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "bool pressed = digitalRead(buttonPin) == LOW;",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: INPUT_PULLUP включает внутреннюю подтяжку входа.\nЗачем она нужна: Задайте входу кнопки устойчивый уровень, чтобы уменьшить ложные переключения.\nЕсли пропустить или изменить: Уровни и пределы GPIO зависят от платы; не превышайте допустимый ток вывода.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Уровни и пределы GPIO зависят от платы; не превышайте допустимый ток вывода."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "INPUT_PULLUP включает внутреннюю подтяжку входа.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Задайте входу кнопки устойчивый уровень, чтобы уменьшить ложные переключения."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int buttonPin = 2;\nconst int ledPin = LED_BUILTIN;\nvoid setup() { pinMode(buttonPin, INPUT_PULLUP); pinMode(ledPin, OUTPUT); }\nvoid loop() { digitalWrite(ledPin, digitalRead(buttonPin) == LOW); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "При нажатии кнопки LED загорается; подключение, вывод и полярность зависят от платы.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Не оставляйте вход плавающим; используйте pull-up/down и учитывайте дребезг."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Уровни и пределы GPIO зависят от платы; не превышайте допустимый ток вывода."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

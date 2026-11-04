@@ -1,0 +1,161 @@
+{
+  "id": "iot_iot_protocols",
+  "title": "HTTP, MQTT, and protocol choice",
+  "difficulty": "medium",
+  "testId": "iot_test_iot_protocols_en",
+  "sources": [
+    "https://www.rfc-editor.org/rfc/rfc9110.html",
+    "https://www.rfc-editor.org/rfc/rfc8446.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “HTTP, MQTT, and protocol choice” to a real program or device. The key principle is: HTTP is request/response; MQTT is pub/sub. In a project, follow this guidance: Protocol QoS alone does not guarantee exactly-once business processing.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "curl --fail-with-body -H \"Content-Type: application/json\" -d '{\"device\":\"sensor-12\",\"value\":21.4,\"unit\":\"degC\"}' https://api.example.test/telemetry",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Example request: POST /telemetry with application/json; the server response depends on the API.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HTTP suits request/response APIs; MQTT suits brokered publish/subscribe telemetry. Choose based on network conditions, latency, message size, QoS, and device constraints.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "curl --fail-with-body -H \"Content-Type: application/json\" -d '{\"device\":\"sensor-12\",\"value\":21.4,\"unit\":\"degC\"}' https://api.example.test/telemetry",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: HTTP is request/response; MQTT is pub/sub.\nWhy it is used: Protocol QoS alone does not guarantee exactly-once business processing.\nIf omitted or changed: Protocol QoS alone does not guarantee exactly-once business processing.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Skipping this check before applying the rule: Protocol QoS alone does not guarantee exactly-once business processing."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HTTP is request/response; MQTT is pub/sub.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Protocol QoS alone does not guarantee exactly-once business processing."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "curl -i -H \"Content-Type: application/json\" -d '{\"temperatureC\":21.5}' https://api.example.test/telemetry",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Requires a reachable API and valid endpoint; HTTP status and response are service-dependent.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Choose based on network conditions, latency, message size, QoS, and device constraints."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Pins, voltage/current limits, timing, and peripheral support are board-dependent; verify the exact board documentation before wiring or uploading."
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "A device sends measurements through a gateway or broker to a service; commands can travel back."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

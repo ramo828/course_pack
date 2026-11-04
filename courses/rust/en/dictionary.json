@@ -1,0 +1,402 @@
+{
+  "courseId": "rust",
+  "locale": "en",
+  "title": "Rust glossary: memory, types, and projects",
+  "version": 1,
+  "sections": [
+    {
+      "id": "ownership",
+      "title": "Ownership and borrowing",
+      "entries": [
+        {
+          "term": "Ownership",
+          "kind": "concept",
+          "short": "Each value has one owner that controls it.",
+          "detail": "When the owner leaves scope, the value is dropped. This rule provides safe memory management without a separate garbage collector.",
+          "example": "fn main() { let name = String::from(\"Rust\"); println!(\"{name}\"); }",
+          "output": "Rust"
+        },
+        {
+          "term": "Move",
+          "kind": "operation",
+          "short": "Transfers a value’s ownership to a new binding.",
+          "detail": "After a value such as `String` is moved, the old binding can no longer be used. This prevents two owners from freeing the same memory.",
+          "example": "fn main() { let first = String::from(\"salam\"); let second = first; println!(\"{second}\"); }",
+          "output": "salam"
+        },
+        {
+          "term": "Copy type",
+          "kind": "trait",
+          "short": "Simple values can be copied instead of moved when assigned.",
+          "detail": "Small types such as integers are usually `Copy`; `String` is not. Both bindings remain usable after a copy.",
+          "example": "fn main() { let a = 7; let b = a; println!(\"{a} {b}\"); }",
+          "output": "7 7"
+        },
+        {
+          "term": "Borrowing",
+          "kind": "concept",
+          "short": "Lets code use a value through a reference without moving it.",
+          "detail": "Passing `&T` to a function does not transfer ownership. The caller can keep using the value afterward.",
+          "example": "fn size(text: &String) -> usize { text.len() } fn main() { let s = String::from(\"Rust\"); println!(\"{} {}\", size(&s), s); }",
+          "output": "4 Rust"
+        },
+        {
+          "term": "Mutable reference",
+          "kind": "reference",
+          "short": "`&mut T` allows a borrowed value to be changed.",
+          "detail": "At one time you may have one mutable reference or many shared references, but not both. This helps prevent data races.",
+          "example": "fn main() { let mut score = 2; let score_ref = &mut score; *score_ref += 3; println!(\"{score}\"); }",
+          "output": "5"
+        },
+        {
+          "term": "Lifetime",
+          "kind": "concept",
+          "short": "Describes how long a reference remains valid.",
+          "detail": "A lifetime annotation does not extend a value’s life; it states how references relate. The compiler can then ensure a returned reference cannot outlive its input.",
+          "example": "fn longer<'a>(a: &'a str, b: &'a str) -> &'a str { if a.len() > b.len() { a } else { b } } fn main() { println!(\"{}\", longer(\"Rust\", \"C\")); }",
+          "output": "Rust"
+        },
+        {
+          "term": "Slice",
+          "kind": "type",
+          "short": "Borrows a view into part of a collection.",
+          "detail": "A slice does not own data; it views existing data using a start and length. This example selects two array elements.",
+          "example": "fn main() { let nums = [2, 4, 6]; println!(\"{:?}\", &nums[1..]); }",
+          "output": "[4, 6]"
+        }
+      ]
+    },
+    {
+      "id": "types",
+      "title": "Types and patterns",
+      "entries": [
+        {
+          "term": "Struct",
+          "kind": "type",
+          "short": "Groups related named fields into one value.",
+          "detail": "Access fields with dot notation. A `mut` binding lets you update mutable fields.",
+          "example": "#[derive(Debug)] struct Point { x: i32, y: i32 } fn main() { let p = Point { x: 2, y: 3 }; println!(\"({}, {})\", p.x, p.y); }",
+          "output": "(2, 3)"
+        },
+        {
+          "term": "Enum",
+          "kind": "type",
+          "short": "Defines the possible variants of a value under one type.",
+          "detail": "Variants can carry data. Enums make alternatives such as a network message or state explicit.",
+          "example": "enum Shade { Blue, Red } fn main() { let color = Shade::Blue; match color { Shade::Blue => println!(\"blue\"), Shade::Red => println!(\"red\") } }",
+          "output": "blue"
+        },
+        {
+          "term": "match expression",
+          "kind": "control flow",
+          "short": "Checks cases with patterns and can produce a value.",
+          "detail": "Rust requires `match` arms to cover every case. `_` catches the remainder; explicit variants are often clearer.",
+          "example": "fn main() { let n = 2; let label = match n { 1 => \"one\", 2 => \"two\", _ => \"other\" }; println!(\"{label}\"); }",
+          "output": "two"
+        },
+        {
+          "term": "if let",
+          "kind": "syntax",
+          "short": "Handles one matching case with less syntax.",
+          "detail": "Useful instead of a full `match` when only one case matters. No extra arm is needed for the nonmatching value.",
+          "example": "fn main() { let value = Some(8); if let Some(n) = value { println!(\"{n}\"); } }",
+          "output": "8"
+        },
+        {
+          "term": "Option<T>",
+          "kind": "enum",
+          "short": "Represents a value that may be present or absent.",
+          "detail": "`Some(value)` carries a value; `None` means there is none. `Option` represents absence explicitly and safely.",
+          "example": "fn main() { let maybe = Some(4); println!(\"{}\", maybe.unwrap_or(0)); }",
+          "output": "4"
+        },
+        {
+          "term": "Result<T, E>",
+          "kind": "enum",
+          "short": "Returns either a successful value or an error.",
+          "detail": "`Ok(value)` carries success and `Err(error)` an error. Callers can handle the error instead of silently ignoring it.",
+          "example": "fn main() { let result: Result<i32, &str> = Ok(9); println!(\"{}\", result.unwrap_or(0)); }",
+          "output": "9"
+        }
+      ]
+    },
+    {
+      "id": "errors",
+      "title": "Error handling",
+      "entries": [
+        {
+          "term": "? operator",
+          "kind": "operator",
+          "short": "Returns an error early, or unwraps a successful value.",
+          "detail": "The function must return a compatible `Result` or `Option`. `?` shortens error propagation without hiding the error.",
+          "example": "use std::num::ParseIntError; fn doubled(s: &str) -> Result<i32, ParseIntError> { Ok(s.parse::<i32>()? * 2) } fn main() { println!(\"{}\", doubled(\"6\").unwrap()); }",
+          "output": "12"
+        },
+        {
+          "term": "unwrap_or",
+          "kind": "method",
+          "short": "Supplies a fallback value for an error or absence.",
+          "detail": "A fixed fallback is useful when the program can continue. Prefer `?` or an explicit `match` when the error should be handled or reported.",
+          "example": "fn main() { let value: Result<i32, &str> = Err(\"bad input\"); println!(\"{}\", value.unwrap_or(0)); }",
+          "output": "0"
+        },
+        {
+          "term": "? with Option",
+          "kind": "operator use",
+          "short": "Returns early on `None` and yields the value inside `Some`.",
+          "detail": "This form makes chained absence checks concise. The function itself must also return an `Option`.",
+          "example": "fn first_char(s: &str) -> Option<char> { s.chars().next() } fn main() { println!(\"{:?}\", first_char(\"Rust\")); }",
+          "output": "Some('R')"
+        },
+        {
+          "term": "panic!",
+          "kind": "macro",
+          "short": "Immediately reports an unrecoverable program error.",
+          "detail": "Use `panic!` for unexpected states where continuing is unsafe. For routine cases such as invalid input, `Result` is usually better.",
+          "example": "fn main() { std::panic::set_hook(Box::new(|_| {})); let result = std::panic::catch_unwind(|| panic!(\"stop\")); println!(\"{}\", result.is_err()); }",
+          "output": "true"
+        },
+        {
+          "term": "Saturating operation",
+          "kind": "integer operation",
+          "short": "Clamps an overflowing result to the type’s numeric limit.",
+          "detail": "`saturating_add` reaches the maximum value instead of panicking or wrapping on overflow. Use it when that boundary behavior is intended.",
+          "example": "fn main() { println!(\"{}\", u8::MAX.saturating_add(1)); }",
+          "output": "255"
+        }
+      ]
+    },
+    {
+      "id": "traits",
+      "title": "Traits and generics",
+      "entries": [
+        {
+          "term": "Trait",
+          "kind": "interface",
+          "short": "Defines behavior that a type promises to provide.",
+          "detail": "A trait declares required methods; implementing types provide that behavior. Generic code can rely on it through trait bounds.",
+          "example": "trait Greet { fn say(&self) -> &str; } struct Student; impl Greet for Student { fn say(&self) -> &str { \"hello\" } } fn main() { println!(\"{}\", Student.say()); }",
+          "output": "hello"
+        },
+        {
+          "term": "impl block",
+          "kind": "syntax",
+          "short": "Defines methods or trait behavior for a type.",
+          "detail": "A plain `impl` block adds inherent methods; `impl Trait for Type` implements a trait. A reference receiver makes method calls ergonomic.",
+          "example": "struct Counter { value: i32 } impl Counter { fn value(&self) -> i32 { self.value } } fn main() { println!(\"{}\", Counter { value: 3 }.value()); }",
+          "output": "3"
+        },
+        {
+          "term": "Generic function",
+          "kind": "function form",
+          "short": "Lets a function work with more than one concrete type.",
+          "detail": "`<T>` is a type parameter. The compiler often infers `T` from the argument, so one implementation serves multiple types.",
+          "example": "fn identity<T>(value: T) -> T { value } fn main() { println!(\"{}\", identity(12)); }",
+          "output": "12"
+        },
+        {
+          "term": "Trait bound",
+          "kind": "type constraint",
+          "short": "States which behavior a generic type must provide.",
+          "detail": "With `T: Display`, a function can format a `T` value. Bounds document which operations generic code may rely on.",
+          "example": "use std::fmt::Display; fn show<T: Display>(value: T) { println!(\"{value}\"); } fn main() { show(5); }",
+          "output": "5"
+        },
+        {
+          "term": "derive macro",
+          "kind": "attribute",
+          "short": "Generates common trait implementations automatically.",
+          "detail": "`Debug` enables `{:?}` formatting. `derive` removes boilerplate for suitable traits; implement one manually when you need custom behavior.",
+          "example": "#[derive(Debug)] struct Badge { level: u8 } fn main() { println!(\"{:?}\", Badge { level: 2 }); }",
+          "output": "Badge { level: 2 }"
+        },
+        {
+          "term": "Closure",
+          "kind": "expression",
+          "short": "An anonymous function that can be stored and may capture values.",
+          "detail": "Closures use `|parameter| expression` syntax. They can be passed to iterator methods such as `map`, even without capturing values.",
+          "example": "fn main() { let twice = |n| n * 2; println!(\"{}\", twice(4)); }",
+          "output": "8"
+        }
+      ]
+    },
+    {
+      "id": "collections",
+      "title": "Iterators and collections",
+      "entries": [
+        {
+          "term": "Iterator",
+          "kind": "trait",
+          "short": "A sequence that yields elements one at a time.",
+          "detail": "Iterators are often lazy: they do no work until consumed by methods such as `next` or `sum`. This can avoid unnecessary intermediate collections.",
+          "example": "fn main() { let total: i32 = [1, 2, 3].iter().sum(); println!(\"{total}\"); }",
+          "output": "6"
+        },
+        {
+          "term": "map and filter",
+          "kind": "iterator methods",
+          "short": "Transforms elements or keeps only those that match a condition.",
+          "detail": "`map` applies a function to each item; `filter` keeps matching items. The result remains an iterator until consumed.",
+          "example": "fn main() { let total: i32 = [1, 2, 3, 4].iter().filter(|n| **n > 2).map(|n| n * 2).sum(); println!(\"{total}\"); }",
+          "output": "14"
+        },
+        {
+          "term": "collect",
+          "kind": "iterator method",
+          "short": "Collects iterator items into a collection.",
+          "detail": "Annotate the result as `Vec<T>` when its type is ambiguous. `collect` consumes the iterator and builds a new collection.",
+          "example": "fn main() { let squares: Vec<i32> = (1..=3).map(|n| n * n).collect(); println!(\"{:?}\", squares); }",
+          "output": "[1, 4, 9]"
+        },
+        {
+          "term": "Vec<T>",
+          "kind": "collection type",
+          "short": "Stores same-typed items in a growable sequence.",
+          "detail": "Stores items in order; indexing out of bounds can panic. Use `get` for an `Option` when an index may be absent.",
+          "example": "fn main() { let mut nums = vec![1, 2]; nums.push(3); println!(\"{:?}\", nums); }",
+          "output": "[1, 2, 3]"
+        },
+        {
+          "term": "HashMap<K, V>",
+          "kind": "collection type",
+          "short": "Associates keys with values.",
+          "detail": "Keys are unique and `insert` replaces an existing value. `get` returns `Option<&V>`, so a missing key is explicit.",
+          "example": "use std::collections::HashMap; fn main() { let mut scores = HashMap::new(); scores.insert(\"Ada\", 10); println!(\"{}\", scores[\"Ada\"]); }",
+          "output": "10"
+        },
+        {
+          "term": "String and str",
+          "kind": "text types",
+          "short": "`String` owns text, while `str` is usually viewed through a borrow.",
+          "detail": "`String` can grow and change; `&str` is a borrowed view. Functions often accept `&str` to work with both literals and `String` values.",
+          "example": "fn main() { let owned = String::from(\"hello\"); let view: &str = &owned; println!(\"{view}\"); }",
+          "output": "hello"
+        }
+      ]
+    },
+    {
+      "id": "project",
+      "title": "Modules, tests, and Cargo",
+      "entries": [
+        {
+          "term": "Module",
+          "kind": "code organization",
+          "short": "Groups related code in a namespace.",
+          "detail": "`mod` declares a module and `pub` exposes an item. Modules organize names and responsibilities as a project grows.",
+          "example": "mod math { pub fn double(n: i32) -> i32 { n * 2 } } fn main() { println!(\"{}\", math::double(4)); }",
+          "output": "8"
+        },
+        {
+          "term": "Visibility (`pub`)",
+          "kind": "rule",
+          "short": "Controls which names are accessible outside a module.",
+          "detail": "Items are private to their module by default. Exposing only needed functions keeps an API small and clear.",
+          "example": "mod api { pub fn version() -> u8 { 1 } } fn main() { println!(\"{}\", api::version()); }",
+          "output": "1"
+        },
+        {
+          "term": "Unit test",
+          "kind": "test type",
+          "short": "Checks a small function or module behavior in isolation.",
+          "detail": "Tests are commonly written as `#[test]` functions and run with Cargo. This small example executes an assertion and reports success.",
+          "example": "fn main() { assert_eq!(2 + 2, 4); println!(\"test passed\"); }",
+          "output": "test passed"
+        },
+        {
+          "term": "Cargo",
+          "kind": "build tool",
+          "short": "Creates, builds, and tests Rust projects.",
+          "detail": "Cargo coordinates the compiler and dependencies. `cargo new`, `cargo build`, `cargo run`, and `cargo test` are common commands.",
+          "example": "fn main() { println!(\"Rust project ready\"); }",
+          "output": "Rust project ready"
+        },
+        {
+          "term": "Cargo.toml",
+          "kind": "manifest file",
+          "short": "Stores a package’s name, version, and dependencies.",
+          "detail": "The Cargo manifest describes a package. Dependencies go under `[dependencies]`; `Cargo.lock` can record the resolved versions.",
+          "example": "fn main() { println!(\"package manifest\"); }",
+          "output": "package manifest"
+        },
+        {
+          "term": "cargo test",
+          "kind": "Cargo command",
+          "short": "Finds and runs a project’s tests.",
+          "detail": "`cargo test` runs unit and integration tests. An assertion failure makes the test process fail as well.",
+          "example": "fn main() { assert_eq!(\"rust\".len(), 4); println!(\"checks passed\"); }",
+          "output": "checks passed"
+        },
+        {
+          "term": "Integration test",
+          "kind": "test type",
+          "short": "Checks a package’s public behavior as an outside user sees it.",
+          "detail": "Cargo keeps integration tests in `tests/` and builds each file as a separate test crate. Testing the public API avoids coupling to internals.",
+          "example": "fn main() { let public_value = 3; assert_eq!(public_value, 3); println!(\"public API checked\"); }",
+          "output": "public API checked"
+        }
+      ]
+    },
+    {
+      "id": "concurrency",
+      "title": "Threads and async",
+      "entries": [
+        {
+          "term": "Thread",
+          "kind": "execution flow",
+          "short": "Runs work concurrently with the main program.",
+          "detail": "`std::thread::spawn` starts a thread. `join` waits for its result and reports a panic from that thread.",
+          "example": "fn main() { let handle = std::thread::spawn(|| 2 + 3); println!(\"{}\", handle.join().unwrap()); }",
+          "output": "5"
+        },
+        {
+          "term": "JoinHandle",
+          "kind": "standard library type",
+          "short": "A handle used to wait for a spawned thread.",
+          "detail": "`join()` returns the thread’s value inside a `Result`. A thread can run without keeping its handle, but the process may finish when the main thread exits.",
+          "example": "fn main() { let handle = std::thread::spawn(|| \"done\"); println!(\"{}\", handle.join().unwrap()); }",
+          "output": "done"
+        },
+        {
+          "term": "Arc<T>",
+          "kind": "smart pointer",
+          "short": "Provides reference-counted shared ownership across threads.",
+          "detail": "`Arc` uses an atomic reference count and can be shared between threads. Pair it with `Mutex` when shared data must change.",
+          "example": "use std::sync::Arc; fn main() { let value = Arc::new(7); let other = Arc::clone(&value); println!(\"{} {}\", value, other); }",
+          "output": "7 7"
+        },
+        {
+          "term": "Mutex<T>",
+          "kind": "synchronization type",
+          "short": "Provides exclusive, synchronized access to shared data.",
+          "detail": "Locking gives access through a guard. The lock is released automatically when the guard leaves scope.",
+          "example": "use std::sync::Mutex; fn main() { let count = Mutex::new(1); *count.lock().unwrap() += 2; println!(\"{}\", *count.lock().unwrap()); }",
+          "output": "3"
+        },
+        {
+          "term": "Channel",
+          "kind": "communication mechanism",
+          "short": "Sends messages between threads.",
+          "detail": "`mpsc::channel` supports multiple producers and one consumer. The sender transmits a message and the receiver reads it.",
+          "example": "fn main() { let (tx, rx) = std::sync::mpsc::channel(); tx.send(\"hi\").unwrap(); println!(\"{}\", rx.recv().unwrap()); }",
+          "output": "hi"
+        },
+        {
+          "term": "Send and Sync",
+          "kind": "marker traits",
+          "short": "Mark whether a type can safely move between or be shared across threads.",
+          "detail": "`Send` means a value can move to another thread; `Sync` means references can be shared across threads. Rust often derives these properties automatically.",
+          "example": "fn main() { fn assert_send<T: Send>() {} assert_send::<i32>(); println!(\"i32 is Send\"); }",
+          "output": "i32 is Send"
+        },
+        {
+          "term": "async fn",
+          "kind": "syntax",
+          "short": "Represents its eventual result as a future when called.",
+          "detail": "Calling an async function creates a `Future`; its body does not simply finish at the call. Running it needs an async runtime and `.await`; the standard library has no executor.",
+          "example": "async fn answer() -> i32 { 42 } fn main() { let _future = answer(); println!(\"future created\"); }",
+          "output": "future created"
+        }
+      ]
+    }
+  ]
+}

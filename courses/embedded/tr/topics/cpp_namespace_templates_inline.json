@@ -1,0 +1,87 @@
+{
+  "id": "cpp_namespace_templates_inline",
+  "title": "namespace, template ve inline işlevler",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/namespace.html",
+    "https://en.cppreference.com/w/cpp/language/templates.html",
+    "https://en.cppreference.com/w/cpp/language/inline.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "namespace",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", aynı adlı işlevlerin çakışmasını önler; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sensors::",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile açıkça çağrılır. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "template",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", aynı tür güvenli işlevi farklı türler için üretir; derleyici kullanılan sürümleri oluşturur. Başlıktaki ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "inline",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " işlevin birden çok kaynak dosyasında yinelenen tanım hatasını önler; derleyicinin işlevi kesinlikle satır içine alacağı anlamına gelmez. Küçük işlevlerde ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "inline",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", makrodan daha güvenlidir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "namespace Sensors {\n  inline int clampReading(int value, int limit) {\n    return value > limit ? limit : value;\n  }\n  template <typename T>\n  T larger(T a, T b) { return a > b ? a : b; }\n}\n\nint safeValue = Sensors::clampReading(analogRead(A0), 1023);\nint peak = Sensors::larger(12, 18);",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Şablon her kullanılan tür için kod üreterek programı büyütebilir. Arduino kütüphaneleri C++'ın sınırlı bir alt kümesini hedefleyebilir; şablonları ve ad alanlarını seçilen kart derleyicisinde doğrulayın. Makrolar bağımsız değişkenleri birden çok kez değerlendirebilir ve tür denetimini atlar."
+    }
+  ],
+  "testId": "embedded_test_cpp_namespace_templates_inline_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

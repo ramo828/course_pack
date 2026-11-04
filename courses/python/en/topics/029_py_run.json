@@ -1,0 +1,405 @@
+{
+  "id": "python_py_run",
+  "title": "Running files and modules",
+  "difficulty": "easy",
+  "testId": "python_test_py_run_en",
+  "sources": [
+    "https://docs.python.org/3/using/cmdline.html",
+    "https://docs.python.org/3/tutorial/interpreter.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "WHY USE THIS?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__main__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " guard separates direct execution from import, so importing a module does not unexpectedly run its demo.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Run a Python file from the terminal and read arguments with sys.argv. Starting a module with python -m helps package-relative imports work correctly.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import sys\nfrom unittest.mock import patch\n\nwith patch('sys.argv', ['lesson.py', 'first', 'second']):\n    print('arguments:', sys.argv[1:])",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "arguments: ['first', 'second']",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import sys",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports functionality from a module; without it, the name is unavailable and may raise NameError.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from unittest.mock import patch",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports specific names from a module; without it, those names are unavailable.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with patch('sys.argv', ['lesson.py', 'first', 'second']):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Manages a resource for the block; without the context manager, a file or connection may remain open.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print('arguments:', sys.argv[1:])",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "python -m runs a module in its package context.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Command-line arguments arrive as text; validate and convert them before use."
+    },
+    {
+      "type": "text",
+      "text": "PRACTICE EXAMPLE 2 · Running files and modules\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def main():\n    print('script started')\nif __name__ == '__main__':\n    main()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "script started",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def main():",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print('script started')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "if __name__ == '__main__':",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Selects behavior for a condition; without branches, different cases follow the same path.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "main()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "PRACTICE EXAMPLE 3 · Running files and modules\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def multiply(left, right):\n    return left * right\nprint(multiply(6, 7))",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "42",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def multiply(left, right):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return left * right",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sends a result to the caller; without it, a function usually returns None.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(multiply(6, 7))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "detail",
+      "title": "Why it matters",
+      "text": "A `__main__` guard separates direct execution from import, so importing a module does not unexpectedly run its demo."
+    },
+    {
+      "type": "warning",
+      "title": "Watch out",
+      "text": "Do not remove the operating system's Python or install packages globally without a reason."
+    },
+    {
+      "type": "text",
+      "text": "COMMON MISTAKES\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Keep the interpreter, pip, and project packages in the same virtual environment.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Running files and modules”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: A ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__main__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " guard separates direct execution from import, so importing a module does not unexpectedly run its demo.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Running files and modules”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: A ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__main__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " guard separates direct execution from import, so importing a module does not unexpectedly run its demo.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes.",
+  "estimatedMinutes": 12
+}

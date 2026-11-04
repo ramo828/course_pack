@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_mutable_defaults_tr",
+  "title": "Fonksiyonlarda değişebilir varsayılan argüman tuzağı",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_mutable_defaults",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 1. kod örneği tam olarak ne yazdırır?\n\ndef add_item(value: str, items: list[str] | None = None) -> list[str]:\n    if items is None:\n        items = []\n    items.append(value)\n    return items\n\nprint(add_item('a'))\nprint(add_item('b'))",
+      "options": [
+        "False",
+        "['a']\n['a', 'b']",
+        "['a']\n['b']",
+        "['A']\n['B']"
+      ],
+      "answer": "['a']\n['b']",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`def add_item(value: str, items: list[str] | None = None) -> list[str]:` — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n`if items is None:` — Koşula uygun davranışı seçer; dallar olmazsa farklı durumlar aynı yolla işlenir.\n`items = []` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`items.append(value)` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`return items` — Sonucu çağırana verir; return olmazsa fonksiyon çoğunlukla None döndürür.\n`print(add_item('a'))` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`print(add_item('b'))` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_mutable_defaults",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 2. kod örneği tam olarak ne yazdırır?\n\ndef add_item(value, items=[]):\n    items.append(value)\n    return items\n\nprint(add_item('a'))\nprint(add_item('b'))",
+      "options": [
+        "False",
+        "['a']\n['a', 'b']",
+        "['A']\n['A', 'B']",
+        "['a']\n['b']"
+      ],
+      "answer": "['a']\n['a', 'b']",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`def add_item(value, items=[]):` — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n`items.append(value)` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`return items` — Sonucu çağırana verir; return olmazsa fonksiyon çoğunlukla None döndürür.\n`print(add_item('a'))` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`print(add_item('b'))` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_mutable_defaults",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 3. kod örneği tam olarak ne yazdırır?\n\ndef add_item(value, items=None):\n    if items is None:\n        items = []\n    items.append(value)\n    return items\n\nfirst = add_item('a')\nsecond = add_item('b')\nprint(first is second)",
+      "options": [
+        "['a']\n['a', 'b']",
+        "False",
+        "['a']\n['b']",
+        "True"
+      ],
+      "answer": "False",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`def add_item(value, items=None):` — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n`if items is None:` — Koşula uygun davranışı seçer; dallar olmazsa farklı durumlar aynı yolla işlenir.\n`items = []` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`items.append(value)` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`return items` — Sonucu çağırana verir; return olmazsa fonksiyon çoğunlukla None döndürür.\n`first = add_item('a')` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`second = add_item('b')` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`print(first is second)` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_mutable_defaults",
+      "type": "multiple_choice",
+      "prompt": "“Fonksiyonlarda değişebilir varsayılan argüman tuzağı” konusunu doğru tanımlayan ifade hangisidir?",
+      "options": [
+        "Sözdizimi ve girinti kod bloklarının başlangıcını gösterir; web rotalarında ve koşullarda yanlış girinti programı çalıştırmaz.",
+        "Yorum, açık olmayan bir kararın nedenini açıklar; iyi yorum kodu yinelemez, örneğin özel bir sınırın neden seçildiğini belirtir.",
+        "Varsayılan ifade fonksiyon tanımlanırken bir kez hesaplanır.",
+        "Python; okunabilir sözdizimi ve geniş kütüphanesi sayesinde otomasyon, web hizmetleri ve veri analizinde kullanılır."
+      ],
+      "answer": "Varsayılan ifade fonksiyon tanımlanırken bir kez hesaplanır.",
+      "explanation": "Varsayılan ifade fonksiyon tanımlanırken bir kez hesaplanır. Değişebilir nesne fonksiyona bağlı kaldığından list/dict/set varsayılanı çağrılar arasında paylaşılan duruma dönüşebilir. `None` kullanıp her çağrıda yeni nesne oluşturun. Bilinçli paylaşım gerekiyorsa gizli varsayılan yerine açık parametre veya nesne durumu kullanın."
+    }
+  ]
+}

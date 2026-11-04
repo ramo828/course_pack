@@ -1,0 +1,87 @@
+{
+  "id": "cpp_namespace_templates_inline",
+  "title": "namespace, шаблоны и inline-функции",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/namespace.html",
+    "https://en.cppreference.com/w/cpp/language/templates.html",
+    "https://en.cppreference.com/w/cpp/language/inline.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "namespace",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " предотвращает конфликт одноимённых функций; вызов ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sensors::",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " показывает, к какому пространству относится имя. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "template",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " создаёт типобезопасную функцию для разных типов, а компилятор формирует используемые варианты. Функция ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "inline",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " в заголовке предотвращает ошибку повторного определения при подключении из нескольких файлов; это не приказ компилятору встроить машинный код. Для небольших функций ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "inline",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " безопаснее макроса.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "namespace Sensors {\n  inline int clampReading(int value, int limit) {\n    return value > limit ? limit : value;\n  }\n  template <typename T>\n  T larger(T a, T b) { return a > b ? a : b; }\n}\n\nint safeValue = Sensors::clampReading(analogRead(A0), 1023);\nint peak = Sensors::larger(12, 18);",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Шаблоны могут создать код для каждого типа и увеличить размер программы. Некоторые библиотеки Arduino рассчитаны на ограниченный набор C++; проверяйте выбранный компилятор платы. Макросы могут вычислять аргументы несколько раз и обходить проверку типов."
+    }
+  ],
+  "testId": "embedded_test_cpp_namespace_templates_inline_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

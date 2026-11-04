@@ -1,0 +1,417 @@
+{
+  "id": "rust_rust_strings_slices",
+  "title": "Strings, UTF-8, and slices",
+  "difficulty": "medium",
+  "testId": "rust_test_rust_strings_slices_en",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch08-02-strings.html",
+    "https://doc.rust-lang.org/book/ch04-03-slices.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Strings, UTF-8, and slices” to a real program or device. The key principle is: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " owns the text; ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " borrows a view. In a project, follow this guidance: Use ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " when text must be owned or changed; accept ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " when a function only needs to read it.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn first_word(text: &str) -> &str {\n    text.split_whitespace().next().unwrap_or(\"\")\n}\nfn main() {\n    let sentence = String::from(\"Rust keeps data safe\");\n    let word = first_word(&sentence);\n    println!(\"{word}\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A Rust ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " owns growable UTF-8 text on the heap; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " is a borrowed view. UTF-8 characters can use multiple bytes, so ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "text[0]",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " indexing is unavailable: ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "len()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " counts bytes, while ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "chars()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " iterates Unicode scalar values. A slice views part of text or an array without copying it; a function accepting ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " can work with both a ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and a string literal.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "text.split_whitespace().next().unwrap_or(\"\")",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " owns the text; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " borrows a view.\nWhy it is used: Use ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " when text must be owned or changed; accept ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " when a function only needs to read it.\nIf omitted or changed: UTF-8 byte boundaries are not character boundaries; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "&text[..1]",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " is not a safe character slice for every string.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Skipping this check before applying the rule: Use `String` when text must be owned or changed; accept `&str` when a function only needs to read it."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " owns the text; ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " borrows a view.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Use `String` when text must be owned or changed; accept `&str` when a function only needs to read it."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn last_word(text: &str) -> &str { text.split_whitespace().last().unwrap_or(\"\") }\nfn main() { println!(\"{}\", last_word(\"safe borrowed view\")); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "view\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "UTF-8 byte boundaries are not character boundaries; `&text[..1]` is not a safe character slice for every string."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Examples focus on the concept; compile and test with the selected toolchain and target because APIs and diagnostics can vary by version."
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement gives the core rule for “Strings, UTF-8, and slices”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " owns the text; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " borrows a view.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "A separate visual is not essential; a small runnable code example and its expected output explain the topic."
+}

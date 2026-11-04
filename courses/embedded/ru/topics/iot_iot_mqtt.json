@@ -1,0 +1,186 @@
+{
+  "id": "iot_iot_mqtt",
+  "title": "Топики MQTT, QoS и retained-сообщения",
+  "difficulty": "medium",
+  "testId": "iot_test_iot_mqtt_ru",
+  "sources": [
+    "https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Топики MQTT, QoS и retained-сообщения» в программе или устройстве. Основной принцип: QoS задаёт гарантию доставки и повторную передачу. В проекте следуйте рекомендации: Отделяйте топики команд от телеметрии и ограничивайте право публикации команд.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "mosquitto_sub -h broker.example.test -t \"telemetry/site-7/+\"",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Публикует в ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "telemetry/site-7/device-2/temperature",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " и слушает ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "commands/site-7/device-2",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "; сообщения зависят от подключённых клиентов брокера.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Клиенты MQTT публикуют и подписываются на топики. QoS 0/1/2 задаёт доставку, retained хранит последнее сообщение топика; схема топиков влияет на приватность и масштаб.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "mosquitto_sub -h broker.example.test -t \"telemetry/site-7/+\"",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: QoS задаёт гарантию доставки и повторную передачу.\nЗачем она нужна: Отделяйте топики команд от телеметрии и ограничивайте право публикации команд.\nЕсли пропустить или изменить: Не помещайте персональные данные в топики или публичный брокер; применяйте ACL и защищённый транспорт.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Не помещайте персональные данные в топики или публичный брокер; применяйте ACL и защищённый транспорт."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QoS задаёт гарантию доставки и повторную передачу.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Отделяйте топики команд от телеметрии и ограничивайте право публикации команд."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "mosquitto_pub -h broker.example.test -t telemetry/site-7/device-2/temp -m 21.5",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Нужны доступный MQTT broker и права; Terminal A получает сообщение, пока подключены оба клиента.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "QoS 0/1/2 задаёт доставку, retained хранит последнее сообщение топика; схема топиков влияет на приватность и масштаб."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Не помещайте персональные данные в топики или публичный брокер; применяйте ACL и защищённый транспорт."
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "Устройство передаёт измерения через шлюз или брокер сервису; команды могут идти обратно."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

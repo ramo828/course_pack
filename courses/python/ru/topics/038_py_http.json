@@ -1,0 +1,575 @@
+{
+  "id": "python_py_http",
+  "title": "Работа с HTTP API",
+  "difficulty": "hard",
+  "testId": "python_test_py_http_ru",
+  "sources": [
+    "https://docs.python.org/3/library/urllib.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЗАЧЕМ ЭТО НУЖНО?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HTTP-клиент обменивается запросами и ответами с сервисом; отдельно обрабатывайте таймауты, статус и формат.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Проверяйте код статуса, заголовки и тело HTTP-ответа отдельно. Внешний API может тормозить или быть недоступен: задавайте тайм-ауты и проверяйте JSON.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer\nfrom threading import Thread\nfrom urllib.request import urlopen\n\nclass HealthHandler(BaseHTTPRequestHandler):\n    def do_GET(self):\n        self.send_response(200)\n        self.end_headers()\n        self.wfile.write(b'healthy')\n    def log_message(self, format, *args):\n        pass\n\nserver = ThreadingHTTPServer(('127.0.0.1', 0), HealthHandler)\nthread = Thread(target=server.serve_forever, daemon=True)\nthread.start()\ntry:\n    url = f'http://127.0.0.1:{server.server_port}/health'\n    with urlopen(url, timeout=2) as response:\n        print(response.status, response.read().decode())\nfinally:\n    server.shutdown()\n    thread.join()\n    server.server_close()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "200 healthy",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from threading import Thread",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from urllib.request import urlopen",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class HealthHandler(BaseHTTPRequestHandler):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Определяет тип, объединяющий данные и поведение; без класса нельзя создать объект по этому контракту.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def do_GET(self):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Создаёт повторно используемую функцию; без определения её нельзя вызвать.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "self.send_response(200)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "self.end_headers()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "self.wfile.write(b'healthy')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def log_message(self, format, *args):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Создаёт повторно используемую функцию; без определения её нельзя вызвать.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "pass",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "server = ThreadingHTTPServer(('127.0.0.1', 0), HealthHandler)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "thread = Thread(target=server.serve_forever, daemon=True)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "thread.start()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "try:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выделяет операции, способные завершиться ошибкой; без обработчика ожидаемая ошибка прервёт вызывающий код.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "url = f'http://127.0.0.1:{server.server_port}/health'",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with urlopen(url, timeout=2) as response:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Управляет ресурсом внутри блока; без контекстного менеджера файл или соединение может остаться открытым.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(response.status, response.read().decode())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "finally:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "server.shutdown()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "thread.join()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "server.server_close()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Тайм-аут не позволяет сетевому вызову зависнуть надолго.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Повторяйте только безопасные операции и ограничивайте число попыток."
+    },
+    {
+      "type": "text",
+      "text": "ПРАКТИЧЕСКИЙ ПРИМЕР 2 · Работа с HTTP API\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from urllib.parse import urlencode\nquery = urlencode({'q': 'python basics', 'page': 2})\nprint(query)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "q=python+basics&page=2",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from urllib.parse import urlencode",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "query = urlencode({'q': 'python basics', 'page': 2})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(query)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ПРАКТИЧЕСКИЙ ПРИМЕР 3 · Работа с HTTP API\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from urllib.request import Request\nrequest = Request('https://example.com/items', method='GET')\nprint(request.method, request.full_url)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "GET https://example.com/items",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from urllib.request import Request",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "request = Request('https://example.com/items', method='GET')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(request.method, request.full_url)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "detail",
+      "title": "Почему это важно",
+      "text": "HTTP-клиент обменивается запросами и ответами с сервисом; отдельно обрабатывайте таймауты, статус и формат."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Сеть может задерживаться, а внешний ответ — быть недоверенным; проверяйте полученные данные."
+    },
+    {
+      "type": "text",
+      "text": "ЧАСТЫЕ ОШИБКИ\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Задавайте таймауты HTTP и проверяйте статусы; различайте 401/403 и 4xx/5xx.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «Работа с HTTP API»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: HTTP-клиент обменивается запросами и ответами с сервисом; отдельно обрабатывайте таймауты, статус и формат.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «Работа с HTTP API»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: HTTP-клиент обменивается запросами и ответами с сервисом; отдельно обрабатывайте таймауты, статус и формат.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Отдельная иллюстрация не обязательна; небольшого запускаемого примера и ожидаемого результата достаточно.",
+  "estimatedMinutes": 18
+}

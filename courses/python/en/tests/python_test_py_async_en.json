@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_async_en",
+  "title": "asyncio and asynchronous I/O",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_async",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 1 in this lesson produce?\n\nimport asyncio\n\nasync def read_sensor(name: str, gate: asyncio.Semaphore) -> str:\n    async with gate:\n        await asyncio.sleep(0)\n        return f'{name}:ready'\n\nasync def main() -> None:\n    gate = asyncio.Semaphore(2)\n    results = await asyncio.gather(\n        read_sensor('temperature', gate),\n        read_sensor('humidity', gate),\n    )\n    print(results)\n\nasyncio.run(main())",
+      "options": [
+        "['temperature:ready']",
+        "['temperature:ready', 'humidity:ready']",
+        "operation timed out",
+        "['A', 'B']"
+      ],
+      "answer": "['temperature:ready', 'humidity:ready']",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`import asyncio` — Imports functionality from a module; without it, the name is unavailable and may raise NameError.\n`async def read_sensor(name: str, gate: asyncio.Semaphore) -> str:` — Defines a coroutine for I/O work; without the function and an await, that work does not run.\n`async with gate:` — Manages a resource for the block; without the context manager, a file or connection may remain open.\n`await asyncio.sleep(0)` — Suspends this coroutine and lets the event loop run other tasks; a zero delay is not a real-time wait.\n`return f'{name}:ready'` — Sends a result to the caller; without it, a function usually returns None.\n`async def main() -> None:` — Defines a coroutine for I/O work; without the function and an await, that work does not run.\n`gate = asyncio.Semaphore(2)` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`results = await asyncio.gather(` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`read_sensor('temperature', gate),` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`read_sensor('humidity', gate),` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`)` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`print(results)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`asyncio.run(main())` — Creates an event loop, runs the coroutine to completion, and then closes the loop."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_async",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 2 in this lesson produce?\n\nimport asyncio\n\nasync def main() -> None:\n    try:\n        await asyncio.wait_for(asyncio.sleep(1), timeout=0.01)\n    except TimeoutError:\n        print('operation timed out')\n\nasyncio.run(main())",
+      "options": [
+        "OPERATION TIMED OUT",
+        "['A', 'B']",
+        "operation timed out",
+        "['temperature:ready', 'humidity:ready']"
+      ],
+      "answer": "operation timed out",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`import asyncio` — Imports functionality from a module; without it, the name is unavailable and may raise NameError.\n`async def main() -> None:` — Defines a coroutine for I/O work; without the function and an await, that work does not run.\n`try:` — Marks operations that may fail; without a handler, an expected error can stop the caller.\n`await asyncio.wait_for(asyncio.sleep(1), timeout=0.01)` — Suspends this coroutine for the requested delay so the event loop can run other tasks; it is not itself a network I/O operation.\n`except TimeoutError:` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`print('operation timed out')` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`asyncio.run(main())` — Creates an event loop, runs the coroutine to completion, and then closes the loop."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_async",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 3 in this lesson produce?\n\nimport asyncio\n\nasync def read(name: str) -> str:\n    await asyncio.sleep(0)\n    return name\n\nasync def main() -> None:\n    print(await asyncio.gather(read('A'), read('B')))\n\nasyncio.run(main())",
+      "options": [
+        "['A']",
+        "['temperature:ready', 'humidity:ready']",
+        "operation timed out",
+        "['A', 'B']"
+      ],
+      "answer": "['A', 'B']",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`import asyncio` — Imports functionality from a module; without it, the name is unavailable and may raise NameError.\n`async def read(name: str) -> str:` — Defines a coroutine for I/O work; without the function and an await, that work does not run.\n`await asyncio.sleep(0)` — Suspends this coroutine and lets the event loop run other tasks; a zero delay is not a real-time wait.\n`return name` — Sends a result to the caller; without it, a function usually returns None.\n`async def main() -> None:` — Defines a coroutine for I/O work; without the function and an await, that work does not run.\n`print(await asyncio.gather(read('A'), read('B')))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`asyncio.run(main())` — Creates an event loop, runs the coroutine to completion, and then closes the loop."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_async",
+      "type": "multiple_choice",
+      "prompt": "Which statement accurately describes “asyncio and asynchronous I/O”?",
+      "options": [
+        "asyncio schedules I/O-waiting tasks on an event loop, usually in one thread.",
+        "Check HTTP status, headers, and body separately.",
+        "FastAPI is an ASGI web framework that uses Python type annotations to build HTTP endpoints and JSON APIs.",
+        "FastAPI builds JSON APIs that web and mobile applications call over HTTP; type annotations help validate inputs and describe the API contract."
+      ],
+      "answer": "asyncio schedules I/O-waiting tasks on an event loop, usually in one thread.",
+      "explanation": "asyncio schedules I/O-waiting tasks on an event loop, usually in one thread. `async def` defines a coroutine and `await` yields control; `gather` returns results in input order, while a Semaphore bounds concurrent work. Blocking I/O and CPU-heavy code stall the loop. Design timeouts, cancellation, and task lifetimes; use a process pool or suitable executor for CPU parallelism."
+    }
+  ]
+}

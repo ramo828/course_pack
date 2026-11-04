@@ -1,0 +1,138 @@
+{
+  "id": "python_py_mutable_defaults",
+  "title": "Fonksiyonlarda değişebilir varsayılan argüman tuzağı",
+  "difficulty": "medium",
+  "testId": "python_test_py_mutable_defaults_tr",
+  "sources": [
+    "https://docs.python.org/3/tutorial/",
+    "https://docs.python.org/3/using/",
+    "https://docs.python.org/3/library/",
+    "https://docs.python.org/3/library/turtle.html",
+    "https://docs.python.org/3/library/tkinter.html",
+    "https://fastapi.tiangolo.com/tutorial/",
+    "https://www.python.org/about/success/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Python, varsayılan argümanı her çağrıda değil fonksiyon tanımlanırken bir kez oluşturur. Bu nedenle ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "def add(value, items=[])",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " biçimindeki liste çağrılar arasında paylaşılır ve önceki veriler beklenmedik biçimde kalabilir. Güvenli çözüm ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "None",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kullanıp her çağrıda yeni liste oluşturmaktır. Aynı risk dict ve set için de geçerlidir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def add_item(value: str, items: list[str] | None = None) -> list[str]:\n    if items is None:\n        items = []\n    items.append(value)\n    return items\n\nprint(add_item('a'))\nprint(add_item('b'))",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "['a']\n['b']",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Her çağrı yeni liste oluşturur; sonuçlar ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "['a']",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " ve ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "['b']",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " olur.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "`def add(value, items=None)` yazın; sonra `if items is None: items = []` ile yeni nesne oluşturun."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Tuple ve `None` gibi değişmez varsayılanlar genellikle güvenlidir; ancak değişebilir nesnenin iç içe üyeleri yine paylaşılabilir."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

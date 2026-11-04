@@ -1,0 +1,146 @@
+{
+  "id": "cpp_fixed_width_size_types",
+  "title": "Fixed-width types, size_t, and ptrdiff_t",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/c/types/integer.html",
+    "https://en.cppreference.com/w/c/types/size_t.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "uint8_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "uint16_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "uint32_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "uint64_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", and ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int8_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int16_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int32_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " state their bit width explicitly. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "size_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " is for array sizes and indexes; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ptrdiff_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " is a signed distance between elements in the same array. Since ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " size varies by board, fixed-width types make protocol fields more predictable.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <stdint.h>\n#include <stddef.h>\n\nuint8_t packetByte = 0x2A;\nuint16_t packetLength = 128;\nuint64_t totalTicks = 0;\nint8_t signedByte = -5;\nint16_t temperatureTenths = -125;\nint32_t signedCount = -1000;\nuint32_t elapsedMs = 0;\nsize_t count = 4;\nptrdiff_t distance = 1;",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Wider types can use more memory; choose the smallest type that fits. Account for overflow and remember that `size_t` is unsigned. `uint64_t` arithmetic may be slower on small boards."
+    }
+  ],
+  "testId": "embedded_test_cpp_fixed_width_size_types_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

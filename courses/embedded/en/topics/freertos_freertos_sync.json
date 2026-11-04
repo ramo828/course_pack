@@ -1,0 +1,160 @@
+{
+  "id": "freertos_freertos_sync",
+  "title": "Semaphores, mutexes, and deadlocks",
+  "difficulty": "hard",
+  "testId": "freertos_test_freertos_sync_en",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/02-Queues-mutexes-and-semaphores/02-Semaphores-and-Mutexes"
+  ],
+  "estimatedMinutes": 25,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Semaphores, mutexes, and deadlocks” to a real program or device. The key principle is: A mutex protects a short critical section; a queue transfers values, so they solve different problems. In a project, follow this guidance: Acquire before shared access and release on every path after a successful take.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nSemaphoreHandle_t mutex = nullptr;\nint sharedValue = 0;\nvoid writer(void*) { for (;;) { if (xSemaphoreTake(mutex, pdMS_TO_TICKS(100)) == pdTRUE) { ++sharedValue; xSemaphoreGive(mutex); } vTaskDelay(pdMS_TO_TICKS(250)); } }\nvoid setup() { Serial.begin(115200); mutex = xSemaphoreCreateMutex(); if (mutex) xTaskCreate(writer, \"writer\", 2048, nullptr, 1, nullptr); }\nvoid loop() { int snapshot; if (mutex && xSemaphoreTake(mutex, pdMS_TO_TICKS(50)) == pdTRUE) { snapshot = sharedValue; xSemaphoreGive(mutex); Serial.println(snapshot); } vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor prints the shared counter while a mutex protects reads and writes.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A semaphore coordinates events or a count of resources; a mutex protects shared mutable state and has ownership and priority-inheritance semantics. Hold a mutex briefly, release it around blocking I/O, and keep lock order consistent to reduce deadlock and priority-inversion risk. Never take a mutex from an ISR.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void writer(void*) { for (;;) { if (xSemaphoreTake(mutex, pdMS_TO_TICKS(100)) == pdTRUE) { ++sharedValue; xSemaphoreGive(mutex); } vTaskDelay(pdMS_TO_TICKS(250)); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: A mutex protects a short critical section; a queue transfers values, so they solve different problems.\nWhy it is used: Acquire before shared access and release on every path after a successful take.\nIf omitted or changed: Forgetting to release a lock can block tasks indefinitely; check every error and early-return path.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Forgetting to release a lock can block tasks indefinitely; check every error and early-return path."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A mutex protects a short critical section; a queue transfers values, so they solve different problems.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Acquire before shared access and release on every path after a successful take."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nSemaphoreHandle_t gate = nullptr;\nint sharedCount = 0;\nvoid worker(void*) { for (;;) { if (xSemaphoreTake(gate, pdMS_TO_TICKS(100)) == pdTRUE) { ++sharedCount; xSemaphoreGive(gate); } vTaskDelay(pdMS_TO_TICKS(10)); } }\nvoid setup() { Serial.begin(115200); gate = xSemaphoreCreateMutex(); if (gate) xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr); }\nvoid loop() { int snapshot; if (gate && xSemaphoreTake(gate, pdMS_TO_TICKS(50)) == pdTRUE) { snapshot = sharedCount; xSemaphoreGive(gate); Serial.println(snapshot); } vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The shared counter is protected by a mutex during reads and writes.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Never take a mutex from an ISR."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Forgetting to release a lock can block tasks indefinitely; check every error and early-return path."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a diagram showing task states, priorities, queue/synchronization relationships, and timing."
+}

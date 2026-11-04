@@ -1,0 +1,417 @@
+{
+  "id": "rust_rust_strings_slices",
+  "title": "Strings, UTF-8 ve slices",
+  "difficulty": "medium",
+  "testId": "rust_test_rust_strings_slices_tr",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch08-02-strings.html",
+    "https://doc.rust-lang.org/book/ch04-03-slices.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Strings, UTF-8 ve slices” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " metni sahiplenir, ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ödünç görünüm sunar. Gerçek projede şu öneriyi izleyin: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yalnızca yeni veya değişen metnin sahibi olmalı; fonksiyon yalnızca okuyorsa ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kabul edin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn first_word(text: &str) -> &str {\n    text.split_whitespace().next().unwrap_or(\"\")\n}\nfn main() {\n    let sentence = String::from(\"Rust keeps data safe\");\n    let word = first_word(&sentence);\n    println!(\"{word}\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust'ta ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", heap'te tutulan ve değiştirilebilen UTF-8 metnin sahibidir; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ise metne ödünç alınmış bir görünümdür. UTF-8 karakteri birden çok bayt kullanabildiği için ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "text[0]",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " gibi indeksleme yoktur; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "len()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bayt sayar, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "chars()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " Unicode scalar değerlerini dolaşır. Slice, metin veya dizinin bir bölümünü kopyalamadan gösterir; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " alan bir fonksiyon hem ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " hem string literal kabul edebilir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "text.split_whitespace().next().unwrap_or(\"\")",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " metni sahiplenir, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ödünç görünüm sunar.\nNeden seçildi: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yalnızca yeni veya değişen metnin sahibi olmalı; fonksiyon yalnızca okuyorsa ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kabul edin.\nAtlanır veya değiştirilirse: UTF-8 bayt sınırı ile karakter sınırı aynı değildir; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "&text[..1]",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " her metinde güvenli karakter kesimi değildir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: `String` yalnızca yeni veya değişen metnin sahibi olmalı; fonksiyon yalnızca okuyorsa `&str` kabul edin."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " metni sahiplenir, ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " ödünç görünüm sunar.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "`String` yalnızca yeni veya değişen metnin sahibi olmalı; fonksiyon yalnızca okuyorsa `&str` kabul edin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn last_word(text: &str) -> &str { text.split_whitespace().last().unwrap_or(\"\") }\nfn main() { println!(\"{}\", last_word(\"safe borrowed view\")); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "view\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "UTF-8 bayt sınırı ile karakter sınırı aynı değildir; `&text[..1]` her metinde güvenli karakter kesimi değildir."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Kod örnekleri odaklı parçalardır; seçilen araç zinciri ve hedefte derleyip test edin, çünkü API ve tanılamalar sürüme göre değişebilir."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Strings, UTF-8 ve slices” konusunda hangi ifade temel kuralı doğru açıklar?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " metni sahiplenir, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ödünç görünüm sunar.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

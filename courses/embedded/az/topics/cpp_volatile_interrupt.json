@@ -1,0 +1,55 @@
+{
+  "id": "cpp_volatile_interrupt",
+  "title": "volatile və kəsilmə: dəyişənin görünməsi, atomiklik deyil",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/variables/variable-scope-qualifiers/volatile/",
+    "https://docs.arduino.cc/language-reference/en/functions/external-interrupts/attachInterrupt/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Kəsilmə funksiyası əsas proqramı gözlətmədən qısa hadisəyə cavab verir. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "volatile",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kompilyatora dəyişənin gözlənilmədən dəyişə biləcəyini bildirir və oxunuşun yaddaşdan aparılmasına kömək edir; o, əməliyyatı atomik etmir, eyni vaxtlı girişə kilid qoymur və məlumat ötürmür. Kəsilmədə yalnız bayraq qaldırın, işi ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " daxilində görün.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "volatile bool eventReady = false;\n\nvoid onButtonEdge() {\n  eventReady = true;\n}\n\nvoid setup() {\n  pinMode(2, INPUT_PULLUP);\n  attachInterrupt(digitalPinToInterrupt(2), onButtonEdge, FALLING);\n}\n\nvoid loop() {\n  if (eventReady) {\n    noInterrupts();\n    eventReady = false;\n    interrupts();\n    // Handle the event outside the interrupt.\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Düymə titrəməsini ayrıca aradan qaldırın. Bir neçə baytlıq sayğacın oxunması lövhədə bölünə bilər; qoruma üsulu MCU/RTOS-a görə dəyişir. Kəsilmədə `Serial`, gecikmə və yaddaş ayırma çağırmayın."
+    }
+  ],
+  "testId": "embedded_test_cpp_volatile_interrupt_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

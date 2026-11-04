@@ -1,0 +1,945 @@
+{
+  "id": "python_py_slots",
+  "title": "__slots__ ile bellek kullanımını ölçerek azaltma",
+  "difficulty": "hard",
+  "testId": "python_test_py_slots_tr",
+  "sources": [
+    "https://docs.python.org/3/reference/datamodel.html#object.__slots__",
+    "https://docs.python.org/3/library/dataclasses.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NEDEN KULLANILIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " nesne düzenini değiştirir: örnekte otomatik ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " oluşmaz ve yalnızca tanımlı alanlar kullanılabilir. Çok sayıda küçük nesnede yararlı olabilir, ancak ölçümle doğrulanmalıdır. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "dataclass(slots=True)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kolay bir seçenektir; dinamik alan, weak reference ve kalıtım gereksinimlerini inceleyin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " nesne düzenini değiştirir: örnekte otomatik ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " oluşmaz ve yalnızca tanımlı alanlar kullanılabilir. Çok sayıda küçük nesnede yararlı olabilir, ancak ölçümle doğrulanmalıdır. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "dataclass(slots=True)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kolay bir seçenektir; dinamik alan, weak reference ve kalıtım gereksinimlerini inceleyin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", her nesne için otomatik ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " oluşturulmasını önleyip izin verilen alanları belirler. Çok sayıda küçük nesnede bellek azaltabilir; kazanç Python sürümüne ve sınıf tasarımına bağlıdır, ölçmeden varsaymayın. Tanımlanmamış alan eklenemez ve dinamik özelliklerle bazı çoklu kalıtım düzenleri etkilenir. Basit veri sınıflarında Python 3.10+ için ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "@dataclass(slots=True)",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " seçilebilir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "AMAÇ VE GERÇEK KULLANIM\n`__slots__` nesne düzenini değiştirir: örnekte otomatik `__dict__` oluşmaz ve yalnızca tanımlı alanlar kullanılabilir. Çok sayıda küçük nesnede yararlı olabilir, ancak ölçümle doğrulanmalıdır. `dataclass(slots=True)` kolay bir seçenektir; dinamik alan, weak reference ve kalıtım gereksinimlerini inceleyin.\n\n",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "UYGULAMALI ÖRNEK 2 · __slots__ ile bellek kullanımını ölçerek azaltma\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "UYGULAMALI ÖRNEK 3 · __slots__ ile bellek kullanımını ölçerek azaltma\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "python_slots_layout",
+      "caption": "__slots__ ile bellek kullanımını ölçerek azaltma"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "class Sample:\n    __slots__ = ('value',)\n\n    def __init__(self, value: int) -> None:\n        self.value = value\n\nsample = Sample(7)\nprint(sample.value)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "7",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Sample:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__slots__ = ('value',)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def __init__(self, value: int) -> None:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "self.value = value",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "sample = Sample(7)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(sample.value)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from dataclasses import dataclass\n\n@dataclass(slots=True)\nclass Point:\n    x: float\n    y: float\n\npoint = Point(3, 4)\nprint(point.x + point.y)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "7",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from dataclasses import dataclass",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@dataclass(slots=True)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Point:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "x: float",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "y: float",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "point = Point(3, 4)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(point.x + point.y)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "class Sample:\n    __slots__ = ('value',)\n\n    def __init__(self, value: int) -> None:\n        self.value = value\n\nsample = Sample(7)\nprint(sample.value)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "7",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Sample:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__slots__ = ('value',)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def __init__(self, value: int) -> None:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "self.value = value",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "sample = Sample(7)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(sample.value)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "value",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " tanımlı bir slottur ve nesnede saklanır; çıktı ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "7",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " olur.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Önce `tracemalloc` veya `sys.getsizeof` ile gerçek iş yükünü ölçün; `__slots__` tüm uygulamayı otomatik hızlandırmaz."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "`__slots__` güvenlik sınırı değildir ve nesneleri değişmez yapmaz. Gerekli `__weakref__` ve kalıtım davranışını ayrıca planlayın."
+    },
+    {
+      "type": "detail",
+      "title": "Neden önemli?",
+      "text": "`__slots__` nesne düzenini değiştirir: örnekte otomatik `__dict__` oluşmaz ve yalnızca tanımlı alanlar kullanılabilir. Çok sayıda küçük nesnede yararlı olabilir, ancak ölçümle doğrulanmalıdır. `dataclass(slots=True)` kolay bir seçenektir; dinamik alan, weak reference ve kalıtım gereksinimlerini inceleyin."
+    },
+    {
+      "type": "text",
+      "text": "SIK YAPILAN HATALAR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Değişken adı, girinti ve yorumu ayırın; boşluk sözdizimine, yorum ise açıklamaya hizmet eder.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Soru: “__slots__ ile bellek kullanımını ölçerek azaltma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nesne düzenini değiştirir: örnekte otomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " oluşmaz ve yalnızca tanımlı alanlar kullanılabilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “__slots__ ile bellek kullanımını ölçerek azaltma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nesne düzenini değiştirir: örnekte otomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " oluşmaz ve yalnızca tanımlı alanlar kullanılabilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “__slots__ ile bellek kullanımını ölçerek azaltma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nesne düzenini değiştirir: örnekte otomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " oluşmaz ve yalnızca tanımlı alanlar kullanılabilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “__slots__ ile bellek kullanımını ölçerek azaltma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nesne düzenini değiştirir: örnekte otomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " oluşmaz ve yalnızca tanımlı alanlar kullanılabilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “__slots__ ile bellek kullanımını ölçerek azaltma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nesne düzenini değiştirir: örnekte otomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " oluşmaz ve yalnızca tanımlı alanlar kullanılabilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “__slots__ ile bellek kullanımını ölçerek azaltma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nesne düzenini değiştirir: örnekte otomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " oluşmaz ve yalnızca tanımlı alanlar kullanılabilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “__slots__ ile bellek kullanımını ölçerek azaltma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nesne düzenini değiştirir: örnekte otomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " oluşmaz ve yalnızca tanımlı alanlar kullanılabilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “__slots__ ile bellek kullanımını ölçerek azaltma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nesne düzenini değiştirir: örnekte otomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " oluşmaz ve yalnızca tanımlı alanlar kullanılabilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “__slots__ ile bellek kullanımını ölçerek azaltma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nesne düzenini değiştirir: örnekte otomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " oluşmaz ve yalnızca tanımlı alanlar kullanılabilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “__slots__ ile bellek kullanımını ölçerek azaltma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nesne düzenini değiştirir: örnekte otomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " oluşmaz ve yalnızca tanımlı alanlar kullanılabilir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: stack/heap ve bellek ömrünü, sahipliği veya veri akışını gösteren bellek diyagramı.",
+  "estimatedMinutes": 16
+}

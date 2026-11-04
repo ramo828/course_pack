@@ -1,0 +1,43 @@
+{
+  "id": "protocols_esp_now",
+  "title": "ESP-NOW: yönlendiricisiz ESP32 iletişimi",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_now.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ESP-NOW, Espressif'in Wi-Fi tabanlı; bağlantı veya IP adresi kurmadan yakındaki ESP aygıtları arasında kısa mesaj taşıyan protokolüdür. Sensör paketi, uzaktan kumanda, akıllı ışık ve birden fazla düğümlü düzeneklerde işe yarar; yönlendirici veya internet gerekmez. Bu, normal bir Wi-Fi ağı ya da internet bağlantısı değildir. İki aygıt da ESP-NOW'u desteklemeli, aynı Wi-Fi kanalında olmalı ve doğru alıcının MAC adresi bilinmelidir.\n\nGönderici Wi-Fi istasyon kipini açar, ESP-NOW'u başlatır, alıcıyı peer olarak ekler ve mesaj gönderir. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "esp_now_send()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " başarılı dönerse paket iletim kuyruğuna alınmıştır; bu, alıcı uygulamanın mesajı işlediğini kanıtlamaz. Güvenilir teslim gerekiyorsa alındı mesajı, yeniden deneme, sıra numarası ve zaman aşımı tasarlayın. Alıcı ayrıca receive geri çağırım kaydeder; geri çağırım imzası Arduino-ESP32 sürümüne göre değişebilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <esp_now.h>\n\nuint8_t receiverMac[] = {0x24, 0x6F, 0x28, 0xAA, 0xBB, 0xCC};\nconst char message[] = \"sensor=24\";\n\nvoid setup() {\n  Serial.begin(115200);\n  if (!WiFi.mode(WIFI_STA)) {\n    Serial.println(\"Wi-Fi station mode failed\");\n    return;\n  }\n  if (esp_now_init() != ESP_OK) {\n    Serial.println(\"ESP-NOW initialization failed\");\n    return;\n  }\n\n  esp_now_peer_info_t peer{};\n  memcpy(peer.peer_addr, receiverMac, 6);\n  peer.channel = 0;\n  peer.encrypt = false;  // Demo only; configure encryption for private data.\n  if (esp_now_add_peer(&peer) != ESP_OK) return;\n\n  esp_err_t result = esp_now_send(\n      receiverMac, reinterpret_cast<const uint8_t*>(message), sizeof(message));\n  Serial.println(result == ESP_OK ? \"queued\" : \"send error\");\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Öğretim örneğinde şifreleme kapalı ve MAC adresi örnektir. Gerçek üründe benzersiz adresi doğrulayın, uygun PMK/LMK anahtarlarıyla şifreleme kurun, veriyi doğrulayın ve gizli bilgiyi açık göndermeyin. Paket boyutu, geri çağırım API'si ve aynı radyoda Wi-Fi ile birlikte çalışma yonga/çekirdek sürümüne bağlıdır; seçilen ESP-IDF belgelerinden doğrulayın."
+    }
+  ],
+  "testId": "embedded_test_protocols_esp_now_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

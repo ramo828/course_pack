@@ -1,0 +1,329 @@
+{
+  "id": "freertos_freertos_esp32_practical",
+  "title": "ESP32 Arduino'da FreeRTOS: sensör görevi ve queue",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_esp32_practical_tr",
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/freertos.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/freertos_idf.html"
+  ],
+  "estimatedMinutes": 24,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “ESP32 Arduino'da FreeRTOS: sensör görevi ve queue” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Queue veriyi değer olarak kopyalar; sensör görevi yarım saniyede bir ölçüm yollar, ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " alınanları yazdırır. Gerçek ölçümde ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "A0",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kartın ADC destekli piniyle değiştirilmelidir. Gerçek projede şu öneriyi izleyin: Uygulama sırası: 1) queue oluştur; 2) task oluşturma sonucunu denetle; 3) task içinde sensörü okuyup zaman aşımıyla queue'ya gönder; 4) ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " içinde sıradaki veriyi al; 5) queue dolduğunda ne olacağını belirle. ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "xTaskCreatePinnedToCore",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yalnızca özel bir gerekçe varsa kullanılır; çekirdeğe sabitlemek işi kendiliğinden hızlandırmaz. ESP-IDF SMP zamanlaması ve Arduino-ESP32 API davranışı sürüme bağlıdır.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n\nstruct Reading {\n  uint32_t timeMs;\n  int value;\n};\n\nQueueHandle_t readings;\n\nvoid sensorTask(void*) {\n  for (;;) {\n    Reading item{millis(), analogRead(A0)};\n    if (xQueueSend(readings, &item, pdMS_TO_TICKS(20)) != pdPASS) {\n      // Decide whether to count, retry, or discard a full-queue sample.\n    }\n    vTaskDelay(pdMS_TO_TICKS(500));\n  }\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  readings = xQueueCreate(4, sizeof(Reading));\n  if (readings == nullptr) {\n    Serial.println(\"Queue creation failed\");\n    return;\n  }\n  if (xTaskCreate(sensorTask, \"sensor\", 3072, nullptr, 1, nullptr) != pdPASS) {\n    Serial.println(\"Task creation failed\");\n  }\n}\n\nvoid loop() {\n  Reading item;\n  if (readings != nullptr &&\n      xQueueReceive(readings, &item, pdMS_TO_TICKS(1000)) == pdPASS) {\n    Serial.printf(\"%lu ms: %d\\n\",\n                  static_cast<unsigned long>(item.timeMs), item.value);\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor kuyruktan zaman damgalı ADC ölçümlerini gösterir; değerler sensör ve karta bağlıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Arduino-ESP32 Core, FreeRTOS çekirdeğini beraberinde getirir; ayrıca RTOS kitaplığı kurmanız gerekmez. Sensörü okuyan task veriyi queue'ya yollar, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " alıp ekrana yazar. Böylece sensör işi ile çıktı işi ayrılır ve korumasız ortak değişken ihtiyacı azalır. Klasik UNO'nun standart sketch ortamı ESP32 ile aynı task API'sini sunmaz; başka kartlarda uyumlu RTOS portunu ve bellek gereksinimini ayrıca denetleyin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "if (xTaskCreate(sensorTask, \"sensor\", 3072, nullptr, 1, nullptr) != pdPASS) {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Queue veriyi değer olarak kopyalar; sensör görevi yarım saniyede bir ölçüm yollar, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " alınanları yazdırır. Gerçek ölçümde ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "A0",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kartın ADC destekli piniyle değiştirilmelidir.\nNeden seçildi: Uygulama sırası: 1) queue oluştur; 2) task oluşturma sonucunu denetle; 3) task içinde sensörü okuyup zaman aşımıyla queue'ya gönder; 4) ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " içinde sıradaki veriyi al; 5) queue dolduğunda ne olacağını belirle. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "xTaskCreatePinnedToCore",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yalnızca özel bir gerekçe varsa kullanılır; çekirdeğe sabitlemek işi kendiliğinden hızlandırmaz. ESP-IDF SMP zamanlaması ve Arduino-ESP32 API davranışı sürüme bağlıdır.\nAtlanır veya değiştirilirse: Arduino-ESP32 Core FreeRTOS API'sini içerir; örnekteki stack boyutu ve ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "A0",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " pini her kart için evrensel değildir. Queue ve task oluşturmayı denetleyin; queue dolduğunda ne olacağını belirleyin. Sensör okuma ve Serial yazma bloklanabilir; bu nedenle yüksek öncelik ya da kesin zaman garantisi gereken sistemlerde ayrıca ölçüm yapın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Arduino-ESP32 Core FreeRTOS API'sini içerir; örnekteki stack boyutu ve `A0` pini her kart için evrensel değildir. Queue ve task oluşturmayı denetleyin; queue dolduğunda ne olacağını belirleyin. Sensör okuma ve Serial yazma bloklanabilir; bu nedenle yüksek öncelik ya da kesin zaman garantisi gereken sistemlerde ayrıca ölçüm yapın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Queue veriyi değer olarak kopyalar; sensör görevi yarım saniyede bir ölçüm yollar, ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " alınanları yazdırır. Gerçek ölçümde ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "A0",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " kartın ADC destekli piniyle değiştirilmelidir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Uygulama sırası: 1) queue oluştur; 2) task oluşturma sonucunu denetle; 3) task içinde sensörü okuyup zaman aşımıyla queue'ya gönder; 4) `loop()` içinde sıradaki veriyi al; 5) queue dolduğunda ne olacağını belirle. `xTaskCreatePinnedToCore` yalnızca özel bir gerekçe varsa kullanılır; çekirdeğe sabitlemek işi kendiliğinden hızlandırmaz. ESP-IDF SMP zamanlaması ve Arduino-ESP32 API davranışı sürüme bağlıdır."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nQueueHandle_t samples = nullptr;\nvoid reader(void*) { const int value = 7; for (;;) { if (xQueueSend(samples, &value, pdMS_TO_TICKS(100)) != pdPASS) vTaskDelay(pdMS_TO_TICKS(100)); vTaskDelay(pdMS_TO_TICKS(1000)); } }\nvoid setup() { Serial.begin(115200); samples = xQueueCreate(2, sizeof(int)); if (samples == nullptr || xTaskCreate(reader, \"reader\", 2048, nullptr, 1, nullptr) != pdPASS) { if (samples) vQueueDelete(samples); samples = nullptr; Serial.println(\"queue/task setup failed\"); } }\nvoid loop() { int value; if (samples && xQueueReceive(samples, &value, pdMS_TO_TICKS(1500)) == pdPASS) Serial.printf(\"sample=%d\\n\", value); else vTaskDelay(pdMS_TO_TICKS(100)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Queue görevi çalışırken Serial Monitor yaklaşık yarım saniyede bir ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sample=7",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " gösterir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Klasik UNO'nun standart sketch ortamı ESP32 ile aynı task API'sini sunmaz; başka kartlarda uyumlu RTOS portunu ve bellek gereksinimini ayrıca denetleyin."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Arduino-ESP32 Core FreeRTOS API'sini içerir; örnekteki stack boyutu ve `A0` pini her kart için evrensel değildir. Queue ve task oluşturmayı denetleyin; queue dolduğunda ne olacağını belirleyin. Sensör okuma ve Serial yazma bloklanabilir; bu nedenle yüksek öncelik ya da kesin zaman garantisi gereken sistemlerde ayrıca ölçüm yapın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: görev durumlarını, öncelikleri, kuyruk/eşzamanlama ilişkisini ve zaman çizelgesini gösteren diyagram."
+}

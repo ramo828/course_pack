@@ -1,0 +1,102 @@
+{
+  "id": "cpp_integer_types",
+  "title": "byte, int, uint8_t и типы фиксированной ширины",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/types/integer.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "В Arduino ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "byte",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — псевдоним беззнакового 8-битного значения 0–255; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "uint8_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " тоже явно имеет 8 бит. Размер ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " зависит от платы: часто 16 бит у классической UNO и 32 бита у ESP32. Для байтов протокола используйте ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "uint8_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", для больших счётчиков — ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "uint32_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", для размеров и индексов — ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "size_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <stdint.h>\n\nbyte kitValue = 255;\nuint8_t protocolByte = 42;\nint boardInteger = -10;\nuint32_t uptimeMs = 0;\nsize_t itemCount = 3;\nbool enabled = true;",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Беззнаковый тип не хранит отрицательные числа и циклически переполняется. Точность `float` и диапазон ADC зависят от платформы. Проверяйте диапазоны и `sizeof(type)`."
+    }
+  ],
+  "testId": "embedded_test_cpp_integer_types_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

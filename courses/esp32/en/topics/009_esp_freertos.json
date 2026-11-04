@@ -1,0 +1,160 @@
+{
+  "id": "esp32_esp_freertos",
+  "title": "FreeRTOS on ESP32: Arduino and ESP-IDF",
+  "difficulty": "advanced",
+  "testId": "esp32_test_esp_freertos_en",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/freertos_idf.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “FreeRTOS on ESP32: Arduino and ESP-IDF” to a real program or device. The key principle is: Queues pass messages and decouple tasks. In a project, follow this guidance: Protect mutable data shared between tasks with synchronization or message queues.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid worker(void*) {\n    for (;;) { Serial.println(\"worker tick\"); vTaskDelay(pdMS_TO_TICKS(1000)); }\n}\nvoid setup() {\n    Serial.begin(115200);\n    xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr);\n}\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Task creation can fail when memory is unavailable; stack size and priority need target-specific review.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ESP-IDF uses FreeRTOS tasks and queues to separate work. Measure stack, priority, affinity, and blocking; a stalled task may trigger a watchdog.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: Queues pass messages and decouple tasks.\nWhy it is used: Protect mutable data shared between tasks with synchronization or message queues.\nIf omitted or changed: Do not hide a stall by disabling the watchdog; diagnose why the task stopped progressing.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Do not hide a stall by disabling the watchdog; diagnose why the task stopped progressing."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Queues pass messages and decouple tasks.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Protect mutable data shared between tasks with synchronization or message queues."
+    },
+    {
+      "type": "text",
+      "text": "Arduino Core FreeRTOS example\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid task(void*) { for (;;) { Serial.println(\"tick\"); vTaskDelay(pdMS_TO_TICKS(500)); } }\nvoid setup() { Serial.begin(115200); xTaskCreate(task, \"sample\", 2048, nullptr, 1, nullptr); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The worker prints tick about twice per second.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Measure stack, priority, affinity, and blocking; a stalled task may trigger a watchdog."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Do not hide a stall by disabling the watchdog; diagnose why the task stopped progressing."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a diagram showing task states, priorities, queue/synchronization relationships, and timing."
+}

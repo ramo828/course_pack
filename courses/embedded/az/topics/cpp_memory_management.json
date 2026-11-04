@@ -1,0 +1,272 @@
+{
+  "id": "cpp_memory_management",
+  "title": "Yaddaşın ölçüsü və ayrılması: sizeof, malloc və free",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/sizeof.html",
+    "https://en.cppreference.com/w/c/memory/malloc.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/mem_alloc.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "RAM proqram işləyərkən istifadə olunan masadır: lokal dəyişənlər adətən yığın-də, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "malloc",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "new",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ilə ayrılan yaddaş isə heap-də olur. Qlobal və ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "static",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " dəyişənlər proqramın bütün işləmə müddətində yaşayır. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sizeof(tip)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " həmin tipin baytla ölçüsünü, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sizeof(massiv)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " isə massiv tam olduğu yerdə bütün massiv ölçüsünü qaytarır. Məsələn, 10 ədəd ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "uint16_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " adətən 20 bayt tutur; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sizeof(massiv) / sizeof(massiv[0])",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " element sayını hesablayır. Funksiyaya ötürülən massiv göstəriciyə çevrilir, ona görə orada ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sizeof(pointer)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " massiv ölçüsü deyil.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "malloc(n)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ayrılmamış yaddaş istəyir, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "calloc(n, size)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " sıfırlanmış yaddaş ayırır, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "realloc(p, n)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ölçünü dəyişir. Uğursuzluq ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "nullptr",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ilə yoxlanır; bu C üslublu funksiyaların yaddaşı ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "free(p)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ilə qaytarılır. C++ ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "new",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " obyekt yaradır və ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "delete",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ilə cüt işləyir. Yerli massiv üçün ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "free",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "new",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "free",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "malloc",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "delete",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " çağırmaq olmaz.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <stdint.h>\n#include <stddef.h>\n#include <stdlib.h>\n\nvoid setup() {\n  uint16_t samples[10];\n  const size_t bytes = sizeof(samples);\n  const size_t count = sizeof(samples) / sizeof(samples[0]);\n  (void)bytes;\n  (void)count;\n\n  uint8_t* buffer = static_cast<uint8_t*>(malloc(32));\n  if (buffer != nullptr) {\n    buffer[0] = 42;\n    uint8_t* cleared = static_cast<uint8_t*>(calloc(8, sizeof(uint16_t)));\n    if (cleared != nullptr) free(cleared);\n    void* resized = realloc(buffer, 64);\n    if (resized != nullptr) buffer = static_cast<uint8_t*>(resized);\n    free(buffer);\n    buffer = nullptr;\n  }\n\n  int* reading = new int(42);\n  delete reading;\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Kiçik lövhələrdə sabit ölçülü massiv və avtomatik ömür çox vaxt daha sadə, sürətli və etibarlıdır. Heap-dən təkrar ayırıb qaytarmaq parçalanma yarada bilər; yaddaşın cəmi boş görünsə də, ardıcıl böyük sahə tapılmaya bilər. Hər ayrılmanı yalnız bir dəfə, uyğun funksiya ilə qaytarın; göstəricini sonra `nullptr` edin. Ölçü üçün `size_t` istifadə edin. Arduino UNO kimi kartlarda SRAM çox azdır; ESP32-də də `ESP.getFreeHeap()` və minimal boş heap-i ölçmək yaddaş planlamasını əvəz etmir. `realloc` nəticəsini əvvəlcə ayrıca göstəricidə yoxlayın ki, uğursuzluqda köhnə blok itməsin."
+    }
+  ],
+  "testId": "embedded_test_cpp_memory_management_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: stack/heap və yaddaş ömrünü, sahiblik və ya məlumat axınını göstərən yaddaş diaqramı."
+}

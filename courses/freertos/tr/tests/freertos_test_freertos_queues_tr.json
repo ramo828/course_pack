@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_queues_tr",
+  "title": "Queue ile görevler arasında mesaj",
+  "questions": [
+    {
+      "id": "freertos_freertos_queues_1",
+      "topicId": "freertos_freertos_queues",
+      "type": "multiple_choice",
+      "prompt": "“Queue ile görevler arasında mesaj” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Queue, ortak global değişkenden daha açık bir sahiplik ve eşzamanlama sınırı sağlar."
+      ],
+      "answer": "Queue, ortak global değişkenden daha açık bir sahiplik ve eşzamanlama sınırı sağlar.",
+      "explanation": "Queue, ortak global değişkenden daha açık bir sahiplik ve eşzamanlama sınırı sağlar.\nAçıklama: Queue, sabit boyutlu elemanları FIFO düzeninde tutar ve producer-consumer görevlerini ayırır. `xQueueSend` ve `xQueueReceive` zaman aşımıyla bloklanabilir; payload kopyalanır, büyük nesnelerde pointer ömrünü ayrıca yönetin. Queue dolduğunda veriyi sessizce kaybetmek yerine gönderim sonucunu denetleyin."
+    },
+    {
+      "id": "freertos_freertos_queues_2",
+      "topicId": "freertos_freertos_queues",
+      "type": "multiple_choice",
+      "prompt": "“Queue ile görevler arasında mesaj” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Queue boyutunu en büyük burst ve tüketim hızına göre seçin; dolu queue davranışını tanımlayın.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır."
+      ],
+      "answer": "Queue boyutunu en büyük burst ve tüketim hızına göre seçin; dolu queue davranışını tanımlayın.",
+      "explanation": "Queue boyutunu en büyük burst ve tüketim hızına göre seçin; dolu queue davranışını tanımlayın.\nAçıklama: Queue, sabit boyutlu elemanları FIFO düzeninde tutar ve producer-consumer görevlerini ayırır. `xQueueSend` ve `xQueueReceive` zaman aşımıyla bloklanabilir; payload kopyalanır, büyük nesnelerde pointer ömrünü ayrıca yönetin. Queue dolduğunda veriyi sessizce kaybetmek yerine gönderim sonucunu denetleyin."
+    },
+    {
+      "id": "freertos_freertos_queues_3",
+      "topicId": "freertos_freertos_queues",
+      "type": "multiple_choice",
+      "prompt": "“Queue ile görevler arasında mesaj” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Queue, sabit boyutlu elemanları FIFO düzeninde tutar ve producer-consumer görevlerini ayırır",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın."
+      ],
+      "answer": "Queue, sabit boyutlu elemanları FIFO düzeninde tutar ve producer-consumer görevlerini ayırır",
+      "explanation": "Queue, sabit boyutlu elemanları FIFO düzeninde tutar ve producer-consumer görevlerini ayırır\nAçıklama: Queue, sabit boyutlu elemanları FIFO düzeninde tutar ve producer-consumer görevlerini ayırır. `xQueueSend` ve `xQueueReceive` zaman aşımıyla bloklanabilir; payload kopyalanır, büyük nesnelerde pointer ömrünü ayrıca yönetin. Queue dolduğunda veriyi sessizce kaybetmek yerine gönderim sonucunu denetleyin."
+    },
+    {
+      "id": "freertos_freertos_queues_4",
+      "topicId": "freertos_freertos_queues",
+      "type": "multiple_choice",
+      "prompt": "“Queue ile görevler arasında mesaj” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Queue handle oluşturmanın başarılı olduğunu denetleyin; boyutu büyütmek RAM tüketir.",
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "Queue handle oluşturmanın başarılı olduğunu denetleyin; boyutu büyütmek RAM tüketir.",
+      "explanation": "Queue handle oluşturmanın başarılı olduğunu denetleyin; boyutu büyütmek RAM tüketir.\nAçıklama: Queue, sabit boyutlu elemanları FIFO düzeninde tutar ve producer-consumer görevlerini ayırır. `xQueueSend` ve `xQueueReceive` zaman aşımıyla bloklanabilir; payload kopyalanır, büyük nesnelerde pointer ömrünü ayrıca yönetin. Queue dolduğunda veriyi sessizce kaybetmek yerine gönderim sonucunu denetleyin."
+    }
+  ]
+}

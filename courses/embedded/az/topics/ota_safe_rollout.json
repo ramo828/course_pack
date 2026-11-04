@@ -1,0 +1,52 @@
+{
+  "id": "ota_safe_rollout",
+  "title": "OTA yeniləməsini təhlükəsiz sınaqdan keçirmək",
+  "difficulty": "advanced",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.arduino.cc/learn/programming/ota-getting-started/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Bir cihazı yeniləmək asandır; yüzlərlə cihazı eyni anda yeniləmək isə risklidir. Mərhələli yayım əvvəlcə sınaq cihazında, sonra kiçik qrupda, yalnız uğurlu nəticədən sonra hamıda yeniləmə aparır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Mövzunun izahı\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yeniləmədən əvvəl lövhə modeli, proqram versiyası, fayl ölçüsü və kriptoqrafik imzanı yoxlayın. Yükləməni TLS/HTTPS ilə edin və server sertifikatını yoxlayın; cihaz başına fərqli açar və ya sertifikatdan istifadə edin. Sonra enerji kəsilməsi, zəif Wi-Fi, dolu yaddaş, uyğun olmayan image və yarımçıq fayl sınaqları aparın.\n\nYeniləmədən sonra cihazın açıldığını, sensorların cavab verdiyini, məlumatın düzgünlüyünü və şəbəkəyə qoşulmanı yoxlayın. Uğursuzluq artarsa yayımı dayandırın. Mümkündürsə məlum işlək versiyaya qayıdış saxlayın. Loglarda parol və gizli açarları yazmayın.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Nümunə kodu\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "1. Test on a spare device.\n2. Verify model, version, size, and signature.\n3. Update a small test group.\n4. Check boot, sensor readings, and connectivity.\n5. Pause rollout if failures rise; recover if needed.",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Sxem: OTA yeniləməsini təhlükəsiz sınaqdan keçirmək"
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Yalnız imzanı və uyğunluğunu yoxladığınız image-i quraşdırın. Hər yeniləmədən əvvəl cihaz üçün enerji, yaddaş və bərpa imkanını yoxlayın."
+    }
+  ],
+  "testId": "embedded_test_ota_safe_rollout_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

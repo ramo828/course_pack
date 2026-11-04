@@ -1,0 +1,49 @@
+{
+  "id": "cpp_struct_enum",
+  "title": "struct və enum: sensor məlumatını birlikdə saxlamaq",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/struct.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "struct",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əlaqəli dəyərləri bir obyektə yığır; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "enum class",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " məhdud və adlandırılmış halları göstərir. Beləliklə sensor oxunuşunun xam ADC-si, temperaturu və statusu ayrı qlobal dəyişənlərə səpələnmir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "enum class SensorState : uint8_t { Ok, Missing, Error };\n\nstruct Reading {\n  uint16_t raw;\n  float celsius;\n  SensorState state;\n};\n\nReading lastReading{512, 24.5f, SensorState::Ok};",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Lövhələr arasında yaddaş ölçüsü və padding dəyişə bilər. Şəbəkə paketini struct-ı yaddaşdan birbaşa göndərməklə serialize etməyin; formatı açıq kodlayın."
+    }
+  ],
+  "testId": "embedded_test_cpp_struct_enum_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

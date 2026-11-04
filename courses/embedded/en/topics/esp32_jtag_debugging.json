@@ -1,0 +1,60 @@
+{
+  "id": "esp32_jtag_debugging",
+  "title": "ESP32 JTAG debugging: breakpoints and watchpoints",
+  "difficulty": "advanced",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/jtag-debugging/index.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/core_dump.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "JTAG lets a debugger halt real ESP32 hardware, step through source lines, and inspect variables and memory. OpenOCD bridges the target to GDB. Set a breakpoint or watchpoint on ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sampleCount",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; the one-second delay keeps the task from busy-spinning. JTAG pins may be unavailable or disabled on a particular board; some chips provide USB Serial/JTAG while others need an external probe.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Workflow: verify board/probe compatibility, build the ESP-IDF project with debug symbols, start OpenOCD, and attach GDB. Break at ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "++sampleCount",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and inspect the value. For stack issues, inspect the FreeRTOS stack high-water mark; preserve logs and a core dump when diagnosing watchdog resets.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <inttypes.h>\n#include \"esp_log.h\"\n#include \"freertos/FreeRTOS.h\"\n#include \"freertos/task.h\"\n\nstatic const char* TAG = \"jtag-demo\";\nstatic uint32_t sampleCount = 0;\n\nextern \"C\" void app_main(void) {\n  for (;;) {\n    ++sampleCount;\n    ESP_LOGI(TAG, \"sample=%\" PRIu32, sampleCount);\n    vTaskDelay(pdMS_TO_TICKS(1000));\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Pin assignments, probe voltage, and USB Serial/JTAG support vary by model. Debug only boards you own or are authorized to use. Do not weaken JTAG, secure-boot, or flash-encryption policy on production devices; eFuse changes may be irreversible."
+    }
+  ],
+  "testId": "embedded_test_esp32_jtag_debugging_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

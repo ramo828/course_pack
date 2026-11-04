@@ -1,0 +1,62 @@
+{
+  "id": "esp32_esp_ota",
+  "title": "OTA nədir? Arduino və ESP32 yeniləmə üsulları",
+  "difficulty": "advanced",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.arduino.cc/learn/programming/ota-getting-started/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "OTA (Over-The-Air) — proqramı USB kabel qoşmadan, şəbəkə üzərindən cihaza yeniləməkdir. Məsələn, uzaqdakı istixana sensoruna yeni proqramı Wi-Fi ilə göndərmək olar. OTA nasaz cihazın təmirini asanlaşdırır, amma enerji və rabitə kəsilsə belə cihazın işlək qalması üçün əvvəlcədən təhlükəsiz bərpa yolu tələb edir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Mövzunun izahı\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Əsas fərq budur: USB/serial yeniləməsində kompüter kabel ilə cihazın yanındadır; OTA yeniləməsində fayl Wi-Fi və ya başqa şəbəkə ilə çatdırılır. ArduinoOTA ESP32/ESP8266 kimi uyğun Wi-Fi lövhələrinə IDE-dən ötürməni asanlaşdırır. Veb yeniləyici brauzer və lokal şəbəkədən istifadə edir. HTTPS ilə cihaz serverdən imzalı fayl ala bilər. ESP-IDF OTA isə ESP32-də iki proqram bölməsi (A/B), yeni bölməyə yazma və uğursuz açılışda əvvəlki proqrama qayıtma imkanı verir.\n\nBütün lövhələr OTA dəstəkləmir: klassik UNO-da Wi-Fi yoxdur, ona görə təkbaşına şəbəkədən yenilənə bilməz; uyğun Wi-Fi modulu və xüsusi quruluş tələb olunur. Adi Arduino "
+    },
+    {
+      "type": "text",
+      "text": "analogWrite",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və ya USB yeniləməsi ilə OTA-nı qarışdırmayın. Əvvəl cihazın lövhəsini, yaddaşını, bootloader-ini və seçilmiş proqram mühitinin rəsmi dəstəyini yoxlayın.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Nümunə kodu\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "build firmware\ncheck board + version\ntransfer over a supported link\nverify image\ninstall, reboot, run health checks\nkeep old image until confirmed",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Sxem: OTA nədir? Arduino və ESP32 yeniləmə üsulları"
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Yenilənməni əvvəlcə öz lövhənizdə sınaqdan keçirin. İmzalanmamış və versiyası yoxlanmamış proqramı quraşdırmayın; enerji kəsilməsi üçün bərpa planı saxlayın."
+    }
+  ],
+  "testId": "esp32_test_esp_ota_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

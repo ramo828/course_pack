@@ -1,0 +1,286 @@
+{
+  "id": "rust_rust_error_design",
+  "title": "Result, ? ve hata tasarımı",
+  "difficulty": "hard",
+  "testId": "rust_test_rust_error_design_tr",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch09-00-error-handling.html"
+  ],
+  "estimatedMinutes": 24,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Result, ? ve hata tasarımı” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: ? başarısız sonucu çağırana aktarır, başarı değerini sonraki ifadeye verir. Gerçek projede şu öneriyi izleyin: Hatayı yutup sahte başarı döndürmeyin; retry yalnız işlem yinelenebilirse ve sınırlıysa yapılmalıdır.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_result_flow",
+      "caption": "Result, ? ve hata tasarımı"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::error::Error;\nfn parse_port(text: &str) -> Result<u16, std::num::ParseIntError> {\n    let port = text.parse()?;\n    Ok(port)\n}\nfn main() -> Result<(), Box<dyn Error>> {\n    let port = parse_port(\"8080\")?;\n    println!(\"{port}\");\n    Ok(())\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Başarılı ayrıştırmada 8080 yazdırılır; hata ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ile çağırana iletilir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Result<T, E> başarı ve hatayı tür düzeyinde ifade eder; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " hatayı uygun dönüş türüne aktararak çağrı zincirini sadeleştirir. Program sınırında somut hatayı kullanıcıya anlaşılır mesaja çevirin; iç katmanlarda neden ve bağlamı koruyun. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "unwrap()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yalnızca invariantın kanıtlandığı ve panic'in kabul edildiği küçük örneklerde uygundur.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Option<T>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " doğal olarak bulunmayan değeri (",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "None",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "), ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Result<T, E>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ise açıklanabilir başarı/hata sonucunu belirtir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " hatayı çağırana iletir ve gereksiz panic oluşturmaz; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "main -> Result",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " hata döndürmeyi sağlar. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "unwrap()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yalnızca testte veya invariant'ın kesin olduğu yerde bilinçli kullanılmalıdır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let port = text.parse()?;",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: ? başarısız sonucu çağırana aktarır, başarı değerini sonraki ifadeye verir.\nNeden seçildi: Hatayı yutup sahte başarı döndürmeyin; retry yalnız işlem yinelenebilirse ve sınırlıysa yapılmalıdır.\nAtlanır veya değiştirilirse: Hatayı yutup sahte başarı döndürmeyin; retry yalnız işlem yinelenebilirse ve sınırlıysa yapılmalıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: Hatayı yutup sahte başarı döndürmeyin; retry yalnız işlem yinelenebilirse ve sınırlıysa yapılmalıdır."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "? başarısız sonucu çağırana aktarır, başarı değerini sonraki ifadeye verir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Hatayı yutup sahte başarı döndürmeyin; retry yalnız işlem yinelenebilirse ve sınırlıysa yapılmalıdır."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn parse_port(text: &str) -> Result<u16, std::num::ParseIntError> {\n    text.parse()\n}\nfn main() {\n    match parse_port(\"not-a-port\") {\n        Ok(port) => println!(\"{port}\"),\n        Err(_) => println!(\"invalid port\"),\n    }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "invalid port\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "`unwrap()` yalnızca testte veya invariant'ın kesin olduğu yerde bilinçli kullanılmalıdır."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Kod örnekleri odaklı parçalardır; seçilen araç zinciri ve hedefte derleyip test edin, çünkü API ve tanılamalar sürüme göre değişebilir."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Result, ? ve hata tasarımı” konusunda hangi ifade temel kuralı doğru açıklar?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: ? başarısız sonucu çağırana aktarır, başarı değerini sonraki ifadeye verir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı."
+}

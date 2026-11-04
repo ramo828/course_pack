@@ -1,0 +1,419 @@
+{
+  "id": "python_py_sqlite",
+  "title": "SQLite ilə yerli verilənlər",
+  "difficulty": "hard",
+  "testId": "python_test_py_sqlite_az",
+  "sources": [
+    "https://docs.python.org/3/library/sqlite3.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NİYƏ LAZIMDIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLite kiçik tətbiqlərdə məlumatı SQL cədvəllərində saxlamağa imkan verir; sorğu parametrləri istifadəçi dəyərini SQL kodundan ayırır.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "sqlite3 server tələb etmədən kiçik tətbiqlərdə strukturlaşdırılmış məlumat saxlayır. Sorğuları parametrli yazın və bir neçə dəyişiklik birlikdə uğurlu olmalıdırsa transaction istifadə edin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import sqlite3\n\nwith sqlite3.connect('app.db') as db:\n    db.execute('CREATE TABLE IF NOT EXISTS notes (text TEXT)')\n    db.execute('INSERT INTO notes VALUES (?)', ('Salam',))",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "No console output; creates the table if needed and inserts one row.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SƏTİR-SƏTİR İZAH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import sqlite3",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modul funksionallığını gətirir; sətir olmasa ad əlçatan deyil və istifadədə NameError yaranar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with sqlite3.connect('app.db') as db:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Resursu blok boyunca idarə edir; kontekst meneceri olmasa fayl və ya əlaqə bağlanmaya bilər.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "db.execute('CREATE TABLE IF NOT EXISTS notes (text TEXT)')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "db.execute('INSERT INTO notes VALUES (?)', ('Salam',))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLite parametrləri məlumatı SQL sintaksisindən ayırır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "SQL mətnini istifadəçi girişindən birləşdirməyin; dəyərləri parametr kimi ötürün."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "İstifadəçi dəyərlərini SQL ifadəsinə formatlamaq injection riskini yaradır; placeholder istifadə edin."
+    },
+    {
+      "type": "text",
+      "text": "PRAKTİK NÜMUNƏ 2 · SQLite ilə yerli verilənlər\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import sqlite3\nconnection = sqlite3.connect(':memory:')\nconnection.execute('CREATE TABLE scores (name TEXT, value INTEGER)')\nconnection.execute('INSERT INTO scores VALUES (?, ?)', ('Ada', 10))\nprint(connection.execute('SELECT name, value FROM scores').fetchone())\nconnection.close()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "('Ada', 10)",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SƏTİR-SƏTİR İZAH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import sqlite3",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modul funksionallığını gətirir; sətir olmasa ad əlçatan deyil və istifadədə NameError yaranar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "connection = sqlite3.connect(':memory:')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "connection.execute('CREATE TABLE scores (name TEXT, value INTEGER)')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "connection.execute('INSERT INTO scores VALUES (?, ?)', ('Ada', 10))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(connection.execute('SELECT name, value FROM scores').fetchone())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "connection.close()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "PRAKTİK NÜMUNƏ 3 · SQLite ilə yerli verilənlər\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import sqlite3\nwith sqlite3.connect(':memory:') as connection:\n    connection.execute('CREATE TABLE item (name TEXT)')\n    connection.execute('INSERT INTO item VALUES (?)', ('book',))\n    print(connection.execute('SELECT COUNT(*) FROM item').fetchone()[0])",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "1",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SƏTİR-SƏTİR İZAH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import sqlite3",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modul funksionallığını gətirir; sətir olmasa ad əlçatan deyil və istifadədə NameError yaranar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with sqlite3.connect(':memory:') as connection:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Resursu blok boyunca idarə edir; kontekst meneceri olmasa fayl və ya əlaqə bağlanmaya bilər.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "connection.execute('CREATE TABLE item (name TEXT)')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "connection.execute('INSERT INTO item VALUES (?)', ('book',))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(connection.execute('SELECT COUNT(*) FROM item').fetchone()[0])",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "detail",
+      "title": "Niyə vacibdir?",
+      "text": "SQLite kiçik tətbiqlərdə məlumatı SQL cədvəllərində saxlamağa imkan verir; sorğu parametrləri istifadəçi dəyərini SQL kodundan ayırır."
+    },
+    {
+      "type": "text",
+      "text": "TEZ-TEZ BURAXILAN SƏHVLƏR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sorğularda parametrli ifadələrdən və request-ə aid sessiyadan istifadə edin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Sual: “SQLite ilə yerli verilənlər” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: SQLite kiçik tətbiqlərdə məlumatı SQL cədvəllərində saxlamağa imkan verir; sorğu parametrləri istifadəçi dəyərini SQL kodundan ayırır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “SQLite ilə yerli verilənlər” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: SQLite kiçik tətbiqlərdə məlumatı SQL cədvəllərində saxlamağa imkan verir; sorğu parametrləri istifadəçi dəyərini SQL kodundan ayırır.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir.",
+  "estimatedMinutes": 18
+}

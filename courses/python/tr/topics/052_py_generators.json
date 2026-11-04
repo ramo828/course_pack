@@ -1,0 +1,366 @@
+{
+  "id": "python_py_generators",
+  "title": "Iterator, generator ve decorator",
+  "difficulty": "advanced",
+  "testId": "python_test_py_generators_tr",
+  "sources": [
+    "https://docs.python.org/3/tutorial/classes.html#generators"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NEDEN KULLANILIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Generator büyük dosya ve sonuç akışını bir öğe üreterek işler ve bellekten tasarruf sağlar; doğru yerde tüketilmelidir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Iterator, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "next()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile sonraki öğeyi sağlayan protokoldür; generator yield ile bu protokolü fonksiyon biçiminde kurar ve büyük akışı belleğe tamamen yüklemeden işleyebilir. Decorator fonksiyonu wrapper ile sarıp ölçüm, günlük veya girdi denetimi gibi ortak davranış ekler. Soyutlamayı yalnız okunabilirlik ve test edilebilirliği artırıyorsa kullanın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def squares(limit):\n    for number in range(limit):\n        yield number * number\n\nprint(list(squares(4)))",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "[0, 1, 4, 9]",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def squares(limit):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "for number in range(limit):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Koleksiyonun her öğesini işler; döngü olmazsa yalnızca ayrıca yazılan öğe işlenir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "yield number * number",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(list(squares(4)))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "yield sonraki öğeyi verir ve generatorun yürütme durumunu korur.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Generator değerleri gerektiğinde üretir; akışı yeniden dolaşmak gerekiyorsa yeniden oluşturun."
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Generator dosya, sayfalı sonuç ve dönüşüm akışlarında tepe bellek kullanımını azaltabilir."
+    },
+    {
+      "type": "text",
+      "text": "UYGULAMALI ÖRNEK 2 · Iterator, generator ve decorator\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def countdown(limit):\n    for value in range(limit, 0, -1):\n        yield value\nprint(list(countdown(3)))",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "[3, 2, 1]",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def countdown(limit):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "for value in range(limit, 0, -1):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Koleksiyonun her öğesini işler; döngü olmazsa yalnızca ayrıca yazılan öğe işlenir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "yield value",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(list(countdown(3)))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "UYGULAMALI ÖRNEK 3 · Iterator, generator ve decorator\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "squares = (number * number for number in range(4))\nprint(sum(squares))",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "14",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "squares = (number * number for number in range(4))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(sum(squares))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "warning",
+      "title": "Dikkat",
+      "text": "Döngü sırasında koleksiyonu değiştirmek beklenmedik sonuç verebilir; ayrı kopya veya yeni liste kullanın."
+    },
+    {
+      "type": "text",
+      "text": "SIK YAPILAN HATALAR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sıra, benzersizlik ve değiştirilebilirlik gereksinimine göre list, tuple, set veya dict seçin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Iterator, generator ve decorator” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Generator büyük dosya ve sonuç akışını bir öğe üreterek işler ve bellekten tasarruf sağlar; doğru yerde tüketilmelidir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Iterator, generator ve decorator” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Generator büyük dosya ve sonuç akışını bir öğe üreterek işler ve bellekten tasarruf sağlar; doğru yerde tüketilmelidir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı.",
+  "estimatedMinutes": 18
+}

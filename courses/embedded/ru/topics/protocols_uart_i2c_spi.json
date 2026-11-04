@@ -1,0 +1,35 @@
+{
+  "id": "protocols_uart_i2c_spi",
+  "title": "UART, I2C и SPI: выбор интерфейса",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/learn/communication/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "UART — асинхронная последовательная связь TX/RX с общей землёй; скорости baud должны совпадать. I2C объединяет устройства на SDA/SCL с адресами и требует подтягивающих резисторов. SPI использует SCK/MOSI/MISO и отдельный CS для каждого устройства, обеспечивая быструю двустороннюю передачу.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_protocol_buses",
+      "caption": "UART, I2C и SPI: выбор интерфейса"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "// UART: Serial.begin(115200); Serial.println(\"hello\");\n// I2C: Wire.begin(); Wire.beginTransmission(0x3C);\n// SPI: SPI.begin(); use a separate CS pin per device.",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Важны длина проводов, скорость, уровни сигналов и доступность выводов. Проверьте совместимость уровней перед прямым подключением датчика 5 В к ESP32 3,3 В."
+    }
+  ],
+  "testId": "embedded_test_protocols_uart_i2c_spi_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

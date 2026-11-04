@@ -1,0 +1,160 @@
+{
+  "id": "esp32_esp_ble",
+  "title": "Bluetooth LE ve GATT",
+  "difficulty": "hard",
+  "testId": "esp32_test_esp_ble_tr",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/ble/"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Bluetooth LE ve GATT” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: GATT veriyi servis ve characteristic altında düzenler. Gerçek projede şu öneriyi izleyin: Salt okunur characteristic bile hassas veri taşıyabilir; eşleştirme ve yetkiyi planlayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <BLEDevice.h>\n#include <BLEServer.h>\n#include <BLEUtils.h>\n#include <BLE2902.h>\nstatic BLECharacteristic* reading;\nvoid setup() {\n    BLEDevice::init(\"SensorDemo\");\n    BLEServer* server = BLEDevice::createServer();\n    BLEService* service = server->createService(\"180A\");\n    reading = service->createCharacteristic(\"2A57\", BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_NOTIFY);\n    reading->addDescriptor(new BLE2902());\n    reading->setValue(\"ready\");\n    service->start();\n    BLEDevice::getAdvertising()->start();\n}\nvoid loop() { reading->setValue(\"sample\"); reading->notify(); delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Advertising ancak yığın, geri çağırım, service ve advertising verisi kurulduktan sonra başlar; API BLE yığın'e bağlıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "BLE GATT server servis ve characteristic'lerle veri paylaşır. Reklam, bağlantı, MTU ve güç davranışı varyant ve SDK'ya bağlıdır; yetkiyi ve veriyi kimin okuyacağını belirleyin.\n\nBLE program'i Arduino-ESP32 BLE kütüphanesini kullanır; header/API desteği çekirdek sürümüne göre değişebilir. ESP-IDF GATT API'sinin geri çağırım ve yaşam döngüsü farklıdır; bu program onu taklit etmez.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#include <BLEDevice.h>",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: GATT veriyi servis ve characteristic altında düzenler.\nNeden seçildi: Salt okunur characteristic bile hassas veri taşıyabilir; eşleştirme ve yetkiyi planlayın.\nAtlanır veya değiştirilirse: Salt okunur characteristic bile hassas veri taşıyabilir; eşleştirme ve yetkiyi planlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: Salt okunur characteristic bile hassas veri taşıyabilir; eşleştirme ve yetkiyi planlayın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "GATT veriyi servis ve characteristic altında düzenler.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Salt okunur characteristic bile hassas veri taşıyabilir; eşleştirme ve yetkiyi planlayın."
+    },
+    {
+      "type": "text",
+      "text": "Arduino Çekirdek GATT taslağı\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <BLEDevice.h>\n#include <BLEServer.h>\nvoid setup() { BLEDevice::init(\"SensorDemo\"); BLEServer* server = BLEDevice::createServer(); BLEService* service = server->createService(\"180A\"); service->start(); BLEDevice::getAdvertising()->start(); }\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bir BLE servisi yayınlanır; seçilen çekirdek için desteği ve kütüphane sürümünü doğrulayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "ESP-IDF GATT API'sinin geri çağırım ve yaşam döngüsü farklıdır; bu program onu taklit etmez."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Pinler, gerilim/akım sınırları, zamanlama ve çevre birimleri karta bağlıdır; bağlantı veya yükleme öncesinde kart belgesini doğrulayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

@@ -1,0 +1,172 @@
+{
+  "id": "freertos_freertos_memory",
+  "title": "Heap, stack və statik allocation",
+  "difficulty": "hard",
+  "testId": "freertos_test_freertos_memory_az",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/09-Memory-management/01-Memory-management"
+  ],
+  "estimatedMinutes": 20,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Heap, stack və statik allocation” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Kernel heap-dən ayrılan yaddaşı düzgün buraxın və mümkün olduqda uzun ömürlü obyektləri əvvəlcədən planlaşdırın. Real layihədə bu göstərişə əməl edin: Task yaratma nəticəsini və stack istifadəsini yoxlayın; RAM büdcəsini bütün task, queue və buffer-lər üzrə hesablayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid setup() { Serial.begin(115200); void* memory = pvPortMalloc(128); if (memory != nullptr) { Serial.println(\"128 bytes available\"); vPortFree(memory); } else { Serial.println(\"heap exhausted\"); } }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FreeRTOS heap-də ən azı 128 bayt olduqda allocation uğuru göstərilir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Hər FreeRTOS task öz stack-ini istehlak edir; queue, timer, task yaratmaq isə kernel heap-indən RAM ala bilər. Heap exhaustion zamanı ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "xTaskCreate",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və queue creation uğursuz ola bilər, stack overflow isə korlanmaya səbəb ola bilər. Task high-water mark, minimum heap və build-time static allocation imkanlarını ölçüb seçin; demo ölçülərini kor-koranə istehsala köçürməyin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { Serial.begin(115200); void* memory = pvPortMalloc(128); if (memory != nullptr) { Serial.println(\"128 bytes available\"); vPortFree(memory); } else { Serial.println(\"heap exhausted\"); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Kernel heap-dən ayrılan yaddaşı düzgün buraxın və mümkün olduqda uzun ömürlü obyektləri əvvəlcədən planlaşdırın.\nNiyə seçilib: Task yaratma nəticəsini və stack istifadəsini yoxlayın; RAM büdcəsini bütün task, queue və buffer-lər üzrə hesablayın.\nBuraxılsa və ya dəyişdirilsə: FreeRTOS stack parametrlərinin vahidi port və API-yə görə dəyişə bilər; ESP32 Arduino Core-da nümunə API stack ölçüsünü byte ilə alır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Task yaratma nəticəsini və stack istifadəsini yoxlayın; RAM büdcəsini bütün task, queue və buffer-lər üzrə hesablayın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kernel heap-dən ayrılan yaddaşı düzgün buraxın və mümkün olduqda uzun ömürlü obyektləri əvvəlcədən planlaşdırın.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Task yaratma nəticəsini və stack istifadəsini yoxlayın; RAM büdcəsini bütün task, queue və buffer-lər üzrə hesablayın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid setup() { Serial.begin(115200); void* block = pvPortMalloc(64); if (block) { Serial.println(\"allocated 64 bytes\"); vPortFree(block); } else { Serial.println(\"allocation failed\"); } }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "128 baytlıq allocation uğurludursa müvəffəqiyyət mesajı çap olunur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "FreeRTOS stack parametrlərinin vahidi port və API-yə görə dəyişə bilər; ESP32 Arduino Core-da nümunə API stack ölçüsünü byte ilə alır."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Pinlər, gərginlik/cərəyan limitləri, timing və periferik imkanlar lövhədən asılıdır; naqilləmədən və yükləmədən əvvəl dəqiq board sənədini yoxlayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: tapşırıqların vəziyyətini, prioritetini, növbə/sinxronizasiya əlaqəsini və zaman xəttini göstərən diaqram."
+}

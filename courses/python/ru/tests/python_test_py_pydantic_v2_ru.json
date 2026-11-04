@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_pydantic_v2_ru",
+  "title": "Pydantic v2: проверка внешних данных",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_pydantic_v2",
+      "type": "multiple_choice",
+      "prompt": "Какой точный результат выводит пример кода 1 в этом уроке?\n\nfrom pydantic import BaseModel, Field\n\nclass SensorReading(BaseModel):\n    device_id: str\n    celsius: float = Field(ge=-80, le=150)\n\nreading = SensorReading.model_validate(\n    {'device_id': 'sensor-1', 'celsius': 21.5}\n)\nprint(reading.device_id, reading.celsius)",
+      "options": [
+        "{'username': 'ada'}",
+        "SENSOR-1 21.5",
+        "invalid reading",
+        "sensor-1 21.5"
+      ],
+      "answer": "sensor-1 21.5",
+      "explanation": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n`from pydantic import BaseModel, Field` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`class SensorReading(BaseModel):` — Определяет тип, объединяющий данные и поведение; без класса нельзя создать объект по этому контракту.\n`device_id: str` — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n`celsius: float = Field(ge=-80, le=150)` — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n`reading = SensorReading.model_validate(` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`{'device_id': 'sensor-1', 'celsius': 21.5}` — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n`)` — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n`print(reading.device_id, reading.celsius)` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_pydantic_v2",
+      "type": "multiple_choice",
+      "prompt": "Какой точный результат выводит пример кода 2 в этом уроке?\n\nfrom pydantic import BaseModel, ValidationError\n\nclass Reading(BaseModel):\n    celsius: float\n\ntry:\n    Reading.model_validate({'celsius': 'not-a-number'})\nexcept ValidationError:\n    print('invalid reading')",
+      "options": [
+        "{'username': 'ada'}",
+        "sensor-1 21.5",
+        "INVALID READING",
+        "invalid reading"
+      ],
+      "answer": "invalid reading",
+      "explanation": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n`from pydantic import BaseModel, ValidationError` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`class Reading(BaseModel):` — Определяет тип, объединяющий данные и поведение; без класса нельзя создать объект по этому контракту.\n`celsius: float` — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n`try:` — Выделяет операции, способные завершиться ошибкой; без обработчика ожидаемая ошибка прервёт вызывающий код.\n`Reading.model_validate({'celsius': 'not-a-number'})` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n`except ValidationError:` — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n`print('invalid reading')` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_pydantic_v2",
+      "type": "multiple_choice",
+      "prompt": "Какой точный результат выводит пример кода 3 в этом уроке?\n\nfrom pydantic import BaseModel, Field\n\nclass Account(BaseModel):\n    username: str = Field(min_length=3)\n\naccount = Account.model_validate({'username': 'ada'})\nprint(account.model_dump())",
+      "options": [
+        "sensor-1 21.5",
+        "invalid reading",
+        "{'USERNAME': 'ADA'}",
+        "{'username': 'ada'}"
+      ],
+      "answer": "{'username': 'ada'}",
+      "explanation": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n`from pydantic import BaseModel, Field` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`class Account(BaseModel):` — Определяет тип, объединяющий данные и поведение; без класса нельзя создать объект по этому контракту.\n`username: str = Field(min_length=3)` — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n`account = Account.model_validate({'username': 'ada'})` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`print(account.model_dump())` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_pydantic_v2",
+      "type": "multiple_choice",
+      "prompt": "Какое утверждение точно описывает тему «Pydantic v2: проверка внешних данных»?",
+      "options": [
+        "Python применяют для автоматизации, веб-сервисов и анализа данных: понятный синтаксис и обширная библиотека помогают строить небольшие проверяемые шаги.",
+        "Комментарии объясняют неочевидное решение, а не повторяют код, например причину выбранного ограничения.",
+        "Pydantic создал Сэмюэл Колвин, чтобы упростить разбор и проверку внешних данных с помощью типов Python.",
+        "Синтаксис и отступы обозначают границы блоков; ошибка может помешать запуску маршрута или условия."
+      ],
+      "answer": "Pydantic создал Сэмюэл Колвин, чтобы упростить разбор и проверку внешних данных с помощью типов Python.",
+      "explanation": "Pydantic создал Сэмюэл Колвин, чтобы упростить разбор и проверку внешних данных с помощью типов Python. В версии 2 `BaseModel` задаёт схему, а `Field` — ограничения; `ValidationError` является ожидаемой ошибкой ввода. Аннотации сами по себе не проверяют данные, а Pydantic не заменяет авторизацию и бизнес-правила."
+    }
+  ]
+}

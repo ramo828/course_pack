@@ -1,0 +1,160 @@
+{
+  "id": "esp32_esp_gpio",
+  "title": "GPIO, interrupts, and debouncing",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_gpio_en",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “GPIO, interrupts, and debouncing” to a real program or device. The key principle is: Keep the ISR short and handle work in the task or main loop. In a project, follow this guidance: Choose the interrupt source and trigger mode deliberately.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nconst int buttonPin = 4;\nconst int ledPin = 2; // Use an external LED with a resistor if this pin has no onboard LED.\nvolatile bool eventReady = false;\nvoid IRAM_ATTR onEdge() { eventReady = true; }\nvoid setup() {\n    pinMode(buttonPin, INPUT_PULLUP);\n    pinMode(ledPin, OUTPUT);\n    attachInterrupt(digitalPinToInterrupt(buttonPin), onEdge, FALLING);\n}\nvoid loop() {\n    if (eventReady) { noInterrupts(); eventReady = false; interrupts(); digitalWrite(ledPin, !digitalRead(ledPin)); }\n    delay(1);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The ISR only sets a flag; full behavior requires GPIO configuration and ISR setup for the target.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Configure GPIO on supported pins. Keep interrupt handlers short and timestamp events; debounce mechanical switches before treating each edge as a distinct press.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "attachInterrupt(digitalPinToInterrupt(buttonPin), onEdge, FALLING);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: Keep the ISR short and handle work in the task or main loop.\nWhy it is used: Choose the interrupt source and trigger mode deliberately.\nIf omitted or changed: Shared data between tasks and ISRs requires proper synchronization and ISR-safe APIs.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Shared data between tasks and ISRs requires proper synchronization and ISR-safe APIs."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Keep the ISR short and handle work in the task or main loop.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Choose the interrupt source and trigger mode deliberately."
+    },
+    {
+      "type": "text",
+      "text": "Equivalent Arduino Core sketch\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nconst int pin = 2; // Use an external LED with a resistor if needed.\nvoid setup() { pinMode(pin, OUTPUT); }\nvoid loop() { digitalWrite(pin, !digitalRead(pin)); delay(500); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "An LED on GPIO 2 toggles; verify the board pin map and use a resistor.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Keep interrupt handlers short and timestamp events; debounce mechanical switches before treating each edge as a distinct press."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Shared data between tasks and ISRs requires proper synchronization and ISR-safe APIs."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

@@ -1,0 +1,160 @@
+{
+  "id": "iot_iot_reliability",
+  "title": "Offline rejim, retry və telemetriya",
+  "difficulty": "medium",
+  "testId": "iot_test_iot_reliability_az",
+  "sources": [
+    "https://www.rfc-editor.org/rfc/rfc6298.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Offline rejim, retry və telemetriya” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Backoff təkrar cəhdlərin yükünü azaldır. Real layihədə bu göstərişə əməl edin: Retry intervalını jitter ilə yaymaq çox cihazın eyni anda serverə qayıtmasının qarşısını alır.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nunsigned long retryDelayMs = 1000;\nconst unsigned long maximumDelayMs = 60000;\nvoid setup() { Serial.begin(115200); }\nvoid loop() {\n    Serial.print(\"retry in ms: \");\n    Serial.println(retryDelayMs);\n    delay(retryDelayMs);\n    retryDelayMs = min(retryDelayMs * 2UL, maximumDelayMs);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "İlk təkrar cəhd 1000 ms sonra edilir; production backoff üçün yuxarı limit və təsadüfi jitter lazımdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Şəbəkə kəsiləndə məlumatı məhdud növbədə saxlamaq, yenidən qoşulmanı gecikdirməklə sınamaq və təkrar mesajı idempotent emal etmək olar. Sensor keyfiyyətini, son əlaqəni və xəta sayını izləyən sağlamlıq siqnalları əlavə edin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { Serial.begin(115200); }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Backoff təkrar cəhdlərin yükünü azaldır.\nNiyə seçilib: Retry intervalını jitter ilə yaymaq çox cihazın eyni anda serverə qayıtmasının qarşısını alır.\nBuraxılsa və ya dəyişdirilsə: Retry intervalını jitter ilə yaymaq çox cihazın eyni anda serverə qayıtmasının qarşısını alır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Retry intervalını jitter ilə yaymaq çox cihazın eyni anda serverə qayıtmasının qarşısını alır."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Backoff təkrar cəhdlərin yükünü azaldır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Retry intervalını jitter ilə yaymaq çox cihazın eyni anda serverə qayıtmasının qarşısını alır."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nunsigned long delayMs = 1000;\nvoid setup() { Serial.begin(115200); }\nvoid loop() { Serial.println(delayMs); delay(delayMs); delayMs = min(delayMs * 2UL, 60000UL); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Retry interval 60 saniyə həddinə qədər artır; cihaz fleet-i üçün jitter əlavə edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Sensor keyfiyyətini, son əlaqəni və xəta sayını izləyən sağlamlıq siqnalları əlavə edin."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Pinlər, gərginlik/cərəyan limitləri, timing və periferik imkanlar lövhədən asılıdır; naqilləmədən və yükləmədən əvvəl dəqiq lövhə sənədini yoxlayın."
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "Cihaz ölçməni gateway/broker üzərindən xidmətə göndərir; əmr əks istiqamətdə qayıda bilər."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

@@ -1,0 +1,62 @@
+{
+  "id": "rust_test_rust_ownership_az",
+  "title": "Ownership və köçürmə",
+  "questions": [
+    {
+      "id": "rust_rust_ownership_1",
+      "topicId": "rust_rust_ownership",
+      "type": "multiple_choice",
+      "prompt": "“Ownership və köçürmə” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "String kimi `Copy` olmayan dəyərlər köçürülür; integer kimi `Copy` tiplər isə surətlənir. Heap-də yerləşmək təkbaşına bu davranışı müəyyən etmir."
+      ],
+      "answer": "String kimi `Copy` olmayan dəyərlər köçürülür; integer kimi `Copy` tiplər isə surətlənir. Heap-də yerləşmək təkbaşına bu davranışı müəyyən etmir.",
+      "explanation": "String kimi `Copy` olmayan dəyərlər köçürülür; integer kimi `Copy` tiplər isə surətlənir. Heap-də yerləşmək təkbaşına bu davranışı müəyyən etmir.\nİzah: Rust hər dəyər üçün sahib müəyyən edir; sahib scope-dan çıxanda resurs azad edilir. Bəzi tiplər move olur, Copy tipləri isə ucuz dəyər nüsxəsi kimi köçürülür.\n\nOwnership qaydası: hər dəyərin bir sahibi var; sahib scope-dan çıxanda resurs buraxılır. `let second = first` kimi String köçürüləndə `first` artıq istifadə edilmir. `Copy` tiplər (məsələn, i32) köçürülmək əvəzinə kopyalanır. Bu compile-time qaydadır və garbage collector tələb etmir."
+    },
+    {
+      "id": "rust_rust_ownership_2",
+      "topicId": "rust_rust_ownership",
+      "type": "multiple_choice",
+      "prompt": "“Ownership və köçürmə” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "Move-dan sonra əvvəlki dəyişən həmin dəyərə sahib olmur; kompilyator bunu yoxlayır.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "Dəyişənliyi yalnız həqiqətən lazım olduqda aktiv edin.",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir."
+      ],
+      "answer": "Move-dan sonra əvvəlki dəyişən həmin dəyərə sahib olmur; kompilyator bunu yoxlayır.",
+      "explanation": "Move-dan sonra əvvəlki dəyişən həmin dəyərə sahib olmur; kompilyator bunu yoxlayır.\nİzah: Rust hər dəyər üçün sahib müəyyən edir; sahib scope-dan çıxanda resurs azad edilir. Bəzi tiplər move olur, Copy tipləri isə ucuz dəyər nüsxəsi kimi köçürülür.\n\nOwnership qaydası: hər dəyərin bir sahibi var; sahib scope-dan çıxanda resurs buraxılır. `let second = first` kimi String köçürüləndə `first` artıq istifadə edilmir. `Copy` tiplər (məsələn, i32) köçürülmək əvəzinə kopyalanır. Bu compile-time qaydadır və garbage collector tələb etmir."
+    },
+    {
+      "id": "rust_rust_ownership_3",
+      "topicId": "rust_rust_ownership",
+      "type": "multiple_choice",
+      "prompt": "“Ownership və köçürmə” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Ownership yaddaşın əl ilə idarəsini əvəz edən dil qaydalarıdır; garbage collector istifadə etmir."
+      ],
+      "answer": "Ownership yaddaşın əl ilə idarəsini əvəz edən dil qaydalarıdır; garbage collector istifadə etmir.",
+      "explanation": "Ownership yaddaşın əl ilə idarəsini əvəz edən dil qaydalarıdır; garbage collector istifadə etmir.\nİzah: Rust hər dəyər üçün sahib müəyyən edir; sahib scope-dan çıxanda resurs azad edilir. Bəzi tiplər move olur, Copy tipləri isə ucuz dəyər nüsxəsi kimi köçürülür.\n\nOwnership qaydası: hər dəyərin bir sahibi var; sahib scope-dan çıxanda resurs buraxılır. `let second = first` kimi String köçürüləndə `first` artıq istifadə edilmir. `Copy` tiplər (məsələn, i32) köçürülmək əvəzinə kopyalanır. Bu compile-time qaydadır və garbage collector tələb etmir."
+    },
+    {
+      "id": "rust_rust_ownership_4",
+      "topicId": "rust_rust_ownership",
+      "type": "multiple_choice",
+      "prompt": "“Ownership və köçürmə” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "Bəzi tiplər move olur, Copy tipləri isə ucuz dəyər nüsxəsi kimi köçürülür"
+      ],
+      "answer": "Bəzi tiplər move olur, Copy tipləri isə ucuz dəyər nüsxəsi kimi köçürülür",
+      "explanation": "Bəzi tiplər move olur, Copy tipləri isə ucuz dəyər nüsxəsi kimi köçürülür\nİzah: Rust hər dəyər üçün sahib müəyyən edir; sahib scope-dan çıxanda resurs azad edilir. Bəzi tiplər move olur, Copy tipləri isə ucuz dəyər nüsxəsi kimi köçürülür.\n\nOwnership qaydası: hər dəyərin bir sahibi var; sahib scope-dan çıxanda resurs buraxılır. `let second = first` kimi String köçürüləndə `first` artıq istifadə edilmir. `Copy` tiplər (məsələn, i32) köçürülmək əvəzinə kopyalanır. Bu compile-time qaydadır və garbage collector tələb etmir."
+    }
+  ]
+}

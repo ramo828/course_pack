@@ -1,0 +1,42 @@
+{
+  "id": "arduino_pwm_output",
+  "title": "analogWrite and PWM: brightness and speed from a digital pin",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/analog-io/analogWrite/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "PWM rapidly switches a digital output to control average power, which can dim an LED or control a suitable DC motor. On classic UNO, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "analogWrite",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " usually produces PWM with a 0–255 duty range, not a true analog voltage. ESP32 configures PWM through its LEDC peripheral/API.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "constexpr uint8_t LED_PIN = 9;\n\nvoid setup() {\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  analogWrite(LED_PIN, 128);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Use a pin that supports PWM and check each board's frequency and resolution rules. Do not power a motor from GPIO; use a driver and suitable external supply."
+    }
+  ],
+  "testId": "embedded_test_arduino_pwm_output_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

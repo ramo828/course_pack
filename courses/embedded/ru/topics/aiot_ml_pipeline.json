@@ -1,0 +1,52 @@
+{
+  "id": "aiot_ml_pipeline",
+  "title": "Проект AIoT: от измерений к модели",
+  "difficulty": "medium",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://www.tensorflow.org/lite/microcontrollers",
+    "https://ai.google.dev/edge/litert/conversion/tensorflow/overview"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Обычно модель не обучают на самом микроконтроллере. Сначала собирают и размечают примеры на компьютере, там обучают и проверяют небольшую модель, а затем преобразуют её в поддерживаемый формат и запускают вывод на плате.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Как это работает\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Простой порядок: 1) правильно считывать датчик; 2) собирать окна фиксированной длины; 3) явно размечать каждое окно, например «норма» и «необычно»; 4) проверять на отдельных данных; 5) уменьшить модель и измерить её на плате; 6) повторить тест с настоящим датчиком. Если разделить соседние фрагменты одной записи между обучением и проверкой, результат может оказаться завышенным; лучше разделять записи или дни.\n\nТочность — не единственная метрика: учитывайте ложные тревоги, пропуски событий, память, задержку и энергию. Сначала сравните с простым пороговым правилом; модель нужна не каждому проекту.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Пример кода\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# On a computer: prepare labeled examples, then train and test.\nfeatures, labels = collect_and_label_sensor_windows()\ntrain, test = split_by_recording_session(features, labels)\nmodel = train_small_classifier(train, labels)\nprint(\"test accuracy:\", evaluate(model, test))\n# Convert and optimize only after checking test results.",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_tflite_pipeline",
+      "caption": "Схема: Проект AIoT: от измерений к модели"
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Не смешивайте итоговые проверочные данные с обучающими. При изменении положения датчика, частоты выборки или масштаба качество модели тоже меняется."
+    }
+  ],
+  "testId": "embedded_test_aiot_ml_pipeline_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

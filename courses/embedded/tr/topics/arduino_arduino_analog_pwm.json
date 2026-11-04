@@ -1,0 +1,160 @@
+{
+  "id": "arduino_arduino_analog_pwm",
+  "title": "ADC, PWM ve analog okuma",
+  "difficulty": "medium",
+  "testId": "arduino_test_arduino_analog_pwm_tr",
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/analog-io/analogRead/"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “ADC, PWM ve analog okuma” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: PWM görev oranı çıkışın HIGH kaldığı süreyi belirler. Gerçek projede şu öneriyi izleyin: AnalogRead aralığını kart belgesinden alın ve ham değeri fiziksel birime kalibre edin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int sensorPin = A0;\nconst int ledPin = LED_BUILTIN;\nvoid setup() { pinMode(ledPin, OUTPUT); }\nvoid loop() {\n    int raw = analogRead(sensorPin);\n    int level = map(raw, 0, 1023, 0, 255);\n    analogWrite(ledPin, constrain(level, 0, 255));\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "PWM parlaklığı A0 analog girişine göre değişir; ADC aralığı ve PWM pinleri karta bağlıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ADC analog gerilimi sayısal değere çevirir; aralık ve çözünürlük MCU'ya bağlıdır. PWM dijital çıkışı görev oranıyla modüle eder ve her platformada gerçek DAC değildir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int raw = analogRead(sensorPin);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: PWM görev oranı çıkışın HIGH kaldığı süreyi belirler.\nNeden seçildi: AnalogRead aralığını kart belgesinden alın ve ham değeri fiziksel birime kalibre edin.\nAtlanır veya değiştirilirse: 3.3 V ADC pinine 5 V sinyali doğrudan bağlamayın; kart giriş sınırını kontrol edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "3.3 V ADC pinine 5 V sinyali doğrudan bağlamayın; kart giriş sınırını kontrol edin."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "PWM görev oranı çıkışın HIGH kaldığı süreyi belirler.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "AnalogRead aralığını kart belgesinden alın ve ham değeri fiziksel birime kalibre edin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int pin = LED_BUILTIN;\nvoid setup() { pinMode(pin, OUTPUT); }\nvoid loop() { analogWrite(pin, 128); delay(500); analogWrite(pin, 0); delay(500); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "PWM parlaklığı analog girişe göre değişir; ADC çözünürlüğü, PWM pinleri ve aralık karta bağlıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "PWM dijital çıkışı görev oranıyla modüle eder ve her platformada gerçek DAC değildir."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "3.3 V ADC pinine 5 V sinyali doğrudan bağlamayın; kart giriş sınırını kontrol edin."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

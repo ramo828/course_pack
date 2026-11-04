@@ -1,0 +1,86 @@
+{
+  "id": "python_py_fastapi",
+  "title": "Типизированные HTTP API на FastAPI",
+  "difficulty": "hard",
+  "testId": "python_test_py_fastapi_ru",
+  "sources": [
+    "https://docs.python.org/3/tutorial/",
+    "https://docs.python.org/3/using/",
+    "https://docs.python.org/3/library/",
+    "https://docs.python.org/3/library/turtle.html",
+    "https://docs.python.org/3/library/tkinter.html",
+    "https://fastapi.tiangolo.com/tutorial/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI — ASGI-фреймворк, использующий аннотации типов Python для HTTP-endpoint и JSON API. Модели Pydantic проверяют данные запросов и ответов, параметры path/query/body передаются функциям endpoint, а схема OpenAPI создаёт интерактивную документацию. FastAPI работает на стороне сервера и вызывается другими программами по сети; это не настольный GUI.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI\nfrom pydantic import BaseModel\n\napp = FastAPI()\n\nclass Item(BaseModel):\n    name: str\n    price: float\n\n@app.post('/items')\nasync def create_item(item: Item):\n    return {'name': item.name, 'price': item.price}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "The server defines POST /items. A valid request returns JSON such as {\"name\":\"pen\",\"price\":1.5}; starting the server itself does not call the endpoint.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Модель Pydantic проверяет JSON-тело; FastAPI может создать описание OpenAPI и интерактивную документацию по модели.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Включайте коды статуса, валидацию и ошибки в контракт API; интерактивная документация не заменяет аутентификацию и авторизацию."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Для production отдельно настройте HTTPS, аутентификацию и авторизацию, секреты, ограничения частоты и размера запросов."
+    },
+    {
+      "type": "diagram",
+      "id": "fastapi_request",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

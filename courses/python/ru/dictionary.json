@@ -1,0 +1,568 @@
+{
+  "courseId": "python",
+  "locale": "ru",
+  "title": "Словарь Python: коллекции, файлы и ООП",
+  "version": 1,
+  "sections": [
+    {
+      "id": "dict",
+      "title": "Словарь (dict)",
+      "entries": [
+        {
+          "term": "dict",
+          "kind": "built-in type",
+          "short": "Изменяемая коллекция, связывающая уникальные ключи со значениями.",
+          "detail": "Ключи должны быть хешируемыми, а значения могут иметь любой тип. Начиная с Python 3.7 сохраняется порядок добавления. Словари подходят для поиска по полю, подсчёта и хранения настроек.",
+          "example": "user = {'name': 'Aylin', 'score': 90}\nprint(user['name'])",
+          "output": "Aylin"
+        },
+        {
+          "term": "Создание словаря",
+          "kind": "syntax",
+          "short": "Словарь создают с помощью литерала `{}` или `dict(...)`.",
+          "detail": "Литерал поддерживает ключи с пробелами и строковые ключи. `dict(name=...)` принимает только ключевые аргументы, допустимые как идентификаторы; словарь также можно создать из пар.",
+          "example": "a = {'user-id': 17}\nb = dict(name='Aylin')\nc = dict([('x', 1), ('y', 2)])\nprint(a, b, c)",
+          "output": "{'user-id': 17} {'name': 'Aylin'} {'x': 1, 'y': 2}"
+        },
+        {
+          "term": "Ключ и хешируемость",
+          "kind": "concept",
+          "short": "Ключ должен быть уникальным, неизменяемым и хешируемым.",
+          "detail": "Строки, целые числа и кортежи из неизменяемых элементов обычно подходят на роль ключей. Списки и словари изменяемы, поэтому ключами быть не могут. Равные ключи, например `True` и `1`, могут обозначать одну и ту же запись.",
+          "example": "lookup = {(2, 3): 'nöqtə'}\nprint(lookup[(2, 3)])",
+          "output": "nöqtə"
+        },
+        {
+          "term": "d[key]",
+          "kind": "operation",
+          "short": "Читает или задаёт значение по ключу.",
+          "detail": "При чтении отсутствующего ключа возникает `KeyError`. Присваивание добавляет отсутствующий ключ или заменяет его значение.",
+          "example": "d = {'score': 8}\nd['score'] = 9\nprint(d['score'])",
+          "output": "9"
+        },
+        {
+          "term": "get(key, default=None)",
+          "kind": "dict method",
+          "short": "Возвращает запасное значение, если ключ отсутствует.",
+          "detail": "Словарь не изменяется; если запасное значение не задано, возвращается `None`. Поскольку значением существующего ключа тоже может быть `None`, при необходимости проверяйте наличие через `key in d`.",
+          "example": "user = {'name': 'Aylin'}\nprint(user.get('age', 0))",
+          "output": "0"
+        },
+        {
+          "term": "keys()",
+          "kind": "dict method",
+          "short": "Возвращает динамическое представление ключей.",
+          "detail": "Представление отражает последующие изменения словаря. Если нужен список ключей, используйте `list(d.keys())`; для перебора обычно достаточно `for key in d`.",
+          "example": "d = {'a': 1, 'b': 2}\nprint(list(d.keys()))",
+          "output": "['a', 'b']"
+        },
+        {
+          "term": "values()",
+          "kind": "dict method",
+          "short": "Возвращает динамическое представление значений.",
+          "detail": "Значения могут повторяться, а представление отражает изменения словаря. Если нужна отдельная копия значений, создайте `list(d.values())`.",
+          "example": "d = {'a': 1, 'b': 2}\nprint(list(d.values()))",
+          "output": "[1, 2]"
+        },
+        {
+          "term": "items()",
+          "kind": "dict method",
+          "short": "Возвращает динамическое представление пар (ключ, значение).",
+          "detail": "Каждая пара похожа на кортеж. Чтобы перебирать ключ и значение вместе, используют `for key, value in d.items()`.",
+          "example": "d = {'tea': 3, 'bread': 2}\nfor name, price in d.items():\n    print(name, price)",
+          "output": "tea 3\nbread 2"
+        },
+        {
+          "term": "update(other, **kwargs)",
+          "kind": "dict method",
+          "short": "Добавляет или обновляет пары из другого источника.",
+          "detail": "Принимает отображение, итерируемый объект пар `(key, value)` или именованные аргументы. При совпадении ключей используется новое значение; метод возвращает `None`.",
+          "example": "d = {'a': 1}\nd.update({'a': 2, 'b': 3})\nprint(d)",
+          "output": "{'a': 2, 'b': 3}"
+        },
+        {
+          "term": "pop(key, default)",
+          "kind": "dict method",
+          "short": "Удаляет ключ и возвращает его значение.",
+          "detail": "Если ключа нет и запасной аргумент не передан, возникает `KeyError`. Второй аргумент позволяет обработать отсутствие ключа.",
+          "example": "d = {'a': 1}\nvalue = d.pop('a')\nprint(value, d)",
+          "output": "1 {}"
+        },
+        {
+          "term": "popitem()",
+          "kind": "dict method",
+          "short": "Удаляет и возвращает последнюю добавленную пару.",
+          "detail": "В Python 3.7 и новее метод работает по принципу LIFO и извлекает последнюю пару в порядке добавления. Для пустого словаря возникает `KeyError`; для конкретного ключа используйте `pop(key)`.",
+          "example": "d = {'first': 1, 'last': 2}\nprint(d.popitem())",
+          "output": "('last', 2)"
+        },
+        {
+          "term": "setdefault(key, default=None)",
+          "kind": "dict method",
+          "short": "Возвращает значение ключа или добавляет и возвращает значение по умолчанию.",
+          "detail": "Полезен в сценариях «создать, если отсутствует», например при подсчёте или группировке. Изменяемое значение по умолчанию создаётся ещё до вызова и может привести к неожиданному совместному использованию; выбирайте comprehension, `defaultdict` или другой подход.",
+          "example": "groups = {}\ngroups.setdefault('az', []).append('Aylin')\nprint(groups)",
+          "output": "{'az': ['Aylin']}"
+        },
+        {
+          "term": "dict.fromkeys(iterable, value=None)",
+          "kind": "dict class method",
+          "short": "Создаёт словарь с одинаковым значением для всех заданных ключей.",
+          "detail": "Подходит неизменяемое значение по умолчанию, например `0`. Если передать изменяемый объект `[]`, все ключи будут ссылаться на один список; для отдельных списков используйте comprehension.",
+          "example": "keys = ['az', 'tr']\nprint(dict.fromkeys(keys, 0))",
+          "output": "{'az': 0, 'tr': 0}"
+        },
+        {
+          "term": "clear()",
+          "kind": "dict method",
+          "short": "Удаляет все пары из словаря.",
+          "detail": "Очищает тот же объект словаря и возвращает `None`. Если на него ссылается другая переменная, через неё словарь тоже будет пустым.",
+          "example": "d = {'a': 1}\nresult = d.clear()\nprint(d, result)",
+          "output": "{} None"
+        },
+        {
+          "term": "copy()",
+          "kind": "dict method",
+          "short": "Создаёт поверхностную копию словаря.",
+          "detail": "Пары верхнего уровня копируются, но вложенные изменяемые значения остаются общими. Глубокую копию метод не создаёт.",
+          "example": "a = {'scores': [4]}\nb = a.copy()\nb['scores'].append(5)\nprint(a)",
+          "output": "{'scores': [4, 5]}"
+        },
+        {
+          "term": "key in d",
+          "kind": "operation",
+          "short": "Проверяет, есть ли ключ в словаре.",
+          "detail": "Оператор `in` проверяет ключи, а не значения. Для поиска значения используйте `value in d.values()`.",
+          "example": "d = {'name': 'Aylin'}\nprint('name' in d, 'Aylin' in d)",
+          "output": "True False"
+        },
+        {
+          "term": "Вложенный словарь",
+          "kind": "pattern",
+          "short": "Хранение других словарей и коллекций в качестве значений.",
+          "detail": "Подходит для иерархических данных, похожих на JSON. На каждом уровне отдельно проверяйте наличие ключа и ожидаемый тип данных.",
+          "example": "students = {'u1': {'name': 'Aylin'}}\nprint(students['u1']['name'])",
+          "output": "Aylin"
+        },
+        {
+          "term": "Генератор словаря",
+          "kind": "syntax",
+          "short": "Создаёт словарь из итерируемого объекта с помощью краткого выражения.",
+          "detail": "Форма записи: `{key_expr: value_expr for item in iterable if condition}`. Для каждого элемента создаётся пара; если выражение трудно читать, используйте обычный цикл.",
+          "example": "squares = {n: n * n for n in range(1, 4)}\nprint(squares)",
+          "output": "{1: 1, 2: 4, 3: 9}"
+        }
+      ]
+    },
+    {
+      "id": "list",
+      "title": "Список (list)",
+      "entries": [
+        {
+          "term": "append(x)",
+          "kind": "list method",
+          "short": "Добавляет один элемент в конец списка.",
+          "detail": "Изменяет список на месте и возвращает `None`; новый список не создаётся.",
+          "example": "items = [1]\nitems.append([2, 3])\nprint(items)",
+          "output": "[1, [2, 3]]"
+        },
+        {
+          "term": "extend(iterable)",
+          "kind": "list method",
+          "short": "Добавляет элементы итерируемого объекта в конец по одному.",
+          "detail": "Объединяет списки; если передана строка, она разбивается на символы. Изменяет список на месте и возвращает `None`.",
+          "example": "items = [1]\nitems.extend([2, 3])\nprint(items)",
+          "output": "[1, 2, 3]"
+        },
+        {
+          "term": "insert(index, x)",
+          "kind": "list method",
+          "short": "Вставляет элемент в заданную позицию.",
+          "detail": "Следующие элементы сдвигаются вправо. Слишком большие и маленькие индексы ограничиваются допустимыми границами; частые вставки в середину списка затратны.",
+          "example": "items = ['a', 'c']\nitems.insert(1, 'b')\nprint(items)",
+          "output": "['a', 'b', 'c']"
+        },
+        {
+          "term": "remove(x)",
+          "kind": "list method",
+          "short": "Удаляет первое совпадение со значением.",
+          "detail": "Если значения нет в списке, возникает `ValueError`. Чтобы удалить все совпадения, используйте фильтрацию или comprehension.",
+          "example": "items = [2, 1, 2]\nitems.remove(2)\nprint(items)",
+          "output": "[1, 2]"
+        },
+        {
+          "term": "pop(index=-1)",
+          "kind": "list method",
+          "short": "Удаляет и возвращает элемент по индексу.",
+          "detail": "Если индекс не задан, извлекается последний элемент. Для пустого списка или недопустимого индекса возникает `IndexError`.",
+          "example": "items = ['a', 'b']\nlast = items.pop()\nprint(last, items)",
+          "output": "b ['a']"
+        },
+        {
+          "term": "index(x, start, stop)",
+          "kind": "list method",
+          "short": "Возвращает индекс первого подходящего элемента.",
+          "detail": "Поиск можно начать с `start` и завершить перед `stop`. Если элемента нет, возникает `ValueError`; сначала можно проверить наличие через `in`.",
+          "example": "items = ['a', 'b', 'a']\nprint(items.index('a', 1))",
+          "output": "2"
+        },
+        {
+          "term": "count(x)",
+          "kind": "list method",
+          "short": "Считает, сколько раз встречается значение.",
+          "detail": "Возвращает целое число совпадений и не изменяет список.",
+          "example": "print([1, 2, 1].count(1))",
+          "output": "2"
+        },
+        {
+          "term": "sort(key=None, reverse=False)",
+          "kind": "list method",
+          "short": "Сортирует список на месте.",
+          "detail": "`key` принимает функцию, вычисляющую значение для сортировки; `reverse=True` задаёт убывающий порядок. Сортировка стабильная, метод возвращает `None`. Чтобы сохранить исходный список и получить новый, используйте `sorted(...)`.",
+          "example": "names = ['Leyla', 'ali']\nnames.sort(key=str.casefold)\nprint(names)",
+          "output": "['ali', 'Leyla']"
+        },
+        {
+          "term": "reverse()",
+          "kind": "list method",
+          "short": "Разворачивает текущий порядок элементов на месте.",
+          "detail": "Метод не сортирует элементы, а только меняет их позиции на обратные; возвращает `None`.",
+          "example": "items = [1, 2, 3]\nitems.reverse()\nprint(items)",
+          "output": "[3, 2, 1]"
+        },
+        {
+          "term": "copy()",
+          "kind": "list method",
+          "short": "Возвращает поверхностную копию списка.",
+          "detail": "`items[:]` создаёт копию того же уровня. Вложенные изменяемые объекты остаются общими.",
+          "example": "a = [1, 2]\nb = a.copy()\nb.append(3)\nprint(a, b)",
+          "output": "[1, 2] [1, 2, 3]"
+        },
+        {
+          "term": "clear()",
+          "kind": "list method",
+          "short": "Удаляет все элементы списка.",
+          "detail": "Очищает тот же объект списка и возвращает `None`. Если на него ссылается другое имя, через него тоже будет виден пустой список.",
+          "example": "items = [1]\nitems.clear()\nprint(items)",
+          "output": "[]"
+        },
+        {
+          "term": "Срез [start:stop:step]",
+          "kind": "syntax",
+          "short": "Получает часть списка в виде нового списка.",
+          "detail": "`stop` не включается; границы можно опустить. Отрицательный индекс отсчитывается с конца, отрицательный `step` задаёт обратное направление. Срез — поверхностная копия; присваивание срезу может заменить элементы.",
+          "example": "items = [0, 1, 2, 3]\nprint(items[1:3], items[::-1])",
+          "output": "[1, 2] [3, 2, 1, 0]"
+        },
+        {
+          "term": "Генератор списка",
+          "kind": "syntax",
+          "short": "Создаёт новый список из итерируемого объекта с помощью краткого выражения.",
+          "detail": "Форма записи: `[expression for item in iterable if condition]`. Подходит для фильтрации и преобразования; большое число вложенных условий ухудшает читаемость.",
+          "example": "squares = [n * n for n in range(4) if n % 2 == 0]\nprint(squares)",
+          "output": "[0, 4]"
+        }
+      ]
+    },
+    {
+      "id": "file-io",
+      "title": "Файловый ввод-вывод и файловый объект",
+      "entries": [
+        {
+          "term": "open(file, mode, ...)",
+          "kind": "built-in function",
+          "short": "Открывает файл и возвращает файловый объект.",
+          "detail": "Важные аргументы: `file`, `mode`, `encoding`, `errors`, `newline`, `buffering`. В текстовом режиме явно указывайте кодировку; в новом коде используйте `with open(...)`.",
+          "example": "with open('notes.txt', 'r', encoding='utf-8') as f:\n    print(f.read())",
+          "output": "Текст из файла"
+        },
+        {
+          "term": "Режим r",
+          "kind": "file mode",
+          "short": "Открывает существующий файл только для чтения.",
+          "detail": "Если файла нет, возникает `FileNotFoundError`. Если запись не нужна, такой режим предотвращает случайное изменение данных.",
+          "example": "open('notes.txt', 'r', encoding='utf-8')",
+          "output": "Файловый объект для чтения"
+        },
+        {
+          "term": "Режим w",
+          "kind": "file mode",
+          "short": "Открывает файл для записи и очищает его содержимое.",
+          "detail": "Если файла нет, он создаётся; если есть — прежнее содержимое сразу удаляется. Убедитесь, что перезапись действительно нужна.",
+          "example": "with open('notes.txt', 'w', encoding='utf-8') as f:\n    f.write('yeni mətn')",
+          "output": "В файле остаётся только новый текст"
+        },
+        {
+          "term": "Режим a",
+          "kind": "file mode",
+          "short": "Добавляет записываемые данные в конец файла.",
+          "detail": "Сохраняет существующее содержимое и создаёт файл, если его нет. Подходит для добавления записей в журнал.",
+          "example": "with open('app.log', 'a', encoding='utf-8') as f:\n    f.write('başladı\\n')",
+          "output": "Строка добавлена в конец"
+        },
+        {
+          "term": "Режим x",
+          "kind": "file mode",
+          "short": "Создаёт только новый файл.",
+          "detail": "Если файл уже существует, возникает `FileExistsError`. Этот режим помогает избежать случайной перезаписи существующего файла.",
+          "example": "with open('new.txt', 'x', encoding='utf-8') as f:\n    f.write('ilk')",
+          "output": "Файл создаётся, только если его ещё нет"
+        },
+        {
+          "term": "Режимы b и t",
+          "kind": "file mode",
+          "short": "`b` — двоичный режим, `t` — текстовый; `t` используется по умолчанию.",
+          "detail": "Режимы `rb`, `wb` и `ab` работают с байтами и возвращают `bytes`; параметры `encoding` и `newline` к ним не применяются. `rt`/`wt` предназначены для текста и позволяют задать кодировку.",
+          "example": "with open('image.bin', 'rb') as f:\n    first_bytes = f.read(4)",
+          "output": "Например, b'\\x89PNG'"
+        },
+        {
+          "term": "Режим +",
+          "kind": "file mode",
+          "short": "Добавляет к режиму возможность чтения и записи.",
+          "detail": "`r+` изменяет существующий файл, `w+` сначала очищает его, `a+` направляет запись в конец, а `x+` требует новый файл. Для проверки позиции используйте `tell`/`seek`.",
+          "example": "with open('notes.txt', 'r+', encoding='utf-8') as f:\n    old = f.read()\n    f.seek(0)\n    f.write('Başlıq\\n' + old)",
+          "output": "Заголовок в начале файла"
+        },
+        {
+          "term": "encoding / errors / newline",
+          "kind": "open parameter",
+          "short": "Управляют преобразованием текста в байты и обработкой переводов строк.",
+          "detail": "`encoding='utf-8'` обеспечивает надёжное чтение и запись текста на разных платформах. `errors` задаёт обработку ошибок кодировки; значение по умолчанию `strict` приводит к ошибке. `newline` влияет на распознавание и преобразование окончаний строк.",
+          "example": "with open('az.txt', 'w', encoding='utf-8', newline='\\n') as f:\n    f.write('salam\\n')",
+          "output": "Текстовый файл в UTF-8"
+        },
+        {
+          "term": "with / менеджер контекста",
+          "kind": "syntax",
+          "short": "Автоматически закрывает файл при завершении блока.",
+          "detail": "Закрывает ресурс при нормальном завершении и при исключении. Это избавляет от риска забыть вручную вызвать `close()`.",
+          "example": "with open('notes.txt', encoding='utf-8') as f:\n    text = f.read()",
+          "output": "После блока файл закрыт"
+        },
+        {
+          "term": "read(size=-1)",
+          "kind": "file method",
+          "short": "Читает остаток файла или заданное количество данных.",
+          "detail": "В текстовом режиме читает символы, в двоичном — байты. Не загружайте большой файл целиком в память: обрабатывайте его построчно.",
+          "example": "with open('notes.txt', encoding='utf-8') as f:\n    text = f.read(20)",
+          "output": "Не более 20 символов"
+        },
+        {
+          "term": "readline() / readlines()",
+          "kind": "file methods",
+          "short": "Читает одну строку или все строки.",
+          "detail": "`readline()` может сохранить символ перевода строки. `readlines()` собирает все строки в список; для больших файлов экономнее использовать `for line in f`.",
+          "example": "with open('notes.txt', encoding='utf-8') as f:\n    for line in f:\n        print(line, end='')",
+          "output": "Строки по порядку"
+        },
+        {
+          "term": "write(text) / writelines(lines)",
+          "kind": "file methods",
+          "short": "Записывает в файл текст или последовательность текстовых строк.",
+          "detail": "`write` возвращает число записанных символов. `writelines` не добавляет переводы строк — каждая строка должна содержать `\\n`. Закрытие файла или `flush` сбрасывает буфер записи.",
+          "example": "with open('notes.txt', 'w', encoding='utf-8') as f:\n    f.writelines(['bir\\n', 'iki\\n'])",
+          "output": "Записаны две строки"
+        },
+        {
+          "term": "tell() / seek(offset, whence=0)",
+          "kind": "file methods",
+          "short": "Возвращают или изменяют текущую позицию чтения и записи.",
+          "detail": "`whence=0` означает начало, `1` — текущую позицию, `2` — конец файла. В текстовом режиме для `seek` есть ограничения; для произвольной байтовой позиции используйте двоичный режим.",
+          "example": "with open('notes.txt', 'rb') as f:\n    print(f.tell())\n    f.seek(0)",
+          "output": "0"
+        },
+        {
+          "term": "flush() / close()",
+          "kind": "file methods",
+          "short": "`flush` сбрасывает буфер, а `close` закрывает файл.",
+          "detail": "`flush()` не гарантирует физическую запись данных на диск. `close()` освобождает ресурс; `with` делает это автоматически. Для надёжного сохранения отдельно продумайте поведение файловой системы и завершения приложения.",
+          "example": "with open('notes.txt', 'w', encoding='utf-8') as f:\n    f.write('tamam')\n    f.flush()",
+          "output": "При выходе из блока файл закрывается"
+        },
+        {
+          "term": "Старый шаблон открытия и закрытия",
+          "kind": "pattern",
+          "short": "Файл можно закрывать вручную с помощью `try/finally`.",
+          "detail": "Такой подход встречается в старом коде, но требует вызвать `close` при любом исключении и перед каждым ранним `return`. В современном коде `with` надёжнее и короче.",
+          "example": "f = open('notes.txt', encoding='utf-8')\ntry:\n    text = f.read()\nfinally:\n    f.close()",
+          "output": "Файл закрывается в любом случае"
+        }
+      ]
+    },
+    {
+      "id": "oop-magic",
+      "title": "ООП и магические методы",
+      "entries": [
+        {
+          "term": "class / object / self",
+          "kind": "concept",
+          "short": "Класс задаёт тип, объект является экземпляром, а `self` — текущий экземпляр.",
+          "detail": "При вызове метода экземпляра Python передаёт сам объект первым аргументом. `self` — не специальное ключевое слово, а общепринятое имя параметра.",
+          "example": "class Counter:\n    def value(self):\n        return 1\nprint(Counter().value())",
+          "output": "1"
+        },
+        {
+          "term": "__new__(cls, ...)",
+          "kind": "magic method",
+          "short": "Создаёт новый экземпляр.",
+          "detail": "Обычно этот метод не переопределяют; он используется для неизменяемых типов и особого поведения фабрик. Если метод не задан, работает реализация создания базового класса.",
+          "example": "class Token:\n    pass\nprint(type(Token()).__name__)",
+          "output": "Token"
+        },
+        {
+          "term": "__init__(self, ...)",
+          "kind": "magic method",
+          "short": "Настраивает начальное состояние созданного экземпляра.",
+          "detail": "Автоматически вызывается при обращении к классу и не должен возвращать значение. Если его не определить, собственные атрибуты не создаются и применяется базовая или стандартная инициализация.",
+          "example": "class User:\n    def __init__(self, name):\n        self.name = name",
+          "output": "User('Aylin').name → 'Aylin'"
+        },
+        {
+          "term": "__str__(self)",
+          "kind": "magic method",
+          "short": "Задаёт текст для пользователя при вызовах `str(obj)` и `print(obj)`.",
+          "detail": "Если метод не задан, Python использует `__repr__` или стандартное представление. Метод должен возвращать строку.",
+          "example": "class C:\n    def __str__(self): return 'salam'\nprint(C())",
+          "output": "salam"
+        },
+        {
+          "term": "__repr__(self)",
+          "kind": "magic method",
+          "short": "Создаёт техническое представление для REPL и отладчика.",
+          "detail": "По возможности возвращайте однозначную строку, близкую к выражению создания объекта. Если метод не задан, отображается стандартное представление объекта.",
+          "example": "class Point:\n    def __repr__(self): return 'Point(x=2)'\nprint(repr(Point()))",
+          "output": "Point(x=2)"
+        },
+        {
+          "term": "__len__(self)",
+          "kind": "magic method",
+          "short": "Определяет результат вызова `len(obj)`.",
+          "detail": "Метод должен возвращать неотрицательное целое число. Если он не задан, `len(obj)` вызывает `TypeError`; при проверке истинности он также может использоваться, если нет `__bool__`.",
+          "example": "class Box:\n    def __len__(self): return 3\nprint(len(Box()))",
+          "output": "3"
+        },
+        {
+          "term": "__getitem__(self, key)",
+          "kind": "magic method",
+          "short": "Реализует чтение `obj[key]`.",
+          "detail": "Для отображения можно принимать ключ, для последовательности — индекс. Если метод не задан, `obj[key]` вызывает `TypeError`; соблюдайте соглашение о `KeyError`/`IndexError` для отсутствующих ключей и индексов.",
+          "example": "class Box:\n    def __getitem__(self, key): return {'x': 4}[key]\nprint(Box()['x'])",
+          "output": "4"
+        },
+        {
+          "term": "__setitem__(self, key, value)",
+          "kind": "magic method",
+          "short": "Управляет присваиванием `obj[key] = value`.",
+          "detail": "Метод должен обновить внутренние данные или добавить ключ. Если он не задан, присваивание через квадратные скобки вызывает `TypeError`.",
+          "example": "class Box:\n    def __init__(self): self.data = {}\n    def __setitem__(self, key, value): self.data[key] = value",
+          "output": "b = Box(); b['x'] = 4"
+        },
+        {
+          "term": "__delitem__(self, key)",
+          "kind": "magic method",
+          "short": "Реализует удаление `del obj[key]`.",
+          "detail": "Удаляет элемент из внутренней коллекции. Если метод не задан, `del obj[key]` вызывает `TypeError`; для отсутствующего ключа обычно возникает `KeyError`.",
+          "example": "class Box:\n    def __delitem__(self, key): del self.data[key]",
+          "output": "del box['x']"
+        },
+        {
+          "term": "__enter__ / __exit__",
+          "kind": "magic methods",
+          "short": "Выполняются при входе в блок `with` и выходе из него.",
+          "detail": "`__enter__` возвращает объект, который присваивается переменной после `as`. `__exit__(exc_type, exc, traceback)` выполняет очистку: True подавляет исключение, False/None позволяет ему распространяться дальше. Без этих методов объект нельзя использовать с `with`.",
+          "example": "class Scope:\n    def __enter__(self): return self\n    def __exit__(self, typ, value, tb): return False",
+          "output": "with Scope() as scope: ..."
+        },
+        {
+          "term": "__call__(self, ...)",
+          "kind": "magic method",
+          "short": "Позволяет вызывать объект как функцию: `obj(...)`.",
+          "detail": "Подходит объектам, которые ведут себя как функции и хранят настройки. Если метод не задан, вызов объекта приводит к `TypeError`.",
+          "example": "class Twice:\n    def __call__(self, n): return n * 2\nprint(Twice()(4))",
+          "output": "8"
+        },
+        {
+          "term": "__eq__(self, other)",
+          "kind": "magic method",
+          "short": "Определяет смысл сравнения на равенство `==`.",
+          "detail": "Без переопределения обычно проверяется идентичность объектов. Для неизвестного типа возвращайте `NotImplemented`; хеш-контракт объектов, считающихся равными, тоже должен соблюдаться.",
+          "example": "class Key:\n    def __init__(self, value): self.value = value\n    def __eq__(self, other):\n        if not isinstance(other, Key): return NotImplemented\n        return self.value == other.value",
+          "output": "Key(1) == Key(1) → True"
+        },
+        {
+          "term": "__hash__(self)",
+          "kind": "magic method",
+          "short": "Возвращает хеш, позволяющий использовать объект в множестве или как ключ словаря.",
+          "detail": "Равные объекты должны иметь одинаковый хеш; данные, влияющие на хеш, должны оставаться неизменными. Если переопределён `__eq__`, но не задан `__hash__`, Python обычно делает класс нехешируемым.",
+          "example": "class Key:\n    def __init__(self, value): self.value = value\n    def __eq__(self, other): return isinstance(other, Key) and self.value == other.value\n    def __hash__(self): return hash(self.value)",
+          "output": "hash(Key('a')) → tam ədəd"
+        },
+        {
+          "term": "__del__(self)",
+          "kind": "magic method",
+          "short": "Деструктор, который может вызываться при очистке объекта.",
+          "detail": "Время вызова не гарантируется, а при циклических ссылках метод может выполниться с задержкой. Не используйте его для закрытия ресурсов — выбирайте `with`/`__exit__`. Если метода нет, памятью управляет Python.",
+          "example": "# Resursu __del__ ilə deyil, with ilə bağlayın\nwith open('notes.txt', encoding='utf-8') as f:\n    text = f.read()",
+          "output": "Blokdan çıxanda fayl bağlanır"
+        },
+        {
+          "term": "__iter__ / __next__",
+          "kind": "magic methods",
+          "short": "Обеспечивают перебор объекта в цикле.",
+          "detail": "`__iter__` возвращает итератор; метод `__next__` итератора выдаёт следующее значение и при завершении вызывает `StopIteration`. Без этих методов объект может быть неитерируемым.",
+          "example": "class One:\n    def __iter__(self):\n        yield 1\nprint(list(One()))",
+          "output": "[1]"
+        },
+        {
+          "term": "__contains__(self, item)",
+          "kind": "magic method",
+          "short": "Управляет проверкой `item in obj`.",
+          "detail": "Если метод не задан, Python может попытаться выполнить проверку через итерацию или индексацию. Для корректной и эффективной проверки в пользовательской коллекции определите его.",
+          "example": "class Vowels:\n    def __contains__(self, char): return char in 'aeiou'\nprint('a' in Vowels())",
+          "output": "True"
+        },
+        {
+          "term": "__bool__(self)",
+          "kind": "magic method",
+          "short": "Определяет истинность объекта в выражении `if obj`.",
+          "detail": "Если метод не задан, Python сначала проверяет `__len__`, а если его нет — считает объект истинным по умолчанию. Результат должен быть типа `bool`.",
+          "example": "class Empty:\n    def __bool__(self): return False\nprint(bool(Empty()))",
+          "output": "False"
+        },
+        {
+          "term": "__getattr__ / __setattr__",
+          "kind": "magic methods",
+          "short": "Управляют обработкой отсутствующего атрибута и присваиванием атрибутов.",
+          "detail": "`__getattr__` вызывается только после неудачного обычного поиска. `__setattr__` перехватывает каждое присваивание; без вызова `object.__setattr__` внутри него может возникнуть рекурсия. Если методы не заданы, действует стандартное поведение атрибутов.",
+          "example": "class C:\n    def __getattr__(self, name): return 'tapılmadı: ' + name\nprint(C().unknown)",
+          "output": "tapılmadı: unknown"
+        },
+        {
+          "term": "__format__(self, spec)",
+          "kind": "magic method",
+          "short": "Управляет форматированием через `format(obj, spec)` и f-строки.",
+          "detail": "Обрабатывает спецификацию формата с учётом требований класса. Если метод не задан, используется стандартное форматирование; метод должен возвращать строку.",
+          "example": "class Score:\n    def __format__(self, spec): return format(95, spec)\nprint(f'{Score():03d}')",
+          "output": "095"
+        },
+        {
+          "term": "__add__ / __lt__",
+          "kind": "magic methods",
+          "short": "Задают смысл операторов `+` и `<` соответственно.",
+          "detail": "Переопределяйте операторы, только если такая операция естественна для объекта. Для неподдерживаемого типа возвращайте `NotImplemented`; без нужного метода несовместимая операция может вызвать `TypeError`.",
+          "example": "class Number:\n    def __init__(self, value): self.value = value\n    def __add__(self, other):\n        if not isinstance(other, Number): return NotImplemented\n        return Number(self.value + other.value)",
+          "output": "Number(2) + Number(3) → Number(5)"
+        },
+        {
+          "term": "__delattr__ / __getattribute__",
+          "kind": "magic methods",
+          "short": "Управляют удалением атрибутов и чтением любого атрибута.",
+          "detail": "`__getattribute__` вызывается при каждом чтении, поэтому переопределяйте его только при особой необходимости: ошибка может привести к бесконечной рекурсии. `__delattr__` перехватывает удаление атрибута; без него действует стандартное поведение.",
+          "example": "class C:\n    def __getattribute__(self, name):\n        return object.__getattribute__(self, name)",
+          "output": "Normal atribut oxunuşu"
+        }
+      ]
+    }
+  ]
+}

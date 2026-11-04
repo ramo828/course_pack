@@ -1,0 +1,75 @@
+{
+  "id": "arduino_relay_module",
+  "title": "Rele modulu: kiçik siqnalla açıb-bağlama",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/learn/electronics/power-pins/",
+    "https://learn.sparkfun.com/tutorials/relays/all"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "BU DƏRS NƏYİ ÖYRƏDİR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rele elektromaqnitlə idarə olunan açardır. COM ortaq kontaktdır; rele boşda olanda COM–NC bağlı, COM–NO açıq olur. Arduino idarəetmə girişini dəyişir, kontaktlar isə ayrı dövrəni açıb-bağlaya bilər.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "NECƏ BAĞLANIR?\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Modulun VCC/GND/IN pinlərini modul sənədinə görə qoşun; IN → D7. Yalnız təhlükəsiz aşağı gərginlikli yük məşqində COM ilə NO-dan istifadə edin. Arduino ilə modulun GND-sini istehsalçı sxeminə əsasən ortaq edin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_relay_terminals",
+      "caption": "Sadələşdirilmiş sxemdir; real modulun pin yazılarını yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "ARDUINO KODU\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const byte relayPin = 7;\nconst byte relayOn = LOW; // bəzi modullar aktiv LOW, bəziləri HIGH\n\nvoid setup() {\n  pinMode(relayPin, OUTPUT);\n  digitalWrite(relayPin, relayOn == LOW ? HIGH : LOW);\n}\n\nvoid loop() {\n  digitalWrite(relayPin, relayOn);\n  delay(1000);\n  digitalWrite(relayPin, relayOn == LOW ? HIGH : LOW);\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\nKodu yüklədikdən sonra Serial Monitor-u açın (əgər nümunə serial çıxış verirsə), bağlantını yoxlayın və sensoru/mexanizmi dəyişərək sınayın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "warning",
+      "title": "Təhlükəsizlik və yoxlama",
+      "text": "Şəbəkə gərginliyini bu dərsdə breadboard və rele terminallarında sınaqdan keçirməyin. Kontaktların nominalı və modul izolyasiyası ayrıca yoxlanmalıdır; şəbəkə işi ixtisaslı şəxs üçündür."
+    },
+    {
+      "type": "tip",
+      "title": "Yadda saxla",
+      "text": "İlk sınağı enerjisi ayrılmış halda naqilləyin. VCC, GND və siqnal pinlərini modulun öz etiketindən və texniki sənəd-indən təsdiqləyin."
+    }
+  ],
+  "testId": "embedded_test_arduino_relay_module_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

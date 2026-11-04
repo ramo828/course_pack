@@ -1,0 +1,622 @@
+{
+  "id": "freertos_program_test_tr",
+  "title": "FreeRTOS · Genel test",
+  "questions": [
+    {
+      "id": "freertos_freertos_intro_1",
+      "topicId": "freertos_freertos_intro",
+      "type": "multiple_choice",
+      "prompt": "“RTOS ve FreeRTOS temelleri” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "`vTaskDelayUntil` hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir.",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir."
+      ],
+      "answer": "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+      "explanation": "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.\nAçıklama: Gerçek zamanlı işletim sistemi (RTOS), işi küçük task'lara böler ve CPU zamanını aralarında paylaştırır; RTOS her işi otomatik olarak hızlandırmaz, fakat gecikmeyi ölçülebilir kılar. ESP32 Arduino Core FreeRTOS'u zaten çalıştırır, bu nedenle sketch içinde task oluşturulabilir. Bu derste bir task kuruyoruz; tek LED veya sensör için `loop()` çoğu zaman daha basittir."
+    },
+    {
+      "id": "freertos_freertos_intro_2",
+      "topicId": "freertos_freertos_intro",
+      "type": "multiple_choice",
+      "prompt": "“RTOS ve FreeRTOS temelleri” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "Periyodik işte `delay` yerine `vTaskDelayUntil` kullanın ve aralığı osiloskop veya timestamp ile ölçün.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+      "explanation": "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.\nAçıklama: Gerçek zamanlı işletim sistemi (RTOS), işi küçük task'lara böler ve CPU zamanını aralarında paylaştırır; RTOS her işi otomatik olarak hızlandırmaz, fakat gecikmeyi ölçülebilir kılar. ESP32 Arduino Core FreeRTOS'u zaten çalıştırır, bu nedenle sketch içinde task oluşturulabilir. Bu derste bir task kuruyoruz; tek LED veya sensör için `loop()` çoğu zaman daha basittir."
+    },
+    {
+      "id": "freertos_freertos_intro_3",
+      "topicId": "freertos_freertos_intro",
+      "type": "multiple_choice",
+      "prompt": "“RTOS ve FreeRTOS temelleri” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "`pdMS_TO_TICKS(0)` ve çok kısa periyotlara dikkat edin; tick çözünürlüğü yapılandırmaya bağlıdır.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın."
+      ],
+      "answer": "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın.",
+      "explanation": "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın.\nAçıklama: Gerçek zamanlı işletim sistemi (RTOS), işi küçük task'lara böler ve CPU zamanını aralarında paylaştırır; RTOS her işi otomatik olarak hızlandırmaz, fakat gecikmeyi ölçülebilir kılar. ESP32 Arduino Core FreeRTOS'u zaten çalıştırır, bu nedenle sketch içinde task oluşturulabilir. Bu derste bir task kuruyoruz; tek LED veya sensör için `loop()` çoğu zaman daha basittir."
+    },
+    {
+      "id": "freertos_freertos_intro_4",
+      "topicId": "freertos_freertos_intro",
+      "type": "multiple_choice",
+      "prompt": "“RTOS ve FreeRTOS temelleri” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+        "ESP32 Arduino Core FreeRTOS'u zaten çalıştırır, bu nedenle sketch içinde task oluşturulabilir",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler."
+      ],
+      "answer": "ESP32 Arduino Core FreeRTOS'u zaten çalıştırır, bu nedenle sketch içinde task oluşturulabilir",
+      "explanation": "ESP32 Arduino Core FreeRTOS'u zaten çalıştırır, bu nedenle sketch içinde task oluşturulabilir\nAçıklama: Gerçek zamanlı işletim sistemi (RTOS), işi küçük task'lara böler ve CPU zamanını aralarında paylaştırır; RTOS her işi otomatik olarak hızlandırmaz, fakat gecikmeyi ölçülebilir kılar. ESP32 Arduino Core FreeRTOS'u zaten çalıştırır, bu nedenle sketch içinde task oluşturulabilir. Bu derste bir task kuruyoruz; tek LED veya sensör için `loop()` çoğu zaman daha basittir."
+    },
+    {
+      "id": "freertos_freertos_tasks_1",
+      "topicId": "freertos_freertos_tasks",
+      "type": "multiple_choice",
+      "prompt": "“Görev oluşturma ve öncelikler” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "`vTaskDelayUntil` hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler."
+      ],
+      "answer": "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+      "explanation": "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.\nAçıklama: Task, ayrı stack ve yürütme bağlamına sahip bir fonksiyondur; `xTaskCreate` onu scheduler'a ekler. Önceliği gerçek zaman gereksinimine göre seçin: yüksek öncelikli bir task CPU'yu fazla kullanırsa düşük öncelikliler aç kalabilir. Arduino `loop()` da bir RTOS task'ında çalışır; Serial ve GPIO paylaşımını planlayın."
+    },
+    {
+      "id": "freertos_freertos_tasks_2",
+      "topicId": "freertos_freertos_tasks",
+      "type": "multiple_choice",
+      "prompt": "“Görev oluşturma ve öncelikler” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Periyodik işte `delay` yerine `vTaskDelayUntil` kullanın ve aralığı osiloskop veya timestamp ile ölçün."
+      ],
+      "answer": "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+      "explanation": "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.\nAçıklama: Task, ayrı stack ve yürütme bağlamına sahip bir fonksiyondur; `xTaskCreate` onu scheduler'a ekler. Önceliği gerçek zaman gereksinimine göre seçin: yüksek öncelikli bir task CPU'yu fazla kullanırsa düşük öncelikliler aç kalabilir. Arduino `loop()` da bir RTOS task'ında çalışır; Serial ve GPIO paylaşımını planlayın."
+    },
+    {
+      "id": "freertos_freertos_tasks_3",
+      "topicId": "freertos_freertos_tasks",
+      "type": "multiple_choice",
+      "prompt": "“Görev oluşturma ve öncelikler” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Task, ayrı stack ve yürütme bağlamına sahip bir fonksiyondur; `xTaskCreate` onu scheduler'a ekler",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın."
+      ],
+      "answer": "Task, ayrı stack ve yürütme bağlamına sahip bir fonksiyondur; `xTaskCreate` onu scheduler'a ekler",
+      "explanation": "Task, ayrı stack ve yürütme bağlamına sahip bir fonksiyondur; `xTaskCreate` onu scheduler'a ekler\nAçıklama: Task, ayrı stack ve yürütme bağlamına sahip bir fonksiyondur; `xTaskCreate` onu scheduler'a ekler. Önceliği gerçek zaman gereksinimine göre seçin: yüksek öncelikli bir task CPU'yu fazla kullanırsa düşük öncelikliler aç kalabilir. Arduino `loop()` da bir RTOS task'ında çalışır; Serial ve GPIO paylaşımını planlayın."
+    },
+    {
+      "id": "freertos_freertos_tasks_4",
+      "topicId": "freertos_freertos_tasks",
+      "type": "multiple_choice",
+      "prompt": "“Görev oluşturma ve öncelikler” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "`vTaskDelayUntil` hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir."
+      ],
+      "answer": "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+      "explanation": "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.\nAçıklama: Task, ayrı stack ve yürütme bağlamına sahip bir fonksiyondur; `xTaskCreate` onu scheduler'a ekler. Önceliği gerçek zaman gereksinimine göre seçin: yüksek öncelikli bir task CPU'yu fazla kullanırsa düşük öncelikliler aç kalabilir. Arduino `loop()` da bir RTOS task'ında çalışır; Serial ve GPIO paylaşımını planlayın."
+    },
+    {
+      "id": "freertos_freertos_timing_1",
+      "topicId": "freertos_freertos_timing",
+      "type": "multiple_choice",
+      "prompt": "“Periyodik çalışma ve görev gecikmesi” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "`vTaskDelayUntil` hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır."
+      ],
+      "answer": "`vTaskDelayUntil` hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir.",
+      "explanation": "`vTaskDelayUntil` hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir.\nAçıklama: `vTaskDelay` görevi belirli tick sayısı boyunca bloklar; `pdMS_TO_TICKS` milisaniyeyi tick'e dönüştürür. Periyodik sensör örneklemesinde `vTaskDelayUntil` önceki plan zamanını kullandığından işlem süresi aralığa eklenmez. Tick frekansı ve planlama gecikmesi mikro saniye kesinliği sağlamaz; gerçek süreyi ölçün."
+    },
+    {
+      "id": "freertos_freertos_timing_2",
+      "topicId": "freertos_freertos_timing",
+      "type": "multiple_choice",
+      "prompt": "“Periyodik çalışma ve görev gecikmesi” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Periyodik işte `delay` yerine `vTaskDelayUntil` kullanın ve aralığı osiloskop veya timestamp ile ölçün.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "Periyodik işte `delay` yerine `vTaskDelayUntil` kullanın ve aralığı osiloskop veya timestamp ile ölçün.",
+      "explanation": "Periyodik işte `delay` yerine `vTaskDelayUntil` kullanın ve aralığı osiloskop veya timestamp ile ölçün.\nAçıklama: `vTaskDelay` görevi belirli tick sayısı boyunca bloklar; `pdMS_TO_TICKS` milisaniyeyi tick'e dönüştürür. Periyodik sensör örneklemesinde `vTaskDelayUntil` önceki plan zamanını kullandığından işlem süresi aralığa eklenmez. Tick frekansı ve planlama gecikmesi mikro saniye kesinliği sağlamaz; gerçek süreyi ölçün."
+    },
+    {
+      "id": "freertos_freertos_timing_3",
+      "topicId": "freertos_freertos_timing",
+      "type": "multiple_choice",
+      "prompt": "“Periyodik çalışma ve görev gecikmesi” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın.",
+        "`pdMS_TO_TICKS(0)` ve çok kısa periyotlara dikkat edin; tick çözünürlüğü yapılandırmaya bağlıdır."
+      ],
+      "answer": "`pdMS_TO_TICKS(0)` ve çok kısa periyotlara dikkat edin; tick çözünürlüğü yapılandırmaya bağlıdır.",
+      "explanation": "`pdMS_TO_TICKS(0)` ve çok kısa periyotlara dikkat edin; tick çözünürlüğü yapılandırmaya bağlıdır.\nAçıklama: `vTaskDelay` görevi belirli tick sayısı boyunca bloklar; `pdMS_TO_TICKS` milisaniyeyi tick'e dönüştürür. Periyodik sensör örneklemesinde `vTaskDelayUntil` önceki plan zamanını kullandığından işlem süresi aralığa eklenmez. Tick frekansı ve planlama gecikmesi mikro saniye kesinliği sağlamaz; gerçek süreyi ölçün."
+    },
+    {
+      "id": "freertos_freertos_timing_4",
+      "topicId": "freertos_freertos_timing",
+      "type": "multiple_choice",
+      "prompt": "“Periyodik çalışma ve görev gecikmesi” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+        "Periyodik sensör örneklemesinde `vTaskDelayUntil` önceki plan zamanını kullandığından işlem süresi aralığa eklenmez",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "Periyodik sensör örneklemesinde `vTaskDelayUntil` önceki plan zamanını kullandığından işlem süresi aralığa eklenmez",
+      "explanation": "Periyodik sensör örneklemesinde `vTaskDelayUntil` önceki plan zamanını kullandığından işlem süresi aralığa eklenmez\nAçıklama: `vTaskDelay` görevi belirli tick sayısı boyunca bloklar; `pdMS_TO_TICKS` milisaniyeyi tick'e dönüştürür. Periyodik sensör örneklemesinde `vTaskDelayUntil` önceki plan zamanını kullandığından işlem süresi aralığa eklenmez. Tick frekansı ve planlama gecikmesi mikro saniye kesinliği sağlamaz; gerçek süreyi ölçün."
+    },
+    {
+      "id": "freertos_freertos_queues_1",
+      "topicId": "freertos_freertos_queues",
+      "type": "multiple_choice",
+      "prompt": "“Queue ile görevler arasında mesaj” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Queue, ortak global değişkenden daha açık bir sahiplik ve eşzamanlama sınırı sağlar."
+      ],
+      "answer": "Queue, ortak global değişkenden daha açık bir sahiplik ve eşzamanlama sınırı sağlar.",
+      "explanation": "Queue, ortak global değişkenden daha açık bir sahiplik ve eşzamanlama sınırı sağlar.\nAçıklama: Queue, sabit boyutlu elemanları FIFO düzeninde tutar ve producer-consumer görevlerini ayırır. `xQueueSend` ve `xQueueReceive` zaman aşımıyla bloklanabilir; payload kopyalanır, büyük nesnelerde pointer ömrünü ayrıca yönetin. Queue dolduğunda veriyi sessizce kaybetmek yerine gönderim sonucunu denetleyin."
+    },
+    {
+      "id": "freertos_freertos_queues_2",
+      "topicId": "freertos_freertos_queues",
+      "type": "multiple_choice",
+      "prompt": "“Queue ile görevler arasında mesaj” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Queue boyutunu en büyük burst ve tüketim hızına göre seçin; dolu queue davranışını tanımlayın.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır."
+      ],
+      "answer": "Queue boyutunu en büyük burst ve tüketim hızına göre seçin; dolu queue davranışını tanımlayın.",
+      "explanation": "Queue boyutunu en büyük burst ve tüketim hızına göre seçin; dolu queue davranışını tanımlayın.\nAçıklama: Queue, sabit boyutlu elemanları FIFO düzeninde tutar ve producer-consumer görevlerini ayırır. `xQueueSend` ve `xQueueReceive` zaman aşımıyla bloklanabilir; payload kopyalanır, büyük nesnelerde pointer ömrünü ayrıca yönetin. Queue dolduğunda veriyi sessizce kaybetmek yerine gönderim sonucunu denetleyin."
+    },
+    {
+      "id": "freertos_freertos_queues_3",
+      "topicId": "freertos_freertos_queues",
+      "type": "multiple_choice",
+      "prompt": "“Queue ile görevler arasında mesaj” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Queue, sabit boyutlu elemanları FIFO düzeninde tutar ve producer-consumer görevlerini ayırır",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın."
+      ],
+      "answer": "Queue, sabit boyutlu elemanları FIFO düzeninde tutar ve producer-consumer görevlerini ayırır",
+      "explanation": "Queue, sabit boyutlu elemanları FIFO düzeninde tutar ve producer-consumer görevlerini ayırır\nAçıklama: Queue, sabit boyutlu elemanları FIFO düzeninde tutar ve producer-consumer görevlerini ayırır. `xQueueSend` ve `xQueueReceive` zaman aşımıyla bloklanabilir; payload kopyalanır, büyük nesnelerde pointer ömrünü ayrıca yönetin. Queue dolduğunda veriyi sessizce kaybetmek yerine gönderim sonucunu denetleyin."
+    },
+    {
+      "id": "freertos_freertos_queues_4",
+      "topicId": "freertos_freertos_queues",
+      "type": "multiple_choice",
+      "prompt": "“Queue ile görevler arasında mesaj” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Queue handle oluşturmanın başarılı olduğunu denetleyin; boyutu büyütmek RAM tüketir.",
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "Queue handle oluşturmanın başarılı olduğunu denetleyin; boyutu büyütmek RAM tüketir.",
+      "explanation": "Queue handle oluşturmanın başarılı olduğunu denetleyin; boyutu büyütmek RAM tüketir.\nAçıklama: Queue, sabit boyutlu elemanları FIFO düzeninde tutar ve producer-consumer görevlerini ayırır. `xQueueSend` ve `xQueueReceive` zaman aşımıyla bloklanabilir; payload kopyalanır, büyük nesnelerde pointer ömrünü ayrıca yönetin. Queue dolduğunda veriyi sessizce kaybetmek yerine gönderim sonucunu denetleyin."
+    },
+    {
+      "id": "freertos_freertos_notifications_1",
+      "topicId": "freertos_freertos_notifications",
+      "type": "multiple_choice",
+      "prompt": "“Task notification ve event group” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Notification yalnızca hedef göreve gider; queue gibi keyfi veri taşımaz.",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "Notification yalnızca hedef göreve gider; queue gibi keyfi veri taşımaz.",
+      "explanation": "Notification yalnızca hedef göreve gider; queue gibi keyfi veri taşımaz.\nAçıklama: Task notification bir göreve doğrudan hafif sinyal gönderir; tek alıcılı birçok olayda ayrı queue'dan daha az bellek kullanır. `ulTaskNotifyTake` bildirimi bekler; birden çok tüketici veya bit alanı gerekiyorsa event group daha uygundur. Gönderenin task handle'ı geçerli olmalı, olayların birikme ve temizlenme davranışı baştan seçilmelidir."
+    },
+    {
+      "id": "freertos_freertos_notifications_2",
+      "topicId": "freertos_freertos_notifications",
+      "type": "multiple_choice",
+      "prompt": "“Task notification ve event group” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Tek tüketici varsa notification düşünün; event group'u birden çok olay biti gerektiğinde seçin."
+      ],
+      "answer": "Tek tüketici varsa notification düşünün; event group'u birden çok olay biti gerektiğinde seçin.",
+      "explanation": "Tek tüketici varsa notification düşünün; event group'u birden çok olay biti gerektiğinde seçin.\nAçıklama: Task notification bir göreve doğrudan hafif sinyal gönderir; tek alıcılı birçok olayda ayrı queue'dan daha az bellek kullanır. `ulTaskNotifyTake` bildirimi bekler; birden çok tüketici veya bit alanı gerekiyorsa event group daha uygundur. Gönderenin task handle'ı geçerli olmalı, olayların birikme ve temizlenme davranışı baştan seçilmelidir."
+    },
+    {
+      "id": "freertos_freertos_notifications_3",
+      "topicId": "freertos_freertos_notifications",
+      "type": "multiple_choice",
+      "prompt": "“Task notification ve event group” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Notification counter, bit maskesi ve overwrite kipleri farklıdır; gönderici ile alıcı aynı sözleşmeyi kullanmalıdır.",
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "Notification counter, bit maskesi ve overwrite kipleri farklıdır; gönderici ile alıcı aynı sözleşmeyi kullanmalıdır.",
+      "explanation": "Notification counter, bit maskesi ve overwrite kipleri farklıdır; gönderici ile alıcı aynı sözleşmeyi kullanmalıdır.\nAçıklama: Task notification bir göreve doğrudan hafif sinyal gönderir; tek alıcılı birçok olayda ayrı queue'dan daha az bellek kullanır. `ulTaskNotifyTake` bildirimi bekler; birden çok tüketici veya bit alanı gerekiyorsa event group daha uygundur. Gönderenin task handle'ı geçerli olmalı, olayların birikme ve temizlenme davranışı baştan seçilmelidir."
+    },
+    {
+      "id": "freertos_freertos_notifications_4",
+      "topicId": "freertos_freertos_notifications",
+      "type": "multiple_choice",
+      "prompt": "“Task notification ve event group” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "`ulTaskNotifyTake` bildirimi bekler; birden çok tüketici veya bit alanı gerekiyorsa event group daha uygundur",
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün."
+      ],
+      "answer": "`ulTaskNotifyTake` bildirimi bekler; birden çok tüketici veya bit alanı gerekiyorsa event group daha uygundur",
+      "explanation": "`ulTaskNotifyTake` bildirimi bekler; birden çok tüketici veya bit alanı gerekiyorsa event group daha uygundur\nAçıklama: Task notification bir göreve doğrudan hafif sinyal gönderir; tek alıcılı birçok olayda ayrı queue'dan daha az bellek kullanır. `ulTaskNotifyTake` bildirimi bekler; birden çok tüketici veya bit alanı gerekiyorsa event group daha uygundur. Gönderenin task handle'ı geçerli olmalı, olayların birikme ve temizlenme davranışı baştan seçilmelidir."
+    },
+    {
+      "id": "freertos_freertos_sync_1",
+      "topicId": "freertos_freertos_sync",
+      "type": "multiple_choice",
+      "prompt": "“Binary semaphore, mutex ve deadlock” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "Mutex kısa kritik bölümü korur; queue değer taşır, aynı işi yapmazlar.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "Mutex kısa kritik bölümü korur; queue değer taşır, aynı işi yapmazlar.",
+      "explanation": "Mutex kısa kritik bölümü korur; queue değer taşır, aynı işi yapmazlar.\nAçıklama: Semaphore olay bildirimi veya kaynak sayısını koordine eder; mutex ise paylaşılan değiştirilebilir kaynağı korur ve sahiplik/öncelik miraslama anlamı taşır. Mutex'i kısa tutun, bloklayan I/O sırasında bırakın ve tüm görevlerde aynı lock sırasını kullanın. Böylece deadlock ve priority inversion riski azalır; ISR içinde mutex alınmaz."
+    },
+    {
+      "id": "freertos_freertos_sync_2",
+      "topicId": "freertos_freertos_sync",
+      "type": "multiple_choice",
+      "prompt": "“Binary semaphore, mutex ve deadlock” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Paylaşılan veriye erişmeden önce mutex alın; her başarılı take için tüm çıkış yollarında give çağırın.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir."
+      ],
+      "answer": "Paylaşılan veriye erişmeden önce mutex alın; her başarılı take için tüm çıkış yollarında give çağırın.",
+      "explanation": "Paylaşılan veriye erişmeden önce mutex alın; her başarılı take için tüm çıkış yollarında give çağırın.\nAçıklama: Semaphore olay bildirimi veya kaynak sayısını koordine eder; mutex ise paylaşılan değiştirilebilir kaynağı korur ve sahiplik/öncelik miraslama anlamı taşır. Mutex'i kısa tutun, bloklayan I/O sırasında bırakın ve tüm görevlerde aynı lock sırasını kullanın. Böylece deadlock ve priority inversion riski azalır; ISR içinde mutex alınmaz."
+    },
+    {
+      "id": "freertos_freertos_sync_3",
+      "topicId": "freertos_freertos_sync",
+      "type": "multiple_choice",
+      "prompt": "“Binary semaphore, mutex ve deadlock” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Semaphore olay bildirimi veya kaynak sayısını koordine eder; mutex ise paylaşılan değiştirilebilir kaynağı korur ve sahiplik/öncelik miraslama anlamı taşır"
+      ],
+      "answer": "Semaphore olay bildirimi veya kaynak sayısını koordine eder; mutex ise paylaşılan değiştirilebilir kaynağı korur ve sahiplik/öncelik miraslama anlamı taşır",
+      "explanation": "Semaphore olay bildirimi veya kaynak sayısını koordine eder; mutex ise paylaşılan değiştirilebilir kaynağı korur ve sahiplik/öncelik miraslama anlamı taşır\nAçıklama: Semaphore olay bildirimi veya kaynak sayısını koordine eder; mutex ise paylaşılan değiştirilebilir kaynağı korur ve sahiplik/öncelik miraslama anlamı taşır. Mutex'i kısa tutun, bloklayan I/O sırasında bırakın ve tüm görevlerde aynı lock sırasını kullanın. Böylece deadlock ve priority inversion riski azalır; ISR içinde mutex alınmaz."
+    },
+    {
+      "id": "freertos_freertos_sync_4",
+      "topicId": "freertos_freertos_sync",
+      "type": "multiple_choice",
+      "prompt": "“Binary semaphore, mutex ve deadlock” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+        "Lock'u bırakmayı unutmak görevleri kalıcı olarak bloklayabilir; hata ve erken dönüş yollarını inceleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır."
+      ],
+      "answer": "Lock'u bırakmayı unutmak görevleri kalıcı olarak bloklayabilir; hata ve erken dönüş yollarını inceleyin.",
+      "explanation": "Lock'u bırakmayı unutmak görevleri kalıcı olarak bloklayabilir; hata ve erken dönüş yollarını inceleyin.\nAçıklama: Semaphore olay bildirimi veya kaynak sayısını koordine eder; mutex ise paylaşılan değiştirilebilir kaynağı korur ve sahiplik/öncelik miraslama anlamı taşır. Mutex'i kısa tutun, bloklayan I/O sırasında bırakın ve tüm görevlerde aynı lock sırasını kullanın. Böylece deadlock ve priority inversion riski azalır; ISR içinde mutex alınmaz."
+    },
+    {
+      "id": "freertos_freertos_timers_1",
+      "topicId": "freertos_freertos_timers",
+      "type": "multiple_choice",
+      "prompt": "“Software timer ve callback kuralları” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Periyodik software timer, donanım timer'ı kadar kesin değildir; jitter ve scheduler yükünü ölçün.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler."
+      ],
+      "answer": "Periyodik software timer, donanım timer'ı kadar kesin değildir; jitter ve scheduler yükünü ölçün.",
+      "explanation": "Periyodik software timer, donanım timer'ı kadar kesin değildir; jitter ve scheduler yükünü ölçün.\nAçıklama: Software timer callback'i ayrı timer service task'ında çalışır; periyodik sinyal için uygundur ancak callback uzun iş yapmamalıdır. Callback'te bloklama, uzun Serial yazısı veya ağır sensör okuması timer task'ını durdurup tüm timer'ları geciktirebilir. Uzun işi queue ya da notification ile worker task'a aktarın."
+    },
+    {
+      "id": "freertos_freertos_timers_2",
+      "topicId": "freertos_freertos_timers",
+      "type": "multiple_choice",
+      "prompt": "“Software timer ve callback kuralları” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Callback içinde yalnızca kısa bir flag veya mesaj gönderin; kalan işi normal göreve aktarın.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir."
+      ],
+      "answer": "Callback içinde yalnızca kısa bir flag veya mesaj gönderin; kalan işi normal göreve aktarın.",
+      "explanation": "Callback içinde yalnızca kısa bir flag veya mesaj gönderin; kalan işi normal göreve aktarın.\nAçıklama: Software timer callback'i ayrı timer service task'ında çalışır; periyodik sinyal için uygundur ancak callback uzun iş yapmamalıdır. Callback'te bloklama, uzun Serial yazısı veya ağır sensör okuması timer task'ını durdurup tüm timer'ları geciktirebilir. Uzun işi queue ya da notification ile worker task'a aktarın."
+    },
+    {
+      "id": "freertos_freertos_timers_3",
+      "topicId": "freertos_freertos_timers",
+      "type": "multiple_choice",
+      "prompt": "“Software timer ve callback kuralları” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Timer command queue boyutu start/stop/reset komutlarının gecikmesini etkileyebilir.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın."
+      ],
+      "answer": "Timer command queue boyutu start/stop/reset komutlarının gecikmesini etkileyebilir.",
+      "explanation": "Timer command queue boyutu start/stop/reset komutlarının gecikmesini etkileyebilir.\nAçıklama: Software timer callback'i ayrı timer service task'ında çalışır; periyodik sinyal için uygundur ancak callback uzun iş yapmamalıdır. Callback'te bloklama, uzun Serial yazısı veya ağır sensör okuması timer task'ını durdurup tüm timer'ları geciktirebilir. Uzun işi queue ya da notification ile worker task'a aktarın."
+    },
+    {
+      "id": "freertos_freertos_timers_4",
+      "topicId": "freertos_freertos_timers",
+      "type": "multiple_choice",
+      "prompt": "“Software timer ve callback kuralları” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Callback'te bloklama, uzun Serial yazısı veya ağır sensör okuması timer task'ını durdurup tüm timer'ları geciktirebilir"
+      ],
+      "answer": "Callback'te bloklama, uzun Serial yazısı veya ağır sensör okuması timer task'ını durdurup tüm timer'ları geciktirebilir",
+      "explanation": "Callback'te bloklama, uzun Serial yazısı veya ağır sensör okuması timer task'ını durdurup tüm timer'ları geciktirebilir\nAçıklama: Software timer callback'i ayrı timer service task'ında çalışır; periyodik sinyal için uygundur ancak callback uzun iş yapmamalıdır. Callback'te bloklama, uzun Serial yazısı veya ağır sensör okuması timer task'ını durdurup tüm timer'ları geciktirebilir. Uzun işi queue ya da notification ile worker task'a aktarın."
+    },
+    {
+      "id": "freertos_freertos_memory_1",
+      "topicId": "freertos_freertos_memory",
+      "type": "multiple_choice",
+      "prompt": "“Heap, stack ve statik allocation” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "Kernel heap'inden ayrılan belleği geri bırakın; uzun ömürlü nesneleri mümkünse önceden planlayın."
+      ],
+      "answer": "Kernel heap'inden ayrılan belleği geri bırakın; uzun ömürlü nesneleri mümkünse önceden planlayın.",
+      "explanation": "Kernel heap'inden ayrılan belleği geri bırakın; uzun ömürlü nesneleri mümkünse önceden planlayın.\nAçıklama: Her FreeRTOS görevi kendi stack belleğini tüketir; queue, timer ve task oluşturma kernel heap'inden RAM alabilir. Heap tükenince oluşturma çağrıları başarısız olabilir; stack taşması bozulmaya yol açabilir. High-water mark, minimum heap ve statik allocation seçeneklerini ölçün; örnek boyutlarını üretime kopyalamayın."
+    },
+    {
+      "id": "freertos_freertos_memory_2",
+      "topicId": "freertos_freertos_memory",
+      "type": "multiple_choice",
+      "prompt": "“Heap, stack ve statik allocation” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Görev oluşturma sonucunu ve stack kullanımını denetleyin; RAM bütçesini tüm görev, queue ve buffer'lar için hesaplayın.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "Görev oluşturma sonucunu ve stack kullanımını denetleyin; RAM bütçesini tüm görev, queue ve buffer'lar için hesaplayın.",
+      "explanation": "Görev oluşturma sonucunu ve stack kullanımını denetleyin; RAM bütçesini tüm görev, queue ve buffer'lar için hesaplayın.\nAçıklama: Her FreeRTOS görevi kendi stack belleğini tüketir; queue, timer ve task oluşturma kernel heap'inden RAM alabilir. Heap tükenince oluşturma çağrıları başarısız olabilir; stack taşması bozulmaya yol açabilir. High-water mark, minimum heap ve statik allocation seçeneklerini ölçün; örnek boyutlarını üretime kopyalamayın."
+    },
+    {
+      "id": "freertos_freertos_memory_3",
+      "topicId": "freertos_freertos_memory",
+      "type": "multiple_choice",
+      "prompt": "“Heap, stack ve statik allocation” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "FreeRTOS stack parametresi port ve API'ye göre farklı birim kullanabilir; ESP32 Arduino Core örneğinde API byte alır.",
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "FreeRTOS stack parametresi port ve API'ye göre farklı birim kullanabilir; ESP32 Arduino Core örneğinde API byte alır.",
+      "explanation": "FreeRTOS stack parametresi port ve API'ye göre farklı birim kullanabilir; ESP32 Arduino Core örneğinde API byte alır.\nAçıklama: Her FreeRTOS görevi kendi stack belleğini tüketir; queue, timer ve task oluşturma kernel heap'inden RAM alabilir. Heap tükenince oluşturma çağrıları başarısız olabilir; stack taşması bozulmaya yol açabilir. High-water mark, minimum heap ve statik allocation seçeneklerini ölçün; örnek boyutlarını üretime kopyalamayın."
+    },
+    {
+      "id": "freertos_freertos_memory_4",
+      "topicId": "freertos_freertos_memory",
+      "type": "multiple_choice",
+      "prompt": "“Heap, stack ve statik allocation” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Heap tükenince oluşturma çağrıları başarısız olabilir; stack taşması bozulmaya yol açabilir",
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır."
+      ],
+      "answer": "Heap tükenince oluşturma çağrıları başarısız olabilir; stack taşması bozulmaya yol açabilir",
+      "explanation": "Heap tükenince oluşturma çağrıları başarısız olabilir; stack taşması bozulmaya yol açabilir\nAçıklama: Her FreeRTOS görevi kendi stack belleğini tüketir; queue, timer ve task oluşturma kernel heap'inden RAM alabilir. Heap tükenince oluşturma çağrıları başarısız olabilir; stack taşması bozulmaya yol açabilir. High-water mark, minimum heap ve statik allocation seçeneklerini ölçün; örnek boyutlarını üretime kopyalamayın."
+    },
+    {
+      "id": "freertos_freertos_isr_1",
+      "topicId": "freertos_freertos_isr",
+      "type": "multiple_choice",
+      "prompt": "“ISR'den güvenli olay aktarmak” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "Queue olayı ISR'den göreve aktarır; görev uzun işi interrupt'ları engellemeden yapar."
+      ],
+      "answer": "Queue olayı ISR'den göreve aktarır; görev uzun işi interrupt'ları engellemeden yapar.",
+      "explanation": "Queue olayı ISR'den göreve aktarır; görev uzun işi interrupt'ları engellemeden yapar.\nAçıklama: Interrupt service routine (ISR) donanım olayına hemen yanıt verir; içinde yalnızca kısa ve bloklamayan işlem olmalıdır. FreeRTOS `FromISR` API'leri ISR'den queue veya notification kullanır; sensör okuma, günlükleme ve protokol işini normal göreve bırakın. ISR API'si, IRAM gereksinimi ve pin interrupt desteği target/karta bağlıdır."
+    },
+    {
+      "id": "freertos_freertos_isr_2",
+      "topicId": "freertos_freertos_isr",
+      "type": "multiple_choice",
+      "prompt": "“ISR'den güvenli olay aktarmak” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "ISR içinde delay, mutex, dinamik allocation veya uzun Serial çıktısı kullanmayın.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "ISR içinde delay, mutex, dinamik allocation veya uzun Serial çıktısı kullanmayın.",
+      "explanation": "ISR içinde delay, mutex, dinamik allocation veya uzun Serial çıktısı kullanmayın.\nAçıklama: Interrupt service routine (ISR) donanım olayına hemen yanıt verir; içinde yalnızca kısa ve bloklamayan işlem olmalıdır. FreeRTOS `FromISR` API'leri ISR'den queue veya notification kullanır; sensör okuma, günlükleme ve protokol işini normal göreve bırakın. ISR API'si, IRAM gereksinimi ve pin interrupt desteği target/karta bağlıdır."
+    },
+    {
+      "id": "freertos_freertos_isr_3",
+      "topicId": "freertos_freertos_isr",
+      "type": "multiple_choice",
+      "prompt": "“ISR'den güvenli olay aktarmak” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Interrupt service routine (ISR) donanım olayına hemen yanıt verir; içinde yalnızca kısa ve bloklamayan işlem olmalıdır",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır."
+      ],
+      "answer": "Interrupt service routine (ISR) donanım olayına hemen yanıt verir; içinde yalnızca kısa ve bloklamayan işlem olmalıdır",
+      "explanation": "Interrupt service routine (ISR) donanım olayına hemen yanıt verir; içinde yalnızca kısa ve bloklamayan işlem olmalıdır\nAçıklama: Interrupt service routine (ISR) donanım olayına hemen yanıt verir; içinde yalnızca kısa ve bloklamayan işlem olmalıdır. FreeRTOS `FromISR` API'leri ISR'den queue veya notification kullanır; sensör okuma, günlükleme ve protokol işini normal göreve bırakın. ISR API'si, IRAM gereksinimi ve pin interrupt desteği target/karta bağlıdır."
+    },
+    {
+      "id": "freertos_freertos_isr_4",
+      "topicId": "freertos_freertos_isr",
+      "type": "multiple_choice",
+      "prompt": "“ISR'den güvenli olay aktarmak” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+        "Buton bounce üretir; gerçek cihazda debounce ve queue doluyken davranışı da planlayın.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır."
+      ],
+      "answer": "Buton bounce üretir; gerçek cihazda debounce ve queue doluyken davranışı da planlayın.",
+      "explanation": "Buton bounce üretir; gerçek cihazda debounce ve queue doluyken davranışı da planlayın.\nAçıklama: Interrupt service routine (ISR) donanım olayına hemen yanıt verir; içinde yalnızca kısa ve bloklamayan işlem olmalıdır. FreeRTOS `FromISR` API'leri ISR'den queue veya notification kullanır; sensör okuma, günlükleme ve protokol işini normal göreve bırakın. ISR API'si, IRAM gereksinimi ve pin interrupt desteği target/karta bağlıdır."
+    },
+    {
+      "id": "freertos_freertos_watchdog_1",
+      "topicId": "freertos_freertos_watchdog",
+      "type": "multiple_choice",
+      "prompt": "“Watchdog, tanılama ve üretim kalıpları” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Watchdog kurtarmayı başlatır, ancak kök nedeni tek başına bulmaz; log, ölçüm ve fault kaydı tutun."
+      ],
+      "answer": "Watchdog kurtarmayı başlatır, ancak kök nedeni tek başına bulmaz; log, ölçüm ve fault kaydı tutun.",
+      "explanation": "Watchdog kurtarmayı başlatır, ancak kök nedeni tek başına bulmaz; log, ölçüm ve fault kaydı tutun.\nAçıklama: Watchdog belirli sürede ilerleme görmezse sistemi yeniden başlatır; onu körlemesine reset etmek yerine sağlık sözleşmesi için kullanın. Her görev işi tamamlandığında watchdog'u beslemeli; bloklanma ve deadlock log/core dump ile incelenebilmelidir. Üretim firmware'inde watchdog ile birlikte bounded queue, timeout, retry/backoff, stack ölçümü ve recovery davranışını planlayın.\n\n`esp_task_wdt_*`, Espressif ESP-IDF API'sidir ve bazı Arduino-ESP32 core sürümlerinde erişilebilir; genel Arduino API'si değildir. Taşınabilir sketch için ilerleme ve timeout davranışını ayrıca tasarlayın, kart/core belgelerini kontrol edin."
+    },
+    {
+      "id": "freertos_freertos_watchdog_2",
+      "topicId": "freertos_freertos_watchdog",
+      "type": "multiple_choice",
+      "prompt": "“Watchdog, tanılama ve üretim kalıpları” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Watchdog'u yalnız ilerleme sonrasında besleyin; sonsuza dek bloklanan görevi sağlıklı göstermeyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "Watchdog'u yalnız ilerleme sonrasında besleyin; sonsuza dek bloklanan görevi sağlıklı göstermeyin.",
+      "explanation": "Watchdog'u yalnız ilerleme sonrasında besleyin; sonsuza dek bloklanan görevi sağlıklı göstermeyin.\nAçıklama: Watchdog belirli sürede ilerleme görmezse sistemi yeniden başlatır; onu körlemesine reset etmek yerine sağlık sözleşmesi için kullanın. Her görev işi tamamlandığında watchdog'u beslemeli; bloklanma ve deadlock log/core dump ile incelenebilmelidir. Üretim firmware'inde watchdog ile birlikte bounded queue, timeout, retry/backoff, stack ölçümü ve recovery davranışını planlayın.\n\n`esp_task_wdt_*`, Espressif ESP-IDF API'sidir ve bazı Arduino-ESP32 core sürümlerinde erişilebilir; genel Arduino API'si değildir. Taşınabilir sketch için ilerleme ve timeout davranışını ayrıca tasarlayın, kart/core belgelerini kontrol edin."
+    },
+    {
+      "id": "freertos_freertos_watchdog_3",
+      "topicId": "freertos_freertos_watchdog",
+      "type": "multiple_choice",
+      "prompt": "“Watchdog, tanılama ve üretim kalıpları” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Watchdog belirli sürede ilerleme görmezse sistemi yeniden başlatır; onu körlemesine reset etmek yerine sağlık sözleşmesi için kullanın",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın."
+      ],
+      "answer": "Watchdog belirli sürede ilerleme görmezse sistemi yeniden başlatır; onu körlemesine reset etmek yerine sağlık sözleşmesi için kullanın",
+      "explanation": "Watchdog belirli sürede ilerleme görmezse sistemi yeniden başlatır; onu körlemesine reset etmek yerine sağlık sözleşmesi için kullanın\nAçıklama: Watchdog belirli sürede ilerleme görmezse sistemi yeniden başlatır; onu körlemesine reset etmek yerine sağlık sözleşmesi için kullanın. Her görev işi tamamlandığında watchdog'u beslemeli; bloklanma ve deadlock log/core dump ile incelenebilmelidir. Üretim firmware'inde watchdog ile birlikte bounded queue, timeout, retry/backoff, stack ölçümü ve recovery davranışını planlayın.\n\n`esp_task_wdt_*`, Espressif ESP-IDF API'sidir ve bazı Arduino-ESP32 core sürümlerinde erişilebilir; genel Arduino API'si değildir. Taşınabilir sketch için ilerleme ve timeout davranışını ayrıca tasarlayın, kart/core belgelerini kontrol edin."
+    },
+    {
+      "id": "freertos_freertos_watchdog_4",
+      "topicId": "freertos_freertos_watchdog",
+      "type": "multiple_choice",
+      "prompt": "“Watchdog, tanılama ve üretim kalıpları” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "ESP-IDF watchdog API'si target ve IDF sürümüne bağlıdır; Arduino-ESP32 desteğini ve kart yapılandırmasını doğrulayın.",
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır."
+      ],
+      "answer": "ESP-IDF watchdog API'si target ve IDF sürümüne bağlıdır; Arduino-ESP32 desteğini ve kart yapılandırmasını doğrulayın.",
+      "explanation": "ESP-IDF watchdog API'si target ve IDF sürümüne bağlıdır; Arduino-ESP32 desteğini ve kart yapılandırmasını doğrulayın.\nAçıklama: Watchdog belirli sürede ilerleme görmezse sistemi yeniden başlatır; onu körlemesine reset etmek yerine sağlık sözleşmesi için kullanın. Her görev işi tamamlandığında watchdog'u beslemeli; bloklanma ve deadlock log/core dump ile incelenebilmelidir. Üretim firmware'inde watchdog ile birlikte bounded queue, timeout, retry/backoff, stack ölçümü ve recovery davranışını planlayın.\n\n`esp_task_wdt_*`, Espressif ESP-IDF API'sidir ve bazı Arduino-ESP32 core sürümlerinde erişilebilir; genel Arduino API'si değildir. Taşınabilir sketch için ilerleme ve timeout davranışını ayrıca tasarlayın, kart/core belgelerini kontrol edin."
+    },
+    {
+      "id": "freertos_freertos_esp32_practical_1",
+      "topicId": "freertos_freertos_esp32_practical",
+      "type": "multiple_choice",
+      "prompt": "“ESP32 Arduino'da FreeRTOS: sensör görevi ve queue” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Queue veriyi değer olarak kopyalar; sensör görevi yarım saniyede bir ölçüm yollar, `loop()` alınanları yazdırır. Gerçek ölçümde `A0` kartın ADC destekli piniyle değiştirilmelidir."
+      ],
+      "answer": "Queue veriyi değer olarak kopyalar; sensör görevi yarım saniyede bir ölçüm yollar, `loop()` alınanları yazdırır. Gerçek ölçümde `A0` kartın ADC destekli piniyle değiştirilmelidir.",
+      "explanation": "Queue veriyi değer olarak kopyalar; sensör görevi yarım saniyede bir ölçüm yollar, `loop()` alınanları yazdırır. Gerçek ölçümde `A0` kartın ADC destekli piniyle değiştirilmelidir.\nAçıklama: Arduino-ESP32 Core, FreeRTOS çekirdeğini beraberinde getirir; ayrıca RTOS kitaplığı kurmanız gerekmez. Sensörü okuyan task veriyi queue'ya yollar, `loop()` alıp ekrana yazar. Böylece sensör işi ile çıktı işi ayrılır ve korumasız ortak değişken ihtiyacı azalır. Klasik UNO'nun standart sketch ortamı ESP32 ile aynı task API'sini sunmaz; başka kartlarda uyumlu RTOS portunu ve bellek gereksinimini ayrıca denetleyin."
+    },
+    {
+      "id": "freertos_freertos_esp32_practical_2",
+      "topicId": "freertos_freertos_esp32_practical",
+      "type": "multiple_choice",
+      "prompt": "“ESP32 Arduino'da FreeRTOS: sensör görevi ve queue” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Uygulama sırası: 1) queue oluştur; 2) task oluşturma sonucunu denetle; 3) task içinde sensörü okuyup zaman aşımıyla queue'ya gönder; 4) `loop()` içinde sıradaki veriyi al; 5) queue dolduğunda ne olacağını belirle. `xTaskCreatePinnedToCore` yalnızca özel bir gerekçe varsa kullanılır; çekirdeğe sabitlemek işi kendiliğinden hızlandırmaz. ESP-IDF SMP zamanlaması ve Arduino-ESP32 API davranışı sürüme bağlıdır."
+      ],
+      "answer": "Uygulama sırası: 1) queue oluştur; 2) task oluşturma sonucunu denetle; 3) task içinde sensörü okuyup zaman aşımıyla queue'ya gönder; 4) `loop()` içinde sıradaki veriyi al; 5) queue dolduğunda ne olacağını belirle. `xTaskCreatePinnedToCore` yalnızca özel bir gerekçe varsa kullanılır; çekirdeğe sabitlemek işi kendiliğinden hızlandırmaz. ESP-IDF SMP zamanlaması ve Arduino-ESP32 API davranışı sürüme bağlıdır.",
+      "explanation": "Uygulama sırası: 1) queue oluştur; 2) task oluşturma sonucunu denetle; 3) task içinde sensörü okuyup zaman aşımıyla queue'ya gönder; 4) `loop()` içinde sıradaki veriyi al; 5) queue dolduğunda ne olacağını belirle. `xTaskCreatePinnedToCore` yalnızca özel bir gerekçe varsa kullanılır; çekirdeğe sabitlemek işi kendiliğinden hızlandırmaz. ESP-IDF SMP zamanlaması ve Arduino-ESP32 API davranışı sürüme bağlıdır.\nAçıklama: Arduino-ESP32 Core, FreeRTOS çekirdeğini beraberinde getirir; ayrıca RTOS kitaplığı kurmanız gerekmez. Sensörü okuyan task veriyi queue'ya yollar, `loop()` alıp ekrana yazar. Böylece sensör işi ile çıktı işi ayrılır ve korumasız ortak değişken ihtiyacı azalır. Klasik UNO'nun standart sketch ortamı ESP32 ile aynı task API'sini sunmaz; başka kartlarda uyumlu RTOS portunu ve bellek gereksinimini ayrıca denetleyin."
+    },
+    {
+      "id": "freertos_freertos_esp32_practical_3",
+      "topicId": "freertos_freertos_esp32_practical",
+      "type": "multiple_choice",
+      "prompt": "“ESP32 Arduino'da FreeRTOS: sensör görevi ve queue” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın.",
+        "Arduino-ESP32 Core, FreeRTOS çekirdeğini beraberinde getirir; ayrıca RTOS kitaplığı kurmanız gerekmez",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır."
+      ],
+      "answer": "Arduino-ESP32 Core, FreeRTOS çekirdeğini beraberinde getirir; ayrıca RTOS kitaplığı kurmanız gerekmez",
+      "explanation": "Arduino-ESP32 Core, FreeRTOS çekirdeğini beraberinde getirir; ayrıca RTOS kitaplığı kurmanız gerekmez\nAçıklama: Arduino-ESP32 Core, FreeRTOS çekirdeğini beraberinde getirir; ayrıca RTOS kitaplığı kurmanız gerekmez. Sensörü okuyan task veriyi queue'ya yollar, `loop()` alıp ekrana yazar. Böylece sensör işi ile çıktı işi ayrılır ve korumasız ortak değişken ihtiyacı azalır. Klasik UNO'nun standart sketch ortamı ESP32 ile aynı task API'sini sunmaz; başka kartlarda uyumlu RTOS portunu ve bellek gereksinimini ayrıca denetleyin."
+    },
+    {
+      "id": "freertos_freertos_esp32_practical_4",
+      "topicId": "freertos_freertos_esp32_practical",
+      "type": "multiple_choice",
+      "prompt": "“ESP32 Arduino'da FreeRTOS: sensör görevi ve queue” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Arduino-ESP32 Core FreeRTOS API'sini içerir; örnekteki stack boyutu ve `A0` pini her kart için evrensel değildir. Queue ve task oluşturmayı denetleyin; queue dolduğunda ne olacağını belirleyin. Sensör okuma ve Serial yazma bloklanabilir; bu nedenle yüksek öncelik ya da kesin zaman garantisi gereken sistemlerde ayrıca ölçüm yapın."
+      ],
+      "answer": "Arduino-ESP32 Core FreeRTOS API'sini içerir; örnekteki stack boyutu ve `A0` pini her kart için evrensel değildir. Queue ve task oluşturmayı denetleyin; queue dolduğunda ne olacağını belirleyin. Sensör okuma ve Serial yazma bloklanabilir; bu nedenle yüksek öncelik ya da kesin zaman garantisi gereken sistemlerde ayrıca ölçüm yapın.",
+      "explanation": "Arduino-ESP32 Core FreeRTOS API'sini içerir; örnekteki stack boyutu ve `A0` pini her kart için evrensel değildir. Queue ve task oluşturmayı denetleyin; queue dolduğunda ne olacağını belirleyin. Sensör okuma ve Serial yazma bloklanabilir; bu nedenle yüksek öncelik ya da kesin zaman garantisi gereken sistemlerde ayrıca ölçüm yapın.\nAçıklama: Arduino-ESP32 Core, FreeRTOS çekirdeğini beraberinde getirir; ayrıca RTOS kitaplığı kurmanız gerekmez. Sensörü okuyan task veriyi queue'ya yollar, `loop()` alıp ekrana yazar. Böylece sensör işi ile çıktı işi ayrılır ve korumasız ortak değişken ihtiyacı azalır. Klasik UNO'nun standart sketch ortamı ESP32 ile aynı task API'sini sunmaz; başka kartlarda uyumlu RTOS portunu ve bellek gereksinimini ayrıca denetleyin."
+    }
+  ]
+}

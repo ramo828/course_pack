@@ -1,0 +1,36 @@
+{
+  "id": "protocols_onewire",
+  "title": "1-Wire: датчик температуры DS18B20",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://www.analog.com/en/resources/technical-articles/1wire-communication-through-software.html",
+    "https://github.com/milesburton/Arduino-Temperature-Control-Library"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "1-Wire объединяет совместимые устройства на одной шине с небольшим числом проводов. DS18B20 измеряет температуру цифровым способом и имеет уникальный идентификатор. Линии данных нужна подходящая подтяжка; при длинном кабеле важны топология и питание.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_onewire_bus",
+      "caption": "1-Wire: датчик температуры DS18B20"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <OneWire.h>\n#include <DallasTemperature.h>\n\nOneWire wireBus(4);\nDallasTemperature sensors(&wireBus);\n\nvoid setup() {\n  Serial.begin(115200);\n  sensors.begin();\n}\n\nvoid loop() {\n  sensors.requestTemperatures();\n  const float temperatureC = sensors.getTempCByIndex(0);\n  if (temperatureC == DEVICE_DISCONNECTED_C) {\n    Serial.println(\"DS18B20 disconnected\");\n  } else {\n    Serial.println(temperatureC);\n  }\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Установите библиотеки OneWire и DallasTemperature. Пример проверяет `DEVICE_DISCONNECTED_C`; при паразитном питании меняются время преобразования и подключение, следуйте документации датчика."
+    }
+  ],
+  "testId": "embedded_test_protocols_onewire_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

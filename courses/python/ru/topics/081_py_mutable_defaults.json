@@ -1,0 +1,138 @@
+{
+  "id": "python_py_mutable_defaults",
+  "title": "Изменяемые значения аргументов по умолчанию",
+  "difficulty": "medium",
+  "testId": "python_test_py_mutable_defaults_ru",
+  "sources": [
+    "https://docs.python.org/3/tutorial/",
+    "https://docs.python.org/3/using/",
+    "https://docs.python.org/3/library/",
+    "https://docs.python.org/3/library/turtle.html",
+    "https://docs.python.org/3/library/tkinter.html",
+    "https://fastapi.tiangolo.com/tutorial/",
+    "https://www.python.org/about/success/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Python вычисляет значение по умолчанию один раз при определении функции. Поэтому список в ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "items=[]",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " общий для всех вызовов и может сохранять данные. Используйте ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "None",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и создавайте новый список внутри функции. То же относится к изменяемым dict и set.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def add_item(value: str, items: list[str] | None = None) -> list[str]:\n    if items is None:\n        items = []\n    items.append(value)\n    return items\n\nprint(add_item('a'))\nprint(add_item('b'))",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "['a']\n['b']",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Каждый вызов создаёт новый список; результаты — ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "['a']",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "['b']",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Используйте `def add(value, items=None)`, затем создавайте новый список: `if items is None: items = []`."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Неизменяемые значения вроде tuple и `None` обычно безопасны, но вложенные изменяемые объекты всё равно могут разделяться."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Отдельная иллюстрация не обязательна; небольшого запускаемого примера и ожидаемого результата достаточно."
+}

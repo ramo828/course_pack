@@ -1,0 +1,621 @@
+{
+  "id": "python_py_fastapi_request_body",
+  "title": "Sorğu gövdəsi və Pydantic modeli",
+  "difficulty": "medium",
+  "testId": "python_test_py_fastapi_request_body_az",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://fastapi.tiangolo.com/tutorial/body/",
+    "https://docs.pydantic.dev/latest/concepts/fields/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NİYƏ LAZIMDIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI veb və mobil tətbiqlərin HTTP ilə məlumat mübadiləsi etdiyi JSON API-lər qurmaq üçündür; tip annotasiyaları girişləri yoxlamağa və API müqaviləsini sənədləşdirməyə kömək edir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "MƏQSƏD VƏ REAL İSTİFADƏ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "POST/PUT sorğuları yeni və ya dəyişdirilən məlumatı çox vaxt JSON body-də daşıyır. Pydantic modeli sahə tiplərini və məhdudiyyətlərini bir yerdə ifadə edir; FastAPI body-ni oxuyur, model yaradır və model yoxlamasından sonra endpoint-i çağırır.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Nümunələri yerli işlətmək üçün ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " quraşdırın; dərsdə göstərilən əlavə paketləri də əlavə edin. Server nümunəsini ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "app.py",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " saxlayıb ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "uvicorn app:app --reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ilə başladın. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yalnız öyrənmə/inkişaf üçündür.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "REAL HƏYATDA HARADA?\nQeydiyyat formu serverə e-poçt və yaş göndərir; model sahələri aydın müqaviləyə çevirir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Bu hissə buraxılsa: Body modelini buraxmaq giriş formasını sənədləşdirilməmiş və təkrar yoxlanmayan edir; əl ilə yoxlama səhvləri çoxaldır.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM İŞLƏK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI\nfrom pydantic import BaseModel, Field\n\napp = FastAPI()\n\nclass UserInput(BaseModel):\n    email: str\n    age: int = Field(ge=13, le=120)\n\n@app.post(\"/users\")\nasync def create_user(user: UserInput):\n    return {\"email\": user.email, \"age\": user.age}\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SORĞU VƏ GÖZLƏNİLƏN CAVAB\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Sorğu: POST /users  body={\"email\":\"ada@example.com\",\"age\":20}\nCavab: 200 OK; JSON: {\"email\":\"ada@example.com\",\"age\":20}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SƏTİR-SƏTİR İZAHI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — FastAPI sinfini tətbiq obyekti yaratmaq üçün import edir; bu sətr olmasa ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " adı tanınmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from pydantic import BaseModel, Field",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Lazım olan tipi və aləti moduldan idxal edir; istifadə olunmasa həmin ad tapılmır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " tətbiq obyekti ASGI serverinə verilir və marşrutları özündə saxlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class UserInput(BaseModel):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Pydantic məlumat modelini müəyyən edir; sahə tipləri sorğu body-sinin müqaviləsidir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "email: str",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modeldə hansı sahənin və tipin gözlənildiyini bildirir; bu sahə yoxdursa, body müqaviləsi natamamdır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "age: int = Field(ge=13, le=120)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modeldə hansı sahənin və tipin gözlənildiyini bildirir; bu sahə yoxdursa, body müqaviləsi natamamdır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.post(\"/users\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP metodunu və URL yolunu bu funksiyaya bağlayır; bu dekorator olmasa funksiya API endpoint-i olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def create_user(user: UserInput):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Serverin çağıracağı endpoint funksiyasını müəyyən edir; parametr adları yol, query və body məlumatlarını bağlamağa kömək edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"email\": user.email, \"age\": user.age}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP cavabının dəyərini qaytarır; FastAPI bunu JSON və ya qeyd olunan response modelinə çevirir.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "TƏCRÜBƏ: HTTP MÜŞTƏRİSİ İLƏ YOXLAMA\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Aşağıdakı tam fayl tətbiqi TestClient ilə yerli çağırır; ayrıca port açmağa ehtiyac yoxdur. TestClient üçün ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " quraşdırın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM İŞLƏK TEST KODU\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI\nfrom pydantic import BaseModel, Field\n\napp = FastAPI()\n\nclass UserInput(BaseModel):\n    email: str\n    age: int = Field(ge=13, le=120)\n\n@app.post(\"/users\")\nasync def create_user(user: UserInput):\n    return {\"email\": user.email, \"age\": user.age}\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    response = client.post(\"/users\", json={\"email\": \"ada@example.com\", \"age\": 20})\n    print(response.status_code, response.json())\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "TESTİN GÖZLƏNİLƏN NƏTİCƏSİ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "200 {'email': 'ada@example.com', 'age': 20}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SƏTİR-SƏTİR İZAHI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — FastAPI sinfini tətbiq obyekti yaratmaq üçün import edir; bu sətr olmasa ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " adı tanınmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from pydantic import BaseModel, Field",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Lazım olan tipi və aləti moduldan idxal edir; istifadə olunmasa həmin ad tapılmır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " tətbiq obyekti ASGI serverinə verilir və marşrutları özündə saxlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class UserInput(BaseModel):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Pydantic məlumat modelini müəyyən edir; sahə tipləri sorğu body-sinin müqaviləsidir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "email: str",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modeldə hansı sahənin və tipin gözlənildiyini bildirir; bu sahə yoxdursa, body müqaviləsi natamamdır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "age: int = Field(ge=13, le=120)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modeldə hansı sahənin və tipin gözlənildiyini bildirir; bu sahə yoxdursa, body müqaviləsi natamamdır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.post(\"/users\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP metodunu və URL yolunu bu funksiyaya bağlayır; bu dekorator olmasa funksiya API endpoint-i olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def create_user(user: UserInput):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Serverin çağıracağı endpoint funksiyasını müəyyən edir; parametr adları yol, query və body məlumatlarını bağlamağa kömək edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"email\": user.email, \"age\": user.age}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP cavabının dəyərini qaytarır; FastAPI bunu JSON və ya qeyd olunan response modelinə çevirir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.testclient import TestClient",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — TestClient-i import edir ki, tətbiqə HTTP sorğusunu server portu açmadan sınaqdan göndərək.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with TestClient(app) as client:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Tətbiq üçün sınaq HTTP müştərisi yaradır və kontekst bitəndə onu bağlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response = client.post(\"/users\", json={\"email\": \"ada@example.com\", \"age\": 20})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğu zamanı bu əməliyyat icra olunur; onun nəticəsi və ya yan təsiri cavabın hazırlanmasına təsir edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(response.status_code, response.json())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP status kodunu və cavab JSON-unu oxuyub terminalda göstərir.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "TEZ-TEZ BURAXILAN SƏHVLƏR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bütün JSON-u ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "dict",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kimi qəbul edib tələb olunan sahələri yoxlamamaq; modeldə məcburi və seçimli sahələri ayırın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Praktik məsləhət",
+      "text": "Gözlənilən body-ni `/docs`-da göndərin, sonra bir sahəni silib avtomatik 422 cavabını müşahidə edin."
+    },
+    {
+      "type": "detail",
+      "title": "Daha dərindən",
+      "text": "Pydantic v2-də `str | None` sahənin boş ola biləcəyini, `= None` isə onun verilməyə də biləcəyini bildirir; tip və tələb olunma ayrı qərarlardır."
+    },
+    {
+      "type": "warning",
+      "title": "Vacib xəbərdarlıq",
+      "text": "Müştərinin göndərdiyi dəyəri etibarlı saymayın. Model yoxlaması biznes qaydalarını, icazəni və məxfi məlumatı ayrıca qorumağı əvəz etmir."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: Dərsdəki tipik səhvi önləmək üçün hansı addım daha düzgündür?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Gözlənilən body-ni ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "/docs",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-da göndərin, sonra bir sahəni silib avtomatik 422 cavabını müşahidə edin.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

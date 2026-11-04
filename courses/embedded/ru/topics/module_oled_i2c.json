@@ -1,0 +1,46 @@
+{
+  "id": "module_oled_i2c",
+  "title": "OLED-дисплей: подключение I2C и вывод текста",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://learn.adafruit.com/monochrome-oled-breakouts/arduino-library-and-examples",
+    "https://docs.arduino.cc/learn/communication/wire/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Пиксели OLED светятся сами, поэтому подсветка не нужна. Модуль SSD1306 с I2C выводит текст и простую графику по нескольким проводам.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Подключайте VCC и GND только к допустимому для модуля напряжению. SDA/SCL идут к I2C платы: A4/A5 у UNO R3, выбранные выводы I2C у ESP32.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Пример требует библиотеки Adafruit_GFX и Adafruit_SSD1306. Адрес часто 0x3C, иногда 0x3D. Платформа: UNO или ESP32; проверьте выводы I2C платы.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_oled_i2c",
+      "caption": "OLED-дисплей: подключение I2C и вывод текста"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Wire.h>\n#include <Adafruit_GFX.h>\n#include <Adafruit_SSD1306.h>\n\nAdafruit_SSD1306 display(128, 64, &Wire, -1);\n\nvoid setup() {\n  Serial.begin(115200);\n  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {\n    Serial.println(\"SSD1306 initialization failed\");\n    return;\n  }\n  display.clearDisplay();\n  display.setTextSize(1);\n  display.setTextColor(SSD1306_WHITE);\n  display.setCursor(0, 0);\n  display.println(\"Salam, OLED!\");\n  display.display();\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание по безопасности",
+      "text": "Питание и уровни логики зависят от модуля. Не подключайте GPIO ESP32 к 5 В."
+    }
+  ],
+  "testId": "embedded_test_module_oled_i2c_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

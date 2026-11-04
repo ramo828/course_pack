@@ -1,0 +1,35 @@
+{
+  "id": "esp32_usb_hid",
+  "title": "ESP32 USB, USB CDC və USB HID imkanları",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "USB-C konnektoru olması çipin USB HID dəstəkləməsi demək deyil. Bəzi lövhələrdə USB yalnız USB-serial bridge vasitəsilə proqram yükləyir. Native USB OTG olan müəyyən ESP32-S2/S3 lövhələri USB CDC və HID təqdim edə bilər; dəqiq lövhə və Arduino nüvə konfiqurasiyasını yoxlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_usb_hid",
+      "caption": "ESP32 USB, USB CDC və USB HID imkanları"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"USB.h\"\n#include \"USBHIDKeyboard.h\"\n\nUSBHIDKeyboard Keyboard;\n\nvoid setup() {\n  USB.begin();\n  Keyboard.begin();\n  delay(1000);\n  Keyboard.print(\"Hello from my ESP32\");\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Kod yalnız öz kompüterinizdə, etibarlı test mühitində klaviatura kimi yazı göndərmək üçündür. USB HID-ni başqa cihazlarda icazəsiz əməliyyat üçün istifadə etməyin. USB pinləri və qida sxemi lövhəyə məxsusdur."
+    }
+  ],
+  "testId": "embedded_test_esp32_usb_hid_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

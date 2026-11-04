@@ -1,0 +1,119 @@
+{
+  "id": "arduino_digital_read_write",
+  "title": "pinMode, digitalRead и digitalWrite: цифровые выводы",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/digital-io/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Сначала задайте направление через ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "pinMode",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "digitalRead",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " считывает ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "HIGH",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " или ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "LOW",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "digitalWrite",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " устанавливает уровень выхода. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "INPUT_PULLUP",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " включает внутренний слабый резистор, поэтому кнопка между D2 и GND при нажатии даёт ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "LOW",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_button_circuit",
+      "caption": "pinMode, digitalRead и digitalWrite: цифровые выводы"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "constexpr uint8_t BUTTON_PIN = 2;\nconstexpr uint8_t LED_PIN = LED_BUILTIN;\n\nvoid setup() {\n  pinMode(BUTTON_PIN, INPUT_PULLUP);\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  bool pressed = digitalRead(BUTTON_PIN) == LOW;\n  digitalWrite(LED_PIN, pressed ? HIGH : LOW);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "UNO обычно использует логику 5 В, ESP32 — 3,3 В. Соблюдайте предел тока GPIO и подключайте LED через резистор."
+    }
+  ],
+  "testId": "embedded_test_arduino_digital_read_write_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_dependencies_az",
+  "title": "Dependency injection və təkrar istifadə",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_dependencies",
+      "type": "multiple_choice",
+      "prompt": "Bu real HTTP sorğusuna API necə cavab verməlidir?\nGET /profile  (dependency cari istifadəçini müəyyən edir)",
+      "options": [
+        "200 OK; endpoint `Depends(get_current_user)` nəticəsindən istifadə edir.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın."
+      ],
+      "answer": "200 OK; endpoint `Depends(get_current_user)` nəticəsindən istifadə edir.",
+      "explanation": "Bu, `GET /profile  (dependency cari istifadəçini müəyyən edir)` sorğusunun gözlənilən davranışıdır. 200 OK; endpoint `Depends(get_current_user)` nəticəsindən istifadə edir."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_dependencies",
+      "type": "multiple_choice",
+      "prompt": "Bu mövzuda hansı dizayn prinsipi doğrudur?",
+      "options": [
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "`Depends` dependency funksiyasının nəticəsini endpoint parametrinə ötürür və onu ayrıca testdə əvəz etməyə imkan verir."
+      ],
+      "answer": "`Depends` dependency funksiyasının nəticəsini endpoint parametrinə ötürür və onu ayrıca testdə əvəz etməyə imkan verir.",
+      "explanation": "`Depends` dependency funksiyasının nəticəsini endpoint parametrinə ötürür və onu ayrıca testdə əvəz etməyə imkan verir. Dependency-lər də öz dependency-lərinə sahib ola bilər; FastAPI nəticələri request miqyasında keşləyə bilər. Cleanup lazım olan resurslar üçün `yield` nümunələrinə baxın."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_dependencies",
+      "type": "multiple_choice",
+      "prompt": "Dərsdə göstərilən vacib hissə çıxarılsa, hansı dəyişiklik baş verər?",
+      "options": [
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "Hər endpoint-də eyni hazırlığı təkrarlamaq dəyişiklik zamanı uyğunsuzluq yaradır və test etməyi çətinləşdirir.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın."
+      ],
+      "answer": "Hər endpoint-də eyni hazırlığı təkrarlamaq dəyişiklik zamanı uyğunsuzluq yaradır və test etməyi çətinləşdirir.",
+      "explanation": "Hər endpoint-də eyni hazırlığı təkrarlamaq dəyişiklik zamanı uyğunsuzluq yaradır və test etməyi çətinləşdirir. FastAPI dependency-ləri endpoint üçün ortaq hazırlığı ayrıca funksiyaya çıxarır: query parametri, cari istifadəçi, konfiqurasiya və ya DB sessiyası. `Depends` həmin nəticəni endpoint parametrinə verir; asılılıq testdə əvəz edilə bilər."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_dependencies",
+      "type": "multiple_choice",
+      "prompt": "Dərsdəki tipik səhvi önləmək üçün hansı addım daha düzgündür?",
+      "options": [
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "İcazə yoxlamasını dependency-yə köçürün, sonra `app.dependency_overrides` ilə testdə saxta istifadəçi verin.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın."
+      ],
+      "answer": "İcazə yoxlamasını dependency-yə köçürün, sonra `app.dependency_overrides` ilə testdə saxta istifadəçi verin.",
+      "explanation": "İcazə yoxlamasını dependency-yə köçürün, sonra `app.dependency_overrides` ilə testdə saxta istifadəçi verin. Dependency injection avtomatik olaraq etibarlı autentifikasiya demək deyil; dependency daxilindəki yoxlamalar təhlükəsizlik baxımından düzgün qurulmalıdır."
+    }
+  ]
+}

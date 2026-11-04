@@ -1,0 +1,221 @@
+{
+  "id": "rust_rust_traits",
+  "title": "Generics və trait-lər",
+  "difficulty": "hard",
+  "testId": "rust_test_rust_traits_az",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch10-00-generics.html"
+  ],
+  "estimatedMinutes": 24,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Generics və trait-lər” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Trait ortaq metod davranışını elan edir. Real layihədə bu göstərişə əməl edin: Ümumi API-ni yalnız həqiqətən paylaşılmalı davranış üçün istifadə edin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "trait Area { fn area(&self) -> f64; }\nstruct Rectangle { width: f64, height: f64 }\nimpl Area for Rectangle {\n    fn area(&self) -> f64 { self.width * self.height }\n}\nfn print_area<T: Area>(shape: &T) {\n    println!(\"{}\", shape.area());\n}\nfn main() { print_area(&Rectangle { width: 3.0, height: 4.0 }); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Metod çağırılana qədər stdout yaranmır; 3×4 ölçülü düzbucaqlı üçün ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "print_area",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " 12 çap edir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Generics tip parametri ilə təkrar istifadə olunan funksiyalar yaradır. Trait ümumi davranışı təsvir edir; məhdudiyyətlər ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "T: Trait",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kimi konkret imkanları tələb edir və monomorphization çox vaxt statik dispatch yaradır.\n\nTrait müxtəlif tiplərdə ortaq qabiliyyəti müqavilə kimi təsvir edir; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "impl Trait for Type",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " konkret davranışı verir, generic bound isə caller-ın hansı qabiliyyətə ehtiyac duyduğunu göstərir. Default method paylaşılmış tətbiq verir, associated type trait-in nəticə tipini əlaqələndirə bilər. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "dyn Trait",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " runtime dispatch, generic isə çox vaxt compile-time monomorphization istifadə edir. Public API-də trait sərhədini diqqətlə seçin: dəyişiklik implement edən tiplərə təsir edir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "impl Area for Rectangle {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Trait ortaq metod davranışını elan edir.\nNiyə seçilib: Ümumi API-ni yalnız həqiqətən paylaşılmalı davranış üçün istifadə edin.\nBuraxılsa və ya dəyişdirilsə: Ümumi API-ni yalnız həqiqətən paylaşılmalı davranış üçün istifadə edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Ümumi API-ni yalnız həqiqətən paylaşılmalı davranış üçün istifadə edin."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Trait ortaq metod davranışını elan edir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Ümumi API-ni yalnız həqiqətən paylaşılmalı davranış üçün istifadə edin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "trait Label { fn label(&self) -> &str; }\nstruct Sensor;\nimpl Label for Sensor { fn label(&self) -> &str { \"temperature\" } }\nfn main() { println!(\"{}\", Sensor.label()); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "temperature\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Trait ümumi davranışı təsvir edir; məhdudiyyətlər `T: Trait` kimi konkret imkanları tələb edir və monomorphization çox vaxt statik dispatch yaradır."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Kod nümunələri fokuslanmış hissələrdir; seçilmiş toolchain və target-də compile/test edin, çünki API və diaqnostika versiyaya görə dəyişə bilər."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Generics və trait-lər” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Trait ortaq metod davranışını elan edir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

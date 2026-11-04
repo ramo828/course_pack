@@ -1,0 +1,62 @@
+{
+  "id": "rust_test_rust_error_design_en",
+  "title": "Result, ?, and error design",
+  "questions": [
+    {
+      "id": "rust_rust_error_design_1",
+      "topicId": "rust_rust_error_design",
+      "type": "multiple_choice",
+      "prompt": "Which statement gives the core rule for “Result, ?, and error design”?",
+      "options": [
+        "`?` returns an error to the caller and passes the success value onward.",
+        "Use rustup to keep toolchain updates and installed versions explicit.",
+        "Cargo is the main tool for creating, building, and testing projects.",
+        "Rust bindings are immutable unless declared mut."
+      ],
+      "answer": "`?` returns an error to the caller and passes the success value onward.",
+      "explanation": "`?` returns an error to the caller and passes the success value onward.\nWhy: Result<T, E> represents success or failure in the type system; `?` propagates compatible errors through a call chain. Translate concrete errors into useful messages at application boundaries while preserving causes and context in internal layers. Reserve `unwrap()` for small examples or proven invariants where a panic is acceptable.\n\n`Option<T>` represents an expected absence (`None`); `Result<T, E>` represents success or a reportable failure. `?` propagates errors instead of introducing an unnecessary panic, and `main -> Result` can report a top-level failure. Reserve `unwrap()` for tests or proven invariants."
+    },
+    {
+      "id": "rust_rust_error_design_2",
+      "topicId": "rust_rust_error_design",
+      "type": "multiple_choice",
+      "prompt": "When applying “Result, ?, and error design” in a project, which action is recommended?",
+      "options": [
+        "Do not swallow errors into success-shaped defaults; retry only repeatable operations with a bound.",
+        "Use rustup to keep toolchain updates and installed versions explicit.",
+        "Cargo is the main tool for creating, building, and testing projects.",
+        "Enable mutability only where it is needed."
+      ],
+      "answer": "Do not swallow errors into success-shaped defaults; retry only repeatable operations with a bound.",
+      "explanation": "Do not swallow errors into success-shaped defaults; retry only repeatable operations with a bound.\nWhy: Result<T, E> represents success or failure in the type system; `?` propagates compatible errors through a call chain. Translate concrete errors into useful messages at application boundaries while preserving causes and context in internal layers. Reserve `unwrap()` for small examples or proven invariants where a panic is acceptable.\n\n`Option<T>` represents an expected absence (`None`); `Result<T, E>` represents success or a reportable failure. `?` propagates errors instead of introducing an unnecessary panic, and `main -> Result` can report a top-level failure. Reserve `unwrap()` for tests or proven invariants."
+    },
+    {
+      "id": "rust_rust_error_design_3",
+      "topicId": "rust_rust_error_design",
+      "type": "multiple_choice",
+      "prompt": "Which implementation detail matters in the “Result, ?, and error design” example?",
+      "options": [
+        "Rust bindings are immutable unless declared mut.",
+        "Cargo is the main tool for creating, building, and testing projects.",
+        "Use rustup to keep toolchain updates and installed versions explicit.",
+        "Result<T, E> represents success or failure in the type system; `?` propagates compatible errors through a call chain"
+      ],
+      "answer": "Result<T, E> represents success or failure in the type system; `?` propagates compatible errors through a call chain",
+      "explanation": "Result<T, E> represents success or failure in the type system; `?` propagates compatible errors through a call chain\nWhy: Result<T, E> represents success or failure in the type system; `?` propagates compatible errors through a call chain. Translate concrete errors into useful messages at application boundaries while preserving causes and context in internal layers. Reserve `unwrap()` for small examples or proven invariants where a panic is acceptable.\n\n`Option<T>` represents an expected absence (`None`); `Result<T, E>` represents success or a reportable failure. `?` propagates errors instead of introducing an unnecessary panic, and `main -> Result` can report a top-level failure. Reserve `unwrap()` for tests or proven invariants."
+    },
+    {
+      "id": "rust_rust_error_design_4",
+      "topicId": "rust_rust_error_design",
+      "type": "multiple_choice",
+      "prompt": "Which additional constraint or condition should be checked for “Result, ?, and error design”?",
+      "options": [
+        "Use rustup to keep toolchain updates and installed versions explicit.",
+        "Rust bindings are immutable unless declared mut.",
+        "Cargo is the main tool for creating, building, and testing projects.",
+        "Translate concrete errors into useful messages at application boundaries while preserving causes and context in internal layers"
+      ],
+      "answer": "Translate concrete errors into useful messages at application boundaries while preserving causes and context in internal layers",
+      "explanation": "Translate concrete errors into useful messages at application boundaries while preserving causes and context in internal layers\nWhy: Result<T, E> represents success or failure in the type system; `?` propagates compatible errors through a call chain. Translate concrete errors into useful messages at application boundaries while preserving causes and context in internal layers. Reserve `unwrap()` for small examples or proven invariants where a panic is acceptable.\n\n`Option<T>` represents an expected absence (`None`); `Result<T, E>` represents success or a reportable failure. `?` propagates errors instead of introducing an unnecessary panic, and `main -> Result` can report a top-level failure. Reserve `unwrap()` for tests or proven invariants."
+    }
+  ]
+}

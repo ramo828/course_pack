@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_sqlite_en",
+  "title": "Local data with SQLite",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_sqlite",
+      "type": "multiple_choice",
+      "prompt": "What observable result does this snippet produce when it runs?\n\nimport sqlite3\n\nwith sqlite3.connect('app.db') as db:\n    db.execute('CREATE TABLE IF NOT EXISTS notes (text TEXT)')\n    db.execute('INSERT INTO notes VALUES (?)', ('Salam',))",
+      "options": [
+        "No console output; restored is {'active': True, 'count': 3}.",
+        "No console output; creates the table if needed and inserts one row.",
+        "1",
+        "('Ada', 10)"
+      ],
+      "answer": "No console output; creates the table if needed and inserts one row.",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`import sqlite3` — Imports functionality from a module; without it, the name is unavailable and may raise NameError.\n`with sqlite3.connect('app.db') as db:` — Manages a resource for the block; without the context manager, a file or connection may remain open.\n`db.execute('CREATE TABLE IF NOT EXISTS notes (text TEXT)')` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`db.execute('INSERT INTO notes VALUES (?)', ('Salam',))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_sqlite",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 2 in this lesson produce?\n\nimport sqlite3\nconnection = sqlite3.connect(':memory:')\nconnection.execute('CREATE TABLE scores (name TEXT, value INTEGER)')\nconnection.execute('INSERT INTO scores VALUES (?, ?)', ('Ada', 10))\nprint(connection.execute('SELECT name, value FROM scores').fetchone())\nconnection.close()",
+      "options": [
+        "('Ada', 10)",
+        "No console output; creates the table if needed and inserts one row.",
+        "('Ada',)",
+        "1"
+      ],
+      "answer": "('Ada', 10)",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`import sqlite3` — Imports functionality from a module; without it, the name is unavailable and may raise NameError.\n`connection = sqlite3.connect(':memory:')` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`connection.execute('CREATE TABLE scores (name TEXT, value INTEGER)')` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`connection.execute('INSERT INTO scores VALUES (?, ?)', ('Ada', 10))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`print(connection.execute('SELECT name, value FROM scores').fetchone())` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`connection.close()` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_sqlite",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 3 in this lesson produce?\n\nimport sqlite3\nwith sqlite3.connect(':memory:') as connection:\n    connection.execute('CREATE TABLE item (name TEXT)')\n    connection.execute('INSERT INTO item VALUES (?)', ('book',))\n    print(connection.execute('SELECT COUNT(*) FROM item').fetchone()[0])",
+      "options": [
+        "1",
+        "('Ada', 10)",
+        "No console output; creates the table if needed and inserts one row.",
+        "2"
+      ],
+      "answer": "1",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`import sqlite3` — Imports functionality from a module; without it, the name is unavailable and may raise NameError.\n`with sqlite3.connect(':memory:') as connection:` — Manages a resource for the block; without the context manager, a file or connection may remain open.\n`connection.execute('CREATE TABLE item (name TEXT)')` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`connection.execute('INSERT INTO item VALUES (?)', ('book',))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`print(connection.execute('SELECT COUNT(*) FROM item').fetchone()[0])` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_sqlite",
+      "type": "multiple_choice",
+      "prompt": "Which statement accurately describes “Local data with SQLite”?",
+      "options": [
+        "SQLite stores data in SQL tables for small applications; query parameters keep user values separate from SQL code.",
+        "Check HTTP status, headers, and body separately.",
+        "Build platform-independent paths with pathlib.",
+        "JSON suits nested objects; CSV suits tabular data."
+      ],
+      "answer": "SQLite stores data in SQL tables for small applications; query parameters keep user values separate from SQL code.",
+      "explanation": "SQLite stores data in SQL tables for small applications; query parameters keep user values separate from SQL code.\n\nLINE-BY-LINE WALKTHROUGH\n`import sqlite3` — Imports functionality from a module; without it, the name is unavailable and may raise NameError.\n`connection = sqlite3.connect(':memory:')` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`connection.execute('CREATE TABLE scores (name TEXT, value INTEGER)')` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`connection.execute('INSERT INTO scores VALUES (?, ?)', ('Ada', 10))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`print(connection.execute('SELECT name, value FROM scores').fetchone())` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`connection.close()` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    }
+  ]
+}

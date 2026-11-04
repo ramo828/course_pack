@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_timers_en",
+  "title": "Software timers and callback rules",
+  "questions": [
+    {
+      "id": "freertos_freertos_timers_1",
+      "topicId": "freertos_freertos_timers",
+      "type": "multiple_choice",
+      "prompt": "Which statement gives the core rule for “Software timers and callback rules”?",
+      "options": [
+        "Each task consumes stack; priority affects scheduler choices.",
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "A software timer is not a precise hardware timer; measure jitter and scheduler load.",
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU."
+      ],
+      "answer": "A software timer is not a precise hardware timer; measure jitter and scheduler load.",
+      "explanation": "A software timer is not a precise hardware timer; measure jitter and scheduler load.\nWhy: A software timer callback runs in the timer-service task. Keep it short: blocking, lengthy Serial output, or expensive sensor work can delay every software timer. Send longer work to a worker task through a queue or notification."
+    },
+    {
+      "id": "freertos_freertos_timers_2",
+      "topicId": "freertos_freertos_timers",
+      "type": "multiple_choice",
+      "prompt": "When applying “Software timers and callback rules” in a project, which action is recommended?",
+      "options": [
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU.",
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "An infinite task should block or wait periodically so it does not monopolize the CPU.",
+        "Set a short flag or send a message in the callback; move longer work to a regular task."
+      ],
+      "answer": "Set a short flag or send a message in the callback; move longer work to a regular task.",
+      "explanation": "Set a short flag or send a message in the callback; move longer work to a regular task.\nWhy: A software timer callback runs in the timer-service task. Keep it short: blocking, lengthy Serial output, or expensive sensor work can delay every software timer. Send longer work to a worker task through a queue or notification."
+    },
+    {
+      "id": "freertos_freertos_timers_3",
+      "topicId": "freertos_freertos_timers",
+      "type": "multiple_choice",
+      "prompt": "Which implementation detail matters in the “Software timers and callback rules” example?",
+      "options": [
+        "The timer command queue can delay start/stop/reset requests when saturated.",
+        "Task stack sizes consume RAM and must fit the selected target's budget.",
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU."
+      ],
+      "answer": "The timer command queue can delay start/stop/reset requests when saturated.",
+      "explanation": "The timer command queue can delay start/stop/reset requests when saturated.\nWhy: A software timer callback runs in the timer-service task. Keep it short: blocking, lengthy Serial output, or expensive sensor work can delay every software timer. Send longer work to a worker task through a queue or notification."
+    },
+    {
+      "id": "freertos_freertos_timers_4",
+      "topicId": "freertos_freertos_timers",
+      "type": "multiple_choice",
+      "prompt": "Which additional constraint or condition should be checked for “Software timers and callback rules”?",
+      "options": [
+        "Keep it short: blocking, lengthy Serial output, or expensive sensor work can delay every software timer",
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU.",
+        "Serial output from multiple tasks may interleave; serialize shared output and measure stack use."
+      ],
+      "answer": "Keep it short: blocking, lengthy Serial output, or expensive sensor work can delay every software timer",
+      "explanation": "Keep it short: blocking, lengthy Serial output, or expensive sensor work can delay every software timer\nWhy: A software timer callback runs in the timer-service task. Keep it short: blocking, lengthy Serial output, or expensive sensor work can delay every software timer. Send longer work to a worker task through a queue or notification."
+    }
+  ]
+}

@@ -1,0 +1,337 @@
+{
+  "id": "python_py_debug",
+  "title": "Errors and debugging",
+  "difficulty": "medium",
+  "testId": "python_test_py_debug_en",
+  "sources": [
+    "https://docs.python.org/3/library/pdb.html",
+    "https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "WHY USE THIS?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A debugger reveals values and execution steps; inspect the failed assumption instead of patching by guesswork.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A traceback shows the exception type and the line where it surfaced in the call chain. Read the final exception, reduce the input to a small case, and step through it in a debugger.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "value = int('42')\nassert value == 42\nprint(value)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "42",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "value = int('42')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "assert value == 42",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Checks a developer assumption early; relying on assert alone does not protect user input.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(value)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "breakpoint()",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " pauses execution in the debugger.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Record the inputs and conditions that produce a failure instead of hiding it."
+    },
+    {
+      "type": "text",
+      "text": "PRACTICE EXAMPLE 2 · Errors and debugging\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "total = 4 + 5\nassert total == 9\nprint('invariant holds')",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "invariant holds",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "total = 4 + 5",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "assert total == 9",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Checks a developer assumption early; relying on assert alone does not protect user input.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print('invariant holds')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "PRACTICE EXAMPLE 3 · Errors and debugging\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "values = [2, 4, 6]\nprint(list(enumerate(values, start=1)))",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "[(1, 2), (2, 4), (3, 6)]",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "values = [2, 4, 6]",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(list(enumerate(values, start=1)))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "detail",
+      "title": "Why it matters",
+      "text": "A debugger reveals values and execution steps; inspect the failed assumption instead of patching by guesswork."
+    },
+    {
+      "type": "warning",
+      "title": "Watch out",
+      "text": "Never log passwords, tokens, or personal data; a type hint is not runtime validation."
+    },
+    {
+      "type": "text",
+      "text": "COMMON MISTAKES\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Keep tests deterministic and make log levels and type contracts explicit.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Errors and debugging”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: A debugger reveals values and execution steps; inspect the failed assumption instead of patching by guesswork.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Errors and debugging”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: A debugger reveals values and execution steps; inspect the failed assumption instead of patching by guesswork.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "A separate visual is not essential; a small runnable code example and its expected output explain the topic.",
+  "estimatedMinutes": 14
+}

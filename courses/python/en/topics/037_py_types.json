@@ -1,0 +1,742 @@
+{
+  "id": "python_py_types",
+  "title": "Type hints and dataclasses",
+  "difficulty": "hard",
+  "testId": "python_test_py_types_en",
+  "sources": [
+    "https://docs.python.org/3/library/typing.html",
+    "https://docs.python.org/3/library/functions.html#isinstance"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "WHY USE THIS?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Modern annotations express contracts such as ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "list[str]",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "str | None",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TypedDict",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ", and ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Protocol",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "; Python does not enforce them during ordinary execution. Static checkers such as Pyright or mypy analyze these contracts. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Protocol",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " describes required behavior without forcing inheritance, while ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TypedDict",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " describes expected dictionary keys. Validate external data separately with a runtime validator such as Pydantic.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Type hints communicate expected values to readers and static tools; Python does not enforce them during ordinary execution. dataclass reduces boilerplate for simple data objects.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "python_type_hints_flow",
+      "caption": "Type hints and dataclasses"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from dataclasses import dataclass\nfrom typing import TypedDict\n\nclass Config(TypedDict):\n    device_id: str\n    enabled: bool\n\n@dataclass(slots=True)\nclass Sensor:\n    name: str\n    value: float\n\ndef label(sensor: Sensor, unit: str | None = None) -> str:\n    suffix = f' {unit}' if unit else ''\n    return f'{sensor.name}: {sensor.value}{suffix}'\n\nconfig: Config = {'device_id': 'sensor-1', 'enabled': True}\nprint(label(Sensor(config['device_id'], 21.5), 'C'))",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "sensor-1: 21.5 C",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from dataclasses import dataclass",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports specific names from a module; without it, those names are unavailable.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from typing import TypedDict",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports specific names from a module; without it, those names are unavailable.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Config(TypedDict):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "device_id: str",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "enabled: bool",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@dataclass(slots=True)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Sensor:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "name: str",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "value: float",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def label(sensor: Sensor, unit: str | None = None) -> str:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "suffix = f' {unit}' if unit else ''",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return f'{sensor.name}: {sensor.value}{suffix}'",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sends a result to the caller; without it, a function usually returns None.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "config: Config = {'device_id': 'sensor-1', 'enabled': True}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(label(Sensor(config['device_id'], 21.5), 'C'))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "dataclass reduces boilerplate for data classes.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Type hints are not input validation; validate untrusted network and file data separately."
+    },
+    {
+      "type": "text",
+      "text": "PRACTICE EXAMPLE 2 · Type hints and dataclasses\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from typing import Protocol\n\nclass HasValue(Protocol):\n    @property\n    def value(self) -> int: ...\n\ndef describe(item: HasValue) -> str:\n    return f'value={item.value}'\n\nclass Sample:\n    value = 7\n\nprint(describe(Sample()))",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "value=7",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from typing import Protocol",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports specific names from a module; without it, those names are unavailable.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class HasValue(Protocol):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@property",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def value(self) -> int: ...",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def describe(item: HasValue) -> str:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return f'value={item.value}'",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sends a result to the caller; without it, a function usually returns None.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Sample:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "value = 7",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(describe(Sample()))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "PRACTICE EXAMPLE 3 · Type hints and dataclasses\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def label(name: str, unit: str | None = None) -> str:\n    return f'{name}: {unit or \"unknown\"}'\n\nprint(label('temperature'))",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "temperature: unknown",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def label(name: str, unit: str | None = None) -> str:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return f'{name}: {unit or \"unknown\"}'",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sends a result to the caller; without it, a function usually returns None.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(label('temperature'))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "detail",
+      "title": "Why it matters",
+      "text": "Modern annotations express contracts such as `list[str]`, `str | None`, `TypedDict`, and `Protocol`; Python does not enforce them during ordinary execution. Static checkers such as Pyright or mypy analyze these contracts. `Protocol` describes required behavior without forcing inheritance, while `TypedDict` describes expected dictionary keys. Validate external data separately with a runtime validator such as Pydantic."
+    },
+    {
+      "type": "warning",
+      "title": "Watch out",
+      "text": "Never log passwords, tokens, or personal data; a type hint is not runtime validation."
+    },
+    {
+      "type": "text",
+      "text": "COMMON MISTAKES\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Keep tests deterministic and make log levels and type contracts explicit.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Type hints and dataclasses”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Modern annotations express contracts such as ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "list[str]",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "str | None",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "TypedDict",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", and ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Protocol",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; Python does not enforce them during ordinary execution.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Type hints and dataclasses”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Modern annotations express contracts such as ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "list[str]",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "str | None",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "TypedDict",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", and ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Protocol",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; Python does not enforce them during ordinary execution.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes.",
+  "estimatedMinutes": 22
+}

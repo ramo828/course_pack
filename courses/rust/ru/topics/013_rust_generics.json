@@ -1,0 +1,210 @@
+{
+  "id": "rust_rust_generics",
+  "title": "Дженерики и ограничения trait",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_generics_ru",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch10-00-generics.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Дженерики и ограничения trait» в программе или устройстве. Основной принцип: Ограничение Display позволяет функции принимать значения, которые можно форматировать. В проекте следуйте рекомендации: Создавайте generic API при реальном общем поведении; лишние ограничения и абстракции усложняют код.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::fmt::Display;\n\nfn show<T: Display>(value: T) {\n    println!(\"{value}\");\n}\nfn main() { show(42); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "До вызова ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "show",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " вывода нет; вызов ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "show(42)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " выводит 42.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Дженерики позволяют применять алгоритм к разным типам; мономорфизация может создать конкретный код при компиляции. Trait задаёт контракт поведения, а ограничение ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "T: Display",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " сообщает требования функции. Trait object обеспечивает динамическую диспетчеризацию с затратами времени выполнения и правилами object safety.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "fn show<T: Display>(value: T) {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Ограничение Display позволяет функции принимать значения, которые можно форматировать.\nЗачем она нужна: Создавайте generic API при реальном общем поведении; лишние ограничения и абстракции усложняют код.\nЕсли пропустить или изменить: where выносит длинные ограничения, а impl Trait сокращает некоторые сигнатуры.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: Создавайте generic API при реальном общем поведении; лишние ограничения и абстракции усложняют код."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ограничение Display позволяет функции принимать значения, которые можно форматировать.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Создавайте generic API при реальном общем поведении; лишние ограничения и абстракции усложняют код."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::fmt::Display;\nfn show<T: Display>(value: T) { println!(\"{value}\"); }\nfn main() { show(\"ready\"); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ready\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "where выносит длинные ограничения, а impl Trait сокращает некоторые сигнатуры."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Примеры сосредоточены на теме; компилируйте и тестируйте их для выбранного toolchain и target, поскольку API и диагностика зависят от версии."
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение верно передаёт основное правило темы «Дженерики и ограничения trait»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Ограничение Display позволяет функции принимать значения, которые можно форматировать.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Отдельная иллюстрация не обязательна; небольшого запускаемого примера и ожидаемого результата достаточно."
+}

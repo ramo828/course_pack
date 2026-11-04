@@ -1,0 +1,35 @@
+{
+  "id": "esp32_usb_hid",
+  "title": "USB, USB CDC и USB HID на ESP32",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Наличие разъёма USB-C не означает поддержку USB HID. На некоторых платах USB подключён только к мосту USB–UART для прошивки. Отдельные платы ESP32-S2/S3 с native USB OTG поддерживают CDC и HID; проверьте конкретную плату и настройки Arduino ядро.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_usb_hid",
+      "caption": "USB, USB CDC и USB HID на ESP32"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"USB.h\"\n#include \"USBHIDKeyboard.h\"\n\nUSBHIDKeyboard Keyboard;\n\nvoid setup() {\n  USB.begin();\n  Keyboard.begin();\n  delay(1000);\n  Keyboard.print(\"Hello from my ESP32\");\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Пример предназначен только для ввода тестового текста на собственном компьютере в безопасной лаборатории. Не используйте USB HID для действий без разрешения на чужих устройствах. Выводы и питание USB зависят от платы."
+    }
+  ],
+  "testId": "embedded_test_esp32_usb_hid_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

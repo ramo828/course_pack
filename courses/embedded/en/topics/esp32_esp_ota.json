@@ -1,0 +1,52 @@
+{
+  "id": "esp32_esp_ota",
+  "title": "What is OTA? Update options for Arduino and ESP32",
+  "difficulty": "advanced",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.arduino.cc/learn/programming/ota-getting-started/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "OTA (Over-The-Air) updates a device over a network instead of plugging in a USB cable. For example, new firmware can be sent over Wi-Fi to a greenhouse sensor. OTA makes remote maintenance easier, but the device needs a safe recovery path if power or connectivity fails.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "How it works\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The key difference is how firmware reaches the board: USB/serial needs a computer and cable nearby; OTA transfers it over Wi-Fi or another network. ArduinoOTA makes IDE uploads convenient for supported Wi-Fi boards such as ESP32/ESP8266. A web updater uses a browser on the local network. An HTTPS pull update downloads a file from a server. ESP-IDF OTA can use two app slots (A/B), write to the inactive slot, and return to the previous image if the new one fails its first boot checks.\n\nNot every board supports OTA: a classic UNO has no Wi-Fi and cannot update itself over a network without extra hardware and a suitable design. Do not confuse an ordinary USB upload with OTA. Check the board, flash layout, bootloader, and official core support first.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Example code\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "build firmware\ncheck board + version\ntransfer over a supported link\nverify image\ninstall, reboot, run health checks\nkeep old image until confirmed",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Diagram: What is OTA? Update options for Arduino and ESP32"
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Test updates on your own board first. Do not install an unsigned or unvalidated image; plan recovery for power loss."
+    }
+  ],
+  "testId": "esp32_test_esp_ota_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

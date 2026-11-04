@@ -1,0 +1,160 @@
+{
+  "id": "esp32_esp_adc_pwm",
+  "title": "ADC, LEDC PWM və toxunma",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_adc_pwm_az",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/adc_oneshot.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “ADC, LEDC PWM və toxunma” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: ADC pin və davranışı ESP32 variantına görə dəyişir. Real layihədə bu göstərişə əməl edin: ADC ölçmələrində səs-küy, kalibrləmə və giriş diapazonunu nəzərə alın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nconst int sensorPin = 34;\nconst int ledPin = 2;\nvoid setup() { Serial.begin(115200); pinMode(ledPin, OUTPUT); }\nvoid loop() {\n    int reading = analogRead(sensorPin);\n    int brightness = map(reading, 0, 4095, 0, 255);\n    analogWrite(ledPin, constrain(brightness, 0, 255));\n    Serial.println(reading);\n    delay(250);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor ADC oxunuşunu göstərir; PWM çıxışının parlaqlığı sensor qiymətinə uyğun dəyişir. ADC diapazonu və pinlər çipdən asılıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ESP32 ADC vahidləri, kanal xəritəsi və attenuasiya fərqləri variantdan asılıdır; xam nəticəni gərginlik saymayın. LEDC timer/channel ilə PWM yaradır; toxunma pinləri və dəstəyi isə konkret ailəni yoxlamağı tələb edir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int reading = analogRead(sensorPin);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: ADC pin və davranışı ESP32 variantına görə dəyişir.\nNiyə seçilib: ADC ölçmələrində səs-küy, kalibrləmə və giriş diapazonunu nəzərə alın.\nBuraxılsa və ya dəyişdirilsə: ADC pinini datasheet-də icazə verilən gərginlik diapazonundan kənara çıxarmayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "ADC pinini datasheet-də icazə verilən gərginlik diapazonundan kənara çıxarmayın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ADC pin və davranışı ESP32 variantına görə dəyişir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "ADC ölçmələrində səs-küy, kalibrləmə və giriş diapazonunu nəzərə alın."
+    },
+    {
+      "type": "text",
+      "text": "Arduino Core nümunəsi\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid setup() { Serial.begin(115200); }\nvoid loop() { Serial.println(analogRead(34)); delay(500); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor ADC nümunələrini göstərir; pin və diapazon çipdən asılıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "LEDC timer/channel ilə PWM yaradır; toxunma pinləri və dəstəyi isə konkret ailəni yoxlamağı tələb edir."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "ADC pinini datasheet-də icazə verilən gərginlik diapazonundan kənara çıxarmayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

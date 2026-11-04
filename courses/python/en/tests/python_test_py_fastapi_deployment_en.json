@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_deployment_en",
+  "title": "Deploying and running an API",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_deployment",
+      "type": "multiple_choice",
+      "prompt": "How should the API respond to this practical HTTP request?\nUvicorn process starts app; GET /health returns readiness status",
+      "options": [
+        "Keep all state in a global variable and skip authentication.",
+        "Return the same response to every request without checking its data.",
+        "The server listens on 127.0.0.1:8000; `/health` returns 200 JSON. The hosting platform must monitor the process.",
+        "Ignore HTTP status codes and present failures as successful responses."
+      ],
+      "answer": "The server listens on 127.0.0.1:8000; `/health` returns 200 JSON. The hosting platform must monitor the process.",
+      "explanation": "This is the expected behavior for `Uvicorn process starts app; GET /health returns readiness status`. The server listens on 127.0.0.1:8000; `/health` returns 200 JSON. The hosting platform must monitor the process."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_deployment",
+      "type": "multiple_choice",
+      "prompt": "Which design principle is correct for this topic?",
+      "options": [
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Keep all state in a global variable and skip authentication.",
+        "Return the same response to every request without checking its data.",
+        "The app code is the server API; production runs it without development reload and with environment configuration and health checks."
+      ],
+      "answer": "The app code is the server API; production runs it without development reload and with environment configuration and health checks.",
+      "explanation": "The app code is the server API; production runs it without development reload and with environment configuration and health checks. A process manager or container handles restarts and monitoring; choose worker count and state storage for the deployment model."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_deployment",
+      "type": "multiple_choice",
+      "prompt": "What changes if the important part shown in the lesson is omitted?",
+      "options": [
+        "Without health checks, traffic may reach a failed server; secrets committed in code can leak with the repository.",
+        "Return the same response to every request without checking its data.",
+        "Keep all state in a global variable and skip authentication.",
+        "Ignore HTTP status codes and present failures as successful responses."
+      ],
+      "answer": "Without health checks, traffic may reach a failed server; secrets committed in code can leak with the repository.",
+      "explanation": "Without health checks, traffic may reach a failed server; secrets committed in code can leak with the repository. A local development server is not a production deployment. Uvicorn can serve an ASGI app, but real deployments also need environment configuration, secrets, TLS termination, health checks, logs, and restart policy. `--reload` is for development only."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_deployment",
+      "type": "multiple_choice",
+      "prompt": "Which action best prevents the common mistake from this lesson?",
+      "options": [
+        "Return the same response to every request without checking its data.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Start with `uvicorn app:app --host 127.0.0.1 --port 8000`, then adapt process and health checks to your hosting platform.",
+        "Keep all state in a global variable and skip authentication."
+      ],
+      "answer": "Start with `uvicorn app:app --host 127.0.0.1 --port 8000`, then adapt process and health checks to your hosting platform.",
+      "explanation": "Start with `uvicorn app:app --host 127.0.0.1 --port 8000`, then adapt process and health checks to your hosting platform. Host, firewall, proxy, secret manager, resource limits, and migrations are platform-specific; this is not a turnkey production configuration."
+    }
+  ]
+}

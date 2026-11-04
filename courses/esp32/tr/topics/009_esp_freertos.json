@@ -1,0 +1,172 @@
+{
+  "id": "esp32_esp_freertos",
+  "title": "ESP32'de FreeRTOS: Arduino ve ESP-IDF",
+  "difficulty": "advanced",
+  "testId": "esp32_test_esp_freertos_tr",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/freertos_idf.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “ESP32'de FreeRTOS: Arduino ve ESP-IDF” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Queue görevler arasında ileti aktarıp işi ayırır. Gerçek projede şu öneriyi izleyin: Görevler arası değiştirilebilir veriyi kilit veya mesaj kuyruğuyla koruyun.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid worker(void*) {\n    for (;;) { Serial.println(\"worker tick\"); vTaskDelay(pdMS_TO_TICKS(1000)); }\n}\nvoid setup() {\n    Serial.begin(115200);\n    xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr);\n}\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bellek yetersizse görev oluşturma başarısız olabilir; stack boyutu ve öncelik hedefte doğrulanmalıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ESP-IDF işi FreeRTOS görev ve queue'larıyla böler. Stack boyutu, öncelik, core affinity ve bloklanma süresini ölçün; ilerlemeyen görev watchdog'u tetikleyebilir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Queue görevler arasında ileti aktarıp işi ayırır.\nNeden seçildi: Görevler arası değiştirilebilir veriyi kilit veya mesaj kuyruğuyla koruyun.\nAtlanır veya değiştirilirse: Watchdog'u kapatıp bloklanmayı gizlemeyin; görevin neden ilerlemediğini bulun.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Watchdog'u kapatıp bloklanmayı gizlemeyin; görevin neden ilerlemediğini bulun."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Queue görevler arasında ileti aktarıp işi ayırır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Görevler arası değiştirilebilir veriyi kilit veya mesaj kuyruğuyla koruyun."
+    },
+    {
+      "type": "text",
+      "text": "Arduino Core FreeRTOS örneği\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid task(void*) { for (;;) { Serial.println(\"tick\"); vTaskDelay(pdMS_TO_TICKS(500)); } }\nvoid setup() { Serial.begin(115200); xTaskCreate(task, \"sample\", 2048, nullptr, 1, nullptr); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Worker görevi saniyede yaklaşık iki kez ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "tick",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yazdırır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Stack boyutu, öncelik, core affinity ve bloklanma süresini ölçün; ilerlemeyen görev watchdog'u tetikleyebilir."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Watchdog'u kapatıp bloklanmayı gizlemeyin; görevin neden ilerlemediğini bulun."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: görev durumlarını, öncelikleri, kuyruk/eşzamanlama ilişkisini ve zaman çizelgesini gösteren diyagram."
+}

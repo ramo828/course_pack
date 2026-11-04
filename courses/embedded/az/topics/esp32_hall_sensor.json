@@ -1,0 +1,35 @@
+{
+  "id": "esp32_hall_sensor",
+  "title": "ESP32 Hall effektli vericisi: çip fərqləri və xarici sensor",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/gpio.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Hall sensor maqnit sahəsini hiss edir. Köhnə klassik ESP32 çiplərində daxili Hall sensor və ona aid köhnə API-lər olub; ESP32-S2/S3/C3 kimi ailələrdə eyni daxili sensor yoxdur. Daxili sensoru bütün “ESP32” lövhələrində var saymayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_hall_sensor",
+      "caption": "ESP32 Hall effektli vericisi: çip fərqləri və xarici sensor"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "constexpr uint8_t HALL_PIN = 27;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(HALL_PIN, INPUT);\n}\n\nvoid loop() {\n  int magneticState = digitalRead(HALL_PIN);\n  Serial.println(magneticState);\n  delay(100);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Nümunə xarici rəqəmsal Hall modulunu göstərir: çıxış pinini uyğun GPIO-ya qoşun. Kod push-pull rəqəmsal çıxışı nəzərdə tutur; modul open-drain-dirsə uyğun pull-up əlavə edin, analoq çıxışdırsa ADC istifadə edin."
+    }
+  ],
+  "testId": "embedded_test_esp32_hall_sensor_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

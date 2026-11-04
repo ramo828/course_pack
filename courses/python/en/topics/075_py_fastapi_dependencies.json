@@ -1,0 +1,555 @@
+{
+  "id": "python_py_fastapi_dependencies",
+  "title": "Dependencies and dependency injection",
+  "difficulty": "hard",
+  "testId": "python_test_py_fastapi_dependencies_en",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://fastapi.tiangolo.com/tutorial/dependencies/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "WHY USE THIS?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI builds JSON APIs that web and mobile applications call over HTTP; type annotations help validate inputs and describe the API contract.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "PURPOSE AND REAL-WORLD USE\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI dependencies move reusable setup out of endpoint functions, such as query parameters, the current user, configuration, or a database session. ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Depends",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " supplies the result and lets tests replace it.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "To run these examples locally, install ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " plus any extra package named in the lesson. Save the server example as ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "app.py",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " and start ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "uvicorn app:app --reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ". ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " is for development only.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "WHERE DOES THIS APPEAR IN REAL LIFE?\nSeveral routes can share a token check or database session while keeping the rule in one place.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "If this part is omitted: Repeating setup in every endpoint leads to inconsistent changes and harder tests.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "COMPLETE RUNNABLE EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import Depends, FastAPI\n\napp = FastAPI()\n\nasync def get_current_user():\n    return {\"username\": \"ada\"}\n\n@app.get(\"/profile\")\nasync def read_profile(user: dict = Depends(get_current_user)):\n    return {\"username\": user[\"username\"]}\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "REQUEST AND EXPECTED RESPONSE\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Request: GET /profile  (dependency cari istifadəçini müəyyən edir)\nResponse: 200 OK; the endpoint receives the result of `Depends(get_current_user)`.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE CODE EXPLANATION\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import Depends, FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports a required type or tool; without it, the name is unavailable.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " creates the ASGI application that holds the routes and is passed to the server.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def get_current_user():",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"username\": \"ada\"}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.get(\"/profile\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds an HTTP method and URL path to this function; without the decorator, it is not an API endpoint.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def read_profile(user: dict = Depends(get_current_user)):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"username\": user[\"username\"]}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "PRACTICE: CHECK IT WITH AN HTTP CLIENT\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "This complete file calls the app locally with TestClient; it does not open a server port. Install ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " for TestClient.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "COMPLETE RUNNABLE CLIENT TEST\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import Depends, FastAPI\n\napp = FastAPI()\n\nasync def get_current_user():\n    return {\"username\": \"ada\"}\n\n@app.get(\"/profile\")\nasync def read_profile(user: dict = Depends(get_current_user)):\n    return {\"username\": user[\"username\"]}\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    response = client.get(\"/profile\")\n    print(response.status_code, response.json())\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED CLIENT-TEST OUTPUT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "200 {'username': 'ada'}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE CODE EXPLANATION\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import Depends, FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports a required type or tool; without it, the name is unavailable.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " creates the ASGI application that holds the routes and is passed to the server.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def get_current_user():",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"username\": \"ada\"}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.get(\"/profile\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds an HTTP method and URL path to this function; without the decorator, it is not an API endpoint.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def read_profile(user: dict = Depends(get_current_user)):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"username\": user[\"username\"]}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.testclient import TestClient",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports TestClient so an HTTP request can exercise the app without opening a server port.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with TestClient(app) as client:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Creates a test HTTP client for the app and closes it when the context ends.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response = client.get(\"/profile\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sends the stated GET request through the test client and stores the response.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(response.status_code, response.json())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Reads and prints both the HTTP status code and parsed JSON response.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "COMMON MISTAKES\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Manually invoking setup and shadowing the parameter; declare it with ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Depends(...)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " so FastAPI manages it.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Practical tip",
+      "text": "Move authorization lookup into a dependency, then provide a test user through `app.dependency_overrides`."
+    },
+    {
+      "type": "detail",
+      "title": "One level deeper",
+      "text": "Dependencies can have dependencies; FastAPI can cache results within a request. Use `yield` patterns for resources that need cleanup."
+    },
+    {
+      "type": "warning",
+      "title": "Important warning",
+      "text": "Dependency injection does not make authentication secure by itself; the checks inside the dependency still matter."
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which action best prevents the common mistake from this lesson?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Move authorization lookup into a dependency, then provide a test user through ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "app.dependency_overrides",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "A separate visual is not essential; a small runnable code example and its expected output explain the topic."
+}

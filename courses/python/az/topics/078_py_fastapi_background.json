@@ -1,0 +1,594 @@
+{
+  "id": "python_py_fastapi_background",
+  "title": "Fon sorğuları",
+  "difficulty": "hard",
+  "testId": "python_test_py_fastapi_background_az",
+  "estimatedMinutes": 18,
+  "sources": [
+    "https://fastapi.tiangolo.com/tutorial/background-tasks/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NİYƏ LAZIMDIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI veb və mobil tətbiqlərin HTTP ilə məlumat mübadiləsi etdiyi JSON API-lər qurmaq üçündür; tip annotasiyaları girişləri yoxlamağa və API müqaviləsini sənədləşdirməyə kömək edir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "MƏQSƏD VƏ REAL İSTİFADƏ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "BackgroundTasks",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " cavab göndərildikdən sonra həmin prosesdə qısa işi planlaşdırır; məsələn, yüngül bildiriş qeydi. Sorğudan ayrılmış uzun və etibarlı iş növbə sisteminə verilməlidir. Bu nümunə demo siyahısına qeyd yazır; proses yaddaşı davamlı saxlama deyil.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Nümunələri yerli işlətmək üçün ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " quraşdırın; dərsdə göstərilən əlavə paketləri də əlavə edin. Server nümunəsini ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "app.py",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " saxlayıb ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "uvicorn app:app --reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ilə başladın. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yalnız öyrənmə/inkişaf üçündür.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "REAL HƏYATDA HARADA?\nSorğunun cavabını gecikdirmədən kiçik analitika hadisəsini qeyd etmək.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Bu hissə buraxılsa: Yüngül əlavə işi sorğunun içində sinxron görsəniz, klient cavabı lazımsız gecikə bilər.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM İŞLƏK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import BackgroundTasks, FastAPI\n\napp = FastAPI()\ncompleted_messages = []\n\ndef record_message(message: str):\n    completed_messages.append(message)\n\n@app.post(\"/notify\")\ndef notify(message: str, tasks: BackgroundTasks):\n    tasks.add_task(record_message, message)\n    return {\"accepted\": True}\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SORĞU VƏ GÖZLƏNİLƏN CAVAB\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Sorğu: POST /notify?message=saved\nCavab: Cavab 200 `{accepted:true}` verir; background qeyd cavabdan sonra başlayır və yalnız demo yaddaşında görünür.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SƏTİR-SƏTİR İZAHI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import BackgroundTasks, FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Lazım olan tipi və aləti moduldan idxal edir; istifadə olunmasa həmin ad tapılmır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " tətbiq obyekti ASGI serverinə verilir və marşrutları özündə saxlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "completed_messages = []",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sətir tətbiqin məlumatını və ya idarəetmə axınını davam etdirir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def record_message(message: str):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Serverin çağıracağı endpoint funksiyasını müəyyən edir; parametr adları yol, query və body məlumatlarını bağlamağa kömək edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "completed_messages.append(message)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğu zamanı bu əməliyyat icra olunur; onun nəticəsi və ya yan təsiri cavabın hazırlanmasına təsir edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.post(\"/notify\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP metodunu və URL yolunu bu funksiyaya bağlayır; bu dekorator olmasa funksiya API endpoint-i olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def notify(message: str, tasks: BackgroundTasks):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Serverin çağıracağı endpoint funksiyasını müəyyən edir; parametr adları yol, query və body məlumatlarını bağlamağa kömək edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "tasks.add_task(record_message, message)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğu zamanı bu əməliyyat icra olunur; onun nəticəsi və ya yan təsiri cavabın hazırlanmasına təsir edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"accepted\": True}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP cavabının dəyərini qaytarır; FastAPI bunu JSON və ya qeyd olunan response modelinə çevirir.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "TƏCRÜBƏ: HTTP MÜŞTƏRİSİ İLƏ YOXLAMA\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Aşağıdakı tam fayl tətbiqi TestClient ilə yerli çağırır; ayrıca port açmağa ehtiyac yoxdur. TestClient üçün ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " quraşdırın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM İŞLƏK TEST KODU\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import BackgroundTasks, FastAPI\n\napp = FastAPI()\ncompleted_messages = []\n\ndef record_message(message: str):\n    completed_messages.append(message)\n\n@app.post(\"/notify\")\ndef notify(message: str, tasks: BackgroundTasks):\n    tasks.add_task(record_message, message)\n    return {\"accepted\": True}\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    response = client.post(\"/notify\", params={\"message\": \"saved\"})\n    print(response.status_code, response.json())\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "TESTİN GÖZLƏNİLƏN NƏTİCƏSİ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "200 {'accepted': True}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SƏTİR-SƏTİR İZAHI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import BackgroundTasks, FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Lazım olan tipi və aləti moduldan idxal edir; istifadə olunmasa həmin ad tapılmır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " tətbiq obyekti ASGI serverinə verilir və marşrutları özündə saxlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "completed_messages = []",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sətir tətbiqin məlumatını və ya idarəetmə axınını davam etdirir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def record_message(message: str):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Serverin çağıracağı endpoint funksiyasını müəyyən edir; parametr adları yol, query və body məlumatlarını bağlamağa kömək edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "completed_messages.append(message)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğu zamanı bu əməliyyat icra olunur; onun nəticəsi və ya yan təsiri cavabın hazırlanmasına təsir edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.post(\"/notify\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP metodunu və URL yolunu bu funksiyaya bağlayır; bu dekorator olmasa funksiya API endpoint-i olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def notify(message: str, tasks: BackgroundTasks):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Serverin çağıracağı endpoint funksiyasını müəyyən edir; parametr adları yol, query və body məlumatlarını bağlamağa kömək edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "tasks.add_task(record_message, message)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğu zamanı bu əməliyyat icra olunur; onun nəticəsi və ya yan təsiri cavabın hazırlanmasına təsir edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"accepted\": True}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP cavabının dəyərini qaytarır; FastAPI bunu JSON və ya qeyd olunan response modelinə çevirir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.testclient import TestClient",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — TestClient-i import edir ki, tətbiqə HTTP sorğusunu server portu açmadan sınaqdan göndərək.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with TestClient(app) as client:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Tətbiq üçün sınaq HTTP müştərisi yaradır və kontekst bitəndə onu bağlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response = client.post(\"/notify\", params={\"message\": \"saved\"})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğu zamanı bu əməliyyat icra olunur; onun nəticəsi və ya yan təsiri cavabın hazırlanmasına təsir edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(response.status_code, response.json())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP status kodunu və cavab JSON-unu oxuyub terminalda göstərir.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "TEZ-TEZ BURAXILAN SƏHVLƏR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yaddaşdakı background işin davamlı və ya retry edilən olduğunu zənn etmək; proses dayananda qeyd itir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Praktik məsləhət",
+      "text": "`BackgroundTasks`-i sürətli, kiçik işlər üçün saxlayın; cavabdan əvvəl müştəriyə işin qəbul edildiyini bildirin."
+    },
+    {
+      "type": "detail",
+      "title": "Daha dərindən",
+      "text": "Ayrı worker queue uzun işləri retry, monitorinq və sürət limiti ilə idarə edə bilər; bu xüsusiyyətlər `BackgroundTasks`-də avtomatik yaranmır."
+    },
+    {
+      "type": "warning",
+      "title": "Vacib xəbərdarlıq",
+      "text": "İstifadəçi üçün vacib e-poçt, ödəniş və ya məlumat itkisi riski olan işləri yalnız prosesdaxili background callback-ə etibar etməyin."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: Dərsdəki tipik səhvi önləmək üçün hansı addım daha düzgündür?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "BackgroundTasks",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-i sürətli, kiçik işlər üçün saxlayın; cavabdan əvvəl müştəriyə işin qəbul edildiyini bildirin.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

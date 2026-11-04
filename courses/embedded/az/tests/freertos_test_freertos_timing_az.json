@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_timing_az",
+  "title": "Dövri iş və task gecikməsi",
+  "questions": [
+    {
+      "id": "freertos_freertos_timing_1",
+      "topicId": "freertos_freertos_timing",
+      "type": "multiple_choice",
+      "prompt": "“Dövri iş və task gecikməsi” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "`vTaskDelayUntil` hədəf dövrünü qoruyur, amma uzun bloklayan işlər deadline-ı yenə ötürə bilər.",
+        "Hər task üçün stack ayrılır, prioritet scheduler qərarına təsir edir.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin."
+      ],
+      "answer": "`vTaskDelayUntil` hədəf dövrünü qoruyur, amma uzun bloklayan işlər deadline-ı yenə ötürə bilər.",
+      "explanation": "`vTaskDelayUntil` hədəf dövrünü qoruyur, amma uzun bloklayan işlər deadline-ı yenə ötürə bilər.\nİzah: `vTaskDelay` task-ı müəyyən tick sayına qədər bloklayır; `pdMS_TO_TICKS` millisaniyəni tick-ə çevirir. Dövri sensor nümunələməsində `vTaskDelayUntil` əvvəlki plan vaxtına əsaslandığı üçün hesablama vaxtı intervala əlavə olunmur. Tick tezliyi və scheduling gecikməsi sərt mikrosaniyə dəqiqliyi deyil, real nəticəni ölçmək lazımdır."
+    },
+    {
+      "id": "freertos_freertos_timing_2",
+      "topicId": "freertos_freertos_timing",
+      "type": "multiple_choice",
+      "prompt": "“Dövri iş və task gecikməsi” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "Periyodik iş üçün `delay` əvəzinə `vTaskDelayUntil` seçin və gecikməni osiloskop və ya timestamp ilə ölçün.",
+        "Sonsuz dövrədə işləyən hər task vaxtaşırı gözləməli və ya bloklanmalıdır; əks halda CPU-nu inhisara ala bilər.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin."
+      ],
+      "answer": "Periyodik iş üçün `delay` əvəzinə `vTaskDelayUntil` seçin və gecikməni osiloskop və ya timestamp ilə ölçün.",
+      "explanation": "Periyodik iş üçün `delay` əvəzinə `vTaskDelayUntil` seçin və gecikməni osiloskop və ya timestamp ilə ölçün.\nİzah: `vTaskDelay` task-ı müəyyən tick sayına qədər bloklayır; `pdMS_TO_TICKS` millisaniyəni tick-ə çevirir. Dövri sensor nümunələməsində `vTaskDelayUntil` əvvəlki plan vaxtına əsaslandığı üçün hesablama vaxtı intervala əlavə olunmur. Tick tezliyi və scheduling gecikməsi sərt mikrosaniyə dəqiqliyi deyil, real nəticəni ölçmək lazımdır."
+    },
+    {
+      "id": "freertos_freertos_timing_3",
+      "topicId": "freertos_freertos_timing",
+      "type": "multiple_choice",
+      "prompt": "“Dövri iş və task gecikməsi” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "`pdMS_TO_TICKS(0)` nəticəsinə və çox qısa periodlara diqqət edin; tick resolution seçilən konfiqurasiyadan asılıdır.",
+        "Task stack ölçüsü byte ilə verilir və target/runtime versiyasına görə RAM məhdudiyyətini nəzərə almaq lazımdır."
+      ],
+      "answer": "`pdMS_TO_TICKS(0)` nəticəsinə və çox qısa periodlara diqqət edin; tick resolution seçilən konfiqurasiyadan asılıdır.",
+      "explanation": "`pdMS_TO_TICKS(0)` nəticəsinə və çox qısa periodlara diqqət edin; tick resolution seçilən konfiqurasiyadan asılıdır.\nİzah: `vTaskDelay` task-ı müəyyən tick sayına qədər bloklayır; `pdMS_TO_TICKS` millisaniyəni tick-ə çevirir. Dövri sensor nümunələməsində `vTaskDelayUntil` əvvəlki plan vaxtına əsaslandığı üçün hesablama vaxtı intervala əlavə olunmur. Tick tezliyi və scheduling gecikməsi sərt mikrosaniyə dəqiqliyi deyil, real nəticəni ölçmək lazımdır."
+    },
+    {
+      "id": "freertos_freertos_timing_4",
+      "topicId": "freertos_freertos_timing",
+      "type": "multiple_choice",
+      "prompt": "“Dövri iş və task gecikməsi” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "Dövri sensor nümunələməsində `vTaskDelayUntil` əvvəlki plan vaxtına əsaslandığı üçün hesablama vaxtı intervala əlavə olunmur",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "Serial yazıları bir neçə task-dan qarışa bilər; ortaq çıxışı serializasiya edin və task stack ölçüsünü ölçün.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin."
+      ],
+      "answer": "Dövri sensor nümunələməsində `vTaskDelayUntil` əvvəlki plan vaxtına əsaslandığı üçün hesablama vaxtı intervala əlavə olunmur",
+      "explanation": "Dövri sensor nümunələməsində `vTaskDelayUntil` əvvəlki plan vaxtına əsaslandığı üçün hesablama vaxtı intervala əlavə olunmur\nİzah: `vTaskDelay` task-ı müəyyən tick sayına qədər bloklayır; `pdMS_TO_TICKS` millisaniyəni tick-ə çevirir. Dövri sensor nümunələməsində `vTaskDelayUntil` əvvəlki plan vaxtına əsaslandığı üçün hesablama vaxtı intervala əlavə olunmur. Tick tezliyi və scheduling gecikməsi sərt mikrosaniyə dəqiqliyi deyil, real nəticəni ölçmək lazımdır."
+    }
+  ]
+}

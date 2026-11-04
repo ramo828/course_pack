@@ -1,0 +1,90 @@
+{
+  "id": "cpp_string_char_buffer",
+  "title": "String, char[], and char*: choosing text storage",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/variables/data-types/string/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Arduino ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " is convenient for mutable text. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "char[]",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " is a fixed-size buffer; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "char*",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " is a pointer and does not allocate storage by itself. Use ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "const char*",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " for string literals because they must not be modified. C strings end with ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "\\0",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; buffer size and bounds matter.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const char* label = \"ready\";\nchar message[16] = \"sensor\";\nstrncpy(message, label, sizeof(message) - 1);\nmessage[sizeof(message) - 1] = '\\0';\n\nString friendly = \"ready\";\nfriendly += \"!\";\nSerial.println(friendly);",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Repeated dynamic `String` concatenation can fragment heap on low-RAM AVR boards such as UNO; fixed buffers and `snprintf` may be better. ESP32 has more RAM, but allocation, lifetime, and bounds risks remain."
+    }
+  ],
+  "testId": "embedded_test_cpp_string_char_buffer_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

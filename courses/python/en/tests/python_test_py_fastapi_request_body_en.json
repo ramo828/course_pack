@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_request_body_en",
+  "title": "Request bodies and Pydantic models",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_request_body",
+      "type": "multiple_choice",
+      "prompt": "How should the API respond to this practical HTTP request?\nPOST /users  body={\"email\":\"ada@example.com\",\"age\":20}",
+      "options": [
+        "Keep all state in a global variable and skip authentication.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Return the same response to every request without checking its data.",
+        "200 OK; JSON: {\"email\":\"ada@example.com\",\"age\":20}"
+      ],
+      "answer": "200 OK; JSON: {\"email\":\"ada@example.com\",\"age\":20}",
+      "explanation": "This is the expected behavior for `POST /users  body={\"email\":\"ada@example.com\",\"age\":20}`. 200 OK; JSON: {\"email\":\"ada@example.com\",\"age\":20}"
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_request_body",
+      "type": "multiple_choice",
+      "prompt": "Which design principle is correct for this topic?",
+      "options": [
+        "A Pydantic model parses JSON into typed Python fields and rejects incompatible data before the endpoint runs.",
+        "Keep all state in a global variable and skip authentication.",
+        "Return the same response to every request without checking its data.",
+        "Ignore HTTP status codes and present failures as successful responses."
+      ],
+      "answer": "A Pydantic model parses JSON into typed Python fields and rejects incompatible data before the endpoint runs.",
+      "explanation": "A Pydantic model parses JSON into typed Python fields and rejects incompatible data before the endpoint runs. In Pydantic v2, `str | None` permits null; `= None` also makes the field optional. Type and requiredness are separate decisions."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_request_body",
+      "type": "multiple_choice",
+      "prompt": "What changes if the important part shown in the lesson is omitted?",
+      "options": [
+        "Return the same response to every request without checking its data.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Without a body model, the input shape is undocumented and relies on repeated manual checks.",
+        "Keep all state in a global variable and skip authentication."
+      ],
+      "answer": "Without a body model, the input shape is undocumented and relies on repeated manual checks.",
+      "explanation": "Without a body model, the input shape is undocumented and relies on repeated manual checks. POST/PUT requests often carry new or changed data in a JSON body. A Pydantic model states field types and constraints in one place; FastAPI parses and validates the model before calling the endpoint."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_request_body",
+      "type": "multiple_choice",
+      "prompt": "Which action best prevents the common mistake from this lesson?",
+      "options": [
+        "Return the same response to every request without checking its data.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Submit the expected body in `/docs`, then remove a field and observe the automatic 422 response.",
+        "Keep all state in a global variable and skip authentication."
+      ],
+      "answer": "Submit the expected body in `/docs`, then remove a field and observe the automatic 422 response.",
+      "explanation": "Submit the expected body in `/docs`, then remove a field and observe the automatic 422 response. Never trust client values. Model validation does not replace business rules, authorization, or protection of private data."
+    }
+  ]
+}

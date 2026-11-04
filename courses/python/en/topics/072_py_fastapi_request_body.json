@@ -1,0 +1,621 @@
+{
+  "id": "python_py_fastapi_request_body",
+  "title": "Request bodies and Pydantic models",
+  "difficulty": "medium",
+  "testId": "python_test_py_fastapi_request_body_en",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://fastapi.tiangolo.com/tutorial/body/",
+    "https://docs.pydantic.dev/latest/concepts/fields/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "WHY USE THIS?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI builds JSON APIs that web and mobile applications call over HTTP; type annotations help validate inputs and describe the API contract.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "PURPOSE AND REAL-WORLD USE\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "POST/PUT requests often carry new or changed data in a JSON body. A Pydantic model states field types and constraints in one place; FastAPI parses and validates the model before calling the endpoint.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "To run these examples locally, install ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " plus any extra package named in the lesson. Save the server example as ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "app.py",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " and start ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "uvicorn app:app --reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ". ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " is for development only.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "WHERE DOES THIS APPEAR IN REAL LIFE?\nA sign-up form sends an email and age; the model makes those fields an explicit contract.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "If this part is omitted: Without a body model, the input shape is undocumented and relies on repeated manual checks.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "COMPLETE RUNNABLE EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI\nfrom pydantic import BaseModel, Field\n\napp = FastAPI()\n\nclass UserInput(BaseModel):\n    email: str\n    age: int = Field(ge=13, le=120)\n\n@app.post(\"/users\")\nasync def create_user(user: UserInput):\n    return {\"email\": user.email, \"age\": user.age}\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "REQUEST AND EXPECTED RESPONSE\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Request: POST /users  body={\"email\":\"ada@example.com\",\"age\":20}\nResponse: 200 OK; JSON: {\"email\":\"ada@example.com\",\"age\":20}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE CODE EXPLANATION\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports FastAPI so the program can create its application object; without it, ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " is undefined.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from pydantic import BaseModel, Field",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports a required type or tool; without it, the name is unavailable.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " creates the ASGI application that holds the routes and is passed to the server.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class UserInput(BaseModel):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Defines a Pydantic data model; its field types form the request-body contract.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "email: str",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Declares an expected model field and type; omitting it changes the body contract.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "age: int = Field(ge=13, le=120)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Declares an expected model field and type; omitting it changes the body contract.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.post(\"/users\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds an HTTP method and URL path to this function; without the decorator, it is not an API endpoint.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def create_user(user: UserInput):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"email\": user.email, \"age\": user.age}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "PRACTICE: CHECK IT WITH AN HTTP CLIENT\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "This complete file calls the app locally with TestClient; it does not open a server port. Install ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " for TestClient.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "COMPLETE RUNNABLE CLIENT TEST\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI\nfrom pydantic import BaseModel, Field\n\napp = FastAPI()\n\nclass UserInput(BaseModel):\n    email: str\n    age: int = Field(ge=13, le=120)\n\n@app.post(\"/users\")\nasync def create_user(user: UserInput):\n    return {\"email\": user.email, \"age\": user.age}\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    response = client.post(\"/users\", json={\"email\": \"ada@example.com\", \"age\": 20})\n    print(response.status_code, response.json())\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED CLIENT-TEST OUTPUT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "200 {'email': 'ada@example.com', 'age': 20}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE CODE EXPLANATION\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports FastAPI so the program can create its application object; without it, ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " is undefined.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from pydantic import BaseModel, Field",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports a required type or tool; without it, the name is unavailable.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " creates the ASGI application that holds the routes and is passed to the server.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class UserInput(BaseModel):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Defines a Pydantic data model; its field types form the request-body contract.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "email: str",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Declares an expected model field and type; omitting it changes the body contract.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "age: int = Field(ge=13, le=120)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Declares an expected model field and type; omitting it changes the body contract.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.post(\"/users\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds an HTTP method and URL path to this function; without the decorator, it is not an API endpoint.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def create_user(user: UserInput):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"email\": user.email, \"age\": user.age}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.testclient import TestClient",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports TestClient so an HTTP request can exercise the app without opening a server port.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with TestClient(app) as client:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Creates a test HTTP client for the app and closes it when the context ends.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response = client.post(\"/users\", json={\"email\": \"ada@example.com\", \"age\": 20})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs work for this request; its result or side effect affects the response.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(response.status_code, response.json())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Reads and prints both the HTTP status code and parsed JSON response.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "COMMON MISTAKES\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Treating all JSON as an unchecked ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "dict",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "; distinguish required and optional fields in the model.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Practical tip",
+      "text": "Submit the expected body in `/docs`, then remove a field and observe the automatic 422 response."
+    },
+    {
+      "type": "detail",
+      "title": "One level deeper",
+      "text": "In Pydantic v2, `str | None` permits null; `= None` also makes the field optional. Type and requiredness are separate decisions."
+    },
+    {
+      "type": "warning",
+      "title": "Important warning",
+      "text": "Never trust client values. Model validation does not replace business rules, authorization, or protection of private data."
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which action best prevents the common mistake from this lesson?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Submit the expected body in ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "/docs",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", then remove a field and observe the automatic 422 response.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "A separate visual is not essential; a small runnable code example and its expected output explain the topic."
+}

@@ -1,0 +1,79 @@
+{
+  "id": "cpp_pointers_callbacks",
+  "title": "Pointers, references, and callbacks",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/pointer.html",
+    "https://en.cppreference.com/w/cpp/language/reference.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "A pointer stores an address and may be ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "nullptr",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; a reference is another name for an existing object and must be initialized. A reference parameter avoids copying; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "const T&",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " reads a large object without copying it. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "T**",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " stores the address of a pointer. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void*",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " can hold an untyped address but must be converted to the correct type before use. A function pointer or callback passes an operation to run when an event occurs.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "void addOne(int& value) { ++value; }\nvoid onReady(void (*callback)(int), int value) {\n  if (callback != nullptr) callback(value);\n}\nvoid printValue(int value) { Serial.println(value); }\nvoid setup() {\n  Serial.begin(9600);\n  onReady(printValue, 42);\n}\n\nint reading = 7;\nvoid* rawAddress = &reading;\nint* typedAddress = static_cast<int*>(rawAddress);\nint* pointer = &reading;\nint** pointerToPointer = &pointer;\nint* values = &reading;\nptrdiff_t distance = values - pointer; // Same-array rule applies.",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Pointer arithmetic is valid only within the same array; it is not defined for `void*`. Dereferencing a null, invalid, or expired address can corrupt or crash a program. Callback and ISR rules depend on the library and board; never call blocking code from an ISR."
+    }
+  ],
+  "testId": "embedded_test_cpp_pointers_callbacks_en",
+  "requires_visual": true,
+  "visual_description": "Add a memory diagram showing stack/heap, lifetime, ownership, or data flow."
+}

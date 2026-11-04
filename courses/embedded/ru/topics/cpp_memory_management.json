@@ -1,0 +1,260 @@
+{
+  "id": "cpp_memory_management",
+  "title": "Размер и выделение памяти: sizeof, malloc и free",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/sizeof.html",
+    "https://en.cppreference.com/w/c/memory/malloc.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/mem_alloc.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ОЗУ — рабочее место программы: локальные переменные обычно находятся в стеке, а память, запрошенная через ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "malloc",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "new",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", — в куче. Глобальные и ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "static",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-переменные существуют всё время работы программы. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sizeof(тип)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " возвращает размер типа в байтах; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sizeof(массив)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " даёт размер всего массива, пока он не преобразован в указатель. Десять значений ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "uint16_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " обычно занимают 20 байт; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sizeof(массив) / sizeof(массив[0])",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " считает элементы. При передаче в функцию массив становится указателем, поэтому ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sizeof(pointer)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " там не равен размеру массива.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "malloc(n)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " запрашивает неинициализированную память, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "calloc(n, size)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — обнулённую, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "realloc(p, n)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " меняет размер блока. Проверяйте ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "nullptr",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; память от этих функций возвращайте через ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "free(p)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". В C++ ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "new",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " создаёт объект и работает в паре с ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "delete",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". Нельзя вызывать ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "free",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " для локального массива или объекта от ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "new",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", а ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "delete",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — для памяти от ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "malloc",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <stdint.h>\n#include <stddef.h>\n#include <stdlib.h>\n\nvoid setup() {\n  uint16_t samples[10];\n  const size_t bytes = sizeof(samples);\n  const size_t count = sizeof(samples) / sizeof(samples[0]);\n  (void)bytes;\n  (void)count;\n\n  uint8_t* buffer = static_cast<uint8_t*>(malloc(32));\n  if (buffer != nullptr) {\n    buffer[0] = 42;\n    uint8_t* cleared = static_cast<uint8_t*>(calloc(8, sizeof(uint16_t)));\n    if (cleared != nullptr) free(cleared);\n    void* resized = realloc(buffer, 64);\n    if (resized != nullptr) buffer = static_cast<uint8_t*>(resized);\n    free(buffer);\n    buffer = nullptr;\n  }\n\n  int* reading = new int(42);\n  delete reading;\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "На небольших платах массивы фиксированного размера и автоматическое время жизни часто проще, быстрее и безопаснее. Частые выделения и освобождения в куче могут её фрагментировать: свободной памяти в сумме достаточно, но большого непрерывного блока нет. Освобождайте блок ровно один раз соответствующей функцией, затем присваивайте указателю `nullptr`. Для размеров используйте `size_t`. На Arduino UNO очень мало SRAM; `ESP.getFreeHeap()` и измерение минимального свободного объёма ESP32 помогают искать проблему, но не заменяют расчёт памяти. Проверяйте `realloc` через временный указатель, чтобы при ошибке сохранить исходный блок."
+    }
+  ],
+  "testId": "embedded_test_cpp_memory_management_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму памяти со стеком/кучей, временем жизни, владением или потоком данных."
+}

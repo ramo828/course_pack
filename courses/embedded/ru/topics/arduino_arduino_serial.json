@@ -1,0 +1,160 @@
+{
+  "id": "arduino_arduino_serial",
+  "title": "Serial Monitor и диагностика",
+  "difficulty": "easy",
+  "testId": "arduino_test_arduino_serial_ru",
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/communication/serial/"
+  ],
+  "estimatedMinutes": 12,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Serial Monitor и диагностика» в программе или устройстве. Основной принцип: Serial.available сообщает о наличии данных для чтения. В проекте следуйте рекомендации: Оба конца должны использовать одинаковую скорость и окончание строки.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "void setup() { Serial.begin(115200); }\nvoid loop() {\n  if (Serial.available()) {\n    int value = Serial.read();\n    Serial.println(value);\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Каждый принятый байт выводится как число; результат зависит от ввода и окончания строки.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial.begin задаёт скорость; монитор показывает журнал и простые команды. Определите формат строк, проверяйте ввод и не выводите секреты.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "if (Serial.available()) {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Serial.available сообщает о наличии данных для чтения.\nЗачем она нужна: Оба конца должны использовать одинаковую скорость и окончание строки.\nЕсли пропустить или изменить: Оба конца должны использовать одинаковую скорость и окончание строки.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: Оба конца должны использовать одинаковую скорость и окончание строки."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial.available сообщает о наличии данных для чтения.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Оба конца должны использовать одинаковую скорость и окончание строки."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "void setup() { Serial.begin(115200); }\nvoid loop() {\n  if (Serial.available()) {\n    String line = Serial.readStringUntil('\\n');\n    Serial.print(\"received: \");\n    Serial.println(line);\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Принятая строка выводится обратно; baud rate, конец строки и serial timeout влияют на работу.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Определите формат строк, проверяйте ввод и не выводите секреты."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Выводы, пределы напряжения/тока, тайминги и периферия зависят от платы; проверьте её документацию перед подключением и загрузкой."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

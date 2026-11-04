@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_types_tr",
+  "title": "Tür ipuçları ve dataclass",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_types",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 1. kod örneği tam olarak ne yazdırır?\n\nfrom dataclasses import dataclass\nfrom typing import TypedDict\n\nclass Config(TypedDict):\n    device_id: str\n    enabled: bool\n\n@dataclass(slots=True)\nclass Sensor:\n    name: str\n    value: float\n\ndef label(sensor: Sensor, unit: str | None = None) -> str:\n    suffix = f' {unit}' if unit else ''\n    return f'{sensor.name}: {sensor.value}{suffix}'\n\nconfig: Config = {'device_id': 'sensor-1', 'enabled': True}\nprint(label(Sensor(config['device_id'], 21.5), 'C'))",
+      "options": [
+        "value=7",
+        "sensor-1: 21.5 C",
+        "temperature: unknown",
+        "SENSOR-1: 21.5 c"
+      ],
+      "answer": "sensor-1: 21.5 C",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`from dataclasses import dataclass` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`from typing import TypedDict` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`class Config(TypedDict):` — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n`device_id: str` — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n`enabled: bool` — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n`@dataclass(slots=True)` — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n`class Sensor:` — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n`name: str` — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n`value: float` — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n`def label(sensor: Sensor, unit: str | None = None) -> str:` — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n`suffix = f' {unit}' if unit else ''` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`return f'{sensor.name}: {sensor.value}{suffix}'` — Sonucu çağırana verir; return olmazsa fonksiyon çoğunlukla None döndürür.\n`config: Config = {'device_id': 'sensor-1', 'enabled': True}` — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n`print(label(Sensor(config['device_id'], 21.5), 'C'))` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_types",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 2. kod örneği tam olarak ne yazdırır?\n\nfrom typing import Protocol\n\nclass HasValue(Protocol):\n    @property\n    def value(self) -> int: ...\n\ndef describe(item: HasValue) -> str:\n    return f'value={item.value}'\n\nclass Sample:\n    value = 7\n\nprint(describe(Sample()))",
+      "options": [
+        "sensor-1: 21.5 C",
+        "temperature: unknown",
+        "value=7",
+        "VALUE=7"
+      ],
+      "answer": "value=7",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`from typing import Protocol` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`class HasValue(Protocol):` — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n`@property` — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n`def value(self) -> int: ...` — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n`def describe(item: HasValue) -> str:` — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n`return f'value={item.value}'` — Sonucu çağırana verir; return olmazsa fonksiyon çoğunlukla None döndürür.\n`class Sample:` — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n`value = 7` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`print(describe(Sample()))` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_types",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 3. kod örneği tam olarak ne yazdırır?\n\ndef label(name: str, unit: str | None = None) -> str:\n    return f'{name}: {unit or \"unknown\"}'\n\nprint(label('temperature'))",
+      "options": [
+        "TEMPERATURE: UNKNOWN",
+        "value=7",
+        "sensor-1: 21.5 C",
+        "temperature: unknown"
+      ],
+      "answer": "temperature: unknown",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`def label(name: str, unit: str | None = None) -> str:` — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n`return f'{name}: {unit or \"unknown\"}'` — Sonucu çağırana verir; return olmazsa fonksiyon çoğunlukla None döndürür.\n`print(label('temperature'))` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_types",
+      "type": "multiple_choice",
+      "prompt": "“Tür ipuçları ve dataclass” konusunu doğru tanımlayan ifade hangisidir?",
+      "options": [
+        "Türler, programın sayıyı, metni ve koleksiyonu nasıl işleyeceğini belirler.",
+        "Modern anotasyonlar `list[str]`, `str | None`, `TypedDict` ve `Protocol` gibi sözleşmeleri açıklar; Python normal çalışmada bunları doğrulamaz.",
+        "Sayısal dönüşüm kullanıcı girdisini hesaplamaya hazırlar; ancak dönüşümün yuvarlama ve kesinlik etkilerini anlamak gerekir.",
+        "Fonksiyonlar işi adlandırılmış ve yeniden kullanılabilir parçalara böler; uygulamalarda aynı kuralı birden çok yerde güvenilir biçimde kullanmayı sağlar."
+      ],
+      "answer": "Modern anotasyonlar `list[str]`, `str | None`, `TypedDict` ve `Protocol` gibi sözleşmeleri açıklar; Python normal çalışmada bunları doğrulamaz.",
+      "explanation": "Modern anotasyonlar `list[str]`, `str | None`, `TypedDict` ve `Protocol` gibi sözleşmeleri açıklar; Python normal çalışmada bunları doğrulamaz. Pyright veya mypy gibi statik denetleyiciler anotasyonları analiz eder. `Protocol`, belirli bir kalıtım zorunluluğu olmadan gerekli davranışı tanımlar; `TypedDict` dict anahtarlarının biçimini belirtir. Dış veriyi yine Pydantic gibi çalışma zamanı doğrulayıcısıyla denetleyin."
+    }
+  ]
+}

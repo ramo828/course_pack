@@ -1,0 +1,1646 @@
+{
+  "id": "python_py_sqlalchemy_orm",
+  "title": "SQLAlchemy 2 ORM: veritabanıyla çalışma",
+  "difficulty": "hard",
+  "testId": "python_test_py_sqlalchemy_orm_tr",
+  "sources": [
+    "https://docs.sqlalchemy.org/en/20/orm/quickstart.html",
+    "https://docs.sqlalchemy.org/en/20/orm/session_basics.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NEDEN KULLANILIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLAlchemy 2 ORM modelleri SQL işlemleriyle eşler; 2.x tarzında türleme için ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Mapped",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "mapped_column",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ", sorgu için ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "select()",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ve kaynak yaşam döngüsü için ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kullanılır. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "with Session(...)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kapatmayı, ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "commit()",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " başarılı değişiklikleri sağlar. Parametreli sorgular, migration, transaction rollback ve indeksler yine önemlidir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SQLAlchemy 2 ORM modelleri SQL işlemleriyle eşler; 2.x tarzında türleme için ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Mapped",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "mapped_column",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ", sorgu için ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "select()",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ve kaynak yaşam döngüsü için ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kullanılır. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "with Session(...)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kapatmayı, ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "commit()",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " başarılı değişiklikleri sağlar. Parametreli sorgular, migration, transaction rollback ve indeksler yine önemlidir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLAlchemy, veritabanı SQL'i ile Python nesneleri arasında eşleme sağlar. 2.x tarzında ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "DeclarativeBase",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Mapped",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "mapped_column",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "select()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kullanılır. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nesnesini bağlamayı, transaction sonucunu ve hata yolunu yönetin; kullanıcı değerlerini SQL metnine birleştirmeyin. ORM, veritabanı şemasının ve indekslerin yerini almaz.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "AMAÇ VE GERÇEK KULLANIM\nSQLAlchemy 2 ORM modelleri SQL işlemleriyle eşler; 2.x tarzında türleme için `Mapped`/`mapped_column`, sorgu için `select()` ve kaynak yaşam döngüsü için `Session` kullanılır. `with Session(...)` kapatmayı, `commit()` başarılı değişiklikleri sağlar. Parametreli sorgular, migration, transaction rollback ve indeksler yine önemlidir.\n\n",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "UYGULAMALI ÖRNEK 2 · SQLAlchemy 2 ORM: veritabanıyla çalışma\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "UYGULAMALI ÖRNEK 3 · SQLAlchemy 2 ORM: veritabanıyla çalışma\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "python_orm_flow",
+      "caption": "SQLAlchemy 2 ORM: veritabanıyla çalışma"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from sqlalchemy import create_engine, select\nfrom sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column\n\nclass Base(DeclarativeBase):\n    pass\n\nclass Device(Base):\n    __tablename__ = 'devices'\n    id: Mapped[int] = mapped_column(primary_key=True)\n    name: Mapped[str]\n\nengine = create_engine('sqlite+pysqlite:///:memory:')\nBase.metadata.create_all(engine)\nwith Session(engine) as session:\n    session.add(Device(name='sensor-1'))\n    session.commit()\n    names = session.scalars(select(Device.name)).all()\n    print(names)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "['sensor-1']",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from sqlalchemy import create_engine, select",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Base(DeclarativeBase):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "pass",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Device(Base):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__tablename__ = 'devices'",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "id: Mapped[int] = mapped_column(primary_key=True)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "name: Mapped[str]",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "engine = create_engine('sqlite+pysqlite:///:memory:')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "Base.metadata.create_all(engine)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with Session(engine) as session:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Kaynağı blok boyunca yönetir; bağlam yöneticisi olmazsa dosya veya bağlantı açık kalabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "session.add(Device(name='sensor-1'))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "session.commit()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "names = session.scalars(select(Device.name)).all()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(names)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from sqlalchemy import create_engine, select\nfrom sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column\n\nclass Base(DeclarativeBase):\n    pass\n\nclass Device(Base):\n    __tablename__ = 'devices'\n    id: Mapped[int] = mapped_column(primary_key=True)\n    name: Mapped[str]\n\nengine = create_engine('sqlite+pysqlite:///:memory:')\nBase.metadata.create_all(engine)\nwith Session(engine) as session:\n    session.add_all([Device(name='a'), Device(name='b')])\n    session.commit()\n    names = session.scalars(select(Device.name).where(Device.name == 'b')).all()\n    print(names)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "['b']",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from sqlalchemy import create_engine, select",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Base(DeclarativeBase):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "pass",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Device(Base):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__tablename__ = 'devices'",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "id: Mapped[int] = mapped_column(primary_key=True)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "name: Mapped[str]",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "engine = create_engine('sqlite+pysqlite:///:memory:')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "Base.metadata.create_all(engine)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with Session(engine) as session:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Kaynağı blok boyunca yönetir; bağlam yöneticisi olmazsa dosya veya bağlantı açık kalabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "session.add_all([Device(name='a'), Device(name='b')])",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "session.commit()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "names = session.scalars(select(Device.name).where(Device.name == 'b')).all()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(names)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from sqlalchemy import create_engine, select\nfrom sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column\n\nclass Base(DeclarativeBase):\n    pass\n\nclass Device(Base):\n    __tablename__ = 'devices'\n    id: Mapped[int] = mapped_column(primary_key=True)\n    name: Mapped[str]\n\nengine = create_engine('sqlite+pysqlite:///:memory:')\nBase.metadata.create_all(engine)\nwith Session(engine) as session:\n    session.add(Device(name='sensor-1'))\n    session.commit()\n    names = session.scalars(select(Device.name)).all()\n    print(names)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "['sensor-1']",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from sqlalchemy import create_engine, select",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Base(DeclarativeBase):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "pass",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Device(Base):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__tablename__ = 'devices'",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "id: Mapped[int] = mapped_column(primary_key=True)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "name: Mapped[str]",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "engine = create_engine('sqlite+pysqlite:///:memory:')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "Base.metadata.create_all(engine)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with Session(engine) as session:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Kaynağı blok boyunca yönetir; bağlam yöneticisi olmazsa dosya veya bağlantı açık kalabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "session.add(Device(name='sensor-1'))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "session.commit()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "names = session.scalars(select(Device.name)).all()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(names)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Session işlemi commit eder ve sonucu Python listesi olarak verir: ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "['sensor-1']",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Örnek için `python -m pip install 'sqlalchemy>=2,<3'` çalıştırın. Bellek içi SQLite yalnızca ders içindir; gerçek uygulamada bağlantı ayarlarını ve migration'ları ayrıca yönetin."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Session ve engine kaynaklarını servis kapsamında doğru yönetin; migration ve transaction davranışını production öncesi test edin."
+    },
+    {
+      "type": "detail",
+      "title": "Neden önemli?",
+      "text": "SQLAlchemy 2 ORM modelleri SQL işlemleriyle eşler; 2.x tarzında türleme için `Mapped`/`mapped_column`, sorgu için `select()` ve kaynak yaşam döngüsü için `Session` kullanılır. `with Session(...)` kapatmayı, `commit()` başarılı değişiklikleri sağlar. Parametreli sorgular, migration, transaction rollback ve indeksler yine önemlidir."
+    },
+    {
+      "type": "text",
+      "text": "SIK YAPILAN HATALAR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Değişken adı, girinti ve yorumu ayırın; boşluk sözdizimine, yorum ise açıklamaya hizmet eder.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Soru: “SQLAlchemy 2 ORM: veritabanıyla çalışma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: SQLAlchemy 2 ORM modelleri SQL işlemleriyle eşler; 2.x tarzında türleme için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Mapped",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "mapped_column",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", sorgu için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "select()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve kaynak yaşam döngüsü için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kullanılır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “SQLAlchemy 2 ORM: veritabanıyla çalışma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: SQLAlchemy 2 ORM modelleri SQL işlemleriyle eşler; 2.x tarzında türleme için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Mapped",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "mapped_column",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", sorgu için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "select()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve kaynak yaşam döngüsü için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kullanılır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “SQLAlchemy 2 ORM: veritabanıyla çalışma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: SQLAlchemy 2 ORM modelleri SQL işlemleriyle eşler; 2.x tarzında türleme için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Mapped",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "mapped_column",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", sorgu için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "select()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve kaynak yaşam döngüsü için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kullanılır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “SQLAlchemy 2 ORM: veritabanıyla çalışma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: SQLAlchemy 2 ORM modelleri SQL işlemleriyle eşler; 2.x tarzında türleme için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Mapped",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "mapped_column",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", sorgu için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "select()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve kaynak yaşam döngüsü için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kullanılır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “SQLAlchemy 2 ORM: veritabanıyla çalışma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: SQLAlchemy 2 ORM modelleri SQL işlemleriyle eşler; 2.x tarzında türleme için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Mapped",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "mapped_column",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", sorgu için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "select()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve kaynak yaşam döngüsü için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kullanılır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “SQLAlchemy 2 ORM: veritabanıyla çalışma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: SQLAlchemy 2 ORM modelleri SQL işlemleriyle eşler; 2.x tarzında türleme için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Mapped",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "mapped_column",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", sorgu için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "select()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve kaynak yaşam döngüsü için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kullanılır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “SQLAlchemy 2 ORM: veritabanıyla çalışma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: SQLAlchemy 2 ORM modelleri SQL işlemleriyle eşler; 2.x tarzında türleme için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Mapped",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "mapped_column",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", sorgu için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "select()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve kaynak yaşam döngüsü için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kullanılır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “SQLAlchemy 2 ORM: veritabanıyla çalışma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: SQLAlchemy 2 ORM modelleri SQL işlemleriyle eşler; 2.x tarzında türleme için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Mapped",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "mapped_column",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", sorgu için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "select()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve kaynak yaşam döngüsü için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kullanılır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “SQLAlchemy 2 ORM: veritabanıyla çalışma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: SQLAlchemy 2 ORM modelleri SQL işlemleriyle eşler; 2.x tarzında türleme için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Mapped",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "mapped_column",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", sorgu için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "select()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve kaynak yaşam döngüsü için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kullanılır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “SQLAlchemy 2 ORM: veritabanıyla çalışma” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: SQLAlchemy 2 ORM modelleri SQL işlemleriyle eşler; 2.x tarzında türleme için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Mapped",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "mapped_column",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", sorgu için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "select()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve kaynak yaşam döngüsü için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kullanılır.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı.",
+  "estimatedMinutes": 24
+}

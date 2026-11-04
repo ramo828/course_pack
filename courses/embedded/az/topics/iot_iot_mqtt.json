@@ -1,0 +1,180 @@
+{
+  "id": "iot_iot_mqtt",
+  "title": "MQTT topic, QoS və retained message",
+  "difficulty": "medium",
+  "testId": "iot_test_iot_mqtt_az",
+  "sources": [
+    "https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “MQTT topic, QoS və retained message” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: QoS çatdırılma zəmanətlərini və retransmit davranışını müəyyən edir. Real layihədə bu göstərişə əməl edin: Komanda topic-lərini telemetriyadan ayırın və yazma icazəsini məhdudlaşdırın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "mosquitto_sub -h broker.example.test -t \"telemetry/site-7/+\"",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "telemetry/site-7/device-2/temperature",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " mövzusuna mesaj göndərir və ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "commands/site-7/device-2",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " mövzusunu dinləyir; nəticə broker və qoşulmuş client-lərdən asılıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "MQTT müştəriləri brokerə topic üzrə publish edir və subscribe olur. QoS 0/1/2 çatdırılma davranışını, retained flag isə topic üçün son mesajın saxlanmasını idarə edir; topic dizaynı məxfilik və miqyaslanmaya təsir edir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "mosquitto_sub -h broker.example.test -t \"telemetry/site-7/+\"",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: QoS çatdırılma zəmanətlərini və retransmit davranışını müəyyən edir.\nNiyə seçilib: Komanda topic-lərini telemetriyadan ayırın və yazma icazəsini məhdudlaşdırın.\nBuraxılsa və ya dəyişdirilsə: Şəxsi məlumatı topic adlarına və ictimai brokerə yazmayın; broker ACL və transport security istifadə edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Şəxsi məlumatı topic adlarına və ictimai brokerə yazmayın; broker ACL və transport security istifadə edin."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QoS çatdırılma zəmanətlərini və retransmit davranışını müəyyən edir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Komanda topic-lərini telemetriyadan ayırın və yazma icazəsini məhdudlaşdırın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "mosquitto_pub -h broker.example.test -t telemetry/site-7/device-2/temp -m 21.5",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Əlçatan MQTT broker və uyğun authorization lazımdır; Terminal A mesajı yalnız hər iki client qoşulu olduqda alır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "QoS 0/1/2 çatdırılma davranışını, retained flag isə topic üçün son mesajın saxlanmasını idarə edir; topic dizaynı məxfilik və miqyaslanmaya təsir edir."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Şəxsi məlumatı topic adlarına və ictimai brokerə yazmayın; broker ACL və transport security istifadə edin."
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "Cihaz ölçməni gateway/broker üzərindən xidmətə göndərir; əmr əks istiqamətdə qayıda bilər."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

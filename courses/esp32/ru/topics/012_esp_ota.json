@@ -1,0 +1,160 @@
+{
+  "id": "esp32_esp_ota",
+  "title": "OTA, разделы и откат",
+  "difficulty": "advanced",
+  "testId": "esp32_test_esp_ota_ru",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html"
+  ],
+  "estimatedMinutes": 35,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «OTA, разделы и откат» в программе или устройстве. Основной принцип: Rollback возвращает устройство к известному рабочему образу. В проекте следуйте рекомендации: Проверяйте восстановление после потери питания, плохой сети и несовместимой версии.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_ota_ops.h>\nvoid setup() {\n    const esp_partition_t* running = esp_ota_get_running_partition();\n    esp_ota_img_states_t state;\n    if (esp_ota_get_state_partition(running, &state) == ESP_OK && state == ESP_OTA_IMG_PENDING_VERIFY) {\n        esp_ota_mark_app_valid_cancel_rollback();\n    }\n}\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Обновление безопасно только после проверки подлинности и совместимости; разделы и восстановление зависят от проекта.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "OTA записывает прошивку в неактивный раздел. Совместно проектируйте таблицу разделов, размер образа, подпись, проверку здоровья и откат.\n\nПример вызывает OTA API разделов ESP-IDF из скетча Arduino-ESP32. Выбор раздела, rollback и проверка подписи не являются общими API Arduino. ArduinoOTA/Update подходят для простых обновлений, но безопасный rollback требует явной настройки разделов и проверки в ESP-IDF.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "esp_ota_mark_app_valid_cancel_rollback();",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Rollback возвращает устройство к известному рабочему образу.\nЗачем она нужна: Проверяйте восстановление после потери питания, плохой сети и несовместимой версии.\nЕсли пропустить или изменить: Не загружайте OTA-образ до проверки подписи.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Не загружайте OTA-образ до проверки подписи."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rollback возвращает устройство к известному рабочему образу.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Проверяйте восстановление после потери питания, плохой сети и несовместимой версии."
+    },
+    {
+      "type": "text",
+      "text": "IDF OTA API, доступный в Arduino Core\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_ota_ops.h>\nvoid setup() { Serial.begin(115200); const esp_partition_t* part = esp_ota_get_running_partition(); if (part == nullptr) { Serial.println(\"running partition unavailable\"); return; } esp_ota_img_states_t state; const esp_err_t result = esp_ota_get_state_partition(part, &state); if (result == ESP_OK) Serial.println(static_cast<int>(state)); else Serial.printf(\"partition state query failed: %d\\n\", static_cast<int>(result)); }\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor показывает состояние работающего image, если это поддерживает раздел.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "ArduinoOTA/Update подходят для простых обновлений, но безопасный rollback требует явной настройки разделов и проверки в ESP-IDF."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Не загружайте OTA-образ до проверки подписи."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

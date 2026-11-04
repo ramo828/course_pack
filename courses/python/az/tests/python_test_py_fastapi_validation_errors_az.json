@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_validation_errors_az",
+  "title": "Validasiya, HTTP xətaları və status kodları",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_validation_errors",
+      "type": "multiple_choice",
+      "prompt": "Bu real HTTP sorğusuna API necə cavab verməlidir?\nPOST /items ilə düzgün body → 201; tapılmayan ID → 404; yanlış body tipi → 422",
+      "options": [
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "Yaranmış resurs: 201; tapılmayan resurs: 404; body validasiyası: 422.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın."
+      ],
+      "answer": "Yaranmış resurs: 201; tapılmayan resurs: 404; body validasiyası: 422.",
+      "explanation": "Bu, `POST /items ilə düzgün body → 201; tapılmayan ID → 404; yanlış body tipi → 422` sorğusunun gözlənilən davranışıdır. Yaranmış resurs: 201; tapılmayan resurs: 404; body validasiyası: 422."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_validation_errors",
+      "type": "multiple_choice",
+      "prompt": "Bu mövzuda hansı dizayn prinsipi doğrudur?",
+      "options": [
+        "HTTP status kodu nəticənin sinfini göstərir; cavab body-si isə klientə uyğun məlumatı və ya səhv detalını verir.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın."
+      ],
+      "answer": "HTTP status kodu nəticənin sinfini göstərir; cavab body-si isə klientə uyğun məlumatı və ya səhv detalını verir.",
+      "explanation": "HTTP status kodu nəticənin sinfini göstərir; cavab body-si isə klientə uyğun məlumatı və ya səhv detalını verir. 422 struktur/tip uyğunsuzluğunu bildirir, 404 isə tətbiqdə resursun tapılmadığını. Bunlar fərqli səbəblərdir və testlərdə ayrı gözləntilər olmalıdır."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_validation_errors",
+      "type": "multiple_choice",
+      "prompt": "Dərsdə göstərilən vacib hissə çıxarılsa, hansı dəyişiklik baş verər?",
+      "options": [
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Açıq xəta və uyğun status olmasa, müştəri uğursuzluğu uğurdan ayıra bilməz və düzgün bərpa addımı seçə bilməz."
+      ],
+      "answer": "Açıq xəta və uyğun status olmasa, müştəri uğursuzluğu uğurdan ayıra bilməz və düzgün bərpa addımı seçə bilməz.",
+      "explanation": "Açıq xəta və uyğun status olmasa, müştəri uğursuzluğu uğurdan ayıra bilməz və düzgün bərpa addımı seçə bilməz. Sorğu uğurlu olduqda da, rədd edildikdə də API aydın cavab verməlidir. FastAPI model/parametr validasiyası uğursuzluğunda 422 qaytarır; `HTTPException` isə tapılmayan resurs üçün 404 kimi tətbiq qərarını təmsil edir. `status_code` endpoint-in uğurlu cavabını təsvir edir."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_validation_errors",
+      "type": "multiple_choice",
+      "prompt": "Dərsdəki tipik səhvi önləmək üçün hansı addım daha düzgündür?",
+      "options": [
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "POST ilə yeni obyekt yaradılırsa, `status_code=201` istifadə edib həm uğurlu, həm də itkin resurs ssenarisini `/docs`-da sınayın."
+      ],
+      "answer": "POST ilə yeni obyekt yaradılırsa, `status_code=201` istifadə edib həm uğurlu, həm də itkin resurs ssenarisini `/docs`-da sınayın.",
+      "explanation": "POST ilə yeni obyekt yaradılırsa, `status_code=201` istifadə edib həm uğurlu, həm də itkin resurs ssenarisini `/docs`-da sınayın. İstifadəçi girişində `assert` işlətməyin: Python-u optimizasiya rejimində başladanda assert-lər çıxarıla bilər; API xətası üçün validasiya və `HTTPException` istifadə edin."
+    }
+  ]
+}

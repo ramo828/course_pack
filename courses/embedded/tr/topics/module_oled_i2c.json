@@ -1,0 +1,46 @@
+{
+  "id": "module_oled_i2c",
+  "title": "OLED ekran: I2C bağlantısı ve metin gösterme",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://learn.adafruit.com/monochrome-oled-breakouts/arduino-library-and-examples",
+    "https://docs.arduino.cc/learn/communication/wire/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "OLED pikseli kendi ışığını üretir; arka ışık gerekmez. I2C'li SSD1306 modülü az kabloyla metin ve basit grafik gösterebilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "VCC ve GND'yi yalnızca modülün desteklediği gerilime bağlayın. SDA/SCL kartın I2C pinlerine gider: UNO R3'te A4/A5, ESP32'de seçilen I2C pinleri.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Örnek Adafruit_GFX ve Adafruit_SSD1306 kitaplıklarını gerektirir. Adres çoğunlukla 0x3C, bazen 0x3D'dir. Platform: UNO ve ESP32; I2C pinlerini kart belgesinden doğrulayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_oled_i2c",
+      "caption": "OLED ekran: I2C bağlantısı ve metin gösterme"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Wire.h>\n#include <Adafruit_GFX.h>\n#include <Adafruit_SSD1306.h>\n\nAdafruit_SSD1306 display(128, 64, &Wire, -1);\n\nvoid setup() {\n  Serial.begin(115200);\n  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {\n    Serial.println(\"SSD1306 initialization failed\");\n    return;\n  }\n  display.clearDisplay();\n  display.setTextSize(1);\n  display.setTextColor(SSD1306_WHITE);\n  display.setCursor(0, 0);\n  display.println(\"Salam, OLED!\");\n  display.display();\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli güvenlik notu",
+      "text": "Ekranın VCC ve mantık seviyesi modüle bağlıdır. ESP32 GPIO'larını 5 V'a bağlamayın."
+    }
+  ],
+  "testId": "embedded_test_module_oled_i2c_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

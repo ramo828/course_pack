@@ -1,0 +1,146 @@
+{
+  "id": "python_py_pydantic_v2",
+  "title": "Pydantic v2: xarici məlumatı doğrulamaq",
+  "difficulty": "hard",
+  "testId": "python_test_py_pydantic_v2_az",
+  "sources": [
+    "https://docs.python.org/3/tutorial/",
+    "https://docs.python.org/3/using/",
+    "https://docs.python.org/3/library/",
+    "https://docs.python.org/3/library/turtle.html",
+    "https://docs.python.org/3/library/tkinter.html",
+    "https://fastapi.tiangolo.com/tutorial/",
+    "https://www.python.org/about/success/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Python tip ipucları oxucuya və statik analizə kömək edir, lakin adi icrada daxil olan JSON-u avtomatik yoxlamır. Pydantic v2 modeli xarici dict/JSON məlumatını tipə çevirir və məhdudiyyətləri yoxlayır. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "BaseModel",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Field",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "model_validate()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " istifadə edin; səhv məlumat ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ValidationError",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yaradır. Pydantic etibarlı mənbə demək deyil: doğrulama biznes qaydalarını, icazələri və gizli məlumatların qorunmasını əvəz etmir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from pydantic import BaseModel, Field\n\nclass SensorReading(BaseModel):\n    device_id: str\n    celsius: float = Field(ge=-80, le=150)\n\nreading = SensorReading.model_validate(\n    {'device_id': 'sensor-1', 'celsius': 21.5}\n)\nprint(reading.device_id, reading.celsius)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "sensor-1 21.5",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Model sahələri yoxlayır və çevirmə tələb olunarsa edir; bu etibarlı nümunə ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "sensor-1 21.5",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " çap edir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Pydantic v2 nümunəsi üçün aktiv virtual mühitdə `python -m pip install 'pydantic>=2,<3'` işlədin və layihədə versiyanı kilidləyin."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Xətaları istifadəçiyə uyğun cavaba çevirin, amma log-da gizli məlumatı saxlamayın. Pydantic v1 nümunələri v2 API-si ilə eyni deyil."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_dependencies_tr",
+  "title": "Bağımlılık enjeksiyonu ve yeniden kullanım",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_dependencies",
+      "type": "multiple_choice",
+      "prompt": "Bu gerçek HTTP isteğine API nasıl yanıt vermelidir?\nGET /profile  (dependency cari istifadəçini müəyyən edir)",
+      "options": [
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "200 OK; uç nokta `Depends(get_current_user)` sonucunu kullanır."
+      ],
+      "answer": "200 OK; uç nokta `Depends(get_current_user)` sonucunu kullanır.",
+      "explanation": "Bu, `GET /profile  (dependency cari istifadəçini müəyyən edir)` isteğinin beklenen davranışıdır. 200 OK; uç nokta `Depends(get_current_user)` sonucunu kullanır."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_dependencies",
+      "type": "multiple_choice",
+      "prompt": "Bu konuda hangi tasarım ilkesi doğrudur?",
+      "options": [
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "`Depends`, bağımlılık işlevinin sonucunu uç noktaya aktarır ve testte değiştirilmesini sağlar."
+      ],
+      "answer": "`Depends`, bağımlılık işlevinin sonucunu uç noktaya aktarır ve testte değiştirilmesini sağlar.",
+      "explanation": "`Depends`, bağımlılık işlevinin sonucunu uç noktaya aktarır ve testte değiştirilmesini sağlar. Bağımlılıkların da bağımlılıkları olabilir; FastAPI sonuçları istek kapsamında önbelleğe alabilir. Temizlik gerektiren kaynaklar için `yield` desenlerini inceleyin."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_dependencies",
+      "type": "multiple_choice",
+      "prompt": "Derste gösterilen önemli bölüm çıkarılırsa ne değişir?",
+      "options": [
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Aynı hazırlığı her uç noktada yinelemek değişikliklerde tutarsızlık yaratır ve testleri zorlaştırır."
+      ],
+      "answer": "Aynı hazırlığı her uç noktada yinelemek değişikliklerde tutarsızlık yaratır ve testleri zorlaştırır.",
+      "explanation": "Aynı hazırlığı her uç noktada yinelemek değişikliklerde tutarsızlık yaratır ve testleri zorlaştırır. FastAPI bağımlılıkları uç noktaların ortak hazırlığını ayrı işleve taşır: sorgu parametresi, geçerli kullanıcı, ayar veya DB oturumu. `Depends` sonucu uç nokta parametresine verir; testte bağımlılık değiştirilebilir."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_dependencies",
+      "type": "multiple_choice",
+      "prompt": "Dersteki yaygın hatayı önlemek için hangi adım daha doğrudur?",
+      "options": [
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "Yetki denetimini bağımlılığa taşıyın, sonra testte `app.dependency_overrides` ile sahte kullanıcı verin."
+      ],
+      "answer": "Yetki denetimini bağımlılığa taşıyın, sonra testte `app.dependency_overrides` ile sahte kullanıcı verin.",
+      "explanation": "Yetki denetimini bağımlılığa taşıyın, sonra testte `app.dependency_overrides` ile sahte kullanıcı verin. Bağımlılık enjeksiyonu otomatik olarak güvenli kimlik doğrulama anlamına gelmez; içindeki denetimler doğru tasarlanmalıdır."
+    }
+  ]
+}

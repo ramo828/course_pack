@@ -1,0 +1,196 @@
+{
+  "id": "freertos_freertos_tasks",
+  "title": "Tapşırıq yaratmaq və prioritetlər",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_tasks_az",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/01-Tasks-and-co-routines/01-Tasks"
+  ],
+  "estimatedMinutes": 20,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Tapşırıq yaratmaq və prioritetlər” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Hər tapşırıq üçün yığın ayrılır, prioritet scheduler qərarına təsir edir. Real layihədə bu göstərişə əməl edin: Sonsuz dövrədə işləyən hər tapşırıq vaxtaşırı gözləməli və ya bloklanmalıdır; əks halda CPU-nu inhisara ala bilər.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid fastTask(void*) { for (;;) { Serial.println(\"fast task\"); vTaskDelay(pdMS_TO_TICKS(300)); } }\nvoid slowTask(void*) { for (;;) { Serial.println(\"slow task\"); vTaskDelay(pdMS_TO_TICKS(1000)); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(fastTask, \"fast\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"fast task creation failed\"); if (xTaskCreate(slowTask, \"slow\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"slow task creation failed\"); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor sürətli və yavaş tapşırıq mesajlarını müvafiq periodlarla göstərir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Tapşırıq ayrı yığın və icra kontekstinə sahib funksiyadır; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "xTaskCreate",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " onu scheduler-ə əlavə edir. Prioritet yalnız həqiqi vaxt ehtiyacı ilə seçilməlidir: yüksək prioritetli tapşırıq CPU-nu həddən artıq tutarsa aşağı prioritetlilər aclıq çəkə bilər. Arduino ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " da RTOS tapşırıq-ında işləyir, buna görə serial və GPIO resurslarını tapşırıqlar arasında paylaşarkən qayda müəyyən edin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { Serial.begin(115200); if (xTaskCreate(fastTask, \"fast\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"fast task creation failed\"); if (xTaskCreate(slowTask, \"slow\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"slow task creation failed\"); }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Hər tapşırıq üçün yığın ayrılır, prioritet scheduler qərarına təsir edir.\nNiyə seçilib: Sonsuz dövrədə işləyən hər tapşırıq vaxtaşırı gözləməli və ya bloklanmalıdır; əks halda CPU-nu inhisara ala bilər.\nBuraxılsa və ya dəyişdirilsə: Serial yazıları bir neçə tapşırıqdan qarışa bilər; ortaq çıxışı serializasiya edin və tapşırıq yığın ölçüsünü ölçün.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Serial yazıları bir neçə tapşırıqdan qarışa bilər; ortaq çıxışı serializasiya edin və tapşırıq yığın ölçüsünü ölçün."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Hər tapşırıq üçün yığın ayrılır, prioritet scheduler qərarına təsir edir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Sonsuz dövrədə işləyən hər tapşırıq vaxtaşırı gözləməli və ya bloklanmalıdır; əks halda CPU-nu inhisara ala bilər."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid sensorTask(void*) { for (;;) { Serial.println(\"sample\"); vTaskDelay(pdMS_TO_TICKS(500)); } }\nvoid setup() { Serial.begin(115200); xTaskCreate(sensorTask, \"sensor\", 2048, nullptr, 1, nullptr); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sensor tapşırıq təxminən hər 500 ms-də ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sample",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " çap edir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Arduino `loop()` da RTOS tapşırıq-ında işləyir, buna görə serial və GPIO resurslarını tapşırıqlar arasında paylaşarkən qayda müəyyən edin."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Serial yazıları bir neçə tapşırıqdan qarışa bilər; ortaq çıxışı serializasiya edin və tapşırıq yığın ölçüsünü ölçün."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: tapşırıqların vəziyyətini, prioritetini, növbə/sinxronizasiya əlaqəsini və zaman xəttini göstərən diaqram."
+}

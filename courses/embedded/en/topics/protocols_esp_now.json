@@ -1,0 +1,43 @@
+{
+  "id": "protocols_esp_now",
+  "title": "ESP-NOW: direct ESP32 communication without a router",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_now.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ESP-NOW is Espressif's Wi-Fi-based protocol for short messages between nearby ESP devices without joining an IP network. It is useful for sensor reports, remotes, smart lights, and small multi-node systems; it does not need a router or internet. It is not ordinary Wi-Fi networking or an internet connection. Both devices must support ESP-NOW, use the same Wi-Fi channel, and know the receiver's MAC address.\n\nThe sender starts Wi-Fi in station mode, initializes ESP-NOW, adds a peer, and sends a message. A successful return from ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "esp_now_send()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " means the packet was accepted for transmission, not that the receiver application processed it. For reliable delivery, design an application acknowledgement, retry, sequence number, and timeout. A receiver separately registers a receive callback; its signature can vary with the Arduino-ESP32 version.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <esp_now.h>\n\nuint8_t receiverMac[] = {0x24, 0x6F, 0x28, 0xAA, 0xBB, 0xCC};\nconst char message[] = \"sensor=24\";\n\nvoid setup() {\n  Serial.begin(115200);\n  if (!WiFi.mode(WIFI_STA)) {\n    Serial.println(\"Wi-Fi station mode failed\");\n    return;\n  }\n  if (esp_now_init() != ESP_OK) {\n    Serial.println(\"ESP-NOW initialization failed\");\n    return;\n  }\n\n  esp_now_peer_info_t peer{};\n  memcpy(peer.peer_addr, receiverMac, 6);\n  peer.channel = 0;\n  peer.encrypt = false;  // Demo only; configure encryption for private data.\n  if (esp_now_add_peer(&peer) != ESP_OK) return;\n\n  esp_err_t result = esp_now_send(\n      receiverMac, reinterpret_cast<const uint8_t*>(message), sizeof(message));\n  Serial.println(result == ESP_OK ? \"queued\" : \"send error\");\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Encryption is disabled in this teaching sketch and the MAC address is an example. For a real device, verify the peer address, configure encryption with appropriate PMK/LMK keys, validate incoming data, and do not broadcast secrets. Packet limits, callback APIs, and coexistence with Wi-Fi depend on chip and core version; check the ESP-IDF documentation for the exact target."
+    }
+  ],
+  "testId": "embedded_test_protocols_esp_now_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

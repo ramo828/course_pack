@@ -1,0 +1,160 @@
+{
+  "id": "arduino_arduino_serial",
+  "title": "Serial monitor and diagnostics",
+  "difficulty": "easy",
+  "testId": "arduino_test_arduino_serial_en",
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/communication/serial/"
+  ],
+  "estimatedMinutes": 12,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Serial monitor and diagnostics” to a real program or device. The key principle is: Serial.available reports whether input is available. In a project, follow this guidance: Both ends must agree on baud rate and line endings.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "void setup() { Serial.begin(115200); }\nvoid loop() {\n  if (Serial.available()) {\n    int value = Serial.read();\n    Serial.println(value);\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Each received serial byte is printed as its numeric value; input and line endings affect the result.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial.begin sets the baud rate; the monitor can display logs and simple commands. Define a line format, validate received input, and keep secrets out of serial output.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "if (Serial.available()) {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: Serial.available reports whether input is available.\nWhy it is used: Both ends must agree on baud rate and line endings.\nIf omitted or changed: Both ends must agree on baud rate and line endings.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Skipping this check before applying the rule: Both ends must agree on baud rate and line endings."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial.available reports whether input is available.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Both ends must agree on baud rate and line endings."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "void setup() { Serial.begin(115200); }\nvoid loop() {\n  if (Serial.available()) {\n    String line = Serial.readStringUntil('\\n');\n    Serial.print(\"received: \");\n    Serial.println(line);\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Echoes a received line; baud rate, line endings, and serial timeout affect behavior.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Define a line format, validate received input, and keep secrets out of serial output."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Pins, voltage/current limits, timing, and peripheral support are board-dependent; verify the exact board documentation before wiring or uploading."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

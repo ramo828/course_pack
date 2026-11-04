@@ -1,0 +1,436 @@
+{
+  "id": "python_py_libraries",
+  "title": "Essential Python libraries and their creators",
+  "difficulty": "medium",
+  "testId": "python_test_py_libraries_en",
+  "sources": [
+    "https://docs.python.org/3/library/index.html",
+    "https://numpy.org/about/",
+    "https://pandas.pydata.org/about/",
+    "https://matplotlib.org/stable/project/history.html",
+    "https://seaborn.pydata.org/tutorial/introduction.html",
+    "https://github.com/mwaskom/seaborn",
+    "https://github.com/pydantic/pydantic",
+    "https://github.com/sqlalchemy/sqlalchemy",
+    "https://peps.python.org/pep-3156/",
+    "https://www.djangoproject.com/start/overview/",
+    "https://fastapi.tiangolo.com/",
+    "https://github.com/fastapi/fastapi",
+    "https://www.python.org/about/success/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "WHY USE THIS?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Libraries let a project reuse tested functionality. Python's standard-library asyncio module came from Guido van Rossum's PEP 3156 work and coordinates I/O waits. External projects include Travis Oliphant's NumPy for arrays, pandas (begun by Wes McKinney at AQR) for tables, John D. Hunter's Matplotlib for plots, Michael Waskom's Seaborn for statistical graphics, Samuel Colvin's Pydantic for validation, Michael Bayer's SQLAlchemy for SQL/ORM, Adrian Holovaty and Simon Willison's Django for newsroom web apps, and Sebastián Ramírez's FastAPI for typed HTTP APIs. Install external packages in a virtual environment and pin their versions.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Start with Python's standard library: pathlib handles paths, json data exchange, csv table files, sqlite3 local databases, math and statistics calculations, and asyncio I/O-heavy waiting. The standard library is maintained by Python contributors, not one inventor. Install third-party packages inside a virtual environment. NumPy supports array computing, pandas tabular data, FastAPI HTTP APIs, and Django larger web applications. Travis Oliphant and the open-source community helped create NumPy; Adrian Holovaty and Simon Willison began Django to support newsroom work; Sebastián Ramírez created FastAPI. Before choosing a package, check its license, security updates, and supported Python versions.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "python_libraries_flow",
+      "caption": "Essential Python libraries and their creators"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import json\nfrom pathlib import Path\n\nrecord = {\"name\": \"Ada\", \"score\": 10}\ntext = json.dumps(record)\nPath(\"student.json\").write_text(text, encoding=\"utf-8\")\nprint(text)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "{\"name\": \"Ada\", \"score\": 10}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import json",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports functionality from a module; without it, the name is unavailable and may raise NameError.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from pathlib import Path",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports specific names from a module; without it, those names are unavailable.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "record = {\"name\": \"Ada\", \"score\": 10}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "text = json.dumps(record)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "Path(\"student.json\").write_text(text, encoding=\"utf-8\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Writes the supplied text to the file, replacing its existing contents; the encoding is explicit.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(text)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "json.dumps converts a Python value to JSON text; pathlib handles the file path portably.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Start with the standard library; for the examples, run `python -m pip install numpy fastapi` in the active `.venv` and record dependencies."
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "The standard library ships with Python. External packages such as NumPy, pandas, Django, and FastAPI must be installed and tracked as project dependencies."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Install packages in the project's .venv, keep secrets out of source code, and review third-party package provenance."
+    },
+    {
+      "type": "text",
+      "text": "PRACTICE EXAMPLE 2 · Essential Python libraries and their creators\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import numpy as np\nvalues = np.array([1, 2, 3])\nprint((values * 2).tolist())",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "[2, 4, 6]",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import numpy as np",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports functionality from a module; without it, the name is unavailable and may raise NameError.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "values = np.array([1, 2, 3])",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print((values * 2).tolist())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "PRACTICE EXAMPLE 3 · Essential Python libraries and their creators\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI\napp = FastAPI()\n@app.get('/health')\ndef health():\n    return {'status': 'ok'}\nprint(health())",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "{'status': 'ok'}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports specific names from a module; without it, those names are unavailable.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.get('/health')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def health():",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {'status': 'ok'}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sends a result to the caller; without it, a function usually returns None.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(health())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "COMMON MISTAKES\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Distinguish a variable name, indentation, and comment: whitespace affects syntax, while comments explain intent.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Essential Python libraries and their creators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Libraries let a project reuse tested functionality.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Essential Python libraries and their creators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Libraries let a project reuse tested functionality.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes.",
+  "estimatedMinutes": 22
+}

@@ -1,0 +1,46 @@
+{
+  "id": "module_esp32_servo",
+  "title": "Сервопривод на ESP32: библиотека и PWM",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://github.com/madhephaestus/ESP32Servo",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Классическая библиотека Arduino Servo использует реализацию таймеров поддерживаемых архитектур, например AVR. У ESP32 другая периферия LEDC/PWM, и библиотека может не поддерживать выбранное ядро — пример для UNO не соберётся или не заработает.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Подключите сигнал сервопривода к GPIO18 ESP32. Питайте его от подходящего внешнего источника и соедините GND источника с GND ESP32. Для сигнала нужна общая земля.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Установите ESP32Servo, совместимую с выбранным пакетом поддержки ESP32. Альтернатива — формировать PWM 50 Гц через LEDC API ESP32. Платформа: ESP32; для UNO подходит стандартный пример Servo.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_esp32_servo",
+      "caption": "Сервопривод на ESP32: библиотека и PWM"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <ESP32Servo.h>\n\nServo arm;\nconstexpr int servoPin = 18;\n\nvoid setup() {\n  arm.setPeriodHertz(50);\n  arm.attach(servoPin, 500, 2400);\n}\n\nvoid loop() {\n  arm.write(20);\n  delay(700);\n  arm.write(90);\n  delay(700);\n  arm.write(160);\n  delay(700);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание по безопасности",
+      "text": "Не питайте сервопривод от вывода 3,3 В ESP32: пусковой ток может быть большим. Выберите источник по документации сервопривода и соедините GND."
+    }
+  ],
+  "testId": "embedded_test_module_esp32_servo_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

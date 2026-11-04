@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_testing_az",
+  "title": "FastAPI endpoint-lərinin testi",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_testing",
+      "type": "multiple_choice",
+      "prompt": "Bu real HTTP sorğusuna API necə cavab verməlidir?\nTestClient GET /ping → status 200 və {\"message\":\"pong\"}",
+      "options": [
+        "`GET /ping` 200 və `{\"message\":\"pong\"}` qaytarır; skript `route test passed` yazır.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın."
+      ],
+      "answer": "`GET /ping` 200 və `{\"message\":\"pong\"}` qaytarır; skript `route test passed` yazır.",
+      "explanation": "Bu, `TestClient GET /ping → status 200 və {\"message\":\"pong\"}` sorğusunun gözlənilən davranışıdır. `GET /ping` 200 və `{\"message\":\"pong\"}` qaytarır; skript `route test passed` yazır."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_testing",
+      "type": "multiple_choice",
+      "prompt": "Bu mövzuda hansı dizayn prinsipi doğrudur?",
+      "options": [
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "Testdə HTTP status kodu və JSON cavabı birlikdə yoxlanır; bunun üçün server portu açmaq tələb olunmur."
+      ],
+      "answer": "Testdə HTTP status kodu və JSON cavabı birlikdə yoxlanır; bunun üçün server portu açmaq tələb olunmur.",
+      "explanation": "Testdə HTTP status kodu və JSON cavabı birlikdə yoxlanır; bunun üçün server portu açmaq tələb olunmur. `TestClient` HTTP davranışını sinxron test etməyə imkan verir; xarici xidmətləri saxta əvəzləmək testləri sürətli, ucuz və etibarlı edir."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_testing",
+      "type": "multiple_choice",
+      "prompt": "Dərsdə göstərilən vacib hissə çıxarılsa, hansı dəyişiklik baş verər?",
+      "options": [
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Test olmasa, dəyişiklik əvvəl işləyən endpoint-i poza bilər və bunu yalnız istifadəçi görə bilər."
+      ],
+      "answer": "Test olmasa, dəyişiklik əvvəl işləyən endpoint-i poza bilər və bunu yalnız istifadəçi görə bilər.",
+      "explanation": "Test olmasa, dəyişiklik əvvəl işləyən endpoint-i poza bilər və bunu yalnız istifadəçi görə bilər. FastAPI `TestClient` endpoint-ləri real server açmadan çağırmağa imkan verir. Test status kodunu, JSON body-ni və xəta davranışını yoxlayır; testlər təkrar icra oluna bilən və xarici şəbəkədən asılı olmayan olmalıdır. Quraşdırma: `pip install fastapi httpx`."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_testing",
+      "type": "multiple_choice",
+      "prompt": "Dərsdəki tipik səhvi önləmək üçün hansı addım daha düzgündür?",
+      "options": [
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Hər testdən əvvəl tətbiq vəziyyətini təmizləyin; DB istifadə olunursa ayrıca müvəqqəti/test bazası və dependency override tətbiq edin.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın."
+      ],
+      "answer": "Hər testdən əvvəl tətbiq vəziyyətini təmizləyin; DB istifadə olunursa ayrıca müvəqqəti/test bazası və dependency override tətbiq edin.",
+      "explanation": "Hər testdən əvvəl tətbiq vəziyyətini təmizləyin; DB istifadə olunursa ayrıca müvəqqəti/test bazası və dependency override tətbiq edin. Yükləmə testi real istifadəçi məlumatı və istehsal bazası ilə işləməməlidir; testlərdə təcrid olunmuş, təmizlənən vəziyyət istifadə edin."
+    }
+  ]
+}

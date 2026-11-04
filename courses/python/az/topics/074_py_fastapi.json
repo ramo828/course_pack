@@ -1,0 +1,86 @@
+{
+  "id": "python_py_fastapi",
+  "title": "FastAPI ilə tipli HTTP API",
+  "difficulty": "hard",
+  "testId": "python_test_py_fastapi_az",
+  "sources": [
+    "https://docs.python.org/3/tutorial/",
+    "https://docs.python.org/3/using/",
+    "https://docs.python.org/3/library/",
+    "https://docs.python.org/3/library/turtle.html",
+    "https://docs.python.org/3/library/tkinter.html",
+    "https://fastapi.tiangolo.com/tutorial/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI Python type annotation-larından istifadə edən ASGI web framework-dür; HTTP endpoint və JSON API qurmaq üçün istifadə olunur. Pydantic modelləri request/response məlumatını yoxlayır, path/query/body parametrləri endpoint funksiyasına ötürülür və OpenAPI sxemi interaktiv sənədləri yarada bilir. FastAPI masaüstü GUI deyil, başqa proqramların şəbəkə üzərindən çağırdığı server tərəfidir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI\nfrom pydantic import BaseModel\n\napp = FastAPI()\n\nclass Item(BaseModel):\n    name: str\n    price: float\n\n@app.post('/items')\nasync def create_item(item: Item):\n    return {'name': item.name, 'price': item.price}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "The server defines POST /items. A valid request returns JSON such as {\"name\":\"pen\",\"price\":1.5}; starting the server itself does not call the endpoint.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Pydantic modeli JSON body-ni yoxlayır; FastAPI modeldən OpenAPI təsviri və interaktiv API sənədi yarada bilər.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "API müqaviləsinə status kodlarını, validasiyanı və səhv cavablarını daxil edin; interaktiv docs autentifikasiya və icazə nəzarətini əvəz etmir."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "İstehsalda HTTPS, autentifikasiya/avtorizasiya, secret idarəsi, rate limit və request ölçüsü ayrıca konfiqurasiya edilməlidir."
+    },
+    {
+      "type": "diagram",
+      "id": "fastapi_request",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

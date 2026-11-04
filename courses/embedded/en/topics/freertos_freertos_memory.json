@@ -1,0 +1,160 @@
+{
+  "id": "freertos_freertos_memory",
+  "title": "Heap, stacks, and static allocation",
+  "difficulty": "hard",
+  "testId": "freertos_test_freertos_memory_en",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/09-Memory-management/01-Memory-management"
+  ],
+  "estimatedMinutes": 20,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Heap, stacks, and static allocation” to a real program or device. The key principle is: Release allocated memory and plan long-lived objects deliberately. In a project, follow this guidance: Check task-creation results and stack use; budget RAM across tasks, queues, and buffers.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid setup() { Serial.begin(115200); void* memory = pvPortMalloc(128); if (memory != nullptr) { Serial.println(\"128 bytes available\"); vPortFree(memory); } else { Serial.println(\"heap exhausted\"); } }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Prints allocation success when the FreeRTOS heap has at least 128 bytes available.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Every FreeRTOS task consumes its own stack; tasks, queues, and timers may also allocate from the kernel heap. Creation can fail when memory is exhausted, while stack overflow can corrupt state. Measure stack high-water marks and minimum heap, and consider static allocation where supported; do not copy demo sizes into production without measurement.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { Serial.begin(115200); void* memory = pvPortMalloc(128); if (memory != nullptr) { Serial.println(\"128 bytes available\"); vPortFree(memory); } else { Serial.println(\"heap exhausted\"); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: Release allocated memory and plan long-lived objects deliberately.\nWhy it is used: Check task-creation results and stack use; budget RAM across tasks, queues, and buffers.\nIf omitted or changed: Stack-size units vary by port/API; the ESP32 Arduino Core API shown here uses bytes.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Skipping this check before applying the rule: Check task-creation results and stack use; budget RAM across tasks, queues, and buffers."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Release allocated memory and plan long-lived objects deliberately.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Check task-creation results and stack use; budget RAM across tasks, queues, and buffers."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid setup() { Serial.begin(115200); void* block = pvPortMalloc(64); if (block) { Serial.println(\"allocated 64 bytes\"); vPortFree(block); } else { Serial.println(\"allocation failed\"); } }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Prints allocation success when the FreeRTOS heap has at least 128 bytes available.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Stack-size units vary by port/API; the ESP32 Arduino Core API shown here uses bytes."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Pins, voltage/current limits, timing, and peripheral support are board-dependent; verify the exact board documentation before wiring or uploading."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a diagram showing task states, priorities, queue/synchronization relationships, and timing."
+}

@@ -1,0 +1,35 @@
+{
+  "id": "protocols_uart_i2c_spi",
+  "title": "UART, I2C və SPI: hansı rabitəni seçmək?",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/learn/communication/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "UART iki cihaz arasında TX/RX və ortaq GND ilə asinxron serial rabitədir; baud sürəti uyğun olmalıdır. I2C SDA/SCL xətlərini və ünvanları paylaşan çox cihazlı bus-dur; pull-up rezistorlar tələb edir. SPI SCK/MOSI/MISO və cihaz başına CS xətti ilə sürətli, full-duplex əlaqə yaradır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_protocol_buses",
+      "caption": "UART, I2C və SPI: hansı rabitəni seçmək?"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "// UART: Serial.begin(115200); Serial.println(\"hello\");\n// I2C: Wire.begin(); Wire.beginTransmission(0x3C);\n// SPI: SPI.begin(); use a separate CS pin per device.",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Naqil uzunluğu, sürət, gərginlik səviyyəsi və pin availability həlledicidir. I2C/SPI-ni 5 V sensorla birbaşa 3.3 V ESP32-yə qoşmazdan əvvəl level uyğunluğunu yoxlayın."
+    }
+  ],
+  "testId": "embedded_test_protocols_uart_i2c_spi_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

@@ -1,0 +1,98 @@
+{
+  "id": "aiot_tflite_micro",
+  "title": "TensorFlow Lite for Microcontrollers ile modeli çalıştırma",
+  "difficulty": "medium",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://ai.google.dev/edge/litert/microcontrollers",
+    "https://github.com/tensorflow/tflite-micro"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "TensorFlow Lite for Microcontrollers (TFLM), küçük bir C/C++ çalışma ortamıdır: önceden eğitilmiş ve dönüştürülmüş TensorFlow Lite modelini internet olmadan mikrodenetleyicide çalıştırabilir. Model eğitmez; eğitim ve dönüştürme genellikle bilgisayarda yapılır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Konu açıklaması\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "model_data.h",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", dönüştürülmüş model baytlarını tutan ve projeye özel üretilen dosyadır. "
+    },
+    {
+      "type": "text",
+      "text": "tensorArena",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", girişler, ara hesaplamalar ve çıkışlar için önceden ayrılan bellektir. "
+    },
+    {
+      "type": "text",
+      "text": "AllocateTensors()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bu alanı hazırlar; giriş tensörüne ölçeklenmiş sensör örneği yazılır; "
+    },
+    {
+      "type": "text",
+      "text": "Invoke()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " modeli çalıştırır; çıkış tensöründen sınıf veya sayı okunur.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "int8",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " modeli daha az bellek kullanabilir; ancak girişi modelin quantization ölçeği ve sıfır noktasıyla dönüştürmek gerekir. Bu kısa örnek öğretici bir iskelettir: model, işlem çözücü, kitaplık sürümü ve tensör boyutları projeye göre üretilmelidir. ESP32 için uyumlu Arduino kitaplığını/core'u, flash ve RAM kapasitesini ayrıca denetleyin.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Örnek kod\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"model_data.h\"\n#include \"tensorflow/lite/micro/micro_interpreter.h\"\n#include \"tensorflow/lite/micro/micro_mutable_op_resolver.h\"\n#include \"tensorflow/lite/schema/schema_generated.h\"\n\nalignas(16) uint8_t tensorArena[20 * 1024];\n// Setup: create resolver + interpreter, then AllocateTensors().\nTfLiteTensor* input = interpreter->input(0);\ninput->data.int8[0] = quantizedSample;\nif (interpreter->Invoke() == kTfLiteOk) {\n  int8_t prediction = interpreter->output(0)->data.int8[0];\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_tflite_pipeline",
+      "caption": "Şema: TensorFlow Lite for Microcontrollers ile modeli çalıştırma"
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Örnekteki 20 KB yalnızca örnektir. Tensor arena küçükse ayırma veya model çalıştırma başarısız olur; gerçek modelde ölçün. Kitaplığın ESP32/Arduino desteği sürüme göre değişebilir."
+    }
+  ],
+  "testId": "embedded_test_aiot_tflite_micro_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

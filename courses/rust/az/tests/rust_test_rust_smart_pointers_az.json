@@ -1,0 +1,62 @@
+{
+  "id": "rust_test_rust_smart_pointers_az",
+  "title": "Smart pointer-lar: Box, Rc, Arc və Mutex",
+  "questions": [
+    {
+      "id": "rust_rust_smart_pointers_1",
+      "topicId": "rust_rust_smart_pointers",
+      "type": "multiple_choice",
+      "prompt": "“Smart pointer-lar: Box, Rc, Arc və Mutex” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "Arc paylaşımı thread-lərarası edir, Mutex isə kritik hissədə mutable girişi növbələyir.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir."
+      ],
+      "answer": "Arc paylaşımı thread-lərarası edir, Mutex isə kritik hissədə mutable girişi növbələyir.",
+      "explanation": "Arc paylaşımı thread-lərarası edir, Mutex isə kritik hissədə mutable girişi növbələyir.\nİzah: Box<T> dəyəri heap-də saxlayır və recursive strukturlara sabit ölçülü pointer verir. Rc<T> bir thread daxilində reference count ilə paylaşım, Arc<T> isə atomik sayğacla thread-lərarası paylaşım üçündür; bunlar avtomatik mutable paylaşımı təhlükəsiz etmir. Dəyişən ortaq vəziyyət üçün Mutex/RwLock kimi sinxronizasiya və aydın lock scope tələb olunur."
+    },
+    {
+      "id": "rust_rust_smart_pointers_2",
+      "topicId": "rust_rust_smart_pointers",
+      "type": "multiple_choice",
+      "prompt": "“Smart pointer-lar: Box, Rc, Arc və Mutex” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "Arc<Mutex<T>> həmişə ən yaxşı seçim deyil; paylaşılan dəyişən vəziyyət əvəzinə mesajla sahiblik ötürməyin mümkün olub-olmadığını əvvəlcə yoxlayın.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "Dəyişənliyi yalnız həqiqətən lazım olduqda aktiv edin.",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir."
+      ],
+      "answer": "Arc<Mutex<T>> həmişə ən yaxşı seçim deyil; paylaşılan dəyişən vəziyyət əvəzinə mesajla sahiblik ötürməyin mümkün olub-olmadığını əvvəlcə yoxlayın.",
+      "explanation": "Arc<Mutex<T>> həmişə ən yaxşı seçim deyil; paylaşılan dəyişən vəziyyət əvəzinə mesajla sahiblik ötürməyin mümkün olub-olmadığını əvvəlcə yoxlayın.\nİzah: Box<T> dəyəri heap-də saxlayır və recursive strukturlara sabit ölçülü pointer verir. Rc<T> bir thread daxilində reference count ilə paylaşım, Arc<T> isə atomik sayğacla thread-lərarası paylaşım üçündür; bunlar avtomatik mutable paylaşımı təhlükəsiz etmir. Dəyişən ortaq vəziyyət üçün Mutex/RwLock kimi sinxronizasiya və aydın lock scope tələb olunur."
+    },
+    {
+      "id": "rust_rust_smart_pointers_3",
+      "topicId": "rust_rust_smart_pointers",
+      "type": "multiple_choice",
+      "prompt": "“Smart pointer-lar: Box, Rc, Arc və Mutex” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "Box<T> dəyəri heap-də saxlayır və recursive strukturlara sabit ölçülü pointer verir"
+      ],
+      "answer": "Box<T> dəyəri heap-də saxlayır və recursive strukturlara sabit ölçülü pointer verir",
+      "explanation": "Box<T> dəyəri heap-də saxlayır və recursive strukturlara sabit ölçülü pointer verir\nİzah: Box<T> dəyəri heap-də saxlayır və recursive strukturlara sabit ölçülü pointer verir. Rc<T> bir thread daxilində reference count ilə paylaşım, Arc<T> isə atomik sayğacla thread-lərarası paylaşım üçündür; bunlar avtomatik mutable paylaşımı təhlükəsiz etmir. Dəyişən ortaq vəziyyət üçün Mutex/RwLock kimi sinxronizasiya və aydın lock scope tələb olunur."
+    },
+    {
+      "id": "rust_rust_smart_pointers_4",
+      "topicId": "rust_rust_smart_pointers",
+      "type": "multiple_choice",
+      "prompt": "“Smart pointer-lar: Box, Rc, Arc və Mutex” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "Lock daxilində uzun I/O və ya gözləmə deadlock və gecikmə riskini artırır; lock poisoning-i də idarə edin."
+      ],
+      "answer": "Lock daxilində uzun I/O və ya gözləmə deadlock və gecikmə riskini artırır; lock poisoning-i də idarə edin.",
+      "explanation": "Lock daxilində uzun I/O və ya gözləmə deadlock və gecikmə riskini artırır; lock poisoning-i də idarə edin.\nİzah: Box<T> dəyəri heap-də saxlayır və recursive strukturlara sabit ölçülü pointer verir. Rc<T> bir thread daxilində reference count ilə paylaşım, Arc<T> isə atomik sayğacla thread-lərarası paylaşım üçündür; bunlar avtomatik mutable paylaşımı təhlükəsiz etmir. Dəyişən ortaq vəziyyət üçün Mutex/RwLock kimi sinxronizasiya və aydın lock scope tələb olunur."
+    }
+  ]
+}

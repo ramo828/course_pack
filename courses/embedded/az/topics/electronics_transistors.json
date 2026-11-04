@@ -1,0 +1,168 @@
+{
+  "id": "electronics_transistors",
+  "title": "Tranzistor və MOSFET ilə yük idarəetməsi",
+  "difficulty": "medium",
+  "estimatedMinutes": 15,
+  "sources": [
+    "https://learn.sparkfun.com/tutorials/transistors/all",
+    "https://docs.arduino.cc/language-reference/en/functions/digital-io/digitalwrite/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "TRANZİSTOR NƏ ÜÇÜN LAZIMDIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Tranzistor kiçik idarəetmə siqnalı ilə daha böyük cərəyanlı dövrəni açıb-bağlamağa və ya analoq dövrədə siqnalı gücləndirməyə yarayan yarımkeçiricidir. Arduino pini yalnız idarəetmə siqnalı verir; motoru, güclü LED-i və ya rele bobinini birbaşa qidalandırmaq üçün nəzərdə tutulmayıb.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_transistor_switch",
+      "caption": "NPN tranzistorun baza, kollektor və emitter çıxışları; konkret ayaq düzülüşü modeldən asılıdır."
+    },
+    {
+      "type": "text",
+      "text": "BJT VƏ MOSFET\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "• BJT: NPN və PNP növləri var. NPN-də baza–emitter arasındakı kiçik cərəyan kollektor–emitter yolunu idarə edir; çıxışlar ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "B",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " (baza), ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "C",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " (kollektor), ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "E",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " (emitter) kimi işarələnir.\n• MOSFET: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "G",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " (gate), ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "D",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " (drain), ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "S",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " (source) çıxışları olur. Uyğun logic-level N-kanal MOSFET aşağı tərəfdən yük açarı kimi işləyə bilər.\n• Pinlərin sırası və idarəetmə hədləri modeldən asılıdır; hər zaman texniki sənəd-i yoxlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "NPN İLƏ SADƏ AÇAR\n",
+      "size": 19,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Nümunə bağlantı: Arduino ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "D8",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " pinindən ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "1 kΩ",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " rezistor vasitəsilə NPN bazasına; emitter GND-yə; kollektor isə yükün mənfi tərəfinə. Yükün müsbət tərəfi onun uyğun xarici qidalanmasına bağlanır. Arduino GND ilə xarici mənbənin GND-si ortaq olmalıdır. Bu sxem yalnız uyğun tranzistor, yük və cərəyan hədləri təsdiqləndikdən sonra qurulmalıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int switchPin = 8;\n\nvoid setup() {\n  pinMode(switchPin, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(switchPin, HIGH); // tranzistoru idarə et\n  delay(1000);\n  digitalWrite(switchPin, LOW);\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "tip",
+      "title": "Bobinli yük",
+      "text": "Rele və motor kimi induktiv yük üçün uyğun flyback diodu lazım ola bilər. Hazır modulda tranzistor və qoruyucu diod artıq ola bilər; pin adlarını və bağlantı sxemini yoxlayın."
+    },
+    {
+      "type": "warning",
+      "title": "Arduino pinini qoruyun",
+      "text": "Yükü mikrokontroller pinindən birbaşa keçirməyin və verilən cərəyan həddini aşmayın. Baza/gate bağlantısı, ortaq GND, xarici qidalanma və qoruyucu elementlər sxemə görə seçilməlidir. Şəbəkə gərginliyi ilə işləməyin."
+    }
+  ],
+  "testId": "embedded_test_electronics_transistors_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

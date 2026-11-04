@@ -1,0 +1,672 @@
+{
+  "id": "python_py_fastapi_auth",
+  "title": "Основы аутентификации",
+  "difficulty": "hard",
+  "testId": "python_test_py_fastapi_auth_ru",
+  "estimatedMinutes": 24,
+  "sources": [
+    "https://fastapi.tiangolo.com/tutorial/security/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЗАЧЕМ ЭТО НУЖНО?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI создаёт JSON API, к которым веб- и мобильные приложения обращаются по HTTP; аннотации типов помогают проверять ввод и описывать контракт API.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ И ПРИМЕНЕНИЕ В ЖИЗНИ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Аутентификация проверяет, кто отправил запрос; авторизация определяет доступные ресурсы. В bearer-схеме клиент отправляет токен, который FastAPI извлекает до вызова endpoint. Фиксированный токен ниже — только учебная демонстрация.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Для локального запуска установите ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " и дополнительные пакеты, указанные в уроке. Сохраните сервер как ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "app.py",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " и запустите ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "uvicorn app:app --reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ". ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " предназначен только для разработки.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ГДЕ ЭТО ВСТРЕЧАЕТСЯ В ЖИЗНИ?\nEndpoint личного профиля отклоняет запрос без токена и возвращает данные идентифицированному пользователю.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Если убрать эту часть: Без проверки личности любой доступный endpoint может раскрыть защищённые данные; не определяйте пользователя наугад.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ПОЛНЫЙ РАБОЧИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import secrets\nfrom fastapi import Depends, FastAPI, HTTPException, status\nfrom fastapi.security import OAuth2PasswordBearer\n\napp = FastAPI()\noauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")\n\nasync def current_user(token: str = Depends(oauth2_scheme)):\n    if not secrets.compare_digest(token, \"development-only-token\"):\n        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=\"Invalid token\", headers={\"WWW-Authenticate\": \"Bearer\"})\n    return {\"username\": \"ada\"}\n\n@app.get(\"/profile\")\nasync def profile(user: dict = Depends(current_user)):\n    return user\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ЗАПРОС И ОЖИДАЕМЫЙ ОТВЕТ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Запрос: GET /profile  Authorization: Bearer development-only-token\nОтвет: С учебным токеном — 200 JSON; без токена — 401 и заголовок `WWW-Authenticate: Bearer`.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import secrets",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import Depends, FastAPI, HTTPException, status",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.security import OAuth2PasswordBearer",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "oauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет работу для запроса; результат или побочный эффект влияет на ответ.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def current_user(token: str = Depends(oauth2_scheme)):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "if not secrets.compare_digest(token, \"development-only-token\"):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выбирает ветку при истинном условии и обрабатывает крайний случай.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=\"Invalid token\", headers={\"WWW-Authenticate\": \"Bearer\"})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Завершает запрос с явным статусом и описанием ошибки, не скрывая сбой.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"username\": \"ada\"}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.get(\"/profile\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def profile(user: dict = Depends(current_user)):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return user",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ПРАКТИКА: ПРОВЕРКА HTTP-КЛИЕНТОМ\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Полный файл ниже локально вызывает приложение через TestClient, не открывая порт. Для TestClient установите ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ПОЛНЫЙ РАБОЧИЙ ТЕСТ КЛИЕНТА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import secrets\nfrom fastapi import Depends, FastAPI, HTTPException, status\nfrom fastapi.security import OAuth2PasswordBearer\n\napp = FastAPI()\noauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")\n\nasync def current_user(token: str = Depends(oauth2_scheme)):\n    if not secrets.compare_digest(token, \"development-only-token\"):\n        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=\"Invalid token\", headers={\"WWW-Authenticate\": \"Bearer\"})\n    return {\"username\": \"ada\"}\n\n@app.get(\"/profile\")\nasync def profile(user: dict = Depends(current_user)):\n    return user\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    response = client.get(\"/profile\", headers={\"Authorization\": \"Bearer development-only-token\"})\n    print(response.status_code, response.json())\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ ВЫВОД ТЕСТА\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "200 {'username': 'ada'}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import secrets",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import Depends, FastAPI, HTTPException, status",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.security import OAuth2PasswordBearer",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "oauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет работу для запроса; результат или побочный эффект влияет на ответ.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def current_user(token: str = Depends(oauth2_scheme)):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "if not secrets.compare_digest(token, \"development-only-token\"):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выбирает ветку при истинном условии и обрабатывает крайний случай.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=\"Invalid token\", headers={\"WWW-Authenticate\": \"Bearer\"})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Завершает запрос с явным статусом и описанием ошибки, не скрывая сбой.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"username\": \"ada\"}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.get(\"/profile\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def profile(user: dict = Depends(current_user)):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return user",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.testclient import TestClient",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует TestClient, чтобы отправить приложению HTTP-запрос без открытия серверного порта.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with TestClient(app) as client:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Создаёт тестовый HTTP-клиент приложения и закрывает его при выходе из блока.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response = client.get(\"/profile\", headers={\"Authorization\": \"Bearer development-only-token\"})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Отправляет указанный GET-запрос через тестовый клиент и сохраняет ответ.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(response.status_code, response.json())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Читает и выводит HTTP-статус и разобранный JSON-ответ.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ЧАСТЫЕ ОШИБКИ\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Хранить токен в URL или журнале; отправляйте bearer-токен в заголовке ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Authorization",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " и не используйте учебный секрет в production.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Практический совет",
+      "text": "Добавьте bearer-токен через Authorize в `/docs`; отдельно проверьте отсутствие и неверный токен (401)."
+    },
+    {
+      "type": "detail",
+      "title": "Подробнее",
+      "text": "Аутентификация и авторизация различаются. Подтверждённая личность не означает доступ ко всем действиям; проверяйте владельца и роль."
+    },
+    {
+      "type": "warning",
+      "title": "Важное предупреждение",
+      "text": "Фиксированный токен намеренно небезопасен. В реальной системе используйте OAuth2/OIDC-провайдера, TLS, срок действия и управление секретами."
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Как лучше всего предотвратить типичную ошибку из урока?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Добавьте bearer-токен через Authorize в ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "/docs",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; отдельно проверьте отсутствие и неверный токен (401).\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Отдельная иллюстрация не обязательна; небольшого запускаемого примера и ожидаемого результата достаточно."
+}

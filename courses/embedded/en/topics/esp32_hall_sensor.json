@@ -1,0 +1,35 @@
+{
+  "id": "esp32_hall_sensor",
+  "title": "ESP32 Hall sensor: chip variants and external sensors",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/gpio.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "A Hall sensor detects magnetic fields. Older original ESP32 chips had an internal Hall sensor and legacy APIs; families such as ESP32-S2/S3/C3 do not have the same integrated sensor. Do not assume every ESP32 board includes one.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_hall_sensor",
+      "caption": "ESP32 Hall sensor: chip variants and external sensors"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "constexpr uint8_t HALL_PIN = 27;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(HALL_PIN, INPUT);\n}\n\nvoid loop() {\n  int magneticState = digitalRead(HALL_PIN);\n  Serial.println(magneticState);\n  delay(100);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "The sketch uses an external digital Hall module: connect its output to a suitable GPIO. The code assumes push-pull output; add a suitable pull-up for open-drain modules, and use an ADC for analog output."
+    }
+  ],
+  "testId": "embedded_test_esp32_hall_sensor_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

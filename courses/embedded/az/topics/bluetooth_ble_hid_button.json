@@ -1,0 +1,134 @@
+{
+  "id": "bluetooth_ble_hid_button",
+  "title": "BLE HID klaviatura: fiziki düymə ilə idarə olunan nümunə",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://github.com/ramo828/iBle-HID",
+    "https://github.com/ramo828/iBle-HID/blob/main/README.az.md",
+    "https://github.com/ramo828/iBle-HID/blob/main/README.en.md",
+    "https://www.bluetooth.com/specifications/specs/human-interface-device-profile-1-1/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "iBle-HID kitabxanası uyğun ESP32 lövhəsini Bluetooth Low Energy (BLE) klaviaturası, siçanı və ya oyun idarəedicisi kimi işlətməyə imkan verir. Bu nümunədə yalnız fiziki düymə basıldıqda bir hərf göndərilir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NECƏ İŞLƏYİR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kitabxananı [GitHub-dan](https://github.com/ramo828/iBle-HID) endirin, "
+    },
+    {
+      "type": "text",
+      "text": "Arduino/libraries/iBle_HID",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " qovluğuna yerləşdirin, Arduino IDE-ni yenidən başladın və lövhə kimi ESP32 seçin. "
+    },
+    {
+      "type": "text",
+      "text": "#include <iBleHID.h>",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ümumi başlığı kitabxananın klaviatura, siçan və başqa HID hissələrini qoşur. NimBLE-Arduino quraşdırmaq lazım deyil: iBle-HID ESP32 Arduino nüvəsinin BLE imkanlarından istifadə edir.\n\nKompüter və ya telefonda lövhənin Bluetooth adına qoşulduqdan sonra "
+    },
+    {
+      "type": "text",
+      "text": "isConnected()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əlaqənin qurulduğunu bildirir. "
+    },
+    {
+      "type": "text",
+      "text": "write('a')",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bir simvol, "
+    },
+    {
+      "type": "text",
+      "text": "print()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və "
+    },
+    {
+      "type": "text",
+      "text": "println()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " mətn, "
+    },
+    {
+      "type": "text",
+      "text": "press()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və "
+    },
+    {
+      "type": "text",
+      "text": "release()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " isə klaviş basma və buraxma əməliyyatlarını göndərir. Kitabxanada siçan, oyun idarəedicisi və klaviatura+siçan birləşməsi də var. Təqdimat idarəedicisi və əlçatanlıq düyməsi kimi layihələr üçün uyğundur.\n\nKitabxana Arduino-ESP32 3.3.11 və sonrakı 3.x versiyalarını hədəfləyir; başqa lövhə/nüvə uyğunluğunu əvvəl yoxlayın. Quraşdırma və API üçün [Azərbaycan dilindəki təlimata](https://github.com/ramo828/iBle-HID/blob/main/README.az.md) baxın.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <iBleHID.h>\n\nconstexpr uint8_t BUTTON_PIN = 4;\nBleKeyboard keyboard;\nbool wasPressed = false;\n\nvoid setup() {\n  pinMode(BUTTON_PIN, INPUT_PULLUP);\n  keyboard.begin();\n}\n\nvoid loop() {\n  const bool pressed = digitalRead(BUTTON_PIN) == LOW;\n  if (pressed && !wasPressed && keyboard.isConnected()) {\n    keyboard.write('a');\n  }\n  wasPressed = pressed;\n  delay(25);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "BLE HID klaviatura: fiziki düymə ilə idarə olunan nümunə"
+    },
+    {
+      "type": "warning",
+      "title": "Vacib təhlükəsizlik və uyğunluq qeydi",
+      "text": "Xarici düyməni GPIO 4 ilə GND arasına qoşun; lövhənizdə bu pin yoxdursa, mövcud giriş pinini seçin. Arduino IDE-də Arduino-ESP32 3.3.11 və ya daha yeni 3.x nüvəsini seçin. HID klaviatura real giriş cihazıdır: yalnız istifadəçinin açıq fiziki hərəkətinə cavab verin və sınağı öz cihazınızda aparın."
+    }
+  ],
+  "testId": "embedded_test_bluetooth_ble_hid_button_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

@@ -1,0 +1,49 @@
+{
+  "id": "arduino_millis_timing",
+  "title": "millis(): таймер и кнопка без delay",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/time/millis/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "delay",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " не даёт программе выполнять другую работу во время ожидания. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "millis()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " возвращает число миллисекунд после старта; проверяйте прошедший интервал, чтобы поочерёдно обслуживать LED, датчик и связь. Беззнаковая разность корректно работает при переполнении счётчика.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "constexpr uint8_t LED_PIN = LED_BUILTIN;\nuint32_t previousMs = 0;\nbool ledOn = false;\n\nvoid setup() {\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  uint32_t now = millis();\n  if ((uint32_t)(now - previousMs) >= 500) {\n    previousMs = now;\n    ledOn = !ledOn;\n    digitalWrite(LED_PIN, ledOn);\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "`millis()` не гарантирует жёсткое реальное время. Для строгих сроков используйте таймер, прерывание или RTOS с учётом платы."
+    }
+  ],
+  "testId": "embedded_test_arduino_millis_timing_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

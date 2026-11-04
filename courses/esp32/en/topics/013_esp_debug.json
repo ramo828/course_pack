@@ -1,0 +1,184 @@
+{
+  "id": "esp32_esp_debug",
+  "title": "Monitor, core dumps, and production readiness",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_debug_en",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/tools/idf-monitor.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Monitor, core dumps, and production readiness” to a real program or device. The key principle is: Build size and logs help identify resource problems before deployment. In a project, follow this guidance: Keep logs useful, concise, and free of secrets.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "idf.py monitor\nidf.py size\nidf.py size-components",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rebuild and size output vary with ESP-IDF version, target, configuration, and source files.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The serial monitor exposes boot logs, error codes, and build information. Document firmware versions, reset reasons, crash capture, log levels, and recovery for production.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "idf.py monitor",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "idf.py size",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " are ESP-IDF tools. For Arduino-ESP32, build and open the serial monitor with Arduino IDE or Arduino CLI; the additional example shows Arduino Serial diagnostics.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "idf.py monitor",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: Build size and logs help identify resource problems before deployment.\nWhy it is used: Keep logs useful, concise, and free of secrets.\nIf omitted or changed: Keep logs useful, concise, and free of secrets.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Skipping this check before applying the rule: Keep logs useful, concise, and free of secrets."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Build size and logs help identify resource problems before deployment.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Keep logs useful, concise, and free of secrets."
+    },
+    {
+      "type": "text",
+      "text": "Arduino Core Serial diagnostics\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid setup() { Serial.begin(115200); Serial.println(\"boot complete\"); }\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "boot complete\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "For Arduino-ESP32, build and open the serial monitor with Arduino IDE or Arduino CLI; the additional example shows Arduino Serial diagnostics."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Pins, voltage/current limits, timing, and peripheral support are board-dependent; verify the exact board documentation before wiring or uploading."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

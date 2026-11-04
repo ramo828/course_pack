@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_generators_en",
+  "title": "Iterators, generators, and decorators",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_generators",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 1 in this lesson produce?\n\ndef squares(limit):\n    for number in range(limit):\n        yield number * number\n\nprint(list(squares(4)))",
+      "options": [
+        "[0, 1, 4, 9]",
+        "14",
+        "[0, 1, 4]",
+        "[3, 2, 1]"
+      ],
+      "answer": "[0, 1, 4, 9]",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`def squares(limit):` — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n`for number in range(limit):` — Processes each iterable item; without the loop, remaining items are skipped.\n`yield number * number` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`print(list(squares(4)))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_generators",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 2 in this lesson produce?\n\ndef countdown(limit):\n    for value in range(limit, 0, -1):\n        yield value\nprint(list(countdown(3)))",
+      "options": [
+        "[3, 2]",
+        "[0, 1, 4, 9]",
+        "14",
+        "[3, 2, 1]"
+      ],
+      "answer": "[3, 2, 1]",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`def countdown(limit):` — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n`for value in range(limit, 0, -1):` — Processes each iterable item; without the loop, remaining items are skipped.\n`yield value` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`print(list(countdown(3)))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_generators",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 3 in this lesson produce?\n\nsquares = (number * number for number in range(4))\nprint(sum(squares))",
+      "options": [
+        "14",
+        "[0, 1, 4, 9]",
+        "[3, 2, 1]",
+        "15"
+      ],
+      "answer": "14",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`squares = (number * number for number in range(4))` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`print(sum(squares))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_generators",
+      "type": "multiple_choice",
+      "prompt": "Which statement accurately describes “Iterators, generators, and decorators”?",
+      "options": [
+        "Iterators and generators process large streams without loading everything into memory; exhausted generators must be recreated.",
+        "Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.",
+        "A comprehension transforms and filters data in one expression; a regular loop can be clearer when logic grows.",
+        "Loops automate repeated work such as checking products or totaling report rows; check stop boundaries and empty collections."
+      ],
+      "answer": "Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.",
+      "explanation": "Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\nLINE-BY-LINE WALKTHROUGH\n`def countdown(limit):` — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n`for value in range(limit, 0, -1):` — Processes each iterable item; without the loop, remaining items are skipped.\n`yield value` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`print(list(countdown(3)))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    }
+  ]
+}

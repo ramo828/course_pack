@@ -1,0 +1,160 @@
+{
+  "id": "esp32_esp_pins",
+  "title": "GPIO, strapping-выводы и электрические ограничения",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_pins_ru",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «GPIO, strapping-выводы и электрические ограничения» в программе или устройстве. Основной принцип: Распиновку нужно сверять с документацией конкретного модуля и платы. В проекте следуйте рекомендации: Номер GPIO не обязательно совпадает с физическим положением контакта.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nconst int ledPin = 2; // Confirm this pin in the board schematic.\nvoid setup() { pinMode(ledPin, OUTPUT); }\nvoid loop() { digitalWrite(ledPin, !digitalRead(ledPin)); delay(500); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "GPIO 2 при наличии устанавливается в HIGH; доступные выводы и полярность LED различаются у плат ESP32.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Некоторые GPIO ESP32 читаются при старте, другие только входные или зарезервированы. Проверьте flash/PSRAM, USB и strapping-выводы на схеме; соблюдайте уровни напряжения.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { pinMode(ledPin, OUTPUT); }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Распиновку нужно сверять с документацией конкретного модуля и платы.\nЗачем она нужна: Номер GPIO не обязательно совпадает с физическим положением контакта.\nЕсли пропустить или изменить: GPIO ESP32 не рассчитаны на 5 В; используйте преобразователь уровня или подходящий датчик.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "GPIO ESP32 не рассчитаны на 5 В; используйте преобразователь уровня или подходящий датчик."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Распиновку нужно сверять с документацией конкретного модуля и платы.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Номер GPIO не обязательно совпадает с физическим положением контакта."
+    },
+    {
+      "type": "text",
+      "text": "Эквивалент GPIO для ESP-IDF\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "c",
+      "code": "#include \"driver/gpio.h\"\nvoid app_main(void) {\n  gpio_reset_pin(GPIO_NUM_2);\n  gpio_set_direction(GPIO_NUM_2, GPIO_MODE_OUTPUT);\n  gpio_set_level(GPIO_NUM_2, 1);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "GPIO 2 при наличии устанавливается в HIGH; выводы и полярность LED различаются у плат ESP32.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Проверьте flash/PSRAM, USB и strapping-выводы на схеме; соблюдайте уровни напряжения."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "GPIO ESP32 не рассчитаны на 5 В; используйте преобразователь уровня или подходящий датчик."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

@@ -1,0 +1,79 @@
+{
+  "id": "cpp_enum_union_bit_operations",
+  "title": "enum class, union, and bit operations",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/enum.html",
+    "https://en.cppreference.com/w/cpp/language/union.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "An ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "enum",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " gives names to states; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "enum class",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " scopes those names and prevents accidental integer conversion. Use ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "static_cast<uint8_t>(Mode::Sample)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " when an explicit conversion is needed. Bitwise masks set, test, or clear register flags. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "union",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " members share storage, so only the most recently written member is generally valid to read.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "enum class Mode : uint8_t { Idle, Sample, Alarm };\nuint8_t flags = 0;\nconstexpr uint8_t READY = 1u << 0;\nflags |= READY;                 // Set bit\nbool ready = (flags & READY) != 0;\nflags &= static_cast<uint8_t>(~READY); // Clear bit\n\nunion RawValue { uint16_t word; uint8_t bytes[2]; };\nstruct StatusBits { unsigned ready : 1; unsigned mode : 2; };",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Direct register writes can change neighboring bits; follow the chip reference manual and vendor API. Bitfield layout can vary by compiler and board. Reading a different `union` member to reinterpret data is not portable, and byte order varies by platform."
+    }
+  ],
+  "testId": "embedded_test_cpp_enum_union_bit_operations_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

@@ -1,0 +1,739 @@
+{
+  "id": "python_py_fastapi_testing",
+  "title": "FastAPI endpoint-lərinin testi",
+  "difficulty": "hard",
+  "testId": "python_test_py_fastapi_testing_az",
+  "estimatedMinutes": 22,
+  "sources": [
+    "https://fastapi.tiangolo.com/tutorial/testing/",
+    "https://www.python-httpx.org/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NİYƏ LAZIMDIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI endpoint-lərini test etmək verilənlər bazasına və real şəbəkəyə qoşulmadan status kodunu, cavabı və səhv hallarını yoxlamağa imkan verir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "MƏQSƏD VƏ REAL İSTİFADƏ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TestClient",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " endpoint-ləri real server açmadan çağırmağa imkan verir. Test status kodunu, JSON body-ni və xəta davranışını yoxlayır; testlər təkrar icra oluna bilən və xarici şəbəkədən asılı olmayan olmalıdır. Quraşdırma: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi httpx",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Nümunələri yerli işlətmək üçün ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " quraşdırın; dərsdə göstərilən əlavə paketləri də əlavə edin. Server nümunəsini ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "app.py",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " saxlayıb ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "uvicorn app:app --reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ilə başladın. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yalnız öyrənmə/inkişaf üçündür.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "REAL HƏYATDA HARADA?\nE-ticarət testi məhsul yaradılmasını, çatışmayan məhsulun 404-ünü və yanlış body-nin rədd edilməsini yoxlayır.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Bu hissə buraxılsa: Test olmasa, dəyişiklik əvvəl işləyən endpoint-i poza bilər və bunu yalnız istifadəçi görə bilər.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM İŞLƏK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI\nfrom fastapi.testclient import TestClient\n\napp = FastAPI()\n\n@app.get(\"/ping\")\ndef ping():\n    return {\"message\": \"pong\"}\n\nclient = TestClient(app)\nresponse = client.get(\"/ping\")\nassert response.status_code == 200\nassert response.json() == {\"message\": \"pong\"}\nprint(\"route test passed\")\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SORĞU VƏ GÖZLƏNİLƏN CAVAB\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Sorğu: TestClient GET /ping → status 200 və {\"message\":\"pong\"}\nCavab: `GET /ping` 200 və `{\"message\":\"pong\"}` qaytarır; skript `route test passed` yazır.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SƏTİR-SƏTİR İZAHI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — FastAPI sinfini tətbiq obyekti yaratmaq üçün import edir; bu sətr olmasa ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " adı tanınmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.testclient import TestClient",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — TestClient-i import edir ki, tətbiqə HTTP sorğusunu server portu açmadan sınaqdan göndərək.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " tətbiq obyekti ASGI serverinə verilir və marşrutları özündə saxlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.get(\"/ping\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP metodunu və URL yolunu bu funksiyaya bağlayır; bu dekorator olmasa funksiya API endpoint-i olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def ping():",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Serverin çağıracağı endpoint funksiyasını müəyyən edir; parametr adları yol, query və body məlumatlarını bağlamağa kömək edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"message\": \"pong\"}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP cavabının dəyərini qaytarır; FastAPI bunu JSON və ya qeyd olunan response modelinə çevirir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "client = TestClient(app)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğu zamanı bu əməliyyat icra olunur; onun nəticəsi və ya yan təsiri cavabın hazırlanmasına təsir edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response = client.get(\"/ping\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Test müştərisi ilə göstərilən GET sorğusunu göndərir və cavabı ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " dəyişənində saxlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "assert response.status_code == 200",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sətir tətbiqin məlumatını və ya idarəetmə axınını davam etdirir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "assert response.json() == {\"message\": \"pong\"}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğu zamanı bu əməliyyat icra olunur; onun nəticəsi və ya yan təsiri cavabın hazırlanmasına təsir edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(\"route test passed\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğu zamanı bu əməliyyat icra olunur; onun nəticəsi və ya yan təsiri cavabın hazırlanmasına təsir edir.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "TƏCRÜBƏ: HTTP MÜŞTƏRİSİ İLƏ YOXLAMA\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Aşağıdakı tam fayl tətbiqi TestClient ilə yerli çağırır; ayrıca port açmağa ehtiyac yoxdur. TestClient üçün ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " quraşdırın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM İŞLƏK TEST KODU\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI\nfrom fastapi.testclient import TestClient\n\napp = FastAPI()\n\n@app.get(\"/ping\")\ndef ping():\n    return {\"message\": \"pong\"}\n\nclient = TestClient(app)\nresponse = client.get(\"/ping\")\nassert response.status_code == 200\nassert response.json() == {\"message\": \"pong\"}\nprint(\"route test passed\")\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    response = client.get(\"/ping\")\n    assert response.status_code == 200\n    print(response.json())\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "TESTİN GÖZLƏNİLƏN NƏTİCƏSİ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "route test passed\n{'message': 'pong'}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SƏTİR-SƏTİR İZAHI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — FastAPI sinfini tətbiq obyekti yaratmaq üçün import edir; bu sətr olmasa ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " adı tanınmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.testclient import TestClient",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — TestClient-i import edir ki, tətbiqə HTTP sorğusunu server portu açmadan sınaqdan göndərək.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " tətbiq obyekti ASGI serverinə verilir və marşrutları özündə saxlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.get(\"/ping\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP metodunu və URL yolunu bu funksiyaya bağlayır; bu dekorator olmasa funksiya API endpoint-i olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def ping():",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Serverin çağıracağı endpoint funksiyasını müəyyən edir; parametr adları yol, query və body məlumatlarını bağlamağa kömək edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"message\": \"pong\"}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP cavabının dəyərini qaytarır; FastAPI bunu JSON və ya qeyd olunan response modelinə çevirir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "client = TestClient(app)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğu zamanı bu əməliyyat icra olunur; onun nəticəsi və ya yan təsiri cavabın hazırlanmasına təsir edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response = client.get(\"/ping\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Test müştərisi ilə göstərilən GET sorğusunu göndərir və cavabı ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " dəyişənində saxlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "assert response.status_code == 200",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sətir tətbiqin məlumatını və ya idarəetmə axınını davam etdirir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "assert response.json() == {\"message\": \"pong\"}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğu zamanı bu əməliyyat icra olunur; onun nəticəsi və ya yan təsiri cavabın hazırlanmasına təsir edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(\"route test passed\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğu zamanı bu əməliyyat icra olunur; onun nəticəsi və ya yan təsiri cavabın hazırlanmasına təsir edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.testclient import TestClient",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — TestClient-i import edir ki, tətbiqə HTTP sorğusunu server portu açmadan sınaqdan göndərək.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with TestClient(app) as client:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Tətbiq üçün sınaq HTTP müştərisi yaradır və kontekst bitəndə onu bağlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response = client.get(\"/ping\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Test müştərisi ilə göstərilən GET sorğusunu göndərir və cavabı ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " dəyişənində saxlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "assert response.status_code == 200",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sətir tətbiqin məlumatını və ya idarəetmə axınını davam etdirir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(response.json())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğu zamanı bu əməliyyat icra olunur; onun nəticəsi və ya yan təsiri cavabın hazırlanmasına təsir edir.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "TEZ-TEZ BURAXILAN SƏHVLƏR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Təkcə ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "response.json()",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yoxlamaq; düzgün body ilə yanaşı status kodunu, səhv cavabı və input sərhədlərini də yoxlayın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Praktik məsləhət",
+      "text": "Hər testdən əvvəl tətbiq vəziyyətini təmizləyin; DB istifadə olunursa ayrıca müvəqqəti/test bazası və dependency override tətbiq edin."
+    },
+    {
+      "type": "detail",
+      "title": "Daha dərindən",
+      "text": "`TestClient` HTTP davranışını sinxron test etməyə imkan verir; xarici xidmətləri saxta əvəzləmək testləri sürətli, ucuz və etibarlı edir."
+    },
+    {
+      "type": "warning",
+      "title": "Vacib xəbərdarlıq",
+      "text": "Yükləmə testi real istifadəçi məlumatı və istehsal bazası ilə işləməməlidir; testlərdə təcrid olunmuş, təmizlənən vəziyyət istifadə edin."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: Dərsdəki tipik səhvi önləmək üçün hansı addım daha düzgündür?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Hər testdən əvvəl tətbiq vəziyyətini təmizləyin; DB istifadə olunursa ayrıca müvəqqəti/test bazası və dependency override tətbiq edin.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

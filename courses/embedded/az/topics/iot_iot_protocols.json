@@ -1,0 +1,187 @@
+{
+  "id": "iot_iot_protocols",
+  "title": "HTTP, MQTT və protokol seçimi",
+  "difficulty": "medium",
+  "testId": "iot_test_iot_protocols_az",
+  "sources": [
+    "https://www.rfc-editor.org/rfc/rfc9110.html",
+    "https://www.rfc-editor.org/rfc/rfc8446.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “HTTP, MQTT və protokol seçimi” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: HTTP request/response, MQTT isə pub/sub modelidir. Real layihədə bu göstərişə əməl edin: Protokolün QoS səviyyəsi tətbiq səviyyəsindəki biznes əməliyyatının bir dəfə icrasını avtomatik təmin etmir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "curl --fail-with-body -H \"Content-Type: application/json\" -d '{\"device\":\"sensor-12\",\"value\":21.4,\"unit\":\"degC\"}' https://api.example.test/telemetry",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Nümunə ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "application/json",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " formatında ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "/telemetry",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ünvanına POST sorğusudur; cavab API-dən asılıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HTTP sorğu/cavab və REST tipli API-lər üçün, MQTT isə broker vasitəli publish/subscribe telemetriya üçün işlənir. Şəbəkə, gecikmə, mesaj ölçüsü, QoS və cihaz məhdudiyyətinə görə seçim edin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "curl --fail-with-body -H \"Content-Type: application/json\" -d '{\"device\":\"sensor-12\",\"value\":21.4,\"unit\":\"degC\"}' https://api.example.test/telemetry",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: HTTP request/response, MQTT isə pub/sub modelidir.\nNiyə seçilib: Protokolün QoS səviyyəsi tətbiq səviyyəsindəki biznes əməliyyatının bir dəfə icrasını avtomatik təmin etmir.\nBuraxılsa və ya dəyişdirilsə: Protokolün QoS səviyyəsi tətbiq səviyyəsindəki biznes əməliyyatının bir dəfə icrasını avtomatik təmin etmir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Protokolün QoS səviyyəsi tətbiq səviyyəsindəki biznes əməliyyatının bir dəfə icrasını avtomatik təmin etmir."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HTTP request/response, MQTT isə pub/sub modelidir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Protokolün QoS səviyyəsi tətbiq səviyyəsindəki biznes əməliyyatının bir dəfə icrasını avtomatik təmin etmir."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "curl -i -H \"Content-Type: application/json\" -d '{\"temperatureC\":21.5}' https://api.example.test/telemetry",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Əlçatan API və düzgün endpoint tələb olunur; HTTP statusu və cavab servisdən asılıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Şəbəkə, gecikmə, mesaj ölçüsü, QoS və cihaz məhdudiyyətinə görə seçim edin."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Pinlər, gərginlik/cərəyan limitləri, timing və periferik imkanlar lövhədən asılıdır; naqilləmədən və yükləmədən əvvəl dəqiq lövhə sənədini yoxlayın."
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "Cihaz ölçməni gateway/broker üzərindən xidmətə göndərir; əmr əks istiqamətdə qayıda bilər."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

@@ -1,0 +1,63 @@
+{
+  "id": "usb_device_profiles_custom",
+  "title": "USB aygıtı: CDC, HID, MSC ve özel sınıflar",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb.html",
+    "https://github.com/espressif/arduino-esp32/tree/master/libraries/USB/examples",
+    "https://www.usb.org/defined-class-codes"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "USB device, bilgisayara bağlanan taraftır. ESP32-S2/S3 gibi USB çevre birimi olan kart seri port, klavye, depolama veya özel bir aygıt gibi görünebilir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NASIL ÇALIŞIR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "CDC seri tanılama ve bilgisayarla basit veri alışverişi içindir; HID standart klavye/fare arabirimi sağlar; MSC kartın kendi flash belleğini disk olarak sunabilir. Composite aygıt tek USB kablosunda birden çok arabirim gösterebilir. Custom/vendor arabiriminde bilgisayar tarafı için ayrıca sürücü ve uygulama gerekir.\n\nArduino-ESP32 USB API'si USB çevre birimi bulunan uyumlu çiplerde çalışır. Native CDC örneği kart örneklerinde bulunur; HID/MSC/composite için Arduino-ESP32 USB örneklerini kullanıp USB mode ayarını kontrol edin. "
+    },
+    {
+      "type": "text",
+      "text": "USB.usbPower()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " gibi tanımlar fiziksel güç çıkışını değiştirmez, yalnızca descriptor bilgisidir.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"USB.h\"\n#include \"USBHIDKeyboard.h\"\n\nUSBHIDKeyboard keyboard;\nconstexpr int BUTTON_PIN = 4;\nbool previous = HIGH;\n\nvoid setup() {\n  pinMode(BUTTON_PIN, INPUT_PULLUP);\n  keyboard.begin();\n  USB.begin();\n}\n\nvoid loop() {\n  const bool pressed = digitalRead(BUTTON_PIN) == LOW;\n  if (pressed && previous == HIGH) {\n    keyboard.write('a');  // Test in a text editor on your own computer.\n  }\n  previous = pressed;\n  delay(25);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "USB aygıtı: CDC, HID, MSC ve özel sınıflar"
+    },
+    {
+      "type": "warning",
+      "title": "Önemli güvenlik ve uyumluluk notu",
+      "text": "Yalnızca USB çevre birimi olan uyumlu kartta çalışır; Tools/USB Mode ve pinleri denetleyin. HID gerçek giriş üretir: fiziksel kullanıcı düğmesiyle basit karakter gönderin, gizli tuş/komut dizisi göndermeyin. USB MSC yazması güç kesilince dosya sistemini bozabilir."
+    }
+  ],
+  "testId": "embedded_test_usb_device_profiles_custom_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

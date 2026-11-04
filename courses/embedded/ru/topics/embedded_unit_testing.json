@@ -1,0 +1,84 @@
+{
+  "id": "embedded_unit_testing",
+  "title": "Модульные и интеграционные тесты в Wokwi и ESP-IDF Unity",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/unit-tests.html",
+    "https://docs.wokwi.com/guides/ci"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Разделите встроенное программное обеспечение на небольшие проверяемые части, например чистую функцию проверки диапазона сырого значения ADC. ESP-IDF Unity тестирует компоненты C/C++ на плате или host; храните тестовые компоненты отдельно от production встроенное программное обеспечение. Wokwi моделирует платы, соединения и датчики для проверки GPIO/serial, а CLI позволяет запускать повторяемые тесты симуляции в CI.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Сценарии тестирования: границы ADC ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "-1",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "0",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "4095",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "4096",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " в unit test; входы кнопки и датчика в симуляции Wokwi; проверка timeout и восстановления, если I2C-устройство не отвечает. Сохраняйте serial log. Симуляция не полностью воспроизводит радио, энергопотребление, аналоговый шум и JTAG.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"unity.h\"\n\nstatic bool isAdcRawValid(int raw) {\n  return raw >= 0 && raw <= 4095;\n}\n\nTEST_CASE(\"ADC raw values stay within the 12-bit range\", \"[sensor]\") {\n  TEST_ASSERT_TRUE(isAdcRawValid(0));\n  TEST_ASSERT_TRUE(isAdcRawValid(4095));\n  TEST_ASSERT_FALSE(isAdcRawValid(-1));\n  TEST_ASSERT_FALSE(isAdcRawValid(4096));\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Unit test не проверяет физическое напряжение на выводе, дальность радио или калибровку реального датчика. Изолируйте драйверы через mock/fake, проверяйте timeout и ошибки, затем проведите аппаратное обеспечение-in-the-цикл тест на настоящей плате. Не используйте в тестах бесконечное ожидание и запись во flash production-устройства."
+    }
+  ],
+  "testId": "embedded_test_embedded_unit_testing_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

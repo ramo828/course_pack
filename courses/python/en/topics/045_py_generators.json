@@ -1,0 +1,861 @@
+{
+  "id": "python_py_generators",
+  "title": "Iterators, generators, and decorators",
+  "difficulty": "advanced",
+  "testId": "python_test_py_generators_en",
+  "sources": [
+    "https://docs.python.org/3/tutorial/classes.html#generators"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "WHY USE THIS?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "An iterator provides the next value through ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "next()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; a generator implements that protocol with yield and can process a large stream without loading it all into memory. A decorator wraps a function to add shared behavior such as timing, logging, or input checks. Use abstractions when they improve readability and testability.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "PURPOSE AND REAL-WORLD USE\nGenerators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "PRACTICE EXAMPLE 2 · Iterators, generators, and decorators\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "PRACTICE EXAMPLE 3 · Iterators, generators, and decorators\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "squares = (number * number for number in range(4))\nprint(sum(squares))",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "14",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "squares = (number * number for number in range(4))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(sum(squares))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "squares = (number * number for number in range(4))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(sum(squares))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def countdown(limit):\n    for value in range(limit, 0, -1):\n        yield value\nprint(list(countdown(3)))",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "[3, 2, 1]",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def countdown(limit):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "for value in range(limit, 0, -1):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Processes each iterable item; without the loop, remaining items are skipped.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "yield value",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(list(countdown(3)))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def countdown(limit):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "for value in range(limit, 0, -1):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Processes each iterable item; without the loop, remaining items are skipped.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "yield value",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(list(countdown(3)))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def squares(limit):\n    for number in range(limit):\n        yield number * number\n\nprint(list(squares(4)))",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "[0, 1, 4, 9]",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def squares(limit):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "for number in range(limit):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Processes each iterable item; without the loop, remaining items are skipped.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "yield number * number",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(list(squares(4)))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def squares(limit):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "for number in range(limit):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Processes each iterable item; without the loop, remaining items are skipped.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "yield number * number",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(list(squares(4)))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "yield produces the next item while preserving the generator's suspended state.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "A generator produces values on demand; create a new one if the stream must be traversed again."
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Generators can reduce peak memory use for files, paginated results, and transformation pipelines."
+    },
+    {
+      "type": "warning",
+      "title": "Watch out",
+      "text": "Mutating a collection while iterating can be surprising; build a new collection or iterate over a copy."
+    },
+    {
+      "type": "text",
+      "text": "COMMON MISTAKES\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Choose list, tuple, set, or dict based on ordering, uniqueness, and mutability needs.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Iterators, generators, and decorators”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Generators save memory by producing one item at a time from a large file or result stream; consume them deliberately.\n\n",
+      "size": 16
+    }
+  ],
+  "estimatedMinutes": 18,
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
+}

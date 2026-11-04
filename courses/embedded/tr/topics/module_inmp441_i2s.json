@@ -1,0 +1,46 @@
+{
+  "id": "module_inmp441_i2s",
+  "title": "INMP441 mikrofon: ESP32 ile I2S ses",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/i2s.html",
+    "https://invensense.tdk.com/products/digital/inmp441/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "INMP441 dijital MEMS mikrofondur; sesi I2S ile aktarır. Analog girişe bağlanmaz; ses işleme ve hızlı örnekleme için uygundur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ESP32: SCK/BCLK→GPIO26, WS/LRCL→GPIO25, SD/DOUT→GPIO32, VDD→3.3V, GND→GND. L/R seçimi mono slotun sağ/sol konumunu belirler.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Uygun platform ESP32 + ESP-IDF 5.x'tir: I2S RX kanalını yapılandırın ve 32-bit yuvadan 24-bit işaretli örnekleri okuyun. Arduino IDE de kullanılabilir, ancak I2S API'si çekirdek sürümüne bağlıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_inmp441_i2s",
+      "caption": "INMP441 mikrofon: ESP32 ile I2S ses"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "// ESP-IDF 5.x; INMP441 L/R selects the left mono slot.\n#include <stdio.h>\n#include \"driver/i2s_std.h\"\n#include \"esp_check.h\"\n\nvoid app_main(void) {\n  i2s_chan_handle_t rx_handle;\n  const i2s_chan_config_t channel_config =\n      I2S_CHANNEL_DEFAULT_CONFIG(I2S_NUM_0, I2S_ROLE_MASTER);\n  ESP_ERROR_CHECK(i2s_new_channel(&channel_config, NULL, &rx_handle));\n\n  const i2s_std_config_t standard_config = {\n      .clk_cfg = I2S_STD_CLK_DEFAULT_CONFIG(16000),\n      .slot_cfg = I2S_STD_MSB_SLOT_DEFAULT_CONFIG(\n          I2S_DATA_BIT_WIDTH_32BIT, I2S_SLOT_MODE_MONO),\n      .gpio_cfg = {\n          .mclk = I2S_GPIO_UNUSED,\n          .bclk = GPIO_NUM_26,\n          .ws = GPIO_NUM_25,\n          .dout = I2S_GPIO_UNUSED,\n          .din = GPIO_NUM_32,\n      },\n  };\n  ESP_ERROR_CHECK(i2s_channel_init_std_mode(rx_handle, &standard_config));\n  ESP_ERROR_CHECK(i2s_channel_enable(rx_handle));\n\n  int32_t samples[128];\n  size_t bytes_read;\n  while (true) {\n    ESP_ERROR_CHECK(i2s_channel_read(\n        rx_handle, samples, sizeof(samples), &bytes_read, portMAX_DELAY));\n    for (size_t i = 0; i < bytes_read / sizeof(samples[0]); ++i) {\n      printf(\"%ld\\n\", (long)(samples[i] >> 8));\n    }\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli güvenlik notu",
+      "text": "INMP441 ve ESP32 3.3 V mantık içindir. Besleme ve saat pinlerini doğrulayın; örnek bir yapılandırma taslağıdır, kullandığınız ESP-IDF sürümünde tamamlayın."
+    }
+  ],
+  "testId": "embedded_test_module_inmp441_i2s_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

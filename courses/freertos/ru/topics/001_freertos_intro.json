@@ -1,0 +1,252 @@
+{
+  "id": "freertos_freertos_intro",
+  "title": "RTOS и основы FreeRTOS",
+  "difficulty": "easy",
+  "testId": "freertos_test_freertos_intro_ru",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/freertos_idf.html",
+    "https://www.freertos.org/Documentation/02-Kernel/01-About-the-FreeRTOS-kernel/01-About-the-FreeRTOS-kernel"
+  ],
+  "estimatedMinutes": 15,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «RTOS и основы FreeRTOS» в программе или устройстве. Основной принцип: Планировщик запускает задачи; ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelay",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " отдаёт процессор другим задачам. В проекте следуйте рекомендации: Начните с простого ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "; добавляйте задачи только для независимой работы с разными требованиями ко времени.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid worker(void*) { for (;;) { Serial.println(\"hello from a task\"); vTaskDelay(pdMS_TO_TICKS(1000)); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"worker creation failed\"); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor примерно раз в секунду выводит ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "hello from a task",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " из задачи.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Операционная система реального времени (RTOS) делит работу на задачи и распределяет между ними процессорное время. Она не ускоряет всё автоматически, но делает планирование явным. Arduino Core для ESP32 уже использует FreeRTOS, поэтому скетч может создавать задачи. Для одного светодиода или датчика обычного ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " часто достаточно.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { Serial.begin(115200); if (xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"worker creation failed\"); }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Планировщик запускает задачи; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelay",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " отдаёт процессор другим задачам.\nЗачем она нужна: Начните с простого ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; добавляйте задачи только для независимой работы с разными требованиями ко времени.\nЕсли пропустить или изменить: Размер стека задачи расходует RAM и должен укладываться в бюджет target-платы.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: Начните с простого `loop()`; добавляйте задачи только для независимой работы с разными требованиями ко времени."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Планировщик запускает задачи; ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelay",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " отдаёт процессор другим задачам.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Начните с простого `loop()`; добавляйте задачи только для независимой работы с разными требованиями ко времени."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid worker(void*) { for (;;) { Serial.println(\"scheduled task\"); vTaskDelay(pdMS_TO_TICKS(1000)); } }\nvoid setup() { Serial.begin(115200); xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Планировщик FreeRTOS запускает worker; вывод появляется примерно раз в секунду.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Размер стека задачи расходует RAM и должен укладываться в бюджет target-платы."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Выводы, пределы напряжения/тока, тайминги и периферия зависят от платы; проверьте её документацию перед подключением и загрузкой."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму состояний и приоритетов задач, очередей/синхронизации и временную шкалу."
+}

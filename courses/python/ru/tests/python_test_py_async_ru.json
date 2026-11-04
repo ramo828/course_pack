@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_async_ru",
+  "title": "asyncio и асинхронный ввод-вывод",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_async",
+      "type": "multiple_choice",
+      "prompt": "Какой точный результат выводит пример кода 1 в этом уроке?\n\nimport asyncio\n\nasync def read_sensor(name: str, gate: asyncio.Semaphore) -> str:\n    async with gate:\n        await asyncio.sleep(0)\n        return f'{name}:ready'\n\nasync def main() -> None:\n    gate = asyncio.Semaphore(2)\n    results = await asyncio.gather(\n        read_sensor('temperature', gate),\n        read_sensor('humidity', gate),\n    )\n    print(results)\n\nasyncio.run(main())",
+      "options": [
+        "['temperature:ready']",
+        "['temperature:ready', 'humidity:ready']",
+        "operation timed out",
+        "['A', 'B']"
+      ],
+      "answer": "['temperature:ready', 'humidity:ready']",
+      "explanation": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n`import asyncio` — Импортирует возможности модуля; без этого имя недоступно и может возникнуть NameError.\n`async def read_sensor(name: str, gate: asyncio.Semaphore) -> str:` — Определяет coroutine для I/O; без функции и await асинхронная работа не запустится.\n`async with gate:` — Управляет ресурсом внутри блока; без контекстного менеджера файл или соединение может остаться открытым.\n`await asyncio.sleep(0)` — Приостанавливает coroutine и даёт event loop запустить другие задачи; нулевая задержка не является реальным ожиданием.\n`return f'{name}:ready'` — Передаёт результат вызывающему коду; без return функция обычно вернёт None.\n`async def main() -> None:` — Определяет coroutine для I/O; без функции и await асинхронная работа не запустится.\n`gate = asyncio.Semaphore(2)` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`results = await asyncio.gather(` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`read_sensor('temperature', gate),` — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n`read_sensor('humidity', gate),` — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n`)` — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n`print(results)` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n`asyncio.run(main())` — Создаёт event loop, выполняет coroutine до конца и затем закрывает loop."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_async",
+      "type": "multiple_choice",
+      "prompt": "Какой точный результат выводит пример кода 2 в этом уроке?\n\nimport asyncio\n\nasync def main() -> None:\n    try:\n        await asyncio.wait_for(asyncio.sleep(1), timeout=0.01)\n    except TimeoutError:\n        print('operation timed out')\n\nasyncio.run(main())",
+      "options": [
+        "OPERATION TIMED OUT",
+        "['A', 'B']",
+        "operation timed out",
+        "['temperature:ready', 'humidity:ready']"
+      ],
+      "answer": "operation timed out",
+      "explanation": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n`import asyncio` — Импортирует возможности модуля; без этого имя недоступно и может возникнуть NameError.\n`async def main() -> None:` — Определяет coroutine для I/O; без функции и await асинхронная работа не запустится.\n`try:` — Выделяет операции, способные завершиться ошибкой; без обработчика ожидаемая ошибка прервёт вызывающий код.\n`await asyncio.wait_for(asyncio.sleep(1), timeout=0.01)` — Приостанавливает coroutine на заданное время, позволяя event loop выполнять другие задачи; это не сетевая операция I/O.\n`except TimeoutError:` — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n`print('operation timed out')` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n`asyncio.run(main())` — Создаёт event loop, выполняет coroutine до конца и затем закрывает loop."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_async",
+      "type": "multiple_choice",
+      "prompt": "Какой точный результат выводит пример кода 3 в этом уроке?\n\nimport asyncio\n\nasync def read(name: str) -> str:\n    await asyncio.sleep(0)\n    return name\n\nasync def main() -> None:\n    print(await asyncio.gather(read('A'), read('B')))\n\nasyncio.run(main())",
+      "options": [
+        "['A']",
+        "['temperature:ready', 'humidity:ready']",
+        "operation timed out",
+        "['A', 'B']"
+      ],
+      "answer": "['A', 'B']",
+      "explanation": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n`import asyncio` — Импортирует возможности модуля; без этого имя недоступно и может возникнуть NameError.\n`async def read(name: str) -> str:` — Определяет coroutine для I/O; без функции и await асинхронная работа не запустится.\n`await asyncio.sleep(0)` — Приостанавливает coroutine и даёт event loop запустить другие задачи; нулевая задержка не является реальным ожиданием.\n`return name` — Передаёт результат вызывающему коду; без return функция обычно вернёт None.\n`async def main() -> None:` — Определяет coroutine для I/O; без функции и await асинхронная работа не запустится.\n`print(await asyncio.gather(read('A'), read('B')))` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n`asyncio.run(main())` — Создаёт event loop, выполняет coroutine до конца и затем закрывает loop."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_async",
+      "type": "multiple_choice",
+      "prompt": "Какое утверждение точно описывает тему «asyncio и асинхронный ввод-вывод»?",
+      "options": [
+        "asyncio планирует задачи, ожидающие I/O, в event loop, обычно в одном потоке.",
+        "Проверяйте код статуса, заголовки и тело HTTP-ответа отдельно.",
+        "FastAPI — ASGI-фреймворк, использующий аннотации типов Python для HTTP-endpoint и JSON API.",
+        "FastAPI создаёт JSON API, к которым веб- и мобильные приложения обращаются по HTTP; аннотации типов помогают проверять ввод и описывать контракт API."
+      ],
+      "answer": "asyncio планирует задачи, ожидающие I/O, в event loop, обычно в одном потоке.",
+      "explanation": "asyncio планирует задачи, ожидающие I/O, в event loop, обычно в одном потоке. `async def` создаёт coroutine, `await` возвращает управление циклу; `gather` сохраняет порядок входа, а Semaphore ограничивает число одновременных операций. Блокирующий I/O и тяжёлые вычисления останавливают loop. Продумайте timeout, отмену и время жизни задач; для CPU-параллелизма используйте process pool или подходящий executor."
+    }
+  ]
+}

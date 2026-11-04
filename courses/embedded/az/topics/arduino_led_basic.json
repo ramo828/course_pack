@@ -1,0 +1,88 @@
+{
+  "id": "arduino_led_basic",
+  "title": "LED: işıq və cərəyanı məhdudlaşdırma",
+  "difficulty": "easy",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/built-in-examples/basics/Blink/",
+    "https://learn.sparkfun.com/tutorials/diodes/all"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "BU DƏRS NƏYİ ÖYRƏDİR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "LED cərəyan keçəndə işıq saçan qütblü dioddur. Uzun ayaq adətən anod (+), qısa ayaq və gövdədəki yastı kənar katoddur. Rəngdən asılı olaraq LED-dəki gərginlik düşümü dəyişir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "NECƏ BAĞLANIR?\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "UNO D9 → 330 Ω rezistor → LED uzun ayaq; LED qısa ayaq → GND. Rezistoru LED-in hər iki tərəfində yerləşdirmək olar, əsas odur ki, ardıcıl olsun. UNO-dakı daxili LED BUILTIN pinində ola bilər, amma xarici LED üçün də rezistor istifadə edin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_led_series",
+      "caption": "Sadələşdirilmiş sxemdir; real modulun pin yazılarını yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "SADƏ HESABLAMA\n",
+      "size": 19,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rezistoru seçmək üçün R = (mənbə gərginliyi − LED gərginlik düşümü) / LED cərəyanı. UNO 5 V, qırmızı LED təxminən 2 V, hədəf 10 mA olarsa R ≈ (5−2)/0,01 = 300 Ω; yaxın standart 330 Ω seçilə bilər.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ARDUINO KODU\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const byte ledPin = 9;\n\nvoid setup() {\n  pinMode(ledPin, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(ledPin, HIGH);\n  delay(500);\n  digitalWrite(ledPin, LOW);\n  delay(500);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\nKodu yüklədikdən sonra Serial Monitor-u açın (əgər nümunə serial çıxış verirsə), bağlantını yoxlayın və sensoru/mexanizmi dəyişərək sınayın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "warning",
+      "title": "Təhlükəsizlik və yoxlama",
+      "text": "LED-i rezistorsuz Arduino pininə qoşmayın. Hədəf cərəyan LED-in və lövhənin texniki sənəd limitlərini keçməməlidir."
+    },
+    {
+      "type": "tip",
+      "title": "Yadda saxla",
+      "text": "İlk sınağı enerjisi ayrılmış halda naqilləyin. VCC, GND və siqnal pinlərini modulun öz etiketindən və texniki sənəd-indən təsdiqləyin."
+    }
+  ],
+  "testId": "embedded_test_arduino_led_basic_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

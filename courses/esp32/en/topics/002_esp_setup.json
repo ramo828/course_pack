@@ -1,0 +1,172 @@
+{
+  "id": "esp32_esp_setup",
+  "title": "Installing Arduino Core and ESP-IDF",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_setup_en",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/"
+  ],
+  "estimatedMinutes": 25,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Installing Arduino Core and ESP-IDF” to a real program or device. The key principle is: ESP-IDF selects the chip target before building. In a project, follow this guidance: Keep board package, toolchain, and framework versions stable while diagnosing a first build.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "idf.py --version\nidf.py set-target esp32\nidf.py build",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Flash and monitor output depends on a connected board, selected serial port, target, and firmware.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "idf.py",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "idf.py --version",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: ESP-IDF selects the chip target before building.\nWhy it is used: Keep board package, toolchain, and framework versions stable while diagnosing a first build.\nIf omitted or changed: ESP-IDF Installation Manager and official setup guides provide OS-specific toolchain steps.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Skipping this check before applying the rule: Keep board package, toolchain, and framework versions stable while diagnosing a first build."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ESP-IDF selects the chip target before building.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Keep board package, toolchain, and framework versions stable while diagnosing a first build."
+    },
+    {
+      "type": "text",
+      "text": "Equivalent Arduino CLI setup\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "arduino-cli core update-index\narduino-cli core install esp32:esp32",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Flash and monitor output depends on a connected board, selected serial port, target, and firmware.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "ESP-IDF Installation Manager and official setup guides provide OS-specific toolchain steps."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Pins, voltage/current limits, timing, and peripheral support are board-dependent; verify the exact board documentation before wiring or uploading."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

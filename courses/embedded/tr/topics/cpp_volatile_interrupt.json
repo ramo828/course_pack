@@ -1,0 +1,55 @@
+{
+  "id": "cpp_volatile_interrupt",
+  "title": "volatile ve kesme: görünürlük, atomiklik değildir",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/variables/variable-scope-qualifiers/volatile/",
+    "https://docs.arduino.cc/language-reference/en/functions/external-interrupts/attachInterrupt/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Kesme yordamı ana programı bekletmeden kısa bir olaya yanıt verir. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "volatile",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", derleyiciye değişkenin beklenmedik biçimde değişebileceğini söyler; okumanın bellekten yapılmasını sağlar. Ancak işlemi atomik yapmaz, yarış durumunu kilitlemez veya veri aktarmaz. Kesmede yalnızca bayrak koyun, işi ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " içinde yapın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "volatile bool eventReady = false;\n\nvoid onButtonEdge() {\n  eventReady = true;\n}\n\nvoid setup() {\n  pinMode(2, INPUT_PULLUP);\n  attachInterrupt(digitalPinToInterrupt(2), onButtonEdge, FALLING);\n}\n\nvoid loop() {\n  if (eventReady) {\n    noInterrupts();\n    eventReady = false;\n    interrupts();\n    // Handle the event outside the interrupt.\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Düğme sıçramasını ayrıca giderin. Çok baytlı sayaç okuması MCU'da bölünebilir; koruma yöntemi MCU/RTOS'a bağlıdır. Kesmede `Serial`, bekleme veya bellek ayırma çağırmayın."
+    }
+  ],
+  "testId": "embedded_test_cpp_volatile_interrupt_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

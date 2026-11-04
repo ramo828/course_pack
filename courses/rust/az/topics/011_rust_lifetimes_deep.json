@@ -1,0 +1,316 @@
+{
+  "id": "rust_rust_lifetimes_deep",
+  "title": "Lifetime-lar, elision və struktur invariantları",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_lifetimes_deep_az",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Lifetime-lar, elision və struktur invariantları” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Eyni ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "'a",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " hər iki girişin və nəticənin ən azı ortaq etibarlı müddətə malik olduğunu ifadə edir. Real layihədə bu göstərişə əməl edin: Lifetime error-unu ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "static",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yazmaqla gizlətməyin; əvvəl sahiblik modelini və borrow-un niyə yaşadığını yoxlayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_lifetime_flow",
+      "caption": "Lifetime-lar, elision və struktur invariantları"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn longest<'a>(left: &'a str, right: &'a str) -> &'a str {\n    if left.len() >= right.len() { left } else { right }\n}\n\nfn main() {\n    {\n        let first = String::from(\"borrowed view\");\n        let second = String::from(\"Rust\");\n        let result = longest(&first, &second);\n        println!(\"{result}\");\n    }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "longest",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " nəticə kimi ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "borrowed view",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " qaytarır; istinad yalnız hər iki String hələ scope daxilində olduğu müddətdə istifadə edilir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Lifetime anotasiya referansların bir-biri ilə əlaqəsini bildirir və kompilyatora hansı borcun digərindən uzun yaşaya bilmədiyini göstərir; yaddaşı saxlamır və ömrü uzatmır. Funksiya iki referans qəbul edib birini qaytarırsa, nəticənin hansı girişlə bağlı olduğunu bəzən açıq lifetime ilə göstərmək lazımdır. Referans saxlayan struct üçün ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "'a",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " sahənin istifadə edilə biləcəyi müddəti məhdudlaşdırır; mümkün olduqda sahiblik edən String kimi tip ömür əlaqəsini sadələşdirir.\n\nLifetime anotasiya istinadın nə qədər yaşadıldığını uzatmır; hansı scope-ların bir-birinə bağlı olduğunu göstərir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "longest<'a>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nəticənin həm giriş istinadlarının etibarlı olduğu ortaq müddətdən uzun yaşamadığını bildirir. Compiler elision sadə hallarda lifetime-u gizlədir; yalnız əlaqəni ifadə etmək lazım olanda yazın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "fn longest<'a>(left: &'a str, right: &'a str) -> &'a str {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Eyni ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "'a",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " hər iki girişin və nəticənin ən azı ortaq etibarlı müddətə malik olduğunu ifadə edir.\nNiyə seçilib: Lifetime error-unu ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "static",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yazmaqla gizlətməyin; əvvəl sahiblik modelini və borrow-un niyə yaşadığını yoxlayın.\nBuraxılsa və ya dəyişdirilsə: Lifetime error-unu ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "static",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yazmaqla gizlətməyin; əvvəl sahiblik modelini və borrow-un niyə yaşadığını yoxlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Lifetime error-unu `static` yazmaqla gizlətməyin; əvvəl sahiblik modelini və borrow-un niyə yaşadığını yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Eyni ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "'a",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " hər iki girişin və nəticənin ən azı ortaq etibarlı müddətə malik olduğunu ifadə edir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Lifetime error-unu `static` yazmaqla gizlətməyin; əvvəl sahiblik modelini və borrow-un niyə yaşadığını yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn longer<'a>(a: &'a str, b: &'a str) -> &'a str { if a.len() >= b.len() { a } else { b } }\nfn main() { println!(\"{}\", longer(\"borrow\", \"life\")); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "borrow\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Compiler elision sadə hallarda lifetime-u gizlədir; yalnız əlaqəni ifadə etmək lazım olanda yazın."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Kod nümunələri fokuslanmış hissələrdir; seçilmiş toolchain və target-də compile/test edin, çünki API və diaqnostika versiyaya görə dəyişə bilər."
+    },
+    {
+      "type": "diagram",
+      "id": "rust_ownership",
+      "caption": "Dəyərin sahibi, borcalan və istifadə edən kod arasındakı əlaqə Rust-da compile zamanı yoxlanılır."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Lifetime-lar, elision və struktur invariantları” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Eyni ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "'a",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " hər iki girişin və nəticənin ən azı ortaq etibarlı müddətə malik olduğunu ifadə edir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

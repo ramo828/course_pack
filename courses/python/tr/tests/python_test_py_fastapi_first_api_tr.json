@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_first_api_tr",
+  "title": "İlk FastAPI uç noktası",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_first_api",
+      "type": "multiple_choice",
+      "prompt": "Bu gerçek HTTP isteğine API nasıl yanıt vermelidir?\nGET /",
+      "options": [
+        "200 OK; JSON: {\"message\":\"Salam, dünya!\",\"lesson\":\"İlk API\"}",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin."
+      ],
+      "answer": "200 OK; JSON: {\"message\":\"Salam, dünya!\",\"lesson\":\"İlk API\"}",
+      "explanation": "Bu, `GET /` isteğinin beklenen davranışıdır. 200 OK; JSON: {\"message\":\"Salam, dünya!\",\"lesson\":\"İlk API\"}"
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_first_api",
+      "type": "multiple_choice",
+      "prompt": "Bu konuda hangi tasarım ilkesi doğrudur?",
+      "options": [
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "GET `/` isteği body gerektirmez; sunucu yöntem ve yol eşleşince selam JSON'unu döndürür."
+      ],
+      "answer": "GET `/` isteği body gerektirmez; sunucu yöntem ve yol eşleşince selam JSON'unu döndürür.",
+      "explanation": "GET `/` isteği body gerektirmez; sunucu yöntem ve yol eşleşince selam JSON'unu döndürür. `@app.get` URL ve HTTP yöntemini işleve bağlar; `return` edilen sözlük FastAPI tarafından JSON'a çevrilir. HTTP isteği olmadan uç nokta işlevi çağrılmaz."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_first_api",
+      "type": "multiple_choice",
+      "prompt": "Derste gösterilen önemli bölüm çıkarılırsa ne değişir?",
+      "options": [
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "FastAPI uygulama nesnesi olmazsa uç noktaların kaydedileceği uygulama oluşmaz. `@app.get(\"/\")` olmazsa işlev sıradan Python işlevi olarak kalır ve HTTP `GET /` isteğine bağlanmaz."
+      ],
+      "answer": "FastAPI uygulama nesnesi olmazsa uç noktaların kaydedileceği uygulama oluşmaz. `@app.get(\"/\")` olmazsa işlev sıradan Python işlevi olarak kalır ve HTTP `GET /` isteğine bağlanmaz.",
+      "explanation": "FastAPI uygulama nesnesi olmazsa uç noktaların kaydedileceği uygulama oluşmaz. `@app.get(\"/\")` olmazsa işlev sıradan Python işlevi olarak kalır ve HTTP `GET /` isteğine bağlanmaz. İlk API'yi baştan sona kuracağız: FastAPI uygulaması `/` adresinde GET isteği alır ve selam bilgisini JSON yanıtı olarak döndürür. GET veri okumak için kullanılır; tarayıcılar, mobil uygulamalar ve diğer servisler bu tür uç noktaları çağırır."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_first_api",
+      "type": "multiple_choice",
+      "prompt": "Dersteki yaygın hatayı önlemek için hangi adım daha doğrudur?",
+      "options": [
+        "Sunucuyu `fastapi dev main.py` ile başlatın; `/docs` sayfasında `GET /` satırını açıp **Try it out** ile istek gönderin.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin."
+      ],
+      "answer": "Sunucuyu `fastapi dev main.py` ile başlatın; `/docs` sayfasında `GET /` satırını açıp **Try it out** ile istek gönderin.",
+      "explanation": "Sunucuyu `fastapi dev main.py` ile başlatın; `/docs` sayfasında `GET /` satırını açıp **Try it out** ile istek gönderin. Örnek kimlik doğrulama veya veritabanı eklemez. Herkese açık API yapmadan önce yetkilendirme, veri saklama ve HTTPS tasarlayın."
+    }
+  ]
+}

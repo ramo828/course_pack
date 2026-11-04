@@ -1,0 +1,316 @@
+{
+  "id": "rust_rust_lifetimes_deep",
+  "title": "Lifetimes, elision, and struct invariants",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_lifetimes_deep_en",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Lifetimes, elision, and struct invariants” to a real program or device. The key principle is: The shared ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "'a",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ties both inputs and the result to a common valid lifetime. In a project, follow this guidance: Do not silence a lifetime error by writing ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "static",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "; first inspect ownership and why the borrow must live that long.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_lifetime_flow",
+      "caption": "Lifetimes, elision, and struct invariants"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn longest<'a>(left: &'a str, right: &'a str) -> &'a str {\n    if left.len() >= right.len() { left } else { right }\n}\n\nfn main() {\n    {\n        let first = String::from(\"borrowed view\");\n        let second = String::from(\"Rust\");\n        let result = longest(&first, &second);\n        println!(\"{result}\");\n    }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "longest",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " returns ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "borrowed view",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "; the reference is used only while both Strings are still in scope.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Lifetime annotations describe relationships between references; they do not store data or extend its life. A function returning one of two input references may need an explicit lifetime to show which input the result is tied to. A struct holding a reference uses ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "'a",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " to constrain how long that field can be used; owned types such as String often simplify the relationship.\n\nA lifetime annotation does not extend a reference's life; it describes how valid scopes relate. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "longest<'a>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " says the result cannot outlive the shared validity period of both inputs. The compiler elides simple lifetimes; write them when the relationship needs to be expressed.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "fn longest<'a>(left: &'a str, right: &'a str) -> &'a str {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: The shared ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "'a",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ties both inputs and the result to a common valid lifetime.\nWhy it is used: Do not silence a lifetime error by writing ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "static",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; first inspect ownership and why the borrow must live that long.\nIf omitted or changed: Do not silence a lifetime error by writing ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "static",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; first inspect ownership and why the borrow must live that long.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Skipping this check before applying the rule: Do not silence a lifetime error by writing `static`; first inspect ownership and why the borrow must live that long."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The shared ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "'a",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " ties both inputs and the result to a common valid lifetime.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Do not silence a lifetime error by writing `static`; first inspect ownership and why the borrow must live that long."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn longer<'a>(a: &'a str, b: &'a str) -> &'a str { if a.len() >= b.len() { a } else { b } }\nfn main() { println!(\"{}\", longer(\"borrow\", \"life\")); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "borrow\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "The compiler elides simple lifetimes; write them when the relationship needs to be expressed."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Examples focus on the concept; compile and test with the selected toolchain and target because APIs and diagnostics can vary by version."
+    },
+    {
+      "type": "diagram",
+      "id": "rust_ownership",
+      "caption": "Rust checks the relationship between a value's owner, its borrower, and the code using it at compile time."
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement gives the core rule for “Lifetimes, elision, and struct invariants”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: The shared ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "'a",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ties both inputs and the result to a common valid lifetime.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
+}

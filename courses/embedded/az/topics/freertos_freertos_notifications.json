@@ -1,0 +1,197 @@
+{
+  "id": "freertos_freertos_notifications",
+  "title": "Tapşırıq notification və event group",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_notifications_az",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/03-Direct-to-task-notifications/01-Task-notifications"
+  ],
+  "estimatedMinutes": 22,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Tapşırıq notification və event group” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Notification yalnız hədəf tapşırığa yönəlir; növbə kimi ixtiyari məlumat paketi daşımır. Real layihədə bu göstərişə əməl edin: Bir consumer varsa notification düşünün; event group seçimini birden çox event biti həqiqətən lazım olduqda edin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nTaskHandle_t receiver = nullptr;\nvoid receiverTask(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"one event\"); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(receiverTask, \"receiver\", 2048, nullptr, 1, &receiver) != pdPASS) { receiver = nullptr; Serial.println(\"receiver task creation failed\"); } }\nvoid loop() { if (receiver) xTaskNotifyGive(receiver); vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Tapşırıq notification aldıqda Serial Monitor ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "one event",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " mesajını göstərir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Tapşırıq notification bir tapşırığa birbaşa yüngül siqnal göndərir və bir çox bir-alıcı hadisəsində ayrıca növbə-dan az yaddaş istifadə edir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ulTaskNotifyTake",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " hadisə bitini/sayını gözləyir; birdən çox consumer və bir neçə bitlik sistem vəziyyəti lazımdırsa event group daha uyğundur. Göndərən tapşırıq handle-ı etibarlı olmalı, hadisə yığılması və təmizlənməsi semantikası əvvəlcədən seçilməlidir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void receiverTask(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"one event\"); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Notification yalnız hədəf tapşırığa yönəlir; növbə kimi ixtiyari məlumat paketi daşımır.\nNiyə seçilib: Bir consumer varsa notification düşünün; event group seçimini birden çox event biti həqiqətən lazım olduqda edin.\nBuraxılsa və ya dəyişdirilsə: Notification counter, bit-mask və overwrite rejimləri fərqli semantikaya malikdir; sender və receiver eyni müqaviləni paylaşmalıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Bir consumer varsa notification düşünün; event group seçimini birden çox event biti həqiqətən lazım olduqda edin."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Notification yalnız hədəf tapşırığa yönəlir; növbə kimi ixtiyari məlumat paketi daşımır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Bir consumer varsa notification düşünün; event group seçimini birden çox event biti həqiqətən lazım olduqda edin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nTaskHandle_t workerHandle = nullptr;\nvoid worker(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"event received\"); } }\nvoid setup() { Serial.begin(115200); xTaskCreate(worker, \"worker\", 2048, nullptr, 1, &workerHandle); }\nvoid loop() { if (workerHandle) xTaskNotifyGive(workerHandle); vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Tapşırıq notification aldıqda Serial Monitor ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "one event",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " göstərir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Notification counter, bit-mask və overwrite rejimləri fərqli semantikaya malikdir; sender və receiver eyni müqaviləni paylaşmalıdır."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Pinlər, gərginlik/cərəyan limitləri, timing və periferik imkanlar lövhədən asılıdır; naqilləmədən və yükləmədən əvvəl dəqiq lövhə sənədini yoxlayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: tapşırıqların vəziyyətini, prioritetini, növbə/sinxronizasiya əlaqəsini və zaman xəttini göstərən diaqram."
+}

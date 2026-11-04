@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_deployment_tr",
+  "title": "API'yi dağıtma ve çalıştırma",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_deployment",
+      "type": "multiple_choice",
+      "prompt": "Bu gerçek HTTP isteğine API nasıl yanıt vermelidir?\nUvicorn process starts app; GET /health returns readiness status",
+      "options": [
+        "Sunucu 127.0.0.1:8000 üzerinde dinler; `/health` 200 JSON döndürür. Dağıtım platforması süreci izlemelidir.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin."
+      ],
+      "answer": "Sunucu 127.0.0.1:8000 üzerinde dinler; `/health` 200 JSON döndürür. Dağıtım platforması süreci izlemelidir.",
+      "explanation": "Bu, `Uvicorn process starts app; GET /health returns readiness status` isteğinin beklenen davranışıdır. Sunucu 127.0.0.1:8000 üzerinde dinler; `/health` 200 JSON döndürür. Dağıtım platforması süreci izlemelidir."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_deployment",
+      "type": "multiple_choice",
+      "prompt": "Bu konuda hangi tasarım ilkesi doğrudur?",
+      "options": [
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "Uygulama kodu sunucudaki API'dir; üretimde geliştirme reload modu olmadan, ortam yapılandırması ve sağlık denetimiyle çalıştırılmalıdır.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin."
+      ],
+      "answer": "Uygulama kodu sunucudaki API'dir; üretimde geliştirme reload modu olmadan, ortam yapılandırması ve sağlık denetimiyle çalıştırılmalıdır.",
+      "explanation": "Uygulama kodu sunucudaki API'dir; üretimde geliştirme reload modu olmadan, ortam yapılandırması ve sağlık denetimiyle çalıştırılmalıdır. Üretim süreci process manager/container ile izlenip yeniden başlatılır; worker sayısı ve bellek durumu dağıtım biçimine göre seçilmelidir."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_deployment",
+      "type": "multiple_choice",
+      "prompt": "Derste gösterilen önemli bölüm çıkarılırsa ne değişir?",
+      "options": [
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "Sağlık denetimi olmazsa düzenleyici bozuk sunucuya trafik gönderebilir; sırlar koddaysa depoyla yayılabilir.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin."
+      ],
+      "answer": "Sağlık denetimi olmazsa düzenleyici bozuk sunucuya trafik gönderebilir; sırlar koddaysa depoyla yayılabilir.",
+      "explanation": "Sağlık denetimi olmazsa düzenleyici bozuk sunucuya trafik gönderebilir; sırlar koddaysa depoyla yayılabilir. Yerel geliştirme sunucusu üretim dağıtımıyla aynı değildir. Uvicorn ASGI uygulamasını çalıştırır; gerçek ortamda yapılandırma değişkenleri, sırlar, TLS, sağlık denetimi, günlük ve yeniden başlatma politikası gerekir. `--reload` yalnızca geliştirme içindir."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_deployment",
+      "type": "multiple_choice",
+      "prompt": "Dersteki yaygın hatayı önlemek için hangi adım daha doğrudur?",
+      "options": [
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "Önce `uvicorn app:app --host 127.0.0.1 --port 8000` çalıştırın; ardından platformanın süreç ve health-check gereksinimlerine uyarlayın.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin."
+      ],
+      "answer": "Önce `uvicorn app:app --host 127.0.0.1 --port 8000` çalıştırın; ardından platformanın süreç ve health-check gereksinimlerine uyarlayın.",
+      "explanation": "Önce `uvicorn app:app --host 127.0.0.1 --port 8000` çalıştırın; ardından platformanın süreç ve health-check gereksinimlerine uyarlayın. Host, güvenlik duvarı, proxy, sır yöneticisi, kaynak sınırı ve migration platformaya bağlıdır; bu örnek hazır üretim yapılandırması değildir."
+    }
+  ]
+}

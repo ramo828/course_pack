@@ -1,0 +1,345 @@
+{
+  "id": "rust_rust_concurrency",
+  "title": "Thread'ler ve paylaşılan durum",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_concurrency_tr",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch16-00-fearless-concurrency.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Thread'ler ve paylaşılan durum” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Mutex paylaşılan değere eşzamanlı erişimi korur. Gerçek projede şu öneriyi izleyin: Kilidi uzun I/O veya bekleme sırasında tutmak diğer iş parçacıklarını engelleyebilir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_send_sync_flow",
+      "caption": "Thread'ler ve paylaşılan durum"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::sync::{Arc, Mutex};\nuse std::thread;\nfn require_send_sync<T: Send + Sync>() {}\nfn main() {\n    require_send_sync::<u32>();\n    let shared = Arc::new(Mutex::new(0));\n    let worker_shared = Arc::clone(&shared);\n    let worker = thread::spawn(move || {\n        if let Ok(mut value) = worker_shared.lock() { *value += 1; }\n    });\n    if worker.join().is_err() { println!(\"worker failed\"); return; }\n    match shared.lock() {\n        Ok(value) => println!(\"{value}\"),\n        Err(_) => println!(\"lock poisoned\"),\n    };\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bir worker thread, atomic olmayan sayacı mutex ile koruyup 1 artırır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust iş parçacıklarını ve mesajlaşmayı standart kütüphaneyle sunar. Paylaşılan durumda Send/Sync, Mutex koruması ve kilit kapsamını anlayın; önce basit mesajlaşmayı tercih edin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Send",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", sahipliğin thread'ler arasında aktarılabilmesini; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Sync",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&T",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " referansının thread'ler arasında güvenle paylaşılabilmesini belirtir. Compiler bu trait'leri çoğunlukla otomatik türetir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Rc<T>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " thread-safe değildir; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Arc<T>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " atomik referans sayımı sunar, paylaşılan değişebilir durum için ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Mutex",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "RwLock",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " gerekir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Arc",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " iç veriyi tek başına güvenli yapmaz. Tokio ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "spawn",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " için Future genellikle ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Send + 'static",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmalıdır.\n\nRust thread'leri ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "std::thread",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile başlatır; kanal mesajlaşması sahipliği üreticiden tüketiciye aktarabilir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Send",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", türün thread'ler arasında taşınmasını; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Sync",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", referansların güvenle paylaşılmasını ifade eder. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Arc<Mutex<T>>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " değiştirilebilir ortak durumu korur, ancak kilit sırası, poisoning ve deadlock risklerini çözmez. Derleyici veri yarışlarını sınırlar; mantıksal yarışlar ve ilerleme sorunları hâlâ tasarım ve test gerektirir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let worker = thread::spawn(move || {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Mutex paylaşılan değere eşzamanlı erişimi korur.\nNeden seçildi: Kilidi uzun I/O veya bekleme sırasında tutmak diğer iş parçacıklarını engelleyebilir.\nAtlanır veya değiştirilirse: Mutex zehirlendiğinde lock sonucunu denetleyin ve kilit içinde riskli callback çağırmayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Mutex zehirlendiğinde lock sonucunu denetleyin ve kilit içinde riskli callback çağırmayın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Mutex paylaşılan değere eşzamanlı erişimi korur.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Kilidi uzun I/O veya bekleme sırasında tutmak diğer iş parçacıklarını engelleyebilir."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::thread;\nfn main() {\n    let message = String::from(\"message from worker\");\n    let worker = thread::spawn(move || message);\n    match worker.join() {\n        Ok(message) => println!(\"{message}\"),\n        Err(_) => println!(\"worker panicked\"),\n    };\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "message from worker\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Tokio `spawn` için Future genellikle `Send + 'static` olmalıdır."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Mutex zehirlendiğinde lock sonucunu denetleyin ve kilit içinde riskli callback çağırmayın."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Thread'ler ve paylaşılan durum” konusunda hangi ifade temel kuralı doğru açıklar?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Mutex paylaşılan değere eşzamanlı erişimi korur.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı."
+}

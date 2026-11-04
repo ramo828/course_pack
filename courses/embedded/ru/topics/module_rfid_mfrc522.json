@@ -1,0 +1,46 @@
+{
+  "id": "module_rfid_mfrc522",
+  "title": "NFC/RFID: модули MFRC522 и PN532",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://github.com/miguelbalboa/rfid",
+    "https://learn.adafruit.com/adafruit-pn532-rfid-nfc"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "MFRC522 считывает метки RFID/NFC на 13,56 МГц; PN532 поддерживает больше функций NFC. Пример только обнаруживает карту, но не разрешает доступ.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "MFRC522: UNO SDA/SS→D10, RST→D9, MOSI→D11, MISO→D12, SCK→D13, 3.3V→3.3V, GND→GND. Выводы SPI ESP32 зависят от платы.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Установите библиотеку MFRC522 в Arduino IDE. Платформа: UNO или совместимый SPI ESP32. Не считайте UID паролем: его можно скопировать.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_rfid_spi",
+      "caption": "NFC/RFID: модули MFRC522 и PN532"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <SPI.h>\n#include <MFRC522.h>\n\nconstexpr byte SS_PIN = 10;\nconstexpr byte RST_PIN = 9;\nMFRC522 reader(SS_PIN, RST_PIN);\n\nvoid setup() {\n  Serial.begin(9600);\n  SPI.begin();\n  reader.PCD_Init();\n}\n\nvoid loop() {\n  if (!reader.PICC_IsNewCardPresent() ||\n      !reader.PICC_ReadCardSerial()) return;\n  Serial.println(\"Kart oxundu\");\n  reader.PICC_HaltA();\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание по безопасности",
+      "text": "Питайте MFRC522 от 3,3 В; сигнал 5 В может повредить модуль. Одного UID недостаточно для безопасной аутентификации."
+    }
+  ],
+  "testId": "embedded_test_module_rfid_mfrc522_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

@@ -1,0 +1,160 @@
+{
+  "id": "iot_iot_identity",
+  "title": "Provisioning and device identity",
+  "difficulty": "medium",
+  "testId": "iot_test_iot_identity_en",
+  "sources": [
+    "https://www.ietf.org/rfc/rfc8613.txt"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Provisioning and device identity” to a real program or device. The key principle is: Per-device identities help limit the impact of a credential leak. In a project, follow this guidance: Never ship every device with the same default password.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "json",
+      "code": "{\"deviceId\":\"device-unique-id\",\"credential\":\"provisioned-per-device\"}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Example provisioning record only; use a unique credential per device and do not ship the placeholder.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Provisioning is the initial setup for connecting a device to a network and service. Give each device a unique identity, keep an inventory, and plan revocation for lost devices.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "{\"deviceId\":\"device-unique-id\",\"credential\":\"provisioned-per-device\"}",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: Per-device identities help limit the impact of a credential leak.\nWhy it is used: Never ship every device with the same default password.\nIf omitted or changed: Do not store credentials in source code, public repositories, or logs.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Do not store credentials in source code, public repositories, or logs."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Per-device identities help limit the impact of a credential leak.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Never ship every device with the same default password."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "device_id = \"sensor-07\"\ncredential = load_unique_device_secret()\nconnect(device_id, credential)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Pseudocode only: each device needs a provisioned unique identity and protected credential storage.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Give each device a unique identity, keep an inventory, and plan revocation for lost devices."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Do not store credentials in source code, public repositories, or logs."
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "A device sends measurements through a gateway or broker to a service; commands can travel back."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

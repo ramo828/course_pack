@@ -1,0 +1,1165 @@
+{
+  "id": "python_py_fastapi_sqlalchemy",
+  "title": "SQLAlchemy ile veritabanı",
+  "difficulty": "hard",
+  "testId": "python_test_py_fastapi_sqlalchemy_tr",
+  "estimatedMinutes": 28,
+  "sources": [
+    "https://fastapi.tiangolo.com/tutorial/sql-databases/",
+    "https://docs.sqlalchemy.org/en/20/orm/quickstart.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NEDEN KULLANILIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI, web ve mobil uygulamaların HTTP üzerinden veri alışverişi yaptığı JSON API'leri kurar; tür açıklamaları girdileri doğrulamaya ve API sözleşmesini belgelemeye yardımcı olur.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "AMAÇ VE GERÇEK KULLANIM\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLAlchemy ORM, Python nesnelerini SQL tablolarına bağlar. Bu örnek SQLAlchemy 2.x eşzamanlı API'si ve yerel SQLite kullanır: model tabloyu tanımlar, oturum işlemi yönetir, bağımlılık her istek için oturumu açıp kapatır. Önce ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn httpx sqlalchemy",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kurun.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Örnekleri yerelde çalıştırmak için ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kurun; derste belirtilen ek paketleri de ekleyin. Sunucu örneğini ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "app.py",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " olarak kaydedip ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "uvicorn app:app --reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ile başlatın. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yalnızca geliştirme içindir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "GERÇEK HAYATTA NEREDE?\nKayıt hizmeti, kullanıcı profilini istekler arasında saklamak için veritabanına yazar.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Bu bölüm atlanırsa: Kalıcı saklama olmazsa sunucu yeniden başlatıldığında bellekteki veri kaybolur; ORM sorgu sonuçlarını yönetilebilir nesnelere dönüştürür.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM ÇALIŞAN ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import Depends, FastAPI\nfrom pydantic import BaseModel, ConfigDict\nfrom sqlalchemy import String, create_engine\nfrom sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column, sessionmaker\n\nengine = create_engine(\"sqlite:///./users.db\", connect_args={\"check_same_thread\": False})\nSessionLocal = sessionmaker(bind=engine)\n\nclass Base(DeclarativeBase):\n    pass\n\nclass User(Base):\n    __tablename__ = \"users\"\n    id: Mapped[int] = mapped_column(primary_key=True)\n    name: Mapped[str] = mapped_column(String(80))\n\nBase.metadata.create_all(engine)\n\nclass UserIn(BaseModel):\n    name: str\n\nclass UserOut(BaseModel):\n    model_config = ConfigDict(from_attributes=True)\n    id: int\n    name: str\n\napp = FastAPI()\n\ndef get_db():\n    with SessionLocal() as session:\n        yield session\n\n@app.post(\"/users\", response_model=UserOut)\ndef create_user(data: UserIn, db: Session = Depends(get_db)):\n    user = User(name=data.name)\n    db.add(user)\n    db.commit()\n    db.refresh(user)\n    return UserOut(id=user.id, name=user.name)\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İSTEK VE BEKLENEN YANIT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "İstek: POST /users  body={\"name\":\"Ada\"}; sonra GET /users/1\nYanıt: İlk çağrı 200 JSON `{id:1,name:Ada}` döndürür; SQLite dosyasına yazılır ve sonraki istekte okunur.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SATIR SATIR AÇIKLAMASI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import Depends, FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from pydantic import BaseModel, ConfigDict",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from sqlalchemy import String, create_engine",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column, sessionmaker",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "engine = create_engine(\"sqlite:///./users.db\", connect_args={\"check_same_thread\": False})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "SessionLocal = sessionmaker(bind=engine)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Base(DeclarativeBase):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Pydantic veri modelini tanımlar; alan türleri istek gövdesinin sözleşmesidir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "pass",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Satır uygulamanın verisini veya akışını sürdürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class User(Base):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Pydantic veri modelini tanımlar; alan türleri istek gövdesinin sözleşmesidir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__tablename__ = \"users\"",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Satır uygulamanın verisini veya akışını sürdürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "id: Mapped[int] = mapped_column(primary_key=True)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modelde beklenen alanı ve türü belirtir; bu alan olmadan gövde sözleşmesi eksik kalır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "name: Mapped[str] = mapped_column(String(80))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modelde beklenen alanı ve türü belirtir; bu alan olmadan gövde sözleşmesi eksik kalır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "Base.metadata.create_all(engine)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class UserIn(BaseModel):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Pydantic veri modelini tanımlar; alan türleri istek gövdesinin sözleşmesidir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "name: str",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modelde beklenen alanı ve türü belirtir; bu alan olmadan gövde sözleşmesi eksik kalır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class UserOut(BaseModel):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Pydantic veri modelini tanımlar; alan türleri istek gövdesinin sözleşmesidir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "model_config = ConfigDict(from_attributes=True)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "id: int",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modelde beklenen alanı ve türü belirtir; bu alan olmadan gövde sözleşmesi eksik kalır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "name: str",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modelde beklenen alanı ve türü belirtir; bu alan olmadan gövde sözleşmesi eksik kalır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " uygulama nesnesi ASGI sunucusuna verilir ve rotaları tutar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def get_db():",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with SessionLocal() as session:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "yield session",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Satır uygulamanın verisini veya akışını sürdürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.post(\"/users\", response_model=UserOut)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yöntemini ve URL yolunu bu işleve bağlar; dekoratör olmadan işlev bir API uç noktası olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def create_user(data: UserIn, db: Session = Depends(get_db)):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "user = User(name=data.name)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "db.add(user)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "db.commit()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "db.refresh(user)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return UserOut(id=user.id, name=user.name)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "UYGULAMA: HTTP İSTEMCİSİYLE DENETLEME\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Aşağıdaki tam dosya uygulamayı TestClient ile yerel çağırır; ayrı bir port açmanız gerekmez. TestClient için ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kurun.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM ÇALIŞAN TEST KODU\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import Depends, FastAPI\nfrom pydantic import BaseModel, ConfigDict\nfrom sqlalchemy import String, create_engine\nfrom sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column, sessionmaker\n\nengine = create_engine(\"sqlite:///./users.db\", connect_args={\"check_same_thread\": False})\nSessionLocal = sessionmaker(bind=engine)\n\nclass Base(DeclarativeBase):\n    pass\n\nclass User(Base):\n    __tablename__ = \"users\"\n    id: Mapped[int] = mapped_column(primary_key=True)\n    name: Mapped[str] = mapped_column(String(80))\n\nBase.metadata.create_all(engine)\n\nclass UserIn(BaseModel):\n    name: str\n\nclass UserOut(BaseModel):\n    model_config = ConfigDict(from_attributes=True)\n    id: int\n    name: str\n\napp = FastAPI()\n\ndef get_db():\n    with SessionLocal() as session:\n        yield session\n\n@app.post(\"/users\", response_model=UserOut)\ndef create_user(data: UserIn, db: Session = Depends(get_db)):\n    user = User(name=data.name)\n    db.add(user)\n    db.commit()\n    db.refresh(user)\n    return UserOut(id=user.id, name=user.name)\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    response = client.post(\"/users\", json={\"name\": \"Ada\"})\n    print(response.status_code, response.json()[\"name\"])\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "TESTİN BEKLENEN SONUCU\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "200 Ada",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SATIR SATIR AÇIKLAMASI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import Depends, FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from pydantic import BaseModel, ConfigDict",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from sqlalchemy import String, create_engine",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column, sessionmaker",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "engine = create_engine(\"sqlite:///./users.db\", connect_args={\"check_same_thread\": False})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "SessionLocal = sessionmaker(bind=engine)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Base(DeclarativeBase):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Pydantic veri modelini tanımlar; alan türleri istek gövdesinin sözleşmesidir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "pass",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Satır uygulamanın verisini veya akışını sürdürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class User(Base):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Pydantic veri modelini tanımlar; alan türleri istek gövdesinin sözleşmesidir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__tablename__ = \"users\"",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Satır uygulamanın verisini veya akışını sürdürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "id: Mapped[int] = mapped_column(primary_key=True)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modelde beklenen alanı ve türü belirtir; bu alan olmadan gövde sözleşmesi eksik kalır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "name: Mapped[str] = mapped_column(String(80))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modelde beklenen alanı ve türü belirtir; bu alan olmadan gövde sözleşmesi eksik kalır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "Base.metadata.create_all(engine)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class UserIn(BaseModel):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Pydantic veri modelini tanımlar; alan türleri istek gövdesinin sözleşmesidir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "name: str",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modelde beklenen alanı ve türü belirtir; bu alan olmadan gövde sözleşmesi eksik kalır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class UserOut(BaseModel):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Pydantic veri modelini tanımlar; alan türleri istek gövdesinin sözleşmesidir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "model_config = ConfigDict(from_attributes=True)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "id: int",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modelde beklenen alanı ve türü belirtir; bu alan olmadan gövde sözleşmesi eksik kalır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "name: str",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modelde beklenen alanı ve türü belirtir; bu alan olmadan gövde sözleşmesi eksik kalır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " uygulama nesnesi ASGI sunucusuna verilir ve rotaları tutar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def get_db():",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with SessionLocal() as session:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "yield session",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Satır uygulamanın verisini veya akışını sürdürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.post(\"/users\", response_model=UserOut)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yöntemini ve URL yolunu bu işleve bağlar; dekoratör olmadan işlev bir API uç noktası olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def create_user(data: UserIn, db: Session = Depends(get_db)):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "user = User(name=data.name)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "db.add(user)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "db.commit()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "db.refresh(user)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return UserOut(id=user.id, name=user.name)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.testclient import TestClient",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Uygulamaya sunucu portu açmadan HTTP isteği gönderecek TestClient sınıfını içe aktarır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with TestClient(app) as client:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Uygulama için bir test HTTP istemcisi açar ve blok bittiğinde kapatır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response = client.post(\"/users\", json={\"name\": \"Ada\"})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(response.status_code, response.json()[\"name\"])",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP durum kodunu ve JSON yanıtını okuyup terminalde gösterir.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "SIK YAPILAN HATALAR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Oturumu global değişkende saklamak veya kullanıcı değerini SQL metnine eklemek; istek başına oturum oluşturun ve parametreli işlemler kullanın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Uygulama ipucu",
+      "text": "`yield` sonrasında `finally` ile oturumu kapatın; testlerde `get_db` bağımlılığını test veritabanıyla değiştirin."
+    },
+    {
+      "type": "detail",
+      "title": "Bir adım daha",
+      "text": "SQLite öğrenme ve küçük yerel uygulamalar için uygundur; yoğun yazma ve çok sunuculu sistemlerde ayrı DB sunucusu ve migration aracı seçin."
+    },
+    {
+      "type": "warning",
+      "title": "Önemli uyarı",
+      "text": "Üretimde SQLite dosyasının yedekleme/volume planını doğrulayın; her istekte `create_all` çalıştırmak migration yerine geçmez."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: Dersteki yaygın hatayı önlemek için hangi adım daha doğrudur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "yield",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " sonrasında ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "finally",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile oturumu kapatın; testlerde ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "get_db",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bağımlılığını test veritabanıyla değiştirin.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

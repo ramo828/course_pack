@@ -1,0 +1,46 @@
+{
+  "id": "module_esp32_servo",
+  "title": "ESP32-də servo: uyğun kitabxana və PWM",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://github.com/madhephaestus/ESP32Servo",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Klassik Arduino Servo kitabxanası əsasən AVR kimi dəstəklənən arxitekturaların vaxtölçən-lərindən istifadə edir; ESP32-nin LEDC/PWM periferiyası fərqlidir və kitabxana seçilmiş nüvə-u dəstəkləməyə bilər. UNO nümunəsi buna görə ESP32-də kompilyasiya olmaya və ya işləməyə bilər.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Servo siqnalını ESP32 GPIO18-ə qoşun. Servo qidasını uyğun xarici mənbədən verin və mənbənin GND-sini ESP32 GND-yə birləşdirin. Siqnalı ümumi torpağa görə ölçün.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ESP32 lövhə dəstəyi ilə uyğun ESP32Servo kitabxanasını quraşdırın. Alternativ: ESP32 LEDC API-si ilə 50 Hz PWM yaratmaq. Platforma: ESP32; UNO üçün standart Servo nümunəsi uyğundur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_esp32_servo",
+      "caption": "ESP32-də servo: uyğun kitabxana və PWM"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <ESP32Servo.h>\n\nServo arm;\nconstexpr int servoPin = 18;\n\nvoid setup() {\n  arm.setPeriodHertz(50);\n  arm.attach(servoPin, 500, 2400);\n}\n\nvoid loop() {\n  arm.write(20);\n  delay(700);\n  arm.write(90);\n  delay(700);\n  arm.write(160);\n  delay(700);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib təhlükəsizlik qeydi",
+      "text": "Servonu ESP32-nin 3.3V pinindən qidalandırmayın; başlanğıc cərəyanı yüksək ola bilər. Xarici qidanın gərginliyi servo texniki sənəd-ə uyğun olmalı, GND isə ortaq olmalıdır."
+    }
+  ],
+  "testId": "embedded_test_module_esp32_servo_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

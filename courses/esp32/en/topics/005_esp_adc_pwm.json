@@ -1,0 +1,160 @@
+{
+  "id": "esp32_esp_adc_pwm",
+  "title": "ADC, LEDC PWM, and touch",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_adc_pwm_en",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/adc_oneshot.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “ADC, LEDC PWM, and touch” to a real program or device. The key principle is: ADC pin availability and behavior vary across ESP32 chips. In a project, follow this guidance: Account for noise, calibration, and input range in ADC measurements.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nconst int sensorPin = 34;\nconst int ledPin = 2;\nvoid setup() { Serial.begin(115200); pinMode(ledPin, OUTPUT); }\nvoid loop() {\n    int reading = analogRead(sensorPin);\n    int brightness = map(reading, 0, 4095, 0, 255);\n    analogWrite(ledPin, constrain(brightness, 0, 255));\n    Serial.println(reading);\n    delay(250);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor prints the ADC reading, and PWM output brightness follows the sensor value; ADC range and usable pins depend on the chip.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ADC units, channels, and attenuation vary by ESP32; raw readings are not automatically voltage. LEDC generates PWM with timers/channels, while touch support depends on the variant.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int reading = analogRead(sensorPin);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: ADC pin availability and behavior vary across ESP32 chips.\nWhy it is used: Account for noise, calibration, and input range in ADC measurements.\nIf omitted or changed: Do not exceed the documented ADC input range.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Do not exceed the documented ADC input range."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ADC pin availability and behavior vary across ESP32 chips.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Account for noise, calibration, and input range in ADC measurements."
+    },
+    {
+      "type": "text",
+      "text": "Arduino Core example\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid setup() { Serial.begin(115200); }\nvoid loop() { Serial.println(analogRead(34)); delay(500); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor shows ADC samples; pin and range depend on the chip.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "LEDC generates PWM with timers/channels, while touch support depends on the variant."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Do not exceed the documented ADC input range."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

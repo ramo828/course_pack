@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_intro_tr",
+  "title": "RTOS ve FreeRTOS temelleri",
+  "questions": [
+    {
+      "id": "freertos_freertos_intro_1",
+      "topicId": "freertos_freertos_intro",
+      "type": "multiple_choice",
+      "prompt": "“RTOS ve FreeRTOS temelleri” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "`vTaskDelayUntil` hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir.",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir."
+      ],
+      "answer": "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+      "explanation": "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.\nAçıklama: Gerçek zamanlı işletim sistemi (RTOS), işi küçük task'lara böler ve CPU zamanını aralarında paylaştırır; RTOS her işi otomatik olarak hızlandırmaz, fakat gecikmeyi ölçülebilir kılar. ESP32 Arduino Core FreeRTOS'u zaten çalıştırır, bu nedenle sketch içinde task oluşturulabilir. Bu derste bir task kuruyoruz; tek LED veya sensör için `loop()` çoğu zaman daha basittir."
+    },
+    {
+      "id": "freertos_freertos_intro_2",
+      "topicId": "freertos_freertos_intro",
+      "type": "multiple_choice",
+      "prompt": "“RTOS ve FreeRTOS temelleri” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "Periyodik işte `delay` yerine `vTaskDelayUntil` kullanın ve aralığı osiloskop veya timestamp ile ölçün.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+      "explanation": "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.\nAçıklama: Gerçek zamanlı işletim sistemi (RTOS), işi küçük task'lara böler ve CPU zamanını aralarında paylaştırır; RTOS her işi otomatik olarak hızlandırmaz, fakat gecikmeyi ölçülebilir kılar. ESP32 Arduino Core FreeRTOS'u zaten çalıştırır, bu nedenle sketch içinde task oluşturulabilir. Bu derste bir task kuruyoruz; tek LED veya sensör için `loop()` çoğu zaman daha basittir."
+    },
+    {
+      "id": "freertos_freertos_intro_3",
+      "topicId": "freertos_freertos_intro",
+      "type": "multiple_choice",
+      "prompt": "“RTOS ve FreeRTOS temelleri” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "`pdMS_TO_TICKS(0)` ve çok kısa periyotlara dikkat edin; tick çözünürlüğü yapılandırmaya bağlıdır.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın."
+      ],
+      "answer": "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın.",
+      "explanation": "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın.\nAçıklama: Gerçek zamanlı işletim sistemi (RTOS), işi küçük task'lara böler ve CPU zamanını aralarında paylaştırır; RTOS her işi otomatik olarak hızlandırmaz, fakat gecikmeyi ölçülebilir kılar. ESP32 Arduino Core FreeRTOS'u zaten çalıştırır, bu nedenle sketch içinde task oluşturulabilir. Bu derste bir task kuruyoruz; tek LED veya sensör için `loop()` çoğu zaman daha basittir."
+    },
+    {
+      "id": "freertos_freertos_intro_4",
+      "topicId": "freertos_freertos_intro",
+      "type": "multiple_choice",
+      "prompt": "“RTOS ve FreeRTOS temelleri” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+        "ESP32 Arduino Core FreeRTOS'u zaten çalıştırır, bu nedenle sketch içinde task oluşturulabilir",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler."
+      ],
+      "answer": "ESP32 Arduino Core FreeRTOS'u zaten çalıştırır, bu nedenle sketch içinde task oluşturulabilir",
+      "explanation": "ESP32 Arduino Core FreeRTOS'u zaten çalıştırır, bu nedenle sketch içinde task oluşturulabilir\nAçıklama: Gerçek zamanlı işletim sistemi (RTOS), işi küçük task'lara böler ve CPU zamanını aralarında paylaştırır; RTOS her işi otomatik olarak hızlandırmaz, fakat gecikmeyi ölçülebilir kılar. ESP32 Arduino Core FreeRTOS'u zaten çalıştırır, bu nedenle sketch içinde task oluşturulabilir. Bu derste bir task kuruyoruz; tek LED veya sensör için `loop()` çoğu zaman daha basittir."
+    }
+  ]
+}

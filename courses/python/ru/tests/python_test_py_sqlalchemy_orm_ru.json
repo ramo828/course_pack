@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_sqlalchemy_orm_ru",
+  "title": "ORM SQLAlchemy 2: работа с базами данных",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_sqlalchemy_orm",
+      "type": "multiple_choice",
+      "prompt": "Какой точный результат выводит пример кода 1 в этом уроке?\n\nfrom sqlalchemy import create_engine, select\nfrom sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column\n\nclass Base(DeclarativeBase):\n    pass\n\nclass Device(Base):\n    __tablename__ = 'devices'\n    id: Mapped[int] = mapped_column(primary_key=True)\n    name: Mapped[str]\n\nengine = create_engine('sqlite+pysqlite:///:memory:')\nBase.metadata.create_all(engine)\nwith Session(engine) as session:\n    session.add(Device(name='sensor-1'))\n    session.commit()\n    names = session.scalars(select(Device.name)).all()\n    print(names)",
+      "options": [
+        "[]",
+        "['b']",
+        "safe",
+        "['sensor-1']"
+      ],
+      "answer": "['sensor-1']",
+      "explanation": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n`from sqlalchemy import create_engine, select` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`class Base(DeclarativeBase):` — Определяет тип, объединяющий данные и поведение; без класса нельзя создать объект по этому контракту.\n`pass` — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n`class Device(Base):` — Определяет тип, объединяющий данные и поведение; без класса нельзя создать объект по этому контракту.\n`__tablename__ = 'devices'` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`id: Mapped[int] = mapped_column(primary_key=True)` — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n`name: Mapped[str]` — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n`engine = create_engine('sqlite+pysqlite:///:memory:')` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`Base.metadata.create_all(engine)` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n`with Session(engine) as session:` — Управляет ресурсом внутри блока; без контекстного менеджера файл или соединение может остаться открытым.\n`session.add(Device(name='sensor-1'))` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n`session.commit()` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n`names = session.scalars(select(Device.name)).all()` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`print(names)` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_sqlalchemy_orm",
+      "type": "multiple_choice",
+      "prompt": "Какой точный результат выводит пример кода 2 в этом уроке?\n\nfrom sqlalchemy import create_engine, select\nfrom sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column\n\nclass Base(DeclarativeBase):\n    pass\n\nclass Device(Base):\n    __tablename__ = 'devices'\n    id: Mapped[int] = mapped_column(primary_key=True)\n    name: Mapped[str]\n\nengine = create_engine('sqlite+pysqlite:///:memory:')\nBase.metadata.create_all(engine)\nwith Session(engine) as session:\n    session.add_all([Device(name='a'), Device(name='b')])\n    session.commit()\n    names = session.scalars(select(Device.name).where(Device.name == 'b')).all()\n    print(names)",
+      "options": [
+        "[]",
+        "['sensor-1']",
+        "['b']",
+        "safe"
+      ],
+      "answer": "['b']",
+      "explanation": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n`from sqlalchemy import create_engine, select` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`class Base(DeclarativeBase):` — Определяет тип, объединяющий данные и поведение; без класса нельзя создать объект по этому контракту.\n`pass` — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n`class Device(Base):` — Определяет тип, объединяющий данные и поведение; без класса нельзя создать объект по этому контракту.\n`__tablename__ = 'devices'` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`id: Mapped[int] = mapped_column(primary_key=True)` — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n`name: Mapped[str]` — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n`engine = create_engine('sqlite+pysqlite:///:memory:')` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`Base.metadata.create_all(engine)` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n`with Session(engine) as session:` — Управляет ресурсом внутри блока; без контекстного менеджера файл или соединение может остаться открытым.\n`session.add_all([Device(name='a'), Device(name='b')])` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n`session.commit()` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n`names = session.scalars(select(Device.name).where(Device.name == 'b')).all()` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`print(names)` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_sqlalchemy_orm",
+      "type": "multiple_choice",
+      "prompt": "Какой точный результат выводит пример кода 3 в этом уроке?\n\nfrom sqlalchemy import create_engine, text\n\nengine = create_engine('sqlite+pysqlite:///:memory:')\nwith engine.connect() as connection:\n    value = connection.execute(\n        text('select :value'), {'value': 'safe'}\n    ).scalar_one()\n    print(value)",
+      "options": [
+        "SAFE",
+        "['b']",
+        "['sensor-1']",
+        "safe"
+      ],
+      "answer": "safe",
+      "explanation": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n`from sqlalchemy import create_engine, text` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`engine = create_engine('sqlite+pysqlite:///:memory:')` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`with engine.connect() as connection:` — Управляет ресурсом внутри блока; без контекстного менеджера файл или соединение может остаться открытым.\n`value = connection.execute(` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`text('select :value'), {'value': 'safe'}` — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n`).scalar_one()` — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n`print(value)` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_sqlalchemy_orm",
+      "type": "multiple_choice",
+      "prompt": "Какое утверждение точно описывает тему «ORM SQLAlchemy 2: работа с базами данных»?",
+      "options": [
+        "Комментарии объясняют неочевидное решение, а не повторяют код, например причину выбранного ограничения.",
+        "Python применяют для автоматизации, веб-сервисов и анализа данных: понятный синтаксис и обширная библиотека помогают строить небольшие проверяемые шаги.",
+        "Синтаксис и отступы обозначают границы блоков; ошибка может помешать запуску маршрута или условия.",
+        "SQLAlchemy начался как проект Майкла Байера: это SQL toolkit и ORM для гибкого и эффективного доступа к базе данных через API в стиле Python."
+      ],
+      "answer": "SQLAlchemy начался как проект Майкла Байера: это SQL toolkit и ORM для гибкого и эффективного доступа к базе данных через API в стиле Python.",
+      "explanation": "SQLAlchemy начался как проект Майкла Байера: это SQL toolkit и ORM для гибкого и эффективного доступа к базе данных через API в стиле Python. В версии 2 используются `Mapped`, `select()` и ограниченная по времени `Session`; транзакции и параметры запросов остаются важны."
+    }
+  ]
+}

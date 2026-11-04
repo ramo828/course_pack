@@ -1,0 +1,35 @@
+{
+  "id": "esp32_hall_sensor",
+  "title": "Датчик Холла ESP32: различия чипов и внешний датчик",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/gpio.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Датчик Холла обнаруживает магнитное поле. В старом оригинальном ESP32 был встроенный датчик и устаревшие API; у семейств ESP32-S2/S3/C3 такого датчика нет. Не считайте его обязательным для всех плат ESP32.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_hall_sensor",
+      "caption": "Датчик Холла ESP32: различия чипов и внешний датчик"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "constexpr uint8_t HALL_PIN = 27;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(HALL_PIN, INPUT);\n}\n\nvoid loop() {\n  int magneticState = digitalRead(HALL_PIN);\n  Serial.println(magneticState);\n  delay(100);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Пример использует внешний цифровой модуль Холла. Код предполагает push-pull выход; для open-drain добавьте подходящую подтяжку, а для аналогового выхода используйте ADC."
+    }
+  ],
+  "testId": "embedded_test_esp32_hall_sensor_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

@@ -1,0 +1,98 @@
+{
+  "id": "cpp_const_pointer",
+  "title": "const ve constexpr: değişmez değerler ve işaretçiler",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/cv.html",
+    "https://en.cppreference.com/w/cpp/language/constexpr.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "const",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", sonradan değiştirilmeyen değeri belirtir; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "constexpr",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ise mümkün olduğunda derleme zamanında hesaplanır. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "const int* p",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", işaretçinin adresini değiştirmeye izin verir ama ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "p",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üzerinden değeri değiştirmeyi engeller. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int* const p",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", işaretçinin adresini sabit tutar ama hedef değerin değiştirilmesine izin verir. İki yerdeki ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "const",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " hem adresi hem değeri korur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n\nint reading = 512;\nconst int* readOnlyValue = &reading;\nint* const fixedAddress = &reading;\nconst int* const fixedReadOnly = &reading;\n\nvoid setup() {\n  Serial.begin(115200);\n  Serial.println(*readOnlyValue);\n  *fixedAddress = 600;\n  Serial.println(*fixedReadOnly);\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Yıldızın (`*`) hangi tarafında `const` olduğuna dikkat edin. İşaretçi hedef nesnenin ömründen uzun yaşamamalıdır; sabit değeri işaretçi üzerinden değiştirmeyin."
+    }
+  ],
+  "testId": "embedded_test_cpp_const_pointer_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: stack/heap ve bellek ömrünü, sahipliği veya veri akışını gösteren bellek diyagramı."
+}

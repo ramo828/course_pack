@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_tasks_az",
+  "title": "Task yaratmaq və prioritetlər",
+  "questions": [
+    {
+      "id": "freertos_freertos_tasks_1",
+      "topicId": "freertos_freertos_tasks",
+      "type": "multiple_choice",
+      "prompt": "“Task yaratmaq və prioritetlər” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "Hər task üçün stack ayrılır, prioritet scheduler qərarına təsir edir.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "`vTaskDelayUntil` hədəf dövrünü qoruyur, amma uzun bloklayan işlər deadline-ı yenə ötürə bilər.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin."
+      ],
+      "answer": "Hər task üçün stack ayrılır, prioritet scheduler qərarına təsir edir.",
+      "explanation": "Hər task üçün stack ayrılır, prioritet scheduler qərarına təsir edir.\nİzah: Task ayrı stack və icra kontekstinə sahib funksiyadır; `xTaskCreate` onu scheduler-ə əlavə edir. Prioritet yalnız həqiqi vaxt ehtiyacı ilə seçilməlidir: yüksək prioritetli task CPU-nu həddən artıq tutarsa aşağı prioritetlilər aclıq çəkə bilər. Arduino `loop()` da RTOS task-ında işləyir, buna görə serial və GPIO resurslarını task-lar arasında paylaşarkən qayda müəyyən edin."
+    },
+    {
+      "id": "freertos_freertos_tasks_2",
+      "topicId": "freertos_freertos_tasks",
+      "type": "multiple_choice",
+      "prompt": "“Task yaratmaq və prioritetlər” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Periyodik iş üçün `delay` əvəzinə `vTaskDelayUntil` seçin və gecikməni osiloskop və ya timestamp ilə ölçün.",
+        "Sonsuz dövrədə işləyən hər task vaxtaşırı gözləməli və ya bloklanmalıdır; əks halda CPU-nu inhisara ala bilər.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir."
+      ],
+      "answer": "Sonsuz dövrədə işləyən hər task vaxtaşırı gözləməli və ya bloklanmalıdır; əks halda CPU-nu inhisara ala bilər.",
+      "explanation": "Sonsuz dövrədə işləyən hər task vaxtaşırı gözləməli və ya bloklanmalıdır; əks halda CPU-nu inhisara ala bilər.\nİzah: Task ayrı stack və icra kontekstinə sahib funksiyadır; `xTaskCreate` onu scheduler-ə əlavə edir. Prioritet yalnız həqiqi vaxt ehtiyacı ilə seçilməlidir: yüksək prioritetli task CPU-nu həddən artıq tutarsa aşağı prioritetlilər aclıq çəkə bilər. Arduino `loop()` da RTOS task-ında işləyir, buna görə serial və GPIO resurslarını task-lar arasında paylaşarkən qayda müəyyən edin."
+    },
+    {
+      "id": "freertos_freertos_tasks_3",
+      "topicId": "freertos_freertos_tasks",
+      "type": "multiple_choice",
+      "prompt": "“Task yaratmaq və prioritetlər” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Task ayrı stack və icra kontekstinə sahib funksiyadır; `xTaskCreate` onu scheduler-ə əlavə edir",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "Task stack ölçüsü byte ilə verilir və target/runtime versiyasına görə RAM məhdudiyyətini nəzərə almaq lazımdır."
+      ],
+      "answer": "Task ayrı stack və icra kontekstinə sahib funksiyadır; `xTaskCreate` onu scheduler-ə əlavə edir",
+      "explanation": "Task ayrı stack və icra kontekstinə sahib funksiyadır; `xTaskCreate` onu scheduler-ə əlavə edir\nİzah: Task ayrı stack və icra kontekstinə sahib funksiyadır; `xTaskCreate` onu scheduler-ə əlavə edir. Prioritet yalnız həqiqi vaxt ehtiyacı ilə seçilməlidir: yüksək prioritetli task CPU-nu həddən artıq tutarsa aşağı prioritetlilər aclıq çəkə bilər. Arduino `loop()` da RTOS task-ında işləyir, buna görə serial və GPIO resurslarını task-lar arasında paylaşarkən qayda müəyyən edin."
+    },
+    {
+      "id": "freertos_freertos_tasks_4",
+      "topicId": "freertos_freertos_tasks",
+      "type": "multiple_choice",
+      "prompt": "“Task yaratmaq və prioritetlər” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "Serial yazıları bir neçə task-dan qarışa bilər; ortaq çıxışı serializasiya edin və task stack ölçüsünü ölçün.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "`vTaskDelayUntil` hədəf dövrünü qoruyur, amma uzun bloklayan işlər deadline-ı yenə ötürə bilər."
+      ],
+      "answer": "Serial yazıları bir neçə task-dan qarışa bilər; ortaq çıxışı serializasiya edin və task stack ölçüsünü ölçün.",
+      "explanation": "Serial yazıları bir neçə task-dan qarışa bilər; ortaq çıxışı serializasiya edin və task stack ölçüsünü ölçün.\nİzah: Task ayrı stack və icra kontekstinə sahib funksiyadır; `xTaskCreate` onu scheduler-ə əlavə edir. Prioritet yalnız həqiqi vaxt ehtiyacı ilə seçilməlidir: yüksək prioritetli task CPU-nu həddən artıq tutarsa aşağı prioritetlilər aclıq çəkə bilər. Arduino `loop()` da RTOS task-ında işləyir, buna görə serial və GPIO resurslarını task-lar arasında paylaşarkən qayda müəyyən edin."
+    }
+  ]
+}

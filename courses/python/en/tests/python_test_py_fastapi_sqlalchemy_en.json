@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_sqlalchemy_en",
+  "title": "Database access with SQLAlchemy",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_sqlalchemy",
+      "type": "multiple_choice",
+      "prompt": "How should the API respond to this practical HTTP request?\nPOST /users  body={\"name\":\"Ada\"}; sonra GET /users/1",
+      "options": [
+        "Return the same response to every request without checking its data.",
+        "The first call returns 200 JSON `{id:1,name:Ada}`; SQLite stores it for a later request.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Keep all state in a global variable and skip authentication."
+      ],
+      "answer": "The first call returns 200 JSON `{id:1,name:Ada}`; SQLite stores it for a later request.",
+      "explanation": "This is the expected behavior for `POST /users  body={\"name\":\"Ada\"}; sonra GET /users/1`. The first call returns 200 JSON `{id:1,name:Ada}`; SQLite stores it for a later request."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_sqlalchemy",
+      "type": "multiple_choice",
+      "prompt": "Which design principle is correct for this topic?",
+      "options": [
+        "Return the same response to every request without checking its data.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Keep all state in a global variable and skip authentication.",
+        "A request-scoped SQLAlchemy session manages queries and transactions; a dependency supplies it to the endpoint."
+      ],
+      "answer": "A request-scoped SQLAlchemy session manages queries and transactions; a dependency supplies it to the endpoint.",
+      "explanation": "A request-scoped SQLAlchemy session manages queries and transactions; a dependency supplies it to the endpoint. SQLite fits learning and small local apps; high-write or multi-server systems may need a database server and migrations."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_sqlalchemy",
+      "type": "multiple_choice",
+      "prompt": "What changes if the important part shown in the lesson is omitted?",
+      "options": [
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Keep all state in a global variable and skip authentication.",
+        "Without persistence, in-memory data disappears on restart; the ORM maps query results to manageable objects.",
+        "Return the same response to every request without checking its data."
+      ],
+      "answer": "Without persistence, in-memory data disappears on restart; the ORM maps query results to manageable objects.",
+      "explanation": "Without persistence, in-memory data disappears on restart; the ORM maps query results to manageable objects. SQLAlchemy ORM maps Python objects to SQL tables. This example uses its synchronous 2.x API and local SQLite: a model describes the table, a session manages a transaction, and a dependency opens/closes a session per request. Install with `pip install fastapi uvicorn httpx sqlalchemy`."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_sqlalchemy",
+      "type": "multiple_choice",
+      "prompt": "Which action best prevents the common mistake from this lesson?",
+      "options": [
+        "Keep all state in a global variable and skip authentication.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Return the same response to every request without checking its data.",
+        "Close the session in `finally` after `yield`; override `get_db` with a test database in tests."
+      ],
+      "answer": "Close the session in `finally` after `yield`; override `get_db` with a test database in tests.",
+      "explanation": "Close the session in `finally` after `yield`; override `get_db` with a test database in tests. Plan backups and storage for SQLite in production; running `create_all` per request is not a schema migration strategy."
+    }
+  ]
+}

@@ -1,0 +1,368 @@
+{
+  "id": "python_py_project",
+  "title": "Layihə quruluşu və importlar",
+  "difficulty": "medium",
+  "testId": "python_test_py_project_az",
+  "sources": [
+    "https://docs.python.org/3/tutorial/modules.html",
+    "https://docs.python.org/3/library/packaging.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NİYƏ LAZIMDIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Aydın qovluq quruluşu modulların tapılmasını və komanda işini asanlaşdırır; import adı ilə fayl adı toqquşmamalıdır.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kiçik layihəni belə modul, test və məlumat qovluqlarına ayırmaq böyüməni asanlaşdırır. Fayl və modul adlarını standart kitabxana adları ilə toqquşdurmayın; layihəni paket kimi python -m ilə sınayın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from pathlib import PurePosixPath\n\nproject = PurePosixPath('project')\nfiles = ('pyproject.toml', 'src/app/__init__.py', 'tests/test_app.py')\nfor file in files:\n    print(project / file)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "project/pyproject.toml\nproject/src/app/__init__.py\nproject/tests/test_app.py",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SƏTİR-SƏTİR İZAH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from pathlib import PurePosixPath",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Moduldan konkret adları gətirir; sətir olmasa idxal edilən ad əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "project = PurePosixPath('project')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "files = ('pyproject.toml', 'src/app/__init__.py', 'tests/test_app.py')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "for file in files:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Kolleksiyanın hər elementini emal edir; dövr olmasa yalnız ayrıca yazılmış element işlənər və siyahının qalanı ötürülər.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(project / file)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Paket strukturu kodu təkrar istifadə etməyi və test etməyi asanlaşdırır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Layihəyə öz modulunuzun adı ilə eyni adda fayl verməyin: import həmin faylı səhvən seçə bilər."
+    },
+    {
+      "type": "text",
+      "text": "PRAKTİK NÜMUNƏ 2 · Layihə quruluşu və importlar\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def normalize_name(name):\n    return name.strip().lower().replace(' ', '-')\nprint(normalize_name('  My Project  '))",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "my-project",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SƏTİR-SƏTİR İZAH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def normalize_name(name):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return name.strip().lower().replace(' ', '-')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Nəticəni çağırana verir; return olmasa funksiya adətən None qaytarar və endpoint cavabı itər.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(normalize_name('  My Project  '))",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "PRAKTİK NÜMUNƏ 3 · Layihə quruluşu və importlar\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from pathlib import PurePosixPath\nproject_file = PurePosixPath('src') / 'app.py'\nprint(project_file)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "src/app.py",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SƏTİR-SƏTİR İZAH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from pathlib import PurePosixPath",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Moduldan konkret adları gətirir; sətir olmasa idxal edilən ad əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "project_file = PurePosixPath('src') / 'app.py'",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(project_file)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "detail",
+      "title": "Niyə vacibdir?",
+      "text": "Aydın qovluq quruluşu modulların tapılmasını və komanda işini asanlaşdırır; import adı ilə fayl adı toqquşmamalıdır."
+    },
+    {
+      "type": "warning",
+      "title": "Diqqət",
+      "text": "Əməliyyat sisteminin Python-unu silməyin və paketləri sistem mühitinə kor-koranə quraşdırmayın."
+    },
+    {
+      "type": "text",
+      "text": "TEZ-TEZ BURAXILAN SƏHVLƏR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Interpreter, pip və layihə fayllarını eyni virtual mühitdə saxlayın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Layihə quruluşu və importlar” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Aydın qovluq quruluşu modulların tapılmasını və komanda işini asanlaşdırır; import adı ilə fayl adı toqquşmamalıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Layihə quruluşu və importlar” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Aydın qovluq quruluşu modulların tapılmasını və komanda işini asanlaşdırır; import adı ilə fayl adı toqquşmamalıdır.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir.",
+  "estimatedMinutes": 16
+}

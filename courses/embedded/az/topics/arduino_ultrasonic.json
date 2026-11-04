@@ -1,0 +1,83 @@
+{
+  "id": "arduino_ultrasonic",
+  "title": "HC-SR04: ultrasəslə məsafə ölçmək",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/advanced-io/pulseIn/",
+    "https://learn.sparkfun.com/tutorials/ultrasonic-distance-sensor-hc-sr04/all"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "BU DƏRS NƏYİ ÖYRƏDİR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HC-SR04 qısa ultrasəs impulsu göndərir və əks-sədasının qayıtma vaxtını ölçür. Məsafə səsin gediş-gəliş vaxtından təxmin edilir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "NECƏ BAĞLANIR?\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "VCC → uyğun 5V, GND → GND, TRIG → D9, ECHO → D10. ECHO çıxışı 5V ola bilər; 3,3 V lövhədə onu birbaşa GPIO-ya qoşmayın, uyğun gərginlik bölücü/level shifter istifadə edin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_hcsr04_pins",
+      "caption": "Sadələşdirilmiş sxemdir; real modulun pin yazılarını yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "SADƏ HESABLAMA\n",
+      "size": 19,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Səs təxminən 0,0343 sm/µs sürətlə gedir və geri qayıdır. Məsafə ≈ vaxt × 0,0343 / 2; santimetr üçün vaxt/58 praktik yaxınlaşdırmadır.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ARDUINO KODU\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const byte trigPin = 9;\nconst byte echoPin = 10;\n\nvoid setup() {\n  pinMode(trigPin, OUTPUT);\n  pinMode(echoPin, INPUT);\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  digitalWrite(trigPin, LOW);\n  delayMicroseconds(2);\n  digitalWrite(trigPin, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(trigPin, LOW);\n  const unsigned long us = pulseIn(echoPin, HIGH, 30000UL);\n  if (us == 0) Serial.println(\"Echo yoxdur\");\n  else Serial.println(us / 58.0); // təxmini santimetr\n  delay(100);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\nKodu yüklədikdən sonra Serial Monitor-u açın (əgər nümunə serial çıxış verirsə), bağlantını yoxlayın və sensoru/mexanizmi dəyişərək sınayın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Yadda saxla",
+      "text": "İlk sınağı enerjisi ayrılmış halda naqilləyin. VCC, GND və siqnal pinlərini modulun öz etiketindən və texniki sənəd-indən təsdiqləyin."
+    }
+  ],
+  "testId": "embedded_test_arduino_ultrasonic_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

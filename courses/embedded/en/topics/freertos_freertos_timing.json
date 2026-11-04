@@ -1,0 +1,249 @@
+{
+  "id": "freertos_freertos_timing",
+  "title": "Periodic work and task delays",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_timing_en",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/04-API-references/02-Task-control/04-vTaskDelay"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Periodic work and task delays” to a real program or device. The key principle is: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " preserves the intended period, but long blocking work can still miss a deadline. In a project, follow this guidance: Use ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " for periodic tasks and measure the interval with timestamps or an instrument.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid clockTask(void*) { TickType_t last = xTaskGetTickCount(); const TickType_t period = pdMS_TO_TICKS(500); for (;;) { Serial.println(\"500 ms\"); vTaskDelayUntil(&last, period); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(clockTask, \"clock\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"clock task creation failed\"); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor prints periodic at a nominal 500 ms interval; tick resolution and system load affect timing.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelay",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " blocks a task for a number of ticks; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "pdMS_TO_TICKS",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " converts milliseconds to ticks. For periodic sampling, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " schedules from the prior release time, avoiding cumulative work-time drift. Tick resolution and scheduling latency are not microsecond guarantees, so measure the actual interval.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void clockTask(void*) { TickType_t last = xTaskGetTickCount(); const TickType_t period = pdMS_TO_TICKS(500); for (;;) { Serial.println(\"500 ms\"); vTaskDelayUntil(&last, period); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " preserves the intended period, but long blocking work can still miss a deadline.\nWhy it is used: Use ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " for periodic tasks and measure the interval with timestamps or an instrument.\nIf omitted or changed: Very short periods may round to zero ticks; tick resolution depends on the build configuration.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Skipping this check before applying the rule: Use `vTaskDelayUntil` for periodic tasks and measure the interval with timestamps or an instrument."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " preserves the intended period, but long blocking work can still miss a deadline.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Use `vTaskDelayUntil` for periodic tasks and measure the interval with timestamps or an instrument."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid periodicTask(void*) { TickType_t last = xTaskGetTickCount(); const TickType_t period = pdMS_TO_TICKS(500); for (;;) { Serial.println(\"periodic\"); vTaskDelayUntil(&last, period); } }\nvoid setup() { Serial.begin(115200); xTaskCreate(periodicTask, \"periodic\", 2048, nullptr, 1, nullptr); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor prints periodic at a nominal 500 ms interval; tick resolution and system load affect timing.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Very short periods may round to zero ticks; tick resolution depends on the build configuration."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Pins, voltage/current limits, timing, and peripheral support are board-dependent; verify the exact board documentation before wiring or uploading."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a diagram showing task states, priorities, queue/synchronization relationships, and timing."
+}

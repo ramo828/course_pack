@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_uploads_tr",
+  "title": "Dosya yükleme",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_uploads",
+      "type": "multiple_choice",
+      "prompt": "Bu gerçek HTTP isteğine API nasıl yanıt vermelidir?\nPOST /upload  multipart file=<small text file>",
+      "options": [
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "200 JSON `{size: N, content_type: ...}`; demo dosyayı saklamaz.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin."
+      ],
+      "answer": "200 JSON `{size: N, content_type: ...}`; demo dosyayı saklamaz.",
+      "explanation": "Bu, `POST /upload  multipart file=<small text file>` isteğinin beklenen davranışıdır. 200 JSON `{size: N, content_type: ...}`; demo dosyayı saklamaz."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_uploads",
+      "type": "multiple_choice",
+      "prompt": "Bu konuda hangi tasarım ilkesi doğrudur?",
+      "options": [
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Dosya yükleme multipart'tır; ad ve MIME istemci iddiasıdır, boyut ve içerik sunucuda doğrulanmalıdır.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın."
+      ],
+      "answer": "Dosya yükleme multipart'tır; ad ve MIME istemci iddiasıdır, boyut ve içerik sunucuda doğrulanmalıdır.",
+      "explanation": "Dosya yükleme multipart'tır; ad ve MIME istemci iddiasıdır, boyut ve içerik sunucuda doğrulanmalıdır. `UploadFile` büyük dosyalarda akışlı geçici dosya kullanabilir; ancak parser veya proxy gövdeyi önce alabilir, bu nedenle yalnızca uç nokta sınırı yeterli değildir."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_uploads",
+      "type": "multiple_choice",
+      "prompt": "Derste gösterilen önemli bölüm çıkarılırsa ne değişir?",
+      "options": [
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "Boyut sınırı olmazsa büyük gövde belleği tüketebilir; içerik denetimi olmazsa yanlış dosya türü kabul edilebilir.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin."
+      ],
+      "answer": "Boyut sınırı olmazsa büyük gövde belleği tüketebilir; içerik denetimi olmazsa yanlış dosya türü kabul edilebilir.",
+      "explanation": "Boyut sınırı olmazsa büyük gövde belleği tüketebilir; içerik denetimi olmazsa yanlış dosya türü kabul edilebilir. Dosya uç noktası `UploadFile` ve multipart isteği alır; adı ve MIME türünü istemci belirlediğinden güvenilir saymayın. Örnek en fazla 1 MiB okur ve diske yazmaz. Kurulum: `pip install fastapi uvicorn httpx python-multipart`."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_uploads",
+      "type": "multiple_choice",
+      "prompt": "Dersteki yaygın hatayı önlemek için hangi adım daha doğrudur?",
+      "options": [
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "Üretimde ters proxy, API ve uygulama katmanlarında boyut sınırını aynı sözleşmeyle belirleyin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin."
+      ],
+      "answer": "Üretimde ters proxy, API ve uygulama katmanlarında boyut sınırını aynı sözleşmeyle belirleyin.",
+      "explanation": "Üretimde ters proxy, API ve uygulama katmanlarında boyut sınırını aynı sözleşmeyle belirleyin. Yüklenen adı sunucu yolunda kullanmayın; zararlı içerik, aşırı boyut ve arşiv bombası risklerini ayrıca yönetin."
+    }
+  ]
+}

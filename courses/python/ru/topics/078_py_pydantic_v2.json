@@ -1,0 +1,1310 @@
+{
+  "id": "python_py_pydantic_v2",
+  "title": "Pydantic v2: проверка внешних данных",
+  "difficulty": "hard",
+  "testId": "python_test_py_pydantic_v2_ru",
+  "sources": [
+    "https://docs.pydantic.dev/latest/concepts/models/",
+    "https://docs.pydantic.dev/latest/concepts/fields/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЗАЧЕМ ЭТО НУЖНО?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Pydantic v2 разбирает и проверяет данные через ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "BaseModel",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "; ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Field",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " задаёт ограничения, ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "model_validate()",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " принимает Python-данные, ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "model_validate_json()",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — JSON. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ValidationError",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " является ожидаемой ошибкой ввода и должен преобразовываться в безопасный ответ. Аннотации типов сами по себе не проверяют данные, а Pydantic не заменяет авторизацию и бизнес-правила.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Pydantic v2 разбирает и проверяет данные через ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "BaseModel",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "; ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Field",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " задаёт ограничения, ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "model_validate()",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " принимает Python-данные, ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "model_validate_json()",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — JSON. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ValidationError",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " является ожидаемой ошибкой ввода и должен преобразовываться в безопасный ответ. Аннотации типов сами по себе не проверяют данные, а Pydantic не заменяет авторизацию и бизнес-правила.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Аннотации Python помогают читателю и статическому анализу, но не проверяют входной JSON во время выполнения. Модель Pydantic v2 преобразует внешний dict/JSON в типизированные значения и проверяет ограничения. Используйте ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "BaseModel",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Field",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "model_validate()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; неверные данные вызывают ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ValidationError",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". Проверка формата не делает источник доверенным и не заменяет бизнес-правила и авторизацию.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ И ПРИМЕНЕНИЕ В ЖИЗНИ\nPydantic v2 разбирает и проверяет данные через `BaseModel`; `Field` задаёт ограничения, `model_validate()` принимает Python-данные, `model_validate_json()` — JSON. `ValidationError` является ожидаемой ошибкой ввода и должен преобразовываться в безопасный ответ. Аннотации типов сами по себе не проверяют данные, а Pydantic не заменяет авторизацию и бизнес-правила.\n\n",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРАКТИЧЕСКИЙ ПРИМЕР 2 · Pydantic v2: проверка внешних данных\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРАКТИЧЕСКИЙ ПРИМЕР 3 · Pydantic v2: проверка внешних данных\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "python_validation_flow",
+      "caption": "Pydantic v2: проверка внешних данных"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from pydantic import BaseModel, Field\n\nclass SensorReading(BaseModel):\n    device_id: str\n    celsius: float = Field(ge=-80, le=150)\n\nreading = SensorReading.model_validate(\n    {'device_id': 'sensor-1', 'celsius': 21.5}\n)\nprint(reading.device_id, reading.celsius)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "sensor-1 21.5",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from pydantic import BaseModel, Field",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class SensorReading(BaseModel):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Определяет тип, объединяющий данные и поведение; без класса нельзя создать объект по этому контракту.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "device_id: str",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "celsius: float = Field(ge=-80, le=150)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "reading = SensorReading.model_validate(",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "{'device_id': 'sensor-1', 'celsius': 21.5}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": ")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(reading.device_id, reading.celsius)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from pydantic import BaseModel, ValidationError\n\nclass Reading(BaseModel):\n    celsius: float\n\ntry:\n    Reading.model_validate({'celsius': 'not-a-number'})\nexcept ValidationError:\n    print('invalid reading')",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "invalid reading",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from pydantic import BaseModel, ValidationError",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Reading(BaseModel):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Определяет тип, объединяющий данные и поведение; без класса нельзя создать объект по этому контракту.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "celsius: float",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "try:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выделяет операции, способные завершиться ошибкой; без обработчика ожидаемая ошибка прервёт вызывающий код.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "Reading.model_validate({'celsius': 'not-a-number'})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "except ValidationError:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print('invalid reading')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from pydantic import BaseModel, Field\n\nclass SensorReading(BaseModel):\n    device_id: str\n    celsius: float = Field(ge=-80, le=150)\n\nreading = SensorReading.model_validate(\n    {'device_id': 'sensor-1', 'celsius': 21.5}\n)\nprint(reading.device_id, reading.celsius)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "sensor-1 21.5",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from pydantic import BaseModel, Field",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class SensorReading(BaseModel):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Определяет тип, объединяющий данные и поведение; без класса нельзя создать объект по этому контракту.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "device_id: str",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "celsius: float = Field(ge=-80, le=150)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "reading = SensorReading.model_validate(",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "{'device_id': 'sensor-1', 'celsius': 21.5}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": ")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(reading.device_id, reading.celsius)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Модель проверяет поля и выполняет допустимое преобразование; пример выводит ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "sensor-1 21.5",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Установите Pydantic v2 в активную среду командой `python -m pip install 'pydantic>=2,<3'` и зафиксируйте версию в проекте."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Преобразуйте ошибки проверки в безопасный ответ пользователю и не записывайте секреты в журнал. API Pydantic v1 отличается от v2."
+    },
+    {
+      "type": "detail",
+      "title": "Почему это важно",
+      "text": "Pydantic v2 разбирает и проверяет данные через `BaseModel`; `Field` задаёт ограничения, `model_validate()` принимает Python-данные, `model_validate_json()` — JSON. `ValidationError` является ожидаемой ошибкой ввода и должен преобразовываться в безопасный ответ. Аннотации типов сами по себе не проверяют данные, а Pydantic не заменяет авторизацию и бизнес-правила."
+    },
+    {
+      "type": "text",
+      "text": "ЧАСТЫЕ ОШИБКИ\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Различайте имя переменной, отступ и комментарий: отступ влияет на синтаксис, комментарий объясняет замысел.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «Pydantic v2: проверка внешних данных»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Pydantic v2 разбирает и проверяет данные через ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "BaseModel",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Field",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " задаёт ограничения, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " принимает Python-данные, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate_json()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — JSON.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «Pydantic v2: проверка внешних данных»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Pydantic v2 разбирает и проверяет данные через ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "BaseModel",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Field",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " задаёт ограничения, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " принимает Python-данные, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate_json()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — JSON.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «Pydantic v2: проверка внешних данных»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Pydantic v2 разбирает и проверяет данные через ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "BaseModel",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Field",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " задаёт ограничения, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " принимает Python-данные, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate_json()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — JSON.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «Pydantic v2: проверка внешних данных»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Pydantic v2 разбирает и проверяет данные через ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "BaseModel",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Field",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " задаёт ограничения, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " принимает Python-данные, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate_json()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — JSON.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «Pydantic v2: проверка внешних данных»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Pydantic v2 разбирает и проверяет данные через ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "BaseModel",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Field",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " задаёт ограничения, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " принимает Python-данные, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate_json()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — JSON.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «Pydantic v2: проверка внешних данных»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Pydantic v2 разбирает и проверяет данные через ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "BaseModel",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Field",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " задаёт ограничения, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " принимает Python-данные, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate_json()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — JSON.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «Pydantic v2: проверка внешних данных»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Pydantic v2 разбирает и проверяет данные через ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "BaseModel",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Field",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " задаёт ограничения, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " принимает Python-данные, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate_json()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — JSON.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «Pydantic v2: проверка внешних данных»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Pydantic v2 разбирает и проверяет данные через ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "BaseModel",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Field",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " задаёт ограничения, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " принимает Python-данные, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate_json()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — JSON.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «Pydantic v2: проверка внешних данных»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Pydantic v2 разбирает и проверяет данные через ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "BaseModel",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Field",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " задаёт ограничения, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " принимает Python-данные, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate_json()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — JSON.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «Pydantic v2: проверка внешних данных»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Pydantic v2 разбирает и проверяет данные через ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "BaseModel",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Field",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " задаёт ограничения, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " принимает Python-данные, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "model_validate_json()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — JSON.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных.",
+  "estimatedMinutes": 20
+}

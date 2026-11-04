@@ -1,0 +1,122 @@
+{
+  "id": "usb_host_keyboard_mouse_storage",
+  "title": "USB host: клавиатура, мышь, CDC и флеш-накопитель",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb_host.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "USB host обнаруживает периферию, подаёт питание и обменивается данными через драйвер класса. Платы ESP32-S2/S3 с OTG могут поддерживать клавиатуры, мыши, CDC-адаптеры и MSC-накопители.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "КАК ЭТО РАБОТАЕТ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "TinyUSB host Arduino-ESP32 предоставляет классы "
+    },
+    {
+      "type": "text",
+      "text": "USBHostHIDKeyboard",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", "
+    },
+    {
+      "type": "text",
+      "text": "USBHostHIDMouse",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", "
+    },
+    {
+      "type": "text",
+      "text": "USBHostSerialClass",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и MSC. Зарегистрируйте HID-обработчики до "
+    },
+    {
+      "type": "text",
+      "text": "USBHost.begin()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", проверьте запуск и регулярно вызывайте "
+    },
+    {
+      "type": "text",
+      "text": "USBHost.task()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " в "
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". Монтируйте MSC-файловую систему только после обнаружения накопителя; перед отключением закройте файлы и вызовите "
+    },
+    {
+      "type": "text",
+      "text": "end()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ".\n\nHost обязан подавать 5 В VBUS и достаточный ток. Проверьте схему платы: ключ питания host, защиту и OTG-разъём; нескольким устройствам может потребоваться активный hub. Классическая UNO и обычный USB-UART-разъём не являются USB host.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <USBHost.h>\n#include <USBHostHIDKeyboard.h>\n\nUSBHostHIDKeyboard keyboard;\n\nvoid setup() {\n  Serial.begin(115200);\n  keyboard.registerWithHost();\n  if (!USBHost.begin()) {\n    Serial.println(\"USB host start failed\");\n  }\n}\n\nvoid loop() {\n  USBHost.task();\n  if (keyboard.available()) {\n    uint8_t keys[6] = {};\n    keyboard.getKeys(keys);\n    Serial.printf(\"HID usage: %u\\n\", keys[0]);\n    keyboard.clear();\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "USB host: клавиатура, мышь, CDC и флеш-накопитель"
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание о безопасности и совместимости",
+      "text": "USB host требует плату ESP32-S2/S3/P4 с OTG; стек USB device не может одновременно использовать тот же контроллер. Без питания VBUS периферия не заработает. Проверяйте на своей клавиатуре и накопителе."
+    }
+  ],
+  "testId": "embedded_test_usb_host_keyboard_mouse_storage_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

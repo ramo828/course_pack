@@ -1,0 +1,47 @@
+{
+  "id": "arduino_analog_read_adc",
+  "title": "analogRead: ADC, analog sensors, and voltage",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/analog-io/analogRead/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "An ADC converts analog voltage to a number. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "analogRead(A0)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " returns a raw value; classic UNO commonly defaults to 0–1023, while ESP32 range depends on board/core configuration and is often 12-bit. A raw reading is not volts or temperature without range, reference voltage, and sensor calibration.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_voltage_divider",
+      "caption": "analogRead: ADC, analog sensors, and voltage"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "constexpr uint8_t SENSOR_PIN = A0;\n\nvoid setup() {\n  Serial.begin(115200);\n}\n\nvoid loop() {\n  int raw = analogRead(SENSOR_PIN);\n  Serial.println(raw);\n  delay(200);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Never apply 5 V to an ESP32 ADC pin. Verify `analogReadResolution` and attenuation behavior for the selected board and core."
+    }
+  ],
+  "testId": "embedded_test_arduino_analog_read_adc_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

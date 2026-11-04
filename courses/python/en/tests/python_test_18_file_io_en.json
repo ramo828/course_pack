@@ -1,0 +1,76 @@
+{
+  "id": "python_test_18_file_io_en",
+  "title": "File handling",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_18_file_io_en",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 1 in this lesson produce?\n\nfrom pathlib import Path\nfrom tempfile import TemporaryDirectory\n\nwith TemporaryDirectory() as folder:\n    path = Path(folder) / 'notes.txt'\n    path.write_text('First line\\nSecond line', encoding='utf-8')\n    print(path.read_text(encoding='utf-8'))",
+      "options": [
+        "First line\nSecond line",
+        "['Ada', '10']",
+        "fIRST LINE\nsECOND LINE",
+        "first line\nsecond line"
+      ],
+      "answer": "First line\nSecond line",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`from pathlib import Path` — Imports specific names from a module; without it, those names are unavailable.\n`from tempfile import TemporaryDirectory` — Imports specific names from a module; without it, those names are unavailable.\n`with TemporaryDirectory() as folder:` — Manages a resource for the block; without the context manager, a file or connection may remain open.\n`path = Path(folder) / 'notes.txt'` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`path.write_text('First line\\nSecond line', encoding='utf-8')` — Writes the supplied text to the file, replacing its existing contents; the encoding is explicit.\n`print(path.read_text(encoding='utf-8'))` — Reads the file as text; the explicit encoding helps interpret its bytes consistently."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_18_file_io_en",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 2 in this lesson produce?\n\nfrom pathlib import Path\nfrom tempfile import TemporaryDirectory\n\nwith TemporaryDirectory() as folder:\n    path = Path(folder) / 'notes.txt'\n    path.write_text('first line\\nsecond line', encoding='utf-8')\n    print(path.read_text(encoding='utf-8'))",
+      "options": [
+        "['Ada', '10']",
+        "FIRST LINE\nSECOND LINE",
+        "First line\nSecond line",
+        "first line\nsecond line"
+      ],
+      "answer": "first line\nsecond line",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`from pathlib import Path` — Imports specific names from a module; without it, those names are unavailable.\n`from tempfile import TemporaryDirectory` — Imports specific names from a module; without it, those names are unavailable.\n`with TemporaryDirectory() as folder:` — Manages a resource for the block; without the context manager, a file or connection may remain open.\n`path = Path(folder) / 'notes.txt'` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`path.write_text('first line\\nsecond line', encoding='utf-8')` — Writes the supplied text to the file, replacing its existing contents; the encoding is explicit.\n`print(path.read_text(encoding='utf-8'))` — Reads the file as text; the explicit encoding helps interpret its bytes consistently."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_18_file_io_en",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 3 in this lesson produce?\n\nimport csv\nfrom io import StringIO\nrows = list(csv.reader(StringIO('name,score\\nAda,10\\n')))\nprint(rows[1])",
+      "options": [
+        "first line\nsecond line",
+        "['Ada', '10']",
+        "First line\nSecond line",
+        "['Ada']"
+      ],
+      "answer": "['Ada', '10']",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`import csv` — Imports functionality from a module; without it, the name is unavailable and may raise NameError.\n`from io import StringIO` — Imports specific names from a module; without it, those names are unavailable.\n`rows = list(csv.reader(StringIO('name,score\\nAda,10\\n')))` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`print(rows[1])` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_18_file_io_en",
+      "type": "multiple_choice",
+      "prompt": "Which statement accurately describes “File handling”?",
+      "options": [
+        "File operations read and save reports, settings, and records that must remain available after a program exits.",
+        "The standard library provides established tools for dates, paths, and statistics; check for an existing module before rewriting one.",
+        "Modules keep code in manageable files, while exceptions let a program handle failure instead of hiding it.",
+        "Packages add external capabilities and regex checks text patterns; ordinary string methods may be clearer for simple text."
+      ],
+      "answer": "File operations read and save reports, settings, and records that must remain available after a program exits.",
+      "explanation": "File operations read and save reports, settings, and records that must remain available after a program exits.\n\nLINE-BY-LINE WALKTHROUGH\n`from pathlib import Path` — Imports specific names from a module; without it, those names are unavailable.\n`from tempfile import TemporaryDirectory` — Imports specific names from a module; without it, those names are unavailable.\n`with TemporaryDirectory() as folder:` — Manages a resource for the block; without the context manager, a file or connection may remain open.\n`path = Path(folder) / 'notes.txt'` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`path.write_text('first line\\nsecond line', encoding='utf-8')` — Writes the supplied text to the file, replacing its existing contents; the encoding is explicit.\n`print(path.read_text(encoding='utf-8'))` — Reads the file as text; the explicit encoding helps interpret its bytes consistently."
+    },
+    {
+      "id": "q5",
+      "topicId": "python_18_file_io_en",
+      "type": "multiple_choice",
+      "prompt": "Does `writelines(['a', 'b'])` automatically add `\\n` between lines?",
+      "options": [
+        "Yes, always",
+        "No, add newline characters yourself",
+        "Only for binary files",
+        "Only after the first line"
+      ],
+      "answer": "No, add newline characters yourself",
+      "explanation": "writelines adds no separators; include `\\n` in each string when needed."
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "id": "embedded_unit_testing",
+  "title": "Wokwi və ESP-IDF Unity ilə vahid və inteqrasiya testləri",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/unit-tests.html",
+    "https://docs.wokwi.com/guides/ci"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Daxili proqramı kiçik yoxlanıla bilən hissələrə ayırın: məsələn, ADC xam qiymətinin diapazonunu yoxlayan saf funksiya. ESP-IDF Unity testləri C/C++ komponentlərini lövhədə və ya host mühitində yoxlaya bilər; test komponentini production daxili proqram təminatı-dən ayırın. Wokwi simulyatoru virtual lövhə, naqil və sensorlarla GPIO/serial davranışını yoxlamağa kömək edir; CI-də təkrarlana bilən test üçün Wokwi CLI istifadə oluna bilər.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Test ssenariləri: unit testdə ADC sərhədləri ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "-1",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "0",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "4095",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "4096",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; Wokwi simulyasiyasında düymə və sensor girişləri; inteqrasiya testində I2C cihazı cavab verməyəndə timeout və xəta bərpası. Nəticələri serial log-a yazın. Simulyasiya real radio, enerji sərfi, analoq səs-küy və JTAG davranışını tam əvəz etmir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"unity.h\"\n\nstatic bool isAdcRawValid(int raw) {\n  return raw >= 0 && raw <= 4095;\n}\n\nTEST_CASE(\"ADC raw values stay within the 12-bit range\", \"[sensor]\") {\n  TEST_ASSERT_TRUE(isAdcRawValid(0));\n  TEST_ASSERT_TRUE(isAdcRawValid(4095));\n  TEST_ASSERT_FALSE(isAdcRawValid(-1));\n  TEST_ASSERT_FALSE(isAdcRawValid(4096));\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Unit test pin gərginliyini, radio diapazonunu və real sensor kalibrləməsini yoxlamır. Sürücü testlərini mock/fake ilə ayırın, timeout və uğursuzluq hallarını da sınayın; son mərhələdə real lövhədə aparat-in-the-dövr yoxlaması aparın. Testdə sonsuz gözləmə və production fleş yaddaşı-a yazma istifadə etməyin."
+    }
+  ],
+  "testId": "embedded_test_embedded_unit_testing_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

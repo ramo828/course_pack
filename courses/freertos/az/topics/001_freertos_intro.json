@@ -1,0 +1,252 @@
+{
+  "id": "freertos_freertos_intro",
+  "title": "RTOS və FreeRTOS əsasları",
+  "difficulty": "easy",
+  "testId": "freertos_test_freertos_intro_az",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/freertos_idf.html",
+    "https://www.freertos.org/Documentation/02-Kernel/01-About-the-FreeRTOS-kernel/01-About-the-FreeRTOS-kernel"
+  ],
+  "estimatedMinutes": 15,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “RTOS və FreeRTOS əsasları” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Task-lar scheduler tərəfindən növbələnir; ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelay",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " boş CPU vaxtını başqa task-lara verir. Real layihədə bu göstərişə əməl edin: Əvvəl sadə ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid worker(void*) { for (;;) { Serial.println(\"hello from a task\"); vTaskDelay(pdMS_TO_TICKS(1000)); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"worker creation failed\"); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor task-dan təxminən saniyədə bir dəfə ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "hello from a task",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " göstərir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Real vaxtlı əməliyyat sistemi (RTOS) işi kiçik task-lara bölür və CPU vaxtını aralarında bölüşdürür; RTOS özü hər tapşırığı daha sürətli etmir, amma gecikməni ölçülə bilən edir. ESP32 Arduino Core FreeRTOS-u artıq işlədir, buna görə sketch-də task yaratmaq mümkündür. Bu dərsdə bir task yaradırıq, amma tək LED və sensor üçün ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " çox vaxt daha sadədir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { Serial.begin(115200); if (xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"worker creation failed\"); }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Task-lar scheduler tərəfindən növbələnir; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelay",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " boş CPU vaxtını başqa task-lara verir.\nNiyə seçilib: Əvvəl sadə ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.\nBuraxılsa və ya dəyişdirilsə: Task stack ölçüsü byte ilə verilir və target/runtime versiyasına görə RAM məhdudiyyətini nəzərə almaq lazımdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Task-lar scheduler tərəfindən növbələnir; ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelay",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " boş CPU vaxtını başqa task-lara verir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid worker(void*) { for (;;) { Serial.println(\"scheduled task\"); vTaskDelay(pdMS_TO_TICKS(1000)); } }\nvoid setup() { Serial.begin(115200); xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FreeRTOS scheduler worker task-ı işlədir; çıxış təxminən saniyədə bir dəfə görünür.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Task stack ölçüsü byte ilə verilir və target/runtime versiyasına görə RAM məhdudiyyətini nəzərə almaq lazımdır."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Pinlər, gərginlik/cərəyan limitləri, timing və periferik imkanlar lövhədən asılıdır; naqilləmədən və yükləmədən əvvəl dəqiq board sənədini yoxlayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: tapşırıqların vəziyyətini, prioritetini, növbə/sinxronizasiya əlaqəsini və zaman xəttini göstərən diaqram."
+}

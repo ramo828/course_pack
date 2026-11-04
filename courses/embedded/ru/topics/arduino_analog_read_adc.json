@@ -1,0 +1,47 @@
+{
+  "id": "arduino_analog_read_adc",
+  "title": "analogRead: АЦП, аналоговые датчики и напряжение",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/analog-io/analogRead/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "АЦП преобразует аналоговое напряжение в число. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "analogRead(A0)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " возвращает исходное значение: у классической UNO обычно 0–1023, у ESP32 диапазон зависит от платы и ядро, часто 12 бит. Без диапазона, опорного напряжения и калибровки показание не является вольтами или температурой.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_voltage_divider",
+      "caption": "analogRead: АЦП, аналоговые датчики и напряжение"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "constexpr uint8_t SENSOR_PIN = A0;\n\nvoid setup() {\n  Serial.begin(115200);\n}\n\nvoid loop() {\n  int raw = analogRead(SENSOR_PIN);\n  Serial.println(raw);\n  delay(200);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Не подавайте 5 В на вход ADC ESP32. Проверьте работу `analogReadResolution` и attenuation для выбранной платы и ядро."
+    }
+  ],
+  "testId": "embedded_test_arduino_analog_read_adc_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

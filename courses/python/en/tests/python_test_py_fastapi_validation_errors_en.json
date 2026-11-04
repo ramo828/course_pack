@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_validation_errors_en",
+  "title": "Validation, HTTP errors, and status codes",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_validation_errors",
+      "type": "multiple_choice",
+      "prompt": "How should the API respond to this practical HTTP request?\nPOST /items ilə düzgün body → 201; tapılmayan ID → 404; yanlış body tipi → 422",
+      "options": [
+        "Created resource: 201; missing resource: 404; body validation failure: 422.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Keep all state in a global variable and skip authentication.",
+        "Return the same response to every request without checking its data."
+      ],
+      "answer": "Created resource: 201; missing resource: 404; body validation failure: 422.",
+      "explanation": "This is the expected behavior for `POST /items ilə düzgün body → 201; tapılmayan ID → 404; yanlış body tipi → 422`. Created resource: 201; missing resource: 404; body validation failure: 422."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_validation_errors",
+      "type": "multiple_choice",
+      "prompt": "Which design principle is correct for this topic?",
+      "options": [
+        "Keep all state in a global variable and skip authentication.",
+        "Return the same response to every request without checking its data.",
+        "An HTTP status code identifies the result category; the response body carries useful data or error detail.",
+        "Ignore HTTP status codes and present failures as successful responses."
+      ],
+      "answer": "An HTTP status code identifies the result category; the response body carries useful data or error detail.",
+      "explanation": "An HTTP status code identifies the result category; the response body carries useful data or error detail. 422 indicates request-shape/type validation failure; 404 means the application could not find a resource. Test them separately."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_validation_errors",
+      "type": "multiple_choice",
+      "prompt": "What changes if the important part shown in the lesson is omitted?",
+      "options": [
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Return the same response to every request without checking its data.",
+        "Without an explicit error and suitable status, clients cannot distinguish failure from success or choose a recovery action.",
+        "Keep all state in a global variable and skip authentication."
+      ],
+      "answer": "Without an explicit error and suitable status, clients cannot distinguish failure from success or choose a recovery action.",
+      "explanation": "Without an explicit error and suitable status, clients cannot distinguish failure from success or choose a recovery action. An API should respond clearly to both accepted and rejected requests. FastAPI returns 422 for request validation failures; `HTTPException` represents application decisions such as a missing resource (404). `status_code` describes the successful response."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_validation_errors",
+      "type": "multiple_choice",
+      "prompt": "Which action best prevents the common mistake from this lesson?",
+      "options": [
+        "For a successful POST that creates a resource, use `status_code=201`; test both success and missing-resource cases.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Return the same response to every request without checking its data.",
+        "Keep all state in a global variable and skip authentication."
+      ],
+      "answer": "For a successful POST that creates a resource, use `status_code=201`; test both success and missing-resource cases.",
+      "explanation": "For a successful POST that creates a resource, use `status_code=201`; test both success and missing-resource cases. Do not use `assert` for user input: optimized Python can remove assertions. Use validation and `HTTPException` for API errors."
+    }
+  ]
+}

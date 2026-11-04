@@ -1,0 +1,52 @@
+{
+  "id": "iot_aiot_edge",
+  "title": "AIoT nədir və nə üçün lazımdır?",
+  "difficulty": "medium",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://www.tensorflow.org/lite/microcontrollers",
+    "https://ai.google.dev/edge/litert/microcontrollers/overview"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "IoT cihazları internetə qoşulub məlumat ötürür. AIoT (Artificial Intelligence of Things) həmin cihazlara süni intellekt əlavə edir: sensor məlumatını yalnız göndərmək yox, ondan mənalı nəticə çıxarmaq da mümkündür. Məsələn, mikrofon səsi buluda göndərmədən sadə əl çalmasını tanıya, vibrasiya sensoru isə nasazlığa bənzər hərəkəti xəbər verə bilər.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Mövzunun izahı\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Niyə istifadə olunur? Yerli nəticə daha tez alınır, internet olmasa da işləyə bilər və xam səs/şəxsi məlumatın buluda göndərilməsini azalda bilər. Model buludda işləyəndə güclü kompüter istifadə olunur və cihaz daha sadə qalır; kənar AI (edge AI) modelin cihazda və ya yaxın gateway-də işləməsidir. Kiçik ESP32-də yalnız yüngül model və sadə tapşırıq seçilməlidir.\n\nNümunələr: otağın dolu olub-olmadığını təxmin etmək, nasazlığa bənzər vibrasiyanı seçmək, səs hadisəsini tanımaq, bitkidə su çatışmazlığı əlamətini müəyyən etmək. Model nəticəsi ehtimaldır, həqiqət zəmanəti deyil. Həssas idarəetmədə ənənəvi limit və təhlükəsiz ehtiyat davranışını saxlayın.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Nümunə kodu\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "sensor data -> small local model -> prediction\nif prediction is reliable:\n    take a safe action\nelse:\n    keep the safe default\nsend summary to cloud when useful",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_aiot_architecture",
+      "caption": "Sxem: AIoT nədir və nə üçün lazımdır?"
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "AIoT vacib təhlükəsizlik funksiyasını təkbaşına idarə etməməlidir. Modelin yanlış nəticəsi ola bilər; etibarlılıq həddini, normal sensor yoxlamasını və ehtiyat davranışını əvvəlcədən qurun."
+    }
+  ],
+  "testId": "iot_test_aiot_edge_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

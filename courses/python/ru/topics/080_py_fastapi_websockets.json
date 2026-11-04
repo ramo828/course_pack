@@ -1,0 +1,761 @@
+{
+  "id": "python_py_fastapi_websockets",
+  "title": "Обмен в реальном времени через WebSocket",
+  "difficulty": "hard",
+  "testId": "python_test_py_fastapi_websockets_ru",
+  "estimatedMinutes": 22,
+  "sources": [
+    "https://fastapi.tiangolo.com/advanced/websockets/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЗАЧЕМ ЭТО НУЖНО?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI создаёт JSON API, к которым веб- и мобильные приложения обращаются по HTTP; аннотации типов помогают проверять ввод и описывать контракт API.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ И ПРИМЕНЕНИЕ В ЖИЗНИ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Обычный HTTP-запрос завершается ответом; WebSocket поддерживает двусторонний обмен по открытому соединению. Endpoint принимает соединение, читает сообщение и отвечает. Это echo-сервер; браузер использует WebSocket API.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Для локального запуска установите ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " и дополнительные пакеты, указанные в уроке. Сохраните сервер как ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "app.py",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " и запустите ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "uvicorn app:app --reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ". ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " предназначен только для разработки.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ГДЕ ЭТО ВСТРЕЧАЕТСЯ В ЖИЗНИ?\nЧат, общая доска или игровая комната могут сразу отправлять клиенту новые события.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Если убрать эту часть: Повторные запросы для обновления создают задержку и трафик; WebSocket использует открытое соединение.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ПОЛНЫЙ РАБОЧИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI, WebSocket, WebSocketDisconnect\n\napp = FastAPI()\n\n@app.websocket(\"/ws\")\nasync def websocket_echo(websocket: WebSocket):\n    await websocket.accept()\n    try:\n        while True:\n            message = await websocket.receive_text()\n            await websocket.send_text(f\"Echo: {message}\")\n    except WebSocketDisconnect:\n        return\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ЗАПРОС И ОЖИДАЕМЫЙ ОТВЕТ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Запрос: Connect ws://127.0.0.1:8000/ws; send \"hello\"\nОтвет: Сервер отправляет `Echo: hello` по тому же соединению.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI, WebSocket, WebSocketDisconnect",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.websocket(\"/ws\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def websocket_echo(websocket: WebSocket):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "await websocket.accept()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Ожидает асинхронную операцию I/O; без ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "await",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " результат может остаться coroutine.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "try:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Продолжает обработку данных или ход выполнения приложения.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "while True:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Продолжает обработку данных или ход выполнения приложения.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "message = await websocket.receive_text()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Ожидает асинхронную операцию I/O; без ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "await",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " результат может остаться coroutine.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "await websocket.send_text(f\"Echo: {message}\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Ожидает асинхронную операцию I/O; без ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "await",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " результат может остаться coroutine.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "except WebSocketDisconnect:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Продолжает обработку данных или ход выполнения приложения.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ПРАКТИКА: ПРОВЕРКА HTTP-КЛИЕНТОМ\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Полный файл ниже локально вызывает приложение через TestClient, не открывая порт. Для TestClient установите ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ПОЛНЫЙ РАБОЧИЙ ТЕСТ КЛИЕНТА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI, WebSocket, WebSocketDisconnect\n\napp = FastAPI()\n\n@app.websocket(\"/ws\")\nasync def websocket_echo(websocket: WebSocket):\n    await websocket.accept()\n    try:\n        while True:\n            message = await websocket.receive_text()\n            await websocket.send_text(f\"Echo: {message}\")\n    except WebSocketDisconnect:\n        return\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    with client.websocket_connect(\"/ws\") as socket:\n        socket.send_text(\"hello\")\n        reply = socket.receive_text()\nprint(reply)\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ ВЫВОД ТЕСТА\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Echo: hello",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI, WebSocket, WebSocketDisconnect",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.websocket(\"/ws\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def websocket_echo(websocket: WebSocket):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "await websocket.accept()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Ожидает асинхронную операцию I/O; без ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "await",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " результат может остаться coroutine.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "try:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Продолжает обработку данных или ход выполнения приложения.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "while True:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Продолжает обработку данных или ход выполнения приложения.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "message = await websocket.receive_text()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Ожидает асинхронную операцию I/O; без ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "await",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " результат может остаться coroutine.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "await websocket.send_text(f\"Echo: {message}\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Ожидает асинхронную операцию I/O; без ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "await",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " результат может остаться coroutine.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "except WebSocketDisconnect:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Продолжает обработку данных или ход выполнения приложения.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.testclient import TestClient",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует TestClient, чтобы отправить приложению HTTP-запрос без открытия серверного порта.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with TestClient(app) as client:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Создаёт тестовый HTTP-клиент приложения и закрывает его при выходе из блока.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with client.websocket_connect(\"/ws\") as socket:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет работу для запроса; результат или побочный эффект влияет на ответ.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "socket.send_text(\"hello\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет работу для запроса; результат или побочный эффект влияет на ответ.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "reply = socket.receive_text()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет работу для запроса; результат или побочный эффект влияет на ответ.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(reply)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет работу для запроса; результат или побочный эффект влияет на ответ.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ЧАСТЫЕ ОШИБКИ\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Считать WebSocket обычным GET и не обрабатывать разрыв; соединение может пропасть, нужна очистка.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Практический совет",
+      "text": "Запустите сервер, затем создайте в консоли браузера `new WebSocket('ws://127.0.0.1:8000/ws')` и проверьте `send()` и `onmessage`."
+    },
+    {
+      "type": "detail",
+      "title": "Подробнее",
+      "text": "WebSocket-соединения занимают память и дескрипторы; планируйте лимиты и рассылку для многих клиентов."
+    },
+    {
+      "type": "warning",
+      "title": "Важное предупреждение",
+      "text": "В production добавьте проверку origin, аутентификацию, лимит размера сообщения и частоты подключений."
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Как лучше всего предотвратить типичную ошибку из урока?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Запустите сервер, затем создайте в консоли браузера ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "new WebSocket('ws://127.0.0.1:8000/ws')",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и проверьте ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "send()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "onmessage",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Отдельная иллюстрация не обязательна; небольшого запускаемого примера и ожидаемого результата достаточно."
+}

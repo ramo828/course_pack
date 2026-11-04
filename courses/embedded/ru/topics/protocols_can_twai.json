@@ -1,0 +1,35 @@
+{
+  "id": "protocols_can_twai",
+  "title": "Шина CAN и TWAI ESP32: связь в автомобилях и промышленности",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/twai.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "CAN — помехоустойчивая дифференциальная шина с передачей сообщений, используемая в автомобильных ECU, промышленной автоматике и роботах. В ESP32 периферия контроллера CAN 2.0 называется TWAI; выводы контроллера нельзя напрямую подключать к CAN-проводам.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_can_bus",
+      "caption": "Шина CAN и TWAI ESP32: связь в автомобилях и промышленности"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"driver/twai.h\"\n\nvoid setup() {\n  auto general = TWAI_GENERAL_CONFIG_DEFAULT(\n      GPIO_NUM_5, GPIO_NUM_4, TWAI_MODE_NORMAL);\n  auto timing = TWAI_TIMING_CONFIG_500KBITS();\n  auto filter = TWAI_FILTER_CONFIG_ACCEPT_ALL();\n  ESP_ERROR_CHECK(twai_driver_install(&general, &timing, &filter));\n  ESP_ERROR_CHECK(twai_start());\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Нужен отдельный CAN-трансивер. На обоих концах CANH/CANL ставят терминаторы 120 Ом согласно топологии. Пример использует ESP-IDF и не означает поддержку CAN-FD; проверяйте два узла с одинаковой скоростью."
+    }
+  ],
+  "testId": "embedded_test_protocols_can_twai_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

@@ -1,0 +1,160 @@
+{
+  "id": "esp32_esp_pins",
+  "title": "GPIO, boot strap və elektrik limitləri",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_pins_az",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “GPIO, boot strap və elektrik limitləri” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Pin seçimi konkret modula və lövhə sxeminə görə yoxlanmalıdır. Real layihədə bu göstərişə əməl edin: GPIO nömrəsi lövhə üzərindəki fiziki konektor sırası ilə eyni olmaya bilər.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nconst int ledPin = 2; // Confirm this pin in the board schematic.\nvoid setup() { pinMode(ledPin, OUTPUT); }\nvoid loop() { digitalWrite(ledPin, !digitalRead(ledPin)); delay(500); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "GPIO 2 mövcuddursa HIGH edilir; yararlı pinlər və daxili LED polaritesi ESP32 lövhə-ları arasında dəyişir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ESP32 GPIO-larının bəzisi boot zamanı oxunur, bəzisi yalnız giriş və ya xüsusi periferiyaya aiddir. Lövhə sxemində fleş yaddaşı/PSRAM, USB və strapping pinlərini yoxlayın; gərginlik səviyyəsini çipə uyğunlaşdırın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { pinMode(ledPin, OUTPUT); }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Pin seçimi konkret modula və lövhə sxeminə görə yoxlanmalıdır.\nNiyə seçilib: GPIO nömrəsi lövhə üzərindəki fiziki konektor sırası ilə eyni olmaya bilər.\nBuraxılsa və ya dəyişdirilsə: ESP32 GPIO girişləri 5 V tolerant deyil; uyğun level shifter və sensor istifadə edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "ESP32 GPIO girişləri 5 V tolerant deyil; uyğun level shifter və sensor istifadə edin."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Pin seçimi konkret modula və lövhə sxeminə görə yoxlanmalıdır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "GPIO nömrəsi lövhə üzərindəki fiziki konektor sırası ilə eyni olmaya bilər."
+    },
+    {
+      "type": "text",
+      "text": "ESP-IDF ilə GPIO ekvivalenti\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "c",
+      "code": "#include \"driver/gpio.h\"\nvoid app_main(void) {\n  gpio_reset_pin(GPIO_NUM_2);\n  gpio_set_direction(GPIO_NUM_2, GPIO_MODE_OUTPUT);\n  gpio_set_level(GPIO_NUM_2, 1);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "GPIO 2 mövcuddursa HIGH edilir; istifadə edilə bilən pinlər və daxili LED polaritesi lövhə-dan asılıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Lövhə sxemində fleş yaddaşı/PSRAM, USB və strapping pinlərini yoxlayın; gərginlik səviyyəsini çipə uyğunlaşdırın."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "ESP32 GPIO girişləri 5 V tolerant deyil; uyğun level shifter və sensor istifadə edin."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

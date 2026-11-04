@@ -1,0 +1,464 @@
+{
+  "id": "rust_rust_option",
+  "title": "Option: dəyər var, yoxsa yoxdur?",
+  "difficulty": "easy",
+  "testId": "rust_test_rust_option_az",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch06-02-match.html"
+  ],
+  "estimatedMinutes": 12,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Option: dəyər var, yoxsa yoxdur?” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Some(7)",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ilə ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "None",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ayrı-ayrılıqda işlənir; ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "match",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " bütün variantları yoxlayır. Real layihədə bu göstərişə əməl edin: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Option",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " varsa dəyəri zorla götürmək əvəzinə hər iki halı işləyin. ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "unwrap()",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yalnız dəyərin mütləq olduğuna əsaslı zəmanət varsa uyğundur.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn describe(value: Option<i32>) -> &'static str {\n    match value {\n        Some(number) if number > 0 => \"positive\",\n        Some(_) => \"zero or negative\",\n        None => \"missing\",\n    }\n}\n\nfn main() {\n    println!(\"{}\\n{}\", describe(Some(7)), describe(None));\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "positive\nmissing\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bəzən axtarılan məlumat olmur. Rust bunu gizli boş dəyər kimi deyil, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Option<T>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ilə açıq göstərir: ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Some(value)",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " dəyər var, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "None",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " isə yoxdur. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "match",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və ya ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "if let",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " hər iki halı düşünməyə kömək edir; bu, olmayan siyahı elementini və ya istifadəçi məlumatını təhlükəsiz idarə etmək üçündür.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "match value {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Some(7)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ilə ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "None",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ayrı-ayrılıqda işlənir; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "match",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bütün variantları yoxlayır.\nNiyə seçilib: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Option",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " varsa dəyəri zorla götürmək əvəzinə hər iki halı işləyin. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "unwrap()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yalnız dəyərin mütləq olduğuna əsaslı zəmanət varsa uyğundur.\nBuraxılsa və ya dəyişdirilsə: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Option",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " varsa dəyəri zorla götürmək əvəzinə hər iki halı işləyin. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "unwrap()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yalnız dəyərin mütləq olduğuna əsaslı zəmanət varsa uyğundur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: `Option` varsa dəyəri zorla götürmək əvəzinə hər iki halı işləyin. `unwrap()` yalnız dəyərin mütləq olduğuna əsaslı zəmanət varsa uyğundur."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Some(7)",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " ilə ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "None",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " ayrı-ayrılıqda işlənir; ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "match",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " bütün variantları yoxlayır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "`Option` varsa dəyəri zorla götürmək əvəzinə hər iki halı işləyin. `unwrap()` yalnız dəyərin mütləq olduğuna əsaslı zəmanət varsa uyğundur."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn first_positive(values: &[i32]) -> Option<i32> { values.iter().copied().find(|value| *value > 0) }\nfn main() { println!(\"{:?}\", first_positive(&[-2, 4, 8])); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Some(4)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "`match` və ya `if let` hər iki halı düşünməyə kömək edir; bu, olmayan siyahı elementini və ya istifadəçi məlumatını təhlükəsiz idarə etmək üçündür."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Kod nümunələri fokuslanmış hissələrdir; seçilmiş toolchain və target-də compile/test edin, çünki API və diaqnostika versiyaya görə dəyişə bilər."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Option: dəyər var, yoxsa yoxdur?” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Some(7)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ilə ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "None",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ayrı-ayrılıqda işlənir; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "match",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bütün variantları yoxlayır.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

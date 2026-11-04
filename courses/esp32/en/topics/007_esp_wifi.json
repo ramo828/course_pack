@@ -1,0 +1,193 @@
+{
+  "id": "esp32_esp_wifi",
+  "title": "Wi-Fi station and access point",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_wifi_en",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/wifi.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Wi-Fi station and access point” to a real program or device. The key principle is: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "WiFi.mode(WIFI_STA)",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " selects station mode. In a project, follow this guidance: Do not embed network credentials in firmware source.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\nconst char* ssid = \"YOUR_WIFI_NAME\";\nconst char* password = \"YOUR_WIFI_PASSWORD\";\nvoid setup() {\n    Serial.begin(115200);\n    WiFi.mode(WIFI_STA);\n    WiFi.begin(ssid, password);\n}\nvoid loop() {\n    if (WiFi.status() == WL_CONNECTED) Serial.println(WiFi.localIP());\n    else Serial.println(\"waiting for Wi-Fi\");\n    delay(2000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Configures station mode only; connection needs credentials, event handlers, and a reachable access point.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Station mode joins a router; access point mode creates a local network. Manage reconnects with a state machine and keep network work from blocking control tasks.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "WiFi.begin(ssid, password);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "WiFi.mode(WIFI_STA)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " selects station mode.\nWhy it is used: Do not embed network credentials in firmware source.\nIf omitted or changed: Do not ship an open access point or fixed default password.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Do not ship an open access point or fixed default password."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "WiFi.mode(WIFI_STA)",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " selects station mode.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Do not embed network credentials in firmware source."
+    },
+    {
+      "type": "text",
+      "text": "Arduino Core example\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\nvoid setup() { Serial.begin(115200); WiFi.mode(WIFI_STA); }\nvoid loop() { Serial.println(WiFi.status()); delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor displays the current Wi-Fi status code.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Manage reconnects with a state machine and keep network work from blocking control tasks."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Do not ship an open access point or fixed default password."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

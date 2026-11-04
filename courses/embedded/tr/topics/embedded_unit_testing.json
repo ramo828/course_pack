@@ -1,0 +1,84 @@
+{
+  "id": "embedded_unit_testing",
+  "title": "Wokwi ve ESP-IDF Unity ile birim ve entegrasyon testleri",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/unit-tests.html",
+    "https://docs.wokwi.com/guides/ci"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Donanım yazılımı'i küçük ve sınanabilir parçalara ayırın; örneğin ADC ham değerinin aralığını denetleyen saf bir işlev. ESP-IDF Unity, C/C++ bileşenlerini kartta veya host ortamında test edebilir; test bileşenini production donanım yazılımı'den ayrı tutun. Wokwi simülatörü sanal kart, kablo ve sensörlerle GPIO/serial davranışını sınamaya yardımcı olur; tekrarlanabilir CI testleri için Wokwi CLI kullanılabilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Test senaryoları: birim testinde ADC sınırları ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "-1",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "0",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "4095",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "4096",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; Wokwi simülasyonunda buton ve sensör girişleri; entegrasyon testinde I2C aygıtı yanıt vermediğinde timeout ve hata kurtarma. Sonuçları serial log'a yazın. Simülasyon gerçek radyo, güç tüketimi, analog gürültü ve JTAG davranışını bütünüyle taklit etmez.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"unity.h\"\n\nstatic bool isAdcRawValid(int raw) {\n  return raw >= 0 && raw <= 4095;\n}\n\nTEST_CASE(\"ADC raw values stay within the 12-bit range\", \"[sensor]\") {\n  TEST_ASSERT_TRUE(isAdcRawValid(0));\n  TEST_ASSERT_TRUE(isAdcRawValid(4095));\n  TEST_ASSERT_FALSE(isAdcRawValid(-1));\n  TEST_ASSERT_FALSE(isAdcRawValid(4096));\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Birim test fiziksel pin gerilimini, radyo menzilini veya gerçek sensör kalibrasyonunu doğrulamaz. Sürücü testlerini mock/fake ile ayırın; timeout ve hata yollarını da sınayın. Son aşamada gerçek kartta donanım-in-the-döngü testi yapın. Testte sonsuz bekleme veya production flash'a yazma kullanmayın."
+    }
+  ],
+  "testId": "embedded_test_embedded_unit_testing_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

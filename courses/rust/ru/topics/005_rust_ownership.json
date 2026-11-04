@@ -1,0 +1,367 @@
+{
+  "id": "rust_rust_ownership",
+  "title": "Владение и перемещение",
+  "difficulty": "hard",
+  "testId": "rust_test_rust_ownership_ru",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html"
+  ],
+  "estimatedMinutes": 24,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Владение и перемещение» в программе или устройстве. Основной принцип: Значения, не реализующие ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ", например String, перемещаются, а типы ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ", например целые числа, копируются. Размещение в куче само по себе не определяет это поведение. В проекте следуйте рекомендации: После перемещения прежняя привязка больше не владеет значением; это проверяет компилятор.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn main() {\n    let first = String::from(\"Rust\");\n    let second = first;\n    println!(\"{second}\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "У каждого значения Rust есть владелец; при выходе владельца из области ресурс освобождается. Одни значения перемещаются, значения Copy дублируются.\n\nПри ownership у каждого значения один владелец, а ресурс освобождается при выходе владельца из scope. Перемещение String через ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "let second = first",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " запрещает дальнейшее использование ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "first",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; значения ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", например i32, копируются. Это проверяется компилятором без garbage collector.\n\nВладение определяет, какая привязка владеет значением без ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и освобождает его ресурсы. Присваивание значения без ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", например String, перемещает его; типы ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", например целые числа, копируются. Размещение в куче само по себе не определяет, будет ли значение перемещено или скопировано. Если тип поддерживает ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "clone()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", этот вызов явно создаёт отдельную копию.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let second = first;",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Значения, не реализующие ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", например String, перемещаются, а типы ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", например целые числа, копируются. Размещение в куче само по себе не определяет это поведение.\nЗачем она нужна: После перемещения прежняя привязка больше не владеет значением; это проверяет компилятор.\nЕсли пропустить или изменить: Владение основано на правилах языка, а не на ручном управлении или сборщике мусора.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: После перемещения прежняя привязка больше не владеет значением; это проверяет компилятор."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Значения, не реализующие ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": ", например String, перемещаются, а типы ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": ", например целые числа, копируются. Размещение в куче само по себе не определяет это поведение.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "После перемещения прежняя привязка больше не владеет значением; это проверяет компилятор."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn main() { let original = String::from(\"move\"); let owned = original; println!(\"{owned}\"); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "move\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Владение основано на правилах языка, а не на ручном управлении или сборщике мусора."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Примеры сосредоточены на теме; компилируйте и тестируйте их для выбранного toolchain и target, поскольку API и диагностика зависят от версии."
+    },
+    {
+      "type": "diagram",
+      "id": "rust_ownership",
+      "caption": "Rust проверяет при компиляции отношения владельца значения, заимствующего кода и места использования."
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение верно передаёт основное правило темы «Владение и перемещение»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Значения, не реализующие ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", например String, перемещаются, а типы ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", например целые числа, копируются. Размещение в куче само по себе не определяет это поведение.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму памяти со стеком/кучей, временем жизни, владением или потоком данных."
+}

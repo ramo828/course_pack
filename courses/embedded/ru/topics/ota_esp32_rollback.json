@@ -1,0 +1,88 @@
+{
+  "id": "ota_esp32_rollback",
+  "title": "ESP32 OTA: разделы и возврат после сбоя обновления",
+  "difficulty": "advanced",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html#app-rollback"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Для более безопасного обновления ESP32 во flash можно хранить текущую программу и ещё один раздел приложения. Новый образ записывается в неактивный раздел; после перезапуска устройство выполняет проверку работоспособности. Если всё хорошо, новый образ подтверждается. Если запуск не удался, загрузчик может вернуться к прежнему рабочему разделу.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Как это работает\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "esp_ota_get_running_partition()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " находит активный раздел; "
+    },
+    {
+      "type": "text",
+      "text": "ESP_OTA_IMG_PENDING_VERIFY",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " означает, что новый образ ещё проверяется. Пример проверяет раздел и результаты API. Вызывайте "
+    },
+    {
+      "type": "text",
+      "text": "confirmPendingImage(true)",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " только после успешных проверок работоспособности; значение "
+    },
+    {
+      "type": "text",
+      "text": "false",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " запрашивает откат и перезапуск. Вызывающий код также должен проверить результат API подтверждения.\n\nЭто API ESP-IDF, доступное также в Arduino-ESP32, но не следует считать его готовым для обычного скетча без настройки. Таблица разделов, параметр отката и проверка образа должны соответствовать друг другу. В проектах ESP-IDF начните с официального примера OTA от Espressif.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Пример кода\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <esp_err.h>\n#include <esp_ota_ops.h>\n\nesp_err_t confirmPendingImage(bool healthChecksPassed) {\n  const esp_partition_t* running = esp_ota_get_running_partition();\n  if (running == nullptr) return ESP_ERR_NOT_FOUND;\n\n  esp_ota_img_states_t state;\n  const esp_err_t stateResult = esp_ota_get_state_partition(running, &state);\n  if (stateResult != ESP_OK) return stateResult;\n  if (state != ESP_OTA_IMG_PENDING_VERIFY) return ESP_OK;\n\n  if (!healthChecksPassed) {\n    return esp_ota_mark_app_invalid_rollback_and_reboot();\n  }\n  return esp_ota_mark_app_valid_cancel_rollback();\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Схема: ESP32 OTA: разделы и возврат после сбоя обновления"
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Подтверждайте образ только после успешной проверки датчиков, хранилища и связи. Изменение таблицы разделов может стереть данные flash; сначала подготовьте резервную копию и способ восстановления."
+    }
+  ],
+  "testId": "embedded_test_ota_esp32_rollback_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

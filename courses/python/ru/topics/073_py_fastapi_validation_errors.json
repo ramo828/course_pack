@@ -1,0 +1,608 @@
+{
+  "id": "python_py_fastapi_validation_errors",
+  "title": "Проверка данных, HTTP-ошибки и статус-коды",
+  "difficulty": "medium",
+  "testId": "python_test_py_fastapi_validation_errors_ru",
+  "estimatedMinutes": 19,
+  "sources": [
+    "https://fastapi.tiangolo.com/tutorial/handling-errors/",
+    "https://fastapi.tiangolo.com/tutorial/response-status-code/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЗАЧЕМ ЭТО НУЖНО?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI создаёт JSON API, к которым веб- и мобильные приложения обращаются по HTTP; аннотации типов помогают проверять ввод и описывать контракт API.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ И ПРИМЕНЕНИЕ В ЖИЗНИ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "API должен ясно отвечать как на принятые, так и отклонённые запросы. FastAPI возвращает 422 при ошибке проверки запроса; ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "HTTPException",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " выражает решение приложения, например отсутствие ресурса (404). ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "status_code",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " задаёт успешный ответ.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Для локального запуска установите ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " и дополнительные пакеты, указанные в уроке. Сохраните сервер как ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "app.py",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " и запустите ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "uvicorn app:app --reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ". ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " предназначен только для разработки.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ГДЕ ЭТО ВСТРЕЧАЕТСЯ В ЖИЗНИ?\nМагазин возвращает 404 для неизвестного товара и 201 после его создания.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Если убрать эту часть: Без явной ошибки и подходящего статуса клиент не отличит сбой от успеха и не выберет восстановление.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ПОЛНЫЙ РАБОЧИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI, HTTPException, status\n\napp = FastAPI()\nitems = {1: {\"name\": \"pen\"}}\n\n@app.get(\"/items/{item_id}\", status_code=status.HTTP_200_OK)\nasync def read_item(item_id: int):\n    item = items.get(item_id)\n    if item is None:\n        raise HTTPException(status_code=404, detail=\"Item not found\")\n    return item\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ЗАПРОС И ОЖИДАЕМЫЙ ОТВЕТ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Запрос: POST /items ilə düzgün body → 201; tapılmayan ID → 404; yanlış body tipi → 422\nОтвет: Созданный ресурс: 201; отсутствующий ресурс: 404; ошибка проверки тела: 422.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI, HTTPException, status",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "items = {1: {\"name\": \"pen\"}}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Продолжает обработку данных или ход выполнения приложения.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.get(\"/items/{item_id}\", status_code=status.HTTP_200_OK)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def read_item(item_id: int):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "item = items.get(item_id)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет работу для запроса; результат или побочный эффект влияет на ответ.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "if item is None:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выбирает ветку при истинном условии и обрабатывает крайний случай.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "raise HTTPException(status_code=404, detail=\"Item not found\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Завершает запрос с явным статусом и описанием ошибки, не скрывая сбой.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return item",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ПРАКТИКА: ПРОВЕРКА HTTP-КЛИЕНТОМ\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Полный файл ниже локально вызывает приложение через TestClient, не открывая порт. Для TestClient установите ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ПОЛНЫЙ РАБОЧИЙ ТЕСТ КЛИЕНТА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI, HTTPException, status\n\napp = FastAPI()\nitems = {1: {\"name\": \"pen\"}}\n\n@app.get(\"/items/{item_id}\", status_code=status.HTTP_200_OK)\nasync def read_item(item_id: int):\n    item = items.get(item_id)\n    if item is None:\n        raise HTTPException(status_code=404, detail=\"Item not found\")\n    return item\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    response = client.get(\"/items/99\")\n    print(response.status_code, response.json())\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ ВЫВОД ТЕСТА\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "404 {'detail': 'Item not found'}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI, HTTPException, status",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "items = {1: {\"name\": \"pen\"}}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Продолжает обработку данных или ход выполнения приложения.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.get(\"/items/{item_id}\", status_code=status.HTTP_200_OK)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def read_item(item_id: int):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "item = items.get(item_id)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет работу для запроса; результат или побочный эффект влияет на ответ.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "if item is None:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выбирает ветку при истинном условии и обрабатывает крайний случай.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "raise HTTPException(status_code=404, detail=\"Item not found\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Завершает запрос с явным статусом и описанием ошибки, не скрывая сбой.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return item",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.testclient import TestClient",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует TestClient, чтобы отправить приложению HTTP-запрос без открытия серверного порта.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with TestClient(app) as client:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Создаёт тестовый HTTP-клиент приложения и закрывает его при выходе из блока.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response = client.get(\"/items/99\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Отправляет указанный GET-запрос через тестовый клиент и сохраняет ответ.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(response.status_code, response.json())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Читает и выводит HTTP-статус и разобранный JSON-ответ.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ЧАСТЫЕ ОШИБКИ\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Возвращать 200 во всех случаях или раскрывать traceback; выбирайте статус и не выдавайте внутренние подробности.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Практический совет",
+      "text": "Для POST, создавшего ресурс, задайте `status_code=201`; проверьте успех и отсутствие ресурса."
+    },
+    {
+      "type": "detail",
+      "title": "Подробнее",
+      "text": "422 означает ошибку структуры или типа запроса, а 404 — отсутствие ресурса в приложении. Это разные случаи для тестов."
+    },
+    {
+      "type": "warning",
+      "title": "Важное предупреждение",
+      "text": "Не используйте `assert` для пользовательского ввода: оптимизированный Python может убрать проверки. Применяйте валидацию и `HTTPException`."
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Как лучше всего предотвратить типичную ошибку из урока?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Для POST, создавшего ресурс, задайте ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "status_code=201",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; проверьте успех и отсутствие ресурса.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Отдельная иллюстрация не обязательна; небольшого запускаемого примера и ожидаемого результата достаточно."
+}

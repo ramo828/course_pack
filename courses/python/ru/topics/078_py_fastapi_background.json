@@ -1,0 +1,594 @@
+{
+  "id": "python_py_fastapi_background",
+  "title": "Фоновые задачи",
+  "difficulty": "hard",
+  "testId": "python_test_py_fastapi_background_ru",
+  "estimatedMinutes": 18,
+  "sources": [
+    "https://fastapi.tiangolo.com/tutorial/background-tasks/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЗАЧЕМ ЭТО НУЖНО?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI создаёт JSON API, к которым веб- и мобильные приложения обращаются по HTTP; аннотации типов помогают проверять ввод и описывать контракт API.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ И ПРИМЕНЕНИЕ В ЖИЗНИ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "BackgroundTasks",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " запускает короткую задачу в том же процессе после ответа, например запись уведомления. Длительные и надёжные задачи следует передавать в очередь. Пример пишет в список памяти, который не является постоянным хранилищем.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Для локального запуска установите ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " и дополнительные пакеты, указанные в уроке. Сохраните сервер как ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "app.py",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " и запустите ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "uvicorn app:app --reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ". ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " предназначен только для разработки.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ГДЕ ЭТО ВСТРЕЧАЕТСЯ В ЖИЗНИ?\nЗапись небольшого события аналитики без задержки ответа.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Если убрать эту часть: Если выполнять дополнительную работу синхронно в запросе, ответ клиенту может задержаться.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ПОЛНЫЙ РАБОЧИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import BackgroundTasks, FastAPI\n\napp = FastAPI()\ncompleted_messages = []\n\ndef record_message(message: str):\n    completed_messages.append(message)\n\n@app.post(\"/notify\")\ndef notify(message: str, tasks: BackgroundTasks):\n    tasks.add_task(record_message, message)\n    return {\"accepted\": True}\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ЗАПРОС И ОЖИДАЕМЫЙ ОТВЕТ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Запрос: POST /notify?message=saved\nОтвет: Ответ — 200 `{accepted:true}`; фоновая запись запускается после ответа и существует только в памяти demo.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import BackgroundTasks, FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "completed_messages = []",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Продолжает обработку данных или ход выполнения приложения.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def record_message(message: str):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "completed_messages.append(message)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет работу для запроса; результат или побочный эффект влияет на ответ.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.post(\"/notify\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def notify(message: str, tasks: BackgroundTasks):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "tasks.add_task(record_message, message)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет работу для запроса; результат или побочный эффект влияет на ответ.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"accepted\": True}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ПРАКТИКА: ПРОВЕРКА HTTP-КЛИЕНТОМ\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Полный файл ниже локально вызывает приложение через TestClient, не открывая порт. Для TestClient установите ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ПОЛНЫЙ РАБОЧИЙ ТЕСТ КЛИЕНТА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import BackgroundTasks, FastAPI\n\napp = FastAPI()\ncompleted_messages = []\n\ndef record_message(message: str):\n    completed_messages.append(message)\n\n@app.post(\"/notify\")\ndef notify(message: str, tasks: BackgroundTasks):\n    tasks.add_task(record_message, message)\n    return {\"accepted\": True}\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    response = client.post(\"/notify\", params={\"message\": \"saved\"})\n    print(response.status_code, response.json())\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ ВЫВОД ТЕСТА\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "200 {'accepted': True}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import BackgroundTasks, FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "completed_messages = []",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Продолжает обработку данных или ход выполнения приложения.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def record_message(message: str):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "completed_messages.append(message)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет работу для запроса; результат или побочный эффект влияет на ответ.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.post(\"/notify\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def notify(message: str, tasks: BackgroundTasks):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "tasks.add_task(record_message, message)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет работу для запроса; результат или побочный эффект влияет на ответ.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"accepted\": True}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.testclient import TestClient",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует TestClient, чтобы отправить приложению HTTP-запрос без открытия серверного порта.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with TestClient(app) as client:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Создаёт тестовый HTTP-клиент приложения и закрывает его при выходе из блока.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response = client.post(\"/notify\", params={\"message\": \"saved\"})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет работу для запроса; результат или побочный эффект влияет на ответ.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(response.status_code, response.json())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Читает и выводит HTTP-статус и разобранный JSON-ответ.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ЧАСТЫЕ ОШИБКИ\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Считать задачу в памяти надёжной и повторяемой; при остановке процесса работа потеряется.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Практический совет",
+      "text": "Используйте `BackgroundTasks` для короткой работы и сообщайте клиенту, что было принято."
+    },
+    {
+      "type": "detail",
+      "title": "Подробнее",
+      "text": "Отдельная очередь worker может обеспечить повторы, мониторинг и ограничение нагрузки; `BackgroundTasks` не даёт их автоматически."
+    },
+    {
+      "type": "warning",
+      "title": "Важное предупреждение",
+      "text": "Не полагайтесь на задачу внутри процесса для важных писем, платежей или работы, которую нельзя потерять."
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Как лучше всего предотвратить типичную ошибку из урока?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Используйте ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "BackgroundTasks",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " для короткой работы и сообщайте клиенту, что было принято.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Отдельная иллюстрация не обязательна; небольшого запускаемого примера и ожидаемого результата достаточно."
+}

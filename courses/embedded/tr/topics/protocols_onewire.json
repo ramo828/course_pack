@@ -1,0 +1,36 @@
+{
+  "id": "protocols_onewire",
+  "title": "1-Wire: DS18B20 sıcaklık sensörü",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://www.analog.com/en/resources/technical-articles/1wire-communication-through-software.html",
+    "https://github.com/milesburton/Arduino-Temperature-Control-Library"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "1-Wire, az sayıda kabloyla uyumlu aygıtları aynı veriyolunda birleştirir; DS18B20 dijital sıcaklık ölçer ve benzersiz bir kimliği vardır. Veri hattında uygun pull-up direnci gerekir; uzun kabloda topoloji ve besleme önemlidir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_onewire_bus",
+      "caption": "1-Wire: DS18B20 sıcaklık sensörü"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <OneWire.h>\n#include <DallasTemperature.h>\n\nOneWire wireBus(4);\nDallasTemperature sensors(&wireBus);\n\nvoid setup() {\n  Serial.begin(115200);\n  sensors.begin();\n}\n\nvoid loop() {\n  sensors.requestTemperatures();\n  const float temperatureC = sensors.getTempCByIndex(0);\n  if (temperatureC == DEVICE_DISCONNECTED_C) {\n    Serial.println(\"DS18B20 disconnected\");\n  } else {\n    Serial.println(temperatureC);\n  }\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Kod için OneWire ve DallasTemperature kitaplıklarını kurun. Örnek `DEVICE_DISCONNECTED_C` sonucunu denetler; parazit beslemede dönüşüm süresi ve bağlantı değişir, sensörün veri sayfasına uyun."
+    }
+  ],
+  "testId": "embedded_test_protocols_onewire_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

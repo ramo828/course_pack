@@ -1,0 +1,184 @@
+{
+  "id": "rust_rust_testing",
+  "title": "Birim, entegrasyon ve dokümantasyon testleri",
+  "difficulty": "medium",
+  "testId": "rust_test_rust_testing_tr",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch11-00-testing.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Birim, entegrasyon ve dokümantasyon testleri” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: cargo test hem #[test] fonksiyonlarını hem de uygun rustdoc örneklerini çalıştırır. Gerçek projede şu öneriyi izleyin: Testleri deterministik tutun; ağ ve zamana bağımlılığı sınırlar veya fixture'larla azaltın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[test]\nfn adds_values() {\n    assert_eq!(2 + 2, 4);\n}\n\n/// Adds two values.\n///\n/// ```\n/// assert_eq!(2 + 2, 4);\n/// ```\npub fn add(a: i32, b: i32) -> i32 { a + b }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Birim ve dokümantasyon testlerindeki doğrulamalar geçer; Cargo özeti sürüme göre değişir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Birim testleri modül içinde private davranışı sınayabilir; entegrasyon testleri crate'in public API'sini kullanıcı gibi doğrular. Dokümantasyon testleri kod örneklerini belgelerle birlikte çalıştırarak eskimelerini önler. Testler başarı yolunun yanında hata ve sınır durumlarını da kapsamalıdır; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "cargo test",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " testleri çalıştırır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#[test]",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: cargo test hem #[test] fonksiyonlarını hem de uygun rustdoc örneklerini çalıştırır.\nNeden seçildi: Testleri deterministik tutun; ağ ve zamana bağımlılığı sınırlar veya fixture'larla azaltın.\nAtlanır veya değiştirilirse: Testleri deterministik tutun; ağ ve zamana bağımlılığı sınırlar veya fixture'larla azaltın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: Testleri deterministik tutun; ağ ve zamana bağımlılığı sınırlar veya fixture'larla azaltın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "cargo test hem #[test] fonksiyonlarını hem de uygun rustdoc örneklerini çalıştırır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Testleri deterministik tutun; ağ ve zamana bağımlılığı sınırlar veya fixture'larla azaltın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "pub fn add(a: i32, b: i32) -> i32 { a + b }\n#[test]\nfn adds() { assert_eq!(add(2, 2), 4); }\n// Save as src/lib.rs and run cargo test.",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Birim testi ve uygun dokümantasyon testleri geçer.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Testler başarı yolunun yanında hata ve sınır durumlarını da kapsamalıdır; `cargo test` testleri çalıştırır."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Kod örnekleri odaklı parçalardır; seçilen araç zinciri ve hedefte derleyip test edin, çünkü API ve tanılamalar sürüme göre değişebilir."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Birim, entegrasyon ve dokümantasyon testleri” konusunda hangi ifade temel kuralı doğru açıklar?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: cargo test hem #[test] fonksiyonlarını hem de uygun rustdoc örneklerini çalıştırır.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

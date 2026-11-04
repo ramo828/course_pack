@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_response_openapi_az",
+  "title": "Cavab modeli və OpenAPI sənədi",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_response_openapi",
+      "type": "multiple_choice",
+      "prompt": "Bu real HTTP sorğusuna API necə cavab verməlidir?\nGET /users/1",
+      "options": [
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "200 OK; yalnız ictimai sahələr: {\"id\":1,\"name\":\"Ada\"}"
+      ],
+      "answer": "200 OK; yalnız ictimai sahələr: {\"id\":1,\"name\":\"Ada\"}",
+      "explanation": "Bu, `GET /users/1` sorğusunun gözlənilən davranışıdır. 200 OK; yalnız ictimai sahələr: {\"id\":1,\"name\":\"Ada\"}"
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_response_openapi",
+      "type": "multiple_choice",
+      "prompt": "Bu mövzuda hansı dizayn prinsipi doğrudur?",
+      "options": [
+        "`response_model` həm cavab formasını yoxlayır, həm OpenAPI müqaviləsini yaradır, həm də göstəriləcək sahələri məhdudlaşdırır.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın."
+      ],
+      "answer": "`response_model` həm cavab formasını yoxlayır, həm OpenAPI müqaviləsini yaradır, həm də göstəriləcək sahələri məhdudlaşdırır.",
+      "explanation": "`response_model` həm cavab formasını yoxlayır, həm OpenAPI müqaviləsini yaradır, həm də göstəriləcək sahələri məhdudlaşdırır. OpenAPI maşınla oxuna bilən müqavilədir; `/docs` həmin sxemdən yaradılır. Sənəd autentifikasiya və icazə nəzarətini öz-özünə təmin etmir."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_response_openapi",
+      "type": "multiple_choice",
+      "prompt": "Dərsdə göstərilən vacib hissə çıxarılsa, hansı dəyişiklik baş verər?",
+      "options": [
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Cavab modeli olmasa, əlavə daxili sahələr cavaba düşə, docs isə qeyri-dəqiq qala bilər; dönüş müqaviləsini açıq saxlayın.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın."
+      ],
+      "answer": "Cavab modeli olmasa, əlavə daxili sahələr cavaba düşə, docs isə qeyri-dəqiq qala bilər; dönüş müqaviləsini açıq saxlayın.",
+      "explanation": "Cavab modeli olmasa, əlavə daxili sahələr cavaba düşə, docs isə qeyri-dəqiq qala bilər; dönüş müqaviləsini açıq saxlayın. `response_model` API-nin müştəriyə hansı sahələri qaytardığını müəyyən edir, nəticəni yoxlayır və OpenAPI sxeminə daxil edir. Bu, daxili məlumatı təsadüfən göstərməmək və müştərilərə sabit müqavilə vermək üçün vacibdir."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_response_openapi",
+      "type": "multiple_choice",
+      "prompt": "Dərsdəki tipik səhvi önləmək üçün hansı addım daha düzgündür?",
+      "options": [
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Cavab sxemini yoxlamaq üçün `/openapi.json` açın və modeldə olmayan `internal_note` sahəsinin cavabda görünmədiyini test edin.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın."
+      ],
+      "answer": "Cavab sxemini yoxlamaq üçün `/openapi.json` açın və modeldə olmayan `internal_note` sahəsinin cavabda görünmədiyini test edin.",
+      "explanation": "Cavab sxemini yoxlamaq üçün `/openapi.json` açın və modeldə olmayan `internal_note` sahəsinin cavabda görünmədiyini test edin. Cavab modellərini həssas sahələri gizlətmək üçün də istifadə edin; yalnız sənəddə sahənin görünməməsi server cavabında gizlədildiyini sübut etmir."
+    }
+  ]
+}

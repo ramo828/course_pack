@@ -1,0 +1,35 @@
+{
+  "id": "esp32_usb_hid",
+  "title": "ESP32 USB, USB CDC, and USB HID capabilities",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "A USB-C connector does not mean the chip supports USB HID. Some boards use a USB-to-serial bridge only for flashing. Certain ESP32-S2/S3 boards with native USB OTG can expose CDC and HID; verify the exact board and Arduino core configuration.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_usb_hid",
+      "caption": "ESP32 USB, USB CDC, and USB HID capabilities"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"USB.h\"\n#include \"USBHIDKeyboard.h\"\n\nUSBHIDKeyboard Keyboard;\n\nvoid setup() {\n  USB.begin();\n  Keyboard.begin();\n  delay(1000);\n  Keyboard.print(\"Hello from my ESP32\");\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "This sketch is only for typing test text into your own computer in a trusted lab. Do not use USB HID for unauthorized actions on other devices. USB pins and power circuitry are board-specific."
+    }
+  ],
+  "testId": "embedded_test_esp32_usb_hid_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

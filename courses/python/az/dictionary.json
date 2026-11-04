@@ -1,0 +1,568 @@
+{
+  "courseId": "python",
+  "locale": "az",
+  "title": "Python lüğəti: kolleksiyalar, fayllar və OOP",
+  "version": 1,
+  "sections": [
+    {
+      "id": "dict",
+      "title": "Lüğət (dict)",
+      "entries": [
+        {
+          "term": "dict",
+          "kind": "built-in type",
+          "short": "Unikal açarları dəyərlərlə əlaqələndirən dəyişən kolleksiya.",
+          "detail": "Açarlar hash edilə bilməli, dəyərlər isə istənilən tipdə ola bilər. Python 3.7+ daxilolma sırasını qoruyur. Sahə adı ilə axtarış, sayğac və sazlama üçün uyğundur.",
+          "example": "user = {'name': 'Aylin', 'score': 90}\nprint(user['name'])",
+          "output": "Aylin"
+        },
+        {
+          "term": "dict yaratmaq",
+          "kind": "syntax",
+          "short": "Literal `{}` və ya `dict(...)` ilə lüğət yaradılır.",
+          "detail": "Literal boşluqlu/sətir açarlarını da dəstəkləyir. `dict(name='Aylin')` yalnız identifier kimi yazıla bilən açar sözlərini qəbul edir; cütlərdən də yaradıla bilər.",
+          "example": "a = {'user-id': 17}\nb = dict(name='Aylin')\nc = dict([('x', 1), ('y', 2)])\nprint(a, b, c)",
+          "output": "{'user-id': 17} {'name': 'Aylin'} {'x': 1, 'y': 2}"
+        },
+        {
+          "term": "Açar və hash edilə bilənlik",
+          "kind": "concept",
+          "short": "Açar unikal və dəyişməz/hash edilə bilən olmalıdır.",
+          "detail": "Sətir, tam ədəd və dəyişməz elementli tuple adətən açardır; list və dict dəyişdirilə bildiyinə görə açar ola bilməz. Eyni sayılan `True` və `1` kimi açarlar bir-birini əvəz edə bilər.",
+          "example": "lookup = {(2, 3): 'nöqtə'}\nprint(lookup[(2, 3)])",
+          "output": "nöqtə"
+        },
+        {
+          "term": "d[key]",
+          "kind": "operation",
+          "short": "Açarın dəyərini oxuyur və ya yazır.",
+          "detail": "Oxumada açar yoxdursa `KeyError` yaranır; təyin etmə açar yoxdursa yaradır, varsa dəyəri əvəz edir.",
+          "example": "d = {'score': 8}\nd['score'] = 9\nprint(d['score'])",
+          "output": "9"
+        },
+        {
+          "term": "get(key, default=None)",
+          "kind": "dict method",
+          "short": "Açar yoxdursa ehtiyat dəyəri qaytarır.",
+          "detail": "Lüğəti dəyişmir; ehtiyat yazılmasa `None` qaytarır. Mövcud açarın dəyəri `None` ola bildiyi üçün mövcudluq vacibdirsə `key in d` yoxlayın.",
+          "example": "user = {'name': 'Aylin'}\nprint(user.get('age', 0))",
+          "output": "0"
+        },
+        {
+          "term": "keys()",
+          "kind": "dict method",
+          "short": "Açarların dinamik view obyektini qaytarır.",
+          "detail": "View dəyişən lüğətdəki sonrakı açarları əks etdirir. Açar siyahısı lazımdırsa `list(d.keys())`; dövr üçün adətən birbaşa `for key in d` kifayətdir.",
+          "example": "d = {'a': 1, 'b': 2}\nprint(list(d.keys()))",
+          "output": "['a', 'b']"
+        },
+        {
+          "term": "values()",
+          "kind": "dict method",
+          "short": "Dəyərlərin dinamik view obyektini qaytarır.",
+          "detail": "Dəyərlər təkrarlana bilər; view lüğət dəyişikliklərini əks etdirir. Dəyərlərin surəti lazım olduqda `list(d.values())` yaradın.",
+          "example": "d = {'a': 1, 'b': 2}\nprint(list(d.values()))",
+          "output": "[1, 2]"
+        },
+        {
+          "term": "items()",
+          "kind": "dict method",
+          "short": "(açar, dəyər) cütlərinin dinamik view obyektini qaytarır.",
+          "detail": "Hər cüt tuple kimidir. Açar və dəyəri birlikdə gəzmək üçün `for key, value in d.items()` istifadə edilir.",
+          "example": "d = {'tea': 3, 'bread': 2}\nfor name, price in d.items():\n    print(name, price)",
+          "output": "tea 3\nbread 2"
+        },
+        {
+          "term": "update(other, **kwargs)",
+          "kind": "dict method",
+          "short": "Başqa mənbədən cütləri əlavə edir və ya yeniləyir.",
+          "detail": "Mapping, `(key, value)` cütləri iterable-i və açar sözlü arqumentlər qəbul edir. Eyni açar olduqda yeni dəyər yazılır; metodu çağıran kod `None` alır.",
+          "example": "d = {'a': 1}\nd.update({'a': 2, 'b': 3})\nprint(d)",
+          "output": "{'a': 2, 'b': 3}"
+        },
+        {
+          "term": "pop(key, default)",
+          "kind": "dict method",
+          "short": "Açarı silir və onun dəyərini qaytarır.",
+          "detail": "Açar yoxdursa ehtiyat arqument verilmədikdə `KeyError` qaldırır. İkinci arqumenti yazmaq yoxluq halını idarə edir.",
+          "example": "d = {'a': 1}\nvalue = d.pop('a')\nprint(value, d)",
+          "output": "1 {}"
+        },
+        {
+          "term": "popitem()",
+          "kind": "dict method",
+          "short": "Son daxil edilmiş cütü silir və qaytarır.",
+          "detail": "Python 3.7+-da LIFO, yəni daxilolma sırasının son cütünü götürür. Boş lüğətdə `KeyError`; konkret açarı silmək üçün `pop(key)` istifadə edin.",
+          "example": "d = {'first': 1, 'last': 2}\nprint(d.popitem())",
+          "output": "('last', 2)"
+        },
+        {
+          "term": "setdefault(key, default=None)",
+          "kind": "dict method",
+          "short": "Açar varsa dəyərini, yoxdursa əlavə etdiyi default-u qaytarır.",
+          "detail": "Sayğac və qruplaşdırma kimi “yoxdursa yarat” hallarına uyğundur. Dəyişən default obyektini çağırışdan əvvəl hesablamaq pitfall yarada bilər; comprehension/defaultdict kimi uyğun üsulu seçin.",
+          "example": "groups = {}\ngroups.setdefault('az', []).append('Aylin')\nprint(groups)",
+          "output": "{'az': ['Aylin']}"
+        },
+        {
+          "term": "dict.fromkeys(iterable, value=None)",
+          "kind": "dict class method",
+          "short": "Verilən açarların hamısı üçün eyni dəyərdən lüğət qurur.",
+          "detail": "Sadə dəyişməz default, məsələn `0`, uyğundur. Dəyişən `[]` verildikdə bütün açarlar eyni siyahını paylaşır; ayrı obyekt üçün comprehension yazın.",
+          "example": "keys = ['az', 'tr']\nprint(dict.fromkeys(keys, 0))",
+          "output": "{'az': 0, 'tr': 0}"
+        },
+        {
+          "term": "clear()",
+          "kind": "dict method",
+          "short": "Lüğətdəki bütün cütləri silir.",
+          "detail": "Eyni lüğət obyektini boşaldır və `None` qaytarır; başqa dəyişən də həmin obyekti göstərirsə onda da boş görünəcək.",
+          "example": "d = {'a': 1}\nresult = d.clear()\nprint(d, result)",
+          "output": "{} None"
+        },
+        {
+          "term": "copy()",
+          "kind": "dict method",
+          "short": "Lüğətin səthi surətini yaradır.",
+          "detail": "Üst səviyyə cütləri ayrılır, iç-içə mutable dəyərlər paylaşılır. Dərin surəti avtomatik etmir.",
+          "example": "a = {'scores': [4]}\nb = a.copy()\nb['scores'].append(5)\nprint(a)",
+          "output": "{'scores': [4, 5]}"
+        },
+        {
+          "term": "key in d",
+          "kind": "operation",
+          "short": "Açarın lüğətdə olub-olmadığını yoxlayır.",
+          "detail": "`in` lüğətdə dəyərləri yox, açarları yoxlayır. Dəyəri axtarmaq üçün `value in d.values()` istifadə edin.",
+          "example": "d = {'name': 'Aylin'}\nprint('name' in d, 'Aylin' in d)",
+          "output": "True False"
+        },
+        {
+          "term": "İç-içə lüğət",
+          "kind": "pattern",
+          "short": "Dəyər kimi başqa lüğət və kolleksiya saxlamaq.",
+          "detail": "JSON-a bənzər iyerarxik məlumat üçün yararlıdır. Hər səviyyədə açarın yoxluğu və gözlənilən tip ayrıca yoxlanmalıdır.",
+          "example": "students = {'u1': {'name': 'Aylin'}}\nprint(students['u1']['name'])",
+          "output": "Aylin"
+        },
+        {
+          "term": "Lüğət comprehension",
+          "kind": "syntax",
+          "short": "Iterable-dən ifadə və şərtlə yeni lüğət qurur.",
+          "detail": "`{key_expr: value_expr for item in iterable if condition}` formasıdır. Hər element üçün bir cüt yaradır; oxunması çətinləşirsə adi dövr yazın.",
+          "example": "squares = {n: n * n for n in range(1, 4)}\nprint(squares)",
+          "output": "{1: 1, 2: 4, 3: 9}"
+        }
+      ]
+    },
+    {
+      "id": "list",
+      "title": "Siyahı (list)",
+      "entries": [
+        {
+          "term": "append(x)",
+          "kind": "list method",
+          "short": "Bir elementi siyahının sonuna əlavə edir.",
+          "detail": "Yerində dəyişir və `None` qaytarır; yeni siyahı yaratmır.",
+          "example": "items = [1]\nitems.append([2, 3])\nprint(items)",
+          "output": "[1, [2, 3]]"
+        },
+        {
+          "term": "extend(iterable)",
+          "kind": "list method",
+          "short": "Iterable-in elementlərini bir-bir sona əlavə edir.",
+          "detail": "Bir list-i digərinə birləşdirir; sətir verilərsə simvollarına ayrılır. Yerində dəyişir və `None` qaytarır.",
+          "example": "items = [1]\nitems.extend([2, 3])\nprint(items)",
+          "output": "[1, 2, 3]"
+        },
+        {
+          "term": "insert(index, x)",
+          "kind": "list method",
+          "short": "Elementi verilən mövqeyə əlavə edir.",
+          "detail": "Sonrakı elementlər sağa sürüşür. Çox böyük/kiçik indekslər sərhədə uyğunlaşdırılır; ortada tez-tez insert etmək bahalıdır.",
+          "example": "items = ['a', 'c']\nitems.insert(1, 'b')\nprint(items)",
+          "output": "['a', 'b', 'c']"
+        },
+        {
+          "term": "remove(x)",
+          "kind": "list method",
+          "short": "Dəyərin ilk uyğun görünüşünü silir.",
+          "detail": "Siyahıda dəyər yoxdursa `ValueError` qaldırır; bütün uyğunları silmək üçün filtr/comprehension istifadə edin.",
+          "example": "items = [2, 1, 2]\nitems.remove(2)\nprint(items)",
+          "output": "[1, 2]"
+        },
+        {
+          "term": "pop(index=-1)",
+          "kind": "list method",
+          "short": "İndeksdəki elementi silir və qaytarır.",
+          "detail": "İndeks göstərilməsə sonuncu element götürülür. Boş siyahı və ya səhv indeks `IndexError` yaradır.",
+          "example": "items = ['a', 'b']\nlast = items.pop()\nprint(last, items)",
+          "output": "b ['a']"
+        },
+        {
+          "term": "index(x, start, stop)",
+          "kind": "list method",
+          "short": "İlk uyğun elementin indeksini qaytarır.",
+          "detail": "Axtarışı `start`-dan başlayıb `stop`-dan əvvəl bitirə bilər. Element yoxdursa `ValueError`; əvvəl `in` yoxlamaq mümkündür.",
+          "example": "items = ['a', 'b', 'a']\nprint(items.index('a', 1))",
+          "output": "2"
+        },
+        {
+          "term": "count(x)",
+          "kind": "list method",
+          "short": "Dəyərin neçə dəfə olduğunu sayır.",
+          "detail": "Uyğun elementlərin sayını tam ədəd kimi verir; siyahını dəyişmir.",
+          "example": "print([1, 2, 1].count(1))",
+          "output": "2"
+        },
+        {
+          "term": "sort(key=None, reverse=False)",
+          "kind": "list method",
+          "short": "Siyahını yerində sıralayır.",
+          "detail": "`key` sıralama dəyəri çıxaran funksiya qəbul edir; `reverse=True` azalan sıra verir. Sabit sıralamadır, `None` qaytarır. Orijinalı saxlayıb yeni list üçün `sorted(...)` seçin.",
+          "example": "names = ['Leyla', 'ali']\nnames.sort(key=str.casefold)\nprint(names)",
+          "output": "['ali', 'Leyla']"
+        },
+        {
+          "term": "reverse()",
+          "kind": "list method",
+          "short": "Mövcud sıranı yerində tərsinə çevirir.",
+          "detail": "Elementləri sıralamır; sadəcə mövqeləri çevirir və `None` qaytarır.",
+          "example": "items = [1, 2, 3]\nitems.reverse()\nprint(items)",
+          "output": "[3, 2, 1]"
+        },
+        {
+          "term": "copy()",
+          "kind": "list method",
+          "short": "Siyahının səthi surətini qaytarır.",
+          "detail": "`items[:]` eyni səviyyədə surət yaradır. İç-içə mutable obyektlər paylaşılmağa davam edir.",
+          "example": "a = [1, 2]\nb = a.copy()\nb.append(3)\nprint(a, b)",
+          "output": "[1, 2] [1, 2, 3]"
+        },
+        {
+          "term": "clear()",
+          "kind": "list method",
+          "short": "Siyahıdakı bütün elementləri silir.",
+          "detail": "Eyni list obyektini boşaldır və `None` qaytarır; ona başqa ad da istinad edirsə, həmin ad da boş siyahını görür.",
+          "example": "items = [1]\nitems.clear()\nprint(items)",
+          "output": "[]"
+        },
+        {
+          "term": "Dilimləmə [start:stop:step]",
+          "kind": "syntax",
+          "short": "Siyahının bir hissəsini yeni list kimi götürür.",
+          "detail": "`stop` daxil deyil; sərhədlər buraxıla bilər. Mənfi indeks sondan sayır, mənfi `step` tərs istiqamət verir. Dilimləmə səthi surətdir; dilimə təyinat elementləri dəyişə bilər.",
+          "example": "items = [0, 1, 2, 3]\nprint(items[1:3], items[::-1])",
+          "output": "[1, 2] [3, 2, 1, 0]"
+        },
+        {
+          "term": "List comprehension",
+          "kind": "syntax",
+          "short": "Iterable-dən qısa qayda ilə yeni list yaradır.",
+          "detail": "`[expression for item in iterable if condition]` formasındadır. Filtrləmə və çevirmə üçündür; çox iç-içə şərt oxunaqlılığı azaldır.",
+          "example": "squares = [n * n for n in range(4) if n % 2 == 0]\nprint(squares)",
+          "output": "[0, 4]"
+        }
+      ]
+    },
+    {
+      "id": "file-io",
+      "title": "Fayl I/O və fayl obyekti",
+      "entries": [
+        {
+          "term": "open(file, mode, ...)",
+          "kind": "built-in function",
+          "short": "Faylı açıb fayl obyekti qaytarır.",
+          "detail": "Vacib arqumentlər: `file`, `mode`, `encoding`, `errors`, `newline`, `buffering`. Mətn rejimində encoding-i açıq yazın; yeni kodda `with open(...)` istifadə edin.",
+          "example": "with open('notes.txt', 'r', encoding='utf-8') as f:\n    print(f.read())",
+          "output": "Fayldakı mətn"
+        },
+        {
+          "term": "r rejimi",
+          "kind": "file mode",
+          "short": "Mövcud faylı yalnız oxumaq üçün açır.",
+          "detail": "Fayl yoxdursa `FileNotFoundError`. Yazmaq lazım deyilsə məlumatın təsadüfi dəyişməsinin qarşısını alır.",
+          "example": "open('notes.txt', 'r', encoding='utf-8')",
+          "output": "Oxumaq üçün fayl obyekti"
+        },
+        {
+          "term": "w rejimi",
+          "kind": "file mode",
+          "short": "Yazmaq üçün açır və mövcud məzmunu sıfırlayır.",
+          "detail": "Fayl yoxdursa yaradır; varsa əvvəlki məzmun dərhal itir. Üstünə yazmaq niyyətini yoxlayın.",
+          "example": "with open('notes.txt', 'w', encoding='utf-8') as f:\n    f.write('yeni mətn')",
+          "output": "Faylda yalnız yeni mətn"
+        },
+        {
+          "term": "a rejimi",
+          "kind": "file mode",
+          "short": "Yazını faylın sonuna əlavə edir.",
+          "detail": "Mövcud məzmunu saxlayır, fayl yoxdursa yaradır. Jurnal qeydi əlavə etmək üçün istifadə edilir.",
+          "example": "with open('app.log', 'a', encoding='utf-8') as f:\n    f.write('başladı\\n')",
+          "output": "Sona əlavə edilmiş sətir"
+        },
+        {
+          "term": "x rejimi",
+          "kind": "file mode",
+          "short": "Yalnız yeni fayl yaradır.",
+          "detail": "Fayl artıq varsa `FileExistsError` verir; mövcud faylı səhvən əvəz etməmək üçün yararlıdır.",
+          "example": "with open('new.txt', 'x', encoding='utf-8') as f:\n    f.write('ilk')",
+          "output": "Fayl yalnız əvvəl mövcud deyilsə yaranır"
+        },
+        {
+          "term": "b və t rejimləri",
+          "kind": "file mode",
+          "short": "`b` byte, `t` mətn rejimidir; `t` standartdır.",
+          "detail": "`rb`, `wb`, `ab` byte-larla işləyir və `bytes` qaytarır; `encoding`/`newline` tətbiq edilmir. `rt`/`wt` mətn üçündür və encoding seçilə bilər.",
+          "example": "with open('image.bin', 'rb') as f:\n    first_bytes = f.read(4)",
+          "output": "Məsələn b'\\x89PNG'"
+        },
+        {
+          "term": "+ rejimi",
+          "kind": "file mode",
+          "short": "Rejimə həm oxu, həm yazı icazəsi əlavə edir.",
+          "detail": "`r+` mövcud faylı dəyişdirir, `w+` əvvəlcə sıfırlayır, `a+` yazını sona yönəldir, `x+` yeni fayl tələb edir. Göstərici mövqeyini yoxlamaq üçün `tell`/`seek` istifadə edin.",
+          "example": "with open('notes.txt', 'r+', encoding='utf-8') as f:\n    old = f.read()\n    f.seek(0)\n    f.write('Başlıq\\n' + old)",
+          "output": "Faylın əvvəlində başlıq"
+        },
+        {
+          "term": "encoding / errors / newline",
+          "kind": "open parameter",
+          "short": "Mətnin byte-a çevrilməsini və sətirsonunu idarə edir.",
+          "detail": "`encoding='utf-8'` platformalararası mətn oxuma/yazmanı etibarlı edir. `errors` kodlaşdırma xətasının davranışını seçir; `strict` default xətanı göstərir. `newline` sətirsonunun tanınması və çevrilməsinə təsir edir.",
+          "example": "with open('az.txt', 'w', encoding='utf-8', newline='\\n') as f:\n    f.write('salam\\n')",
+          "output": "UTF-8 mətn faylı"
+        },
+        {
+          "term": "with / context manager",
+          "kind": "syntax",
+          "short": "Blok bitəndə faylı avtomatik bağlayır.",
+          "detail": "Normal çıxışda və exception zamanı resursu bağlayır. Əllə `close()` çağırmağın unudulması riskini aradan qaldırır.",
+          "example": "with open('notes.txt', encoding='utf-8') as f:\n    text = f.read()",
+          "output": "Blok bitəndə fayl bağlıdır"
+        },
+        {
+          "term": "read(size=-1)",
+          "kind": "file method",
+          "short": "Qalan faylın hamısını və ya müəyyən hissəsini oxuyur.",
+          "detail": "Mətn rejimində simvol, binary rejimdə byte oxuyur. Böyük faylı bütöv yaddaşa gətirməyin; sətir-sətir iterasiya edin.",
+          "example": "with open('notes.txt', encoding='utf-8') as f:\n    text = f.read(20)",
+          "output": "Ən çox 20 simvol"
+        },
+        {
+          "term": "readline() / readlines()",
+          "kind": "file methods",
+          "short": "Bir sətir və ya sətirlərin hamısını oxuyur.",
+          "detail": "`readline()` yeni sətir simvolunu da saxlaya bilər. `readlines()` hamısını list-ə yığır; böyük faylda `for line in f` daha qənaətlidir.",
+          "example": "with open('notes.txt', encoding='utf-8') as f:\n    for line in f:\n        print(line, end='')",
+          "output": "Sətirlər ardıcıllıqla"
+        },
+        {
+          "term": "write(text) / writelines(lines)",
+          "kind": "file methods",
+          "short": "Mətn və ya mətn sətirlərini fayla yazır.",
+          "detail": "`write` yazılan simvol sayını qaytarır. `writelines` sətirsonu əlavə etmir; `\\n` hər elementdə ayrıca olmalıdır. Faylı bağlamaq/flush yazı buferini ötürür.",
+          "example": "with open('notes.txt', 'w', encoding='utf-8') as f:\n    f.writelines(['bir\\n', 'iki\\n'])",
+          "output": "İki sətir yazılır"
+        },
+        {
+          "term": "tell() / seek(offset, whence=0)",
+          "kind": "file methods",
+          "short": "Cari oxu-yazı mövqeyini verir və ya dəyişir.",
+          "detail": "`whence=0` başlanğıc, `1` cari mövqe, `2` fayl sonudur. Mətn rejimində seek üçün məhdudiyyətlər var; istənilən byte mövqeyi üçün binary rejim seçin.",
+          "example": "with open('notes.txt', 'rb') as f:\n    print(f.tell())\n    f.seek(0)",
+          "output": "0"
+        },
+        {
+          "term": "flush() / close()",
+          "kind": "file methods",
+          "short": "`flush` buferi ötürür, `close` faylı bağlayır.",
+          "detail": "`flush()` fiziki diskə yazılma zəmanəti deyil. `close()` resursu buraxır; `with` bunu avtomatik edir. Davamlılıq üçün tətbiqin fayl sistemi və dayanma siyasəti ayrıca planlanmalıdır.",
+          "example": "with open('notes.txt', 'w', encoding='utf-8') as f:\n    f.write('tamam')\n    f.flush()",
+          "output": "Blok çıxışında fayl bağlanır"
+        },
+        {
+          "term": "Köhnə aç-bağla üslubu",
+          "kind": "pattern",
+          "short": "Faylı `try/finally` ilə əl ilə bağlamaq mümkündür.",
+          "detail": "Tarixi kodda rast gəlinir, lakin hər exception və erkən return yolunda close etməyi tələb edir. Müasir kodda `with` daha etibarlı və qısadır.",
+          "example": "f = open('notes.txt', encoding='utf-8')\ntry:\n    text = f.read()\nfinally:\n    f.close()",
+          "output": "Fayl hər halda bağlanır"
+        }
+      ]
+    },
+    {
+      "id": "oop-magic",
+      "title": "OOP və Magic Methods",
+      "entries": [
+        {
+          "term": "class / object / self",
+          "kind": "concept",
+          "short": "Sinif tipin qaydası, obyekt nümunəsi, `self` cari nümunədir.",
+          "detail": "Nümunə metodu çağırıldıqda Python obyektin özünü ilk arqument kimi verir. `self` xüsusi keyword deyil, qəbul edilmiş parametr adıdır.",
+          "example": "class Counter:\n    def value(self):\n        return 1\nprint(Counter().value())",
+          "output": "1"
+        },
+        {
+          "term": "__new__(cls, ...)",
+          "kind": "magic method",
+          "short": "Yeni nümunəni yaradır.",
+          "detail": "Adətən override olunmur; dəyişməz tip və xüsusi factory davranışında istifadə edilir. Yazılmazsa baza sinfinin yaratma davranışı işləyir.",
+          "example": "class Token:\n    pass\nprint(type(Token()).__name__)",
+          "output": "Token"
+        },
+        {
+          "term": "__init__(self, ...)",
+          "kind": "magic method",
+          "short": "Yaradılmış nümunənin başlanğıc vəziyyətini qurur.",
+          "detail": "Sinif çağırılanda avtomatik işləyir; dəyər qaytarmamalıdır. Yazılmazsa öz sahələriniz qurulmur, baza/default init tətbiq edilir.",
+          "example": "class User:\n    def __init__(self, name):\n        self.name = name",
+          "output": "User('Aylin').name → 'Aylin'"
+        },
+        {
+          "term": "__str__(self)",
+          "kind": "magic method",
+          "short": "`str(obj)` və `print(obj)` üçün istifadəçi mətnini verir.",
+          "detail": "Yazılmasa Python `__repr__`-a və ya standart təsvirə qayıdır; string qaytarmalıdır.",
+          "example": "class C:\n    def __str__(self): return 'salam'\nprint(C())",
+          "output": "salam"
+        },
+        {
+          "term": "__repr__(self)",
+          "kind": "magic method",
+          "short": "REPL və debugger üçün texniki təsvir yaradır.",
+          "detail": "Mümkün olduqda obyektin konstruksiya formasına yaxın, birmənalı sətir qaytarın. Yazılmazsa standart obyekt təsviri görünür.",
+          "example": "class Point:\n    def __repr__(self): return 'Point(x=2)'\nprint(repr(Point()))",
+          "output": "Point(x=2)"
+        },
+        {
+          "term": "__len__(self)",
+          "kind": "magic method",
+          "short": "`len(obj)` nəticəsini təyin edir.",
+          "detail": "Sıfır və ya müsbət tam ədəd qaytarmalıdır. Yazılmasa `len(obj)` TypeError verir; truth test üçün `__bool__` yoxdursa da istifadə oluna bilər.",
+          "example": "class Box:\n    def __len__(self): return 3\nprint(len(Box()))",
+          "output": "3"
+        },
+        {
+          "term": "__getitem__(self, key)",
+          "kind": "magic method",
+          "short": "`obj[key]` oxunuşunu həyata keçirir.",
+          "detail": "Mapping-də açar, sequence-də indeks qəbul edə bilər. Yazılmasa `obj[key]` TypeError verir; yox açar/indeks üçün KeyError/IndexError müqaviləsini qoruyun.",
+          "example": "class Box:\n    def __getitem__(self, key): return {'x': 4}[key]\nprint(Box()['x'])",
+          "output": "4"
+        },
+        {
+          "term": "__setitem__(self, key, value)",
+          "kind": "magic method",
+          "short": "`obj[key] = value` təyinatını idarə edir.",
+          "detail": "Daxili məlumatı yeniləməli və ya açar yarada bilər. Yazılmasa kvadrat mötərizə ilə təyin TypeError verir.",
+          "example": "class Box:\n    def __init__(self): self.data = {}\n    def __setitem__(self, key, value): self.data[key] = value",
+          "output": "b = Box(); b['x'] = 4"
+        },
+        {
+          "term": "__delitem__(self, key)",
+          "kind": "magic method",
+          "short": "`del obj[key]` silməsini həyata keçirir.",
+          "detail": "Daxili kolleksiyadan elementi silir. Yazılmasa `del obj[key]` TypeError verir; olmayan açar üçün adətən KeyError qaldırılır.",
+          "example": "class Box:\n    def __delitem__(self, key): del self.data[key]",
+          "output": "del box['x']"
+        },
+        {
+          "term": "__enter__ / __exit__",
+          "kind": "magic methods",
+          "short": "`with` blokuna giriş və çıxışda işləyir.",
+          "detail": "`__enter__` `as` dəyişəninə obyekt qaytarır. `__exit__(exc_type, exc, traceback)` təmizləyir; True qaytarsa exception udulur, False/None qaytarsa yayılmağa davam edir. Yazılmasa obyekt with ilə işləməz.",
+          "example": "class Scope:\n    def __enter__(self): return self\n    def __exit__(self, typ, value, tb): return False",
+          "output": "with Scope() as scope: ..."
+        },
+        {
+          "term": "__call__(self, ...)",
+          "kind": "magic method",
+          "short": "Obyektin funksiya kimi `obj(...)` çağırılmasına imkan verir.",
+          "detail": "Funksiya kimi konfiqurasiya daşıyan obyektlər üçün faydalıdır. Yazılmasa obyekt çağırışı TypeError verir.",
+          "example": "class Twice:\n    def __call__(self, n): return n * 2\nprint(Twice()(4))",
+          "output": "8"
+        },
+        {
+          "term": "__eq__(self, other)",
+          "kind": "magic method",
+          "short": "`==` bərabərliyinin mənasını müəyyən edir.",
+          "detail": "Yazılmasa default davranış çox vaxt obyekt eyniliyidir. Tanımadığınız tip üçün `NotImplemented` qaytarın; bərabər sayılan obyektlərin hash müqaviləsi də uyğun olmalıdır.",
+          "example": "class Key:\n    def __init__(self, value): self.value = value\n    def __eq__(self, other):\n        if not isinstance(other, Key): return NotImplemented\n        return self.value == other.value",
+          "output": "Key(1) == Key(1) → True"
+        },
+        {
+          "term": "__hash__(self)",
+          "kind": "magic method",
+          "short": "Obyekti set üzvü və dict açarı edə bilən hash verir.",
+          "detail": "Bərabər obyektlər eyni hash verməlidir; hash-ə təsir edən məlumat dəyişməz qalmalıdır. `__eq__` override edilib, `__hash__` yazılmasa Python sinfi adətən unhashable edir.",
+          "example": "class Key:\n    def __init__(self, value): self.value = value\n    def __eq__(self, other): return isinstance(other, Key) and self.value == other.value\n    def __hash__(self): return hash(self.value)",
+          "output": "hash(Key('a')) → tam ədəd"
+        },
+        {
+          "term": "__del__(self)",
+          "kind": "magic method",
+          "short": "Obyekt yığışdırılarkən çağırıla bilən destruktor metodudur.",
+          "detail": "Çağırılma vaxtına zəmanət yoxdur, dövrəvi istinadlarda gecikə bilər. Resurs bağlamaq üçün istifadə etməyin; `with`/`__exit__` seçin. Yazılmasa Python yaddaşı özü idarə edir.",
+          "example": "# Resursu __del__ ilə deyil, with ilə bağlayın\nwith open('notes.txt', encoding='utf-8') as f:\n    text = f.read()",
+          "output": "Blokdan çıxanda fayl bağlanır"
+        },
+        {
+          "term": "__iter__ / __next__",
+          "kind": "magic methods",
+          "short": "Obyektin dövr ilə gəzilməsini təmin edir.",
+          "detail": "`__iter__` iterator qaytarır; iteratorun `__next__` metodu növbəti dəyəri verir və bitəndə StopIteration qaldırır. Yazılmasa obyekt iterable olmaya bilər.",
+          "example": "class One:\n    def __iter__(self):\n        yield 1\nprint(list(One()))",
+          "output": "[1]"
+        },
+        {
+          "term": "__contains__(self, item)",
+          "kind": "magic method",
+          "short": "`item in obj` yoxlamasını idarə edir.",
+          "detail": "Yazılmasa Python iterasiya və ya indeksləmə ilə yoxlamağa cəhd edə bilər. Xüsusi kolleksiyada düzgün və səmərəli yoxlama üçün yazın.",
+          "example": "class Vowels:\n    def __contains__(self, char): return char in 'aeiou'\nprint('a' in Vowels())",
+          "output": "True"
+        },
+        {
+          "term": "__bool__(self)",
+          "kind": "magic method",
+          "short": "`if obj` üçün doğru/yanlış dəyəri verir.",
+          "detail": "Yazılmasa Python əvvəl `__len__`-ə, o da yoxdursa obyektin standart doğru dəyərinə baxır. Nəticə bool olmalıdır.",
+          "example": "class Empty:\n    def __bool__(self): return False\nprint(bool(Empty()))",
+          "output": "False"
+        },
+        {
+          "term": "__getattr__ / __setattr__",
+          "kind": "magic methods",
+          "short": "Atributun tapılmamasını və təyin edilməsini idarə edir.",
+          "detail": "`__getattr__` yalnız adi axtarış uğursuz olanda çağırılır; `__setattr__` hər təyinatı tutur və içində `object.__setattr__` istifadə edilməzsə rekursiya yarana bilər. Yazılmasa standart atribut davranışı qalır.",
+          "example": "class C:\n    def __getattr__(self, name): return 'tapılmadı: ' + name\nprint(C().unknown)",
+          "output": "tapılmadı: unknown"
+        },
+        {
+          "term": "__format__(self, spec)",
+          "kind": "magic method",
+          "short": "`format(obj, spec)` və f-string formatını idarə edir.",
+          "detail": "Format spesifikasiyasını sinfin ehtiyacına uyğun emal edir. Yazılmasa standart format davranışı tətbiq edilir; metod string qaytarmalıdır.",
+          "example": "class Score:\n    def __format__(self, spec): return format(95, spec)\nprint(f'{Score():03d}')",
+          "output": "095"
+        },
+        {
+          "term": "__add__ / __lt__",
+          "kind": "magic methods",
+          "short": "Müvafiq olaraq `+` və `<` operatorlarına məna verir.",
+          "detail": "Operator overload yalnız həmin əməliyyat obyekt üçün təbii olanda istifadə edilməlidir. Digər tip dəstəklənmirsə `NotImplemented` qaytarın; yazılmasa uyğun olmayan əməliyyat TypeError verə bilər.",
+          "example": "class Number:\n    def __init__(self, value): self.value = value\n    def __add__(self, other):\n        if not isinstance(other, Number): return NotImplemented\n        return Number(self.value + other.value)",
+          "output": "Number(2) + Number(3) → Number(5)"
+        },
+        {
+          "term": "__delattr__ / __getattribute__",
+          "kind": "magic methods",
+          "short": "Atribut silinməsini və bütün atribut oxunuşlarını idarə edir.",
+          "detail": "`__getattribute__` hər oxunuşda çağırıldığı üçün yalnız xüsusi ehtiyacda yazılır; səhv override sonsuz rekursiya yarada bilər. `__delattr__` atribut silinməsini tutur; yazılmadıqda standart davranış qalır.",
+          "example": "class C:\n    def __getattribute__(self, name):\n        return object.__getattribute__(self, name)",
+          "output": "Normal atribut oxunuşu"
+        }
+      ]
+    }
+  ]
+}

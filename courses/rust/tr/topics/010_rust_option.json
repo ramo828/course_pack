@@ -1,0 +1,464 @@
+{
+  "id": "rust_rust_option",
+  "title": "Option: değer var mı, yok mu?",
+  "difficulty": "easy",
+  "testId": "rust_test_rust_option_tr",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch06-02-match.html"
+  ],
+  "estimatedMinutes": 12,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Option: değer var mı, yok mu?” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Some(7)",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ve ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "None",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ayrı ayrı ele alınır; ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "match",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " tüm seçenekleri denetler. Gerçek projede şu öneriyi izleyin: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Option",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " değerini zorla açmak yerine iki durumu da işleyin. ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "unwrap()",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yalnızca değerin kesinlikle var olduğuna dair sağlam bir garanti varsa uygundur.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn describe(value: Option<i32>) -> &'static str {\n    match value {\n        Some(number) if number > 0 => \"positive\",\n        Some(_) => \"zero or negative\",\n        None => \"missing\",\n    }\n}\n\nfn main() {\n    println!(\"{}\\n{}\", describe(Some(7)), describe(None));\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "positive\nmissing\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Aranan bilgi bazen bulunmaz. Rust bunu gizli bir boş değer yerine ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Option<T>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile açıkça gösterir: ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Some(value)",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " değer vardır, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "None",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yoktur. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "match",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " veya ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "if let",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " iki durumu da ele alır; böylece eksik liste öğesi ya da kullanıcı verisi güvenle yönetilir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "match value {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Some(7)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "None",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ayrı ayrı ele alınır; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "match",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " tüm seçenekleri denetler.\nNeden seçildi: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Option",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " değerini zorla açmak yerine iki durumu da işleyin. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "unwrap()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yalnızca değerin kesinlikle var olduğuna dair sağlam bir garanti varsa uygundur.\nAtlanır veya değiştirilirse: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Option",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " değerini zorla açmak yerine iki durumu da işleyin. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "unwrap()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yalnızca değerin kesinlikle var olduğuna dair sağlam bir garanti varsa uygundur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: `Option` değerini zorla açmak yerine iki durumu da işleyin. `unwrap()` yalnızca değerin kesinlikle var olduğuna dair sağlam bir garanti varsa uygundur."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Some(7)",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " ve ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "None",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " ayrı ayrı ele alınır; ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "match",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " tüm seçenekleri denetler.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "`Option` değerini zorla açmak yerine iki durumu da işleyin. `unwrap()` yalnızca değerin kesinlikle var olduğuna dair sağlam bir garanti varsa uygundur."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn first_positive(values: &[i32]) -> Option<i32> { values.iter().copied().find(|value| *value > 0) }\nfn main() { println!(\"{:?}\", first_positive(&[-2, 4, 8])); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Some(4)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "`match` veya `if let` iki durumu da ele alır; böylece eksik liste öğesi ya da kullanıcı verisi güvenle yönetilir."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Kod örnekleri odaklı parçalardır; seçilen araç zinciri ve hedefte derleyip test edin, çünkü API ve tanılamalar sürüme göre değişebilir."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Option: değer var mı, yok mu?” konusunda hangi ifade temel kuralı doğru açıklar?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Some(7)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "None",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ayrı ayrı ele alınır; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "match",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " tüm seçenekleri denetler.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı."
+}

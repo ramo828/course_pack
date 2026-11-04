@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_first_api_en",
+  "title": "Your first FastAPI endpoint",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_first_api",
+      "type": "multiple_choice",
+      "prompt": "How should the API respond to this practical HTTP request?\nGET /",
+      "options": [
+        "200 OK; JSON: {\"message\":\"Salam, dünya!\",\"lesson\":\"First API\"}",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Return the same response to every request without checking its data.",
+        "Keep all state in a global variable and skip authentication."
+      ],
+      "answer": "200 OK; JSON: {\"message\":\"Salam, dünya!\",\"lesson\":\"First API\"}",
+      "explanation": "This is the expected behavior for `GET /`. 200 OK; JSON: {\"message\":\"Salam, dünya!\",\"lesson\":\"First API\"}"
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_first_api",
+      "type": "multiple_choice",
+      "prompt": "Which design principle is correct for this topic?",
+      "options": [
+        "A GET request to `/` needs no request body; when method and path match, the server returns the greeting JSON.",
+        "Keep all state in a global variable and skip authentication.",
+        "Return the same response to every request without checking its data.",
+        "Ignore HTTP status codes and present failures as successful responses."
+      ],
+      "answer": "A GET request to `/` needs no request body; when method and path match, the server returns the greeting JSON.",
+      "explanation": "A GET request to `/` needs no request body; when method and path match, the server returns the greeting JSON. `@app.get` binds the URL and HTTP method to the function; FastAPI converts the returned dictionary to JSON. The endpoint is not called until an HTTP request arrives."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_first_api",
+      "type": "multiple_choice",
+      "prompt": "What changes if the important part shown in the lesson is omitted?",
+      "options": [
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Return the same response to every request without checking its data.",
+        "Keep all state in a global variable and skip authentication.",
+        "Without the `FastAPI()` application there is nowhere to register routes. Without `@app.get(\"/\")`, the function remains ordinary Python code and is not connected to an HTTP `GET /` request."
+      ],
+      "answer": "Without the `FastAPI()` application there is nowhere to register routes. Without `@app.get(\"/\")`, the function remains ordinary Python code and is not connected to an HTTP `GET /` request.",
+      "explanation": "Without the `FastAPI()` application there is nowhere to register routes. Without `@app.get(\"/\")`, the function remains ordinary Python code and is not connected to an HTTP `GET /` request. We will build the first API end to end: the FastAPI app accepts a GET request at `/` and returns a greeting as JSON. GET is used to read information; browsers, mobile apps, and other services call endpoints like this."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_first_api",
+      "type": "multiple_choice",
+      "prompt": "Which action best prevents the common mistake from this lesson?",
+      "options": [
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Keep all state in a global variable and skip authentication.",
+        "Return the same response to every request without checking its data.",
+        "Start the server with `fastapi dev main.py`; open `GET /` in `/docs` and use **Try it out** to send a request."
+      ],
+      "answer": "Start the server with `fastapi dev main.py`; open `GET /` in `/docs` and use **Try it out** to send a request.",
+      "explanation": "Start the server with `fastapi dev main.py`; open `GET /` in `/docs` and use **Try it out** to send a request. The example has no authentication or database. Design authorization, persistence, and HTTPS before exposing a public API."
+    }
+  ]
+}

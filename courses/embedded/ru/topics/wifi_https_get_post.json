@@ -1,0 +1,85 @@
+{
+  "id": "wifi_https_get_post",
+  "title": "HTTPS по Wi-Fi: получение и отправка данных",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/httpclient.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/protocols/esp_https_client.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ESP32 подключается к маршрутизатору в режиме STA, чтобы получать данные сервиса или отправлять показания датчиков.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "КАК ЭТО РАБОТАЕТ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HTTP GET получает ответ сервера, POST отправляет данные. HTTPS шифрует обмен по TLS и проверяет сертификат сервера. В Arduino-ESP32 используются "
+    },
+    {
+      "type": "text",
+      "text": "HTTPClient",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и "
+    },
+    {
+      "type": "text",
+      "text": "WiFiClientSecure",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". Сначала подключитесь к Wi-Fi, задайте доверенный CA-сертификат, проверяйте код ответа, ограничивайте размер данных и закрывайте запрос.\n\nДля отправки данных удалённому сервису не нужно открывать входящий порт маршрутизатора: исходящие HTTPS или MQTT работают за NAT. Если локальный сервер устройства должен быть доступен извне, используйте аутентифицированный HTTPS-шлюз или туннель, а не случайное перенаправление порта.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "WiFiClient: простой TCP/HTTP-запрос\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n\nvoid readPublicPage() {\n  WiFiClient client;\n  client.setTimeout(1000);\n  if (!client.connect(\"example.com\", 80)) {\n    Serial.println(\"TCP connection failed\");\n    return;\n  }\n\n  client.print(\"GET / HTTP/1.1\\r\\nHost: example.com\\r\\nConnection: close\\r\\n\\r\\n\");\n  const uint32_t started = millis();\n  while ((client.connected() || client.available()) &&\n         millis() - started < 5000) {\n    while (client.available()) {\n      Serial.write(client.read());\n    }\n    delay(1);\n  }\n  client.stop();\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "WiFiClientSecure: HTTPS GET и POST с проверкой сертификата\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <WiFiClientSecure.h>\n#include <HTTPClient.h>\n\nextern const char rootCa[];\nconst char* endpoint = \"https://api.example.org/readings\";\n\nvoid printBoundedResponse(WiFiClient& stream) {\n  constexpr size_t MAX_BODY_BYTES = 1024;\n  const uint32_t started = millis();\n  size_t received = 0;\n  while ((stream.connected() || stream.available()) &&\n         received < MAX_BODY_BYTES && millis() - started < 5000) {\n    while (stream.available() && received < MAX_BODY_BYTES) {\n      Serial.write(stream.read());\n      ++received;\n    }\n    delay(1);\n  }\n  if (received == MAX_BODY_BYTES) {\n    Serial.println(\"\\nResponse truncated at the configured limit\");\n  }\n}\n\nvoid exchangeData() {\n  WiFiClientSecure client;\n  client.setCACert(rootCa);\n  HTTPClient http;\n\n  if (!http.begin(client, endpoint)) return;\n  const int getStatus = http.GET();\n  if (getStatus > 0) {\n    Serial.printf(\"GET status: %d\\n\", getStatus);\n    WiFiClient* response = http.getStreamPtr();\n    if (response != nullptr) printBoundedResponse(*response);\n  }\n  http.end();\n\n  if (!http.begin(client, endpoint)) return;\n  http.addHeader(\"Content-Type\", \"application/json\");\n  const int postStatus = http.POST(\"{\\\"temperatureC\\\":23.5}\");\n  Serial.printf(\"POST status: %d\\n\", postStatus);\n  http.end();\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "HTTPS по Wi-Fi: получение и отправка данных"
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание о безопасности и совместимости",
+      "text": "Укажите CA-сертификат, подтверждающий ваш сервер; не отключайте проверку сертификатов. `api.example.org` — пример. В примере с обычным `WiFiClient` используется незашифрованный HTTP — не отправляйте через него секреты. Вызывайте запросы после подключения Wi-Fi и не храните секреты в исходном коде."
+    }
+  ],
+  "testId": "embedded_test_wifi_https_get_post_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

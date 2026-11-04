@@ -1,0 +1,170 @@
+{
+  "id": "python_py_sqlalchemy_orm",
+  "title": "SQLAlchemy 2 ORM: veritabanıyla çalışma",
+  "difficulty": "hard",
+  "testId": "python_test_py_sqlalchemy_orm_tr",
+  "sources": [
+    "https://docs.python.org/3/tutorial/",
+    "https://docs.python.org/3/using/",
+    "https://docs.python.org/3/library/",
+    "https://docs.python.org/3/library/turtle.html",
+    "https://docs.python.org/3/library/tkinter.html",
+    "https://fastapi.tiangolo.com/tutorial/",
+    "https://www.python.org/about/success/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLAlchemy, veritabanı SQL'i ile Python nesneleri arasında eşleme sağlar. 2.x tarzında ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "DeclarativeBase",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Mapped",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "mapped_column",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "select()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kullanılır. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nesnesini bağlamayı, transaction sonucunu ve hata yolunu yönetin; kullanıcı değerlerini SQL metnine birleştirmeyin. ORM, veritabanı şemasının ve indekslerin yerini almaz.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from sqlalchemy import create_engine, select\nfrom sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column\n\nclass Base(DeclarativeBase):\n    pass\n\nclass Device(Base):\n    __tablename__ = 'devices'\n    id: Mapped[int] = mapped_column(primary_key=True)\n    name: Mapped[str]\n\nengine = create_engine('sqlite+pysqlite:///:memory:')\nBase.metadata.create_all(engine)\nwith Session(engine) as session:\n    session.add(Device(name='sensor-1'))\n    session.commit()\n    names = session.scalars(select(Device.name)).all()\n    print(names)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "['sensor-1']",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Session işlemi commit eder ve sonucu Python listesi olarak verir: ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "['sensor-1']",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Örnek için `python -m pip install 'sqlalchemy>=2,<3'` çalıştırın. Bellek içi SQLite yalnızca ders içindir; gerçek uygulamada bağlantı ayarlarını ve migration'ları ayrıca yönetin."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Session ve engine kaynaklarını servis kapsamında doğru yönetin; migration ve transaction davranışını production öncesi test edin."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

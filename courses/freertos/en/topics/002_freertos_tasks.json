@@ -1,0 +1,184 @@
+{
+  "id": "freertos_freertos_tasks",
+  "title": "Creating tasks and choosing priorities",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_tasks_en",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/01-Tasks-and-co-routines/01-Tasks"
+  ],
+  "estimatedMinutes": 20,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Creating tasks and choosing priorities” to a real program or device. The key principle is: Each task consumes stack; priority affects scheduler choices. In a project, follow this guidance: An infinite task should block or wait periodically so it does not monopolize the CPU.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid fastTask(void*) { for (;;) { Serial.println(\"fast task\"); vTaskDelay(pdMS_TO_TICKS(300)); } }\nvoid slowTask(void*) { for (;;) { Serial.println(\"slow task\"); vTaskDelay(pdMS_TO_TICKS(1000)); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(fastTask, \"fast\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"fast task creation failed\"); if (xTaskCreate(slowTask, \"slow\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"slow task creation failed\"); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor prints fast task and slow task at their respective intervals.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A task is a function with its own stack and execution context; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "xTaskCreate",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " registers it with the scheduler. Set priority from a real timing need: an overactive high-priority task can starve lower-priority work. Arduino ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " is also an RTOS task, so plan shared access to Serial and peripherals.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { Serial.begin(115200); if (xTaskCreate(fastTask, \"fast\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"fast task creation failed\"); if (xTaskCreate(slowTask, \"slow\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"slow task creation failed\"); }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: Each task consumes stack; priority affects scheduler choices.\nWhy it is used: An infinite task should block or wait periodically so it does not monopolize the CPU.\nIf omitted or changed: Serial output from multiple tasks may interleave; serialize shared output and measure stack use.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Serial output from multiple tasks may interleave; serialize shared output and measure stack use."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Each task consumes stack; priority affects scheduler choices.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "An infinite task should block or wait periodically so it does not monopolize the CPU."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid sensorTask(void*) { for (;;) { Serial.println(\"sample\"); vTaskDelay(pdMS_TO_TICKS(500)); } }\nvoid setup() { Serial.begin(115200); xTaskCreate(sensorTask, \"sensor\", 2048, nullptr, 1, nullptr); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The sensor task prints sample about every 500 ms.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Arduino `loop()` is also an RTOS task, so plan shared access to Serial and peripherals."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Serial output from multiple tasks may interleave; serialize shared output and measure stack use."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a diagram showing task states, priorities, queue/synchronization relationships, and timing."
+}

@@ -1,0 +1,190 @@
+{
+  "id": "rust_rust_async",
+  "title": "Async/await, Future и executor",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_async_ru",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch17-00-async-await.html",
+    "https://tokio.rs/tokio/tutorial"
+  ],
+  "estimatedMinutes": 35,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Async/await, Future и executor» в программе или устройстве. Основной принцип: Runtime планирует future; HTTP-клиент должен быть совместим с его async-экосистемой. В проекте следуйте рекомендации: Async не распараллеливает CPU-задачи; долгие вычисления могут потребовать blocking pool или отдельный поток.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_async_runtime",
+      "caption": "Async/await, Future и executor"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::future::Future;\nuse std::sync::Arc;\nuse std::task::{Context, Poll, Wake, Waker};\nstruct NoopWake;\nimpl Wake for NoopWake { fn wake(self: Arc<Self>) {} }\nfn run_ready<F: Future>(future: F) -> F::Output {\n    let waker = Waker::from(Arc::new(NoopWake));\n    let mut context = Context::from_waker(&waker);\n    let mut future = Box::pin(future);\n    match future.as_mut().poll(&mut context) {\n        Poll::Ready(value) => value,\n        Poll::Pending => panic!(\"this tiny example only handles immediately-ready futures\"),\n    }\n}\nasync fn answer() -> u8 { 42 }\nfn main() { println!(\"{}\", run_ready(answer())); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "42\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Асинхронная функция Rust возвращает Future, а не выполняется до конца сразу; executor опрашивает future и возобновляет готовые задачи. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "await",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " позволяет ожидающей задаче уступить управление, что полезно для сетевого и дискового I/O. В стандартной библиотеке нет общего executor, поэтому проекты выбирают runtime, например Tokio, и совместимые библиотеки.\n\nЭтот небольшой пример опрашивает только немедленно готовый Future; для реального сетевого I/O используйте runtime вроде Tokio, а не демонстрационный executor.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let waker = Waker::from(Arc::new(NoopWake));",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Runtime планирует future; HTTP-клиент должен быть совместим с его async-экосистемой.\nЗачем она нужна: Async не распараллеливает CPU-задачи; долгие вычисления могут потребовать blocking pool или отдельный поток.\nЕсли пропустить или изменить: Большое число task не означает неограниченную параллельность; задайте лимиты, тайм-ауты и отмену.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Большое число task не означает неограниченную параллельность; задайте лимиты, тайм-ауты и отмену."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Runtime планирует future; HTTP-клиент должен быть совместим с его async-экосистемой.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Async не распараллеливает CPU-задачи; долгие вычисления могут потребовать blocking pool или отдельный поток."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[tokio::main]\nasync fn main() {\n    async fn read_sensor(name: &str, delay_ms: u64) -> String {\n        tokio::time::sleep(std::time::Duration::from_millis(delay_ms)).await;\n        format!(\"{name}:ready\")\n    }\n    let (temperature, humidity) = tokio::join!(\n        read_sensor(\"temperature\", 5),\n        read_sensor(\"humidity\", 3),\n    );\n    println!(\"{temperature}\\n{humidity}\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "temperature:ready\nhumidity:ready\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "В стандартной библиотеке нет общего executor, поэтому проекты выбирают runtime, например Tokio, и совместимые библиотеки.\n\nЭтот небольшой пример опрашивает только немедленно готовый Future; для реального сетевого I/O используйте runtime вроде Tokio, а не демонстрационный executor."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Большое число task не означает неограниченную параллельность; задайте лимиты, тайм-ауты и отмену."
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение верно передаёт основное правило темы «Async/await, Future и executor»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Runtime планирует future; HTTP-клиент должен быть совместим с его async-экосистемой.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_paths_en",
+  "title": "File paths and text encoding",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_paths",
+      "type": "multiple_choice",
+      "prompt": "What observable result does this snippet produce when it runs?\n\nfrom pathlib import Path\n\npath = Path('data') / 'notes.txt'\npath.write_text('Salam', encoding='utf-8')",
+      "options": [
+        "No console output; creates data/notes.txt containing Salam.",
+        ".txt notes",
+        "No console output; creates data/summary.txt containing Salam.",
+        "data/records.csv"
+      ],
+      "answer": "No console output; creates data/notes.txt containing Salam.",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`from pathlib import Path` — Imports specific names from a module; without it, those names are unavailable.\n`path = Path('data') / 'notes.txt'` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`path.write_text('Salam', encoding='utf-8')` — Writes the supplied text to the file, replacing its existing contents; the encoding is explicit."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_paths",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 2 in this lesson produce?\n\nfrom pathlib import PurePosixPath\npath = PurePosixPath('data') / 'records.csv'\nprint(path.as_posix())",
+      "options": [
+        "data/records.csv",
+        "No console output; creates data/notes.txt containing Salam.",
+        ".txt notes",
+        "DATA/RECORDS.CSV"
+      ],
+      "answer": "data/records.csv",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`from pathlib import PurePosixPath` — Imports specific names from a module; without it, those names are unavailable.\n`path = PurePosixPath('data') / 'records.csv'` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`print(path.as_posix())` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_paths",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 3 in this lesson produce?\n\nfrom pathlib import PurePosixPath\npath = PurePosixPath('notes.txt')\nprint(path.suffix, path.stem)",
+      "options": [
+        "No console output; creates data/notes.txt containing Salam.",
+        ".txt notes",
+        "data/records.csv",
+        ".TXT NOTES"
+      ],
+      "answer": ".txt notes",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`from pathlib import PurePosixPath` — Imports specific names from a module; without it, those names are unavailable.\n`path = PurePosixPath('notes.txt')` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`print(path.suffix, path.stem)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_paths",
+      "type": "multiple_choice",
+      "prompt": "Which statement accurately describes “File paths and text encoding”?",
+      "options": [
+        "Pathlib builds platform-aware paths; hardcoded separators can behave differently on another operating system.",
+        "The interpreter executes Python source; an editor helps write and organize a project.",
+        "Install Python with the official installer for your operating system from python.org.",
+        "Run a Python file from the terminal and read arguments with sys.argv."
+      ],
+      "answer": "Pathlib builds platform-aware paths; hardcoded separators can behave differently on another operating system.",
+      "explanation": "Pathlib builds platform-aware paths; hardcoded separators can behave differently on another operating system.\n\nLINE-BY-LINE WALKTHROUGH\n`from pathlib import PurePosixPath` — Imports specific names from a module; without it, those names are unavailable.\n`path = PurePosixPath('data') / 'records.csv'` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`print(path.as_posix())` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "id": "python_py_fastapi_testing",
+  "title": "Зависимости FastAPI, async и тесты",
+  "difficulty": "advanced",
+  "testId": "python_test_py_fastapi_testing_ru",
+  "sources": [
+    "https://docs.python.org/3/tutorial/",
+    "https://docs.python.org/3/using/",
+    "https://docs.python.org/3/library/",
+    "https://docs.python.org/3/library/turtle.html",
+    "https://docs.python.org/3/library/tkinter.html",
+    "https://fastapi.tiangolo.com/tutorial/",
+    "https://www.python.org/about/success/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Внедрение зависимостей отделяет повторно используемые аутентификацию, сессии БД и конфигурацию от endpoint. async def полезен только при асинхронном I/O библиотек; блокирующий код задерживает event loop. Проверяйте запросы, ответы, ошибки валидации и коды статуса через TestClient, а ASGI-сервер и число worker выбирайте для среды развёртывания.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi.testclient import TestClient\n\nclient = TestClient(app)\nresponse = client.post('/items', json={'name': 'pen', 'price': 1.5})\nassert response.status_code == 200",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "No console output; the assertion passes when POST /items returns HTTP 200.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "TestClient проверяет HTTP-поведение без открытия сетевого порта.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Синхронный вызов БД блокирует и async endpoint; используйте async-драйвер или отдельный worker."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Не открывайте development-сервер в интернет; отдельно проверьте production proxy и секреты."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

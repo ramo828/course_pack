@@ -1,0 +1,160 @@
+{
+  "id": "esp32_esp_adc_pwm",
+  "title": "ADC, LEDC PWM и сенсорные входы",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_adc_pwm_ru",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/adc_oneshot.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «ADC, LEDC PWM и сенсорные входы» в программе или устройстве. Основной принцип: Доступность и поведение ADC зависят от варианта ESP32. В проекте следуйте рекомендации: Учитывайте шум, калибровку и диапазон измерений ADC.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nconst int sensorPin = 34;\nconst int ledPin = 2;\nvoid setup() { Serial.begin(115200); pinMode(ledPin, OUTPUT); }\nvoid loop() {\n    int reading = analogRead(sensorPin);\n    int brightness = map(reading, 0, 4095, 0, 255);\n    analogWrite(ledPin, constrain(brightness, 0, 255));\n    Serial.println(reading);\n    delay(250);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor выводит показание ADC, а яркость PWM-выхода зависит от значения датчика; диапазон ADC и выводы зависят от чипа.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ADC, каналы и attenuation зависят от модели; сырые значения не равны напряжению. LEDC создаёт PWM, а поддержку touch проверяйте для конкретного чипа.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int reading = analogRead(sensorPin);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Доступность и поведение ADC зависят от варианта ESP32.\nЗачем она нужна: Учитывайте шум, калибровку и диапазон измерений ADC.\nЕсли пропустить или изменить: Не превышайте диапазон входа ADC, указанный в документации.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Не превышайте диапазон входа ADC, указанный в документации."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Доступность и поведение ADC зависят от варианта ESP32.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Учитывайте шум, калибровку и диапазон измерений ADC."
+    },
+    {
+      "type": "text",
+      "text": "Пример Arduino Ядро\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid setup() { Serial.begin(115200); }\nvoid loop() { Serial.println(analogRead(34)); delay(500); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor показывает отсчёты ADC; вывод и диапазон зависят от чипа.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "LEDC создаёт PWM, а поддержку touch проверяйте для конкретного чипа."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Не превышайте диапазон входа ADC, указанный в документации."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

@@ -1,0 +1,187 @@
+{
+  "id": "iot_iot_protocols",
+  "title": "HTTP, MQTT и выбор протокола",
+  "difficulty": "medium",
+  "testId": "iot_test_iot_protocols_ru",
+  "sources": [
+    "https://www.rfc-editor.org/rfc/rfc9110.html",
+    "https://www.rfc-editor.org/rfc/rfc8446.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «HTTP, MQTT и выбор протокола» в программе или устройстве. Основной принцип: HTTP использует запрос/ответ, MQTT — pub/sub. В проекте следуйте рекомендации: QoS протокола сам по себе не гарантирует однократную обработку бизнес-операции.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "curl --fail-with-body -H \"Content-Type: application/json\" -d '{\"device\":\"sensor-12\",\"value\":21.4,\"unit\":\"degC\"}' https://api.example.test/telemetry",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Пример отправляет POST на ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "/telemetry",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " с ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "application/json",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "; ответ зависит от API.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HTTP подходит для запросов и REST API, MQTT — для publish/subscribe через брокер. Учитывайте сеть, задержку, размер сообщений, QoS и ограничения устройства.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "curl --fail-with-body -H \"Content-Type: application/json\" -d '{\"device\":\"sensor-12\",\"value\":21.4,\"unit\":\"degC\"}' https://api.example.test/telemetry",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: HTTP использует запрос/ответ, MQTT — pub/sub.\nЗачем она нужна: QoS протокола сам по себе не гарантирует однократную обработку бизнес-операции.\nЕсли пропустить или изменить: QoS протокола сам по себе не гарантирует однократную обработку бизнес-операции.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: QoS протокола сам по себе не гарантирует однократную обработку бизнес-операции."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HTTP использует запрос/ответ, MQTT — pub/sub.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "QoS протокола сам по себе не гарантирует однократную обработку бизнес-операции."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "curl -i -H \"Content-Type: application/json\" -d '{\"temperatureC\":21.5}' https://api.example.test/telemetry",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Нужны доступный API и корректный endpoint; HTTP status и ответ зависят от сервиса.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Учитывайте сеть, задержку, размер сообщений, QoS и ограничения устройства."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Выводы, пределы напряжения/тока, тайминги и периферия зависят от платы; проверьте её документацию перед подключением и загрузкой."
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "Устройство передаёт измерения через шлюз или брокер сервису; команды могут идти обратно."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

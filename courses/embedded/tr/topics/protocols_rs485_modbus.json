@@ -1,0 +1,36 @@
+{
+  "id": "protocols_rs485_modbus",
+  "title": "RS-485 ve Modbus RTU: endüstride uzun mesafeli iletişim",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://www.modbus.org/specs.php",
+    "https://www.ti.com/lit/an/slla272d/slla272d.pdf"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "RS-485, uzun mesafede ve elektrik gürültüsünün yüksek olduğu ortamlarda diferansiyel sinyal taşıyan fiziksel iletişim katmanıdır. Modbus RTU ise bu hat üzerinde adres, işlev kodu, veri ve CRC kontrolüyle mesajlaşma kuralıdır. Su sayaçlarında, bina otomasyonunda ve endüstriyel sensörlerde görülür.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_rs485_modbus",
+      "caption": "RS-485 ve Modbus RTU: endüstride uzun mesafeli iletişim"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "constexpr int RX_PIN = 16;\nconstexpr int TX_PIN = 17;\n\nvoid setup() {\n  Serial.begin(115200);\n  Serial2.begin(9600, SERIAL_8N1, RX_PIN, TX_PIN);\n}\n\nvoid loop() {\n  while (Serial2.available()) {\n    Serial.write(Serial2.read());\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Mikrodenetleyici UART'ı RS-485 alıcı-verici yongasına bağlanır; A/B hattına doğrudan bağlanmaz. Hat uçlarında uygun 120 Ω sonlandırma, ortak referans ve iki telli yarı çift yön yön kontrolü gerekir."
+    }
+  ],
+  "testId": "embedded_test_protocols_rs485_modbus_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

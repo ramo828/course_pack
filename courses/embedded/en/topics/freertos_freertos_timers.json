@@ -1,0 +1,160 @@
+{
+  "id": "freertos_freertos_timers",
+  "title": "Software timers and callback rules",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_timers_en",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/06-software-timers/01-Software-timers"
+  ],
+  "estimatedMinutes": 22,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Software timers and callback rules” to a real program or device. The key principle is: A software timer is not a precise hardware timer; measure jitter and scheduler load. In a project, follow this guidance: Set a short flag or send a message in the callback; move longer work to a regular task.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nTaskHandle_t timerWorker = nullptr;\nTimerHandle_t sampleTimer = nullptr;\nvoid timerCallback(TimerHandle_t) { if (timerWorker) xTaskNotifyGive(timerWorker); }\nvoid timerWorkerTask(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"timer event\"); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(timerWorkerTask, \"timer-worker\", 2048, nullptr, 1, &timerWorker) != pdPASS) { Serial.println(\"timer worker creation failed\"); return; } sampleTimer = xTimerCreate(\"sample\", pdMS_TO_TICKS(1000), pdTRUE, nullptr, timerCallback); if (sampleTimer == nullptr) { Serial.println(\"timer creation failed\"); return; } if (xTimerStart(sampleTimer, 0) != pdPASS) { Serial.println(\"timer start failed\"); xTimerDelete(sampleTimer, 0); sampleTimer = nullptr; } }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The timer callback only notifies a task; the worker task prints the event to Serial Monitor.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A software timer callback runs in the timer-service task. Keep it short: blocking, lengthy Serial output, or expensive sensor work can delay every software timer. Send longer work to a worker task through a queue or notification.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { Serial.begin(115200); if (xTaskCreate(timerWorkerTask, \"timer-worker\", 2048, nullptr, 1, &timerWorker) != pdPASS) { Serial.println(\"timer worker creation failed\"); return; } sampleTimer = xTimerCreate(\"sample\", pdMS_TO_TICKS(1000), pdTRUE, nullptr, timerCallback); if (sampleTimer == nullptr) { Serial.println(\"timer creation failed\"); return; } if (xTimerStart(sampleTimer, 0) != pdPASS) { Serial.println(\"timer start failed\"); xTimerDelete(sampleTimer, 0); sampleTimer = nullptr; } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: A software timer is not a precise hardware timer; measure jitter and scheduler load.\nWhy it is used: Set a short flag or send a message in the callback; move longer work to a regular task.\nIf omitted or changed: The timer command queue can delay start/stop/reset requests when saturated.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Skipping this check before applying the rule: Set a short flag or send a message in the callback; move longer work to a regular task."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A software timer is not a precise hardware timer; measure jitter and scheduler load.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Set a short flag or send a message in the callback; move longer work to a regular task."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nTaskHandle_t timerWorker = nullptr;\nTimerHandle_t timerHandle = nullptr;\nvoid onTimer(TimerHandle_t) { if (timerWorker) xTaskNotifyGive(timerWorker); }\nvoid timerWorkerTask(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"timer event\"); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(timerWorkerTask, \"timer-worker\", 2048, nullptr, 1, &timerWorker) != pdPASS) return; timerHandle = xTimerCreate(\"sample\", pdMS_TO_TICKS(1000), pdTRUE, nullptr, onTimer); if (timerHandle == nullptr || xTimerStart(timerHandle, 0) != pdPASS) Serial.println(\"timer setup failed\"); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The timer callback only sends a notification; a worker task handles the event.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "The timer command queue can delay start/stop/reset requests when saturated."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Pins, voltage/current limits, timing, and peripheral support are board-dependent; verify the exact board documentation before wiring or uploading."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a diagram showing task states, priorities, queue/synchronization relationships, and timing."
+}

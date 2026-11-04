@@ -1,0 +1,186 @@
+{
+  "id": "freertos_freertos_watchdog",
+  "title": "Watchdog, tanılama ve üretim kalıpları",
+  "difficulty": "advanced",
+  "testId": "freertos_test_freertos_watchdog_tr",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/wdts.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/performance/speed.html"
+  ],
+  "estimatedMinutes": 28,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Watchdog, tanılama ve üretim kalıpları” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Watchdog kurtarmayı başlatır, ancak kök nedeni tek başına bulmaz; log, ölçüm ve fault kaydı tutun. Gerçek projede şu öneriyi izleyin: Watchdog'u yalnız ilerleme sonrasında besleyin; sonsuza dek bloklanan görevi sağlıklı göstermeyin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_task_wdt.h>\nvoid setup() { Serial.begin(115200); esp_task_wdt_add(nullptr); }\nvoid loop() { Serial.println(\"alive\"); esp_task_wdt_reset(); delay(500); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "alive",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " gösterir; watchdog API'si ESP-IDF/Arduino Çekirdek sürümüne bağlıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Watchdog belirli sürede ilerleme görmezse sistemi yeniden başlatır; onu körlemesine reset etmek yerine sağlık sözleşmesi için kullanın. Her görev işi tamamlandığında watchdog'u beslemeli; bloklanma ve deadlock log/çekirdek dump ile incelenebilmelidir. Üretim donanım yazılımı'inde watchdog ile birlikte bounded kuyruk, timeout, retry/backoff, yığın ölçümü ve recovery davranışını planlayın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "esp_task_wdt_*",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", Espressif ESP-IDF programlama arayüzü'sidir ve bazı Arduino-ESP32 çekirdek sürümlerinde erişilebilir; genel Arduino API'si değildir. Taşınabilir program için ilerleme ve timeout davranışını ayrıca tasarlayın, kart/çekirdek belgelerini kontrol edin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#include <esp_task_wdt.h>",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Watchdog kurtarmayı başlatır, ancak kök nedeni tek başına bulmaz; log, ölçüm ve fault kaydı tutun.\nNeden seçildi: Watchdog'u yalnız ilerleme sonrasında besleyin; sonsuza dek bloklanan görevi sağlıklı göstermeyin.\nAtlanır veya değiştirilirse: ESP-IDF watchdog API'si hedef ve IDF sürümüne bağlıdır; Arduino-ESP32 desteğini ve kart yapılandırmasını doğrulayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "ESP-IDF watchdog API'si hedef ve IDF sürümüne bağlıdır; Arduino-ESP32 desteğini ve kart yapılandırmasını doğrulayın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Watchdog kurtarmayı başlatır, ancak kök nedeni tek başına bulmaz; log, ölçüm ve fault kaydı tutun.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Watchdog'u yalnız ilerleme sonrasında besleyin; sonsuza dek bloklanan görevi sağlıklı göstermeyin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_task_wdt.h>\nvoid setup() { Serial.begin(115200); esp_task_wdt_add(nullptr); }\nvoid loop() { Serial.println(\"task is responsive\"); esp_task_wdt_reset(); delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Watchdog API'sinin kullanılabilirliği ve yapılandırması ESP-IDF/Arduino Çekirdek sürümüne bağlıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Taşınabilir program için ilerleme ve timeout davranışını ayrıca tasarlayın, kart/çekirdek belgelerini kontrol edin."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "ESP-IDF watchdog API'si hedef ve IDF sürümüne bağlıdır; Arduino-ESP32 desteğini ve kart yapılandırmasını doğrulayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: görev durumlarını, öncelikleri, kuyruk/eşzamanlama ilişkisini ve zaman çizelgesini gösteren diyagram."
+}

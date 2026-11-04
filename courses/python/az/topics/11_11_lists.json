@@ -1,0 +1,1722 @@
+{
+  "id": "python_11_lists_az",
+  "title": "Siyahılar (list): sıralı və dəyişən kolleksiya",
+  "difficulty": "medium",
+  "testId": "python_test_11_lists_az",
+  "estimatedMinutes": 35,
+  "sources": [
+    "https://docs.python.org/3/tutorial/datastructures.html#more-on-lists",
+    "https://docs.python.org/3/library/stdtypes.html#lists"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NİYƏ LAZIMDIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Siyahı sıralanmış nəticə, səbət və ya tapşırıq növbəsi saxlayır; indeks 0-dan başladığı üçün bir element artıq/əskik seçməməyə diqqət edin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Siyahı sıralanmış nəticə, səbət və ya tapşırıq növbəsi saxlayır; indeks 0-dan başladığı üçün bir element artıq/əskik seçməməyə diqqət edin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Siyahı sıralanmış nəticə, səbət və ya tapşırıq növbəsi saxlayır; indeks 0-dan başladığı üçün bir element artıq/əskik seçməməyə diqqət edin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Siyahı sıralanmış nəticə, səbət və ya tapşırıq növbəsi saxlayır; indeks 0-dan başladığı üçün bir element artıq/əskik seçməməyə diqqət edin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SİYAHI NƏDİR VƏ HARADA İŞLƏDİLİR?\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Gəlin alış-veriş siyahısı, imtahan balları və ya sensor ölçüləri topladığımızı düşünək. Hər dəfə yeni dəyişən yaratmaq əvəzinə, hamısını bir yerdə saxlamaq istəyirik. Python-da",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "list",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "bunun üçündür: elementləri sıra ilə saxlayır və dəyişməyə imkan verir.\n\nMəsələn,",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "scores = [75, 92, 84]",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "üç bal saxlayır. Sayma sıfırdan başlayır:",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "scores[0]",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "birinci,",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "scores[-1]",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "sonuncu baldır. Eyni dəyər bir neçə dəfə ola bilər.\n\nBəs dəyişən siyahı niyə faydalıdır? Yeni nəticə gələndə əlavə edirik, səhv məlumatı silirik, sonra sıralayırıq. Amma bəzi metodlar siyahını dəyişir, yeni siyahı qaytarmır. Belə nəticəni dəyişənə yazsaq, həmin dəyişən",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "`None`",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ola bilər. Gəlin əvvəl tam proqramı işə salaq, sonra hər addıma baxaq.",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "BÜTÖV İŞLƏK NÜMUNƏ: ƏSAS METODLARIN DAVRANIŞI",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def main():\n    values = [4, 2, 4]\n    values.append(9)\n    values.extend([1, 7])\n    values.insert(1, 3)\n    values.remove(4)\n    removed = values.pop()\n    print(\"siyahı:\", values)\n    print(\"götürülən:\", removed)\n    print(\"index/count:\", values.index(4), values.count(4))\n    values.sort()\n    values.reverse()\n    snapshot = values.copy()\n    print(\"tərs sıralanmış:\", values)\n    print(\"surət:\", snapshot)\n    values.clear()\n    print(\"təmizlənmiş:\", values)\n\nif __name__ == \"__main__\":\n    main()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ",
+      "size": 19,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "siyahı: [3, 2, 4, 9, 1]\ngötürülən: 7\nindex/count: 2 1\ntərs sıralanmış: [9, 4, 3, 2, 1]\nsurət: [9, 4, 3, 2, 1]\ntəmizlənmiş: []",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "VACİB METODLAR: NƏ EDİR, NƏ QAYTARIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Gəlin əsas metodları bir-bir yoxlayaq. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "append(x)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "bir elementi sona qoyur. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "extend(iterable)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "başqa kolleksiyanın elementlərini bir-bir əlavə edir. Məsələn, söz ötürsək, hərflər ayrıca əlavə olunur. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "insert(i, x)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "seçdiyimiz mövqeyə yeni element yerləşdirir. Bu metodlar siyahını yerində dəyişir və yeni siyahı qaytarmır.\n\nElementi necə silək? ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "remove(x)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "dəyərin ilk uyğun görünüşünü silir; tapılmazsa xəta verir. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "pop(i)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "mövqedəki elementi silir və qaytarır. Mövqe yazmasaq sonuncunu götürür. Boş siyahıdan götürmək də xəta yarada bilər. Deməli, dəyəri tanıyırıqsa birini, indeksini tanıyırıqsa o birini seçirik.\n\n",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "index(x, start, stop)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "dəyərin ilk indeksini tapır; dəyər yoxdursa xəta verir. Əvvəl",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "x in values",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ilə mövcudluğunu yoxlaya bilərik. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "count(x)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə dəyərin neçə dəfə olduğunu sayır.\n\nSıralamaq üçün",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "sort(key=`None`, reverse=False)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "siyahının özünü dəyişir. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "key",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "hər element üçün müqayisə dəyərini seçir;",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "reverse=True",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "azalan sıra verir. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "`reverse()`",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "mövcud sıranı tərsinə çevirir, özü sıralama aparmır. Orijinalı saxlamaq istəyiriksə",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "sorted(values, key=..., reverse=...)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "yeni sıralanmış siyahı qaytarır.\n\n",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "`copy()`",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "və",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "values[:]",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "üst səviyyədə yeni siyahı yaradır. İçəridə başqa siyahılar varsa, onlar ortaq qala bilər. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "`clear()`",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "bütün elementləri silib siyahını boşaldır.\n\nKiçik yoxlama:",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "append",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ",",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "sort",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ",",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "reverse",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "və",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "clear",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "nəticə kimi nə qaytarır? Onlar dəyişiklik edir və",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "`None`",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "qaytarır. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "pop",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ",",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "index",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "və",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "count",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə istifadə edə biləcəyimiz nəticə verir.",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "İNDEKS, DİLİMLƏMƏ VƏ COMPREHENSION",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def main():\n    scores = [58, 91, 76, 91, 40]\n    print(scores[0], scores[-1])\n    print(scores[1:4], scores[::2], scores[::-1])\n    passed = [score for score in scores if score >= 70]\n    labels = [\"keçdi\" if score >= 70 else \"təkrar\" for score in scores]\n    print(passed)\n    print(labels)\n    scores[0:2] = [60, 92]\n    print(scores)\n\nif __name__ == \"__main__\":\n    main()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ",
+      "size": 19,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "58 40\n[91, 76, 91] [58, 76, 40] [40, 91, 76, 91, 58]\n[91, 76, 91]\n['təkrar', 'keçdi', 'keçdi', 'keçdi', 'təkrar']\n[60, 92, 76, 91, 40]",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "Bəs siyahının yalnız bir hissəsi lazımdırsa? Dilim yazırıq:",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "items[start:stop:step]",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ". Başlanğıc daxil edilir,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "stop",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə daxil edilmir. Məsələn,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "scores[1:4]",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ikinci elementdən başlayıb beşinciyə çatmadan dayanır. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "scores[::-1]",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "tərs sırada yeni nəticə verir; orijinal siyahını dəyişmir.\n\nDilimə yeni dəyərlər də yaza bilərik. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "scores[0:2] = [60, 92]",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ilk iki dəyəri əvəz edir. Əvəzləyici hissənin uzunluğu fərqli olsa, siyahının ölçüsü də dəyişə bilər.\n\nHər balı seçmək üçün uzun dövr yazmalıyıq? Həmişə yox. List comprehension hər element üçün ifadəni hesablayıb yeni siyahı yaradır. Şərt əlavə etsək, yalnız uyğun elementlər qalır. Sadə filtr üçün rahatdır; iç-içə çox şərt varsa, adi",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "`for`",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "dövrü daha aydın ola bilər.",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "detail",
+      "title": "Surət və paylaşılmış daxili məlumat",
+      "text": "Surət götürəndə diqqətli olaq. Xarici siyahı yeni olsa da, içindəki dəyişən siyahılar ortaq qala bilər. Daxili məlumatı dəyişəndə ilkin siyahıda da dəyişiklik görünə bilər. Belə halın qarşısını almaq üçün nə qədər dərin surət lazım olduğunu əvvəlcədən müəyyən et."
+    },
+    {
+      "type": "tip",
+      "title": "Gündəlik nümunə",
+      "text": "Siyahını yığın kimi də işlədə bilərik: ən son əlavə etdiyimiz işi əvvəl götürürük. Bu, məsələn, geri qaytarma əməliyyatlarında faydalıdır. İlk daxil olanı əvvəl götürən böyük növbə lazımdırsa, növbə üçün uyğun kolleksiyanı seç."
+    },
+    {
+      "type": "warning",
+      "title": "Tez-tez edilən səhvlər",
+      "text": "Yayğın səhvlərə birlikdə baxaq. Siyahı üzərində gəzərkən eyni siyahıdan element silmək bəzi elementlərin ötürülməsinə səbəb ola bilər. Bunun əvəzinə yeni siyahı qur. Yerində dəyişiklik edən metodun nəticəsini dəyişənə yazma: nəticə yeni siyahı deyil. Mövcud olmayan indeks və ya dəyər üçün xəta alacağını da unutma."
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: Mövcud siyahını dəyişmədən yeni sıralanmış siyahı almaq üçün hansı üsul uyğundur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sorted(items)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — yeni sıralanmış list qaytarır\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

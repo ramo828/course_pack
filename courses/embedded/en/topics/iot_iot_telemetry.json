@@ -1,0 +1,160 @@
+{
+  "id": "iot_iot_telemetry",
+  "title": "Telemetry schemas and units",
+  "difficulty": "easy",
+  "testId": "iot_test_iot_telemetry_en",
+  "sources": [
+    "https://www.rfc-editor.org/rfc/rfc8259.html"
+  ],
+  "estimatedMinutes": 12,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Telemetry schemas and units” to a real program or device. The key principle is: A schema version helps producers and consumers coordinate changes. In a project, follow this guidance: Interpret measurements with quantity, units, and calibration context.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "json",
+      "code": "{\"device\":\"sensor-12\",\"time\":\"2026-01-01T12:00:00Z\",\"value\":21.4,\"unit\":\"degC\",\"schema\":1}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Example JSON telemetry record; timestamp and sensor value should come from the device at runtime.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A measurement message should carry device identity, time, value, unit, and schema version. UTC and explicit SI units make data from devices comparable.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "{\"device\":\"sensor-12\",\"time\":\"2026-01-01T12:00:00Z\",\"value\":21.4,\"unit\":\"degC\",\"schema\":1}",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: A schema version helps producers and consumers coordinate changes.\nWhy it is used: Interpret measurements with quantity, units, and calibration context.\nIf omitted or changed: Interpret measurements with quantity, units, and calibration context.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Skipping this check before applying the rule: Interpret measurements with quantity, units, and calibration context."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A schema version helps producers and consumers coordinate changes.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Interpret measurements with quantity, units, and calibration context."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "json",
+      "code": "{\"deviceId\":\"sensor-07\",\"sequence\":42,\"temperatureC\":21.5,\"unit\":\"C\"}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Example JSON record; timestamp, sequence, and sensor value must be populated by the device.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "UTC and explicit SI units make data from devices comparable."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Pins, voltage/current limits, timing, and peripheral support are board-dependent; verify the exact board documentation before wiring or uploading."
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "A device sends measurements through a gateway or broker to a service; commands can travel back."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

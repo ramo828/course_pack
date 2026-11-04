@@ -1,0 +1,667 @@
+{
+  "id": "python_py_fastapi_uploads",
+  "title": "Fayl yükləmə",
+  "difficulty": "hard",
+  "testId": "python_test_py_fastapi_uploads_az",
+  "estimatedMinutes": 22,
+  "sources": [
+    "https://fastapi.tiangolo.com/tutorial/request-files/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NİYƏ LAZIMDIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI veb və mobil tətbiqlərin HTTP ilə məlumat mübadiləsi etdiyi JSON API-lər qurmaq üçündür; tip annotasiyaları girişləri yoxlamağa və API müqaviləsini sənədləşdirməyə kömək edir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "MƏQSƏD VƏ REAL İSTİFADƏ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Fayl endpoint-i ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "UploadFile",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " və multipart sorğusu qəbul edir; yüklənən adı və MIME növünü klient idarə etdiyi üçün onları etibarlı saymaq olmaz. Nümunə yalnız 1 MiB-a qədər oxuyur və faylı diskə yazmır. Quraşdırma: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn httpx python-multipart",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Nümunələri yerli işlətmək üçün ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " quraşdırın; dərsdə göstərilən əlavə paketləri də əlavə edin. Server nümunəsini ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "app.py",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " saxlayıb ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "uvicorn app:app --reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ilə başladın. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yalnız öyrənmə/inkişaf üçündür.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "REAL HƏYATDA HARADA?\nTəlim endpoint-i kiçik mətn faylı qəbul edir, ölçünü və klientin bildirdiyi MIME növünü yoxlayır, faylı saxlamır.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Bu hissə buraxılsa: Ölçü məhdudiyyəti olmasa, böyük body yaddaşı və server resurslarını tükədə bilər; düzgün məzmun yoxlaması olmasa yanlış fayl tipi qəbul oluna bilər.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM İŞLƏK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI, File, HTTPException, UploadFile\n\napp = FastAPI()\nMAX_BYTES = 1024 * 1024\n\n@app.post(\"/upload\")\nasync def upload(file: UploadFile = File(...)):\n    contents = await file.read(MAX_BYTES + 1)\n    if len(contents) > MAX_BYTES:\n        raise HTTPException(status_code=413, detail=\"File too large\")\n    if file.content_type != \"text/plain\":\n        raise HTTPException(status_code=415, detail=\"Only text files are accepted\")\n    return {\"size\": len(contents), \"content_type\": file.content_type}\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SORĞU VƏ GÖZLƏNİLƏN CAVAB\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Sorğu: POST /upload  multipart file=<small text file>\nCavab: 200 JSON `{size: N, content_type: ...}`; faylın özü demo üçün saxlanılmır.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SƏTİR-SƏTİR İZAHI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI, File, HTTPException, UploadFile",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Lazım olan tipi və aləti moduldan idxal edir; istifadə olunmasa həmin ad tapılmır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " tətbiq obyekti ASGI serverinə verilir və marşrutları özündə saxlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "MAX_BYTES = 1024 * 1024",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sətir tətbiqin məlumatını və ya idarəetmə axınını davam etdirir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.post(\"/upload\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP metodunu və URL yolunu bu funksiyaya bağlayır; bu dekorator olmasa funksiya API endpoint-i olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def upload(file: UploadFile = File(...)):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Serverin çağıracağı endpoint funksiyasını müəyyən edir; parametr adları yol, query və body məlumatlarını bağlamağa kömək edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "contents = await file.read(MAX_BYTES + 1)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Asinxron I/O əməliyyatının tamamlanmasını gözləyir; await buraxılsa, nəticə coroutine obyekti ola bilər.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "if len(contents) > MAX_BYTES:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Şərt doğru olduqda uyğun budaq işləyir və kənar vəziyyətə qərar verir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "raise HTTPException(status_code=413, detail=\"File too large\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğunu uğursuz status və xəta detalı ilə dayandırır; xəta gizlədilmir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "if file.content_type != \"text/plain\":",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Şərt doğru olduqda uyğun budaq işləyir və kənar vəziyyətə qərar verir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "raise HTTPException(status_code=415, detail=\"Only text files are accepted\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğunu uğursuz status və xəta detalı ilə dayandırır; xəta gizlədilmir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"size\": len(contents), \"content_type\": file.content_type}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP cavabının dəyərini qaytarır; FastAPI bunu JSON və ya qeyd olunan response modelinə çevirir.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "TƏCRÜBƏ: HTTP MÜŞTƏRİSİ İLƏ YOXLAMA\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Aşağıdakı tam fayl tətbiqi TestClient ilə yerli çağırır; ayrıca port açmağa ehtiyac yoxdur. TestClient üçün ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " quraşdırın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM İŞLƏK TEST KODU\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI, File, HTTPException, UploadFile\n\napp = FastAPI()\nMAX_BYTES = 1024 * 1024\n\n@app.post(\"/upload\")\nasync def upload(file: UploadFile = File(...)):\n    contents = await file.read(MAX_BYTES + 1)\n    if len(contents) > MAX_BYTES:\n        raise HTTPException(status_code=413, detail=\"File too large\")\n    if file.content_type != \"text/plain\":\n        raise HTTPException(status_code=415, detail=\"Only text files are accepted\")\n    return {\"size\": len(contents), \"content_type\": file.content_type}\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    response = client.post(\"/upload\", files={\"file\": (\"note.txt\", b\"hello\", \"text/plain\")})\n    print(response.status_code, response.json())\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "TESTİN GÖZLƏNİLƏN NƏTİCƏSİ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "200 {'size': 5, 'content_type': 'text/plain'}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SƏTİR-SƏTİR İZAHI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI, File, HTTPException, UploadFile",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Lazım olan tipi və aləti moduldan idxal edir; istifadə olunmasa həmin ad tapılmır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " tətbiq obyekti ASGI serverinə verilir və marşrutları özündə saxlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "MAX_BYTES = 1024 * 1024",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sətir tətbiqin məlumatını və ya idarəetmə axınını davam etdirir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.post(\"/upload\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP metodunu və URL yolunu bu funksiyaya bağlayır; bu dekorator olmasa funksiya API endpoint-i olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def upload(file: UploadFile = File(...)):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Serverin çağıracağı endpoint funksiyasını müəyyən edir; parametr adları yol, query və body məlumatlarını bağlamağa kömək edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "contents = await file.read(MAX_BYTES + 1)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Asinxron I/O əməliyyatının tamamlanmasını gözləyir; await buraxılsa, nəticə coroutine obyekti ola bilər.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "if len(contents) > MAX_BYTES:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Şərt doğru olduqda uyğun budaq işləyir və kənar vəziyyətə qərar verir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "raise HTTPException(status_code=413, detail=\"File too large\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğunu uğursuz status və xəta detalı ilə dayandırır; xəta gizlədilmir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "if file.content_type != \"text/plain\":",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Şərt doğru olduqda uyğun budaq işləyir və kənar vəziyyətə qərar verir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "raise HTTPException(status_code=415, detail=\"Only text files are accepted\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğunu uğursuz status və xəta detalı ilə dayandırır; xəta gizlədilmir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"size\": len(contents), \"content_type\": file.content_type}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP cavabının dəyərini qaytarır; FastAPI bunu JSON və ya qeyd olunan response modelinə çevirir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.testclient import TestClient",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — TestClient-i import edir ki, tətbiqə HTTP sorğusunu server portu açmadan sınaqdan göndərək.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with TestClient(app) as client:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Tətbiq üçün sınaq HTTP müştərisi yaradır və kontekst bitəndə onu bağlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response = client.post(\"/upload\", files={\"file\": (\"note.txt\", b\"hello\", \"text/plain\")})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sorğu zamanı bu əməliyyat icra olunur; onun nəticəsi və ya yan təsiri cavabın hazırlanmasına təsir edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(response.status_code, response.json())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP status kodunu və cavab JSON-unu oxuyub terminalda göstərir.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "TEZ-TEZ BURAXILAN SƏHVLƏR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "filename",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "-i fayl yoluna birbaşa əlavə etmək və ya ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "content_type",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "-ə təkbaşına inanmaq; adı təmizləyin, məzmunu yoxlayın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Praktik məsləhət",
+      "text": "İstehsalda reverse proxy, API və tətbiq səviyyələrində ölçü limitini eyni müqavilə ilə təyin edin."
+    },
+    {
+      "type": "detail",
+      "title": "Daha dərindən",
+      "text": "`UploadFile` böyük fayllar üçün axınlı müvəqqəti fayldan istifadə edə bilər; amma parser və proxy body-ni əvvəlcədən qəbul edə bilər, ona görə təkcə endpoint yoxlaması kifayət deyil."
+    },
+    {
+      "type": "warning",
+      "title": "Vacib xəbərdarlıq",
+      "text": "Yüklənən faylın adını serverdə yol kimi işlətməyin; zərərli məzmun, həddən artıq ölçü və arxiv bombası risklərini ayrıca idarə edin."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: Dərsdəki tipik səhvi önləmək üçün hansı addım daha düzgündür?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: İstehsalda reverse proxy, API və tətbiq səviyyələrində ölçü limitini eyni müqavilə ilə təyin edin.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

@@ -1,0 +1,98 @@
+{
+  "id": "aiot_tflite_micro",
+  "title": "Запуск модели с TensorFlow Lite for Microcontrollers",
+  "difficulty": "medium",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://ai.google.dev/edge/litert/microcontrollers",
+    "https://github.com/tensorflow/tflite-micro"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "TensorFlow Lite for Microcontrollers (TFLM) — небольшая среда C/C++ для запуска подготовленной модели TensorFlow Lite на микроконтроллере, часто без интернета. Она не обучает модель: обучение и преобразование обычно выполняются на компьютере.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Как это работает\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "model_data.h",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — создаваемый для проекта файл с байтами преобразованной модели. "
+    },
+    {
+      "type": "text",
+      "text": "tensorArena",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — заранее выделенный буфер для входов, промежуточных вычислений и выходов. "
+    },
+    {
+      "type": "text",
+      "text": "AllocateTensors()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " подготавливает его; в входной тензор записывают нормализованное показание датчика; "
+    },
+    {
+      "type": "text",
+      "text": "Invoke()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " запускает модель; выходной тензор содержит класс или число.\n\nМодель "
+    },
+    {
+      "type": "text",
+      "text": "int8",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " может занимать меньше памяти, но вход нужно преобразовать с учётом масштаба и нулевой точки квантования модели. Это учебный каркас, а не готовый скетч: модель, список операций, версию библиотеки и размеры тензоров нужно подготовить для проекта. Проверьте совместимость выбранного ядра/библиотеки Arduino для ESP32, а также объём flash и RAM.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Пример кода\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"model_data.h\"\n#include \"tensorflow/lite/micro/micro_interpreter.h\"\n#include \"tensorflow/lite/micro/micro_mutable_op_resolver.h\"\n#include \"tensorflow/lite/schema/schema_generated.h\"\n\nalignas(16) uint8_t tensorArena[20 * 1024];\n// Setup: create resolver + interpreter, then AllocateTensors().\nTfLiteTensor* input = interpreter->input(0);\ninput->data.int8[0] = quantizedSample;\nif (interpreter->Invoke() == kTfLiteOk) {\n  int8_t prediction = interpreter->output(0)->data.int8[0];\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_tflite_pipeline",
+      "caption": "Схема: Запуск модели с TensorFlow Lite for Microcontrollers"
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Буфер 20 КБ приведён только для примера. При нехватке памяти выделение тензоров или вывод завершится ошибкой; измерьте потребление настоящей модели. Поддержка ESP32/Arduino зависит от версии библиотеки."
+    }
+  ],
+  "testId": "embedded_test_aiot_tflite_micro_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

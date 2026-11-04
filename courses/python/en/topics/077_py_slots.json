@@ -1,0 +1,945 @@
+{
+  "id": "python_py_slots",
+  "title": "Using __slots__ to reduce object memory",
+  "difficulty": "hard",
+  "testId": "python_test_py_slots_en",
+  "sources": [
+    "https://docs.python.org/3/reference/datamodel.html#object.__slots__",
+    "https://docs.python.org/3/library/dataclasses.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "WHY USE THIS?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " changes instance layout: it avoids an automatic per-instance ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " and permits only declared attributes. This can help with many small objects, but verify the benefit by measuring. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "dataclass(slots=True)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " is a convenient option; account for dynamic attributes, weak references, and inheritance.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " changes instance layout: it avoids an automatic per-instance ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " and permits only declared attributes. This can help with many small objects, but verify the benefit by measuring. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "dataclass(slots=True)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " is a convenient option; account for dynamic attributes, weak references, and inheritance.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " declares allowed attributes and can avoid a per-instance ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". It may reduce memory for many small objects, but measure on the target Python version rather than assuming a benefit. Unlisted attributes cannot be added, and dynamic attributes or some multiple-inheritance layouts are affected. For data classes, Python 3.10+ also provides ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "@dataclass(slots=True)",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "PURPOSE AND REAL-WORLD USE\n`__slots__` changes instance layout: it avoids an automatic per-instance `__dict__` and permits only declared attributes. This can help with many small objects, but verify the benefit by measuring. `dataclass(slots=True)` is a convenient option; account for dynamic attributes, weak references, and inheritance.\n\n",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "PRACTICE EXAMPLE 2 · Using __slots__ to reduce object memory\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "PRACTICE EXAMPLE 3 · Using __slots__ to reduce object memory\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "python_slots_layout",
+      "caption": "Using __slots__ to reduce object memory"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "class Sample:\n    __slots__ = ('value',)\n\n    def __init__(self, value: int) -> None:\n        self.value = value\n\nsample = Sample(7)\nprint(sample.value)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "7",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Sample:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__slots__ = ('value',)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def __init__(self, value: int) -> None:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "self.value = value",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "sample = Sample(7)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(sample.value)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from dataclasses import dataclass\n\n@dataclass(slots=True)\nclass Point:\n    x: float\n    y: float\n\npoint = Point(3, 4)\nprint(point.x + point.y)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "7",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from dataclasses import dataclass",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Imports specific names from a module; without it, those names are unavailable.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@dataclass(slots=True)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Point:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "x: float",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "y: float",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "point = Point(3, 4)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(point.x + point.y)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "class Sample:\n    __slots__ = ('value',)\n\n    def __init__(self, value: int) -> None:\n        self.value = value\n\nsample = Sample(7)\nprint(sample.value)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "7",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Sample:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__slots__ = ('value',)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def __init__(self, value: int) -> None:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "self.value = value",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "sample = Sample(7)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(sample.value)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "value",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " is a declared slot stored on the object; the output is ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "7",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Measure a representative workload with `tracemalloc` or `sys.getsizeof`; `__slots__` does not automatically speed up an entire application."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "`__slots__` is not a security boundary and does not make objects immutable. Plan `__weakref__` and inheritance behavior explicitly."
+    },
+    {
+      "type": "detail",
+      "title": "Why it matters",
+      "text": "`__slots__` changes instance layout: it avoids an automatic per-instance `__dict__` and permits only declared attributes. This can help with many small objects, but verify the benefit by measuring. `dataclass(slots=True)` is a convenient option; account for dynamic attributes, weak references, and inheritance."
+    },
+    {
+      "type": "text",
+      "text": "COMMON MISTAKES\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Distinguish a variable name, indentation, and comment: whitespace affects syntax, while comments explain intent.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Using __slots__ to reduce object memory”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " changes instance layout: it avoids an automatic per-instance ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and permits only declared attributes.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Using __slots__ to reduce object memory”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " changes instance layout: it avoids an automatic per-instance ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and permits only declared attributes.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Using __slots__ to reduce object memory”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " changes instance layout: it avoids an automatic per-instance ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and permits only declared attributes.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Using __slots__ to reduce object memory”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " changes instance layout: it avoids an automatic per-instance ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and permits only declared attributes.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Using __slots__ to reduce object memory”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " changes instance layout: it avoids an automatic per-instance ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and permits only declared attributes.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Using __slots__ to reduce object memory”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " changes instance layout: it avoids an automatic per-instance ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and permits only declared attributes.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Using __slots__ to reduce object memory”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " changes instance layout: it avoids an automatic per-instance ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and permits only declared attributes.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Using __slots__ to reduce object memory”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " changes instance layout: it avoids an automatic per-instance ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and permits only declared attributes.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Using __slots__ to reduce object memory”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " changes instance layout: it avoids an automatic per-instance ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and permits only declared attributes.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “Using __slots__ to reduce object memory”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " changes instance layout: it avoids an automatic per-instance ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and permits only declared attributes.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a memory diagram showing stack/heap, lifetime, ownership, or data flow.",
+  "estimatedMinutes": 16
+}

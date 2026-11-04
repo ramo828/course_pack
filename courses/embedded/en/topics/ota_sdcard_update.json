@@ -1,0 +1,78 @@
+{
+  "id": "ota_sdcard_update",
+  "title": "SD-card firmware updates for offline field devices",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/sd.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Where there is no internet, a technician can carry a firmware file on an SD card and update the device locally. This is useful for laboratory and field equipment.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "HOW IT WORKS\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SD.h",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/"
+    },
+    {
+      "type": "text",
+      "text": "SD_MMC.h",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " reads the file; the ESP32 "
+    },
+    {
+      "type": "text",
+      "text": "Update",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " class can write an application partition. A card being present does not make its contents trustworthy: use a signed image built for the exact board, check its manifest/model/version/size, and keep power stable. This short example illustrates the installation flow only; production firmware must verify the image signature before writing.\n\nSD SPI or SD-MMC wiring, pins, and voltage depend on the board. Do not remove the card before the update finishes.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <SD.h>\n#include <Update.h>\n\nvoid installFromCard() {\n  File image = SD.open(\"/firmware.bin\", FILE_READ);\n  if (!image || image.size() == 0) {\n    Serial.println(\"Firmware file is missing or empty\");\n    image.close();\n    return;\n  }\n\n  const size_t imageSize = image.size();\n  if (!verifySignedImage(image, imageSize)) {\n    Serial.println(\"Firmware signature is invalid\");\n    image.close();\n    return;\n  }\n  if (!Update.begin(imageSize)) {\n    Serial.println(\"Could not start firmware update\");\n    image.close();\n    return;\n  }\n  const size_t written = Update.writeStream(image);\n  if (written == imageSize && Update.end(true)) {\n    image.close();\n    ESP.restart();\n  } else {\n    Serial.println(\"Firmware write failed\");\n    image.close();\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "SD-card firmware updates for offline field devices"
+    },
+    {
+      "type": "warning",
+      "title": "Important safety and compatibility note",
+      "text": "`verifySignedImage` is intentionally project-specific; do not replace it with an always-true stub. A wrong image size or partition can leave the device unable to boot."
+    }
+  ],
+  "testId": "embedded_test_ota_sdcard_update_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

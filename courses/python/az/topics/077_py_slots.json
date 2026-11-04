@@ -1,0 +1,945 @@
+{
+  "id": "python_py_slots",
+  "title": "__slots__ ile bellek kullanımını ölçerek azaltma",
+  "difficulty": "hard",
+  "testId": "python_test_py_slots_az",
+  "sources": [
+    "https://docs.python.org/3/reference/datamodel.html#object.__slots__",
+    "https://docs.python.org/3/library/dataclasses.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NİYƏ LAZIMDIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yaddaş düzənini dəyişir: instance üçün avtomatik ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " olmur, yalnız elan edilmiş atributlara icazə verilir. Bu, çox sayda kiçik obyekt üçün faydalı ola bilər, amma ölçmə ilə təsdiqlənməlidir. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "dataclass(slots=True)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " rahat variantdır; dynamic atribut, weak reference və inheritance tələblərini yoxlayın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yaddaş düzənini dəyişir: instance üçün avtomatik ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " olmur, yalnız elan edilmiş atributlara icazə verilir. Bu, çox sayda kiçik obyekt üçün faydalı ola bilər, amma ölçmə ilə təsdiqlənməlidir. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "dataclass(slots=True)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " rahat variantdır; dynamic atribut, weak reference və inheritance tələblərini yoxlayın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", her nesne için otomatik ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " oluşturulmasını engelleyip izin verilen alanları tanımlar. Çok sayıda küçük nesne varsa bellek kullanımını azaltabilir; ancak kazanç Python sürümüne ve sınıf düzenine bağlıdır, ölçmeden varsaymayın. Slot tanımlı nesnelere tanımsız alan eklenemez; dinamik özellikler ve bazı çoklu kalıtım düzenleri etkilenir. Basit veri taşıyıcılarında ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "@dataclass(slots=True)",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " alternatifi de vardır (Python 3.10+).\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "MƏQSƏD VƏ REAL İSTİFADƏ\n`__slots__` yaddaş düzənini dəyişir: instance üçün avtomatik `__dict__` olmur, yalnız elan edilmiş atributlara icazə verilir. Bu, çox sayda kiçik obyekt üçün faydalı ola bilər, amma ölçmə ilə təsdiqlənməlidir. `dataclass(slots=True)` rahat variantdır; dynamic atribut, weak reference və inheritance tələblərini yoxlayın.\n\n",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "PRAKTİK NÜMUNƏ 2 · __slots__ ile bellek kullanımını ölçerek azaltma\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "PRAKTİK NÜMUNƏ 3 · __slots__ ile bellek kullanımını ölçerek azaltma\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "python_slots_layout",
+      "caption": "__slots__ ile bellek kullanımını ölçerek azaltma"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "class Sample:\n    __slots__ = ('value',)\n\n    def __init__(self, value: int) -> None:\n        self.value = value\n\nsample = Sample(7)\nprint(sample.value)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "7",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SƏTİR-SƏTİR İZAH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Sample:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Əlaqəli məlumat və davranış üçün yeni tip yaradır; sinif olmasa nümunə obyektini həmin müqavilə ilə yaratmaq olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__slots__ = ('value',)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def __init__(self, value: int) -> None:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "self.value = value",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "sample = Sample(7)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(sample.value)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from dataclasses import dataclass\n\n@dataclass(slots=True)\nclass Point:\n    x: float\n    y: float\n\npoint = Point(3, 4)\nprint(point.x + point.y)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "7",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SƏTİR-SƏTİR İZAH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from dataclasses import dataclass",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Moduldan konkret adları gətirir; sətir olmasa idxal edilən ad əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@dataclass(slots=True)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Point:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Əlaqəli məlumat və davranış üçün yeni tip yaradır; sinif olmasa nümunə obyektini həmin müqavilə ilə yaratmaq olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "x: float",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Dəyəri ada bağlayır, annotasiya isə tipi oxucuya və statik alətə bildirir; annotasiya runtime yoxlaması etmir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "y: float",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Dəyəri ada bağlayır, annotasiya isə tipi oxucuya və statik alətə bildirir; annotasiya runtime yoxlaması etmir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "point = Point(3, 4)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(point.x + point.y)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "class Sample:\n    __slots__ = ('value',)\n\n    def __init__(self, value: int) -> None:\n        self.value = value\n\nsample = Sample(7)\nprint(sample.value)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "7",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SƏTİR-SƏTİR İZAH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "class Sample:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Əlaqəli məlumat və davranış üçün yeni tip yaradır; sinif olmasa nümunə obyektini həmin müqavilə ilə yaratmaq olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__slots__ = ('value',)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "def __init__(self, value: int) -> None:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "self.value = value",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "sample = Sample(7)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(sample.value)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "value",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " elan edilən slot-dur və obyektin üzərində saxlanılır; çıxış ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "7",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "-dir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "İlk önce `tracemalloc` və ya `sys.getsizeof` ilə gerçek model yükünü ölçün; `__slots__` bütün tətbiqi avtomatik sürətləndirmir."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "`__slots__` təhlükəsizlik sərhədi deyil və obyektləri dəyişməz etmir. Lazım olan `__weakref__` və inheritance davranışını ayrıca planlayın."
+    },
+    {
+      "type": "detail",
+      "title": "Niyə vacibdir?",
+      "text": "`__slots__` yaddaş düzənini dəyişir: instance üçün avtomatik `__dict__` olmur, yalnız elan edilmiş atributlara icazə verilir. Bu, çox sayda kiçik obyekt üçün faydalı ola bilər, amma ölçmə ilə təsdiqlənməlidir. `dataclass(slots=True)` rahat variantdır; dynamic atribut, weak reference və inheritance tələblərini yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "TEZ-TEZ BURAXILAN SƏHVLƏR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Dəyişən adı, girinti və şərhi bir-birindən ayırın; boşluq sintaksisə, şərh isə sənədləşdirməyə xidmət edir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Sual: “__slots__ ile bellek kullanımını ölçerek azaltma” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yaddaş düzənini dəyişir: instance üçün avtomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmur, yalnız elan edilmiş atributlara icazə verilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: “__slots__ ile bellek kullanımını ölçerek azaltma” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yaddaş düzənini dəyişir: instance üçün avtomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmur, yalnız elan edilmiş atributlara icazə verilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: “__slots__ ile bellek kullanımını ölçerek azaltma” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yaddaş düzənini dəyişir: instance üçün avtomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmur, yalnız elan edilmiş atributlara icazə verilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: “__slots__ ile bellek kullanımını ölçerek azaltma” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yaddaş düzənini dəyişir: instance üçün avtomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmur, yalnız elan edilmiş atributlara icazə verilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: “__slots__ ile bellek kullanımını ölçerek azaltma” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yaddaş düzənini dəyişir: instance üçün avtomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmur, yalnız elan edilmiş atributlara icazə verilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: “__slots__ ile bellek kullanımını ölçerek azaltma” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yaddaş düzənini dəyişir: instance üçün avtomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmur, yalnız elan edilmiş atributlara icazə verilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: “__slots__ ile bellek kullanımını ölçerek azaltma” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yaddaş düzənini dəyişir: instance üçün avtomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmur, yalnız elan edilmiş atributlara icazə verilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: “__slots__ ile bellek kullanımını ölçerek azaltma” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yaddaş düzənini dəyişir: instance üçün avtomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmur, yalnız elan edilmiş atributlara icazə verilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: “__slots__ ile bellek kullanımını ölçerek azaltma” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yaddaş düzənini dəyişir: instance üçün avtomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmur, yalnız elan edilmiş atributlara icazə verilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “__slots__ ile bellek kullanımını ölçerek azaltma” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yaddaş düzənini dəyişir: instance üçün avtomatik ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmur, yalnız elan edilmiş atributlara icazə verilir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: stack/heap və yaddaş ömrünü, sahiblik və ya məlumat axınını göstərən yaddaş diaqramı.",
+  "estimatedMinutes": 16
+}

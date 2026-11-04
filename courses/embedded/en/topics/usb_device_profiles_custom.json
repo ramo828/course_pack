@@ -1,0 +1,63 @@
+{
+  "id": "usb_device_profiles_custom",
+  "title": "USB device: CDC, HID, MSC, and custom classes",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb.html",
+    "https://github.com/espressif/arduino-esp32/tree/master/libraries/USB/examples",
+    "https://www.usb.org/defined-class-codes"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "A USB device is the peripheral connected to a computer. Boards with USB peripheral hardware, such as ESP32-S2/S3, can expose serial, keyboard, storage, or a custom interface.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "HOW IT WORKS\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "CDC provides serial diagnostics and simple host communication; HID implements standard keyboard/mouse interfaces; MSC can expose the device's flash storage as a disk. A composite device presents several interfaces over one cable. A custom/vendor interface needs matching host-side software or a driver.\n\nThe Arduino-ESP32 USB API requires a chip with USB peripheral hardware. Start with the core's native CDC example; use its HID, MSC, and composite examples and confirm the USB Mode setting. Descriptor fields such as "
+    },
+    {
+      "type": "text",
+      "text": "USB.usbPower()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " do not change the physical power output.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"USB.h\"\n#include \"USBHIDKeyboard.h\"\n\nUSBHIDKeyboard keyboard;\nconstexpr int BUTTON_PIN = 4;\nbool previous = HIGH;\n\nvoid setup() {\n  pinMode(BUTTON_PIN, INPUT_PULLUP);\n  keyboard.begin();\n  USB.begin();\n}\n\nvoid loop() {\n  const bool pressed = digitalRead(BUTTON_PIN) == LOW;\n  if (pressed && previous == HIGH) {\n    keyboard.write('a');  // Test in a text editor on your own computer.\n  }\n  previous = pressed;\n  delay(25);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "USB device: CDC, HID, MSC, and custom classes"
+    },
+    {
+      "type": "warning",
+      "title": "Important safety and compatibility note",
+      "text": "Requires a compatible board with USB peripheral hardware; check Tools/USB Mode and pin wiring. HID creates real input: send a harmless character from an explicit physical action, never hidden keystroke sequences. Power loss during MSC writes can corrupt a filesystem."
+    }
+  ],
+  "testId": "embedded_test_usb_device_profiles_custom_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

@@ -1,0 +1,317 @@
+{
+  "id": "freertos_freertos_esp32_practical",
+  "title": "FreeRTOS on Arduino-ESP32: sensor task and queue",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_esp32_practical_en",
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/freertos.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/freertos_idf.html"
+  ],
+  "estimatedMinutes": 24,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “FreeRTOS on Arduino-ESP32: sensor task and queue” to a real program or device. The key principle is: The queue copies each reading by value; the sensor task sends twice a second and ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " prints received items. Replace ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "A0",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " with an ADC-capable pin on the exact board. In a project, follow this guidance: Practical sequence: create the queue, check task creation, read the sensor in the task, send with a timeout, receive in ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ", and define full-queue behavior. Use ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "xTaskCreatePinnedToCore",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " only for a measured reason; pinning does not automatically make work faster. ESP-IDF SMP scheduling and Arduino-ESP32 API behavior depend on version.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n\nstruct Reading {\n  uint32_t timeMs;\n  int value;\n};\n\nQueueHandle_t readings;\n\nvoid sensorTask(void*) {\n  for (;;) {\n    Reading item{millis(), analogRead(A0)};\n    if (xQueueSend(readings, &item, pdMS_TO_TICKS(20)) != pdPASS) {\n      // Decide whether to count, retry, or discard a full-queue sample.\n    }\n    vTaskDelay(pdMS_TO_TICKS(500));\n  }\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  readings = xQueueCreate(4, sizeof(Reading));\n  if (readings == nullptr) {\n    Serial.println(\"Queue creation failed\");\n    return;\n  }\n  if (xTaskCreate(sensorTask, \"sensor\", 3072, nullptr, 1, nullptr) != pdPASS) {\n    Serial.println(\"Task creation failed\");\n  }\n}\n\nvoid loop() {\n  Reading item;\n  if (readings != nullptr &&\n      xQueueReceive(readings, &item, pdMS_TO_TICKS(1000)) == pdPASS) {\n    Serial.printf(\"%lu ms: %d\\n\",\n                  static_cast<unsigned long>(item.timeMs), item.value);\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor prints timestamped ADC readings from the queue; values depend on the sensor and board.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Arduino-ESP32 Core includes the FreeRTOS kernel; no separate RTOS library is required. A sensor task puts readings into a queue, and ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " receives and prints them. This separates acquisition from output and avoids an unprotected shared variable. A classic UNO's standard sketch environment does not provide the same task API; check for a compatible RTOS port and its memory cost on other boards.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "if (xTaskCreate(sensorTask, \"sensor\", 3072, nullptr, 1, nullptr) != pdPASS) {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: The queue copies each reading by value; the sensor task sends twice a second and ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " prints received items. Replace ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "A0",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " with an ADC-capable pin on the exact board.\nWhy it is used: Practical sequence: create the queue, check task creation, read the sensor in the task, send with a timeout, receive in ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", and define full-queue behavior. Use ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "xTaskCreatePinnedToCore",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " only for a measured reason; pinning does not automatically make work faster. ESP-IDF SMP scheduling and Arduino-ESP32 API behavior depend on version.\nIf omitted or changed: Arduino-ESP32 Core provides the FreeRTOS API, but the example stack size and ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "A0",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " pin are not universal. Check queue and task creation and define full-queue behavior. Sensor reads and Serial output can block, so measure carefully before relying on strict timing or high priorities.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Arduino-ESP32 Core provides the FreeRTOS API, but the example stack size and `A0` pin are not universal. Check queue and task creation and define full-queue behavior. Sensor reads and Serial output can block, so measure carefully before relying on strict timing or high priorities."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The queue copies each reading by value; the sensor task sends twice a second and ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " prints received items. Replace ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "A0",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " with an ADC-capable pin on the exact board.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Practical sequence: create the queue, check task creation, read the sensor in the task, send with a timeout, receive in `loop()`, and define full-queue behavior. Use `xTaskCreatePinnedToCore` only for a measured reason; pinning does not automatically make work faster. ESP-IDF SMP scheduling and Arduino-ESP32 API behavior depend on version."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nQueueHandle_t samples = nullptr;\nvoid reader(void*) { const int value = 7; for (;;) { if (xQueueSend(samples, &value, pdMS_TO_TICKS(100)) != pdPASS) vTaskDelay(pdMS_TO_TICKS(100)); vTaskDelay(pdMS_TO_TICKS(1000)); } }\nvoid setup() { Serial.begin(115200); samples = xQueueCreate(2, sizeof(int)); if (samples == nullptr || xTaskCreate(reader, \"reader\", 2048, nullptr, 1, nullptr) != pdPASS) { if (samples) vQueueDelete(samples); samples = nullptr; Serial.println(\"queue/task setup failed\"); } }\nvoid loop() { int value; if (samples && xQueueReceive(samples, &value, pdMS_TO_TICKS(1500)) == pdPASS) Serial.printf(\"sample=%d\\n\", value); else vTaskDelay(pdMS_TO_TICKS(100)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor prints sample=7 about twice a second while the queue task runs.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "A classic UNO's standard sketch environment does not provide the same task API; check for a compatible RTOS port and its memory cost on other boards."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Arduino-ESP32 Core provides the FreeRTOS API, but the example stack size and `A0` pin are not universal. Check queue and task creation and define full-queue behavior. Sensor reads and Serial output can block, so measure carefully before relying on strict timing or high priorities."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a diagram showing task states, priorities, queue/synchronization relationships, and timing."
+}

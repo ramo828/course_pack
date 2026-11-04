@@ -1,0 +1,160 @@
+{
+  "id": "esp32_esp_ble",
+  "title": "Bluetooth LE and GATT",
+  "difficulty": "hard",
+  "testId": "esp32_test_esp_ble_en",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/ble/"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Bluetooth LE and GATT” to a real program or device. The key principle is: GATT organizes data into services and characteristics. In a project, follow this guidance: Read-only characteristics can still expose sensitive data; consider pairing and authorization.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <BLEDevice.h>\n#include <BLEServer.h>\n#include <BLEUtils.h>\n#include <BLE2902.h>\nstatic BLECharacteristic* reading;\nvoid setup() {\n    BLEDevice::init(\"SensorDemo\");\n    BLEServer* server = BLEDevice::createServer();\n    BLEService* service = server->createService(\"180A\");\n    reading = service->createCharacteristic(\"2A57\", BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_NOTIFY);\n    reading->addDescriptor(new BLE2902());\n    reading->setValue(\"ready\");\n    service->start();\n    BLEDevice::getAdvertising()->start();\n}\nvoid loop() { reading->setValue(\"sample\"); reading->notify(); delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Advertising starts only after stack, callbacks, service, and advertising data are configured; API depends on the BLE stack.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "BLE GATT exposes data through services and characteristics. Advertising, connections, MTU, and power behavior vary by chip and SDK; define access control for each characteristic.\n\nThe BLE sketch uses the Arduino-ESP32 BLE library, whose headers and API vary by core version. ESP-IDF's GATT API has a different callback and lifecycle model; this sketch does not claim source compatibility.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#include <BLEDevice.h>",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: GATT organizes data into services and characteristics.\nWhy it is used: Read-only characteristics can still expose sensitive data; consider pairing and authorization.\nIf omitted or changed: Read-only characteristics can still expose sensitive data; consider pairing and authorization.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Skipping this check before applying the rule: Read-only characteristics can still expose sensitive data; consider pairing and authorization."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "GATT organizes data into services and characteristics.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Read-only characteristics can still expose sensitive data; consider pairing and authorization."
+    },
+    {
+      "type": "text",
+      "text": "Arduino Core GATT skeleton\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <BLEDevice.h>\n#include <BLEServer.h>\nvoid setup() { BLEDevice::init(\"SensorDemo\"); BLEServer* server = BLEDevice::createServer(); BLEService* service = server->createService(\"180A\"); service->start(); BLEDevice::getAdvertising()->start(); }\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A BLE service advertises; verify support and library version for the selected core.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "ESP-IDF's GATT API has a different callback and lifecycle model; this sketch does not claim source compatibility."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Pins, voltage/current limits, timing, and peripheral support are board-dependent; verify the exact board documentation before wiring or uploading."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

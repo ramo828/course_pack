@@ -1,0 +1,75 @@
+{
+  "id": "arduino_rgb_led",
+  "title": "RGB LED: üç rəngdən milyonlarla çalar",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/analog-io/analogWrite/",
+    "https://learn.sparkfun.com/tutorials/light-emitting-diodes-leds/all"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "BU DƏRS NƏYİ ÖYRƏDİR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "RGB LED bir korpusda qırmızı, yaşıl və mavi LED-ləri birləşdirir. Hər rəng kanalının parlaqlığı PWM ilə idarə olunur; qarışdırmaqla müxtəlif rənglər alınır.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "NECƏ BAĞLANIR?\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Hər R, G və B ayağına ayrıca 220–330 Ω rezistor qoşun və rezistorları UNO-nun PWM pinlərinə (məsələn D9, D10, D11) bağlayın. Ümumi katod GND-yə; ümumi anod isə 5V-yə gedir. Ayaq sırasını texniki sənəd-dən tapın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_led_series",
+      "caption": "Sadələşdirilmiş sxemdir; real modulun pin yazılarını yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "ARDUINO KODU\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const byte redPin = 9;\nconst byte greenPin = 10;\nconst byte bluePin = 11;\nconst bool commonAnode = false;\n\nvoid setColor(byte r, byte g, byte b) {\n  if (commonAnode) { r = 255-r; g = 255-g; b = 255-b; }\n  analogWrite(redPin, r);\n  analogWrite(greenPin, g);\n  analogWrite(bluePin, b);\n}\n\nvoid setup() {\n  pinMode(redPin, OUTPUT);\n  pinMode(greenPin, OUTPUT);\n  pinMode(bluePin, OUTPUT);\n}\n\nvoid loop() {\n  setColor(255, 0, 0);\n  delay(500);\n  setColor(0, 255, 0);\n  delay(500);\n  setColor(0, 0, 255);\n  delay(500);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\nKodu yüklədikdən sonra Serial Monitor-u açın (əgər nümunə serial çıxış verirsə), bağlantını yoxlayın və sensoru/mexanizmi dəyişərək sınayın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "warning",
+      "title": "Təhlükəsizlik və yoxlama",
+      "text": "Hər rəng kanalı üçün ayrıca cərəyan məhdudlaşdırıcı rezistor lazımdır. Ümumi anod/katod və ayaq düzülüşü LED modelindən asılıdır."
+    },
+    {
+      "type": "tip",
+      "title": "Yadda saxla",
+      "text": "İlk sınağı enerjisi ayrılmış halda naqilləyin. VCC, GND və siqnal pinlərini modulun öz etiketindən və texniki sənəd-indən təsdiqləyin."
+    }
+  ],
+  "testId": "embedded_test_arduino_rgb_led_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

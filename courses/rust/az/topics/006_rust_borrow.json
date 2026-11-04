@@ -1,0 +1,249 @@
+{
+  "id": "rust_rust_borrow",
+  "title": "Borrowing və lifetimes giriş",
+  "difficulty": "hard",
+  "testId": "rust_test_rust_borrow_az",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html"
+  ],
+  "estimatedMinutes": 24,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Borrowing və lifetimes giriş” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Referans sahiblik vermədən borc götürülmüş dəyərə baxır. Real layihədə bu göstərişə əməl edin: Əvvəl referanssız, sonra mümkün olduqda dəyişməyən referansla dizayn edin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn length(text: &str) -> usize { text.len() }\nfn main() {\n    let name = String::from(\"Rust\");\n    println!(\"{}\", length(&name));\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "4\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Referans dəyərə sahib olmadan ona baxmağa imkan verir. Borc qaydaları eyni vaxtda uyğun sayda dəyişən və ya yalnız oxunan referans olmasına nəzarət edir; lifetime annotasiyası əlaqəni izah edir, yaddaşı uzatmır.\n\nBorrowing dəyəri köçürmədən istinad verməyə imkan verir. İstənilən qədər immutable ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&T",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və ya eyni anda bir mutable ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&mut T",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ola bilər; mutable istinad aktivkən başqa istinadla eyni məlumatı oxumaq/yazmaq data race riskini önləmək üçün qadağandır. İstinad sahibindən uzun yaşamamalıdır.\n\nBorrowing sahiblik ötürmədən dəyərə referansla giriş verir. Eyni anda ya çoxlu shared ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&T",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ya da yalnız bir exclusive ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&mut T",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " mümkündür; bu qayda data race və aliasing problemlərini məhdudlaşdırır. Referans sahibindən uzun yaşaya bilməz, buna görə kompilyator dangling referansı rədd edir. Slice (",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&[T]",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ") kolleksiyanın seçilmiş hissəsini sahiblik almadan göstərir; lifetime anotasiya bu əlaqələri təsvir edir, runtime-da müddət yaratmır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let name = String::from(\"Rust\");",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Referans sahiblik vermədən borc götürülmüş dəyərə baxır.\nNiyə seçilib: Əvvəl referanssız, sonra mümkün olduqda dəyişməyən referansla dizayn edin.\nBuraxılsa və ya dəyişdirilsə: Unsafe kodla lifetime və pointer təhlükəsizliyi kompilyator tərəfindən təmin edilmir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Unsafe kodla lifetime və pointer təhlükəsizliyi kompilyator tərəfindən təmin edilmir."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Referans sahiblik vermədən borc götürülmüş dəyərə baxır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Əvvəl referanssız, sonra mümkün olduqda dəyişməyən referansla dizayn edin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn bytes(text: &str) -> usize { text.len() }\nfn main() { println!(\"{}\", bytes(\"safe\")); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "4\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "İstinad sahibindən uzun yaşamamalıdır."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Unsafe kodla lifetime və pointer təhlükəsizliyi kompilyator tərəfindən təmin edilmir."
+    },
+    {
+      "type": "diagram",
+      "id": "rust_ownership",
+      "caption": "Dəyərin sahibi, borcalan və istifadə edən kod arasındakı əlaqə Rust-da compile zamanı yoxlanılır."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Borrowing və lifetimes giriş” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Referans sahiblik vermədən borc götürülmüş dəyərə baxır.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: stack/heap və yaddaş ömrünü, sahiblik və ya məlumat axınını göstərən yaddaş diaqramı."
+}

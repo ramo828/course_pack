@@ -1,0 +1,75 @@
+{
+  "id": "arduino_button_input",
+  "title": "Düymə: rəqəmsal giriş və INPUT_PULLUP",
+  "difficulty": "easy",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/digital-io/pinMode/",
+    "https://docs.arduino.cc/language-reference/en/functions/digital-io/digitalread/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "BU DƏRS NƏYİ ÖYRƏDİR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Düymə basıldıqda kontaktları birləşdirən sadə açardır. Açıq giriş pininin vəziyyəti havada qala bilər; INPUT_PULLUP daxili rezistorla onu sabit HIGH saxlayır. Bu rejimdə düymə basılanda oxunuş LOW olur.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "NECƏ BAĞLANIR?\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Düyməni breadboard-un orta yarığının üzərindən yerləşdirin. Bir kontakt D2-yə, qarşı kontakt GND-yə qoşulur. INPUT_PULLUP istifadə etdikdə ayrıca 10 kΩ pull-down rezistor lazım deyil. LED nümunəsi üçün LED_BUILTIN istifadə edin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_button_circuit",
+      "caption": "Sadələşdirilmiş sxemdir; real modulun pin yazılarını yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "ARDUINO KODU\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const byte buttonPin = 2;\nconst byte ledPin = LED_BUILTIN;\n\nvoid setup() {\n  pinMode(buttonPin, INPUT_PULLUP);\n  pinMode(ledPin, OUTPUT);\n}\n\nvoid loop() {\n  const bool pressed = digitalRead(buttonPin) == LOW;\n  digitalWrite(ledPin, pressed ? HIGH : LOW);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\nKodu yüklədikdən sonra Serial Monitor-u açın (əgər nümunə serial çıxış verirsə), bağlantını yoxlayın və sensoru/mexanizmi dəyişərək sınayın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "warning",
+      "title": "Təhlükəsizlik və yoxlama",
+      "text": "Dördayaqlı düymənin eyni tərəfdəki iki ayağı çox vaxt onsuz da bir-birinə bağlıdır. Tərs istiqamətdə yerləşdirin və basma sıçrayışını (debounce) real layihədə nəzərə alın."
+    },
+    {
+      "type": "tip",
+      "title": "Yadda saxla",
+      "text": "İlk sınağı enerjisi ayrılmış halda naqilləyin. VCC, GND və siqnal pinlərini modulun öz etiketindən və texniki sənəd-indən təsdiqləyin."
+    }
+  ],
+  "testId": "embedded_test_arduino_button_input_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

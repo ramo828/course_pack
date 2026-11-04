@@ -1,0 +1,53 @@
+{
+  "id": "ota_transport_choices",
+  "title": "Update paths: USB, local Wi-Fi, remote Wi-Fi, and SD",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.arduino.cc/learn/programming/ota-getting-started/",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/sd.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "There are several ways to deliver firmware to a board. Choose based on whether you can reach the device, available networks and storage, and how it can recover after a failed update.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "HOW IT WORKS\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "USB/Serial: the board is nearby and a cable uploads through its bootloader; simple, but not remote. Local Wi-Fi: ArduinoOTA or a device web updater is convenient on the same home/office network. Remote Wi-Fi: the device downloads a signed release from an HTTPS server; TLS alone does not prove that the firmware itself is trusted. SD card: carry the file to an offline device and install it locally. Bluetooth can transfer a file, but firmware updating needs a purpose-built transfer, boot/flash layout, integrity checks, and recovery code; it is not a universal ready-made Arduino/ESP32 OTA method.\n\nA board without Wi-Fi, such as a classic UNO, cannot update itself over a network. An IDE upload over USB is not OTA. ESP32 A/B application slots can preserve a previous image across interrupted application updates, but that safety is not automatic for USB, SD, or every data partition.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "enum class FirmwarePath {\n  UsbSerial,\n  LocalWifi,\n  RemoteHttps,\n  SdCard,\n  BluetoothCustom\n};\n\n// Pick a path the exact board and bootloader support.",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Update paths: USB, local Wi-Fi, remote Wi-Fi, and SD"
+    },
+    {
+      "type": "warning",
+      "title": "Important safety and compatibility note",
+      "text": "Check the exact board's flash layout for every method. Remote updates need version and cryptographic signature checks plus a recovery path for power loss."
+    }
+  ],
+  "testId": "embedded_test_ota_transport_choices_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

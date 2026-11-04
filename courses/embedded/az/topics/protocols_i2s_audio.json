@@ -1,0 +1,35 @@
+{
+  "id": "protocols_i2s_audio",
+  "title": "I2S protokolu: mikrofon, DAC və rəqəmsal audio",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/i2s.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "I2S rəqəmsal audio üçün bit clock (BCLK), word select (WS/LRCLK) və data xətlərindən istifadə edir. Rəqəmsal mikrofon, DAC və audio codec-lər arasında işləyir; adi UART və ya I2C deyil. Sample rate, slot eni və mono/stereo formatı iki tərəfdə uyğun olmalıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_inmp441_i2s",
+      "caption": "I2S protokolu: mikrofon, DAC və rəqəmsal audio"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "// I2S commonly uses BCLK, WS/LRCLK, and DIN/DOUT.\n// On ESP32 use the board/core I2S API to configure:\n// sample rate, slot width, channel mode, and GPIO routing.\n// INMP441 sends digital microphone samples over I2S.",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Pin routing və I2S API-si ESP32 ailəsi və framework versiyasına görə dəyişir. Kod aparat konfiqurasiyasının izahıdır; audio bufer ölçüsü və saat limitlərini texniki sənəd-dən götürün."
+    }
+  ],
+  "testId": "embedded_test_protocols_i2s_audio_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

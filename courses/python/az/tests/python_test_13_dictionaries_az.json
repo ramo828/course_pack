@@ -1,0 +1,76 @@
+{
+  "id": "python_test_13_dictionaries_az",
+  "title": "Lüğətlər",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_13_dictionaries_az",
+      "type": "multiple_choice",
+      "prompt": "Açarın olub-olmadığı bilinmədikdə xəta almadan standart dəyər almaq üçün hansı seçim uyğundur?",
+      "options": [
+        "d[key] — açar olmadıqda None qaytarır",
+        "d.get(key, default) — açar olmadıqda default qaytarır",
+        "d.popitem() — açar olmadıqda default qaytarır",
+        "d.clear() — açarı oxuyub saxlayır"
+      ],
+      "answer": "d.get(key, default) — açar olmadıqda default qaytarır",
+      "explanation": "`get` lüğəti dəyişmədən ehtiyat dəyər verir. `d[key]` olmayan açarda `KeyError` qaldırır; `popitem` isə son cütü silir."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_13_dictionaries_az",
+      "type": "multiple_choice",
+      "prompt": "Python 3.7+ üçün `d = {'a': 1, 'b': 2}` çağırışından sonra `d.popitem()` nə qaytarır?",
+      "options": [
+        "('a', 1), çünki ilk açar silinir",
+        "('b', 2), çünki son daxil edilmiş cüt götürülür",
+        "2, çünki yalnız dəyər qaytarılır",
+        "None, çünki lüğət dəyişdirilir"
+      ],
+      "answer": "('b', 2), çünki son daxil edilmiş cüt götürülür",
+      "explanation": "`popitem()` daxilolma sırasına görə son cütü silir və `(açar, dəyər)` tuple-ı qaytarır. Konkret açar üçün `pop(key)` işlədilir."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_13_dictionaries_az",
+      "type": "multiple_choice",
+      "prompt": "`d = dict.fromkeys(['a', 'b'], [])` üçün hansı fikir doğrudur?",
+      "options": [
+        "Hər açar ayrıca boş siyahı alır",
+        "Hər iki açar eyni mutable siyahını paylaşır",
+        "fromkeys mutable dəyəri qəbul etmir və TypeError verir",
+        "Yalnız 'a' açarı yaradılır"
+      ],
+      "answer": "Hər iki açar eyni mutable siyahını paylaşır",
+      "explanation": "`fromkeys` eyni value obyektini bütün açarlara verir. Ayrı siyahılar üçün `{key: [] for key in keys}` comprehension istifadə edin."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_13_dictionaries_az",
+      "type": "multiple_choice",
+      "prompt": "Lüğətdə həm açarı, həm dəyəri birlikdə gəzib çıxarmaq üçün hansı nümunə doğrudur?",
+      "options": [
+        "for key, value in d.items():",
+        "for key, value in d.keys():",
+        "for key, value in d.values():",
+        "for key, value in d.popitem():"
+      ],
+      "answer": "for key, value in d.items():",
+      "explanation": "`items()` hər cütü `(key, value)` kimi verir. `keys()` yalnız açarları, `values()` yalnız dəyərləri verir; `popitem()` isə lüğəti dəyişdirərək bir cüt silir."
+    },
+    {
+      "id": "q5",
+      "topicId": "python_13_dictionaries_az",
+      "type": "multiple_choice",
+      "prompt": "Aşağıdakı comprehension hansı istifadəçiləri `passed` lüğətinə daxil edir?",
+      "options": [
+        "Orta balı 80-dən aşağı olanları",
+        "Orta balı 80 və ya daha yüksək olanları",
+        "Yalnız bir balı olanları",
+        "İstifadəçi ID-si rəqəm olanları"
+      ],
+      "answer": "Orta balı 80 və ya daha yüksək olanları",
+      "explanation": "Comprehension şərti `average >= 80` olan cütləri saxlayır. Xarici açar `user_id`, dəyər isə həmin tələbənin adıdır."
+    }
+  ]
+}

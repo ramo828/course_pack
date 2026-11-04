@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_timing_tr",
+  "title": "Periyodik çalışma ve görev gecikmesi",
+  "questions": [
+    {
+      "id": "freertos_freertos_timing_1",
+      "topicId": "freertos_freertos_timing",
+      "type": "multiple_choice",
+      "prompt": "“Periyodik çalışma ve görev gecikmesi” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "`vTaskDelayUntil` hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır."
+      ],
+      "answer": "`vTaskDelayUntil` hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir.",
+      "explanation": "`vTaskDelayUntil` hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir.\nAçıklama: `vTaskDelay` görevi belirli tick sayısı boyunca bloklar; `pdMS_TO_TICKS` milisaniyeyi tick'e dönüştürür. Periyodik sensör örneklemesinde `vTaskDelayUntil` önceki plan zamanını kullandığından işlem süresi aralığa eklenmez. Tick frekansı ve planlama gecikmesi mikro saniye kesinliği sağlamaz; gerçek süreyi ölçün."
+    },
+    {
+      "id": "freertos_freertos_timing_2",
+      "topicId": "freertos_freertos_timing",
+      "type": "multiple_choice",
+      "prompt": "“Periyodik çalışma ve görev gecikmesi” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Periyodik işte `delay` yerine `vTaskDelayUntil` kullanın ve aralığı osiloskop veya timestamp ile ölçün.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "Periyodik işte `delay` yerine `vTaskDelayUntil` kullanın ve aralığı osiloskop veya timestamp ile ölçün.",
+      "explanation": "Periyodik işte `delay` yerine `vTaskDelayUntil` kullanın ve aralığı osiloskop veya timestamp ile ölçün.\nAçıklama: `vTaskDelay` görevi belirli tick sayısı boyunca bloklar; `pdMS_TO_TICKS` milisaniyeyi tick'e dönüştürür. Periyodik sensör örneklemesinde `vTaskDelayUntil` önceki plan zamanını kullandığından işlem süresi aralığa eklenmez. Tick frekansı ve planlama gecikmesi mikro saniye kesinliği sağlamaz; gerçek süreyi ölçün."
+    },
+    {
+      "id": "freertos_freertos_timing_3",
+      "topicId": "freertos_freertos_timing",
+      "type": "multiple_choice",
+      "prompt": "“Periyodik çalışma ve görev gecikmesi” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın.",
+        "`pdMS_TO_TICKS(0)` ve çok kısa periyotlara dikkat edin; tick çözünürlüğü yapılandırmaya bağlıdır."
+      ],
+      "answer": "`pdMS_TO_TICKS(0)` ve çok kısa periyotlara dikkat edin; tick çözünürlüğü yapılandırmaya bağlıdır.",
+      "explanation": "`pdMS_TO_TICKS(0)` ve çok kısa periyotlara dikkat edin; tick çözünürlüğü yapılandırmaya bağlıdır.\nAçıklama: `vTaskDelay` görevi belirli tick sayısı boyunca bloklar; `pdMS_TO_TICKS` milisaniyeyi tick'e dönüştürür. Periyodik sensör örneklemesinde `vTaskDelayUntil` önceki plan zamanını kullandığından işlem süresi aralığa eklenmez. Tick frekansı ve planlama gecikmesi mikro saniye kesinliği sağlamaz; gerçek süreyi ölçün."
+    },
+    {
+      "id": "freertos_freertos_timing_4",
+      "topicId": "freertos_freertos_timing",
+      "type": "multiple_choice",
+      "prompt": "“Periyodik çalışma ve görev gecikmesi” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+        "Periyodik sensör örneklemesinde `vTaskDelayUntil` önceki plan zamanını kullandığından işlem süresi aralığa eklenmez",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "Periyodik sensör örneklemesinde `vTaskDelayUntil` önceki plan zamanını kullandığından işlem süresi aralığa eklenmez",
+      "explanation": "Periyodik sensör örneklemesinde `vTaskDelayUntil` önceki plan zamanını kullandığından işlem süresi aralığa eklenmez\nAçıklama: `vTaskDelay` görevi belirli tick sayısı boyunca bloklar; `pdMS_TO_TICKS` milisaniyeyi tick'e dönüştürür. Periyodik sensör örneklemesinde `vTaskDelayUntil` önceki plan zamanını kullandığından işlem süresi aralığa eklenmez. Tick frekansı ve planlama gecikmesi mikro saniye kesinliği sağlamaz; gerçek süreyi ölçün."
+    }
+  ]
+}

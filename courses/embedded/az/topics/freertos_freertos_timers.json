@@ -1,0 +1,160 @@
+{
+  "id": "freertos_freertos_timers",
+  "title": "Proqram təminatı vaxtölçən və geri çağırış qaydaları",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_timers_az",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/06-software-timers/01-Software-timers"
+  ],
+  "estimatedMinutes": 22,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Proqram təminatı vaxtölçən və geri çağırış qaydaları” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Periodic proqram təminatı vaxtölçən dəqiq aparat vaxtölçən deyil; jitter və scheduler yükünü ölçün. Real layihədə bu göstərişə əməl edin: Geri çağırış daxilində yalnız qısa flag və ya mesaj göndərin; işin qalanını normal tapşırığa verin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nTaskHandle_t timerWorker = nullptr;\nTimerHandle_t sampleTimer = nullptr;\nvoid timerCallback(TimerHandle_t) { if (timerWorker) xTaskNotifyGive(timerWorker); }\nvoid timerWorkerTask(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"timer event\"); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(timerWorkerTask, \"timer-worker\", 2048, nullptr, 1, &timerWorker) != pdPASS) { Serial.println(\"timer worker creation failed\"); return; } sampleTimer = xTimerCreate(\"sample\", pdMS_TO_TICKS(1000), pdTRUE, nullptr, timerCallback); if (sampleTimer == nullptr) { Serial.println(\"timer creation failed\"); return; } if (xTimerStart(sampleTimer, 0) != pdPASS) { Serial.println(\"timer start failed\"); xTimerDelete(sampleTimer, 0); sampleTimer = nullptr; } }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Vaxtölçən geri çağırış yalnız tapşırığa bildiriş göndərir; işçi tapşırıq hadisəni Serial Monitor-da göstərir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Proqram təminatı vaxtölçən geri çağırış-i ayrıca vaxtölçən service tapşırıq-ında icra olunur; bu, periodik siqnal üçün faydalıdır, amma geri çağırış uzun iş görməməlidir. Geri çağırış-dən bloklamaq, uzun serial yazısı və ya ağır sensor oxumaq vaxtölçən tapşırıq-ını saxlayır və bütün vaxtölçən-ları gecikdirə bilər. Uzun işi növbə və ya notification ilə worker tapşırığa ötürün.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { Serial.begin(115200); if (xTaskCreate(timerWorkerTask, \"timer-worker\", 2048, nullptr, 1, &timerWorker) != pdPASS) { Serial.println(\"timer worker creation failed\"); return; } sampleTimer = xTimerCreate(\"sample\", pdMS_TO_TICKS(1000), pdTRUE, nullptr, timerCallback); if (sampleTimer == nullptr) { Serial.println(\"timer creation failed\"); return; } if (xTimerStart(sampleTimer, 0) != pdPASS) { Serial.println(\"timer start failed\"); xTimerDelete(sampleTimer, 0); sampleTimer = nullptr; } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Periodic proqram təminatı vaxtölçən dəqiq aparat vaxtölçən deyil; jitter və scheduler yükünü ölçün.\nNiyə seçilib: Geri çağırış daxilində yalnız qısa flag və ya mesaj göndərin; işin qalanını normal tapşırığa verin.\nBuraxılsa və ya dəyişdirilsə: Vaxtölçən command növbə ölçüsü sonradan start/stop/reset əmrlərinin gecikməsinə təsir göstərə bilər.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Geri çağırış daxilində yalnız qısa flag və ya mesaj göndərin; işin qalanını normal tapşırığa verin."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Periodic proqram təminatı vaxtölçən dəqiq aparat vaxtölçən deyil; jitter və scheduler yükünü ölçün.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Geri çağırış daxilində yalnız qısa flag və ya mesaj göndərin; işin qalanını normal tapşırığa verin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nTaskHandle_t timerWorker = nullptr;\nTimerHandle_t timerHandle = nullptr;\nvoid onTimer(TimerHandle_t) { if (timerWorker) xTaskNotifyGive(timerWorker); }\nvoid timerWorkerTask(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"timer event\"); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(timerWorkerTask, \"timer-worker\", 2048, nullptr, 1, &timerWorker) != pdPASS) return; timerHandle = xTimerCreate(\"sample\", pdMS_TO_TICKS(1000), pdTRUE, nullptr, onTimer); if (timerHandle == nullptr || xTimerStart(timerHandle, 0) != pdPASS) Serial.println(\"timer setup failed\"); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Vaxtölçən geri çağırış yalnız bildiriş göndərir; hadisəni işçi tapşırıq emal edir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Vaxtölçən command növbə ölçüsü sonradan start/stop/reset əmrlərinin gecikməsinə təsir göstərə bilər."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Pinlər, gərginlik/cərəyan limitləri, timing və periferik imkanlar lövhədən asılıdır; naqilləmədən və yükləmədən əvvəl dəqiq lövhə sənədini yoxlayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: tapşırıqların vəziyyətini, prioritetini, növbə/sinxronizasiya əlaqəsini və zaman xəttini göstərən diaqram."
+}

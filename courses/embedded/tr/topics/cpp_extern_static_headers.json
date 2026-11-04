@@ -1,0 +1,151 @@
+{
+  "id": "cpp_extern_static_headers",
+  "title": "extern, static ve başlık dosyaları",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/storage_duration.html",
+    "https://en.cppreference.com/w/cpp/preprocessor/impl.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Başlıkta ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "extern",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", global değişkenin yalnızca bildirimini yapar; değişken bir ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": ".cpp",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " dosyasında bir kez tanımlanır. İşlev içindeki ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "static",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", çağrılar arasında değerini korur; dosya düzeyindeki ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "static",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " adı o dosyayla sınırlar. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#pragma once",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", başlığın yinelenen eklenmesini önler; alternatif olarak ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#ifndef",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#define",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#endif",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " koruması kullanılabilir. Arduino IDE ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": ".ino",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " dosyalarını birleştirebildiğinden, büyük projelerde paylaşımı başlık ve ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": ".cpp",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " dosyalarıyla açıkça düzenleyin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "        // shared.h: use this guard instead of #pragma once when portability matters\n        // Alternative: #pragma once\n        #include <stdint.h>\n        #ifndef SHARED_H\n        #define SHARED_H\n        extern uint32_t pulseCount;\n        void resetPulseCount();\n        #endif\n\n        // shared.cpp\n        #include \"shared.h\"\n        static uint8_t localHelperState = 0;\n        static void resetHelper() { localHelperState = 0; }\n        uint32_t callCount() {\n          static uint32_t calls = 0;\n          return ++calls;\n        }\n        uint32_t pulseCount = 0;\n        void resetPulseCount() { pulseCount = 0; }",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Değişken tanımını başlığa koymayın; birden çok dosyada yinelenen tanım bağlayıcı hatasına neden olabilir. `#pragma once` yaygın olsa da standart C++ yönergesi değildir. Döngüsel eklemelerde yalnızca bildirim içeren başlıklar kullanın."
+    }
+  ],
+  "testId": "embedded_test_cpp_extern_static_headers_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

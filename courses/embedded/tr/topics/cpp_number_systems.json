@@ -1,0 +1,312 @@
+{
+  "id": "cpp_number_systems",
+  "title": "İkili ve onaltılı sayı sistemleri",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/integer_literal.html",
+    "https://www.arduino.cc/reference/en/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Günlük saydığımız sistem onluk sistemdir; basamak ağırlıkları 10'un kuvvetleridir. İkili sistem yalnız ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "0",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "1",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kullanır, sağdan başlayarak basamak ağırlıkları 1, 2, 4, 8, 16 şeklindedir. Örneğin ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "1101₂ = 8 + 4 + 0 + 1 = 13₁₀",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". Onaltılı sistem ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "0–9",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "A–F",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmak üzere 16 simge kullanır; bir onaltılı basamak dört bite karşılık gelir. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "0x3A = 3×16 + 10 = 58",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; ikili karşılığı ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "0011 1010",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olur.\n\nMikrodenetleyicide onaltılı yazım uzun bit dizilerini kısaltır; register, bit maskesi, bellek adresi ve ölçüm sonuçlarını okumayı kolaylaştırır. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "0b...",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ikili, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "0x...",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " onaltılı sabittir; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "uint8_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " 0–255 aralığında 8 bitlik değer tutar.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ADIM ADIM DÖNÜŞÜMLER\n\nOnluktan ikiliye: 13'ü 2'ye bölün: 13÷2=6 kalan 1; 6÷2=3 kalan 0; 3÷2=1 kalan 1; 1÷2=0 kalan 1. Kalanları alttan üste okuyun: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "1101₂",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". Kontrol: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "8+4+1=13",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ".\n\nİkiliden onluya: her basamağı kendi ağırlığıyla çarpıp toplayın: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "101101₂ = 1×32 + 0×16 + 1×8 + 1×4 + 0×2 + 1×1 = 45₁₀",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ".\n\nOnluktan onaltılıya: 58÷16=3 kalan 10; 10'un onaltılı simgesi ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "A",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olduğu için yanıt ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "3A₁₆",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", yani ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "0x3A",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olur. Onaltılıdan onluya: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "3A₁₆ = 3×16 + 10×1 = 58₁₀",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ".\n\nİkiliden onaltılıya: sağdan dörder bitlik gruplar oluşturun: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "00111010 → 0011 1010 → 3A",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". Onaltılıdan ikiliye: her simgeyi tablodaki dört bit ile değiştirin: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "2D → 0010 1101",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". Soldaki sıfırlar yalnızca gruplamayı tamamlar, değeri değiştirmez.\n\nKENDİNİ DENE: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "1111₂ = 15₁₀ = F₁₆",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "2A₁₆ = 42₁₀ = 0010 1010₂",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "0x",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", sayının onaltılı yazıldığını belirten önektir. Bu dönüşümler kodu, sensör verisini ve bit maskelerini okumayı kolaylaştırır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "İkili, onluk ve onaltılı basamakların eşleşmesi\n",
+      "size": 17,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "İkili | Onluk | Onaltılı\n0000 | 0  | 0\n0001 | 1  | 1\n0010 | 2  | 2\n0011 | 3  | 3\n0100 | 4  | 4\n0101 | 5  | 5\n0110 | 6  | 6\n0111 | 7  | 7\n1000 | 8  | 8\n1001 | 9  | 9\n1010 | 10 | A\n1011 | 11 | B\n1100 | 12 | C\n1101 | 13 | D\n1110 | 14 | E\n1111 | 15 | F",
+      "showCopyButton": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "// Decimal 58 = 0011 1010 (binary) = 0x3A (hex)\nuint8_t value = 0b00111010;\nuint8_t sameValue = 0x3A;\n\nuint8_t flags = 0;\nflags |= (1u << 2);  // Set bit 2\nbool enabled = (flags & (1u << 2)) != 0;\nflags = static_cast<uint8_t>(flags & ~(1u << 2)); // Clear bit 2",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "İkiliden onluya geçerken her `1` için basamak ağırlıklarını toplayın. Onludan ikiliye geçmek için 2'ye bölme kalanlarını ters sırayla yazın. Maske işlemlerinde bit numarası 0'dan başlar. Kaydırma aralığını ve tür genişliğini denetleyin; register için kartın teknik belgesine bakın."
+    }
+  ],
+  "testId": "embedded_test_cpp_number_systems_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

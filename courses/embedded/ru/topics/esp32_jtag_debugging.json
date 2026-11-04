@@ -1,0 +1,60 @@
+{
+  "id": "esp32_jtag_debugging",
+  "title": "Отладка ESP32 через JTAG: точки останова и watchpoint",
+  "difficulty": "advanced",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/jtag-debugging/index.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/core_dump.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "JTAG позволяет остановить реальную плату ESP32, пошагово выполнять код и изучать переменные и память. OpenOCD связывает устройство с GDB. Поставьте breakpoint или watchpoint на ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sampleCount",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; задержка в одну секунду не даёт задаче постоянно занимать CPU. На некоторых платах выводы JTAG недоступны или отключены; одни модели поддерживают USB Serial/JTAG, другим нужен внешний адаптер.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Порядок работы: проверьте совместимость платы и JTAG-адаптера, соберите ESP-IDF с отладочными символами, запустите OpenOCD и подключите GDB. Остановитесь на ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "++sampleCount",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и проверьте значение. При проблемах со стеком измерьте его запас FreeRTOS; для диагностики watchdog reset сохраните журнал и ядро dump.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <inttypes.h>\n#include \"esp_log.h\"\n#include \"freertos/FreeRTOS.h\"\n#include \"freertos/task.h\"\n\nstatic const char* TAG = \"jtag-demo\";\nstatic uint32_t sampleCount = 0;\n\nextern \"C\" void app_main(void) {\n  for (;;) {\n    ++sampleCount;\n    ESP_LOGI(TAG, \"sample=%\" PRIu32, sampleCount);\n    vTaskDelay(pdMS_TO_TICKS(1000));\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Назначение выводов, напряжение адаптера и поддержка USB Serial/JTAG зависят от модели. Отлаживайте только принадлежащую вам плату или устройство, на которое у вас есть разрешение. Не ослабляйте JTAG, secure boot или flash encryption в production; изменение eFuse может быть необратимым."
+    }
+  ],
+  "testId": "embedded_test_esp32_jtag_debugging_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

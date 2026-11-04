@@ -1,0 +1,76 @@
+{
+  "id": "python_test_18_file_io_ru",
+  "title": "Работа с файлами",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_18_file_io_ru",
+      "type": "multiple_choice",
+      "prompt": "Какой точный результат выводит пример кода 1 в этом уроке?\n\nfrom pathlib import Path\nfrom tempfile import TemporaryDirectory\n\nwith TemporaryDirectory() as folder:\n    path = Path(folder) / 'notes.txt'\n    path.write_text('First line\\nSecond line', encoding='utf-8')\n    print(path.read_text(encoding='utf-8'))",
+      "options": [
+        "['Ada', '10']",
+        "first line\nsecond line",
+        "fIRST LINE\nsECOND LINE",
+        "First line\nSecond line"
+      ],
+      "answer": "First line\nSecond line",
+      "explanation": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n`from pathlib import Path` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`from tempfile import TemporaryDirectory` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`with TemporaryDirectory() as folder:` — Управляет ресурсом внутри блока; без контекстного менеджера файл или соединение может остаться открытым.\n`path = Path(folder) / 'notes.txt'` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`path.write_text('First line\\nSecond line', encoding='utf-8')` — Записывает переданный текст в файл, заменяя его прежнее содержимое; кодировка указана явно.\n`print(path.read_text(encoding='utf-8'))` — Читает файл как текст; явное указание кодировки помогает одинаково интерпретировать байты."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_18_file_io_ru",
+      "type": "multiple_choice",
+      "prompt": "Какой точный результат выводит пример кода 2 в этом уроке?\n\nfrom pathlib import Path\nfrom tempfile import TemporaryDirectory\n\nwith TemporaryDirectory() as folder:\n    path = Path(folder) / 'notes.txt'\n    path.write_text('first line\\nsecond line', encoding='utf-8')\n    print(path.read_text(encoding='utf-8'))",
+      "options": [
+        "FIRST LINE\nSECOND LINE",
+        "first line\nsecond line",
+        "['Ada', '10']",
+        "First line\nSecond line"
+      ],
+      "answer": "first line\nsecond line",
+      "explanation": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n`from pathlib import Path` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`from tempfile import TemporaryDirectory` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`with TemporaryDirectory() as folder:` — Управляет ресурсом внутри блока; без контекстного менеджера файл или соединение может остаться открытым.\n`path = Path(folder) / 'notes.txt'` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`path.write_text('first line\\nsecond line', encoding='utf-8')` — Записывает переданный текст в файл, заменяя его прежнее содержимое; кодировка указана явно.\n`print(path.read_text(encoding='utf-8'))` — Читает файл как текст; явное указание кодировки помогает одинаково интерпретировать байты."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_18_file_io_ru",
+      "type": "multiple_choice",
+      "prompt": "Какой точный результат выводит пример кода 3 в этом уроке?\n\nimport csv\nfrom io import StringIO\nrows = list(csv.reader(StringIO('name,score\\nAda,10\\n')))\nprint(rows[1])",
+      "options": [
+        "First line\nSecond line",
+        "['Ada', '10']",
+        "['Ada']",
+        "first line\nsecond line"
+      ],
+      "answer": "['Ada', '10']",
+      "explanation": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n`import csv` — Импортирует возможности модуля; без этого имя недоступно и может возникнуть NameError.\n`from io import StringIO` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`rows = list(csv.reader(StringIO('name,score\\nAda,10\\n')))` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`print(rows[1])` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_18_file_io_ru",
+      "type": "multiple_choice",
+      "prompt": "Какое утверждение точно описывает тему «Работа с файлами»?",
+      "options": [
+        "Стандартная библиотека предоставляет инструменты для дат, путей и статистики; проверьте подходящий модуль до написания собственного.",
+        "Модули разделяют код на управляемые файлы, а исключения позволяют обработать сбой, а не скрыть его.",
+        "Работа с файлами нужна для чтения и хранения отчётов, настроек и записей, которые должны сохраниться после завершения программы.",
+        "Пакеты добавляют возможности, а regex проверяет шаблон текста; для простого текста понятнее обычные строковые методы."
+      ],
+      "answer": "Работа с файлами нужна для чтения и хранения отчётов, настроек и записей, которые должны сохраниться после завершения программы.",
+      "explanation": "Работа с файлами нужна для чтения и хранения отчётов, настроек и записей, которые должны сохраниться после завершения программы.\n\nПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n`from pathlib import Path` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`from tempfile import TemporaryDirectory` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`with TemporaryDirectory() as folder:` — Управляет ресурсом внутри блока; без контекстного менеджера файл или соединение может остаться открытым.\n`path = Path(folder) / 'notes.txt'` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`path.write_text('first line\\nsecond line', encoding='utf-8')` — Записывает переданный текст в файл, заменяя его прежнее содержимое; кодировка указана явно.\n`print(path.read_text(encoding='utf-8'))` — Читает файл как текст; явное указание кодировки помогает одинаково интерпретировать байты."
+    },
+    {
+      "id": "q5",
+      "topicId": "python_18_file_io_ru",
+      "type": "multiple_choice",
+      "prompt": "Добавляет ли `writelines(['a', 'b'])` символ `\\n` между строками автоматически?",
+      "options": [
+        "Да, всегда",
+        "Нет, добавьте символы новой строки самостоятельно",
+        "Только для бинарных файлов",
+        "Только после первой строки"
+      ],
+      "answer": "Нет, добавьте символы новой строки самостоятельно",
+      "explanation": "writelines не добавляет разделители; при необходимости включите `\\n` в строки."
+    }
+  ]
+}

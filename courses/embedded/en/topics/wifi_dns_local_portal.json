@@ -1,0 +1,72 @@
+{
+  "id": "wifi_dns_local_portal",
+  "title": "Wi-Fi access point, local server, and DNS redirection",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/webserver.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "For first-time setup, a device can create a Wi-Fi network and a local control page that a phone can open without internet.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "HOW IT WORKS\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The ESP32 starts a SoftAP, "
+    },
+    {
+      "type": "text",
+      "text": "WebServer",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " answers local HTTP requests, and "
+    },
+    {
+      "type": "text",
+      "text": "DNSServer",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " maps names on that network to the board's IP so a setup page is easy to reach. This is a starting point for a captive portal; automatic portal pop-ups vary by phone and operating system. Clearly identify the device and protect any information entered.\n\nThe AP does not provide internet by itself. Internet requires a separate STA connection to a router; AP+STA shares radio resources. Test only on a network you control.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <WebServer.h>\n#include <DNSServer.h>\n\nWebServer server(80);\nDNSServer dns;\n\nvoid setup() {\n  WiFi.mode(WIFI_AP);\n  WiFi.softAP(\"Device-Setup\", \"replace-this-pass\");\n  const IPAddress ip = WiFi.softAPIP();\n  dns.start(53, \"*\", ip);\n  server.on(\"/\", []() {\n    server.send(200, \"text/html\",\n                \"<h1>Device setup</h1><p>Connected locally.</p>\");\n  });\n  server.onNotFound([]() {\n    server.sendHeader(\"Location\", \"/\", true);\n    server.send(302, \"text/plain\", \"\");\n  });\n  server.begin();\n}\n\nvoid loop() {\n  dns.processNextRequest();\n  server.handleClient();\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "Wi-Fi access point, local server, and DNS redirection"
+    },
+    {
+      "type": "warning",
+      "title": "Important safety and compatibility note",
+      "text": "Change the password. This simple HTTP portal is not encrypted and must not be exposed to the internet. DNS redirection does not guarantee every phone will show a portal window; test AP+STA on the exact board."
+    }
+  ],
+  "testId": "embedded_test_wifi_dns_local_portal_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

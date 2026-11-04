@@ -1,0 +1,84 @@
+{
+  "id": "embedded_unit_testing",
+  "title": "Unit and integration testing with Wokwi and ESP-IDF Unity",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/unit-tests.html",
+    "https://docs.wokwi.com/guides/ci"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Split firmware into small testable units, such as a pure function that validates an ADC raw range. ESP-IDF Unity can test C/C++ components on target or on a host; keep test components separate from production firmware. Wokwi simulates boards, wiring, and sensors for GPIO/serial behavior, and its CLI can run repeatable simulation tests in CI.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Test scenarios: unit-test ADC boundaries ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "-1",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "0",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "4095",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", and ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "4096",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; simulate button and sensor inputs in Wokwi; integration-test timeout and recovery when an I2C device does not respond. Keep results in serial logs. Simulation does not fully reproduce real radio behavior, power use, analog noise, or JTAG.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"unity.h\"\n\nstatic bool isAdcRawValid(int raw) {\n  return raw >= 0 && raw <= 4095;\n}\n\nTEST_CASE(\"ADC raw values stay within the 12-bit range\", \"[sensor]\") {\n  TEST_ASSERT_TRUE(isAdcRawValid(0));\n  TEST_ASSERT_TRUE(isAdcRawValid(4095));\n  TEST_ASSERT_FALSE(isAdcRawValid(-1));\n  TEST_ASSERT_FALSE(isAdcRawValid(4096));\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "A unit test cannot validate physical pin voltage, radio range, or real sensor calibration. Isolate drivers with mocks/fakes, test timeouts and failure paths, then run hardware-in-the-loop checks on a real board. Avoid infinite waits and writes to production flash in tests."
+    }
+  ],
+  "testId": "embedded_test_embedded_unit_testing_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

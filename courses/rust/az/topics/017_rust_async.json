@@ -1,0 +1,190 @@
+{
+  "id": "rust_rust_async",
+  "title": "Async/await, Future və executor",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_async_az",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch17-00-async-await.html",
+    "https://tokio.rs/tokio/tutorial"
+  ],
+  "estimatedMinutes": 35,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Async/await, Future və executor” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Runtime Future-ları planlayır, amma HTTP client kimi kitabxana da runtime-ın async ekosistemi ilə uyğun olmalıdır. Real layihədə bu göstərişə əməl edin: Async CPU intensiv işi paralel etmir; uzun hesablamanı blocking pool və ya ayrıca thread-də icra etmək lazım ola bilər.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_async_runtime",
+      "caption": "Async/await, Future və executor"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::future::Future;\nuse std::sync::Arc;\nuse std::task::{Context, Poll, Wake, Waker};\nstruct NoopWake;\nimpl Wake for NoopWake { fn wake(self: Arc<Self>) {} }\nfn run_ready<F: Future>(future: F) -> F::Output {\n    let waker = Waker::from(Arc::new(NoopWake));\n    let mut context = Context::from_waker(&waker);\n    let mut future = Box::pin(future);\n    match future.as_mut().poll(&mut context) {\n        Poll::Ready(value) => value,\n        Poll::Pending => panic!(\"this tiny example only handles immediately-ready futures\"),\n    }\n}\nasync fn answer() -> u8 { 42 }\nfn main() { println!(\"{}\", run_ready(answer())); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "42\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust async funksiyası işi dərhal icra etmək əvəzinə Future qaytarır; executor bu Future-ları poll edib hazır olduqda davam etdirir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "await",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " gözləyən task-ın idarəni buraxmasına imkan verir, buna görə şəbəkə və disk I/O kimi gözləmə yönümlü işlərdə faydalı ola bilər. Rust standart kitabxanası ümumi executor vermir; layihələr adətən Tokio kimi runtime və ona uyğun async kitabxanalar seçir.\n\nBu kiçik host nümunəsi yalnız dərhal Ready olan Future-u poll edir; real network I/O üçün Tokio kimi executor seçin, bu nümunəni istehsal executor-u kimi istifadə etməyin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let waker = Waker::from(Arc::new(NoopWake));",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Runtime Future-ları planlayır, amma HTTP client kimi kitabxana da runtime-ın async ekosistemi ilə uyğun olmalıdır.\nNiyə seçilib: Async CPU intensiv işi paralel etmir; uzun hesablamanı blocking pool və ya ayrıca thread-də icra etmək lazım ola bilər.\nBuraxılsa və ya dəyişdirilsə: Çoxlu task yaratmaq limitsiz paralellik demək deyil; concurrency limitləri, timeout və cancellation siyasəti müəyyən edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Çoxlu task yaratmaq limitsiz paralellik demək deyil; concurrency limitləri, timeout və cancellation siyasəti müəyyən edin."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Runtime Future-ları planlayır, amma HTTP client kimi kitabxana da runtime-ın async ekosistemi ilə uyğun olmalıdır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Async CPU intensiv işi paralel etmir; uzun hesablamanı blocking pool və ya ayrıca thread-də icra etmək lazım ola bilər."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[tokio::main]\nasync fn main() {\n    async fn read_sensor(name: &str, delay_ms: u64) -> String {\n        tokio::time::sleep(std::time::Duration::from_millis(delay_ms)).await;\n        format!(\"{name}:ready\")\n    }\n    let (temperature, humidity) = tokio::join!(\n        read_sensor(\"temperature\", 5),\n        read_sensor(\"humidity\", 3),\n    );\n    println!(\"{temperature}\\n{humidity}\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "temperature:ready\nhumidity:ready\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Rust standart kitabxanası ümumi executor vermir; layihələr adətən Tokio kimi runtime və ona uyğun async kitabxanalar seçir.\n\nBu kiçik host nümunəsi yalnız dərhal Ready olan Future-u poll edir; real network I/O üçün Tokio kimi executor seçin, bu nümunəni istehsal executor-u kimi istifadə etməyin."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Çoxlu task yaratmaq limitsiz paralellik demək deyil; concurrency limitləri, timeout və cancellation siyasəti müəyyən edin."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Async/await, Future və executor” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Runtime Future-ları planlayır, amma HTTP client kimi kitabxana da runtime-ın async ekosistemi ilə uyğun olmalıdır.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

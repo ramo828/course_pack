@@ -1,0 +1,58 @@
+{
+  "id": "bluetooth_profiles_and_limits",
+  "title": "Bluetooth LE və Classic: GATT, SPP, qoşulma və uyğunluq",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/bluetooth.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/bluetooth/index.html",
+    "https://www.bluetooth.com/learn-about-bluetooth/tech-overview/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Bluetooth telefon, sensor, pult və kompüter arasında qısa məsafədə simsiz əlaqə yaradır. LE və Classic eyni ad altında olsa da, fərqli məqsəd və profillərə malikdir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NECƏ İŞLƏYİR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "BLE az enerji sərf edir. Ətraf cihaz reklam siqnalı yayır və GATT xidmət/xüsusiyyət təqdim edir; mərkəzi cihaz skan edir, qoşulur, məlumatı oxuyub-yazır və bildiriş alır. Sensor, quraşdırma, batareyalı cihaz və BLE Mesh üçün uyğundur. Bluetooth Classic BR/EDR davamlı məlumat axını və profillər (SPP serial, A2DP səs, HID insan-interfeysi) üçündür. ESP-IDF Bluedroid hər ikisini, NimBLE isə yalnız BLE-ni dəstəkləyir; Arduino "
+    },
+    {
+      "type": "text",
+      "text": "BluetoothSerial",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " SPP-si yalnız Classic BT olan ESP32 çiplərində (klassik ESP32) işləyir. S3/C3/C6/H2 kimi ESP32 modellərinin hamısı Classic Bluetooth və SPP-ni dəstəkləmir.\n\nNümunə SerialBT ilə qoşulmadan sonra mətn terminalı qurur. BLE-də eyni fikir GATT xüsusiyyətləri və bildirişlərlə qurulur; GATT, SPP ilə eyni protokol deyil. Yaddaş, paralel radio istifadəsi, rabitə məsafəsi və telefon uyğunluğu yoxlanmalıdır.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <BluetoothSerial.h>\n\nBluetoothSerial SerialBT;\n\nvoid setup() {\n  Serial.begin(115200);\n  SerialBT.begin(\"Sensor-Console\");\n}\n\nvoid loop() {\n  if (SerialBT.available()) {\n    const char command = SerialBT.read();\n    if (command == '?') SerialBT.println(\"Ready\");\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib təhlükəsizlik və uyğunluq qeydi",
+      "text": "Nümunə kod yalnız Classic BT/Spp dəstəyi olan çip üçündür və istifadədən əvvəl Arduino Core konfiqurasiyasını yoxlayın. Həssas idarəetmə üçün autentifikasiya/şifrələmə seçin; qoşulan istənilən cihazdan gələn əmri etibarlı saymayın."
+    }
+  ],
+  "testId": "embedded_test_bluetooth_profiles_and_limits_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

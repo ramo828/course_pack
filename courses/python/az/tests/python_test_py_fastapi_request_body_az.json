@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_request_body_az",
+  "title": "Sorğu gövdəsi və Pydantic modeli",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_request_body",
+      "type": "multiple_choice",
+      "prompt": "Bu real HTTP sorğusuna API necə cavab verməlidir?\nPOST /users  body={\"email\":\"ada@example.com\",\"age\":20}",
+      "options": [
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "200 OK; JSON: {\"email\":\"ada@example.com\",\"age\":20}"
+      ],
+      "answer": "200 OK; JSON: {\"email\":\"ada@example.com\",\"age\":20}",
+      "explanation": "Bu, `POST /users  body={\"email\":\"ada@example.com\",\"age\":20}` sorğusunun gözlənilən davranışıdır. 200 OK; JSON: {\"email\":\"ada@example.com\",\"age\":20}"
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_request_body",
+      "type": "multiple_choice",
+      "prompt": "Bu mövzuda hansı dizayn prinsipi doğrudur?",
+      "options": [
+        "Pydantic modeli JSON body-ni Python sahələrinə çevirir və endpoint-dən əvvəl uyğun olmayan məlumatı rədd edir.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin."
+      ],
+      "answer": "Pydantic modeli JSON body-ni Python sahələrinə çevirir və endpoint-dən əvvəl uyğun olmayan məlumatı rədd edir.",
+      "explanation": "Pydantic modeli JSON body-ni Python sahələrinə çevirir və endpoint-dən əvvəl uyğun olmayan məlumatı rədd edir. Pydantic v2-də `str | None` sahənin boş ola biləcəyini, `= None` isə onun verilməyə də biləcəyini bildirir; tip və tələb olunma ayrı qərarlardır."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_request_body",
+      "type": "multiple_choice",
+      "prompt": "Dərsdə göstərilən vacib hissə çıxarılsa, hansı dəyişiklik baş verər?",
+      "options": [
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Body modelini buraxmaq giriş formasını sənədləşdirilməmiş və təkrar yoxlanmayan edir; əl ilə yoxlama səhvləri çoxaldır.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın."
+      ],
+      "answer": "Body modelini buraxmaq giriş formasını sənədləşdirilməmiş və təkrar yoxlanmayan edir; əl ilə yoxlama səhvləri çoxaldır.",
+      "explanation": "Body modelini buraxmaq giriş formasını sənədləşdirilməmiş və təkrar yoxlanmayan edir; əl ilə yoxlama səhvləri çoxaldır. POST/PUT sorğuları yeni və ya dəyişdirilən məlumatı çox vaxt JSON body-də daşıyır. Pydantic modeli sahə tiplərini və məhdudiyyətlərini bir yerdə ifadə edir; FastAPI body-ni oxuyur, model yaradır və model yoxlamasından sonra endpoint-i çağırır."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_request_body",
+      "type": "multiple_choice",
+      "prompt": "Dərsdəki tipik səhvi önləmək üçün hansı addım daha düzgündür?",
+      "options": [
+        "Gözlənilən body-ni `/docs`-da göndərin, sonra bir sahəni silib avtomatik 422 cavabını müşahidə edin.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın."
+      ],
+      "answer": "Gözlənilən body-ni `/docs`-da göndərin, sonra bir sahəni silib avtomatik 422 cavabını müşahidə edin.",
+      "explanation": "Gözlənilən body-ni `/docs`-da göndərin, sonra bir sahəni silib avtomatik 422 cavabını müşahidə edin. Müştərinin göndərdiyi dəyəri etibarlı saymayın. Model yoxlaması biznes qaydalarını, icazəni və məxfi məlumatı ayrıca qorumağı əvəz etmir."
+    }
+  ]
+}

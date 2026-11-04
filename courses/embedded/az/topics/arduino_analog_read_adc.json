@@ -1,0 +1,47 @@
+{
+  "id": "arduino_analog_read_adc",
+  "title": "analogRead: ADC, analoq sensor və gərginlik",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/analog-io/analogRead/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ADC analoq gərginliyi ədədə çevirir. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "analogRead(A0)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " xam dəyər verir; klassik UNO-da standart diapazon çox vaxt 0–1023, ESP32-də isə lövhə/nüvə konfiqurasiyasına görə fərqli, çox vaxt 12-bit olur. Xam dəyəri volt və ya temperatur saymayın: diapazon, istinad gərginliyi və sensor kalibrasiyası lazımdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_voltage_divider",
+      "caption": "analogRead: ADC, analoq sensor və gərginlik"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "constexpr uint8_t SENSOR_PIN = A0;\n\nvoid setup() {\n  Serial.begin(115200);\n}\n\nvoid loop() {\n  int raw = analogRead(SENSOR_PIN);\n  Serial.println(raw);\n  delay(200);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "ESP32 ADC pininə 5 V vermək olmaz. `analogReadResolution` mövcud olsa da, onun vahid davranışını və attenuasiya ayarını konkret nüvə və lövhəyə görə yoxlayın."
+    }
+  ],
+  "testId": "embedded_test_arduino_analog_read_adc_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

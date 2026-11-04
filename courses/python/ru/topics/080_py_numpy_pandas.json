@@ -1,0 +1,960 @@
+{
+  "id": "python_py_numpy_pandas",
+  "title": "NumPy и pandas: массивы и табличные данные",
+  "difficulty": "medium",
+  "testId": "python_test_py_numpy_pandas_ru",
+  "sources": [
+    "https://numpy.org/doc/stable/user/absolute_beginners.html",
+    "https://pandas.pydata.org/docs/getting_started/intro_tutorials/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЗАЧЕМ ЭТО НУЖНО?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NumPy выполняет векторные операции над типизированным ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ndarray",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ", а pandas предоставляет ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Series",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "DataFrame",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " для анализа таблиц. Типичный процесс: загрузить данные, проверить типы и пропуски, отфильтровать и сгруппировать. Большой набор может не поместиться в RAM — выбирайте dtype и chunking.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "NumPy выполняет векторные операции над типизированным ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ndarray",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ", а pandas предоставляет ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Series",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "DataFrame",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " для анализа таблиц. Типичный процесс: загрузить данные, проверить типы и пропуски, отфильтровать и сгруппировать. Большой набор может не поместиться в RAM — выбирайте dtype и chunking.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NumPy предоставляет однородные числовые массивы и векторные вычисления. pandas — таблицы с метками для фильтрации, группировки и анализа данных из CSV. Это внешние зависимости; для небольших данных может быть проще стандартный Python.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ И ПРИМЕНЕНИЕ В ЖИЗНИ\nNumPy выполняет векторные операции над типизированным `ndarray`, а pandas предоставляет `Series` и `DataFrame` для анализа таблиц. Типичный процесс: загрузить данные, проверить типы и пропуски, отфильтровать и сгруппировать. Большой набор может не поместиться в RAM — выбирайте dtype и chunking.\n\n",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРАКТИЧЕСКИЙ ПРИМЕР 2 · NumPy и pandas: массивы и табличные данные\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРАКТИЧЕСКИЙ ПРИМЕР 3 · NumPy и pandas: массивы и табличные данные\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "python_dataframe_flow",
+      "caption": "NumPy и pandas: массивы и табличные данные"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import numpy as np\nimport pandas as pd\n\nsamples = np.array([20.0, 22.0, 24.0])\nreadings = pd.DataFrame({'celsius': samples})\nprint(samples.mean(), readings['celsius'].max())",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "22.0 24.0",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import numpy as np",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует возможности модуля; без этого имя недоступно и может возникнуть NameError.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import pandas as pd",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует возможности модуля; без этого имя недоступно и может возникнуть NameError.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "samples = np.array([20.0, 22.0, 24.0])",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "readings = pd.DataFrame({'celsius': samples})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(samples.mean(), readings['celsius'].max())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import numpy as np\n\nvalues = np.array([18, 22, 25])\nprint(values[values >= 22].tolist())",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "[22, 25]",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import numpy as np",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует возможности модуля; без этого имя недоступно и может возникнуть NameError.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "values = np.array([18, 22, 25])",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(values[values >= 22].tolist())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что выведет этот код? Сначала предположите, затем запустите.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import numpy as np\nimport pandas as pd\n\nsamples = np.array([20.0, 22.0, 24.0])\nreadings = pd.DataFrame({'celsius': samples})\nprint(samples.mean(), readings['celsius'].max())",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "22.0 24.0",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import numpy as np",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует возможности модуля; без этого имя недоступно и может возникнуть NameError.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import pandas as pd",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Импортирует возможности модуля; без этого имя недоступно и может возникнуть NameError.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "samples = np.array([20.0, 22.0, 24.0])",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "readings = pd.DataFrame({'celsius': samples})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(samples.mean(), readings['celsius'].max())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NumPy вычисляет среднее, а pandas — максимум столбца; результат ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "22.0 24.0",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Установите `python -m pip install numpy pandas` в активную `.venv`. При загрузке отдельно проверяйте типы столбцов, пропуски и диапазоны значений."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Загрузка большого файла целиком может исчерпать RAM; используйте chunking и подходящие dtype, проверяйте результат на небольшом образце."
+    },
+    {
+      "type": "detail",
+      "title": "Почему это важно",
+      "text": "NumPy выполняет векторные операции над типизированным `ndarray`, а pandas предоставляет `Series` и `DataFrame` для анализа таблиц. Типичный процесс: загрузить данные, проверить типы и пропуски, отфильтровать и сгруппировать. Большой набор может не поместиться в RAM — выбирайте dtype и chunking."
+    },
+    {
+      "type": "text",
+      "text": "ЧАСТЫЕ ОШИБКИ\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Различайте имя переменной, отступ и комментарий: отступ влияет на синтаксис, комментарий объясняет замысел.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «NumPy и pandas: массивы и табличные данные»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: NumPy выполняет векторные операции над типизированным ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ndarray",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", а pandas предоставляет ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Series",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "DataFrame",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " для анализа таблиц.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «NumPy и pandas: массивы и табличные данные»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: NumPy выполняет векторные операции над типизированным ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ndarray",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", а pandas предоставляет ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Series",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "DataFrame",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " для анализа таблиц.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «NumPy и pandas: массивы и табличные данные»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: NumPy выполняет векторные операции над типизированным ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ndarray",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", а pandas предоставляет ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Series",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "DataFrame",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " для анализа таблиц.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «NumPy и pandas: массивы и табличные данные»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: NumPy выполняет векторные операции над типизированным ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ndarray",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", а pandas предоставляет ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Series",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "DataFrame",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " для анализа таблиц.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «NumPy и pandas: массивы и табличные данные»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: NumPy выполняет векторные операции над типизированным ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ndarray",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", а pandas предоставляет ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Series",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "DataFrame",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " для анализа таблиц.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «NumPy и pandas: массивы и табличные данные»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: NumPy выполняет векторные операции над типизированным ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ndarray",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", а pandas предоставляет ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Series",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "DataFrame",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " для анализа таблиц.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «NumPy и pandas: массивы и табличные данные»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: NumPy выполняет векторные операции над типизированным ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ndarray",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", а pandas предоставляет ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Series",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "DataFrame",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " для анализа таблиц.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «NumPy и pandas: массивы и табличные данные»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: NumPy выполняет векторные операции над типизированным ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ndarray",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", а pandas предоставляет ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Series",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "DataFrame",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " для анализа таблиц.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «NumPy и pandas: массивы и табличные данные»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: NumPy выполняет векторные операции над типизированным ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ndarray",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", а pandas предоставляет ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Series",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "DataFrame",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " для анализа таблиц.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение точно описывает тему «NumPy и pandas: массивы и табличные данные»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: NumPy выполняет векторные операции над типизированным ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ndarray",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", а pandas предоставляет ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Series",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "DataFrame",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " для анализа таблиц.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных.",
+  "estimatedMinutes": 22
+}

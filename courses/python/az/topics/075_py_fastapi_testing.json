@@ -1,0 +1,81 @@
+{
+  "id": "python_py_fastapi_testing",
+  "title": "FastAPI asılılıqları, async və test",
+  "difficulty": "advanced",
+  "testId": "python_test_py_fastapi_testing_az",
+  "sources": [
+    "https://docs.python.org/3/tutorial/",
+    "https://docs.python.org/3/using/",
+    "https://docs.python.org/3/library/",
+    "https://docs.python.org/3/library/turtle.html",
+    "https://docs.python.org/3/library/tkinter.html",
+    "https://fastapi.tiangolo.com/tutorial/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Dependency injection təkrarlanan autentifikasiya, verilənlər bazası sessiyası və konfiqurasiyanı endpoint kodundan ayırır. async def yalnız çağırılan kitabxana həqiqətən async I/O təqdim etdikdə fayda verir; bloklayan kod event loop-u saxlayır. TestClient ilə request/response, validasiya xətası və status kodlarını yoxlayın, sonra ASGI serverini və worker sayını deployment mühitinə görə seçin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi.testclient import TestClient\n\nclient = TestClient(app)\nresponse = client.post('/items', json={'name': 'pen', 'price': 1.5})\nassert response.status_code == 200",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "No console output; the assertion passes when POST /items returns HTTP 200.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "TestClient şəbəkə portu açmadan tətbiqin HTTP davranışını sınamağa imkan verir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Senkron verilənlər bazası çağırışı async endpoint daxilində də bloklaya bilər; uyğun async driver və ya ayrıca worker istifadə edin."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Development serverini internetə açmayın; production proxy və secret konfiqurasiyası ayrıca yoxlanmalıdır."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

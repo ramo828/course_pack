@@ -1,0 +1,160 @@
+{
+  "id": "freertos_freertos_sync",
+  "title": "Binary semaphore, mutex ve deadlock",
+  "difficulty": "hard",
+  "testId": "freertos_test_freertos_sync_tr",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/02-Queues-mutexes-and-semaphores/02-Semaphores-and-Mutexes"
+  ],
+  "estimatedMinutes": 25,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Binary semaphore, mutex ve deadlock” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Mutex kısa kritik bölümü korur; kuyruk değer taşır, aynı işi yapmazlar. Gerçek projede şu öneriyi izleyin: Paylaşılan veriye erişmeden önce mutex alın; her başarılı take için tüm çıkış yollarında give çağırın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nSemaphoreHandle_t mutex = nullptr;\nint sharedValue = 0;\nvoid writer(void*) { for (;;) { if (xSemaphoreTake(mutex, pdMS_TO_TICKS(100)) == pdTRUE) { ++sharedValue; xSemaphoreGive(mutex); } vTaskDelay(pdMS_TO_TICKS(250)); } }\nvoid setup() { Serial.begin(115200); mutex = xSemaphoreCreateMutex(); if (mutex) xTaskCreate(writer, \"writer\", 2048, nullptr, 1, nullptr); }\nvoid loop() { int snapshot; if (mutex && xSemaphoreTake(mutex, pdMS_TO_TICKS(50)) == pdTRUE) { snapshot = sharedValue; xSemaphoreGive(mutex); Serial.println(snapshot); } vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Mutex okuma ve yazmayı korurken Serial Monitor paylaşılan sayacı gösterir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Semaphore olay bildirimi veya kaynak sayısını koordine eder; mutex ise paylaşılan değiştirilebilir kaynağı korur ve sahiplik/öncelik miraslama anlamı taşır. Mutex'i kısa tutun, bloklayan I/O sırasında bırakın ve tüm görevlerde aynı lock sırasını kullanın. Böylece deadlock ve priority inversion riski azalır; ISR içinde mutex alınmaz.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void writer(void*) { for (;;) { if (xSemaphoreTake(mutex, pdMS_TO_TICKS(100)) == pdTRUE) { ++sharedValue; xSemaphoreGive(mutex); } vTaskDelay(pdMS_TO_TICKS(250)); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Mutex kısa kritik bölümü korur; kuyruk değer taşır, aynı işi yapmazlar.\nNeden seçildi: Paylaşılan veriye erişmeden önce mutex alın; her başarılı take için tüm çıkış yollarında give çağırın.\nAtlanır veya değiştirilirse: Lock'u bırakmayı unutmak görevleri kalıcı olarak bloklayabilir; hata ve erken dönüş yollarını inceleyin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Lock'u bırakmayı unutmak görevleri kalıcı olarak bloklayabilir; hata ve erken dönüş yollarını inceleyin."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Mutex kısa kritik bölümü korur; kuyruk değer taşır, aynı işi yapmazlar.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Paylaşılan veriye erişmeden önce mutex alın; her başarılı take için tüm çıkış yollarında give çağırın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nSemaphoreHandle_t gate = nullptr;\nint sharedCount = 0;\nvoid worker(void*) { for (;;) { if (xSemaphoreTake(gate, pdMS_TO_TICKS(100)) == pdTRUE) { ++sharedCount; xSemaphoreGive(gate); } vTaskDelay(pdMS_TO_TICKS(10)); } }\nvoid setup() { Serial.begin(115200); gate = xSemaphoreCreateMutex(); if (gate) xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr); }\nvoid loop() { int snapshot; if (gate && xSemaphoreTake(gate, pdMS_TO_TICKS(50)) == pdTRUE) { snapshot = sharedCount; xSemaphoreGive(gate); Serial.println(snapshot); } vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Mutex paylaşılan sayacın okunmasını ve yazılmasını korur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Böylece deadlock ve priority inversion riski azalır; ISR içinde mutex alınmaz."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Lock'u bırakmayı unutmak görevleri kalıcı olarak bloklayabilir; hata ve erken dönüş yollarını inceleyin."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: görev durumlarını, öncelikleri, kuyruk/eşzamanlama ilişkisini ve zaman çizelgesini gösteren diyagram."
+}

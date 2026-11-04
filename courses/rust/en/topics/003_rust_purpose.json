@@ -1,0 +1,189 @@
+{
+  "id": "rust_rust_purpose",
+  "title": "What is Rust used for?",
+  "difficulty": "easy",
+  "testId": "rust_test_rust_purpose_en",
+  "sources": [
+    "https://doc.rust-lang.org/book/",
+    "https://source.android.com/docs/setup/build/rust/building-rust-modules",
+    "https://github.com/firecracker-microvm/firecracker",
+    "https://github.com/cloudflare/pingora"
+  ],
+  "estimatedMinutes": 12,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “What is Rust used for?” to a real program or device. The key principle is: Rust combines high-level abstractions and low-level control with compile-time checks. In a project, follow this guidance: Rust does not require a garbage collector, but resource management still needs design: reason about ownership, lifetimes, and failures.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn parse_port(text: &str) -> Result<u16, std::num::ParseIntError> { Ok(text.parse()?) }\nfn main() { println!(\"{:?}\", parse_port(\"8080\")); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ok(8080)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust is a systems language for software that needs performance, low-level resource control, and strong memory safety. It is used for operating-system components, command-line tools, network services, game infrastructure, WebAssembly, and microcontroller firmware. Ownership and the borrow checker catch many memory errors at compile time, while requiring developers to model ownership, borrowing, and types explicitly.\n\nCompany examples: Google uses Rust in the Android platform; AWS's Firecracker virtual-machine monitor and Cloudflare's Pingora proxy are Rust projects. This does not mean all of those companies' software is written in Rust; they choose it for suitable system components. Sources: https://source.android.com/docs/setup/build/rust/building-rust-modules · https://github.com/firecracker-microvm/firecracker · https://github.com/cloudflare/pingora\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "fn parse_port(text: &str) -> Result<u16, std::num::ParseIntError> { Ok(text.parse()?) }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: Rust combines high-level abstractions and low-level control with compile-time checks.\nWhy it is used: Rust does not require a garbage collector, but resource management still needs design: reason about ownership, lifetimes, and failures.\nIf omitted or changed: Match the language's strengths to latency, memory budget, target platform, and team experience.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Skipping this check before applying the rule: Rust does not require a garbage collector, but resource management still needs design: reason about ownership, lifetimes, and failures."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust combines high-level abstractions and low-level control with compile-time checks.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Rust does not require a garbage collector, but resource management still needs design: reason about ownership, lifetimes, and failures."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn maximum(values: &[i16]) -> Option<i16> { values.iter().copied().max() }\nfn main() { let readings = [12, 18, 9]; println!(\"{:?}\", maximum(&readings)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Some(18)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Match the language's strengths to latency, memory budget, target platform, and team experience."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Examples focus on the concept; compile and test with the selected toolchain and target because APIs and diagnostics can vary by version."
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement gives the core rule for “What is Rust used for?”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Rust combines high-level abstractions and low-level control with compile-time checks.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "A separate visual is not essential; a small runnable code example and its expected output explain the topic."
+}

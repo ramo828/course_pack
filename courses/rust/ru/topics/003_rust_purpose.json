@@ -1,0 +1,189 @@
+{
+  "id": "rust_rust_purpose",
+  "title": "Для чего используют Rust?",
+  "difficulty": "easy",
+  "testId": "rust_test_rust_purpose_ru",
+  "sources": [
+    "https://doc.rust-lang.org/book/",
+    "https://source.android.com/docs/setup/build/rust/building-rust-modules",
+    "https://github.com/firecracker-microvm/firecracker",
+    "https://github.com/cloudflare/pingora"
+  ],
+  "estimatedMinutes": 12,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Для чего используют Rust?» в программе или устройстве. Основной принцип: Rust сочетает высокоуровневые абстракции и низкоуровневый контроль с проверками при компиляции. В проекте следуйте рекомендации: Rust не требует GC, но управление ресурсами всё равно нужно проектировать: учитывайте владение, lifetime и ошибки.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn parse_port(text: &str) -> Result<u16, std::num::ParseIntError> { Ok(text.parse()?) }\nfn main() { println!(\"{:?}\", parse_port(\"8080\")); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ok(8080)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust — системный язык для программ, которым нужны производительность, низкоуровневое управление ресурсами и безопасность памяти. Его применяют в компонентах ОС, CLI-инструментах, сетевых сервисах, игровой инфраструктуре, WebAssembly и прошивках микроконтроллеров. Ownership и borrow checker выявляют многие ошибки памяти при компиляции, но требуют явно моделировать владение, заимствование и типы.\n\nПримеры компаний: Google использует Rust в платформе Android; Firecracker от AWS и proxy Pingora от Cloudflare — проекты на Rust. Это не означает, что всё ПО этих компаний написано на Rust: его выбирают для подходящих системных компонентов. Источники: https://source.android.com/docs/setup/build/rust/building-rust-modules · https://github.com/firecracker-microvm/firecracker · https://github.com/cloudflare/pingora\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "fn parse_port(text: &str) -> Result<u16, std::num::ParseIntError> { Ok(text.parse()?) }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Rust сочетает высокоуровневые абстракции и низкоуровневый контроль с проверками при компиляции.\nЗачем она нужна: Rust не требует GC, но управление ресурсами всё равно нужно проектировать: учитывайте владение, lifetime и ошибки.\nЕсли пропустить или изменить: Сопоставляйте сильные стороны языка с требованиями задержки, памяти, платформы и опытом команды.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: Rust не требует GC, но управление ресурсами всё равно нужно проектировать: учитывайте владение, lifetime и ошибки."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust сочетает высокоуровневые абстракции и низкоуровневый контроль с проверками при компиляции.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Rust не требует GC, но управление ресурсами всё равно нужно проектировать: учитывайте владение, lifetime и ошибки."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn maximum(values: &[i16]) -> Option<i16> { values.iter().copied().max() }\nfn main() { let readings = [12, 18, 9]; println!(\"{:?}\", maximum(&readings)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Some(18)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Сопоставляйте сильные стороны языка с требованиями задержки, памяти, платформы и опытом команды."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Примеры сосредоточены на теме; компилируйте и тестируйте их для выбранного toolchain и target, поскольку API и диагностика зависят от версии."
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение верно передаёт основное правило темы «Для чего используют Rust?»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Rust сочетает высокоуровневые абстракции и низкоуровневый контроль с проверками при компиляции.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Отдельная иллюстрация не обязательна; небольшого запускаемого примера и ожидаемого результата достаточно."
+}

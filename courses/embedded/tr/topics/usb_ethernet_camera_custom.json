@@ -1,0 +1,53 @@
+{
+  "id": "usb_ethernet_camera_custom",
+  "title": "USB Ethernet, kamera ve özel host sürücüleri",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb_host.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/usb_host.html",
+    "https://www.usb.org/defined-class-codes"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "USB konektörüne aygıtı takmak tek başına yeterli değildir: host yazılımında ilgili USB sınıfının sürücüsü ve veriyi işleyecek bellek/işlem gücü gerekir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NASIL ÇALIŞIR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "USB flash için MSC+FAT sürücüsü, kablolu ağ için uyumlu USB Ethernet sürücüsü (ör. adaptörün CDC-ECM/RNDIS protokolü), kamera için USB Video Class (UVC) sürücüsü gerekir. Arduino-ESP32 TinyUSB host belgelerinde klavye, fare, gamepad, CDC seri ve MSC bulunur; bu, her Ethernet adaptörü veya USB kameranın hazır çalışacağı anlamına gelmez. Desteklenmeyen sınıfta ESP-IDF USB Host API ya da TinyUSB ile ayrı bir class driver yazıp descriptor, endpoint, aktarım ve protokolü işlemek gerekir.\n\nKamera akışı çok RAM ve bellek bant genişliği kullanır; ESP32-CAM gibi DVP kamera kartı çoğu zaman daha pratiktir. USB Ethernet gerçek MAC/IP ağ entegrasyonu ve sürücü ister. Önce VID/PID ve class descriptor'ı kontrol edin, uyumlu kart/sürücü örneğini sınayın.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "// USBHost TinyUSB examples cover HID, CDC serial, and MSC.\n// Ethernet adapters and cameras need a matching class driver.\n// Confirm the USB class descriptor before selecting hardware.\nvoid setup() {\n  Serial.begin(115200);\n  if (!USBHost.begin()) {\n    Serial.println(\"Check OTG board setup and host VBUS power\");\n  }\n}\n\nvoid loop() {\n  USBHost.task();  // Dispatch supported host-class events.\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "USB Ethernet, kamera ve özel host sürücüleri"
+    },
+    {
+      "type": "warning",
+      "title": "Önemli güvenlik ve uyumluluk notu",
+      "text": "USB Ethernet veya kamera sürücüsü olmadan aygıt tanınsa bile veri akışı çalışmayabilir. ESP32-S2/S3 host gücünü, DMA/RAM ve ağ/kamera uyumluluğunu önceden doğrulayın; klasik ESP32 USB host değildir."
+    }
+  ],
+  "testId": "embedded_test_usb_ethernet_camera_custom_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

@@ -1,0 +1,190 @@
+{
+  "id": "rust_rust_async",
+  "title": "Async/await, Future, and executors",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_async_en",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch17-00-async-await.html",
+    "https://tokio.rs/tokio/tutorial"
+  ],
+  "estimatedMinutes": 35,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Async/await, Future, and executors” to a real program or device. The key principle is: The runtime schedules futures, and libraries such as HTTP clients must match its async ecosystem. In a project, follow this guidance: Async does not parallelize CPU-heavy work; long computations may need a blocking pool or dedicated thread.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_async_runtime",
+      "caption": "Async/await, Future, and executors"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::future::Future;\nuse std::sync::Arc;\nuse std::task::{Context, Poll, Wake, Waker};\nstruct NoopWake;\nimpl Wake for NoopWake { fn wake(self: Arc<Self>) {} }\nfn run_ready<F: Future>(future: F) -> F::Output {\n    let waker = Waker::from(Arc::new(NoopWake));\n    let mut context = Context::from_waker(&waker);\n    let mut future = Box::pin(future);\n    match future.as_mut().poll(&mut context) {\n        Poll::Ready(value) => value,\n        Poll::Pending => panic!(\"this tiny example only handles immediately-ready futures\"),\n    }\n}\nasync fn answer() -> u8 { 42 }\nfn main() { println!(\"{}\", run_ready(answer())); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "42\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A Rust async function returns a Future rather than immediately running to completion; an executor polls futures and resumes them when ready. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "await",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " lets a waiting task yield, which can help with network or disk I/O. The standard library does not provide a general executor, so projects commonly choose a runtime such as Tokio and compatible libraries.\n\nThis tiny host example polls only an immediately Ready future; use a runtime such as Tokio for real network I/O, not this demonstration executor.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let waker = Waker::from(Arc::new(NoopWake));",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: The runtime schedules futures, and libraries such as HTTP clients must match its async ecosystem.\nWhy it is used: Async does not parallelize CPU-heavy work; long computations may need a blocking pool or dedicated thread.\nIf omitted or changed: Creating many tasks is not unlimited concurrency; set concurrency bounds, timeouts, and cancellation behavior.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Creating many tasks is not unlimited concurrency; set concurrency bounds, timeouts, and cancellation behavior."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The runtime schedules futures, and libraries such as HTTP clients must match its async ecosystem.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Async does not parallelize CPU-heavy work; long computations may need a blocking pool or dedicated thread."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[tokio::main]\nasync fn main() {\n    async fn read_sensor(name: &str, delay_ms: u64) -> String {\n        tokio::time::sleep(std::time::Duration::from_millis(delay_ms)).await;\n        format!(\"{name}:ready\")\n    }\n    let (temperature, humidity) = tokio::join!(\n        read_sensor(\"temperature\", 5),\n        read_sensor(\"humidity\", 3),\n    );\n    println!(\"{temperature}\\n{humidity}\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "temperature:ready\nhumidity:ready\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "The standard library does not provide a general executor, so projects commonly choose a runtime such as Tokio and compatible libraries.\n\nThis tiny host example polls only an immediately Ready future; use a runtime such as Tokio for real network I/O, not this demonstration executor."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Creating many tasks is not unlimited concurrency; set concurrency bounds, timeouts, and cancellation behavior."
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement gives the core rule for “Async/await, Future, and executors”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: The runtime schedules futures, and libraries such as HTTP clients must match its async ecosystem.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
+}

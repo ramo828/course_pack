@@ -1,0 +1,146 @@
+{
+  "id": "cpp_fixed_width_size_types",
+  "title": "Типы фиксированной ширины, size_t и ptrdiff_t",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/c/types/integer.html",
+    "https://en.cppreference.com/w/c/types/size_t.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "uint8_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "uint16_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "uint32_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "uint64_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int8_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int16_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int32_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " явно задают разрядность. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "size_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " предназначен для размера и индекса массива, а ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ptrdiff_t",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — для знаковой разницы между элементами одного массива. Размер ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " зависит от платы, поэтому фиксированные типы делают поля протокола предсказуемее.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <stdint.h>\n#include <stddef.h>\n\nuint8_t packetByte = 0x2A;\nuint16_t packetLength = 128;\nuint64_t totalTicks = 0;\nint8_t signedByte = -5;\nint16_t temperatureTenths = -125;\nint32_t signedCount = -1000;\nuint32_t elapsedMs = 0;\nsize_t count = 4;\nptrdiff_t distance = 1;",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Широкий тип может занимать больше памяти; выбирайте минимальный подходящий диапазон. Учитывайте переполнение и помните, что `size_t` беззнаковый. Операции `uint64_t` на маленьких платах могут быть медленнее."
+    }
+  ],
+  "testId": "embedded_test_cpp_fixed_width_size_types_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

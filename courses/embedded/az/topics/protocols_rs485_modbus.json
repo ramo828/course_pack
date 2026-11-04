@@ -1,0 +1,36 @@
+{
+  "id": "protocols_rs485_modbus",
+  "title": "RS-485 və Modbus RTU: sənayedə uzaq məsafəli rabitə",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://www.modbus.org/specs.php",
+    "https://www.ti.com/lit/an/slla272d/slla272d.pdf"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "RS-485 uzun məsafədə, elektrik səs-küyünün çox olduğu mühitdə diferensial siqnal daşıyan fiziki rabitə qatıdır. Modbus RTU isə bu xətt üzərində cihaz ünvanı, funksiya kodu, məlumat və CRC yoxlaması ilə mesajlaşma qaydasıdır. Su sayğacı, bina avtomatikası və sənaye vericilərində rast gəlinir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_rs485_modbus",
+      "caption": "RS-485 və Modbus RTU: sənayedə uzaq məsafəli rabitə"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "constexpr int RX_PIN = 16;\nconstexpr int TX_PIN = 17;\n\nvoid setup() {\n  Serial.begin(115200);\n  Serial2.begin(9600, SERIAL_8N1, RX_PIN, TX_PIN);\n}\n\nvoid loop() {\n  while (Serial2.available()) {\n    Serial.write(Serial2.read());\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Mikrokontroller UART-ı RS-485 qəbuledici-ötürücü çipinə qoşulur; A/B xəttinə birbaşa qoşulmur. Magistralın uclarında uyğun 120 Ω sonlandırma, düzgün torpaq və iki naqilli half-duplex istiqamət idarəsi lazımdır."
+    }
+  ],
+  "testId": "embedded_test_protocols_rs485_modbus_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

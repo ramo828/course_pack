@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_tasks_tr",
+  "title": "Görev oluşturma ve öncelikler",
+  "questions": [
+    {
+      "id": "freertos_freertos_tasks_1",
+      "topicId": "freertos_freertos_tasks",
+      "type": "multiple_choice",
+      "prompt": "“Görev oluşturma ve öncelikler” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "`vTaskDelayUntil` hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler."
+      ],
+      "answer": "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+      "explanation": "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.\nAçıklama: Task, ayrı stack ve yürütme bağlamına sahip bir fonksiyondur; `xTaskCreate` onu scheduler'a ekler. Önceliği gerçek zaman gereksinimine göre seçin: yüksek öncelikli bir task CPU'yu fazla kullanırsa düşük öncelikliler aç kalabilir. Arduino `loop()` da bir RTOS task'ında çalışır; Serial ve GPIO paylaşımını planlayın."
+    },
+    {
+      "id": "freertos_freertos_tasks_2",
+      "topicId": "freertos_freertos_tasks",
+      "type": "multiple_choice",
+      "prompt": "“Görev oluşturma ve öncelikler” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Periyodik işte `delay` yerine `vTaskDelayUntil` kullanın ve aralığı osiloskop veya timestamp ile ölçün."
+      ],
+      "answer": "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+      "explanation": "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.\nAçıklama: Task, ayrı stack ve yürütme bağlamına sahip bir fonksiyondur; `xTaskCreate` onu scheduler'a ekler. Önceliği gerçek zaman gereksinimine göre seçin: yüksek öncelikli bir task CPU'yu fazla kullanırsa düşük öncelikliler aç kalabilir. Arduino `loop()` da bir RTOS task'ında çalışır; Serial ve GPIO paylaşımını planlayın."
+    },
+    {
+      "id": "freertos_freertos_tasks_3",
+      "topicId": "freertos_freertos_tasks",
+      "type": "multiple_choice",
+      "prompt": "“Görev oluşturma ve öncelikler” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Task, ayrı stack ve yürütme bağlamına sahip bir fonksiyondur; `xTaskCreate` onu scheduler'a ekler",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın."
+      ],
+      "answer": "Task, ayrı stack ve yürütme bağlamına sahip bir fonksiyondur; `xTaskCreate` onu scheduler'a ekler",
+      "explanation": "Task, ayrı stack ve yürütme bağlamına sahip bir fonksiyondur; `xTaskCreate` onu scheduler'a ekler\nAçıklama: Task, ayrı stack ve yürütme bağlamına sahip bir fonksiyondur; `xTaskCreate` onu scheduler'a ekler. Önceliği gerçek zaman gereksinimine göre seçin: yüksek öncelikli bir task CPU'yu fazla kullanırsa düşük öncelikliler aç kalabilir. Arduino `loop()` da bir RTOS task'ında çalışır; Serial ve GPIO paylaşımını planlayın."
+    },
+    {
+      "id": "freertos_freertos_tasks_4",
+      "topicId": "freertos_freertos_tasks",
+      "type": "multiple_choice",
+      "prompt": "“Görev oluşturma ve öncelikler” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "`vTaskDelayUntil` hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir."
+      ],
+      "answer": "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+      "explanation": "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.\nAçıklama: Task, ayrı stack ve yürütme bağlamına sahip bir fonksiyondur; `xTaskCreate` onu scheduler'a ekler. Önceliği gerçek zaman gereksinimine göre seçin: yüksek öncelikli bir task CPU'yu fazla kullanırsa düşük öncelikliler aç kalabilir. Arduino `loop()` da bir RTOS task'ında çalışır; Serial ve GPIO paylaşımını planlayın."
+    }
+  ]
+}

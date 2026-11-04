@@ -1,0 +1,180 @@
+{
+  "id": "iot_iot_mqtt",
+  "title": "MQTT topic, QoS ve retained message",
+  "difficulty": "medium",
+  "testId": "iot_test_iot_mqtt_tr",
+  "sources": [
+    "https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “MQTT topic, QoS ve retained message” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: QoS teslim garantilerini ve yeniden gönderim davranışını belirler. Gerçek projede şu öneriyi izleyin: Komut topic'lerini telemetriden ayırıp yazma yetkisini sınırlayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "mosquitto_sub -h broker.example.test -t \"telemetry/site-7/+\"",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "telemetry/site-7/device-2/temperature",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " konusuna ileti gönderir ve ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "commands/site-7/device-2",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " konusunu dinler; sonuç broker ve bağlı istemcilere bağlıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "MQTT istemcileri brokerde topic yayımlar ve dinler. QoS 0/1/2 teslim davranışını, retained bayrağı topic'in son iletisini saklamayı belirler; topic tasarımı gizlilik ve ölçeklenmeyi etkiler.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "mosquitto_sub -h broker.example.test -t \"telemetry/site-7/+\"",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: QoS teslim garantilerini ve yeniden gönderim davranışını belirler.\nNeden seçildi: Komut topic'lerini telemetriden ayırıp yazma yetkisini sınırlayın.\nAtlanır veya değiştirilirse: Kişisel veriyi topic adına veya açık brokerlere koymayın; broker ACL ve güvenli aktarım kullanın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Kişisel veriyi topic adına veya açık brokerlere koymayın; broker ACL ve güvenli aktarım kullanın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QoS teslim garantilerini ve yeniden gönderim davranışını belirler.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Komut topic'lerini telemetriden ayırıp yazma yetkisini sınırlayın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "mosquitto_pub -h broker.example.test -t telemetry/site-7/device-2/temp -m 21.5",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Erişilebilir MQTT broker ve uygun yetkilendirme gerekir; Terminal A iletiyi iki istemci de bağlıyken alır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "QoS 0/1/2 teslim davranışını, retained bayrağı topic'in son iletisini saklamayı belirler; topic tasarımı gizlilik ve ölçeklenmeyi etkiler."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Kişisel veriyi topic adına veya açık brokerlere koymayın; broker ACL ve güvenli aktarım kullanın."
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "Cihaz ölçümü ağ geçidi/broker üzerinden servise iletir; komut ters yönde dönebilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

@@ -1,0 +1,67 @@
+{
+  "id": "esp32_deep_sleep",
+  "title": "ESP32 derin uyku ve zamanlayıcıyla uyanma",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/sleep_modes.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Derin uyku, pille çalışan ve uzun süre bekleyen ESP32 aygıtlarının enerji tüketimini azaltır. CPU ve RAM'in büyük bölümü kapanır; seçilen RTC belleği ve uyanma kaynakları kalır. Zamanlayıcı, desteklenen GPIO ve bazı çiplerde sensörler uyanma nedeni olabilir. Uyanınca program ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "setup()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " işlevinden yeniden başlar; normal RAM değişkenleri önceki değerini korumaz.\n\nTipik sıra: sensörü oku, sonucu kaydet veya gönder, haberleşmeyi kapat, uyanma kaynağını ayarla ve uyu. Örnek zamanlayıcıyla 10 saniye sonra uyanır. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "esp_sleep_get_wakeup_cause()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " uyanma nedenini, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "RTC_DATA_ATTR",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ise desteklenen çiplerde RTC belleğinde tutulan sayacı gösterir. Zamanlayıcı birimi mikrosaniyedir; API hatasını kontrol edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_attr.h>\n#include <esp_sleep.h>\n\nRTC_DATA_ATTR uint32_t wakeCount = 0;\n\nvoid setup() {\n  Serial.begin(115200);\n  const esp_sleep_wakeup_cause_t cause = esp_sleep_get_wakeup_cause();\n  ++wakeCount;\n  Serial.printf(\"wake cause=%d count=%lu\\n\",\n                static_cast<int>(cause),\n                static_cast<unsigned long>(wakeCount));\n\n  if (esp_sleep_enable_timer_wakeup(10ULL * 1000000ULL) != ESP_OK) {\n    Serial.println(\"timer wake setup failed\");\n    return;\n  }\n  Serial.flush();\n  esp_deep_sleep_start();\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Uyanma pinleri, tutulan RTC belleği, akım tüketimi ve Arduino API'si çip, kart ve çekirdek sürümüne göre değişir. Uyanınca program yeniden başladığından aynı kod yeniden uykuya girebilir. Önce gerçek güç ölçümü yapın ve kartın pin şemasını kontrol edin."
+    }
+  ],
+  "testId": "embedded_test_esp32_deep_sleep_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

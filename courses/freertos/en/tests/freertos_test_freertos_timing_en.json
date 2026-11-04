@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_timing_en",
+  "title": "Periodic work and task delays",
+  "questions": [
+    {
+      "id": "freertos_freertos_timing_1",
+      "topicId": "freertos_freertos_timing",
+      "type": "multiple_choice",
+      "prompt": "Which statement gives the core rule for “Periodic work and task delays”?",
+      "options": [
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU.",
+        "Each task consumes stack; priority affects scheduler choices.",
+        "`vTaskDelayUntil` preserves the intended period, but long blocking work can still miss a deadline."
+      ],
+      "answer": "`vTaskDelayUntil` preserves the intended period, but long blocking work can still miss a deadline.",
+      "explanation": "`vTaskDelayUntil` preserves the intended period, but long blocking work can still miss a deadline.\nWhy: `vTaskDelay` blocks a task for a number of ticks; `pdMS_TO_TICKS` converts milliseconds to ticks. For periodic sampling, `vTaskDelayUntil` schedules from the prior release time, avoiding cumulative work-time drift. Tick resolution and scheduling latency are not microsecond guarantees, so measure the actual interval."
+    },
+    {
+      "id": "freertos_freertos_timing_2",
+      "topicId": "freertos_freertos_timing",
+      "type": "multiple_choice",
+      "prompt": "When applying “Periodic work and task delays” in a project, which action is recommended?",
+      "options": [
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "An infinite task should block or wait periodically so it does not monopolize the CPU.",
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU.",
+        "Use `vTaskDelayUntil` for periodic tasks and measure the interval with timestamps or an instrument."
+      ],
+      "answer": "Use `vTaskDelayUntil` for periodic tasks and measure the interval with timestamps or an instrument.",
+      "explanation": "Use `vTaskDelayUntil` for periodic tasks and measure the interval with timestamps or an instrument.\nWhy: `vTaskDelay` blocks a task for a number of ticks; `pdMS_TO_TICKS` converts milliseconds to ticks. For periodic sampling, `vTaskDelayUntil` schedules from the prior release time, avoiding cumulative work-time drift. Tick resolution and scheduling latency are not microsecond guarantees, so measure the actual interval."
+    },
+    {
+      "id": "freertos_freertos_timing_3",
+      "topicId": "freertos_freertos_timing",
+      "type": "multiple_choice",
+      "prompt": "Which implementation detail matters in the “Periodic work and task delays” example?",
+      "options": [
+        "Very short periods may round to zero ticks; tick resolution depends on the build configuration.",
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "Task stack sizes consume RAM and must fit the selected target's budget.",
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU."
+      ],
+      "answer": "Very short periods may round to zero ticks; tick resolution depends on the build configuration.",
+      "explanation": "Very short periods may round to zero ticks; tick resolution depends on the build configuration.\nWhy: `vTaskDelay` blocks a task for a number of ticks; `pdMS_TO_TICKS` converts milliseconds to ticks. For periodic sampling, `vTaskDelayUntil` schedules from the prior release time, avoiding cumulative work-time drift. Tick resolution and scheduling latency are not microsecond guarantees, so measure the actual interval."
+    },
+    {
+      "id": "freertos_freertos_timing_4",
+      "topicId": "freertos_freertos_timing",
+      "type": "multiple_choice",
+      "prompt": "Which additional constraint or condition should be checked for “Periodic work and task delays”?",
+      "options": [
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "Serial output from multiple tasks may interleave; serialize shared output and measure stack use.",
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU.",
+        "For periodic sampling, `vTaskDelayUntil` schedules from the prior release time, avoiding cumulative work-time drift"
+      ],
+      "answer": "For periodic sampling, `vTaskDelayUntil` schedules from the prior release time, avoiding cumulative work-time drift",
+      "explanation": "For periodic sampling, `vTaskDelayUntil` schedules from the prior release time, avoiding cumulative work-time drift\nWhy: `vTaskDelay` blocks a task for a number of ticks; `pdMS_TO_TICKS` converts milliseconds to ticks. For periodic sampling, `vTaskDelayUntil` schedules from the prior release time, avoiding cumulative work-time drift. Tick resolution and scheduling latency are not microsecond guarantees, so measure the actual interval."
+    }
+  ]
+}

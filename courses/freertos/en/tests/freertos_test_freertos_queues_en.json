@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_queues_en",
+  "title": "Passing messages with queues",
+  "questions": [
+    {
+      "id": "freertos_freertos_queues_1",
+      "topicId": "freertos_freertos_queues",
+      "type": "multiple_choice",
+      "prompt": "Which statement gives the core rule for “Passing messages with queues”?",
+      "options": [
+        "A queue gives a clearer ownership and synchronization boundary than an unprotected global.",
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU.",
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "Each task consumes stack; priority affects scheduler choices."
+      ],
+      "answer": "A queue gives a clearer ownership and synchronization boundary than an unprotected global.",
+      "explanation": "A queue gives a clearer ownership and synchronization boundary than an unprotected global.\nWhy: A queue stores fixed-size items in FIFO order and decouples producer and consumer tasks. `xQueueSend` and `xQueueReceive` can block with a timeout; payloads are copied, so large objects need deliberate pointer-lifetime management. Check the send result instead of silently losing data when a queue is full."
+    },
+    {
+      "id": "freertos_freertos_queues_2",
+      "topicId": "freertos_freertos_queues",
+      "type": "multiple_choice",
+      "prompt": "When applying “Passing messages with queues” in a project, which action is recommended?",
+      "options": [
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU.",
+        "Size the queue for bursts and consumer rate, and define what happens when it fills.",
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "An infinite task should block or wait periodically so it does not monopolize the CPU."
+      ],
+      "answer": "Size the queue for bursts and consumer rate, and define what happens when it fills.",
+      "explanation": "Size the queue for bursts and consumer rate, and define what happens when it fills.\nWhy: A queue stores fixed-size items in FIFO order and decouples producer and consumer tasks. `xQueueSend` and `xQueueReceive` can block with a timeout; payloads are copied, so large objects need deliberate pointer-lifetime management. Check the send result instead of silently losing data when a queue is full."
+    },
+    {
+      "id": "freertos_freertos_queues_3",
+      "topicId": "freertos_freertos_queues",
+      "type": "multiple_choice",
+      "prompt": "Which implementation detail matters in the “Passing messages with queues” example?",
+      "options": [
+        "A queue stores fixed-size items in FIFO order and decouples producer and consumer tasks",
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "Task stack sizes consume RAM and must fit the selected target's budget.",
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU."
+      ],
+      "answer": "A queue stores fixed-size items in FIFO order and decouples producer and consumer tasks",
+      "explanation": "A queue stores fixed-size items in FIFO order and decouples producer and consumer tasks\nWhy: A queue stores fixed-size items in FIFO order and decouples producer and consumer tasks. `xQueueSend` and `xQueueReceive` can block with a timeout; payloads are copied, so large objects need deliberate pointer-lifetime management. Check the send result instead of silently losing data when a queue is full."
+    },
+    {
+      "id": "freertos_freertos_queues_4",
+      "topicId": "freertos_freertos_queues",
+      "type": "multiple_choice",
+      "prompt": "Which additional constraint or condition should be checked for “Passing messages with queues”?",
+      "options": [
+        "Serial output from multiple tasks may interleave; serialize shared output and measure stack use.",
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU.",
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "Check that queue creation succeeded; larger queues consume more RAM."
+      ],
+      "answer": "Check that queue creation succeeded; larger queues consume more RAM.",
+      "explanation": "Check that queue creation succeeded; larger queues consume more RAM.\nWhy: A queue stores fixed-size items in FIFO order and decouples producer and consumer tasks. `xQueueSend` and `xQueueReceive` can block with a timeout; payloads are copied, so large objects need deliberate pointer-lifetime management. Check the send result instead of silently losing data when a queue is full."
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "id": "python_py_slots",
+  "title": "Using __slots__ to reduce object memory",
+  "difficulty": "hard",
+  "testId": "python_test_py_slots_en",
+  "sources": [
+    "https://docs.python.org/3/tutorial/",
+    "https://docs.python.org/3/using/",
+    "https://docs.python.org/3/library/",
+    "https://docs.python.org/3/library/turtle.html",
+    "https://docs.python.org/3/library/tkinter.html",
+    "https://fastapi.tiangolo.com/tutorial/",
+    "https://www.python.org/about/success/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " declares allowed attributes and can avoid a per-instance ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "__dict__",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". It may reduce memory for many small objects, but measure on the target Python version rather than assuming a benefit. Unlisted attributes cannot be added, and dynamic attributes or some multiple-inheritance layouts are affected. For data classes, Python 3.10+ also provides ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "@dataclass(slots=True)",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "class Sample:\n    __slots__ = ('value',)\n\n    def __init__(self, value: int) -> None:\n        self.value = value\n\nsample = Sample(7)\nprint(sample.value)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "7",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "value",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " is a declared slot stored on the object; the output is ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "7",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Measure a representative workload with `tracemalloc` or `sys.getsizeof`; `__slots__` does not automatically speed up an entire application."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "`__slots__` is not a security boundary and does not make objects immutable. Plan `__weakref__` and inheritance behavior explicitly."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a memory diagram showing stack/heap, lifetime, ownership, or data flow."
+}

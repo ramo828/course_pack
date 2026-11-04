@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_memory_tr",
+  "title": "Heap, stack ve statik allocation",
+  "questions": [
+    {
+      "id": "freertos_freertos_memory_1",
+      "topicId": "freertos_freertos_memory",
+      "type": "multiple_choice",
+      "prompt": "“Heap, stack ve statik allocation” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "Kernel heap'inden ayrılan belleği geri bırakın; uzun ömürlü nesneleri mümkünse önceden planlayın."
+      ],
+      "answer": "Kernel heap'inden ayrılan belleği geri bırakın; uzun ömürlü nesneleri mümkünse önceden planlayın.",
+      "explanation": "Kernel heap'inden ayrılan belleği geri bırakın; uzun ömürlü nesneleri mümkünse önceden planlayın.\nAçıklama: Her FreeRTOS görevi kendi stack belleğini tüketir; queue, timer ve task oluşturma kernel heap'inden RAM alabilir. Heap tükenince oluşturma çağrıları başarısız olabilir; stack taşması bozulmaya yol açabilir. High-water mark, minimum heap ve statik allocation seçeneklerini ölçün; örnek boyutlarını üretime kopyalamayın."
+    },
+    {
+      "id": "freertos_freertos_memory_2",
+      "topicId": "freertos_freertos_memory",
+      "type": "multiple_choice",
+      "prompt": "“Heap, stack ve statik allocation” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Görev oluşturma sonucunu ve stack kullanımını denetleyin; RAM bütçesini tüm görev, queue ve buffer'lar için hesaplayın.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "Görev oluşturma sonucunu ve stack kullanımını denetleyin; RAM bütçesini tüm görev, queue ve buffer'lar için hesaplayın.",
+      "explanation": "Görev oluşturma sonucunu ve stack kullanımını denetleyin; RAM bütçesini tüm görev, queue ve buffer'lar için hesaplayın.\nAçıklama: Her FreeRTOS görevi kendi stack belleğini tüketir; queue, timer ve task oluşturma kernel heap'inden RAM alabilir. Heap tükenince oluşturma çağrıları başarısız olabilir; stack taşması bozulmaya yol açabilir. High-water mark, minimum heap ve statik allocation seçeneklerini ölçün; örnek boyutlarını üretime kopyalamayın."
+    },
+    {
+      "id": "freertos_freertos_memory_3",
+      "topicId": "freertos_freertos_memory",
+      "type": "multiple_choice",
+      "prompt": "“Heap, stack ve statik allocation” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "FreeRTOS stack parametresi port ve API'ye göre farklı birim kullanabilir; ESP32 Arduino Core örneğinde API byte alır.",
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "FreeRTOS stack parametresi port ve API'ye göre farklı birim kullanabilir; ESP32 Arduino Core örneğinde API byte alır.",
+      "explanation": "FreeRTOS stack parametresi port ve API'ye göre farklı birim kullanabilir; ESP32 Arduino Core örneğinde API byte alır.\nAçıklama: Her FreeRTOS görevi kendi stack belleğini tüketir; queue, timer ve task oluşturma kernel heap'inden RAM alabilir. Heap tükenince oluşturma çağrıları başarısız olabilir; stack taşması bozulmaya yol açabilir. High-water mark, minimum heap ve statik allocation seçeneklerini ölçün; örnek boyutlarını üretime kopyalamayın."
+    },
+    {
+      "id": "freertos_freertos_memory_4",
+      "topicId": "freertos_freertos_memory",
+      "type": "multiple_choice",
+      "prompt": "“Heap, stack ve statik allocation” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Heap tükenince oluşturma çağrıları başarısız olabilir; stack taşması bozulmaya yol açabilir",
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır."
+      ],
+      "answer": "Heap tükenince oluşturma çağrıları başarısız olabilir; stack taşması bozulmaya yol açabilir",
+      "explanation": "Heap tükenince oluşturma çağrıları başarısız olabilir; stack taşması bozulmaya yol açabilir\nAçıklama: Her FreeRTOS görevi kendi stack belleğini tüketir; queue, timer ve task oluşturma kernel heap'inden RAM alabilir. Heap tükenince oluşturma çağrıları başarısız olabilir; stack taşması bozulmaya yol açabilir. High-water mark, minimum heap ve statik allocation seçeneklerini ölçün; örnek boyutlarını üretime kopyalamayın."
+    }
+  ]
+}

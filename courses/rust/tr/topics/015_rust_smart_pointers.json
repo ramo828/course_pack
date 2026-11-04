@@ -1,0 +1,172 @@
+{
+  "id": "rust_rust_smart_pointers",
+  "title": "Akıllı işaretçiler: Box, Rc, Arc ve Mutex",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_smart_pointers_tr",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch15-00-smart-pointers.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Akıllı işaretçiler: Box, Rc, Arc ve Mutex” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Arc paylaşımı thread'ler arasında sağlar, Mutex değiştirilebilir erişimi sıraya koyar. Gerçek projede şu öneriyi izleyin: Arc<Mutex<T>> her zaman en iyi çözüm değildir; önce mesajlaşmayla sahiplik aktarımını değerlendirin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::sync::{Arc, Mutex};\nuse std::thread;\nfn main() {\n    let count = Arc::new(Mutex::new(0));\n    let worker_count = Arc::clone(&count);\n    let worker = thread::spawn(move || {\n        if let Ok(mut value) = worker_count.lock() { *value += 1; }\n    });\n    if worker.join().is_err() { eprintln!(\"worker panicked\"); return; }\n    match count.lock() {\n        Ok(value) => println!(\"{value}\"),\n        Err(_) => eprintln!(\"count lock was poisoned\"),\n    };\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Thread başarılı tamamlanırsa korunan sayaç 1 olur; poisoned lock ve thread panic ayrı ele alınır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Box<T> değeri heap'te saklar ve recursive yapılara sabit boyutlu işaretçi sağlar. Rc<T> tek thread içinde sayımlı paylaşım, Arc<T> atomik sayaçla thread'ler arası paylaşım içindir; ikisi de değiştirilebilir ortak durumu kendiliğinden güvenli yapmaz. Değişebilir ortak durum için Mutex/RwLock ve dikkatli kilit kapsamı gerekir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let worker_count = Arc::clone(&count);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Arc paylaşımı thread'ler arasında sağlar, Mutex değiştirilebilir erişimi sıraya koyar.\nNeden seçildi: Arc<Mutex<T>> her zaman en iyi çözüm değildir; önce mesajlaşmayla sahiplik aktarımını değerlendirin.\nAtlanır veya değiştirilirse: Kilit içinde uzun I/O veya bekleme deadlock ve gecikme riskini artırır; poisoning durumunu da yönetin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Kilit içinde uzun I/O veya bekleme deadlock ve gecikme riskini artırır; poisoning durumunu da yönetin."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Arc paylaşımı thread'ler arasında sağlar, Mutex değiştirilebilir erişimi sıraya koyar.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Arc<Mutex<T>> her zaman en iyi çözüm değildir; önce mesajlaşmayla sahiplik aktarımını değerlendirin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::sync::Arc;\nuse std::thread;\nfn main() {\n    let message = Arc::new(String::from(\"sensor ready\"));\n    let worker_message = Arc::clone(&message);\n    let worker = thread::spawn(move || worker_message.len());\n    match worker.join() {\n        Ok(length) => println!(\"{} {length}\", message.as_str()),\n        Err(_) => eprintln!(\"worker panicked\"),\n    };\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "sensor ready 12\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Değişebilir ortak durum için Mutex/RwLock ve dikkatli kilit kapsamı gerekir."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Kilit içinde uzun I/O veya bekleme deadlock ve gecikme riskini artırır; poisoning durumunu da yönetin."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Akıllı işaretçiler: Box, Rc, Arc ve Mutex” konusunda hangi ifade temel kuralı doğru açıklar?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Arc paylaşımı thread'ler arasında sağlar, Mutex değiştirilebilir erişimi sıraya koyar.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: stack/heap ve bellek ömrünü, sahipliği veya veri akışını gösteren bellek diyagramı."
+}

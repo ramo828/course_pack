@@ -1,0 +1,102 @@
+{
+  "id": "wifi_modes_and_services",
+  "title": "Wi-Fi imkanları: müştəri, giriş nöqtəsi, yerli xidmətlər və internet",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_now.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/mdns.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ESP32 Wi-Fi-ni həm şəbəkəyə qoşulmaq, həm də öz şəbəkəsini yaratmaq üçün işlədə bilər. Bu iki rol cihazı idarə etməyin, məlumat almağın və xidmət göstərməyin əsasını təşkil edir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NECƏ İŞLƏYİR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "STA (Station) rejimi router/telefon giriş nöqtəsinə qoşulur və internetə çıxış verə bilər. AP (SoftAP) rejimi cihazın öz Wi-Fi şəbəkəsini yaradır; telefon konfiqurasiya səhifəsinə qoşula bilər. AP+STA eyni vaxtda hər ikisini işlədə bilər, amma radio/zolaq və sürət məhduddur. Wi-Fi skanı ətraf şəbəkələri sadalayır. "
+    },
+    {
+      "type": "text",
+      "text": "WiFiScan",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nəticələri tapır, "
+    },
+    {
+      "type": "text",
+      "text": "WiFiMulti",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " saxlanmış giriş nöqtələrindən uyğun olanına qoşulur, "
+    },
+    {
+      "type": "text",
+      "text": "WebServer",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " isə cihazda yerli HTTP səhifəsi açır. TCP/HTTP/WebSocket brauzer idarəsi və ikiistiqamətli əlaqə, UDP yüngül mesajlar, MQTT brokerə hadisə göndərmək üçündür. mDNS yerli şəbəkədə adla tapmağa, NTP saatı sinxronlaşdırmağa, captive portal ilkin quraşdırmaya, OTA proqram yeniləməyə kömək edir. ESP-NOW uyğun Espressif cihazlarını router olmadan qısa mesajla birləşdirir; özü internet deyil.\n\nAşağıdakı üç nümunə ayrıca sketch-dir. İnternetə çıxış yalnız STA tərəfdə router/internet varsa olur.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "WiFiScan: yaxın şəbəkələri tapmaq\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n\nvoid setup() {\n  Serial.begin(115200);\n  WiFi.mode(WIFI_STA);\n  WiFi.disconnect();\n  delay(100);\n  const int count = WiFi.scanNetworks();\n  for (int i = 0; i < count; ++i) {\n    Serial.printf(\"%s (%d dBm)\\n\", WiFi.SSID(i).c_str(), WiFi.RSSI(i));\n  }\n  WiFi.scanDelete();\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "WiFiMulti: məlum giriş nöqtələrindən birinə qoşulmaq\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <WiFiMulti.h>\n\nWiFiMulti wifiMulti;\nunsigned long lastPrintAt = 0;\n\nvoid setup() {\n  Serial.begin(115200);\n  WiFi.mode(WIFI_STA);\n  wifiMulti.addAP(\"YOUR_WIFI_1\", \"PASSWORD_1\");\n  wifiMulti.addAP(\"YOUR_WIFI_2\", \"PASSWORD_2\");\n}\n\nvoid loop() {\n  if (wifiMulti.run() == WL_CONNECTED &&\n      millis() - lastPrintAt >= 5000) {\n    lastPrintAt = millis();\n    Serial.println(WiFi.localIP());\n  }\n  delay(10);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "WebServer: yerli status səhifəsi\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <WebServer.h>\n\nWebServer server(80);\n\nvoid setup() {\n  WiFi.mode(WIFI_AP);\n  WiFi.softAP(\"Sensor-Setup\", \"change-this-pass\");\n  server.on(\"/\", []() {\n    server.send(200, \"text/plain\", \"Sensor is ready\");\n  });\n  server.begin();\n}\n\nvoid loop() {\n  server.handleClient();\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib təhlükəsizlik və uyğunluq qeydi",
+      "text": "AP parolunu dəyişin, şəxsi şəbəkə məlumatını repoya yazmayın və açıq HTTP idarəetməsini internetə yönləndirməyin. AP+STA, ESP-NOW və eyni anda işləyən protokolların dəstəyi çip/core versiyasına görə dəyişə bilər."
+    }
+  ],
+  "testId": "embedded_test_wifi_modes_and_services_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

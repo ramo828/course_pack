@@ -1,0 +1,417 @@
+{
+  "id": "rust_rust_strings_slices",
+  "title": "Strings, UTF-8 və slices",
+  "difficulty": "medium",
+  "testId": "rust_test_rust_strings_slices_az",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch08-02-strings.html",
+    "https://doc.rust-lang.org/book/ch04-03-slices.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Strings, UTF-8 və slices” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " saxlayır, ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " borc götürülmüş mətni göstərir. Real layihədə bu göstərişə əməl edin: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yalnız həqiqətən yeni və ya dəyişən mətn sahibi olmalıdır; funksiya sadəcə oxuyursa ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " qəbul edin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn first_word(text: &str) -> &str {\n    text.split_whitespace().next().unwrap_or(\"\")\n}\nfn main() {\n    let sentence = String::from(\"Rust keeps data safe\");\n    let word = first_word(&sentence);\n    println!(\"{word}\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " dəyəri dəyişdirilə bilən, heap-də saxlanan UTF-8 mətn sahibidir; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " isə mətnə borc götürülmüş görünüşdür. UTF-8 simvolu bir neçə bayt tuta bildiyindən ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "text[0]",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kimi indeksləmə yoxdur; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "len()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bayt sayını verir, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "chars()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " Unicode scalar dəyərlərini gəzir. Slice mətnin və ya massivin bir hissəsini kopyalamadan göstərir, buna görə ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " qəbul edən funksiya həm ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", həm də string literal ilə işləyə bilər.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "text.split_whitespace().next().unwrap_or(\"\")",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " saxlayır, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " borc götürülmüş mətni göstərir.\nNiyə seçilib: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yalnız həqiqətən yeni və ya dəyişən mətn sahibi olmalıdır; funksiya sadəcə oxuyursa ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " qəbul edin.\nBuraxılsa və ya dəyişdirilsə: UTF-8 byte sərhədi ilə simvol sərhədi eyni deyil; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "&text[..1]",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " hər mətn üçün təhlükəsiz simvol kəsimi deyil.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: `String` yalnız həqiqətən yeni və ya dəyişən mətn sahibi olmalıdır; funksiya sadəcə oxuyursa `&str` qəbul edin."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " saxlayır, ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " borc götürülmüş mətni göstərir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "`String` yalnız həqiqətən yeni və ya dəyişən mətn sahibi olmalıdır; funksiya sadəcə oxuyursa `&str` qəbul edin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn last_word(text: &str) -> &str { text.split_whitespace().last().unwrap_or(\"\") }\nfn main() { println!(\"{}\", last_word(\"safe borrowed view\")); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "view\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "UTF-8 byte sərhədi ilə simvol sərhədi eyni deyil; `&text[..1]` hər mətn üçün təhlükəsiz simvol kəsimi deyil."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Kod nümunələri fokuslanmış hissələrdir; seçilmiş toolchain və target-də compile/test edin, çünki API və diaqnostika versiyaya görə dəyişə bilər."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Strings, UTF-8 və slices” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " saxlayır, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " borc götürülmüş mətni göstərir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

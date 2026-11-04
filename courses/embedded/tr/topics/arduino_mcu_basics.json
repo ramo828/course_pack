@@ -1,0 +1,174 @@
+{
+  "id": "arduino_mcu_basics",
+  "title": "MCU, bellek ve pinler",
+  "difficulty": "easy",
+  "testId": "arduino_test_mcu_basics_tr",
+  "sources": [
+    "https://docs.arduino.cc/learn/",
+    "https://www.arduino.cc/en/about/"
+  ],
+  "estimatedMinutes": 12,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “MCU, bellek ve pinler” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Çevre birimleri ve pin eşlemesi kartın MCU'suna bağlıdır. Gerçek projede şu öneriyi izleyin: Arduino UNO pin haritasını başka MCU ailesine doğrudan uygulamayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "void setup() {\n  pinMode(LED_BUILTIN, OUTPUT);\n}\nvoid loop() {\n  digitalWrite(LED_BUILTIN, HIGH);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Program başarıyla yüklendiğinde ve kart ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "LED_BUILTIN",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " tanımladığında dahili LED yanar; davranış karta bağlıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Mikrodenetleyici CPU, bellek ve G/Ç çevre birimlerini tek çipte toplar. RAM çalışma sırasında, flash program ve kalıcı veri için kullanılır; pin özellikleri kartın veri sayfasına bağlıdır.\n\nKöken ve yıl: Arduino projesi 2005'te İtalya'nın Ivrea kentinde eğitim ve fiziksel hesaplama için oluşturuldu; Arduino'nun resmi sayfası Massimo Banzi, David Cuartielles, Tom Igoe ve David Mellis'i kurucu ortaklar olarak listeler. Amaç elektronik ve programlamaya giriş engelini azaltıp uygun fiyatlı bir kartla sensör ve aktüatörleri erişilebilir kılmaktı. Arduino prototipleme, eğitim, bilimsel ölçüm ve IoT cihazlarında kullanılır; gömülü yazılım, elektronik prototipleme ve test mühendisliği kariyerlerine temel sağlar. Fiziksel dünyayı ölçen ve ona tepki veren sistemler sizi heyecanlandırıyorsa pin, RAM ve flash ilişkisini öğrenerek başlayın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "pinMode(LED_BUILTIN, OUTPUT);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Çevre birimleri ve pin eşlemesi kartın MCU'suna bağlıdır.\nNeden seçildi: Arduino UNO pin haritasını başka MCU ailesine doğrudan uygulamayın.\nAtlanır veya değiştirilirse: Veri sayfası ve kart şeması pin gerilimi, akımı ve işlevlerini açıklar.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: Arduino UNO pin haritasını başka MCU ailesine doğrudan uygulamayın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Çevre birimleri ve pin eşlemesi kartın MCU'suna bağlıdır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Arduino UNO pin haritasını başka MCU ailesine doğrudan uygulamayın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int ledPin = LED_BUILTIN;\nvoid setup() { pinMode(ledPin, OUTPUT); }\nvoid loop() { digitalWrite(ledPin, HIGH); delay(250); digitalWrite(ledPin, LOW); delay(250); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kart destekliyorsa dahili LED yanıp söner; pin ve polarite karta bağlıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Veri sayfası ve kart şeması pin gerilimi, akımı ve işlevlerini açıklar."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Pinler, gerilim/akım sınırları, zamanlama ve çevre birimleri karta bağlıdır; bağlantı veya yükleme öncesinde kart belgesini doğrulayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: stack/heap ve bellek ömrünü, sahipliği veya veri akışını gösteren bellek diyagramı."
+}

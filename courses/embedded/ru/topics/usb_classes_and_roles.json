@@ -1,0 +1,58 @@
+{
+  "id": "usb_classes_and_roles",
+  "title": "USB: CDC, HID, накопители, роли host и device",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb_host.html",
+    "https://www.usb.org/defined-class-codes"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "USB — это не только питание и Serial Monitor. Подходящий микроконтроллер может быть USB-устройством для компьютера или host для периферии.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "КАК ЭТО РАБОТАЕТ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "В роли device USB может предоставлять CDC serial для диагностики, HID, накопитель MSC, MIDI или DFU на поддерживаемой плате. В роли host он управляет клавиатурой, мышью и накопителем; host обязан обеспечить 5 В VBUS и нужный ток. ESP32-S2/S3 имеют USB OTG для host/device, но важны разводка платы и Arduino USB Mode; у S3 USB Serial/JTAG и OTG могут использовать общий PHY. C3 имеет CDC/JTAG, но не полноценный USB host OTG. У исходного ESP32 нет встроенной USB-периферии. Разъём UNO обычно подключён к мосту USB-UART, поэтому плата не может быть стандартной USB-клавиатурой. ATmega32U4 и подходящие ESP32-S2/S3 поддерживают native HID.\n\nВ примере "
+    },
+    {
+      "type": "text",
+      "text": "Serial",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " на одних платах означает native CDC, на других — UART через мост USB-UART; проверьте настройки IDE и схему платы.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "void setup() {\n  Serial.begin(115200);\n}\n\nvoid loop() {\n  Serial.println(\"USB serial is ready\");\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание о безопасности и совместимости",
+      "text": "Для USB host проверьте цепь питания VBUS платы; не питайте периферию от GPIO. События HID-клавиш должны отправляться только по явному разрешённому действию пользователя."
+    }
+  ],
+  "testId": "embedded_test_usb_classes_and_roles_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

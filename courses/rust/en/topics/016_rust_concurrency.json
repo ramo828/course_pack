@@ -1,0 +1,345 @@
+{
+  "id": "rust_rust_concurrency",
+  "title": "Threads and shared state",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_concurrency_en",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch16-00-fearless-concurrency.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Threads and shared state” to a real program or device. The key principle is: Mutex protects concurrent access to shared state. In a project, follow this guidance: Holding a lock during slow I/O can block other threads.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_send_sync_flow",
+      "caption": "Threads and shared state"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::sync::{Arc, Mutex};\nuse std::thread;\nfn require_send_sync<T: Send + Sync>() {}\nfn main() {\n    require_send_sync::<u32>();\n    let shared = Arc::new(Mutex::new(0));\n    let worker_shared = Arc::clone(&shared);\n    let worker = thread::spawn(move || {\n        if let Ok(mut value) = worker_shared.lock() { *value += 1; }\n    });\n    if worker.join().is_err() { println!(\"worker failed\"); return; }\n    match shared.lock() {\n        Ok(value) => println!(\"{value}\"),\n        Err(_) => println!(\"lock poisoned\"),\n    };\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "One worker thread increments the shared counter to 1 while protected by a mutex.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust provides threads and message passing in the standard library. Understand Send/Sync, mutex protection, and lock scope; prefer simple message passing where practical.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Send",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " means ownership can move between threads; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Sync",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " means ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&T",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " can be shared between threads safely. The compiler usually derives these traits. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Rc<T>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " is not thread-safe; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Arc<T>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " provides atomic reference counting, while shared mutation needs a ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Mutex",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " or ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "RwLock",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Arc",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " alone does not make its contents safe. Tokio ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "spawn",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " generally requires a ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Send + 'static",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " future.\n\nRust starts threads with ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "std::thread",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; channels can transfer ownership through messages. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Send",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " describes whether a value can cross thread boundaries, while ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Sync",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " describes safe shared references. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Arc<Mutex<T>>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " protects mutable shared state but does not eliminate lock-ordering, poisoning, or deadlock risks. The type system prevents many data races, not every logical race or liveness bug.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let worker = thread::spawn(move || {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: Mutex protects concurrent access to shared state.\nWhy it is used: Holding a lock during slow I/O can block other threads.\nIf omitted or changed: Handle mutex poisoning and avoid risky callbacks while holding a lock.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Handle mutex poisoning and avoid risky callbacks while holding a lock."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Mutex protects concurrent access to shared state.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Holding a lock during slow I/O can block other threads."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::thread;\nfn main() {\n    let message = String::from(\"message from worker\");\n    let worker = thread::spawn(move || message);\n    match worker.join() {\n        Ok(message) => println!(\"{message}\"),\n        Err(_) => println!(\"worker panicked\"),\n    };\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "message from worker\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Tokio `spawn` generally requires a `Send + 'static` future."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Handle mutex poisoning and avoid risky callbacks while holding a lock."
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement gives the core rule for “Threads and shared state”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Mutex protects concurrent access to shared state.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
+}

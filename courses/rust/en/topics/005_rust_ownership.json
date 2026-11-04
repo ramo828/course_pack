@@ -1,0 +1,367 @@
+{
+  "id": "rust_rust_ownership",
+  "title": "Ownership and moves",
+  "difficulty": "hard",
+  "testId": "rust_test_rust_ownership_en",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html"
+  ],
+  "estimatedMinutes": 24,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Ownership and moves” to a real program or device. The key principle is: Non-",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " values such as String move, while ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " types such as integers are copied. Heap allocation alone does not determine which behavior applies. In a project, follow this guidance: After a move, the previous binding no longer owns the value; the compiler checks this.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn main() {\n    let first = String::from(\"Rust\");\n    let second = first;\n    println!(\"{second}\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust gives each value an owner, and resources are released when the owner leaves scope. Some values move; Copy values are duplicated cheaply.\n\nOwnership means each value has one owner and its resource is released when that owner leaves scope. Moving a String with ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "let second = first",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " makes ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "first",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " unusable; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " values such as i32 are copied instead. The compiler checks this without a garbage collector.\n\nOwnership determines which binding owns a non-",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " value and who releases its resources. Assigning a non-",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " value such as String moves it; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " types such as integers can be copied. Heap allocation alone does not determine whether an assignment moves or copies. When supported, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "clone()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " explicitly creates a separate copy.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let second = first;",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: Non-",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " values such as String move, while ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " types such as integers are copied. Heap allocation alone does not determine which behavior applies.\nWhy it is used: After a move, the previous binding no longer owns the value; the compiler checks this.\nIf omitted or changed: Ownership uses language rules instead of manual memory management or a garbage collector.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Skipping this check before applying the rule: After a move, the previous binding no longer owns the value; the compiler checks this."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Non-",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " values such as String move, while ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " types such as integers are copied. Heap allocation alone does not determine which behavior applies.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "After a move, the previous binding no longer owns the value; the compiler checks this."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn main() { let original = String::from(\"move\"); let owned = original; println!(\"{owned}\"); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "move\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Ownership uses language rules instead of manual memory management or a garbage collector."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Examples focus on the concept; compile and test with the selected toolchain and target because APIs and diagnostics can vary by version."
+    },
+    {
+      "type": "diagram",
+      "id": "rust_ownership",
+      "caption": "Rust checks the relationship between a value's owner, its borrower, and the code using it at compile time."
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement gives the core rule for “Ownership and moves”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Non-",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " values such as String move, while ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " types such as integers are copied. Heap allocation alone does not determine which behavior applies.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a memory diagram showing stack/heap, lifetime, ownership, or data flow."
+}

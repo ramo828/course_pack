@@ -1,0 +1,210 @@
+{
+  "id": "rust_rust_macros",
+  "title": "Макросы и derive",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_macros_ru",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch19-06-macros.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Макросы и derive» в программе или устройстве. Основной принцип: derive избавляет от ручной реализации распространённых trait. В проекте следуйте рекомендации: Изменения macro API затрагивают много кода; проверяйте разбор токенов и совместимость версий компилятора.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[derive(Debug, Clone, PartialEq)]\nstruct Point {\n    x: i32,\n    y: i32,\n}\nfn main() {\n    let point = Point { x: 0, y: 0 };\n    println!(\"{point:?}\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "После создания ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "point",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " и форматирования через Debug выводится ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "Point { x: 0, y: 0 }",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Декларативный ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "macro_rules!",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " раскрывает шаблоны токенов в повторно используемый синтаксис; derive-макросы генерируют части реализаций trait для struct и enum. Макрос раскрывается при компиляции, поэтому отладка отличается, а ошибка может указывать на сгенерированный код. Предпочитайте функции и дженерики, если макрос не оправдан повторяющимся синтаксисом.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let point = Point { x: 0, y: 0 };",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: derive избавляет от ручной реализации распространённых trait.\nЗачем она нужна: Изменения macro API затрагивают много кода; проверяйте разбор токенов и совместимость версий компилятора.\nЕсли пропустить или изменить: Изменения macro API затрагивают много кода; проверяйте разбор токенов и совместимость версий компилятора.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: Изменения macro API затрагивают много кода; проверяйте разбор токенов и совместимость версий компилятора."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "derive избавляет от ручной реализации распространённых trait.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Изменения macro API затрагивают много кода; проверяйте разбор токенов и совместимость версий компилятора."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "macro_rules! triple { ($value:expr) => { $value * 3 }; }\nfn main() { println!(\"{}\", triple!(4)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "12\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Предпочитайте функции и дженерики, если макрос не оправдан повторяющимся синтаксисом."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Примеры сосредоточены на теме; компилируйте и тестируйте их для выбранного toolchain и target, поскольку API и диагностика зависят от версии."
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение верно передаёт основное правило темы «Макросы и derive»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: derive избавляет от ручной реализации распространённых trait.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Отдельная иллюстрация не обязательна; небольшого запускаемого примера и ожидаемого результата достаточно."
+}

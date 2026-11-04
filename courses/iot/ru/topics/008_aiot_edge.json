@@ -1,0 +1,160 @@
+{
+  "id": "iot_aiot_edge",
+  "title": "AIoT и периферийный инференс",
+  "difficulty": "advanced",
+  "testId": "iot_test_aiot_edge_ru",
+  "sources": [
+    "https://www.tensorflow.org/lite/microcontrollers"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «AIoT и периферийный инференс» в программе или устройстве. Основной принцип: Квантование может снизить память и вычисления, но точность нужно измерить заново. В проекте следуйте рекомендации: Оценивайте модель на реальных данных, включая шум и пропуски.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "json",
+      "code": "{\"model\":\"quantized\",\"input\":\"normalized sensor window\",\"output\":\"class and confidence\"}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Пример результата inference; класс и confidence зависят от модели и нормализованного ввода датчика.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Периферийная модель работает на устройстве или шлюзе и может сократить передачу исходных данных. Измеряйте размер модели, RAM/flash, задержку, энергию и ошибки.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "{\"model\":\"quantized\",\"input\":\"normalized sensor window\",\"output\":\"class and confidence\"}",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Квантование может снизить память и вычисления, но точность нужно измерить заново.\nЗачем она нужна: Оценивайте модель на реальных данных, включая шум и пропуски.\nЕсли пропустить или изменить: Не считайте вывод модели достоверным; предусмотрите безопасный режим при низкой уверенности или сбое датчика.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Не считайте вывод модели достоверным; предусмотрите безопасный режим при низкой уверенности или сбое датчика."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Квантование может снизить память и вычисления, но точность нужно измерить заново.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Оценивайте модель на реальных данных, включая шум и пропуски."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "input = normalize(read_sensor_window())\nresult = model.invoke(input)\nif result.confidence >= 0.80:\n    publish(result.label, result.confidence)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Метка inference и confidence зависят от модели, нормализации ввода, датчика и target runtime.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Измеряйте размер модели, RAM/flash, задержку, энергию и ошибки."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Не считайте вывод модели достоверным; предусмотрите безопасный режим при низкой уверенности или сбое датчика."
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "Устройство передаёт измерения через шлюз или брокер сервису; команды могут идти обратно."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

@@ -1,0 +1,91 @@
+{
+  "id": "cpp_flash_progmem",
+  "title": "PROGMEM, F() и flash-память",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/variables/utilities/PROGMEM",
+    "https://docs.arduino.cc/language-reference/en/structure/further-syntax/define/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "На платах AVR, например UNO, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "PROGMEM",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " может хранить большие постоянные таблицы во flash вместо дефицитной SRAM; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "pgm_read_byte()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "pgm_read_word()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " читают их. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "F(\"...\")",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " передаёт строковую константу функциям вроде ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Serial.print",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " без копирования в RAM, если они это поддерживают. Это экономит память небольших плат.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#if defined(ARDUINO_ARCH_AVR)\n#include <avr/pgmspace.h>\n        #include <stdint.h>\nconst char label[] PROGMEM = \"Sensor ready\";\nconst uint16_t points[] PROGMEM = {300, 600};\nuint8_t first = pgm_read_byte(label);\nuint16_t point = pgm_read_word(&points[0]);\n#endif\n\nvoid setup() {\n  Serial.begin(9600);\n  Serial.println(F(\"Startup\")); // AVR: keep literal in flash\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Способ зависит от платформы. Ограничивайте AVR-код условием `ARDUINO_ARCH_AVR`; ESP32 иначе отображает flash, поэтому не используйте там AVR-функции чтения. Проверьте поддержку flash-строк библиотекой или `Print`."
+    }
+  ],
+  "testId": "embedded_test_cpp_flash_progmem_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму памяти со стеком/кучей, временем жизни, владением или потоком данных."
+}

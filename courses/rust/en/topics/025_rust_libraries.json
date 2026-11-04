@@ -1,0 +1,616 @@
+{
+  "id": "rust_rust_libraries",
+  "title": "Essential Rust crates: what they do and who maintains them",
+  "difficulty": "medium",
+  "testId": "rust_test_rust_libraries_en",
+  "sources": [
+    "https://serde.rs/",
+    "https://github.com/serde-rs/serde",
+    "https://tokio.rs/",
+    "https://tokio.rs/tokio/team",
+    "https://docs.rs/anyhow/",
+    "https://docs.rs/thiserror/",
+    "https://docs.rs/clap/",
+    "https://github.com/rust-embedded/embedded-hal"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Essential Rust crates: what they do and who maintains them” to a real program or device. The key principle is: Serde's derive serializes the fields; ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "serde_json",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " produces JSON and must be added to Cargo. In a project, follow this guidance: For the Serde example, run ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "cargo add serde --features derive",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " and ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "cargo add serde_json",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "; read the crate docs and keep secrets out of source code.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_serde_flow",
+      "caption": "Essential Rust crates: what they do and who maintains them"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use serde::Serialize;\n#[derive(Serialize)]\nstruct Reading { name: String, score: u8 }\nfn main() -> Result<(), serde_json::Error> {\n    let reading = Reading { name: \"Ada\".into(), score: 10 };\n    println!(\"{}\", serde_json::to_string(&reading)?);\n    Ok(())\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serde serializes the value as ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "{\"name\":\"Ada\",\"score\":10}",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A Rust crate provides reusable code; add it to ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Cargo.toml",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", then import it with ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "use",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "serde",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " reads and writes formats such as JSON; it was created by David Tolnay and is maintained with open-source contributors. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "tokio",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " is a runtime for asynchronous servers and network work; Carl Lerche started the project, which is maintained by its community. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "clap",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " parses command-line options, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "reqwest",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " sends HTTP requests, and ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "embedded-hal",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " defines shared interfaces for microcontroller drivers. The standard library ships with Rust; these crates are separate dependencies. Check versions, licenses, compatibility, and security updates.\n\nExample Cargo.toml dependencies: ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "tokio = { version = \"1\", features = [\"macros\", \"rt-multi-thread\", \"time\"] }",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "serde = { version = \"1\", features = [\"derive\"] }",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "serde_json = \"1\"",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "anyhow = \"1\"",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "thiserror = \"2\"",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", and ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "embedded-hal = \"1\"",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". Tokio supplies an async runtime and timers; Serde provides format-independent serialization; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "anyhow",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " adds application-level error context; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "thiserror",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " helps define typed library errors; and ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "embedded-hal",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " defines portable driver traits over a board-specific HAL. These projects are maintained by the Tokio team, Serde community, and Rust Embedded Working Group. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "embedded-hal",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " alone does not control physical GPIO; a chip/board HAL implements the traits.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let reading = Reading { name: \"Ada\".into(), score: 10 };",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: Serde's derive serializes the fields; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "serde_json",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " produces JSON and must be added to Cargo.\nWhy it is used: For the Serde example, run ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "cargo add serde --features derive",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "cargo add serde_json",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; read the crate docs and keep secrets out of source code.\nIf omitted or changed: Library choice depends on the target: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "embedded-hal",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " serves microcontroller drivers, while Tokio targets general asynchronous I/O.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Crate APIs and feature flags can change; commit Cargo.lock for applications and test examples with your toolchain."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serde's derive serializes the fields; ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "serde_json",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " produces JSON and must be added to Cargo.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "For the Serde example, run `cargo add serde --features derive` and `cargo add serde_json`; read the crate docs and keep secrets out of source code."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use serde::Serialize;\n#[derive(Serialize)]\nstruct Device { name: String, online: bool }\nfn main() -> Result<(), serde_json::Error> {\n    let device = Device { name: \"sensor-1\".into(), online: true };\n    println!(\"{}\", serde_json::to_string(&device)?);\n    Ok(())\n}\n// Add serde with the derive feature and serde_json in Cargo.toml.",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "{\"name\":\"sensor-1\",\"online\":true}\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Tokio: async runtime and timers\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[tokio::main]\nasync fn main() {\n    tokio::time::sleep(std::time::Duration::from_millis(1)).await;\n    println!(\"task complete\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "task complete\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "thiserror: a typed application error\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[derive(Debug, thiserror::Error)]\nenum PortError {\n    #[error(\"invalid port\")]\n    Invalid(#[from] std::num::ParseIntError),\n}\nfn parse_port(text: &str) -> Result<u16, PortError> {\n    Ok(text.parse()?)\n}\nfn main() {\n    match parse_port(\"bad\") {\n        Ok(port) => println!(\"{port}\"),\n        Err(error) => println!(\"{error}\"),\n    }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "invalid port\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "anyhow: application-level error context\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use anyhow::Context;\nfn load_port(text: &str) -> anyhow::Result<u16> {\n    let port = text.parse::<u16>().context(\"port must be a number\")?;\n    anyhow::ensure!(port != 0, \"port must be non-zero\");\n    Ok(port)\n}\nfn main() {\n    match load_port(\"8080\") {\n        Ok(port) => println!(\"port={port}\"),\n        Err(error) => eprintln!(\"{error:#}\"),\n    }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "port=8080\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "embedded-hal 1.0: portable GPIO driver interface\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use embedded_hal::digital::OutputPin;\nfn set_indicator<P: OutputPin>(pin: &mut P) -> Result<(), P::Error> {\n    pin.set_high()?;\n    pin.set_low()\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Generic driver code compiles with an embedded-hal 1.0 OutputPin implementation.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Library choice depends on the target: `embedded-hal` serves microcontroller drivers, while Tokio targets general asynchronous I/O."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Crate APIs and feature flags can change; commit Cargo.lock for applications and test examples with your toolchain."
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement gives the core rule for “Essential Rust crates: what they do and who maintains them”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Serde's derive serializes the fields; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "serde_json",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " produces JSON and must be added to Cargo.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
+}

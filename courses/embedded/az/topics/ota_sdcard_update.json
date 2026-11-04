@@ -1,0 +1,78 @@
+{
+  "id": "ota_sdcard_update",
+  "title": "SD kartdan proqram yeniləməsi: internetsiz sahə üsulu",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/sd.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "İnternet olmayan yerdə texnik firmware faylını SD karta köçürüb cihazın yanında yeniləyə bilər. Bu, xüsusilə laboratoriya və sahə cihazlarında əlverişlidir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NECƏ İŞLƏYİR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SD.h",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/"
+    },
+    {
+      "type": "text",
+      "text": "SD_MMC.h",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " faylı oxuyur, ESP32 "
+    },
+    {
+      "type": "text",
+      "text": "Update",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " sinfi isə proqram bölməsinə yaza bilər. Kartı qoşmaqla yeniləmə avtomatik etibarlı olmur: düzgün lövhə üçün hazırlanmış imzalı fayl, buraxılış manifesti, model/versiya/ölçü yoxlaması və yeniləmə zamanı enerji təminatı lazımdır. Bu qısa nümunə yalnız quraşdırma axınını göstərir; istehsal qurğusunda imza yoxlaması yazmadan əvvəl əlavə edilməlidir.\n\nSD kartın SPI və ya SD-MMC bağlantısı, pinləri və gərginliyi lövhədən asılıdır. Məlumat faylının pozulmaması üçün yeniləmə tamamlanana qədər kartı çıxarmayın.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <SD.h>\n#include <Update.h>\n\nvoid installFromCard() {\n  File image = SD.open(\"/firmware.bin\", FILE_READ);\n  if (!image || image.size() == 0) {\n    Serial.println(\"Firmware file is missing or empty\");\n    image.close();\n    return;\n  }\n\n  const size_t imageSize = image.size();\n  if (!verifySignedImage(image, imageSize)) {\n    Serial.println(\"Firmware signature is invalid\");\n    image.close();\n    return;\n  }\n  if (!Update.begin(imageSize)) {\n    Serial.println(\"Could not start firmware update\");\n    image.close();\n    return;\n  }\n  const size_t written = Update.writeStream(image);\n  if (written == imageSize && Update.end(true)) {\n    image.close();\n    ESP.restart();\n  } else {\n    Serial.println(\"Firmware write failed\");\n    image.close();\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "SD kartdan proqram yeniləməsi: internetsiz sahə üsulu"
+    },
+    {
+      "type": "warning",
+      "title": "Vacib təhlükəsizlik və uyğunluq qeydi",
+      "text": "`verifySignedImage` təhlükəsizlik funksiyasıdır və nümunədə qəsdən layihəyə məxsus saxlanılıb; onu boş yoxlama ilə əvəz etməyin. Yanlış ölçü/bölmə cihaza açılmayan proqram yaza bilər."
+    }
+  ],
+  "testId": "embedded_test_ota_sdcard_update_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

@@ -1,0 +1,543 @@
+{
+  "id": "python_py_fastapi_deployment",
+  "title": "API-ni yerləşdirmə və işlətmə",
+  "difficulty": "hard",
+  "testId": "python_test_py_fastapi_deployment_az",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://fastapi.tiangolo.com/deployment/",
+    "https://www.uvicorn.org/deployment/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NİYƏ LAZIMDIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI veb və mobil tətbiqlərin HTTP ilə məlumat mübadiləsi etdiyi JSON API-lər qurmaq üçündür; tip annotasiyaları girişləri yoxlamağa və API müqaviləsini sənədləşdirməyə kömək edir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "MƏQSƏD VƏ REAL İSTİFADƏ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yerli development serveri ilə production yerləşdirməsi eyni deyil. Uvicorn ASGI tətbiqini işlədə bilər; real mühitdə dəyişən konfiqurasiya, secret-lər, TLS terminasiya, health check, log və restart siyasəti də lazımdır. ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yalnız development üçündür.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Nümunələri yerli işlətmək üçün ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " quraşdırın; dərsdə göstərilən əlavə paketləri də əlavə edin. Server nümunəsini ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "app.py",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " saxlayıb ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "uvicorn app:app --reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ilə başladın. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yalnız öyrənmə/inkişaf üçündür.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "REAL HƏYATDA HARADA?\nMüştəri tətbiqləri və monitorinq sistemi API-nin readiness endpoint-inə sorğu göndərir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Bu hissə buraxılsa: Health check olmasa, orkestrləşdirici sıradan çıxmış serverə trafik yönləndirə bilər; secrets kodda olsa, repozitoriya ilə yayıla bilər.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM İŞLƏK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/health\")\nasync def health():\n    return {\"status\": \"ready\"}\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SORĞU VƏ GÖZLƏNİLƏN CAVAB\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Sorğu: Uvicorn process starts app; GET /health returns readiness status\nCavab: Server 127.0.0.1:8000-də dinləyir; `/health` 200 JSON qaytarır. Deployment platforması prosesi monitorinq etməlidir.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SƏTİR-SƏTİR İZAHI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — FastAPI sinfini tətbiq obyekti yaratmaq üçün import edir; bu sətr olmasa ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " adı tanınmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " tətbiq obyekti ASGI serverinə verilir və marşrutları özündə saxlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.get(\"/health\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP metodunu və URL yolunu bu funksiyaya bağlayır; bu dekorator olmasa funksiya API endpoint-i olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def health():",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Serverin çağıracağı endpoint funksiyasını müəyyən edir; parametr adları yol, query və body məlumatlarını bağlamağa kömək edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"status\": \"ready\"}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP cavabının dəyərini qaytarır; FastAPI bunu JSON və ya qeyd olunan response modelinə çevirir.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "TƏCRÜBƏ: HTTP MÜŞTƏRİSİ İLƏ YOXLAMA\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Aşağıdakı tam fayl tətbiqi TestClient ilə yerli çağırır; ayrıca port açmağa ehtiyac yoxdur. TestClient üçün ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " quraşdırın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM İŞLƏK TEST KODU\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/health\")\nasync def health():\n    return {\"status\": \"ready\"}\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    response = client.get(\"/health\")\n    print(response.status_code, response.json())\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "TESTİN GÖZLƏNİLƏN NƏTİCƏSİ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "200 {'status': 'ready'}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SƏTİR-SƏTİR İZAHI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — FastAPI sinfini tətbiq obyekti yaratmaq üçün import edir; bu sətr olmasa ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " adı tanınmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " tətbiq obyekti ASGI serverinə verilir və marşrutları özündə saxlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.get(\"/health\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP metodunu və URL yolunu bu funksiyaya bağlayır; bu dekorator olmasa funksiya API endpoint-i olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def health():",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Serverin çağıracağı endpoint funksiyasını müəyyən edir; parametr adları yol, query və body məlumatlarını bağlamağa kömək edir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"status\": \"ready\"}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP cavabının dəyərini qaytarır; FastAPI bunu JSON və ya qeyd olunan response modelinə çevirir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.testclient import TestClient",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — TestClient-i import edir ki, tətbiqə HTTP sorğusunu server portu açmadan sınaqdan göndərək.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with TestClient(app) as client:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Tətbiq üçün sınaq HTTP müştərisi yaradır və kontekst bitəndə onu bağlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response = client.get(\"/health\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Test müştərisi ilə göstərilən GET sorğusunu göndərir və cavabı ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " dəyişənində saxlayır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(response.status_code, response.json())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP status kodunu və cavab JSON-unu oxuyub terminalda göstərir.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "TEZ-TEZ BURAXILAN SƏHVLƏR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Production-da ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " işlətmək, debug məlumatını açıq saxlamaq və secret-i source fayla yazmaq; xarici environment konfiqurasiyası seçin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Praktik məsləhət",
+      "text": "Əvvəl `uvicorn app:app --host 127.0.0.1 --port 8000` işlədin; sonra deployment platformasının process və health-check tələblərinə uyğunlaşdırın."
+    },
+    {
+      "type": "detail",
+      "title": "Daha dərindən",
+      "text": "İstehsal prosesi process manager/container ilə restart və monitorinq alır; paralel worker sayı və in-memory state deployment modelinə uyğun seçilməlidir."
+    },
+    {
+      "type": "warning",
+      "title": "Vacib xəbərdarlıq",
+      "text": "Host, firewall, proxy, secret manager, resource limit və DB migration addımları platformaya bağlıdır; bu nümunə hazır production konfigurasiya deyil."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: Dərsdəki tipik səhvi önləmək üçün hansı addım daha düzgündür?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Əvvəl ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "uvicorn app:app --host 127.0.0.1 --port 8000",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " işlədin; sonra deployment platformasının process və health-check tələblərinə uyğunlaşdırın.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

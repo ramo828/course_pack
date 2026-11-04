@@ -1,0 +1,46 @@
+{
+  "id": "module_rfid_mfrc522",
+  "title": "NFC/RFID: MFRC522 ve PN532 modülleri",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://github.com/miguelbalboa/rfid",
+    "https://learn.adafruit.com/adafruit-pn532-rfid-nfc"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "MFRC522, 13,56 MHz RFID/NFC etiketlerini okur; PN532 daha geniş NFC özellikleri sunar. Bu örnek yalnızca kartın algılandığını gösterir, erişim izni vermez.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "MFRC522: UNO SDA/SS→D10, RST→D9, MOSI→D11, MISO→D12, SCK→D13, 3.3V→3.3V, GND→GND. ESP32 SPI pinleri karta göre değişir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Arduino IDE'de MFRC522 kitaplığını kurun. Platform: UNO ve uyumlu ESP32 SPI. Etiket UID'sini parola saymayın; UID kopyalanabilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_rfid_spi",
+      "caption": "NFC/RFID: MFRC522 ve PN532 modülleri"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <SPI.h>\n#include <MFRC522.h>\n\nconstexpr byte SS_PIN = 10;\nconstexpr byte RST_PIN = 9;\nMFRC522 reader(SS_PIN, RST_PIN);\n\nvoid setup() {\n  Serial.begin(9600);\n  SPI.begin();\n  reader.PCD_Init();\n}\n\nvoid loop() {\n  if (!reader.PICC_IsNewCardPresent() ||\n      !reader.PICC_ReadCardSerial()) return;\n  Serial.println(\"Kart oxundu\");\n  reader.PICC_HaltA();\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli güvenlik notu",
+      "text": "MFRC522 modülünü 3.3 V ile besleyin; 5 V sinyal modüle zarar verebilir. Güvenli erişimde UID tek başına kimlik doğrulama değildir."
+    }
+  ],
+  "testId": "embedded_test_module_rfid_mfrc522_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

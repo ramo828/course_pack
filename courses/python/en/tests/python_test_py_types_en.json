@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_types_en",
+  "title": "Type hints and dataclasses",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_types",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 1 in this lesson produce?\n\nfrom dataclasses import dataclass\nfrom typing import TypedDict\n\nclass Config(TypedDict):\n    device_id: str\n    enabled: bool\n\n@dataclass(slots=True)\nclass Sensor:\n    name: str\n    value: float\n\ndef label(sensor: Sensor, unit: str | None = None) -> str:\n    suffix = f' {unit}' if unit else ''\n    return f'{sensor.name}: {sensor.value}{suffix}'\n\nconfig: Config = {'device_id': 'sensor-1', 'enabled': True}\nprint(label(Sensor(config['device_id'], 21.5), 'C'))",
+      "options": [
+        "value=7",
+        "sensor-1: 21.5 C",
+        "temperature: unknown",
+        "SENSOR-1: 21.5 c"
+      ],
+      "answer": "sensor-1: 21.5 C",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`from dataclasses import dataclass` — Imports specific names from a module; without it, those names are unavailable.\n`from typing import TypedDict` — Imports specific names from a module; without it, those names are unavailable.\n`class Config(TypedDict):` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`device_id: str` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`enabled: bool` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`@dataclass(slots=True)` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`class Sensor:` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`name: str` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`value: float` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`def label(sensor: Sensor, unit: str | None = None) -> str:` — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n`suffix = f' {unit}' if unit else ''` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`return f'{sensor.name}: {sensor.value}{suffix}'` — Sends a result to the caller; without it, a function usually returns None.\n`config: Config = {'device_id': 'sensor-1', 'enabled': True}` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`print(label(Sensor(config['device_id'], 21.5), 'C'))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_types",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 2 in this lesson produce?\n\nfrom typing import Protocol\n\nclass HasValue(Protocol):\n    @property\n    def value(self) -> int: ...\n\ndef describe(item: HasValue) -> str:\n    return f'value={item.value}'\n\nclass Sample:\n    value = 7\n\nprint(describe(Sample()))",
+      "options": [
+        "sensor-1: 21.5 C",
+        "temperature: unknown",
+        "value=7",
+        "VALUE=7"
+      ],
+      "answer": "value=7",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`from typing import Protocol` — Imports specific names from a module; without it, those names are unavailable.\n`class HasValue(Protocol):` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`@property` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`def value(self) -> int: ...` — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n`def describe(item: HasValue) -> str:` — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n`return f'value={item.value}'` — Sends a result to the caller; without it, a function usually returns None.\n`class Sample:` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`value = 7` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`print(describe(Sample()))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_types",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 3 in this lesson produce?\n\ndef label(name: str, unit: str | None = None) -> str:\n    return f'{name}: {unit or \"unknown\"}'\n\nprint(label('temperature'))",
+      "options": [
+        "TEMPERATURE: UNKNOWN",
+        "value=7",
+        "sensor-1: 21.5 C",
+        "temperature: unknown"
+      ],
+      "answer": "temperature: unknown",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`def label(name: str, unit: str | None = None) -> str:` — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n`return f'{name}: {unit or \"unknown\"}'` — Sends a result to the caller; without it, a function usually returns None.\n`print(label('temperature'))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_types",
+      "type": "multiple_choice",
+      "prompt": "Which statement accurately describes “Type hints and dataclasses”?",
+      "options": [
+        "Types determine how a program handles numbers, text, and collections.",
+        "Modern annotations express contracts such as `list[str]`, `str | None`, `TypedDict`, and `Protocol`; Python does not enforce them during ordinary execution.",
+        "Numeric conversion prepares user input for calculations, but rounding and precision effects must be understood rather than hidden.",
+        "Functions divide work into named, reusable units, letting an application apply the same rule consistently in several places."
+      ],
+      "answer": "Modern annotations express contracts such as `list[str]`, `str | None`, `TypedDict`, and `Protocol`; Python does not enforce them during ordinary execution.",
+      "explanation": "Modern annotations express contracts such as `list[str]`, `str | None`, `TypedDict`, and `Protocol`; Python does not enforce them during ordinary execution. Static checkers such as Pyright or mypy analyze these contracts. `Protocol` describes required behavior without forcing inheritance, while `TypedDict` describes expected dictionary keys. Validate external data separately with a runtime validator such as Pydantic."
+    }
+  ]
+}

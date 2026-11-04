@@ -1,0 +1,184 @@
+{
+  "id": "freertos_freertos_queues",
+  "title": "Передача сообщений через очереди",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_queues_ru",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/02-Queues-mutexes-and-semaphores/01-Queues"
+  ],
+  "estimatedMinutes": 22,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Передача сообщений через очереди» в программе или устройстве. Основной принцип: Очередь задаёт более ясную границу владения и синхронизации, чем незащищённая глобальная переменная. В проекте следуйте рекомендации: Выбирайте размер очереди по всплескам и скорости обработки; задайте поведение при заполнении.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nQueueHandle_t readings = nullptr;\nvoid producer(void*) { int value = 0; for (;;) { ++value; if (xQueueSend(readings, &value, pdMS_TO_TICKS(100)) != pdPASS) vTaskDelay(pdMS_TO_TICKS(100)); vTaskDelay(pdMS_TO_TICKS(500)); } }\nvoid setup() { Serial.begin(115200); readings = xQueueCreate(4, sizeof(int)); if (readings == nullptr || xTaskCreate(producer, \"producer\", 2048, nullptr, 1, nullptr) != pdPASS) { if (readings) vQueueDelete(readings); readings = nullptr; } }\nvoid loop() { int value; if (readings && xQueueReceive(readings, &value, portMAX_DELAY) == pdPASS) Serial.println(value); else vTaskDelay(pdMS_TO_TICKS(100)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor выводит возрастающие числа, созданные одной задачей и полученные другой.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Очередь хранит элементы фиксированного размера по FIFO и разделяет producer и consumer. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "xQueueSend",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "xQueueReceive",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " могут ждать с timeout; payload копируется, а время жизни указателя на большой объект нужно контролировать отдельно. Проверяйте результат отправки, чтобы не терять данные при заполнении очереди.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void producer(void*) { int value = 0; for (;;) { ++value; if (xQueueSend(readings, &value, pdMS_TO_TICKS(100)) != pdPASS) vTaskDelay(pdMS_TO_TICKS(100)); vTaskDelay(pdMS_TO_TICKS(500)); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Очередь задаёт более ясную границу владения и синхронизации, чем незащищённая глобальная переменная.\nЗачем она нужна: Выбирайте размер очереди по всплескам и скорости обработки; задайте поведение при заполнении.\nЕсли пропустить или изменить: Проверяйте успешное создание очередь: увеличение размера расходует RAM.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Проверяйте успешное создание очередь: увеличение размера расходует RAM."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Очередь задаёт более ясную границу владения и синхронизации, чем незащищённая глобальная переменная.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Выбирайте размер очереди по всплескам и скорости обработки; задайте поведение при заполнении."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nQueueHandle_t readings = nullptr;\nvoid setup() { Serial.begin(115200); readings = xQueueCreate(4, sizeof(int)); const int sample = 23; if (readings && xQueueSend(readings, &sample, 0) != pdPASS) Serial.println(\"queue send failed\"); }\nvoid loop() { int sample; if (readings && xQueueReceive(readings, &sample, pdMS_TO_TICKS(100)) == pdPASS) Serial.println(sample); vTaskDelay(pdMS_TO_TICKS(100)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "23\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Проверяйте результат отправки, чтобы не терять данные при заполнении очереди."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Проверяйте успешное создание очередь: увеличение размера расходует RAM."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму состояний и приоритетов задач, очередей/синхронизации и временную шкалу."
+}

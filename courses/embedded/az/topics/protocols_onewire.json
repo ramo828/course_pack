@@ -1,0 +1,36 @@
+{
+  "id": "protocols_onewire",
+  "title": "1-Wire: DS18B20 temperatur vericisi",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://www.analog.com/en/resources/technical-articles/1wire-communication-through-software.html",
+    "https://github.com/milesburton/Arduino-Temperature-Control-Library"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "1-Wire az naqillə bir neçə uyğun cihazı eyni magistralda birləşdirir; DS18B20 rəqəmsal temperatur ölçür və unikal identifikatoru olur. Məlumat xətti üçün uyğun pull-up rezistor lazımdır; uzun naqildə qoşulma və qida sxemi əhəmiyyətlidir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_onewire_bus",
+      "caption": "1-Wire: DS18B20 temperatur vericisi"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <OneWire.h>\n#include <DallasTemperature.h>\n\nOneWire wireBus(4);\nDallasTemperature sensors(&wireBus);\n\nvoid setup() {\n  Serial.begin(115200);\n  sensors.begin();\n}\n\nvoid loop() {\n  sensors.requestTemperatures();\n  const float temperatureC = sensors.getTempCByIndex(0);\n  if (temperatureC == DEVICE_DISCONNECTED_C) {\n    Serial.println(\"DS18B20 disconnected\");\n  } else {\n    Serial.println(temperatureC);\n  }\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Kod üçün OneWire və DallasTemperature kitabxanaları quraşdırılır. Nümunə `DEVICE_DISCONNECTED_C` nəticəsini yoxlayır; parazit qida rejimində çevirmə vaxtı və naqilləmə dəyişir, texniki sənəddəki qida tövsiyəsinə əməl edin."
+    }
+  ],
+  "testId": "embedded_test_protocols_onewire_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

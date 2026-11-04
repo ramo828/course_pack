@@ -1,0 +1,305 @@
+{
+  "id": "rust_rust_closures_iterators",
+  "title": "Closure'lar ve iterator adaptörleri",
+  "difficulty": "medium",
+  "testId": "rust_test_rust_closures_iterators_tr",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch13-00-functional-features.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Closure'lar ve iterator adaptörleri” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: filter öğeleri seçer, map dönüştürür; collect Vec oluşturur. Gerçek projede şu öneriyi izleyin: collect hedef türü çıkaramayabilir; gerektiğinde ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "let values: Vec<_>",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ile türü belirtin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn main() {\n    let values: Vec<i32> = (1..=6)\n        .filter(|value| value % 2 == 0)\n        .map(|value| value * value)\n        .collect();\n    println!(\"{values:?}\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "[4, 16, 36]\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Closure çevre scope'tan değer yakalayabilen anonim işlevdir; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Fn",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "FnMut",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "FnOnce",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yakalama ve çağrılma biçimini açıklar. Iterator, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "map",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "filter",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "take",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " adaptörleriyle tembel dönüşüm zinciri kurar; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "collect",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "fold",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " sonucu üretir veya toplar. Tembel zincir terminal işlemde çalışır; büyük akışlarda bellek ve performansı ölçün.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": ".map(|value| value * value)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: filter öğeleri seçer, map dönüştürür; collect Vec oluşturur.\nNeden seçildi: collect hedef türü çıkaramayabilir; gerektiğinde ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let values: Vec<_>",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile türü belirtin.\nAtlanır veya değiştirilirse: collect hedef türü çıkaramayabilir; gerektiğinde ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let values: Vec<_>",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile türü belirtin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: collect hedef türü çıkaramayabilir; gerektiğinde `let values: Vec<_>` ile türü belirtin."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "filter öğeleri seçer, map dönüştürür; collect Vec oluşturur.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "collect hedef türü çıkaramayabilir; gerektiğinde `let values: Vec<_>` ile türü belirtin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn main() { let sum: i32 = (1..=4).map(|n| n * n).sum(); println!(\"{sum}\"); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "30\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Tembel zincir terminal işlemde çalışır; büyük akışlarda bellek ve performansı ölçün."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Kod örnekleri odaklı parçalardır; seçilen araç zinciri ve hedefte derleyip test edin, çünkü API ve tanılamalar sürüme göre değişebilir."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Closure'lar ve iterator adaptörleri” konusunda hangi ifade temel kuralı doğru açıklar?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: filter öğeleri seçer, map dönüştürür; collect Vec oluşturur.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı."
+}

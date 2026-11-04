@@ -1,0 +1,607 @@
+{
+  "id": "python_py_fastapi",
+  "title": "FastAPI'ye giriş: HTTP ve API",
+  "difficulty": "medium",
+  "testId": "python_test_py_fastapi_tr",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://fastapi.tiangolo.com/tutorial/first-steps/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NEDEN KULLANILIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI, web ve mobil uygulamaların HTTP üzerinden veri alışverişi yaptığı JSON API'leri kurar; tür açıklamaları girdileri doğrulamaya ve API sözleşmesini belgelemeye yardımcı olur.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "AMAÇ VE GERÇEK KULLANIM\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI, Python türlerini kullanan bir ASGI web çatısıdır. HTTP uç noktaları yazarız; tarayıcı, telefon ve diğer servisler bu uç noktaları çağırarak JSON alır veya gönderir. Bu ders sunucunun rolunu, rotayı ve çalıştırma adımlarını tanıtır.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Örnekleri yerelde çalıştırmak için ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kurun; derste belirtilen ek paketleri de ekleyin. Sunucu örneğini ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "app.py",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " olarak kaydedip ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "uvicorn app:app --reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ile başlatın. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yalnızca geliştirme içindir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "GERÇEK HAYATTA NEREDE?\nÖrneğin bir mobil uygulamanın hizmetin çalıştığını denetlemek için ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "/health",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " uç noktasına istek göndermesi.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Bu bölüm atlanırsa: FastAPI uygulama nesnesi ve rota dekoratörü olmazsa ASGI sunucusunun çağıracağı uç nokta oluşmaz; sıradan bir Python fonksiyonu ağ API'si değildir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM ÇALIŞAN ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI\n\napp = FastAPI(title=\"Study API\")\n\n@app.get(\"/health\")\nasync def health_check():\n    return {\"status\": \"ok\"}\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İSTEK VE BEKLENEN YANIT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "İstek: GET /health\nYanıt: 200 OK; JSON: {\"status\":\"ok\"}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SATIR SATIR AÇIKLAMASI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — FastAPI sınıfını uygulama nesnesini oluşturmak için içe aktarır; bu satır olmazsa ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " adı bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI(title=\"Study API\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " uygulama nesnesi ASGI sunucusuna verilir ve rotaları tutar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.get(\"/health\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yöntemini ve URL yolunu bu işleve bağlar; dekoratör olmadan işlev bir API uç noktası olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def health_check():",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"status\": \"ok\"}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "UYGULAMA: HTTP İSTEMCİSİYLE DENETLEME\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Aşağıdaki tam dosya uygulamayı TestClient ile yerel çağırır; ayrı bir port açmanız gerekmez. TestClient için ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kurun.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM ÇALIŞAN TEST KODU\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI\n\napp = FastAPI(title=\"Study API\")\n\n@app.get(\"/health\")\nasync def health_check():\n    return {\"status\": \"ok\"}\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    response = client.get(\"/health\")\n    print(response.status_code, response.json())\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "TESTİN BEKLENEN SONUCU\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "200 {'status': 'ok'}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SATIR SATIR AÇIKLAMASI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — FastAPI sınıfını uygulama nesnesini oluşturmak için içe aktarır; bu satır olmazsa ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " adı bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI(title=\"Study API\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " uygulama nesnesi ASGI sunucusuna verilir ve rotaları tutar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.get(\"/health\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yöntemini ve URL yolunu bu işleve bağlar; dekoratör olmadan işlev bir API uç noktası olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def health_check():",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"status\": \"ok\"}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.testclient import TestClient",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Uygulamaya sunucu portu açmadan HTTP isteği gönderecek TestClient sınıfını içe aktarır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with TestClient(app) as client:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Uygulama için bir test HTTP istemcisi açar ve blok bittiğinde kapatır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response = client.get(\"/health\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Test istemcisiyle belirtilen GET isteğini gönderir ve yanıtı ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " değişkeninde tutar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(response.status_code, response.json())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP durum kodunu ve JSON yanıtını okuyup terminalde gösterir.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "SIK YAPILAN HATALAR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sunucunun başlamasını uç noktanın başarılı yanıt vermesiyle karıştırmak; başlatma yalnızca istek kabul etmeye hazırlar.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Uygulama ipucu",
+      "text": "İlk deneme için tarayıcıda `/docs` adresini açın; FastAPI etkileşimli OpenAPI belgelerini gösterir."
+    },
+    {
+      "type": "detail",
+      "title": "Bir adım daha",
+      "text": "ASGI sunucusu (ör. Uvicorn) HTTP bağlantılarını yönetir; FastAPI isteği ilgili uç nokta fonksiyonuna yönlendirir. Bunlar farklı rollerdir."
+    },
+    {
+      "type": "warning",
+      "title": "Önemli uyarı",
+      "text": "Bu örnek yerel öğrenme içindir. Üretimde hata ayıklama modunu açık bırakmayın ve güvenlik denetimlerini ayrıca yapılandırın."
+    },
+    {
+      "type": "text",
+      "text": "YERELDE ÇALIŞTIRMA\n",
+      "size": 18,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Terminalde ",
+      "size": 16,
+      "color": "#00695C"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " çalıştırın, kodu ",
+      "size": 16,
+      "color": "#00695C"
+    },
+    {
+      "type": "text",
+      "text": "app.py",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " olarak kaydedin ve ",
+      "size": 16,
+      "color": "#00695C"
+    },
+    {
+      "type": "text",
+      "text": "uvicorn app:app --reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ile başlatın. Sonra uç noktayı ",
+      "size": 16,
+      "color": "#00695C"
+    },
+    {
+      "type": "text",
+      "text": "/docs",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " içinden çağırın. ",
+      "size": 16,
+      "color": "#00695C"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yalnızca yerel geliştirme içindir.\n\n",
+      "size": 16,
+      "color": "#00695C"
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: Dersteki yaygın hatayı önlemek için hangi adım daha doğrudur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: İlk deneme için tarayıcıda ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "/docs",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " adresini açın; FastAPI etkileşimli OpenAPI belgelerini gösterir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

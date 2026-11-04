@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_path_query_az",
+  "title": "Path və query parametrləri",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_path_query",
+      "type": "multiple_choice",
+      "prompt": "Bu real HTTP sorğusuna API necə cavab verməlidir?\nGET /books/12?limit=5",
+      "options": [
+        "200 OK; JSON: {\"book_id\":12,\"limit\":5}",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın."
+      ],
+      "answer": "200 OK; JSON: {\"book_id\":12,\"limit\":5}",
+      "explanation": "Bu, `GET /books/12?limit=5` sorğusunun gözlənilən davranışıdır. 200 OK; JSON: {\"book_id\":12,\"limit\":5}"
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_path_query",
+      "type": "multiple_choice",
+      "prompt": "Bu mövzuda hansı dizayn prinsipi doğrudur?",
+      "options": [
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Path parametri resursu müəyyənləşdirir, query parametri isə həmin resursların seçilməsinə və təqdimatına təsir edir.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin."
+      ],
+      "answer": "Path parametri resursu müəyyənləşdirir, query parametri isə həmin resursların seçilməsinə və təqdimatına təsir edir.",
+      "explanation": "Path parametri resursu müəyyənləşdirir, query parametri isə həmin resursların seçilməsinə və təqdimatına təsir edir. Path obyekt kimliyini, query isə təqdimat/filter parametrlərini daşıyır; məcburi query dəyərinin standartı yoxdursa, onu `Query(...)` ilə açıq bildirin."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_path_query",
+      "type": "multiple_choice",
+      "prompt": "Dərsdə göstərilən vacib hissə çıxarılsa, hansı dəyişiklik baş verər?",
+      "options": [
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "Path parametrini marşrutdan çıxarsanız, hansı resursun istənildiyi bilinməz; query parametrini çıxarmaq isə endpoint-i filtrsiz/default davranışa qaytarar."
+      ],
+      "answer": "Path parametrini marşrutdan çıxarsanız, hansı resursun istənildiyi bilinməz; query parametrini çıxarmaq isə endpoint-i filtrsiz/default davranışa qaytarar.",
+      "explanation": "Path parametrini marşrutdan çıxarsanız, hansı resursun istənildiyi bilinməz; query parametrini çıxarmaq isə endpoint-i filtrsiz/default davranışa qaytarar. Path parametri resursun hansı obyekt olduğunu, query parametri isə siyahının necə süzüləcəyini və ya səhifələnəcəyini bildirir. FastAPI parametr adını və tipini Python funksiyasından çıxarır. Məcburi və standart dəyərlər URL müqaviləsini müəyyənləşdirir."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_path_query",
+      "type": "multiple_choice",
+      "prompt": "Dərsdəki tipik səhvi önləmək üçün hansı addım daha düzgündür?",
+      "options": [
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "`/books/12?limit=5` formatını `/docs`-da sınayın; `book_id` yolun, `limit` isə `?`-dən sonrakı query hissəsinin üzvüdür."
+      ],
+      "answer": "`/books/12?limit=5` formatını `/docs`-da sınayın; `book_id` yolun, `limit` isə `?`-dən sonrakı query hissəsinin üzvüdür.",
+      "explanation": "`/books/12?limit=5` formatını `/docs`-da sınayın; `book_id` yolun, `limit` isə `?`-dən sonrakı query hissəsinin üzvüdür. İstifadəçi dəyərlərini fayl yolu və ya SQL sorğusuna birləşdirməyin; parametr kimi ötürün və nəticə sayına limit qoyun."
+    }
+  ]
+}

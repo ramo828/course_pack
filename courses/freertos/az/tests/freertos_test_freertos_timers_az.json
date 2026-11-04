@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_timers_az",
+  "title": "Software timer və callback qaydaları",
+  "questions": [
+    {
+      "id": "freertos_freertos_timers_1",
+      "topicId": "freertos_freertos_timers",
+      "type": "multiple_choice",
+      "prompt": "“Software timer və callback qaydaları” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "Periodic software timer dəqiq hardware timer deyil; jitter və scheduler yükünü ölçün.",
+        "Hər task üçün stack ayrılır, prioritet scheduler qərarına təsir edir.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin."
+      ],
+      "answer": "Periodic software timer dəqiq hardware timer deyil; jitter və scheduler yükünü ölçün.",
+      "explanation": "Periodic software timer dəqiq hardware timer deyil; jitter və scheduler yükünü ölçün.\nİzah: Software timer callback-i ayrıca timer service task-ında icra olunur; bu, periodik siqnal üçün faydalıdır, amma callback uzun iş görməməlidir. Callback-dən bloklamaq, uzun serial yazısı və ya ağır sensor oxumaq timer task-ını saxlayır və bütün timer-ları gecikdirə bilər. Uzun işi queue və ya notification ilə worker task-a ötürün."
+    },
+    {
+      "id": "freertos_freertos_timers_2",
+      "topicId": "freertos_freertos_timers",
+      "type": "multiple_choice",
+      "prompt": "“Software timer və callback qaydaları” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Callback daxilində yalnız qısa flag və ya mesaj göndərin; işin qalanını normal task-a verin.",
+        "Sonsuz dövrədə işləyən hər task vaxtaşırı gözləməli və ya bloklanmalıdır; əks halda CPU-nu inhisara ala bilər."
+      ],
+      "answer": "Callback daxilində yalnız qısa flag və ya mesaj göndərin; işin qalanını normal task-a verin.",
+      "explanation": "Callback daxilində yalnız qısa flag və ya mesaj göndərin; işin qalanını normal task-a verin.\nİzah: Software timer callback-i ayrıca timer service task-ında icra olunur; bu, periodik siqnal üçün faydalıdır, amma callback uzun iş görməməlidir. Callback-dən bloklamaq, uzun serial yazısı və ya ağır sensor oxumaq timer task-ını saxlayır və bütün timer-ları gecikdirə bilər. Uzun işi queue və ya notification ilə worker task-a ötürün."
+    },
+    {
+      "id": "freertos_freertos_timers_3",
+      "topicId": "freertos_freertos_timers",
+      "type": "multiple_choice",
+      "prompt": "“Software timer və callback qaydaları” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "Task stack ölçüsü byte ilə verilir və target/runtime versiyasına görə RAM məhdudiyyətini nəzərə almaq lazımdır.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Timer command queue ölçüsü sonradan start/stop/reset əmrlərinin gecikməsinə təsir göstərə bilər.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir."
+      ],
+      "answer": "Timer command queue ölçüsü sonradan start/stop/reset əmrlərinin gecikməsinə təsir göstərə bilər.",
+      "explanation": "Timer command queue ölçüsü sonradan start/stop/reset əmrlərinin gecikməsinə təsir göstərə bilər.\nİzah: Software timer callback-i ayrıca timer service task-ında icra olunur; bu, periodik siqnal üçün faydalıdır, amma callback uzun iş görməməlidir. Callback-dən bloklamaq, uzun serial yazısı və ya ağır sensor oxumaq timer task-ını saxlayır və bütün timer-ları gecikdirə bilər. Uzun işi queue və ya notification ilə worker task-a ötürün."
+    },
+    {
+      "id": "freertos_freertos_timers_4",
+      "topicId": "freertos_freertos_timers",
+      "type": "multiple_choice",
+      "prompt": "“Software timer və callback qaydaları” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Serial yazıları bir neçə task-dan qarışa bilər; ortaq çıxışı serializasiya edin və task stack ölçüsünü ölçün.",
+        "Callback-dən bloklamaq, uzun serial yazısı və ya ağır sensor oxumaq timer task-ını saxlayır və bütün timer-ları gecikdirə bilər",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir."
+      ],
+      "answer": "Callback-dən bloklamaq, uzun serial yazısı və ya ağır sensor oxumaq timer task-ını saxlayır və bütün timer-ları gecikdirə bilər",
+      "explanation": "Callback-dən bloklamaq, uzun serial yazısı və ya ağır sensor oxumaq timer task-ını saxlayır və bütün timer-ları gecikdirə bilər\nİzah: Software timer callback-i ayrıca timer service task-ında icra olunur; bu, periodik siqnal üçün faydalıdır, amma callback uzun iş görməməlidir. Callback-dən bloklamaq, uzun serial yazısı və ya ağır sensor oxumaq timer task-ını saxlayır və bütün timer-ları gecikdirə bilər. Uzun işi queue və ya notification ilə worker task-a ötürün."
+    }
+  ]
+}

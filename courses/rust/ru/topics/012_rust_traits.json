@@ -1,0 +1,221 @@
+{
+  "id": "rust_rust_traits",
+  "title": "Обобщения и трейты",
+  "difficulty": "hard",
+  "testId": "rust_test_rust_traits_ru",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch10-00-generics.html"
+  ],
+  "estimatedMinutes": 24,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Обобщения и трейты» в программе или устройстве. Основной принцип: Трейт объявляет общее поведение методов. В проекте следуйте рекомендации: Используйте обобщённый API, когда действительно нужно общее поведение.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "trait Area { fn area(&self) -> f64; }\nstruct Rectangle { width: f64, height: f64 }\nimpl Area for Rectangle {\n    fn area(&self) -> f64 { self.width * self.height }\n}\nfn print_area<T: Area>(shape: &T) {\n    println!(\"{}\", shape.area());\n}\nfn main() { print_area(&Rectangle { width: 3.0, height: 4.0 }); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "До вызова метода вывода нет; для прямоугольника 3×4 ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "print_area",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " выводит 12.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Обобщения параметризуют повторно используемый код. Трейты задают поведение, а ограничения ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "T: Trait",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " требуют нужные возможности; часто применяется мономорфизация.\n\nTrait задаёт общий контракт способности; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "impl Trait for Type",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " реализует поведение, а generic-ограничение описывает требования вызывающего кода. Default-методы дают общую реализацию, associated type связывает тип результата с trait. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "dyn Trait",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " использует динамическую диспетчеризацию, дженерики обычно мономорфизируются при компиляции. Публичные границы trait — контракт совместимости для реализаций.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "impl Area for Rectangle {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Трейт объявляет общее поведение методов.\nЗачем она нужна: Используйте обобщённый API, когда действительно нужно общее поведение.\nЕсли пропустить или изменить: Используйте обобщённый API, когда действительно нужно общее поведение.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: Используйте обобщённый API, когда действительно нужно общее поведение."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Трейт объявляет общее поведение методов.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Используйте обобщённый API, когда действительно нужно общее поведение."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "trait Label { fn label(&self) -> &str; }\nstruct Sensor;\nimpl Label for Sensor { fn label(&self) -> &str { \"temperature\" } }\nfn main() { println!(\"{}\", Sensor.label()); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "temperature\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Трейты задают поведение, а ограничения `T: Trait` требуют нужные возможности; часто применяется мономорфизация."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Примеры сосредоточены на теме; компилируйте и тестируйте их для выбранного toolchain и target, поскольку API и диагностика зависят от версии."
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение верно передаёт основное правило темы «Обобщения и трейты»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Трейт объявляет общее поведение методов.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Отдельная иллюстрация не обязательна; небольшого запускаемого примера и ожидаемого результата достаточно."
+}

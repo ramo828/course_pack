@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_websockets_az",
+  "title": "WebSocket ilə real vaxt əlaqəsi",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_websockets",
+      "type": "multiple_choice",
+      "prompt": "Bu real HTTP sorğusuna API necə cavab verməlidir?\nConnect ws://127.0.0.1:8000/ws; send \"hello\"",
+      "options": [
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Server eyni əlaqədə \"Echo: hello\" mesajını geri göndərir.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın."
+      ],
+      "answer": "Server eyni əlaqədə \"Echo: hello\" mesajını geri göndərir.",
+      "explanation": "Bu, `Connect ws://127.0.0.1:8000/ws; send \"hello\"` sorğusunun gözlənilən davranışıdır. Server eyni əlaqədə \"Echo: hello\" mesajını geri göndərir."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_websockets",
+      "type": "multiple_choice",
+      "prompt": "Bu mövzuda hansı dizayn prinsipi doğrudur?",
+      "options": [
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "WebSocket əlaqəsi açıq qalır və klient-server istiqamətində mesaj ötürür; adi HTTP cavabından fərqli olaraq əlaqə mesajdan sonra bağlanmır."
+      ],
+      "answer": "WebSocket əlaqəsi açıq qalır və klient-server istiqamətində mesaj ötürür; adi HTTP cavabından fərqli olaraq əlaqə mesajdan sonra bağlanmır.",
+      "explanation": "WebSocket əlaqəsi açıq qalır və klient-server istiqamətində mesaj ötürür; adi HTTP cavabından fərqli olaraq əlaqə mesajdan sonra bağlanmır. WebSocket bağlantıları server yaddaşı və file descriptor-ları tutur; çoxsaylı klient üçün connection limitini və yayım mexanizmini planlayın."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_websockets",
+      "type": "multiple_choice",
+      "prompt": "Dərsdə göstərilən vacib hissə çıxarılsa, hansı dəyişiklik baş verər?",
+      "options": [
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Davamlı yeniləmə üçün klientin təkrar-təkrar sorğu göndərməsi gecikmə və əlavə trafik yaradır; WebSocket açıq əlaqədən istifadə edir."
+      ],
+      "answer": "Davamlı yeniləmə üçün klientin təkrar-təkrar sorğu göndərməsi gecikmə və əlavə trafik yaradır; WebSocket açıq əlaqədən istifadə edir.",
+      "explanation": "Davamlı yeniləmə üçün klientin təkrar-təkrar sorğu göndərməsi gecikmə və əlavə trafik yaradır; WebSocket açıq əlaqədən istifadə edir. Adi HTTP sorğusu cavabdan sonra bitir; WebSocket isə bir əlaqəni açıq saxlayaraq iki istiqamətli mesajlaşma verir. FastAPI endpoint-i əlaqəni qəbul edir, gələn mesajı oxuyur və cavab göndərir. Bu nümunə echo serveridir; canlı müştəri üçün brauzer WebSocket API-sindən istifadə edin."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_websockets",
+      "type": "multiple_choice",
+      "prompt": "Dərsdəki tipik səhvi önləmək üçün hansı addım daha düzgündür?",
+      "options": [
+        "Serveri başladın, sonra brauzer console-da `new WebSocket('ws://127.0.0.1:8000/ws')` yaradıb `send()` və `onmessage` sınayın.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin."
+      ],
+      "answer": "Serveri başladın, sonra brauzer console-da `new WebSocket('ws://127.0.0.1:8000/ws')` yaradıb `send()` və `onmessage` sınayın.",
+      "explanation": "Serveri başladın, sonra brauzer console-da `new WebSocket('ws://127.0.0.1:8000/ws')` yaradıb `send()` və `onmessage` sınayın. İstehsalda origin yoxlaması, autentifikasiya, mesaj ölçüsü limiti və əlaqə tezliyi məhdudiyyəti əlavə edin."
+    }
+  ]
+}

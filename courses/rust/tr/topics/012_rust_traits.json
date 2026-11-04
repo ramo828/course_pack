@@ -1,0 +1,221 @@
+{
+  "id": "rust_rust_traits",
+  "title": "Generic türler ve trait'ler",
+  "difficulty": "hard",
+  "testId": "rust_test_rust_traits_tr",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch10-00-generics.html"
+  ],
+  "estimatedMinutes": 24,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Generic türler ve trait'ler” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Trait ortak metot davranışını tanımlar. Gerçek projede şu öneriyi izleyin: Genel API'yi yalnız gerçekten paylaşılması gereken davranış için kullanın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "trait Area { fn area(&self) -> f64; }\nstruct Rectangle { width: f64, height: f64 }\nimpl Area for Rectangle {\n    fn area(&self) -> f64 { self.width * self.height }\n}\nfn print_area<T: Area>(shape: &T) {\n    println!(\"{}\", shape.area());\n}\nfn main() { print_area(&Rectangle { width: 3.0, height: 4.0 }); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Metot çağrılana kadar stdout oluşmaz; 3×4 dikdörtgen için ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "print_area",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " 12 yazdırır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Generic tür parametresiyle yeniden kullanılabilir fonksiyonlar sağlar. Trait ortak davranışı tanımlar; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "T: Trait",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kısıtı gerekli yetenekleri ister ve monomorphization çoğunlukla statik dispatch üretir.\n\nTrait farklı türlerde ortak yeteneği sözleşme olarak tanımlar; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "impl Trait for Type",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " somut davranışı, generic sınır ise çağıranın ihtiyaç duyduğu yeteneği belirtir. Varsayılan metot ortak uygulama, associated type ise sonuç türü ilişkisi sağlayabilir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "dyn Trait",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " çalışma zamanı dispatch, generic çoğunlukla derleme zamanı monomorphization kullanır. Public API'deki trait sınırlarını dikkatle seçin; değişiklik implementasyonları etkiler.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "impl Area for Rectangle {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Trait ortak metot davranışını tanımlar.\nNeden seçildi: Genel API'yi yalnız gerçekten paylaşılması gereken davranış için kullanın.\nAtlanır veya değiştirilirse: Genel API'yi yalnız gerçekten paylaşılması gereken davranış için kullanın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: Genel API'yi yalnız gerçekten paylaşılması gereken davranış için kullanın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Trait ortak metot davranışını tanımlar.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Genel API'yi yalnız gerçekten paylaşılması gereken davranış için kullanın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "trait Label { fn label(&self) -> &str; }\nstruct Sensor;\nimpl Label for Sensor { fn label(&self) -> &str { \"temperature\" } }\nfn main() { println!(\"{}\", Sensor.label()); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "temperature\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Trait ortak davranışı tanımlar; `T: Trait` kısıtı gerekli yetenekleri ister ve monomorphization çoğunlukla statik dispatch üretir."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Kod örnekleri odaklı parçalardır; seçilen araç zinciri ve hedefte derleyip test edin, çünkü API ve tanılamalar sürüme göre değişebilir."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Generic türler ve trait'ler” konusunda hangi ifade temel kuralı doğru açıklar?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Trait ortak metot davranışını tanımlar.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

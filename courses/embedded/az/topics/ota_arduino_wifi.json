@@ -1,0 +1,108 @@
+{
+  "id": "ota_arduino_wifi",
+  "title": "ArduinoOTA: Wi-Fi ilə lövhəyə proqram göndərmək",
+  "difficulty": "advanced",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://docs.arduino.cc/learn/programming/ota-getting-started/",
+    "https://github.com/espressif/arduino-esp32/tree/master/libraries/ArduinoOTA"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Bu nümunə Arduino IDE-dən eyni Wi-Fi şəbəkəsində olan uyğun ESP32 lövhəsinə kabelsiz proqram göndərir. İlk quraşdırmada USB kabel lazımdır: Wi-Fi və OTA dəstəyi olan ilkin proqram lövhəyə əvvəlcə kabel ilə yüklənir. Sonrakı yeniləmələr şəbəkə ilə edilə bilər.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Mövzunun izahı\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "WiFi.begin()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " lövhəni şəbəkəyə qoşur; "
+    },
+    {
+      "type": "text",
+      "text": "ArduinoOTA.begin()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " OTA qəbulunu başladır; "
+    },
+    {
+      "type": "text",
+      "text": "ArduinoOTA.handle()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " isə "
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " daxilində tez-tez çağırılaraq ötürməni emal edir. Lövhə IDE-nin portlar siyahısında şəbəkə cihazı kimi görünməlidir. Proqramı yükləyərkən eyni şəbəkə və uyğun board/core seçin. Uzun "
+    },
+    {
+      "type": "text",
+      "text": "delay()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və bloklanan sensor oxunuşları ötürməni yarımçıq qoya bilər.\n\nBu Arduino-ESP32 üslublu nümunədir; "
+    },
+    {
+      "type": "text",
+      "text": "WiFi.h",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və ArduinoOTA kitabxanası hər Arduino lövhəsində mövcud deyil. Wi-Fi-li MKR və başqa lövhələrdə istifadə olunan API fərqli ola bilər, həmin lövhənin sənədinə baxın.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Nümunə kodu\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <ArduinoOTA.h>\n\nconst char* ssid = \"YOUR_WIFI_NAME\";\nconst char* password = \"YOUR_WIFI_PASSWORD\";\n\nvoid setup() {\n  Serial.begin(115200);\n  WiFi.begin(ssid, password);\n  while (WiFi.status() != WL_CONNECTED) delay(250);\n  ArduinoOTA.setHostname(\"sensor-01\");\n  ArduinoOTA.begin();\n}\n\nvoid loop() {\n  ArduinoOTA.handle();  // Call often; do not block for long.\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Sxem: ArduinoOTA: Wi-Fi ilə lövhəyə proqram göndərmək"
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Şəbəkə adını və parolu nümunədəki yer tutucularla əvəz edin; onları paylaşılmış koda yazmayın. ArduinoOTA-nın autentifikasiya imkanını qurun və etibarsız şəbəkədə açıq yeniləməni işlətməyin. İstehsalda imza yoxlaması və təhlükəsiz nəqliyyat tələb edin."
+    }
+  ],
+  "testId": "embedded_test_ota_arduino_wifi_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

@@ -1,0 +1,35 @@
+{
+  "id": "protocols_i2s_audio",
+  "title": "I2S: микрофоны, ЦАП и цифровой звук",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/i2s.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "I2S передаёт цифровой звук по линиям тактового сигнала BCLK, выбора слова WS/LRCLK и данных. Он соединяет цифровые микрофоны, ЦАП и аудиокодеки; это не UART и не I2C. Частота дискретизации, ширина слота и режим mono/stereo должны совпадать.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_inmp441_i2s",
+      "caption": "I2S: микрофоны, ЦАП и цифровой звук"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "// I2S commonly uses BCLK, WS/LRCLK, and DIN/DOUT.\n// On ESP32 use the board/core I2S API to configure:\n// sample rate, slot width, channel mode, and GPIO routing.\n// INMP441 sends digital microphone samples over I2S.",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Назначение выводов и API I2S зависят от семейства ESP32 и версии framework. Проверьте ограничения частоты и буферов по документации."
+    }
+  ],
+  "testId": "embedded_test_protocols_i2s_audio_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

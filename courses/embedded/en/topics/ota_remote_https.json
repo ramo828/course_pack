@@ -1,0 +1,93 @@
+{
+  "id": "ota_remote_https",
+  "title": "Remote HTTPS updates: securely fetching firmware from a server",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html",
+    "https://github.com/espressif/arduino-esp32/tree/master/libraries/HTTPUpdate"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "A remote device can fetch a new release from an internet server itself, allowing fleets of sensors to be updated without visiting each location.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "HOW IT WORKS\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "On ESP32, "
+    },
+    {
+      "type": "text",
+      "text": "WiFiClientSecure",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and the matching "
+    },
+    {
+      "type": "text",
+      "text": "HTTPUpdate",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " library can establish HTTPS. Provision a trusted root CA certificate in firmware or a protected updateable store; never disable certificate verification. The server supplies a manifest for the board model, version, and release channel. Before installation, verify the signature, model, version, and image size. After writing, reboot, run sensor/network health checks, and confirm the new image only if it works.\n\nReplace "
+    },
+    {
+      "type": "text",
+      "text": "ROOT_CA_PEM",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " with the project's trusted CA PEM. The "
+    },
+    {
+      "type": "text",
+      "text": "HTTPUpdate",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " API varies by Arduino-ESP32 core and board version, so check the installed library and its official example. A classic UNO cannot run this sketch.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFiClientSecure.h>\n#include <HTTPUpdate.h>\n\nconst char* firmwareUrl =\n    \"https://updates.example.org/esp32/stable.bin\";\nextern const char rootCa[];        // Define with the trusted CA PEM.\nWiFiClientSecure tls;\n\nvoid setup() {\n  Serial.begin(115200);\n  // Connect Wi-Fi and validate the signed update manifest first.\n  tls.setCACert(rootCa);           // Keep certificate checks enabled.\n  const auto result = httpUpdate.update(tls, firmwareUrl);\n  if (result == HTTP_UPDATE_OK) {\n    ESP.restart();\n  } else if (result == HTTP_UPDATE_FAILED) {\n    Serial.println(httpUpdate.getLastErrorString());\n  } else {\n    Serial.println(\"No update available\");\n  }\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Remote HTTPS updates: securely fetching firmware from a server"
+    },
+    {
+      "type": "warning",
+      "title": "Important safety and compatibility note",
+      "text": "Do not trust a downloaded image based on HTTPS alone: also verify a signed manifest and firmware signature. Never commit Wi-Fi passwords, tokens, or private CA keys."
+    }
+  ],
+  "testId": "embedded_test_ota_remote_https_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

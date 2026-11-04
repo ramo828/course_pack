@@ -1,0 +1,85 @@
+{
+  "id": "wifi_https_get_post",
+  "title": "Wi-Fi ilə HTTPS: serverdən məlumat almaq və göndərmək",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/httpclient.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/protocols/esp_https_client.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Sensor nəticəsini internet xidmətinə göndərmək və ya hava, qiymət kimi məlumatı serverdən almaq üçün ESP32 STA rejimində router-ə qoşulur.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NECƏ İŞLƏYİR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HTTP GET serverdən cavab alır; POST məlumat göndərir. HTTPS həmin mübadiləni TLS ilə şifrələyir və sertifikatla serveri yoxlayır. Arduino-ESP32-də "
+    },
+    {
+      "type": "text",
+      "text": "HTTPClient",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və "
+    },
+    {
+      "type": "text",
+      "text": "WiFiClientSecure",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " istifadə olunur. Əvvəl Wi-Fi bağlantısını qurun, etibarlı CA sertifikatını əlavə edin, status kodunu yoxlayın, cavabın ölçüsünə limit qoyun və bağlantını bağlayın.\n\nUzaq internet serverinə məlumat göndərmək üçün cihazın öz portunu router-də açmaq lazım deyil; çıxan HTTPS sorğusu və ya MQTT brokeri NAT arxasında işləyir. Cihazın öz serverini uzaqdan yayımlamaq lazımdırsa, autentifikasiya və HTTPS təmin edən idarə olunan tunel/gateway seçin; port yönləndirməni düşünmədən aktivləşdirməyin.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "WiFiClient: sadə TCP/HTTP sorğusu\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n\nvoid readPublicPage() {\n  WiFiClient client;\n  client.setTimeout(1000);\n  if (!client.connect(\"example.com\", 80)) {\n    Serial.println(\"TCP connection failed\");\n    return;\n  }\n\n  client.print(\"GET / HTTP/1.1\\r\\nHost: example.com\\r\\nConnection: close\\r\\n\\r\\n\");\n  const uint32_t started = millis();\n  while ((client.connected() || client.available()) &&\n         millis() - started < 5000) {\n    while (client.available()) {\n      Serial.write(client.read());\n    }\n    delay(1);\n  }\n  client.stop();\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "WiFiClientSecure: sertifikat yoxlaması ilə HTTPS GET və POST\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <WiFiClientSecure.h>\n#include <HTTPClient.h>\n\nextern const char rootCa[];\nconst char* endpoint = \"https://api.example.org/readings\";\n\nvoid printBoundedResponse(WiFiClient& stream) {\n  constexpr size_t MAX_BODY_BYTES = 1024;\n  const uint32_t started = millis();\n  size_t received = 0;\n  while ((stream.connected() || stream.available()) &&\n         received < MAX_BODY_BYTES && millis() - started < 5000) {\n    while (stream.available() && received < MAX_BODY_BYTES) {\n      Serial.write(stream.read());\n      ++received;\n    }\n    delay(1);\n  }\n  if (received == MAX_BODY_BYTES) {\n    Serial.println(\"\\nResponse truncated at the configured limit\");\n  }\n}\n\nvoid exchangeData() {\n  WiFiClientSecure client;\n  client.setCACert(rootCa);\n  HTTPClient http;\n\n  if (!http.begin(client, endpoint)) return;\n  const int getStatus = http.GET();\n  if (getStatus > 0) {\n    Serial.printf(\"GET status: %d\\n\", getStatus);\n    WiFiClient* response = http.getStreamPtr();\n    if (response != nullptr) printBoundedResponse(*response);\n  }\n  http.end();\n\n  if (!http.begin(client, endpoint)) return;\n  http.addHeader(\"Content-Type\", \"application/json\");\n  const int postStatus = http.POST(\"{\\\"temperatureC\\\":23.5}\");\n  Serial.printf(\"POST status: %d\\n\", postStatus);\n  http.end();\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "Wi-Fi ilə HTTPS: serverdən məlumat almaq və göndərmək"
+    },
+    {
+      "type": "warning",
+      "title": "Vacib təhlükəsizlik və uyğunluq qeydi",
+      "text": "`rootCa` serverinizin etibarlı sertifikat zəncirinə uyğun doldurulmalıdır; sertifikat yoxlamasını söndürməyin. `api.example.org` nümunə ünvanıdır. Xam `WiFiClient` nümunəsindəki HTTP şifrələnmir və məxfi məlumat göndərmək üçün uyğun deyil. Sorğunu Wi-Fi qoşulmasından sonra çağırın və gizli açarları mənbə koduna yazmayın."
+    }
+  ],
+  "testId": "embedded_test_wifi_https_get_post_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

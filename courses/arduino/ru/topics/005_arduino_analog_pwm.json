@@ -1,0 +1,160 @@
+{
+  "id": "arduino_arduino_analog_pwm",
+  "title": "ADC, PWM и аналоговый ввод",
+  "difficulty": "medium",
+  "testId": "arduino_test_arduino_analog_pwm_ru",
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/analog-io/analogRead/"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «ADC, PWM и аналоговый ввод» в программе или устройстве. Основной принцип: Коэффициент заполнения PWM задаёт долю времени высокого уровня. В проекте следуйте рекомендации: Используйте диапазон ADC из документации платы и калибруйте показания.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int sensorPin = A0;\nconst int ledPin = LED_BUILTIN;\nvoid setup() { pinMode(ledPin, OUTPUT); }\nvoid loop() {\n    int raw = analogRead(sensorPin);\n    int level = map(raw, 0, 1023, 0, 255);\n    analogWrite(ledPin, constrain(level, 0, 255));\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Яркость PWM зависит от показания A0; диапазон ADC и поведение PWM зависят от платы.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ADC преобразует напряжение в число с диапазоном и точностью, зависящими от MCU. PWM модулирует цифровой выход, но не всегда является настоящим DAC.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int raw = analogRead(sensorPin);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Коэффициент заполнения PWM задаёт долю времени высокого уровня.\nЗачем она нужна: Используйте диапазон ADC из документации платы и калибруйте показания.\nЕсли пропустить или изменить: Не подключайте 5 В напрямую ко входу ADC 3,3 В; проверьте пределы платы.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Не подключайте 5 В напрямую ко входу ADC 3,3 В; проверьте пределы платы."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Коэффициент заполнения PWM задаёт долю времени высокого уровня.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Используйте диапазон ADC из документации платы и калибруйте показания."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int pin = LED_BUILTIN;\nvoid setup() { pinMode(pin, OUTPUT); }\nvoid loop() { analogWrite(pin, 128); delay(500); analogWrite(pin, 0); delay(500); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Яркость PWM зависит от аналогового входа; разрешение ADC, выводы PWM и диапазон зависят от платы.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "PWM модулирует цифровой выход, но не всегда является настоящим DAC."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Не подключайте 5 В напрямую ко входу ADC 3,3 В; проверьте пределы платы."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

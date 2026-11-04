@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_types_az",
+  "title": "Tip göstərişləri və dataclass",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_types",
+      "type": "multiple_choice",
+      "prompt": "Bu dərsdəki 1-ci kod nümunəsi dəqiq olaraq nə çap edir?\n\nfrom dataclasses import dataclass\nfrom typing import TypedDict\n\nclass Config(TypedDict):\n    device_id: str\n    enabled: bool\n\n@dataclass(slots=True)\nclass Sensor:\n    name: str\n    value: float\n\ndef label(sensor: Sensor, unit: str | None = None) -> str:\n    suffix = f' {unit}' if unit else ''\n    return f'{sensor.name}: {sensor.value}{suffix}'\n\nconfig: Config = {'device_id': 'sensor-1', 'enabled': True}\nprint(label(Sensor(config['device_id'], 21.5), 'C'))",
+      "options": [
+        "value=7",
+        "sensor-1: 21.5 C",
+        "temperature: unknown",
+        "SENSOR-1: 21.5 c"
+      ],
+      "answer": "sensor-1: 21.5 C",
+      "explanation": "SƏTİR-SƏTİR İZAH\n`from dataclasses import dataclass` — Moduldan konkret adları gətirir; sətir olmasa idxal edilən ad əlçatan olmaz.\n`from typing import TypedDict` — Moduldan konkret adları gətirir; sətir olmasa idxal edilən ad əlçatan olmaz.\n`class Config(TypedDict):` — Əlaqəli məlumat və davranış üçün yeni tip yaradır; sinif olmasa nümunə obyektini həmin müqavilə ilə yaratmaq olmaz.\n`device_id: str` — Dəyəri ada bağlayır, annotasiya isə tipi oxucuya və statik alətə bildirir; annotasiya runtime yoxlaması etmir.\n`enabled: bool` — Dəyəri ada bağlayır, annotasiya isə tipi oxucuya və statik alətə bildirir; annotasiya runtime yoxlaması etmir.\n`@dataclass(slots=True)` — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n`class Sensor:` — Əlaqəli məlumat və davranış üçün yeni tip yaradır; sinif olmasa nümunə obyektini həmin müqavilə ilə yaratmaq olmaz.\n`name: str` — Dəyəri ada bağlayır, annotasiya isə tipi oxucuya və statik alətə bildirir; annotasiya runtime yoxlaması etmir.\n`value: float` — Dəyəri ada bağlayır, annotasiya isə tipi oxucuya və statik alətə bildirir; annotasiya runtime yoxlaması etmir.\n`def label(sensor: Sensor, unit: str | None = None) -> str:` — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n`suffix = f' {unit}' if unit else ''` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`return f'{sensor.name}: {sensor.value}{suffix}'` — Nəticəni çağırana verir; return olmasa funksiya adətən None qaytarar və endpoint cavabı itər.\n`config: Config = {'device_id': 'sensor-1', 'enabled': True}` — Dəyəri ada bağlayır, annotasiya isə tipi oxucuya və statik alətə bildirir; annotasiya runtime yoxlaması etmir.\n`print(label(Sensor(config['device_id'], 21.5), 'C'))` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_types",
+      "type": "multiple_choice",
+      "prompt": "Bu dərsdəki 2-ci kod nümunəsi dəqiq olaraq nə çap edir?\n\nfrom typing import Protocol\n\nclass HasValue(Protocol):\n    @property\n    def value(self) -> int: ...\n\ndef describe(item: HasValue) -> str:\n    return f'value={item.value}'\n\nclass Sample:\n    value = 7\n\nprint(describe(Sample()))",
+      "options": [
+        "sensor-1: 21.5 C",
+        "temperature: unknown",
+        "value=7",
+        "VALUE=7"
+      ],
+      "answer": "value=7",
+      "explanation": "SƏTİR-SƏTİR İZAH\n`from typing import Protocol` — Moduldan konkret adları gətirir; sətir olmasa idxal edilən ad əlçatan olmaz.\n`class HasValue(Protocol):` — Əlaqəli məlumat və davranış üçün yeni tip yaradır; sinif olmasa nümunə obyektini həmin müqavilə ilə yaratmaq olmaz.\n`@property` — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n`def value(self) -> int: ...` — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n`def describe(item: HasValue) -> str:` — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n`return f'value={item.value}'` — Nəticəni çağırana verir; return olmasa funksiya adətən None qaytarar və endpoint cavabı itər.\n`class Sample:` — Əlaqəli məlumat və davranış üçün yeni tip yaradır; sinif olmasa nümunə obyektini həmin müqavilə ilə yaratmaq olmaz.\n`value = 7` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`print(describe(Sample()))` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_types",
+      "type": "multiple_choice",
+      "prompt": "Bu dərsdəki 3-ci kod nümunəsi dəqiq olaraq nə çap edir?\n\ndef label(name: str, unit: str | None = None) -> str:\n    return f'{name}: {unit or \"unknown\"}'\n\nprint(label('temperature'))",
+      "options": [
+        "TEMPERATURE: UNKNOWN",
+        "value=7",
+        "sensor-1: 21.5 C",
+        "temperature: unknown"
+      ],
+      "answer": "temperature: unknown",
+      "explanation": "SƏTİR-SƏTİR İZAH\n`def label(name: str, unit: str | None = None) -> str:` — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n`return f'{name}: {unit or \"unknown\"}'` — Nəticəni çağırana verir; return olmasa funksiya adətən None qaytarar və endpoint cavabı itər.\n`print(label('temperature'))` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_types",
+      "type": "multiple_choice",
+      "prompt": "“Tip göstərişləri və dataclass” mövzusunu dəqiq təsvir edən fikir hansıdır?",
+      "options": [
+        "Tiplər proqramın rəqəmi, mətni və kolleksiyanı necə emal etdiyini müəyyənləşdirir.",
+        "Müasir annotasiyalar `list[str]`, `str | None`, `TypedDict` və `Protocol` kimi müqavilələri göstərir; Python adi icrada onları yoxlamır.",
+        "Ədədi çevirmə istifadəçi girişini hesablama üçün hazırlayır, lakin çevirmənin yuvarlaqlaşdırma və dəqiqlik nəticələrini bilmək lazımdır.",
+        "Funksiyalar işi adlandırılmış, təkrar istifadə edilən hissələrə bölür; tətbiqlərdə eyni qaydanı bir neçə yerdə etibarlı şəkildə işlətməyə kömək edir."
+      ],
+      "answer": "Müasir annotasiyalar `list[str]`, `str | None`, `TypedDict` və `Protocol` kimi müqavilələri göstərir; Python adi icrada onları yoxlamır.",
+      "explanation": "Müasir annotasiyalar `list[str]`, `str | None`, `TypedDict` və `Protocol` kimi müqavilələri göstərir; Python adi icrada onları yoxlamır. Pyright və ya mypy kimi statik analizatorlar annotasiyaları təhlil edir. `Protocol` konkret inheritance tələb etmədən uyğun metodu olan obyektləri təsvir edir; `TypedDict` isə dict açarlarının gözlənilən quruluşunu bildirir. Xarici məlumatı yenə Pydantic kimi runtime validatorla yoxlayın."
+    }
+  ]
+}

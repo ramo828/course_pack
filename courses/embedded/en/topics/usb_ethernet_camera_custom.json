@@ -1,0 +1,53 @@
+{
+  "id": "usb_ethernet_camera_custom",
+  "title": "USB Ethernet, cameras, and custom host drivers",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb_host.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/usb_host.html",
+    "https://www.usb.org/defined-class-codes"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Plugging in a USB device is not enough: host software needs a driver for its USB class and enough memory and processing capacity.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "HOW IT WORKS\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "USB flash drives need MSC plus a filesystem driver; wired networking needs a driver for the adapter's class (for example CDC-ECM/RNDIS); webcams need a USB Video Class (UVC) driver. Arduino-ESP32 TinyUSB host documents HID keyboard/mouse/gamepad, CDC serial, and MSC—this does not mean every Ethernet adapter or webcam works out of the box. Unsupported classes require a class driver using ESP-IDF USB Host or TinyUSB, including descriptors, endpoints, transfers, and class protocol.\n\nCamera streams consume substantial RAM and bandwidth; a DVP camera board such as ESP32-CAM is often simpler. USB Ethernet needs driver and network-stack integration. Check VID/PID and class descriptors, then test a matching board and driver example before choosing hardware.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "// USBHost TinyUSB examples cover HID, CDC serial, and MSC.\n// Ethernet adapters and cameras need a matching class driver.\n// Confirm the USB class descriptor before selecting hardware.\nvoid setup() {\n  Serial.begin(115200);\n  if (!USBHost.begin()) {\n    Serial.println(\"Check OTG board setup and host VBUS power\");\n  }\n}\n\nvoid loop() {\n  USBHost.task();  // Dispatch supported host-class events.\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "USB Ethernet, cameras, and custom host drivers"
+    },
+    {
+      "type": "warning",
+      "title": "Important safety and compatibility note",
+      "text": "Without a class driver, a USB Ethernet adapter or camera may enumerate but still provide no usable data. Verify S2/S3 host power, DMA/RAM budget, and network/camera support; the original ESP32 is not a USB host."
+    }
+  ],
+  "testId": "embedded_test_usb_ethernet_camera_custom_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

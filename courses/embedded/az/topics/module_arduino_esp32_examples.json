@@ -1,0 +1,47 @@
+{
+  "id": "module_arduino_esp32_examples",
+  "title": "Arduino IDE və ESP32 nümunələrini tapmaq və yoxlamaq",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/built-in-examples/",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/examples.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Arduino IDE-də File → Examples bölməsi quraşdırılmış kitabxana və lövhə nümunələrini göstərir. Arduino nümunələrindən Blink, Button, AnalogReadSerial və Wire.begin yoxlamaq üçün yaxşı başlanğıcdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ESP32 Arduino nüvə quraşdırıldıqdan sonra File → Examples → ESP32 nümunələrində GPIO, WiFiScan, Preferences və Deep Sleep mövzularını seçin. ESP-IDF nümunələri isə ayrı layihə və build sistemi ilə işləyir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Nümunəni açın, lövhəni və portu seçin, pin/kitabxana tələblərini oxuyun və əvvəlcə dəyişmədən yükləyin. UNO üçün LED_BUILTIN, ESP32 üçün isə lövhənin öz LED pinini yoxlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_examples_flow",
+      "caption": "Arduino IDE və ESP32 nümunələrini tapmaq və yoxlamaq"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#if defined(ARDUINO_ARCH_ESP32)\nconst int ledPin = 2;  // Check your board's LED pin.\n#else\nconst int ledPin = LED_BUILTIN;\n#endif\n\nvoid setup() {\n  pinMode(ledPin, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(ledPin, HIGH);\n  delay(500);\n  digitalWrite(ledPin, LOW);\n  delay(500);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib təhlükəsizlik qeydi",
+      "text": "Bütün lövhələrdə eyni LED GPIO, Wi-Fi və periferik imkanlar olmur. Kodu kitabxana versiyasına və seçilmiş lövhəyə uyğunlaşdırın."
+    }
+  ],
+  "testId": "embedded_test_module_arduino_esp32_examples_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

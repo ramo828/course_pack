@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_async_tr",
+  "title": "asyncio ve asenkron I/O",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_async",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 1. kod örneği tam olarak ne yazdırır?\n\nimport asyncio\n\nasync def read_sensor(name: str, gate: asyncio.Semaphore) -> str:\n    async with gate:\n        await asyncio.sleep(0)\n        return f'{name}:ready'\n\nasync def main() -> None:\n    gate = asyncio.Semaphore(2)\n    results = await asyncio.gather(\n        read_sensor('temperature', gate),\n        read_sensor('humidity', gate),\n    )\n    print(results)\n\nasyncio.run(main())",
+      "options": [
+        "['temperature:ready']",
+        "['temperature:ready', 'humidity:ready']",
+        "operation timed out",
+        "['A', 'B']"
+      ],
+      "answer": "['temperature:ready', 'humidity:ready']",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`import asyncio` — Modül işlevini getirir; satır olmazsa ad kullanılamaz ve NameError oluşabilir.\n`async def read_sensor(name: str, gate: asyncio.Semaphore) -> str:` — I/O bekleyebilen coroutine oluşturur; tanım ve await eden kod yoksa asenkron iş başlamaz.\n`async with gate:` — Kaynağı blok boyunca yönetir; bağlam yöneticisi olmazsa dosya veya bağlantı açık kalabilir.\n`await asyncio.sleep(0)` — Coroutine'u askıya alıp event loop'un başka görevleri çalıştırmasına fırsat verir; sıfır gecikme gerçek süreli bir bekleme değildir.\n`return f'{name}:ready'` — Sonucu çağırana verir; return olmazsa fonksiyon çoğunlukla None döndürür.\n`async def main() -> None:` — I/O bekleyebilen coroutine oluşturur; tanım ve await eden kod yoksa asenkron iş başlamaz.\n`gate = asyncio.Semaphore(2)` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`results = await asyncio.gather(` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`read_sensor('temperature', gate),` — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n`read_sensor('humidity', gate),` — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n`)` — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n`print(results)` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`asyncio.run(main())` — Bir event loop oluşturur, coroutine tamamlanana kadar çalıştırır ve ardından loop'u kapatır."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_async",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 2. kod örneği tam olarak ne yazdırır?\n\nimport asyncio\n\nasync def main() -> None:\n    try:\n        await asyncio.wait_for(asyncio.sleep(1), timeout=0.01)\n    except TimeoutError:\n        print('operation timed out')\n\nasyncio.run(main())",
+      "options": [
+        "OPERATION TIMED OUT",
+        "['A', 'B']",
+        "operation timed out",
+        "['temperature:ready', 'humidity:ready']"
+      ],
+      "answer": "operation timed out",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`import asyncio` — Modül işlevini getirir; satır olmazsa ad kullanılamaz ve NameError oluşabilir.\n`async def main() -> None:` — I/O bekleyebilen coroutine oluşturur; tanım ve await eden kod yoksa asenkron iş başlamaz.\n`try:` — Hata olabilecek bölümü ayırır; işleyici olmazsa beklenen hata çağırana taşınabilir.\n`await asyncio.wait_for(asyncio.sleep(1), timeout=0.01)` — Coroutine'u belirtilen süre boyunca askıya alır; event loop bu sırada başka görevleri çalıştırabilir. Bu bir ağ I/O işlemi değildir.\n`except TimeoutError:` — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n`print('operation timed out')` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`asyncio.run(main())` — Bir event loop oluşturur, coroutine tamamlanana kadar çalıştırır ve ardından loop'u kapatır."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_async",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 3. kod örneği tam olarak ne yazdırır?\n\nimport asyncio\n\nasync def read(name: str) -> str:\n    await asyncio.sleep(0)\n    return name\n\nasync def main() -> None:\n    print(await asyncio.gather(read('A'), read('B')))\n\nasyncio.run(main())",
+      "options": [
+        "['A']",
+        "['temperature:ready', 'humidity:ready']",
+        "operation timed out",
+        "['A', 'B']"
+      ],
+      "answer": "['A', 'B']",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`import asyncio` — Modül işlevini getirir; satır olmazsa ad kullanılamaz ve NameError oluşabilir.\n`async def read(name: str) -> str:` — I/O bekleyebilen coroutine oluşturur; tanım ve await eden kod yoksa asenkron iş başlamaz.\n`await asyncio.sleep(0)` — Coroutine'u askıya alıp event loop'un başka görevleri çalıştırmasına fırsat verir; sıfır gecikme gerçek süreli bir bekleme değildir.\n`return name` — Sonucu çağırana verir; return olmazsa fonksiyon çoğunlukla None döndürür.\n`async def main() -> None:` — I/O bekleyebilen coroutine oluşturur; tanım ve await eden kod yoksa asenkron iş başlamaz.\n`print(await asyncio.gather(read('A'), read('B')))` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`asyncio.run(main())` — Bir event loop oluşturur, coroutine tamamlanana kadar çalıştırır ve ardından loop'u kapatır."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_async",
+      "type": "multiple_choice",
+      "prompt": "“asyncio ve asenkron I/O” konusunu doğru tanımlayan ifade hangisidir?",
+      "options": [
+        "asyncio tek iş parçacığında event loop ile I/O bekleyen görevleri sırayla ilerletir.",
+        "HTTP isteğinde durum kodu, yanıt başlıkları ve gövdeyi ayrı denetleyin.",
+        "FastAPI, Python tür açıklamalarını kullanan bir ASGI web çatısıdır; HTTP uç noktaları ve JSON API'leri oluşturmak için kullanılır.",
+        "FastAPI, web ve mobil uygulamaların HTTP üzerinden veri alışverişi yaptığı JSON API'leri kurar; tür açıklamaları girdileri doğrulamaya ve API sözleşmesini belgelemeye yardımcı olur."
+      ],
+      "answer": "asyncio tek iş parçacığında event loop ile I/O bekleyen görevleri sırayla ilerletir.",
+      "explanation": "asyncio tek iş parçacığında event loop ile I/O bekleyen görevleri sırayla ilerletir. `async def` coroutine oluşturur, `await` kontrolü loop'a verir; `gather` sonuçları giriş sırasıyla döndürür, Semaphore eşzamanlı işi sınırlar. Bloklayan I/O ve CPU yoğun iş loop'u durdurur; timeout, iptal ve görev ömrünü tasarlayın. CPU paralelliği için process pool veya uygun executor kullanın."
+    }
+  ]
+}

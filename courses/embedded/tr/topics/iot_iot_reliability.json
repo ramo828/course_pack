@@ -1,0 +1,160 @@
+{
+  "id": "iot_iot_reliability",
+  "title": "Çevrimdışı kip, retry ve telemetri",
+  "difficulty": "medium",
+  "testId": "iot_test_iot_reliability_tr",
+  "sources": [
+    "https://www.rfc-editor.org/rfc/rfc6298.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Çevrimdışı kip, retry ve telemetri” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Backoff yinelenen denemelerin yükünü azaltır. Gerçek projede şu öneriyi izleyin: Jitter kullanmak çok sayıda cihazın aynı anda sunucuya dönmesini önler.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nunsigned long retryDelayMs = 1000;\nconst unsigned long maximumDelayMs = 60000;\nvoid setup() { Serial.begin(115200); }\nvoid loop() {\n    Serial.print(\"retry in ms: \");\n    Serial.println(retryDelayMs);\n    delay(retryDelayMs);\n    retryDelayMs = min(retryDelayMs * 2UL, maximumDelayMs);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "İlk yeniden deneme 1000 ms sonra yapılır; üretim backoff'u üst sınır ve rastgele jitter içermelidir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ağ kesildiğinde veriyi sınırlı kuyrukta tutup gecikmeli yeniden bağlanmayı deneyebilir ve yinelenen iletiyi idempotent işleyebilirsiniz. Sensör kalitesi, son bağlantı ve hata sayısını izleyen sağlık sinyalları ekleyin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { Serial.begin(115200); }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Backoff yinelenen denemelerin yükünü azaltır.\nNeden seçildi: Jitter kullanmak çok sayıda cihazın aynı anda sunucuya dönmesini önler.\nAtlanır veya değiştirilirse: Jitter kullanmak çok sayıda cihazın aynı anda sunucuya dönmesini önler.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: Jitter kullanmak çok sayıda cihazın aynı anda sunucuya dönmesini önler."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Backoff yinelenen denemelerin yükünü azaltır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Jitter kullanmak çok sayıda cihazın aynı anda sunucuya dönmesini önler."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nunsigned long delayMs = 1000;\nvoid setup() { Serial.begin(115200); }\nvoid loop() { Serial.println(delayMs); delay(delayMs); delayMs = min(delayMs * 2UL, 60000UL); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yeniden deneme aralığı 60 saniye sınırına kadar artar; cihaz grupları için jitter ekleyin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Sensör kalitesi, son bağlantı ve hata sayısını izleyen sağlık sinyalları ekleyin."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Pinler, gerilim/akım sınırları, zamanlama ve çevre birimleri karta bağlıdır; bağlantı veya yükleme öncesinde kart belgesini doğrulayın."
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "Cihaz ölçümü ağ geçidi/broker üzerinden servise iletir; komut ters yönde dönebilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_sync_tr",
+  "title": "Binary semaphore, mutex ve deadlock",
+  "questions": [
+    {
+      "id": "freertos_freertos_sync_1",
+      "topicId": "freertos_freertos_sync",
+      "type": "multiple_choice",
+      "prompt": "“Binary semaphore, mutex ve deadlock” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "Mutex kısa kritik bölümü korur; queue değer taşır, aynı işi yapmazlar.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "Mutex kısa kritik bölümü korur; queue değer taşır, aynı işi yapmazlar.",
+      "explanation": "Mutex kısa kritik bölümü korur; queue değer taşır, aynı işi yapmazlar.\nAçıklama: Semaphore olay bildirimi veya kaynak sayısını koordine eder; mutex ise paylaşılan değiştirilebilir kaynağı korur ve sahiplik/öncelik miraslama anlamı taşır. Mutex'i kısa tutun, bloklayan I/O sırasında bırakın ve tüm görevlerde aynı lock sırasını kullanın. Böylece deadlock ve priority inversion riski azalır; ISR içinde mutex alınmaz."
+    },
+    {
+      "id": "freertos_freertos_sync_2",
+      "topicId": "freertos_freertos_sync",
+      "type": "multiple_choice",
+      "prompt": "“Binary semaphore, mutex ve deadlock” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Paylaşılan veriye erişmeden önce mutex alın; her başarılı take için tüm çıkış yollarında give çağırın.",
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir."
+      ],
+      "answer": "Paylaşılan veriye erişmeden önce mutex alın; her başarılı take için tüm çıkış yollarında give çağırın.",
+      "explanation": "Paylaşılan veriye erişmeden önce mutex alın; her başarılı take için tüm çıkış yollarında give çağırın.\nAçıklama: Semaphore olay bildirimi veya kaynak sayısını koordine eder; mutex ise paylaşılan değiştirilebilir kaynağı korur ve sahiplik/öncelik miraslama anlamı taşır. Mutex'i kısa tutun, bloklayan I/O sırasında bırakın ve tüm görevlerde aynı lock sırasını kullanın. Böylece deadlock ve priority inversion riski azalır; ISR içinde mutex alınmaz."
+    },
+    {
+      "id": "freertos_freertos_sync_3",
+      "topicId": "freertos_freertos_sync",
+      "type": "multiple_choice",
+      "prompt": "“Binary semaphore, mutex ve deadlock” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Semaphore olay bildirimi veya kaynak sayısını koordine eder; mutex ise paylaşılan değiştirilebilir kaynağı korur ve sahiplik/öncelik miraslama anlamı taşır"
+      ],
+      "answer": "Semaphore olay bildirimi veya kaynak sayısını koordine eder; mutex ise paylaşılan değiştirilebilir kaynağı korur ve sahiplik/öncelik miraslama anlamı taşır",
+      "explanation": "Semaphore olay bildirimi veya kaynak sayısını koordine eder; mutex ise paylaşılan değiştirilebilir kaynağı korur ve sahiplik/öncelik miraslama anlamı taşır\nAçıklama: Semaphore olay bildirimi veya kaynak sayısını koordine eder; mutex ise paylaşılan değiştirilebilir kaynağı korur ve sahiplik/öncelik miraslama anlamı taşır. Mutex'i kısa tutun, bloklayan I/O sırasında bırakın ve tüm görevlerde aynı lock sırasını kullanın. Böylece deadlock ve priority inversion riski azalır; ISR içinde mutex alınmaz."
+    },
+    {
+      "id": "freertos_freertos_sync_4",
+      "topicId": "freertos_freertos_sync",
+      "type": "multiple_choice",
+      "prompt": "“Binary semaphore, mutex ve deadlock” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.",
+        "Lock'u bırakmayı unutmak görevleri kalıcı olarak bloklayabilir; hata ve erken dönüş yollarını inceleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır."
+      ],
+      "answer": "Lock'u bırakmayı unutmak görevleri kalıcı olarak bloklayabilir; hata ve erken dönüş yollarını inceleyin.",
+      "explanation": "Lock'u bırakmayı unutmak görevleri kalıcı olarak bloklayabilir; hata ve erken dönüş yollarını inceleyin.\nAçıklama: Semaphore olay bildirimi veya kaynak sayısını koordine eder; mutex ise paylaşılan değiştirilebilir kaynağı korur ve sahiplik/öncelik miraslama anlamı taşır. Mutex'i kısa tutun, bloklayan I/O sırasında bırakın ve tüm görevlerde aynı lock sırasını kullanın. Böylece deadlock ve priority inversion riski azalır; ISR içinde mutex alınmaz."
+    }
+  ]
+}

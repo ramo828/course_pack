@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_background_tr",
+  "title": "Arka plan görevleri",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_background",
+      "type": "multiple_choice",
+      "prompt": "Bu gerçek HTTP isteğine API nasıl yanıt vermelidir?\nPOST /notify?message=saved",
+      "options": [
+        "Yanıt 200 `{accepted:true}` döndürür; arka plan kaydı yanıttan sonra başlar ve yalnızca demo belleğindedir.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin."
+      ],
+      "answer": "Yanıt 200 `{accepted:true}` döndürür; arka plan kaydı yanıttan sonra başlar ve yalnızca demo belleğindedir.",
+      "explanation": "Bu, `POST /notify?message=saved` isteğinin beklenen davranışıdır. Yanıt 200 `{accepted:true}` döndürür; arka plan kaydı yanıttan sonra başlar ve yalnızca demo belleğindedir."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_background",
+      "type": "multiple_choice",
+      "prompt": "Bu konuda hangi tasarım ilkesi doğrudur?",
+      "options": [
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "`BackgroundTasks` yanıttan sonra kısa işi başlatır, ancak kalıcı kuyruk ve yeniden deneme sağlamaz.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin."
+      ],
+      "answer": "`BackgroundTasks` yanıttan sonra kısa işi başlatır, ancak kalıcı kuyruk ve yeniden deneme sağlamaz.",
+      "explanation": "`BackgroundTasks` yanıttan sonra kısa işi başlatır, ancak kalıcı kuyruk ve yeniden deneme sağlamaz. Ayrı bir worker kuyruğu uzun işleri yeniden deneme, izleme ve hız kontrolüyle yönetebilir; bunlar `BackgroundTasks` ile otomatik gelmez."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_background",
+      "type": "multiple_choice",
+      "prompt": "Derste gösterilen önemli bölüm çıkarılırsa ne değişir?",
+      "options": [
+        "Hafif ek işi istek içinde eşzamanlı yaparsanız istemci yanıtı gereksiz gecikebilir.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin."
+      ],
+      "answer": "Hafif ek işi istek içinde eşzamanlı yaparsanız istemci yanıtı gereksiz gecikebilir.",
+      "explanation": "Hafif ek işi istek içinde eşzamanlı yaparsanız istemci yanıtı gereksiz gecikebilir. FastAPI `BackgroundTasks`, yanıt gönderildikten sonra aynı süreçte kısa bir iş planlar; örneğin hafif bir bildirim kaydı. Uzun ve güvenilir işler kuyruk sistemine taşınmalıdır. Örnek bir demo listesine yazar; süreç belleği kalıcı depolama değildir."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_background",
+      "type": "multiple_choice",
+      "prompt": "Dersteki yaygın hatayı önlemek için hangi adım daha doğrudur?",
+      "options": [
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "`BackgroundTasks`'ı kısa işler için kullanın; yanıtta istemciye işin kabul edildiğini bildirin."
+      ],
+      "answer": "`BackgroundTasks`'ı kısa işler için kullanın; yanıtta istemciye işin kabul edildiğini bildirin.",
+      "explanation": "`BackgroundTasks`'ı kısa işler için kullanın; yanıtta istemciye işin kabul edildiğini bildirin. Kullanıcı için kritik e-posta, ödeme veya veri kaybı riski taşıyan işleri yalnızca süreç içi arka plan çağrısına bırakmayın."
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_isr_en",
+  "title": "Passing events safely from an ISR",
+  "questions": [
+    {
+      "id": "freertos_freertos_isr_1",
+      "topicId": "freertos_freertos_isr",
+      "type": "multiple_choice",
+      "prompt": "Which statement gives the core rule for “Passing events safely from an ISR”?",
+      "options": [
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU.",
+        "Each task consumes stack; priority affects scheduler choices.",
+        "A queue moves the event to a task, which can do longer work without blocking interrupts."
+      ],
+      "answer": "A queue moves the event to a task, which can do longer work without blocking interrupts.",
+      "explanation": "A queue moves the event to a task, which can do longer work without blocking interrupts.\nWhy: An interrupt service routine (ISR) reacts to hardware events and should do only short, non-blocking work. FreeRTOS `FromISR` APIs can send a queue item or notification; move sensor reads, logging, and protocol work to a task. The correct ISR API, IRAM placement, and pin interrupt support depend on the target and board."
+    },
+    {
+      "id": "freertos_freertos_isr_2",
+      "topicId": "freertos_freertos_isr",
+      "type": "multiple_choice",
+      "prompt": "When applying “Passing events safely from an ISR” in a project, which action is recommended?",
+      "options": [
+        "Do not call delay, take a mutex, allocate dynamically, or perform long Serial output in an ISR.",
+        "An infinite task should block or wait periodically so it does not monopolize the CPU.",
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU."
+      ],
+      "answer": "Do not call delay, take a mutex, allocate dynamically, or perform long Serial output in an ISR.",
+      "explanation": "Do not call delay, take a mutex, allocate dynamically, or perform long Serial output in an ISR.\nWhy: An interrupt service routine (ISR) reacts to hardware events and should do only short, non-blocking work. FreeRTOS `FromISR` APIs can send a queue item or notification; move sensor reads, logging, and protocol work to a task. The correct ISR API, IRAM placement, and pin interrupt support depend on the target and board."
+    },
+    {
+      "id": "freertos_freertos_isr_3",
+      "topicId": "freertos_freertos_isr",
+      "type": "multiple_choice",
+      "prompt": "Which implementation detail matters in the “Passing events safely from an ISR” example?",
+      "options": [
+        "Task stack sizes consume RAM and must fit the selected target's budget.",
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU.",
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "An interrupt service routine (ISR) reacts to hardware events and should do only short, non-blocking work"
+      ],
+      "answer": "An interrupt service routine (ISR) reacts to hardware events and should do only short, non-blocking work",
+      "explanation": "An interrupt service routine (ISR) reacts to hardware events and should do only short, non-blocking work\nWhy: An interrupt service routine (ISR) reacts to hardware events and should do only short, non-blocking work. FreeRTOS `FromISR` APIs can send a queue item or notification; move sensor reads, logging, and protocol work to a task. The correct ISR API, IRAM placement, and pin interrupt support depend on the target and board."
+    },
+    {
+      "id": "freertos_freertos_isr_4",
+      "topicId": "freertos_freertos_isr",
+      "type": "multiple_choice",
+      "prompt": "Which additional constraint or condition should be checked for “Passing events safely from an ISR”?",
+      "options": [
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "Serial output from multiple tasks may interleave; serialize shared output and measure stack use.",
+        "Buttons bounce; define debounce and full-queue behavior on real hardware.",
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU."
+      ],
+      "answer": "Buttons bounce; define debounce and full-queue behavior on real hardware.",
+      "explanation": "Buttons bounce; define debounce and full-queue behavior on real hardware.\nWhy: An interrupt service routine (ISR) reacts to hardware events and should do only short, non-blocking work. FreeRTOS `FromISR` APIs can send a queue item or notification; move sensor reads, logging, and protocol work to a task. The correct ISR API, IRAM placement, and pin interrupt support depend on the target and board."
+    }
+  ]
+}

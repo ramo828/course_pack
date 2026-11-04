@@ -1,0 +1,52 @@
+{
+  "id": "iot_aiot_edge",
+  "title": "What is AIoT and why use it?",
+  "difficulty": "medium",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://www.tensorflow.org/lite/microcontrollers",
+    "https://ai.google.dev/edge/litert/microcontrollers/overview"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "IoT devices connect to a network and send data. AIoT (Artificial Intelligence of Things) adds machine-learning decisions: a device can interpret sensor readings instead of only forwarding them. For example, a microphone can recognize a simple clap locally, or a vibration sensor can flag a pattern that may indicate a machine problem.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "How it works\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Why use it? Local decisions are faster, can work without internet, and may avoid sending raw audio or personal data to the cloud. Cloud inference uses a powerful remote computer and keeps the device simple; edge AI runs the model on the device or a nearby gateway. A small ESP32 needs a small model and a narrowly defined task.\n\nExamples include estimating room occupancy, spotting unusual vibration, recognizing a sound event, or detecting signs of a dry plant. A model output is a prediction, not a guarantee. Keep ordinary limits and a safe fallback for important controls.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Example code\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "sensor data -> small local model -> prediction\nif prediction is reliable:\n    take a safe action\nelse:\n    keep the safe default\nsend summary to cloud when useful",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_aiot_architecture",
+      "caption": "Diagram: What is AIoT and why use it?"
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Do not let AIoT control a safety-critical function by itself. Models can be wrong; define confidence limits, ordinary sensor checks, and a fallback first."
+    }
+  ],
+  "testId": "iot_test_aiot_edge_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

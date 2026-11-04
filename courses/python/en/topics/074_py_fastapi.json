@@ -1,0 +1,86 @@
+{
+  "id": "python_py_fastapi",
+  "title": "Typed HTTP APIs with FastAPI",
+  "difficulty": "hard",
+  "testId": "python_test_py_fastapi_en",
+  "sources": [
+    "https://docs.python.org/3/tutorial/",
+    "https://docs.python.org/3/using/",
+    "https://docs.python.org/3/library/",
+    "https://docs.python.org/3/library/turtle.html",
+    "https://docs.python.org/3/library/tkinter.html",
+    "https://fastapi.tiangolo.com/tutorial/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI is an ASGI web framework that uses Python type annotations to build HTTP endpoints and JSON APIs. Pydantic models validate request and response data, path/query/body parameters reach endpoint functions, and OpenAPI schemas can produce interactive documentation. FastAPI is server-side infrastructure called by other programs over a network, not a desktop GUI.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI\nfrom pydantic import BaseModel\n\napp = FastAPI()\n\nclass Item(BaseModel):\n    name: str\n    price: float\n\n@app.post('/items')\nasync def create_item(item: Item):\n    return {'name': item.name, 'price': item.price}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "The server defines POST /items. A valid request returns JSON such as {\"name\":\"pen\",\"price\":1.5}; starting the server itself does not call the endpoint.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The Pydantic model validates the JSON body; FastAPI can derive an OpenAPI description and interactive API docs from it.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Include status codes, validation, and error responses in the API contract; interactive docs do not replace authentication or authorization."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Production requires explicit HTTPS, authentication/authorization, secret management, rate limits, and request-size limits."
+    },
+    {
+      "type": "diagram",
+      "id": "fastapi_request",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
+}

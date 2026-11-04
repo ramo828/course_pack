@@ -1,0 +1,90 @@
+{
+  "id": "cpp_string_char_buffer",
+  "title": "String, char[] ve char*: metin için hangisi?",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/variables/data-types/string/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Arduino ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", değişken metin için pratiktir. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "char[]",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " sabit boyutlu tampondur; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "char*",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " işaretçidir ve kendi başına bellek ayırmaz. Metin sabitlerini değiştirilemediği için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "const char*",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olarak tutun. C metin tamponu ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "\\0",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile biter; boyut ve sınır korunmalıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const char* label = \"ready\";\nchar message[16] = \"sensor\";\nstrncpy(message, label, sizeof(message) - 1);\nmessage[sizeof(message) - 1] = '\\0';\n\nString friendly = \"ready\";\nfriendly += \"!\";\nSerial.println(friendly);",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "UNO gibi az RAM'li AVR'de sık dinamik `String` birleştirme heap parçalanmasına yol açabilir; sabit tampon ve `snprintf` uygun olabilir. ESP32'de de ayırma, ömür ve sınır riskleri sürer."
+    }
+  ],
+  "testId": "embedded_test_cpp_string_char_buffer_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

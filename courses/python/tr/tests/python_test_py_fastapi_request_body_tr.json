@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_request_body_tr",
+  "title": "İstek gövdesi ve Pydantic modeli",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_request_body",
+      "type": "multiple_choice",
+      "prompt": "Bu gerçek HTTP isteğine API nasıl yanıt vermelidir?\nPOST /users  body={\"email\":\"ada@example.com\",\"age\":20}",
+      "options": [
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "200 OK; JSON: {\"email\":\"ada@example.com\",\"age\":20}"
+      ],
+      "answer": "200 OK; JSON: {\"email\":\"ada@example.com\",\"age\":20}",
+      "explanation": "Bu, `POST /users  body={\"email\":\"ada@example.com\",\"age\":20}` isteğinin beklenen davranışıdır. 200 OK; JSON: {\"email\":\"ada@example.com\",\"age\":20}"
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_request_body",
+      "type": "multiple_choice",
+      "prompt": "Bu konuda hangi tasarım ilkesi doğrudur?",
+      "options": [
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "Pydantic modeli JSON gövdesini Python alanlarına dönüştürür ve uç noktadan önce uyumsuz veriyi reddeder.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin."
+      ],
+      "answer": "Pydantic modeli JSON gövdesini Python alanlarına dönüştürür ve uç noktadan önce uyumsuz veriyi reddeder.",
+      "explanation": "Pydantic modeli JSON gövdesini Python alanlarına dönüştürür ve uç noktadan önce uyumsuz veriyi reddeder. Pydantic v2'de `str | None` alanın null olabileceğini, `= None` ise gönderilmeyebileceğini belirtir; tür ve zorunluluk ayrı kararlardır."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_request_body",
+      "type": "multiple_choice",
+      "prompt": "Derste gösterilen önemli bölüm çıkarılırsa ne değişir?",
+      "options": [
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Body modelini kaldırmak girdi biçimini belgesiz ve tekrarlanan el denetimlerine bağımlı yapar."
+      ],
+      "answer": "Body modelini kaldırmak girdi biçimini belgesiz ve tekrarlanan el denetimlerine bağımlı yapar.",
+      "explanation": "Body modelini kaldırmak girdi biçimini belgesiz ve tekrarlanan el denetimlerine bağımlı yapar. POST/PUT istekleri yeni veya güncellenen veriyi çoğunlukla JSON gövdesinde taşır. Pydantic modeli alan türlerini ve kısıtlarını tek yerde tanımlar; FastAPI gövdeyi okuyup modeli doğruladıktan sonra uç noktayı çağırır."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_request_body",
+      "type": "multiple_choice",
+      "prompt": "Dersteki yaygın hatayı önlemek için hangi adım daha doğrudur?",
+      "options": [
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Beklenen gövdeyi `/docs` içinde gönderin, sonra bir alanı silip otomatik 422 yanıtını gözlemleyin."
+      ],
+      "answer": "Beklenen gövdeyi `/docs` içinde gönderin, sonra bir alanı silip otomatik 422 yanıtını gözlemleyin.",
+      "explanation": "Beklenen gövdeyi `/docs` içinde gönderin, sonra bir alanı silip otomatik 422 yanıtını gözlemleyin. İstemcinin gönderdiği değeri güvenilir saymayın. Model doğrulaması iş kurallarını, yetkilendirmeyi veya gizli veriyi korumayı kapsamaz."
+    }
+  ]
+}

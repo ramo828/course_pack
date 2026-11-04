@@ -1,0 +1,73 @@
+{
+  "id": "bluetooth_ble_gatt_sensor",
+  "title": "BLE GATT sensori: xidmət, xüsusiyyət və bildiriş",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://github.com/h2zero/NimBLE-Arduino",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/bluetooth/nimble/index.html",
+    "https://www.bluetooth.com/specifications/specs/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "BLE batareya ilə işləyən sensorun kiçik məlumatı az enerji ilə telefona ötürməsinə uyğundur. Məlumatın quruluşunu GATT xidmətləri və xüsusiyyətləri müəyyən edir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NECƏ İŞLƏYİR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu nümunə BLE Peripheral kimi xidmət yaradır. Telefon Central rolunda ona qoşulur, "
+    },
+    {
+      "type": "text",
+      "text": "read",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ilə cari qiyməti ala və "
+    },
+    {
+      "type": "text",
+      "text": "notify",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ilə yeni ölçü gələndə xəbər tuta bilər. NimBLE-Arduino Arduino IDE-də Library Manager-dən quraşdırılır və ESP32, S3, C3, C6 kimi BLE modellərini dəstəkləyir; ESP-IDF layihəsində eyni Arduino kitabxanası deyil, uyğun NimBLE komponenti seçilir. Service/characteristic UUID-ləri öz tətbiqiniz üçün təyin edin.\n\nÖlçünü bir neçə saniyədə bir göndərin, enerji sərfini ölçün və reklam məlumatında şəxsi məlumat saxlamayın. Cihazın görünməsi, qoşulma və bildiriş icazələri telefon tətbiqində ayrıca idarə olunur.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <NimBLEDevice.h>\n\nNimBLECharacteristic* reading;\nuint32_t lastSent = 0;\n\nvoid setup() {\n  NimBLEDevice::init(\"RoomSensor\");\n  NimBLEServer* server = NimBLEDevice::createServer();\n  NimBLEService* service =\n      server->createService(\"7a1b0001-4f2e-4d7b-9a11-112233445566\");\n  reading = service->createCharacteristic(\n      \"7a1b0002-4f2e-4d7b-9a11-112233445566\",\n      NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::NOTIFY);\n  reading->setValue(\"23.5 C\");\n  service->start();\n  NimBLEDevice::getAdvertising()->addServiceUUID(service->getUUID());\n  NimBLEDevice::getAdvertising()->start();\n}\n\nvoid loop() {\n  if (millis() - lastSent >= 2000) {\n    lastSent = millis();\n    reading->setValue(\"23.6 C\");  // Replace with a real sensor reading.\n    reading->notify();\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "BLE GATT sensori: xidmət, xüsusiyyət və bildiriş"
+    },
+    {
+      "type": "warning",
+      "title": "Vacib təhlükəsizlik və uyğunluq qeydi",
+      "text": "NimBLE-Arduino versiyasını və BLE xüsusiyyətlərini seçilmiş lövhədə yoxlayın. Real sensor qiymətini yazın; qoşulan hər kəsə məlumat açıqdırsa, giriş nəzarəti və məlumat təsdiqi əlavə edin. BLE Wi-Fi interneti deyil."
+    }
+  ],
+  "testId": "embedded_test_bluetooth_ble_gatt_sensor_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

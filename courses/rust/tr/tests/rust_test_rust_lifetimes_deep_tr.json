@@ -1,0 +1,62 @@
+{
+  "id": "rust_test_rust_lifetimes_deep_tr",
+  "title": "Lifetime'lar, elision ve yapı invariantları",
+  "questions": [
+    {
+      "id": "rust_rust_lifetimes_deep_1",
+      "topicId": "rust_rust_lifetimes_deep",
+      "type": "multiple_choice",
+      "prompt": "“Lifetime'lar, elision ve yapı invariantları” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Aynı `'a`, iki girdinin ve sonucun ortak geçerli süreyle sınırlı olduğunu ifade eder.",
+        "Rust değişkenleri mut yazılmadıkça değişmezdir.",
+        "Cargo proje oluşturma, derleme ve test için temel araçtır.",
+        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar."
+      ],
+      "answer": "Aynı `'a`, iki girdinin ve sonucun ortak geçerli süreyle sınırlı olduğunu ifade eder.",
+      "explanation": "Aynı `'a`, iki girdinin ve sonucun ortak geçerli süreyle sınırlı olduğunu ifade eder.\nAçıklama: Lifetime anotasyonu referansların ilişkisini bildirir; belleği tutmaz veya ömrü uzatmaz. İki referans alıp birini döndüren işlevde, sonucun hangi girdiye bağlı olduğunu bazen açık lifetime ile belirtmek gerekir. Referans tutan struct'ta `'a` alanın kullanılabileceği süreyi sınırlar; mümkünse String gibi sahipli türler ilişkiyi basitleştirir.\n\nLifetime anotasyonu bir referansı uzatmaz; scope'lar arasındaki geçerlilik ilişkisini belirtir. `longest<'a>`, sonucun iki girdi referansının da geçerli olduğu ortak süreden uzun yaşayamayacağını söyler. Compiler basit durumlarda lifetime'ı çıkarır; ilişkiyi anlatmak gerektiğinde açıkça yazın."
+    },
+    {
+      "id": "rust_rust_lifetimes_deep_2",
+      "topicId": "rust_rust_lifetimes_deep",
+      "type": "multiple_choice",
+      "prompt": "“Lifetime'lar, elision ve yapı invariantları” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Lifetime hatasını `static` yazarak gizlemeyin; önce sahiplik modelini ve ödüncün neden yaşadığını inceleyin.",
+        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.",
+        "Cargo proje oluşturma, derleme ve test için temel araçtır.",
+        "Değişkenliği yalnızca gerektiğinde etkinleştirin."
+      ],
+      "answer": "Lifetime hatasını `static` yazarak gizlemeyin; önce sahiplik modelini ve ödüncün neden yaşadığını inceleyin.",
+      "explanation": "Lifetime hatasını `static` yazarak gizlemeyin; önce sahiplik modelini ve ödüncün neden yaşadığını inceleyin.\nAçıklama: Lifetime anotasyonu referansların ilişkisini bildirir; belleği tutmaz veya ömrü uzatmaz. İki referans alıp birini döndüren işlevde, sonucun hangi girdiye bağlı olduğunu bazen açık lifetime ile belirtmek gerekir. Referans tutan struct'ta `'a` alanın kullanılabileceği süreyi sınırlar; mümkünse String gibi sahipli türler ilişkiyi basitleştirir.\n\nLifetime anotasyonu bir referansı uzatmaz; scope'lar arasındaki geçerlilik ilişkisini belirtir. `longest<'a>`, sonucun iki girdi referansının da geçerli olduğu ortak süreden uzun yaşayamayacağını söyler. Compiler basit durumlarda lifetime'ı çıkarır; ilişkiyi anlatmak gerektiğinde açıkça yazın."
+    },
+    {
+      "id": "rust_rust_lifetimes_deep_3",
+      "topicId": "rust_rust_lifetimes_deep",
+      "type": "multiple_choice",
+      "prompt": "“Lifetime'lar, elision ve yapı invariantları” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Lifetime anotasyonu referansların ilişkisini bildirir; belleği tutmaz veya ömrü uzatmaz",
+        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.",
+        "Rust değişkenleri mut yazılmadıkça değişmezdir.",
+        "Cargo proje oluşturma, derleme ve test için temel araçtır."
+      ],
+      "answer": "Lifetime anotasyonu referansların ilişkisini bildirir; belleği tutmaz veya ömrü uzatmaz",
+      "explanation": "Lifetime anotasyonu referansların ilişkisini bildirir; belleği tutmaz veya ömrü uzatmaz\nAçıklama: Lifetime anotasyonu referansların ilişkisini bildirir; belleği tutmaz veya ömrü uzatmaz. İki referans alıp birini döndüren işlevde, sonucun hangi girdiye bağlı olduğunu bazen açık lifetime ile belirtmek gerekir. Referans tutan struct'ta `'a` alanın kullanılabileceği süreyi sınırlar; mümkünse String gibi sahipli türler ilişkiyi basitleştirir.\n\nLifetime anotasyonu bir referansı uzatmaz; scope'lar arasındaki geçerlilik ilişkisini belirtir. `longest<'a>`, sonucun iki girdi referansının da geçerli olduğu ortak süreden uzun yaşayamayacağını söyler. Compiler basit durumlarda lifetime'ı çıkarır; ilişkiyi anlatmak gerektiğinde açıkça yazın."
+    },
+    {
+      "id": "rust_rust_lifetimes_deep_4",
+      "topicId": "rust_rust_lifetimes_deep",
+      "type": "multiple_choice",
+      "prompt": "“Lifetime'lar, elision ve yapı invariantları” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.",
+        "İki referans alıp birini döndüren işlevde, sonucun hangi girdiye bağlı olduğunu bazen açık lifetime ile belirtmek gerekir",
+        "Cargo proje oluşturma, derleme ve test için temel araçtır.",
+        "Rust değişkenleri mut yazılmadıkça değişmezdir."
+      ],
+      "answer": "İki referans alıp birini döndüren işlevde, sonucun hangi girdiye bağlı olduğunu bazen açık lifetime ile belirtmek gerekir",
+      "explanation": "İki referans alıp birini döndüren işlevde, sonucun hangi girdiye bağlı olduğunu bazen açık lifetime ile belirtmek gerekir\nAçıklama: Lifetime anotasyonu referansların ilişkisini bildirir; belleği tutmaz veya ömrü uzatmaz. İki referans alıp birini döndüren işlevde, sonucun hangi girdiye bağlı olduğunu bazen açık lifetime ile belirtmek gerekir. Referans tutan struct'ta `'a` alanın kullanılabileceği süreyi sınırlar; mümkünse String gibi sahipli türler ilişkiyi basitleştirir.\n\nLifetime anotasyonu bir referansı uzatmaz; scope'lar arasındaki geçerlilik ilişkisini belirtir. `longest<'a>`, sonucun iki girdi referansının da geçerli olduğu ortak süreden uzun yaşayamayacağını söyler. Compiler basit durumlarda lifetime'ı çıkarır; ilişkiyi anlatmak gerektiğinde açıkça yazın."
+    }
+  ]
+}

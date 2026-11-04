@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_slots_tr",
+  "title": "__slots__ ile bellek kullanımını ölçerek azaltma",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_slots",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 1. kod örneği tam olarak ne yazdırır?\n\nclass Sample:\n    __slots__ = ('value',)\n\n    def __init__(self, value: int) -> None:\n        self.value = value\n\nsample = Sample(7)\nprint(sample.value)",
+      "options": [
+        "7",
+        "8",
+        "False 12",
+        "6"
+      ],
+      "answer": "7",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`class Sample:` — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n`__slots__ = ('value',)` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`def __init__(self, value: int) -> None:` — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n`self.value = value` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`sample = Sample(7)` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`print(sample.value)` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_slots",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 2. kod örneği tam olarak ne yazdırır?\n\nfrom dataclasses import dataclass\n\n@dataclass(slots=True)\nclass Point:\n    x: float\n    y: float\n\npoint = Point(3, 4)\nprint(point.x + point.y)",
+      "options": [
+        "False 12",
+        "6",
+        "7",
+        "8"
+      ],
+      "answer": "7",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`from dataclasses import dataclass` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`@dataclass(slots=True)` — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n`class Point:` — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n`x: float` — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n`y: float` — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n`point = Point(3, 4)` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`print(point.x + point.y)` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_slots",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 3. kod örneği tam olarak ne yazdırır?\n\nclass Reading:\n    __slots__ = ('value',)\n\n    def __init__(self, value: int) -> None:\n        self.value = value\n\nreading = Reading(12)\nprint(hasattr(reading, '__dict__'), reading.value)",
+      "options": [
+        "7",
+        "fALSE 12",
+        "False 12",
+        "True 12"
+      ],
+      "answer": "False 12",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`class Reading:` — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n`__slots__ = ('value',)` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`def __init__(self, value: int) -> None:` — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n`self.value = value` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`reading = Reading(12)` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`print(hasattr(reading, '__dict__'), reading.value)` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_slots",
+      "type": "multiple_choice",
+      "prompt": "“__slots__ ile bellek kullanımını ölçerek azaltma” konusunu doğru tanımlayan ifade hangisidir?",
+      "options": [
+        "`__slots__` nesne düzenini değiştirir: örnekte otomatik `__dict__` oluşmaz ve yalnızca tanımlı alanlar kullanılabilir.",
+        "Python; okunabilir sözdizimi ve geniş kütüphanesi sayesinde otomasyon, web hizmetleri ve veri analizinde kullanılır.",
+        "Yorum, açık olmayan bir kararın nedenini açıklar; iyi yorum kodu yinelemez, örneğin özel bir sınırın neden seçildiğini belirtir.",
+        "Sözdizimi ve girinti kod bloklarının başlangıcını gösterir; web rotalarında ve koşullarda yanlış girinti programı çalıştırmaz."
+      ],
+      "answer": "`__slots__` nesne düzenini değiştirir: örnekte otomatik `__dict__` oluşmaz ve yalnızca tanımlı alanlar kullanılabilir.",
+      "explanation": "`__slots__` nesne düzenini değiştirir: örnekte otomatik `__dict__` oluşmaz ve yalnızca tanımlı alanlar kullanılabilir. Çok sayıda küçük nesnede yararlı olabilir, ancak ölçümle doğrulanmalıdır. `dataclass(slots=True)` kolay bir seçenektir; dinamik alan, weak reference ve kalıtım gereksinimlerini inceleyin."
+    }
+  ]
+}

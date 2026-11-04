@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_memory_az",
+  "title": "Heap, stack və statik allocation",
+  "questions": [
+    {
+      "id": "freertos_freertos_memory_1",
+      "topicId": "freertos_freertos_memory",
+      "type": "multiple_choice",
+      "prompt": "“Heap, stack və statik allocation” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Kernel heap-dən ayrılan yaddaşı düzgün buraxın və mümkün olduqda uzun ömürlü obyektləri əvvəlcədən planlaşdırın.",
+        "Hər task üçün stack ayrılır, prioritet scheduler qərarına təsir edir.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir."
+      ],
+      "answer": "Kernel heap-dən ayrılan yaddaşı düzgün buraxın və mümkün olduqda uzun ömürlü obyektləri əvvəlcədən planlaşdırın.",
+      "explanation": "Kernel heap-dən ayrılan yaddaşı düzgün buraxın və mümkün olduqda uzun ömürlü obyektləri əvvəlcədən planlaşdırın.\nİzah: Hər FreeRTOS task öz stack-ini istehlak edir; queue, timer, task yaratmaq isə kernel heap-indən RAM ala bilər. Heap exhaustion zamanı `xTaskCreate` və queue creation uğursuz ola bilər, stack overflow isə korlanmaya səbəb ola bilər. Task high-water mark, minimum heap və build-time static allocation imkanlarını ölçüb seçin; demo ölçülərini kor-koranə istehsala köçürməyin."
+    },
+    {
+      "id": "freertos_freertos_memory_2",
+      "topicId": "freertos_freertos_memory",
+      "type": "multiple_choice",
+      "prompt": "“Heap, stack və statik allocation” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "Sonsuz dövrədə işləyən hər task vaxtaşırı gözləməli və ya bloklanmalıdır; əks halda CPU-nu inhisara ala bilər.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Task yaratma nəticəsini və stack istifadəsini yoxlayın; RAM büdcəsini bütün task, queue və buffer-lər üzrə hesablayın.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir."
+      ],
+      "answer": "Task yaratma nəticəsini və stack istifadəsini yoxlayın; RAM büdcəsini bütün task, queue və buffer-lər üzrə hesablayın.",
+      "explanation": "Task yaratma nəticəsini və stack istifadəsini yoxlayın; RAM büdcəsini bütün task, queue və buffer-lər üzrə hesablayın.\nİzah: Hər FreeRTOS task öz stack-ini istehlak edir; queue, timer, task yaratmaq isə kernel heap-indən RAM ala bilər. Heap exhaustion zamanı `xTaskCreate` və queue creation uğursuz ola bilər, stack overflow isə korlanmaya səbəb ola bilər. Task high-water mark, minimum heap və build-time static allocation imkanlarını ölçüb seçin; demo ölçülərini kor-koranə istehsala köçürməyin."
+    },
+    {
+      "id": "freertos_freertos_memory_3",
+      "topicId": "freertos_freertos_memory",
+      "type": "multiple_choice",
+      "prompt": "“Heap, stack və statik allocation” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "FreeRTOS stack parametrlərinin vahidi port və API-yə görə dəyişə bilər; ESP32 Arduino Core-da nümunə API stack ölçüsünü byte ilə alır.",
+        "Task stack ölçüsü byte ilə verilir və target/runtime versiyasına görə RAM məhdudiyyətini nəzərə almaq lazımdır."
+      ],
+      "answer": "FreeRTOS stack parametrlərinin vahidi port və API-yə görə dəyişə bilər; ESP32 Arduino Core-da nümunə API stack ölçüsünü byte ilə alır.",
+      "explanation": "FreeRTOS stack parametrlərinin vahidi port və API-yə görə dəyişə bilər; ESP32 Arduino Core-da nümunə API stack ölçüsünü byte ilə alır.\nİzah: Hər FreeRTOS task öz stack-ini istehlak edir; queue, timer, task yaratmaq isə kernel heap-indən RAM ala bilər. Heap exhaustion zamanı `xTaskCreate` və queue creation uğursuz ola bilər, stack overflow isə korlanmaya səbəb ola bilər. Task high-water mark, minimum heap və build-time static allocation imkanlarını ölçüb seçin; demo ölçülərini kor-koranə istehsala köçürməyin."
+    },
+    {
+      "id": "freertos_freertos_memory_4",
+      "topicId": "freertos_freertos_memory",
+      "type": "multiple_choice",
+      "prompt": "“Heap, stack və statik allocation” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "Serial yazıları bir neçə task-dan qarışa bilər; ortaq çıxışı serializasiya edin və task stack ölçüsünü ölçün.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Heap exhaustion zamanı `xTaskCreate` və queue creation uğursuz ola bilər, stack overflow isə korlanmaya səbəb ola bilər",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir."
+      ],
+      "answer": "Heap exhaustion zamanı `xTaskCreate` və queue creation uğursuz ola bilər, stack overflow isə korlanmaya səbəb ola bilər",
+      "explanation": "Heap exhaustion zamanı `xTaskCreate` və queue creation uğursuz ola bilər, stack overflow isə korlanmaya səbəb ola bilər\nİzah: Hər FreeRTOS task öz stack-ini istehlak edir; queue, timer, task yaratmaq isə kernel heap-indən RAM ala bilər. Heap exhaustion zamanı `xTaskCreate` və queue creation uğursuz ola bilər, stack overflow isə korlanmaya səbəb ola bilər. Task high-water mark, minimum heap və build-time static allocation imkanlarını ölçüb seçin; demo ölçülərini kor-koranə istehsala köçürməyin."
+    }
+  ]
+}

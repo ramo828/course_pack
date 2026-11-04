@@ -1,0 +1,170 @@
+{
+  "id": "python_py_sqlalchemy_orm",
+  "title": "SQLAlchemy 2 ORM: verilənlər bazası ilə işləmək",
+  "difficulty": "hard",
+  "testId": "python_test_py_sqlalchemy_orm_az",
+  "sources": [
+    "https://docs.python.org/3/tutorial/",
+    "https://docs.python.org/3/using/",
+    "https://docs.python.org/3/library/",
+    "https://docs.python.org/3/library/turtle.html",
+    "https://docs.python.org/3/library/tkinter.html",
+    "https://fastapi.tiangolo.com/tutorial/",
+    "https://www.python.org/about/success/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLAlchemy verilənlər bazası ilə SQL ifadələri və Python obyektləri arasında əlaqə yaradır. 2.x üslubunda ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "DeclarativeBase",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Mapped",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "mapped_column",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "select()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " istifadə olunur. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Session",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ı kontekst meneceri ilə bağlayın, transaction nəticəsini aydın idarə edin, istifadəçi dəyərlərini string birləşdirmə ilə SQL-ə salmayın. ORM sorğusu verilənlər bazası dizaynını və indeksləri aradan qaldırmır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from sqlalchemy import create_engine, select\nfrom sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column\n\nclass Base(DeclarativeBase):\n    pass\n\nclass Device(Base):\n    __tablename__ = 'devices'\n    id: Mapped[int] = mapped_column(primary_key=True)\n    name: Mapped[str]\n\nengine = create_engine('sqlite+pysqlite:///:memory:')\nBase.metadata.create_all(engine)\nwith Session(engine) as session:\n    session.add(Device(name='sensor-1'))\n    session.commit()\n    names = session.scalars(select(Device.name)).all()\n    print(names)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "['sensor-1']",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Session transaction-ı commit edir, nəticə obyektləri Python siyahısı kimi qaytarır: ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "['sensor-1']",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Nümunə üçün `python -m pip install 'sqlalchemy>=2,<3'` işlədin. SQLite yaddaş bazası yalnız dərs üçündür; real tətbiqdə bağlantı konfiqurasiyasını və migration-ları ayrıca qurun."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Session və engine resurslarını xidmət səviyyəsində düzgün əhatə edin; migration və transaction davranışını production-da test edin."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

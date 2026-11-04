@@ -1,0 +1,72 @@
+{
+  "id": "wifi_dns_local_portal",
+  "title": "Wi-Fi erişim noktası, yerel sunucu ve DNS yönlendirme",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/webserver.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "İlk kurulum için telefonun bağlanacağı bir Wi-Fi ağı ve yerel yönetim sayfası oluşturabilirsiniz. Bu sayfa internet gerektirmez.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NASIL ÇALIŞIR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ESP32 SoftAP açar, "
+    },
+    {
+      "type": "text",
+      "text": "WebServer",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yerel HTTP isteklerini yanıtlar, "
+    },
+    {
+      "type": "text",
+      "text": "DNSServer",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ise bu ağdaki DNS adlarını kartın IP adresine yönlendirerek kurulum sayfasını bulmayı kolaylaştırır. Bu, captive portal için başlangıç örneğidir; telefonların otomatik portal penceresi her işletim sisteminde aynı çalışmaz. Kullanıcıdan bilgi almadan önce sayfada açık bir bilgilendirme ve güvenli giriş politikası olmalıdır.\n\nBu AP tek başına internet paylaşmaz. İnternet için STA ile ayrıca router'a bağlanmak gerekir; AP+STA radyo kaynaklarını paylaşır. Örneği yalnızca size ait kapalı bir laboratuvar ağında deneyin.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <WebServer.h>\n#include <DNSServer.h>\n\nWebServer server(80);\nDNSServer dns;\n\nvoid setup() {\n  WiFi.mode(WIFI_AP);\n  WiFi.softAP(\"Device-Setup\", \"replace-this-pass\");\n  const IPAddress ip = WiFi.softAPIP();\n  dns.start(53, \"*\", ip);\n  server.on(\"/\", []() {\n    server.send(200, \"text/html\",\n                \"<h1>Device setup</h1><p>Connected locally.</p>\");\n  });\n  server.onNotFound([]() {\n    server.sendHeader(\"Location\", \"/\", true);\n    server.send(302, \"text/plain\", \"\");\n  });\n  server.begin();\n}\n\nvoid loop() {\n  dns.processNextRequest();\n  server.handleClient();\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "Wi-Fi erişim noktası, yerel sunucu ve DNS yönlendirme"
+    },
+    {
+      "type": "warning",
+      "title": "Önemli güvenlik ve uyumluluk notu",
+      "text": "Parolayı değiştirin; bu basit HTTP portalı şifreli değildir ve internete açılmamalıdır. DNS yönlendirmesi her telefonun portalı algılayacağını garanti etmez; AP+STA davranışını kartta doğrulayın."
+    }
+  ],
+  "testId": "embedded_test_wifi_dns_local_portal_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

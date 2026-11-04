@@ -1,0 +1,379 @@
+{
+  "id": "rust_rust_ownership",
+  "title": "Ownership ve taşıma",
+  "difficulty": "hard",
+  "testId": "rust_test_rust_ownership_tr",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html"
+  ],
+  "estimatedMinutes": 24,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Ownership ve taşıma” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: String gibi ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " olmayan değerler taşınır; integer gibi ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " türler kopyalanır. Heap'te bulunmak tek başına bu davranışı belirlemez. Gerçek projede şu öneriyi izleyin: Move sonrasında önceki değişken değere sahip olmaz; derleyici bunu denetler.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn main() {\n    let first = String::from(\"Rust\");\n    let second = first;\n    println!(\"{second}\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust her değer için bir sahip tanımlar; sahip kapsamdan çıkınca kaynak bırakılır. Bazı türler move edilir, Copy türleri ise ucuz değer kopyası olarak aktarılır.\n\nOwnership kuralı: her değerin bir sahibi vardır; sahip scope'tan çıkınca kaynak bırakılır. String, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "let second = first",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile taşınınca ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "first",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " artık kullanılamaz. i32 gibi ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " türler taşınmak yerine kopyalanır. Bu derleme zamanı denetlenir ve garbage collector gerektirmez.\n\nOwnership, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmayan bir değere hangi bağlamın sahip olduğunu ve kaynağı kimin bırakacağını belirler. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " gibi ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmayan bir değerin atanması onu taşır; integer gibi ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " türler kopyalanabilir. Değerin heap'te bulunması tek başına taşıma ya da kopyalama kararını vermez. Desteklendiğinde ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "clone()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ayrı bir kopyayı açıkça oluşturur.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let second = first;",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: String gibi ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmayan değerler taşınır; integer gibi ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " türler kopyalanır. Heap'te bulunmak tek başına bu davranışı belirlemez.\nNeden seçildi: Move sonrasında önceki değişken değere sahip olmaz; derleyici bunu denetler.\nAtlanır veya değiştirilirse: Ownership elle bellek yönetiminin yerine dil kurallarını kullanır; garbage collector kullanmaz.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: Move sonrasında önceki değişken değere sahip olmaz; derleyici bunu denetler."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "String gibi ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " olmayan değerler taşınır; integer gibi ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " türler kopyalanır. Heap'te bulunmak tek başına bu davranışı belirlemez.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Move sonrasında önceki değişken değere sahip olmaz; derleyici bunu denetler."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn main() { let original = String::from(\"move\"); let owned = original; println!(\"{owned}\"); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "move\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Ownership elle bellek yönetiminin yerine dil kurallarını kullanır; garbage collector kullanmaz."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Kod örnekleri odaklı parçalardır; seçilen araç zinciri ve hedefte derleyip test edin, çünkü API ve tanılamalar sürüme göre değişebilir."
+    },
+    {
+      "type": "diagram",
+      "id": "rust_ownership",
+      "caption": "Değer sahibi, ödünç alan ve kullanan kod arasındaki ilişki Rust tarafından derleme sırasında denetlenir."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Ownership ve taşıma” konusunda hangi ifade temel kuralı doğru açıklar?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: String gibi ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmayan değerler taşınır; integer gibi ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " türler kopyalanır. Heap'te bulunmak tek başına bu davranışı belirlemez.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: stack/heap ve bellek ömrünü, sahipliği veya veri akışını gösteren bellek diyagramı."
+}

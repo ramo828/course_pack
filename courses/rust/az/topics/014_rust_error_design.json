@@ -1,0 +1,286 @@
+{
+  "id": "rust_rust_error_design",
+  "title": "Result, ? və xəta dizaynı",
+  "difficulty": "hard",
+  "testId": "rust_test_rust_error_design_az",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch09-00-error-handling.html"
+  ],
+  "estimatedMinutes": 24,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Result, ? və xəta dizaynı” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: ? uğursuz nəticəni çağırana ötürür, uğurlu dəyəri isə növbəti ifadəyə verir. Real layihədə bu göstərişə əməl edin: Xətanı udub saxta uğur qaytarmayın; retry yalnız əməliyyat təkrarlana biləndə və limitlə olmalıdır.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_result_flow",
+      "caption": "Result, ? və xəta dizaynı"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::error::Error;\nfn parse_port(text: &str) -> Result<u16, std::num::ParseIntError> {\n    let port = text.parse()?;\n    Ok(port)\n}\nfn main() -> Result<(), Box<dyn Error>> {\n    let port = parse_port(\"8080\")?;\n    println!(\"{port}\");\n    Ok(())\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Uğurlu parse nəticəsində port 8080 çap olunur; başqa xəta ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ilə çağırana ötürülür.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Result<T, E> uğuru və uğursuzluğu tip səviyyəsində ifadə edir; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " error-u uyğun qaytarma tipinə ötürərək çağırış zəncirini qısa saxlayır. Proqramın sərhədində konkret xətanı istifadəçi üçün anlaşılan mesaja çevirin, daxili layer-lərdə isə səbəb və konteksti qoruyun. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "unwrap()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yalnız invariantın sübut olunduğu və çöküşün qəbul edildiyi kiçik nümunələrdə münasibdir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Option<T>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " təbii olaraq olmayan nəticəni (",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "None",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "), ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Result<T, E>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " isə izah edilə bilən uğur/xətanı göstərir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " xətanı çağırana ötürür və lazımsız panic yaratmır; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "main -> Result",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " proqramın sərhədində xəta qaytarmağa imkan verir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "unwrap()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yalnız testdə və ya invariant sübut olunmuş yerdə məqsədli seçilməlidir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let port = text.parse()?;",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: ? uğursuz nəticəni çağırana ötürür, uğurlu dəyəri isə növbəti ifadəyə verir.\nNiyə seçilib: Xətanı udub saxta uğur qaytarmayın; retry yalnız əməliyyat təkrarlana biləndə və limitlə olmalıdır.\nBuraxılsa və ya dəyişdirilsə: Xətanı udub saxta uğur qaytarmayın; retry yalnız əməliyyat təkrarlana biləndə və limitlə olmalıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Xətanı udub saxta uğur qaytarmayın; retry yalnız əməliyyat təkrarlana biləndə və limitlə olmalıdır."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "? uğursuz nəticəni çağırana ötürür, uğurlu dəyəri isə növbəti ifadəyə verir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Xətanı udub saxta uğur qaytarmayın; retry yalnız əməliyyat təkrarlana biləndə və limitlə olmalıdır."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn parse_port(text: &str) -> Result<u16, std::num::ParseIntError> {\n    text.parse()\n}\nfn main() {\n    match parse_port(\"not-a-port\") {\n        Ok(port) => println!(\"{port}\"),\n        Err(_) => println!(\"invalid port\"),\n    }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "invalid port\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "`unwrap()` yalnız testdə və ya invariant sübut olunmuş yerdə məqsədli seçilməlidir."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Kod nümunələri fokuslanmış hissələrdir; seçilmiş toolchain və target-də compile/test edin, çünki API və diaqnostika versiyaya görə dəyişə bilər."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Result, ? və xəta dizaynı” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: ? uğursuz nəticəni çağırana ötürür, uğurlu dəyəri isə növbəti ifadəyə verir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

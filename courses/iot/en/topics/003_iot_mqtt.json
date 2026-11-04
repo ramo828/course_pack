@@ -1,0 +1,160 @@
+{
+  "id": "iot_iot_mqtt",
+  "title": "MQTT topics, QoS, and retained messages",
+  "difficulty": "medium",
+  "testId": "iot_test_iot_mqtt_en",
+  "sources": [
+    "https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “MQTT topics, QoS, and retained messages” to a real program or device. The key principle is: QoS controls delivery guarantees and retransmission behavior. In a project, follow this guidance: Separate command topics from telemetry and restrict who may publish commands.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "mosquitto_sub -h broker.example.test -t \"telemetry/site-7/+\"",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Publishes telemetry/site-7/device-2/temperature and listens on commands/site-7/device-2; broker messages depend on connected clients.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "MQTT clients publish and subscribe by topic. QoS 0/1/2 changes delivery behavior; retained messages store the latest value per topic. Topic design affects privacy and scale.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "mosquitto_sub -h broker.example.test -t \"telemetry/site-7/+\"",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: QoS controls delivery guarantees and retransmission behavior.\nWhy it is used: Separate command topics from telemetry and restrict who may publish commands.\nIf omitted or changed: Do not put personal data in topic names or public brokers; use broker ACLs and secure transport.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Do not put personal data in topic names or public brokers; use broker ACLs and secure transport."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QoS controls delivery guarantees and retransmission behavior.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Separate command topics from telemetry and restrict who may publish commands."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "mosquitto_pub -h broker.example.test -t telemetry/site-7/device-2/temp -m 21.5",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Requires a reachable MQTT broker and matching authorization; Terminal A receives the sample only while both clients are connected.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Topic design affects privacy and scale."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Do not put personal data in topic names or public brokers; use broker ACLs and secure transport."
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "A device sends measurements through a gateway or broker to a service; commands can travel back."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

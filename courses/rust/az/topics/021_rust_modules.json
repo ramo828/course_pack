@@ -1,0 +1,233 @@
+{
+  "id": "rust_rust_modules",
+  "title": "Modullar, görünürlük və Cargo workspace",
+  "difficulty": "medium",
+  "testId": "rust_test_rust_modules_az",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Modullar, görünürlük və Cargo workspace” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: area funksiyası mod daxilindədir, lakin pub olduğuna görə parent moduldan çağırıla bilər. Real layihədə bu göstərişə əməl edin: İstifadəçi üçün vacib olmayan adları ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pub",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " etməyin: public API crate istifadəçiləri ilə uyğunluq öhdəliyi yaradır.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "mod geometry {\n    pub fn area(width: u32, height: u32) -> u32 {\n        width * height\n    }\n}\n\nfn main() {\n    println!(\"{}\", geometry::area(3, 4));\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "12\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "mod kodu məntiqi namespace-lərə bölür, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "pub",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " görünürlüyü açıq edir, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "use",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " isə adları scope-a gətirir. Fayl quruluşu ilə mod ağacının uyğun saxlanması böyük layihədə axtarışı asanlaşdırır. Cargo workspace bir neçə əlaqəli crate-i ümumi build və lockfile ətrafında birləşdirir, amma crate-lər öz public API və dependency sərhədlərini saxlayır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "mod geometry {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: area funksiyası mod daxilindədir, lakin pub olduğuna görə parent moduldan çağırıla bilər.\nNiyə seçilib: İstifadəçi üçün vacib olmayan adları ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "pub",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " etməyin: public API crate istifadəçiləri ilə uyğunluq öhdəliyi yaradır.\nBuraxılsa və ya dəyişdirilsə: İstifadəçi üçün vacib olmayan adları ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "pub",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " etməyin: public API crate istifadəçiləri ilə uyğunluq öhdəliyi yaradır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: İstifadəçi üçün vacib olmayan adları `pub` etməyin: public API crate istifadəçiləri ilə uyğunluq öhdəliyi yaradır."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "area funksiyası mod daxilindədir, lakin pub olduğuna görə parent moduldan çağırıla bilər.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "İstifadəçi üçün vacib olmayan adları `pub` etməyin: public API crate istifadəçiləri ilə uyğunluq öhdəliyi yaradır."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "mod geometry { pub fn area(w: u32, h: u32) -> u32 { w * h } }\nfn main() { println!(\"{}\", geometry::area(5, 2)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "10\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Cargo workspace bir neçə əlaqəli crate-i ümumi build və lockfile ətrafında birləşdirir, amma crate-lər öz public API və dependency sərhədlərini saxlayır."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Kod nümunələri fokuslanmış hissələrdir; seçilmiş toolchain və target-də compile/test edin, çünki API və diaqnostika versiyaya görə dəyişə bilər."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Modullar, görünürlük və Cargo workspace” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: area funksiyası mod daxilindədir, lakin pub olduğuna görə parent moduldan çağırıla bilər.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

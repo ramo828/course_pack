@@ -1,0 +1,186 @@
+{
+  "id": "freertos_freertos_watchdog",
+  "title": "Watchdog, отладка и эксплуатационные шаблоны",
+  "difficulty": "advanced",
+  "testId": "freertos_test_freertos_watchdog_ru",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/wdts.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/performance/speed.html"
+  ],
+  "estimatedMinutes": 28,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Watchdog, отладка и эксплуатационные шаблоны» в программе или устройстве. Основной принцип: Watchdog запускает восстановление, но не находит причину; сохраняйте журналы, измерения и записи сбоя. В проекте следуйте рекомендации: Сбрасывайте watchdog только после прогресса; не объявляйте зависшую задачу здоровой.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_task_wdt.h>\nvoid setup() { Serial.begin(115200); esp_task_wdt_add(nullptr); }\nvoid loop() { Serial.println(\"alive\"); esp_task_wdt_reset(); delay(500); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor выводит ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "alive",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "; доступность watchdog API зависит от версий ESP-IDF/Arduino Core.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Watchdog перезапускает систему, если нет ожидаемого прогресса; используйте его как контракт здоровья, а не как бездумный reset. Задачи должны сообщать о прогрессе после полезной работы; журналы и core dump помогают искать блокировки и deadlock. В production также нужны ограниченные очереди, timeout, retry/backoff, измерение стека и план восстановления.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "esp_task_wdt_*",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — API ESP-IDF от Espressif, доступные в некоторых версиях Arduino-ESP32 core, но не универсальные API Arduino. Для другой платы спроектируйте собственную проверку здоровья/timeout и проверьте поддержку core.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#include <esp_task_wdt.h>",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Watchdog запускает восстановление, но не находит причину; сохраняйте журналы, измерения и записи сбоя.\nЗачем она нужна: Сбрасывайте watchdog только после прогресса; не объявляйте зависшую задачу здоровой.\nЕсли пропустить или изменить: API watchdog ESP-IDF зависит от target/версии; проверьте его поддержку в Arduino-ESP32 и конфигурацию платы.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "API watchdog ESP-IDF зависит от target/версии; проверьте его поддержку в Arduino-ESP32 и конфигурацию платы."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Watchdog запускает восстановление, но не находит причину; сохраняйте журналы, измерения и записи сбоя.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Сбрасывайте watchdog только после прогресса; не объявляйте зависшую задачу здоровой."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_task_wdt.h>\nvoid setup() { Serial.begin(115200); esp_task_wdt_add(nullptr); }\nvoid loop() { Serial.println(\"task is responsive\"); esp_task_wdt_reset(); delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Доступность и настройка watchdog API зависят от версий ESP-IDF/Arduino Core.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Для другой платы спроектируйте собственную проверку здоровья/timeout и проверьте поддержку core."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "API watchdog ESP-IDF зависит от target/версии; проверьте его поддержку в Arduino-ESP32 и конфигурацию платы."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму состояний и приоритетов задач, очередей/синхронизации и временную шкалу."
+}

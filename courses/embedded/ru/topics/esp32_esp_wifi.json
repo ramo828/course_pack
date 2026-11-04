@@ -1,0 +1,193 @@
+{
+  "id": "esp32_esp_wifi",
+  "title": "Wi-Fi station и точка доступа",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_wifi_ru",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/wifi.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Wi-Fi station и точка доступа» в программе или устройстве. Основной принцип: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "WiFi.mode(WIFI_STA)",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " включает режим station. В проекте следуйте рекомендации: Не встраивайте сетевые учётные данные в исходный код прошивки.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\nconst char* ssid = \"YOUR_WIFI_NAME\";\nconst char* password = \"YOUR_WIFI_PASSWORD\";\nvoid setup() {\n    Serial.begin(115200);\n    WiFi.mode(WIFI_STA);\n    WiFi.begin(ssid, password);\n}\nvoid loop() {\n    if (WiFi.status() == WL_CONNECTED) Serial.println(WiFi.localIP());\n    else Serial.println(\"waiting for Wi-Fi\");\n    delay(2000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Настраивается только station mode; для соединения нужны учётные данные, обработчики событий и доступная точка доступа.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Station подключается к роутеру, access point создаёт локальную сеть. Управляйте переподключением через конечный автомат и не блокируйте критические задачи.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "WiFi.begin(ssid, password);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "WiFi.mode(WIFI_STA)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " включает режим station.\nЗачем она нужна: Не встраивайте сетевые учётные данные в исходный код прошивки.\nЕсли пропустить или изменить: Не выпускайте устройство с открытой точкой доступа или фиксированным паролем.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Не выпускайте устройство с открытой точкой доступа или фиксированным паролем."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "WiFi.mode(WIFI_STA)",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " включает режим station.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Не встраивайте сетевые учётные данные в исходный код прошивки."
+    },
+    {
+      "type": "text",
+      "text": "Пример Arduino Ядро\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\nvoid setup() { Serial.begin(115200); WiFi.mode(WIFI_STA); }\nvoid loop() { Serial.println(WiFi.status()); delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor показывает текущий код состояния Wi-Fi.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Управляйте переподключением через конечный автомат и не блокируйте критические задачи."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Не выпускайте устройство с открытой точкой доступа или фиксированным паролем."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

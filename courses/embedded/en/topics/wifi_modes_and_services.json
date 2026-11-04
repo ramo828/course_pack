@@ -1,0 +1,102 @@
+{
+  "id": "wifi_modes_and_services",
+  "title": "Wi-Fi uses: station, access point, local services, and internet",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_now.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/mdns.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "An ESP32 can use Wi-Fi to join a network or create its own network. These roles enable configuration, data collection, and local or internet-connected services.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "HOW IT WORKS\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "STA (station) joins a router or phone hotspot and can reach the internet. AP (SoftAP) creates a network so a phone can open a configuration page. AP+STA runs both roles, sharing the radio and airtime. "
+    },
+    {
+      "type": "text",
+      "text": "WiFiScan",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " discovers nearby networks; "
+    },
+    {
+      "type": "text",
+      "text": "WiFiMulti",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " tries configured access points; "
+    },
+    {
+      "type": "text",
+      "text": "WebServer",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " serves a local HTTP page on the board. TCP/HTTP/WebSocket support browser control and two-way sessions; UDP suits small low-overhead messages; MQTT publishes events to a broker. mDNS helps find a device by name on a local network, NTP sets its clock, captive portals simplify first-time setup, and OTA delivers firmware. ESP-NOW sends short messages between compatible Espressif devices without a router; it is not internet access.\n\nThe three sketches below are alternatives, not one combined program. Internet access exists only if the STA's router has it.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "WiFiScan: discover nearby networks\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n\nvoid setup() {\n  Serial.begin(115200);\n  WiFi.mode(WIFI_STA);\n  WiFi.disconnect();\n  delay(100);\n  const int count = WiFi.scanNetworks();\n  for (int i = 0; i < count; ++i) {\n    Serial.printf(\"%s (%d dBm)\\n\", WiFi.SSID(i).c_str(), WiFi.RSSI(i));\n  }\n  WiFi.scanDelete();\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "WiFiMulti: connect to one of several configured access points\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <WiFiMulti.h>\n\nWiFiMulti wifiMulti;\nunsigned long lastPrintAt = 0;\n\nvoid setup() {\n  Serial.begin(115200);\n  WiFi.mode(WIFI_STA);\n  wifiMulti.addAP(\"YOUR_WIFI_1\", \"PASSWORD_1\");\n  wifiMulti.addAP(\"YOUR_WIFI_2\", \"PASSWORD_2\");\n}\n\nvoid loop() {\n  if (wifiMulti.run() == WL_CONNECTED &&\n      millis() - lastPrintAt >= 5000) {\n    lastPrintAt = millis();\n    Serial.println(WiFi.localIP());\n  }\n  delay(10);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "WebServer: a local status page\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <WebServer.h>\n\nWebServer server(80);\n\nvoid setup() {\n  WiFi.mode(WIFI_AP);\n  WiFi.softAP(\"Sensor-Setup\", \"change-this-pass\");\n  server.on(\"/\", []() {\n    server.send(200, \"text/plain\", \"Sensor is ready\");\n  });\n  server.begin();\n}\n\nvoid loop() {\n  server.handleClient();\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important safety and compatibility note",
+      "text": "Change the AP password, keep private network credentials out of the repository, and do not expose an unauthenticated HTTP control page to the internet. AP+STA, ESP-NOW, and concurrent-radio support vary by chip and core version."
+    }
+  ],
+  "testId": "embedded_test_wifi_modes_and_services_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

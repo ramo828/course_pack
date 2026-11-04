@@ -1,0 +1,133 @@
+{
+  "id": "aiot_tflite_examples",
+  "title": "TFLite Micro kitaplığı ve önemli örnekler",
+  "difficulty": "medium",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://github.com/tensorflow/tflite-micro",
+    "https://github.com/espressif/esp-tflite-micro",
+    "https://ai.google.dev/edge/litert/microcontrollers"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "TFLite Micro modeli oluşturmaz; hazırlanmış modeli çalıştıran bir yürütme ortamı ve uyumlu C/C++ kitaplıklarıdır. Model bilgisayarda eğitilip uygun biçime dönüştürüldükten sonra aygıtta tahmin yapılır. Seçim karta ve yazılım ortamına bağlıdır: Espressif örnekleri ESP-IDF bileşeni olarak desteklenir; Arduino projesinde kart ve çekirdek sürümüyle uyumlu kitaplık seçilmelidir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Konu açıklaması\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ESP-IDF için Espressif'in "
+    },
+    {
+      "type": "text",
+      "text": "esp-tflite-micro",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bileşeni iyi bir başlangıçtır. Resmi örnekler farklı işleri gösterir:\n• "
+    },
+    {
+      "type": "text",
+      "text": "hello_world",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — modele girdi vermeyi, sonucu okumayı ve basit çıkarımı öğretir;\n• "
+    },
+    {
+      "type": "text",
+      "text": "micro_speech",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — mikrofondan alınan ses parçalarında birkaç sözcük veya komutu tanır;\n• "
+    },
+    {
+      "type": "text",
+      "text": "person_detection",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — uyumlu kamera kartında görüntüde insan olup olmadığını belirler.\n\nÖrnekler belirli kart ve donanımlara bağlıdır; örneğin kişi algılama için kamera ve uyumlu ESP32-S3 kartı gerekebilir. Arduino IDE'de her ESP32 için aynı kitaplığın çalışacağını varsaymayın: kitaplık ve çekirdek sürümünü, derleyici uyumunu, modeli ve işlemleri doğrulayın. Başlangıçta ESP-IDF'in resmi örneğini seçmek, bağımlılık sürümünü sabitlemek ve tam bu kart için derlemek daha güvenilirdir.\n\nModel "
+    },
+    {
+      "type": "text",
+      "text": "MicroInterpreter",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile çalışır; "
+    },
+    {
+      "type": "text",
+      "text": "MicroMutableOpResolver",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yalnızca modelin kullandığı işlemleri eklemelidir. "
+    },
+    {
+      "type": "text",
+      "text": "AllocateTensors()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " başarılı olmalı, girişin boyutu/türü ve kuantlama değerleri modelle eşleşmeli, "
+    },
+    {
+      "type": "text",
+      "text": "Invoke()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " sonucu denetlenmelidir. Gereksiz işlemler flash ve RAM kullanımını artırabilir.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Örnek kod\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "idf.py add-dependency \"esp-tflite-micro\"\nidf.py create-project-from-example \"esp-tflite-micro:hello_world\"\nidf.py set-target esp32s3\nidf.py build\nidf.py -p PORT flash monitor",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_tflite_pipeline",
+      "caption": "Şema: TFLite Micro kitaplığı ve önemli örnekler"
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Komutlar ESP-IDF projesi içindir; Arduino IDE'ye doğrudan kopyalanmaz. Her örneğin açıklama dosyasında kart, kamera/mikrofon, bellek ve yazılım ortamı gereksinimlerini kontrol edin. Tensor arena boyutunu tahmin etmeyin, gerçek modelde ölçün."
+    }
+  ],
+  "testId": "embedded_test_aiot_tflite_examples_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

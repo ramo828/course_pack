@@ -1,0 +1,47 @@
+{
+  "id": "module_arduino_esp32_examples",
+  "title": "Arduino IDE ve ESP32 örneklerini bulma ve deneme",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/built-in-examples/",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/examples.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Arduino IDE'de File → Examples, kurulu kitaplıkların ve kartın örneklerini gösterir. Başlangıç için Blink, Button, AnalogReadSerial ve Wire.begin örnekleri uygundur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ESP32 Arduino çekirdek'u kurduktan sonra File → Examples → ESP32 altında GPIO, WiFiScan, Preferences ve Deep Sleep örneklerine bakın. ESP-IDF örnekleri ayrı proje ve derleme sistemi kullanır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Örneği açın, kart ve portu seçin, pin/kitaplık gereksinimlerini okuyup önce değiştirmeden yükleyin. UNO için LED_BUILTIN; ESP32 için kartın LED pinini doğrulayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_examples_flow",
+      "caption": "Arduino IDE ve ESP32 örneklerini bulma ve deneme"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#if defined(ARDUINO_ARCH_ESP32)\nconst int ledPin = 2;  // Check your board's LED pin.\n#else\nconst int ledPin = LED_BUILTIN;\n#endif\n\nvoid setup() {\n  pinMode(ledPin, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(ledPin, HIGH);\n  delay(500);\n  digitalWrite(ledPin, LOW);\n  delay(500);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli güvenlik notu",
+      "text": "Her kartta aynı LED GPIO'su, Wi-Fi veya çevrebirim özellikleri bulunmaz. Kodu kitaplık sürümüne ve seçilen karta uyarlayın."
+    }
+  ],
+  "testId": "embedded_test_module_arduino_esp32_examples_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

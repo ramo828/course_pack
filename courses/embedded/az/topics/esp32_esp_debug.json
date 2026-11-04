@@ -1,0 +1,184 @@
+{
+  "id": "esp32_esp_debug",
+  "title": "Monitor, nüvə dump və istehsala hazırlıq",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_debug_az",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/tools/idf-monitor.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Monitor, nüvə dump və istehsala hazırlıq” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Build ölçüsü və loglar resurs problemlərini istehsaldan əvvəl aşkarlamağa kömək edir. Real layihədə bu göstərişə əməl edin: Log-ları faydalı, qısa və məxfi məlumatlardan azad saxlayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "idf.py monitor\nidf.py size\nidf.py size-components",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rebuild və ölçü nəticələri ESP-IDF versiyası, hədəf sistem, konfiqurasiya və source fayllarından asılı olaraq dəyişir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial monitor başlanğıc loglarını, xəta kodlarını və build məlumatını göstərir. İstehsal üçün daxili proqram təminatı versiyası, reset səbəbi, crash capture, log səviyyəsi və recovery prosedurunu sənədləşdirin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "idf.py monitor",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "idf.py size",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ESP-IDF alətləridir. Arduino-ESP32 layihəsində build/serial monitor Arduino IDE və ya Arduino CLI ilə aparılır; aşağıdakı əlavə nümunə Serial diaqnostikasını göstərir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "idf.py monitor",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Build ölçüsü və loglar resurs problemlərini istehsaldan əvvəl aşkarlamağa kömək edir.\nNiyə seçilib: Log-ları faydalı, qısa və məxfi məlumatlardan azad saxlayın.\nBuraxılsa və ya dəyişdirilsə: Log-ları faydalı, qısa və məxfi məlumatlardan azad saxlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Log-ları faydalı, qısa və məxfi məlumatlardan azad saxlayın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Build ölçüsü və loglar resurs problemlərini istehsaldan əvvəl aşkarlamağa kömək edir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Log-ları faydalı, qısa və məxfi məlumatlardan azad saxlayın."
+    },
+    {
+      "type": "text",
+      "text": "Arduino Nüvə Serial diaqnostikası\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid setup() { Serial.begin(115200); Serial.println(\"boot complete\"); }\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "boot complete\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Arduino-ESP32 layihəsində build/serial monitor Arduino IDE və ya Arduino CLI ilə aparılır; aşağıdakı əlavə nümunə Serial diaqnostikasını göstərir."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Pinlər, gərginlik/cərəyan limitləri, timing və periferik imkanlar lövhədən asılıdır; naqilləmədən və yükləmədən əvvəl dəqiq lövhə sənədini yoxlayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

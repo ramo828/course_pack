@@ -1,0 +1,132 @@
+{
+  "id": "usb_host_keyboard_mouse_storage",
+  "title": "USB host: klavye, fare, CDC ve flash bellek",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb_host.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "USB host çevre birimini algılar, güç sağlar ve uygun sürücüyle haberleşir. ESP32-S2/S3 USB OTG kartları klavye, fare, CDC dönüştürücü ve MSC depolamayla çalışabilir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NASIL ÇALIŞIR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Arduino-ESP32 TinyUSB host; "
+    },
+    {
+      "type": "text",
+      "text": "USBHostHIDKeyboard",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", "
+    },
+    {
+      "type": "text",
+      "text": "USBHostHIDMouse",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", "
+    },
+    {
+      "type": "text",
+      "text": "USBHostSerialClass",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve MSC sınıflarını sunar. HID işleyicisini "
+    },
+    {
+      "type": "text",
+      "text": "USBHost.begin()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " öncesinde kaydedin, "
+    },
+    {
+      "type": "text",
+      "text": "USBHost.begin()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " sonucunu kontrol edin ve "
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " içinde düzenli "
+    },
+    {
+      "type": "text",
+      "text": "USBHost.task()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " çağırın. MSC dosya sistemi yalnızca sürücü bağlanıp mount edildikten sonra açılır; çıkarmadan önce dosyaları kapatıp "
+    },
+    {
+      "type": "text",
+      "text": "end()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " çağırın.\n\nUSB host 5 V VBUS ve akım sağlamalıdır. Kart şemasında host güç anahtarı, koruma ve OTG konektörünü doğrulayın; birden çok aygıt için harici beslemeli hub gerekebilir. Klasik UNO ve USB-UART konektörlü standart ESP32 host değildir.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <USBHost.h>\n#include <USBHostHIDKeyboard.h>\n\nUSBHostHIDKeyboard keyboard;\n\nvoid setup() {\n  Serial.begin(115200);\n  keyboard.registerWithHost();\n  if (!USBHost.begin()) {\n    Serial.println(\"USB host start failed\");\n  }\n}\n\nvoid loop() {\n  USBHost.task();\n  if (keyboard.available()) {\n    uint8_t keys[6] = {};\n    keyboard.getKeys(keys);\n    Serial.printf(\"HID usage: %u\\n\", keys[0]);\n    keyboard.clear();\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "USB host: klavye, fare, CDC ve flash bellek"
+    },
+    {
+      "type": "warning",
+      "title": "Önemli güvenlik ve uyumluluk notu",
+      "text": "USB host desteği OTG bulunan ESP32-S2/S3/P4 içindir; Arduino USB device yığını aynı çevre birimini kullanamaz. Kart VBUS beslemiyorsa host başlasa da aygıt çalışmaz. Yalnızca kendi klavye ve depolamanızda deneyin."
+    }
+  ],
+  "testId": "embedded_test_usb_host_keyboard_mouse_storage_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

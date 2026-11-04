@@ -1,0 +1,47 @@
+{
+  "id": "module_arduino_esp32_examples",
+  "title": "Поиск и проверка примеров Arduino IDE и ESP32",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/built-in-examples/",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/examples.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "В Arduino IDE раздел File → Examples содержит примеры установленных библиотек и пакетов плат. Для начала подойдут Blink, Button, AnalogReadSerial и Wire.begin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "После установки Arduino ядро для ESP32 изучите GPIO, WiFiScan, Preferences и Deep Sleep в File → Examples → ESP32. Примеры ESP-IDF используют отдельный проект и систему сборки.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Откройте пример, выберите плату и порт, проверьте требования к выводам и библиотекам, затем сначала загрузите код без изменений. Проверьте LED_BUILTIN у UNO и реальный LED pin платы ESP32.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_examples_flow",
+      "caption": "Поиск и проверка примеров Arduino IDE и ESP32"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#if defined(ARDUINO_ARCH_ESP32)\nconst int ledPin = 2;  // Check your board's LED pin.\n#else\nconst int ledPin = LED_BUILTIN;\n#endif\n\nvoid setup() {\n  pinMode(ledPin, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(ledPin, HIGH);\n  delay(500);\n  digitalWrite(ledPin, LOW);\n  delay(500);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание по безопасности",
+      "text": "GPIO светодиода, Wi-Fi и периферия различаются у плат. Адаптируйте пример под плату и версию библиотеки."
+    }
+  ],
+  "testId": "embedded_test_module_arduino_esp32_examples_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

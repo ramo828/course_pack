@@ -1,0 +1,160 @@
+{
+  "id": "esp32_esp_gpio",
+  "title": "GPIO, прерывания и подавление дребезга",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_gpio_ru",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «GPIO, прерывания и подавление дребезга» в программе или устройстве. Основной принцип: Оставляйте ISR коротким, основную работу выполняйте в задаче или цикле. В проекте следуйте рекомендации: Точно выбирайте источник и режим прерывания.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nconst int buttonPin = 4;\nconst int ledPin = 2; // Use an external LED with a resistor if this pin has no onboard LED.\nvolatile bool eventReady = false;\nvoid IRAM_ATTR onEdge() { eventReady = true; }\nvoid setup() {\n    pinMode(buttonPin, INPUT_PULLUP);\n    pinMode(ledPin, OUTPUT);\n    attachInterrupt(digitalPinToInterrupt(buttonPin), onEdge, FALLING);\n}\nvoid loop() {\n    if (eventReady) { noInterrupts(); eventReady = false; interrupts(); digitalWrite(ledPin, !digitalRead(ledPin)); }\n    delay(1);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ISR только устанавливает флаг; для полной работы нужна настройка GPIO и прерывания для target.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Настройте GPIO на поддерживаемых выводах. В обработчике прерывания фиксируйте только короткий флаг/время; подавляйте дребезг механических кнопок.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "attachInterrupt(digitalPinToInterrupt(buttonPin), onEdge, FALLING);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Оставляйте ISR коротким, основную работу выполняйте в задаче или цикле.\nЗачем она нужна: Точно выбирайте источник и режим прерывания.\nЕсли пропустить или изменить: Общие данные между задачами и ISR требуют синхронизации и ISR-safe API.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Общие данные между задачами и ISR требуют синхронизации и ISR-safe API."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Оставляйте ISR коротким, основную работу выполняйте в задаче или цикле.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Точно выбирайте источник и режим прерывания."
+    },
+    {
+      "type": "text",
+      "text": "Эквивалентный скетч Arduino Core\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nconst int pin = 2; // Use an external LED with a resistor if needed.\nvoid setup() { pinMode(pin, OUTPUT); }\nvoid loop() { digitalWrite(pin, !digitalRead(pin)); delay(500); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Светодиод на GPIO 2 мигает; проверьте распиновку платы и используйте резистор.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "В обработчике прерывания фиксируйте только короткий флаг/время; подавляйте дребезг механических кнопок."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Общие данные между задачами и ISR требуют синхронизации и ISR-safe API."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

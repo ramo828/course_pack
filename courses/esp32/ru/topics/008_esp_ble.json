@@ -1,0 +1,160 @@
+{
+  "id": "esp32_esp_ble",
+  "title": "Bluetooth LE и GATT",
+  "difficulty": "hard",
+  "testId": "esp32_test_esp_ble_ru",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/ble/"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Bluetooth LE и GATT» в программе или устройстве. Основной принцип: GATT организует данные в сервисы и характеристики. В проекте следуйте рекомендации: Даже характеристика только для чтения может раскрыть данные; продумайте pairing и авторизацию.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <BLEDevice.h>\n#include <BLEServer.h>\n#include <BLEUtils.h>\n#include <BLE2902.h>\nstatic BLECharacteristic* reading;\nvoid setup() {\n    BLEDevice::init(\"SensorDemo\");\n    BLEServer* server = BLEDevice::createServer();\n    BLEService* service = server->createService(\"180A\");\n    reading = service->createCharacteristic(\"2A57\", BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_NOTIFY);\n    reading->addDescriptor(new BLE2902());\n    reading->setValue(\"ready\");\n    service->start();\n    BLEDevice::getAdvertising()->start();\n}\nvoid loop() { reading->setValue(\"sample\"); reading->notify(); delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Advertising начинается после настройки stack, callback, service и advertising data; API зависит от BLE stack.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "BLE GATT публикует данные через сервисы и характеристики. Реклама, соединение, MTU и энергопотребление зависят от модели и SDK; задайте контроль доступа.\n\nСкетч BLE использует библиотеку Arduino-ESP32; заголовки и API зависят от версии core. У GATT API ESP-IDF другая модель callback и жизненного цикла; этот скетч не заявляет совместимость исходного кода.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#include <BLEDevice.h>",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: GATT организует данные в сервисы и характеристики.\nЗачем она нужна: Даже характеристика только для чтения может раскрыть данные; продумайте pairing и авторизацию.\nЕсли пропустить или изменить: Даже характеристика только для чтения может раскрыть данные; продумайте pairing и авторизацию.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: Даже характеристика только для чтения может раскрыть данные; продумайте pairing и авторизацию."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "GATT организует данные в сервисы и характеристики.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Даже характеристика только для чтения может раскрыть данные; продумайте pairing и авторизацию."
+    },
+    {
+      "type": "text",
+      "text": "Каркас GATT для Arduino Core\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <BLEDevice.h>\n#include <BLEServer.h>\nvoid setup() { BLEDevice::init(\"SensorDemo\"); BLEServer* server = BLEDevice::createServer(); BLEService* service = server->createService(\"180A\"); service->start(); BLEDevice::getAdvertising()->start(); }\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Объявляется BLE service; проверьте поддержку и версию библиотеки для выбранного core.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "У GATT API ESP-IDF другая модель callback и жизненного цикла; этот скетч не заявляет совместимость исходного кода."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Выводы, пределы напряжения/тока, тайминги и периферия зависят от платы; проверьте её документацию перед подключением и загрузкой."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

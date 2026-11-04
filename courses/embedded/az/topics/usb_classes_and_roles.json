@@ -1,0 +1,58 @@
+{
+  "id": "usb_classes_and_roles",
+  "title": "USB: CDC, HID, yaddaş, host və cihaz rolları",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb_host.html",
+    "https://www.usb.org/defined-class-codes"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "USB sadəcə enerji və Serial Monitor kabeli deyil. Uyğun çip və lövhə ilə mikrokontroller kompüterə cihaz kimi görünə, yaxud host kimi klaviatura və yaddaş daşıyıcısı qoşa bilər.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NECƏ İŞLƏYİR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Device rolunda CDC serial diaqnostika, HID klaviatura/siçan interfeysi, MSC yaddaş, MIDI və uyğun lövhədə DFU yeniləmə təqdim edə bilər. Host rolunda klaviatura, siçan və USB yaddaşı idarə edir; host 5 V VBUS və cərəyan təminatına cavabdehdir. ESP32-S2/S3 USB OTG ilə host/device ola bilər, amma pinlər və Arduino USB Mode seçimi vacibdir; S3-də USB Serial/JTAG və OTG eyni PHY-ni paylaşa bilər. C3-də daxili CDC/JTAG var, lakin tam host OTG yoxdur. Klassik ESP32-də ayrıca native USB periferiyası yoxdur. UNO-da kabel adətən USB-UART çipinə gedir; UNO özünü standart USB klaviaturası kimi göstərə bilmir. ATmega32U4 lövhələr və uyğun ESP32-S2/S3 isə native HID imkanına malik ola bilər.\n\nSerial Monitor nümunəsi: "
+    },
+    {
+      "type": "text",
+      "text": "Serial",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bəzi lövhələrdə native CDC, digərlərində USB-UART körpüsündən UART-a yönəlir; IDE ayarını və lövhə sənədini yoxlayın.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "void setup() {\n  Serial.begin(115200);\n}\n\nvoid loop() {\n  Serial.println(\"USB serial is ready\");\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib təhlükəsizlik və uyğunluq qeydi",
+      "text": "USB host üçün lövhənin VBUS güc dövrəsini yoxlayın; klaviatura/yaddaş daşıyıcısını birbaşa zəif GPIO-dan qidalandırmayın. HID vasitəsilə düymə göndərmək yalnız istifadəçinin açıq hərəkəti və razılığı ilə olmalıdır."
+    }
+  ],
+  "testId": "embedded_test_usb_classes_and_roles_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

@@ -1,0 +1,208 @@
+{
+  "id": "rust_rust_traits",
+  "title": "Generics and traits",
+  "difficulty": "hard",
+  "testId": "rust_test_rust_traits_en",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch10-00-generics.html"
+  ],
+  "estimatedMinutes": 24,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Generics and traits” to a real program or device. The key principle is: A trait declares shared method behavior. In a project, follow this guidance: Use a generic API when behavior genuinely needs to be shared.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "trait Area { fn area(&self) -> f64; }\nstruct Rectangle { width: f64, height: f64 }\nimpl Area for Rectangle {\n    fn area(&self) -> f64 { self.width * self.height }\n}\nfn print_area<T: Area>(shape: &T) {\n    println!(\"{}\", shape.area());\n}\nfn main() { print_area(&Rectangle { width: 3.0, height: 4.0 }); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "No stdout until print_area is called; for a 3×4 rectangle it prints 12.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Generics parameterize reusable code. Traits describe shared behavior; bounds such as ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "T: Trait",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " require capabilities and often enable static dispatch through monomorphization.\n\nA trait defines shared capability as a contract; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "impl Trait for Type",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " supplies behavior, while a generic bound states what a caller's type must support. Default methods share implementation and associated types relate outputs to the trait. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "dyn Trait",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " uses runtime dispatch; generics commonly use compile-time monomorphization. Treat public trait boundaries as compatibility commitments for implementors.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "impl Area for Rectangle {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: A trait declares shared method behavior.\nWhy it is used: Use a generic API when behavior genuinely needs to be shared.\nIf omitted or changed: Use a generic API when behavior genuinely needs to be shared.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Skipping this check before applying the rule: Use a generic API when behavior genuinely needs to be shared."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A trait declares shared method behavior.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Use a generic API when behavior genuinely needs to be shared."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "trait Label { fn label(&self) -> &str; }\nstruct Sensor;\nimpl Label for Sensor { fn label(&self) -> &str { \"temperature\" } }\nfn main() { println!(\"{}\", Sensor.label()); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "temperature\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Traits describe shared behavior; bounds such as `T: Trait` require capabilities and often enable static dispatch through monomorphization."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Examples focus on the concept; compile and test with the selected toolchain and target because APIs and diagnostics can vary by version."
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement gives the core rule for “Generics and traits”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: A trait declares shared method behavior.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "A separate visual is not essential; a small runnable code example and its expected output explain the topic."
+}

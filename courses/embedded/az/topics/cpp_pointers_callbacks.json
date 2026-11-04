@@ -1,0 +1,91 @@
+{
+  "id": "cpp_pointers_callbacks",
+  "title": "Göstəricilər, istinadlar və geri çağırışlar",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/pointer.html",
+    "https://en.cppreference.com/w/cpp/language/reference.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Göstərici ünvan saxlayır və ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "nullptr",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ola bilər; istinad mövcud obyektə başqa addır və qurularkən başlanğıc dəyər almalıdır. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "&",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " istinad parametrinə dəyişəni köçürmədən verməyə, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "const T&",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " isə böyük obyekti köçürmədən oxumağa yarayır. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "T**",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " göstəricinin ünvanını saxlayır; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void*",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " tipi naməlum ünvanı saxlasa da istifadə etməzdən əvvəl düzgün tipə çevrilməlidir. Funksiya göstəricisi və geri çağırış hadisə baş verəndə çağırılacaq əməliyyatı ötürür.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "void addOne(int& value) { ++value; }\nvoid onReady(void (*callback)(int), int value) {\n  if (callback != nullptr) callback(value);\n}\nvoid printValue(int value) { Serial.println(value); }\nvoid setup() {\n  Serial.begin(9600);\n  onReady(printValue, 42);\n}\n\nint reading = 7;\nvoid* rawAddress = &reading;\nint* typedAddress = static_cast<int*>(rawAddress);\nint* pointer = &reading;\nint** pointerToPointer = &pointer;\nint* values = &reading;\nptrdiff_t distance = values - pointer; // Same-array rule applies.",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Göstərici hesabı yalnız eyni massivdəki elementlər arasında etibarlıdır; `void*` üzərində hesab aparmaq olmaz. Səhv, boş və ya ömrü bitmiş ünvana müraciət proqramı poza bilər. ESP32/Arduino geri çağırış qaydaları kitabxanadan asılıdır; interrupt daxilindən bloklanan funksiyanı çağırmayın."
+    }
+  ],
+  "testId": "embedded_test_cpp_pointers_callbacks_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: stack/heap və yaddaş ömrünü, sahiblik və ya məlumat axınını göstərən yaddaş diaqramı."
+}

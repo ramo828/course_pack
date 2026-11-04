@@ -1,0 +1,311 @@
+{
+  "id": "freertos_freertos_timing",
+  "title": "Dövri iş və task gecikməsi",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_timing_az",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/04-API-references/02-Task-control/04-vTaskDelay"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Dövri iş və task gecikməsi” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " hədəf dövrünü qoruyur, amma uzun bloklayan işlər deadline-ı yenə ötürə bilər. Real layihədə bu göstərişə əməl edin: Periyodik iş üçün ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "delay",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " seçin və gecikməni osiloskop və ya timestamp ilə ölçün.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid clockTask(void*) { TickType_t last = xTaskGetTickCount(); const TickType_t period = pdMS_TO_TICKS(500); for (;;) { Serial.println(\"500 ms\"); vTaskDelayUntil(&last, period); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(clockTask, \"clock\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"clock task creation failed\"); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor təxminən hər 500 ms-dən bir ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "periodic",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " göstərir; tick dəqiqliyi və sistem yükü vaxtlamaya təsir edir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelay",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " task-ı müəyyən tick sayına qədər bloklayır; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "pdMS_TO_TICKS",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " millisaniyəni tick-ə çevirir. Dövri sensor nümunələməsində ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvvəlki plan vaxtına əsaslandığı üçün hesablama vaxtı intervala əlavə olunmur. Tick tezliyi və scheduling gecikməsi sərt mikrosaniyə dəqiqliyi deyil, real nəticəni ölçmək lazımdır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void clockTask(void*) { TickType_t last = xTaskGetTickCount(); const TickType_t period = pdMS_TO_TICKS(500); for (;;) { Serial.println(\"500 ms\"); vTaskDelayUntil(&last, period); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " hədəf dövrünü qoruyur, amma uzun bloklayan işlər deadline-ı yenə ötürə bilər.\nNiyə seçilib: Periyodik iş üçün ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "delay",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " seçin və gecikməni osiloskop və ya timestamp ilə ölçün.\nBuraxılsa və ya dəyişdirilsə: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "pdMS_TO_TICKS(0)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nəticəsinə və çox qısa periodlara diqqət edin; tick resolution seçilən konfiqurasiyadan asılıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Periyodik iş üçün `delay` əvəzinə `vTaskDelayUntil` seçin və gecikməni osiloskop və ya timestamp ilə ölçün."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " hədəf dövrünü qoruyur, amma uzun bloklayan işlər deadline-ı yenə ötürə bilər.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Periyodik iş üçün `delay` əvəzinə `vTaskDelayUntil` seçin və gecikməni osiloskop və ya timestamp ilə ölçün."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid periodicTask(void*) { TickType_t last = xTaskGetTickCount(); const TickType_t period = pdMS_TO_TICKS(500); for (;;) { Serial.println(\"periodic\"); vTaskDelayUntil(&last, period); } }\nvoid setup() { Serial.begin(115200); xTaskCreate(periodicTask, \"periodic\", 2048, nullptr, 1, nullptr); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor təxminən hər 500 ms-dən bir ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "periodic",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " göstərir; tick dəqiqliyi və sistem yükü vaxtlamaya təsir edir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "`pdMS_TO_TICKS(0)` nəticəsinə və çox qısa periodlara diqqət edin; tick resolution seçilən konfiqurasiyadan asılıdır."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Pinlər, gərginlik/cərəyan limitləri, timing və periferik imkanlar lövhədən asılıdır; naqilləmədən və yükləmədən əvvəl dəqiq board sənədini yoxlayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: tapşırıqların vəziyyətini, prioritetini, növbə/sinxronizasiya əlaqəsini və zaman xəttini göstərən diaqram."
+}

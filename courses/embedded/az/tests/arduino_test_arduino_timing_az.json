@@ -1,0 +1,62 @@
+{
+  "id": "arduino_test_arduino_timing_az",
+  "title": "millis(), düymə və interrupt",
+  "questions": [
+    {
+      "id": "arduino_arduino_timing_1",
+      "topicId": "arduino_arduino_timing",
+      "type": "multiple_choice",
+      "prompt": "“millis(), düymə və interrupt” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "Arduino UNO-dakı pin xəritəsini başqa MCU ailəsinə avtomatik tətbiq etməyin.",
+        "millis() ilə vaxt fərqini yoxlamaq delay() səbəbli bloklanmanı azaldır.",
+        "Periferiyalar və pin xəritəsi lövhənin MCU-sundan asılıdır.",
+        "Compile və upload iki ayrı mərhələdir: kod uğurla yığılsa da port səhv ola bilər."
+      ],
+      "answer": "millis() ilə vaxt fərqini yoxlamaq delay() səbəbli bloklanmanı azaldır.",
+      "explanation": "millis() ilə vaxt fərqini yoxlamaq delay() səbəbli bloklanmanı azaldır.\nİzah: millis() vaxtı bloklamadan izləyərək loop-un digər işi davam etdirməsinə imkan verir. Interrupt qısa olmalı; əsas loop üçün flag qoymalı, uzun hesablama və gecikməni ISR-ə yerləşdirməməlidir."
+    },
+    {
+      "id": "arduino_arduino_timing_2",
+      "topicId": "arduino_arduino_timing",
+      "type": "multiple_choice",
+      "prompt": "“millis(), düymə və interrupt” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "Millis sayğacı daşdıqda da düzgün işləmək üçün vaxt fərqini unsigned arifmetika ilə hesablayın.",
+        "Arduino UNO-dakı pin xəritəsini başqa MCU ailəsinə avtomatik tətbiq etməyin.",
+        "Board package versiyasını layihə qeydlərində saxlayın ki, build təkrarlana bilsin.",
+        "Periferiyalar və pin xəritəsi lövhənin MCU-sundan asılıdır."
+      ],
+      "answer": "Millis sayğacı daşdıqda da düzgün işləmək üçün vaxt fərqini unsigned arifmetika ilə hesablayın.",
+      "explanation": "Millis sayğacı daşdıqda da düzgün işləmək üçün vaxt fərqini unsigned arifmetika ilə hesablayın.\nİzah: millis() vaxtı bloklamadan izləyərək loop-un digər işi davam etdirməsinə imkan verir. Interrupt qısa olmalı; əsas loop üçün flag qoymalı, uzun hesablama və gecikməni ISR-ə yerləşdirməməlidir."
+    },
+    {
+      "id": "arduino_arduino_timing_3",
+      "topicId": "arduino_arduino_timing",
+      "type": "multiple_choice",
+      "prompt": "“millis(), düymə və interrupt” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "millis() vaxtı bloklamadan izləyərək loop-un digər işi davam etdirməsinə imkan verir",
+        "Periferiyalar və pin xəritəsi lövhənin MCU-sundan asılıdır.",
+        "Arduino UNO-dakı pin xəritəsini başqa MCU ailəsinə avtomatik tətbiq etməyin.",
+        "Datasheet və lövhə sxemi pin gərginliyi, cərəyan və xüsusi funksiyaları dəqiqləşdirir."
+      ],
+      "answer": "millis() vaxtı bloklamadan izləyərək loop-un digər işi davam etdirməsinə imkan verir",
+      "explanation": "millis() vaxtı bloklamadan izləyərək loop-un digər işi davam etdirməsinə imkan verir\nİzah: millis() vaxtı bloklamadan izləyərək loop-un digər işi davam etdirməsinə imkan verir. Interrupt qısa olmalı; əsas loop üçün flag qoymalı, uzun hesablama və gecikməni ISR-ə yerləşdirməməlidir."
+    },
+    {
+      "id": "arduino_arduino_timing_4",
+      "topicId": "arduino_arduino_timing",
+      "type": "multiple_choice",
+      "prompt": "“millis(), düymə və interrupt” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "ISR daxilində Serial yazmaq, delay və bloklayıcı rabitə etibarsız davranış yarada bilər.",
+        "Compile və upload iki ayrı mərhələdir: kod uğurla yığılsa da port səhv ola bilər.",
+        "Periferiyalar və pin xəritəsi lövhənin MCU-sundan asılıdır.",
+        "Arduino UNO-dakı pin xəritəsini başqa MCU ailəsinə avtomatik tətbiq etməyin."
+      ],
+      "answer": "ISR daxilində Serial yazmaq, delay və bloklayıcı rabitə etibarsız davranış yarada bilər.",
+      "explanation": "ISR daxilində Serial yazmaq, delay və bloklayıcı rabitə etibarsız davranış yarada bilər.\nİzah: millis() vaxtı bloklamadan izləyərək loop-un digər işi davam etdirməsinə imkan verir. Interrupt qısa olmalı; əsas loop üçün flag qoymalı, uzun hesablama və gecikməni ISR-ə yerləşdirməməlidir."
+    }
+  ]
+}

@@ -1,0 +1,723 @@
+{
+  "id": "python_py_fastapi_auth",
+  "title": "Kimlik doğrulamanın temelleri",
+  "difficulty": "hard",
+  "testId": "python_test_py_fastapi_auth_tr",
+  "estimatedMinutes": 24,
+  "sources": [
+    "https://fastapi.tiangolo.com/tutorial/security/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NEDEN KULLANILIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI, web ve mobil uygulamaların HTTP üzerinden veri alışverişi yaptığı JSON API'leri kurar; tür açıklamaları girdileri doğrulamaya ve API sözleşmesini belgelemeye yardımcı olur.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "AMAÇ VE GERÇEK KULLANIM\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kimlik doğrulama isteğin kimden geldiğini denetler; yetkilendirme kullanıcının hangi kaynağa erişebileceğini belirler. OAuth2 bearer akışında istemci token gönderir, ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "HTTPBearer",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " veya ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "OAuth2PasswordBearer",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " bunu uç noktadan önce okur. Sabit token yalnızca eğitim demosudur.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Örnekleri yerelde çalıştırmak için ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kurun; derste belirtilen ek paketleri de ekleyin. Sunucu örneğini ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "app.py",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " olarak kaydedip ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "uvicorn app:app --reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ile başlatın. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yalnızca geliştirme içindir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "GERÇEK HAYATTA NEREDE?\nÖzel profil uç noktası belirteci olmayan isteği reddeder ve tanınan kullanıcıya veri döndürür.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Bu bölüm atlanırsa: Kimlik denetimi olmazsa uç noktaya ulaşan herkes korunan veriyi alabilir; token denetimi olmadan kullanıcı kimliğini varsaymayın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM ÇALIŞAN ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import secrets\nfrom fastapi import Depends, FastAPI, HTTPException, status\nfrom fastapi.security import OAuth2PasswordBearer\n\napp = FastAPI()\noauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")\n\nasync def current_user(token: str = Depends(oauth2_scheme)):\n    if not secrets.compare_digest(token, \"development-only-token\"):\n        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=\"Invalid token\", headers={\"WWW-Authenticate\": \"Bearer\"})\n    return {\"username\": \"ada\"}\n\n@app.get(\"/profile\")\nasync def profile(user: dict = Depends(current_user)):\n    return user\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İSTEK VE BEKLENEN YANIT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "İstek: GET /profile  Authorization: Bearer development-only-token\nYanıt: Demo token ile 200 JSON; token yoksa 401 ve `WWW-Authenticate: Bearer` başlığı.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SATIR SATIR AÇIKLAMASI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import secrets",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import Depends, FastAPI, HTTPException, status",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.security import OAuth2PasswordBearer",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " uygulama nesnesi ASGI sunucusuna verilir ve rotaları tutar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "oauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def current_user(token: str = Depends(oauth2_scheme)):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "if not secrets.compare_digest(token, \"development-only-token\"):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Koşul doğruysa ilgili dalı çalıştırıp uç durum için karar verir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=\"Invalid token\", headers={\"WWW-Authenticate\": \"Bearer\"})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İsteği uygun durum ve hata ayrıntısıyla durdurur; hata gizlenmez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"username\": \"ada\"}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.get(\"/profile\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yöntemini ve URL yolunu bu işleve bağlar; dekoratör olmadan işlev bir API uç noktası olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def profile(user: dict = Depends(current_user)):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return user",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "UYGULAMA: HTTP İSTEMCİSİYLE DENETLEME\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Aşağıdaki tam dosya uygulamayı TestClient ile yerel çağırır; ayrı bir port açmanız gerekmez. TestClient için ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kurun.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM ÇALIŞAN TEST KODU\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import secrets\nfrom fastapi import Depends, FastAPI, HTTPException, status\nfrom fastapi.security import OAuth2PasswordBearer\n\napp = FastAPI()\noauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")\n\nasync def current_user(token: str = Depends(oauth2_scheme)):\n    if not secrets.compare_digest(token, \"development-only-token\"):\n        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=\"Invalid token\", headers={\"WWW-Authenticate\": \"Bearer\"})\n    return {\"username\": \"ada\"}\n\n@app.get(\"/profile\")\nasync def profile(user: dict = Depends(current_user)):\n    return user\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    response = client.get(\"/profile\", headers={\"Authorization\": \"Bearer development-only-token\"})\n    print(response.status_code, response.json())\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "TESTİN BEKLENEN SONUCU\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "200 {'username': 'ada'}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SATIR SATIR AÇIKLAMASI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import secrets",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import Depends, FastAPI, HTTPException, status",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.security import OAuth2PasswordBearer",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " uygulama nesnesi ASGI sunucusuna verilir ve rotaları tutar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "oauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def current_user(token: str = Depends(oauth2_scheme)):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "if not secrets.compare_digest(token, \"development-only-token\"):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Koşul doğruysa ilgili dalı çalıştırıp uç durum için karar verir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=\"Invalid token\", headers={\"WWW-Authenticate\": \"Bearer\"})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İsteği uygun durum ve hata ayrıntısıyla durdurur; hata gizlenmez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return {\"username\": \"ada\"}",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.get(\"/profile\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yöntemini ve URL yolunu bu işleve bağlar; dekoratör olmadan işlev bir API uç noktası olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def profile(user: dict = Depends(current_user)):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return user",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.testclient import TestClient",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Uygulamaya sunucu portu açmadan HTTP isteği gönderecek TestClient sınıfını içe aktarır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with TestClient(app) as client:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Uygulama için bir test HTTP istemcisi açar ve blok bittiğinde kapatır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response = client.get(\"/profile\", headers={\"Authorization\": \"Bearer development-only-token\"})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Test istemcisiyle belirtilen GET isteğini gönderir ve yanıtı ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "response",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " değişkeninde tutar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(response.status_code, response.json())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP durum kodunu ve JSON yanıtını okuyup terminalde gösterir.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "SIK YAPILAN HATALAR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Tokeni URL sorgusunda veya günlükte tutmak; bearer tokeni ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Authorization",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " başlığında gönderin ve demo sırrını gerçekte kullanmayın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Uygulama ipucu",
+      "text": "`/docs` içindeki Authorize düğmesiyle `Bearer` token ekleyin; boş ve yanlış token için 401 sonucunu ayrı sınayın."
+    },
+    {
+      "type": "detail",
+      "title": "Bir adım daha",
+      "text": "Kimlik doğrulama (kimlik) ve yetkilendirme (izin) ayrıdır. Geçerli kullanıcı her işlemi yapamaz; kaynak sahipliğini ve rolü de denetlemek gerekir."
+    },
+    {
+      "type": "warning",
+      "title": "Önemli uyarı",
+      "text": "Bu sabit token bilerek güvenli değildir; gerçek uygulamada standart OAuth2/OIDC sağlayıcısı, TLS, süre/yenileme ve gizli anahtar yönetimi kullanın."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: Dersteki yaygın hatayı önlemek için hangi adım daha doğrudur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "/docs",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " içindeki Authorize düğmesiyle ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Bearer",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " token ekleyin; boş ve yanlış token için 401 sonucunu ayrı sınayın.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

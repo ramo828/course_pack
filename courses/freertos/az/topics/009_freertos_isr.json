@@ -1,0 +1,172 @@
+{
+  "id": "freertos_freertos_isr",
+  "title": "ISR-dən təhlükəsiz hadisə ötürmək",
+  "difficulty": "hard",
+  "testId": "freertos_test_freertos_isr_az",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/02-Queues-mutexes-and-semaphores/01-Queues"
+  ],
+  "estimatedMinutes": 25,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “ISR-dən təhlükəsiz hadisə ötürmək” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Queue event-i ISR-dən task-a ötürür; task daha uzun işi interrupt-ları bloklamadan yerinə yetirir. Real layihədə bu göstərişə əməl edin: ISR-də delay, mutex, dinamik allocation və uzun Serial çıxışı istifadə etməyin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nconst int buttonPin = 4;\nQueueHandle_t events = nullptr;\nportMUX_TYPE dropMux = portMUX_INITIALIZER_UNLOCKED;\nuint32_t droppedEvents = 0;\nvoid IRAM_ATTR buttonIsr() { const int event = 1; BaseType_t higherPriorityTaskWoken = pdFALSE; if (events == nullptr || xQueueSendFromISR(events, &event, &higherPriorityTaskWoken) != pdPASS) { portENTER_CRITICAL_ISR(&dropMux); ++droppedEvents; portEXIT_CRITICAL_ISR(&dropMux); } if (higherPriorityTaskWoken == pdTRUE) portYIELD_FROM_ISR(); }\nvoid setup() { Serial.begin(115200); events = xQueueCreate(4, sizeof(int)); if (events == nullptr) { Serial.println(\"event queue creation failed\"); return; } pinMode(buttonPin, INPUT_PULLUP); attachInterrupt(digitalPinToInterrupt(buttonPin), buttonIsr, FALLING); }\nvoid loop() { int event; if (events && xQueueReceive(events, &event, pdMS_TO_TICKS(1000)) == pdPASS) { uint32_t dropped; portENTER_CRITICAL(&dropMux); dropped = droppedEvents; portEXIT_CRITICAL(&dropMux); Serial.printf(\"button event; dropped=%lu\\n\", static_cast<unsigned long>(dropped)); } else { vTaskDelay(pdMS_TO_TICKS(100)); } }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Interrupt queue-ya hadisə qoyur, sonra task həmin düymə hadisəsini emal edib çap edir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Interrupt service routine (ISR) hardware hadisəsinə dərhal cavab verir; içində yalnız qısa, gecikməyən əməliyyat olmalıdır. FreeRTOS ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "FromISR",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " API-ləri ISR-dən queue və notification istifadə etməyə imkan verir; sensor oxumağı, loglamağı və protokol emalını adi task-a verin. ISR təhlükəsiz API seçimi, IRAM tələbi və pin interrupt qabiliyyəti target/board-dan asılıdır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void IRAM_ATTR buttonIsr() { const int event = 1; BaseType_t higherPriorityTaskWoken = pdFALSE; if (events == nullptr || xQueueSendFromISR(events, &event, &higherPriorityTaskWoken) != pdPASS) { portENTER_CRITICAL_ISR(&dropMux); ++droppedEvents; portEXIT_CRITICAL_ISR(&dropMux); } if (higherPriorityTaskWoken == pdTRUE) portYIELD_FROM_ISR(); }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Queue event-i ISR-dən task-a ötürür; task daha uzun işi interrupt-ları bloklamadan yerinə yetirir.\nNiyə seçilib: ISR-də delay, mutex, dinamik allocation və uzun Serial çıxışı istifadə etməyin.\nBuraxılsa və ya dəyişdirilsə: Düymə bounce yaradır; real cihazda debounce və queue dolu olduqda davranışı da planlaşdırın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Düymə bounce yaradır; real cihazda debounce və queue dolu olduqda davranışı da planlaşdırın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Queue event-i ISR-dən task-a ötürür; task daha uzun işi interrupt-ları bloklamadan yerinə yetirir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "ISR-də delay, mutex, dinamik allocation və uzun Serial çıxışı istifadə etməyin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nconst int buttonPin = 4;\nQueueHandle_t events;\nvoid IRAM_ATTR onPress() { int event = 1; BaseType_t wake = pdFALSE; if (events) xQueueSendFromISR(events, &event, &wake); if (wake == pdTRUE) portYIELD_FROM_ISR(); }\nvoid setup() { Serial.begin(115200); events = xQueueCreate(4, sizeof(int)); if (events) { pinMode(buttonPin, INPUT_PULLUP); attachInterrupt(digitalPinToInterrupt(buttonPin), onPress, FALLING); } }\nvoid loop() { int event; if (events && xQueueReceive(events, &event, portMAX_DELAY) == pdPASS) Serial.println(\"button event\"); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Interrupt hadisəni queue-ya göndərir; task onu sonradan emal edir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "ISR təhlükəsiz API seçimi, IRAM tələbi və pin interrupt qabiliyyəti target/board-dan asılıdır."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Düymə bounce yaradır; real cihazda debounce və queue dolu olduqda davranışı da planlaşdırın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: tapşırıqların vəziyyətini, prioritetini, növbə/sinxronizasiya əlaqəsini və zaman xəttini göstərən diaqram."
+}

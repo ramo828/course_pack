@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_sqlalchemy_az",
+  "title": "SQLAlchemy ilə verilənlər bazası",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_sqlalchemy",
+      "type": "multiple_choice",
+      "prompt": "Bu real HTTP sorğusuna API necə cavab verməlidir?\nPOST /users  body={\"name\":\"Ada\"}; sonra GET /users/1",
+      "options": [
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "İlk çağırış 200 JSON `{id:1,name:Ada}` qaytarır; SQLite faylında saxlanır və sonrakı sorğuda oxunur."
+      ],
+      "answer": "İlk çağırış 200 JSON `{id:1,name:Ada}` qaytarır; SQLite faylında saxlanır və sonrakı sorğuda oxunur.",
+      "explanation": "Bu, `POST /users  body={\"name\":\"Ada\"}; sonra GET /users/1` sorğusunun gözlənilən davranışıdır. İlk çağırış 200 JSON `{id:1,name:Ada}` qaytarır; SQLite faylında saxlanır və sonrakı sorğuda oxunur."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_sqlalchemy",
+      "type": "multiple_choice",
+      "prompt": "Bu mövzuda hansı dizayn prinsipi doğrudur?",
+      "options": [
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Request-ə aid SQLAlchemy sessiyası sorğu nəticələrini və tranzaksiyanı idarə edir; dependency onu endpoint-ə təhlükəsiz şəkildə verir.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın."
+      ],
+      "answer": "Request-ə aid SQLAlchemy sessiyası sorğu nəticələrini və tranzaksiyanı idarə edir; dependency onu endpoint-ə təhlükəsiz şəkildə verir.",
+      "explanation": "Request-ə aid SQLAlchemy sessiyası sorğu nəticələrini və tranzaksiyanı idarə edir; dependency onu endpoint-ə təhlükəsiz şəkildə verir. SQLite öyrənmə və kiçik yerli tətbiqlər üçün uyğundur; çox yazan və bir neçə serverli sistemlərdə ayrıca DB serveri və migration aləti seçin."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_sqlalchemy",
+      "type": "multiple_choice",
+      "prompt": "Dərsdə göstərilən vacib hissə çıxarılsa, hansı dəyişiklik baş verər?",
+      "options": [
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Davamlı saxlama olmasa, server yenidən başladıqda yaddaşdakı məlumat itir; ORM isə sorğu nəticələrini idarəolunan obyektlərə çevirir.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın."
+      ],
+      "answer": "Davamlı saxlama olmasa, server yenidən başladıqda yaddaşdakı məlumat itir; ORM isə sorğu nəticələrini idarəolunan obyektlərə çevirir.",
+      "explanation": "Davamlı saxlama olmasa, server yenidən başladıqda yaddaşdakı məlumat itir; ORM isə sorğu nəticələrini idarəolunan obyektlərə çevirir. SQLAlchemy ORM Python obyektlərini SQL cədvəllərinə bağlayır. Bu nümunə SQLAlchemy 2.x sinxron API-si və yerli SQLite istifadə edir: model cədvəli təsvir edir, sessiya tranzaksiyanı idarə edir, dependency sessiyanı hər sorğu üçün açıb bağlayır. Əvvəlcə `pip install fastapi uvicorn httpx sqlalchemy` quraşdırın."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_sqlalchemy",
+      "type": "multiple_choice",
+      "prompt": "Dərsdəki tipik səhvi önləmək üçün hansı addım daha düzgündür?",
+      "options": [
+        "`yield`-dən sonra `finally` ilə sessiyanı bağlayın; testlərdə `get_db` dependency-sini test bazası ilə əvəz edin.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın."
+      ],
+      "answer": "`yield`-dən sonra `finally` ilə sessiyanı bağlayın; testlərdə `get_db` dependency-sini test bazası ilə əvəz edin.",
+      "explanation": "`yield`-dən sonra `finally` ilə sessiyanı bağlayın; testlərdə `get_db` dependency-sini test bazası ilə əvəz edin. İstehsalda SQLite faylının backup/volume strategiyasını yoxlayın; hər request-də `create_all` işlətmək schema migration-ı əvəz etmir."
+    }
+  ]
+}

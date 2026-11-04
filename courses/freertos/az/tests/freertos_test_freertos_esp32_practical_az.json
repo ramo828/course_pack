@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_esp32_practical_az",
+  "title": "ESP32 Arduino-da FreeRTOS: sensor task və queue",
+  "questions": [
+    {
+      "id": "freertos_freertos_esp32_practical_1",
+      "topicId": "freertos_freertos_esp32_practical",
+      "type": "multiple_choice",
+      "prompt": "“ESP32 Arduino-da FreeRTOS: sensor task və queue” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "Hər task üçün stack ayrılır, prioritet scheduler qərarına təsir edir.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Queue məlumatı dəyər kimi köçürür; sensor task-ı hər yarım saniyədə ölçü göndərir, `loop()` isə qəbul etdiklərini çap edir. Real ölçmə `A0`-ın lövhədə ADC-yə qoşulmuş pinlə əvəz edilməsini tələb edir."
+      ],
+      "answer": "Queue məlumatı dəyər kimi köçürür; sensor task-ı hər yarım saniyədə ölçü göndərir, `loop()` isə qəbul etdiklərini çap edir. Real ölçmə `A0`-ın lövhədə ADC-yə qoşulmuş pinlə əvəz edilməsini tələb edir.",
+      "explanation": "Queue məlumatı dəyər kimi köçürür; sensor task-ı hər yarım saniyədə ölçü göndərir, `loop()` isə qəbul etdiklərini çap edir. Real ölçmə `A0`-ın lövhədə ADC-yə qoşulmuş pinlə əvəz edilməsini tələb edir.\nİzah: Arduino-ESP32 proqram platforması FreeRTOS nüvəsini özündə saxlayır; ayrıca RTOS kitabxanası quraşdırmaq lazım deyil. Sensoru oxuyan tapşırıq məlumatı növbəyə göndərir, `loop()` isə onu alıb ekrana yazır. Beləliklə, sensor işi ilə çıxış işi ayrılır və ortaq dəyişəni qorumaq ehtiyacı azalır. Klassik UNO-nun standart sketch mühiti ESP32 ilə eyni tapşırıq API-sini təqdim etmir; başqa lövhədə uyğun RTOS portu və yaddaş tələblərini ayrıca yoxlayın."
+    },
+    {
+      "id": "freertos_freertos_esp32_practical_2",
+      "topicId": "freertos_freertos_esp32_practical",
+      "type": "multiple_choice",
+      "prompt": "“ESP32 Arduino-da FreeRTOS: sensor task və queue” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "Sonsuz dövrədə işləyən hər task vaxtaşırı gözləməli və ya bloklanmalıdır; əks halda CPU-nu inhisara ala bilər.",
+        "Tətbiq ardıcıllığı: 1) növbə yarat; 2) tapşırıq yaratmanın nəticəsini yoxla; 3) tapşırıqda sensoru oxu və növbəyə vaxt limiti ilə göndər; 4) `loop()`-da növbədəki məlumatı qəbul et; 5) növbə dolanda nə ediləcəyini müəyyən et. `xTaskCreatePinnedToCore` yalnız xüsusi səbəb olduqda lazımdır; pinləmə işi avtomatik sürətləndirmir. ESP-IDF SMP planlaşdırması və Arduino-ESP32 API davranışı versiyadan asılıdır.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir."
+      ],
+      "answer": "Tətbiq ardıcıllığı: 1) növbə yarat; 2) tapşırıq yaratmanın nəticəsini yoxla; 3) tapşırıqda sensoru oxu və növbəyə vaxt limiti ilə göndər; 4) `loop()`-da növbədəki məlumatı qəbul et; 5) növbə dolanda nə ediləcəyini müəyyən et. `xTaskCreatePinnedToCore` yalnız xüsusi səbəb olduqda lazımdır; pinləmə işi avtomatik sürətləndirmir. ESP-IDF SMP planlaşdırması və Arduino-ESP32 API davranışı versiyadan asılıdır.",
+      "explanation": "Tətbiq ardıcıllığı: 1) növbə yarat; 2) tapşırıq yaratmanın nəticəsini yoxla; 3) tapşırıqda sensoru oxu və növbəyə vaxt limiti ilə göndər; 4) `loop()`-da növbədəki məlumatı qəbul et; 5) növbə dolanda nə ediləcəyini müəyyən et. `xTaskCreatePinnedToCore` yalnız xüsusi səbəb olduqda lazımdır; pinləmə işi avtomatik sürətləndirmir. ESP-IDF SMP planlaşdırması və Arduino-ESP32 API davranışı versiyadan asılıdır.\nİzah: Arduino-ESP32 proqram platforması FreeRTOS nüvəsini özündə saxlayır; ayrıca RTOS kitabxanası quraşdırmaq lazım deyil. Sensoru oxuyan tapşırıq məlumatı növbəyə göndərir, `loop()` isə onu alıb ekrana yazır. Beləliklə, sensor işi ilə çıxış işi ayrılır və ortaq dəyişəni qorumaq ehtiyacı azalır. Klassik UNO-nun standart sketch mühiti ESP32 ilə eyni tapşırıq API-sini təqdim etmir; başqa lövhədə uyğun RTOS portu və yaddaş tələblərini ayrıca yoxlayın."
+    },
+    {
+      "id": "freertos_freertos_esp32_practical_3",
+      "topicId": "freertos_freertos_esp32_practical",
+      "type": "multiple_choice",
+      "prompt": "“ESP32 Arduino-da FreeRTOS: sensor task və queue” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "Task stack ölçüsü byte ilə verilir və target/runtime versiyasına görə RAM məhdudiyyətini nəzərə almaq lazımdır.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "Arduino-ESP32 proqram platforması FreeRTOS nüvəsini özündə saxlayır; ayrıca RTOS kitabxanası quraşdırmaq lazım deyil"
+      ],
+      "answer": "Arduino-ESP32 proqram platforması FreeRTOS nüvəsini özündə saxlayır; ayrıca RTOS kitabxanası quraşdırmaq lazım deyil",
+      "explanation": "Arduino-ESP32 proqram platforması FreeRTOS nüvəsini özündə saxlayır; ayrıca RTOS kitabxanası quraşdırmaq lazım deyil\nİzah: Arduino-ESP32 proqram platforması FreeRTOS nüvəsini özündə saxlayır; ayrıca RTOS kitabxanası quraşdırmaq lazım deyil. Sensoru oxuyan tapşırıq məlumatı növbəyə göndərir, `loop()` isə onu alıb ekrana yazır. Beləliklə, sensor işi ilə çıxış işi ayrılır və ortaq dəyişəni qorumaq ehtiyacı azalır. Klassik UNO-nun standart sketch mühiti ESP32 ilə eyni tapşırıq API-sini təqdim etmir; başqa lövhədə uyğun RTOS portu və yaddaş tələblərini ayrıca yoxlayın."
+    },
+    {
+      "id": "freertos_freertos_esp32_practical_4",
+      "topicId": "freertos_freertos_esp32_practical",
+      "type": "multiple_choice",
+      "prompt": "“ESP32 Arduino-da FreeRTOS: sensor task və queue” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "Serial yazıları bir neçə task-dan qarışa bilər; ortaq çıxışı serializasiya edin və task stack ölçüsünü ölçün.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "ESP32 Arduino Core FreeRTOS API-sini özündə ehtiva edir; nümunədəki stack ölçüsü və `A0` pini bütün lövhələr üçün universal deyil. Queue və task yaradılmasını yoxlayın; queue dolması üçün siyasət seçin. Sensor oxuma və Serial yazısı bloklana bilər, buna görə yüksək prioritet və sərt vaxt zəmanəti tələb olunan sistemdə əlavə ölçmə aparın.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin."
+      ],
+      "answer": "ESP32 Arduino Core FreeRTOS API-sini özündə ehtiva edir; nümunədəki stack ölçüsü və `A0` pini bütün lövhələr üçün universal deyil. Queue və task yaradılmasını yoxlayın; queue dolması üçün siyasət seçin. Sensor oxuma və Serial yazısı bloklana bilər, buna görə yüksək prioritet və sərt vaxt zəmanəti tələb olunan sistemdə əlavə ölçmə aparın.",
+      "explanation": "ESP32 Arduino Core FreeRTOS API-sini özündə ehtiva edir; nümunədəki stack ölçüsü və `A0` pini bütün lövhələr üçün universal deyil. Queue və task yaradılmasını yoxlayın; queue dolması üçün siyasət seçin. Sensor oxuma və Serial yazısı bloklana bilər, buna görə yüksək prioritet və sərt vaxt zəmanəti tələb olunan sistemdə əlavə ölçmə aparın.\nİzah: Arduino-ESP32 proqram platforması FreeRTOS nüvəsini özündə saxlayır; ayrıca RTOS kitabxanası quraşdırmaq lazım deyil. Sensoru oxuyan tapşırıq məlumatı növbəyə göndərir, `loop()` isə onu alıb ekrana yazır. Beləliklə, sensor işi ilə çıxış işi ayrılır və ortaq dəyişəni qorumaq ehtiyacı azalır. Klassik UNO-nun standart sketch mühiti ESP32 ilə eyni tapşırıq API-sini təqdim etmir; başqa lövhədə uyğun RTOS portu və yaddaş tələblərini ayrıca yoxlayın."
+    }
+  ]
+}

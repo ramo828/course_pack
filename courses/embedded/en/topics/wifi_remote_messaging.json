@@ -1,0 +1,58 @@
+{
+  "id": "wifi_remote_messaging",
+  "title": "Remote Wi-Fi messaging: MQTT, TLS, and cloud connections",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html",
+    "https://pubsubclient.knolleary.net/",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/protocols/mqtt.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "A device on a local network is not automatically reachable from the internet. This lesson shows how a sensor can publish to a cloud broker and protect that connection.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "HOW IT WORKS\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "In STA mode the device joins a router; if that router has internet, the device can connect to a remote MQTT broker over TLS. MQTT is publish/subscribe messaging: a device publishes a reading to a topic and an app subscribes. QoS describes delivery guarantees, retained messages keep the latest value, and Last Will can report an unexpected disconnect. A local HTTP server can work without internet. For remote access, prefer authenticated encrypted services and narrowly scoped topics over exposing a device port. NAT and firewalls usually prevent direct inbound connections to a device behind a home router.\n\nThe example uses "
+    },
+    {
+      "type": "text",
+      "text": "PubSubClient",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " with a TLS broker on port 8883. Connect Wi-Fi in STA mode first; use a CA certificate and broker account that you control.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFiClientSecure.h>\n#include <PubSubClient.h>\n\nextern const char rootCa[];  // Define with your trusted CA.\nWiFiClientSecure tls;\nPubSubClient mqtt(tls);\nunsigned long retryAt = 0;\n\nvoid setup() {\n  Serial.begin(115200);\n  tls.setCACert(rootCa);\n  mqtt.setServer(\"broker.example.org\", 8883);\n}\n\nvoid loop() {\n  if (!mqtt.connected() && millis() - retryAt > 5000) {\n    retryAt = millis();\n    if (!mqtt.connect(\"sensor-01\", \"DEVICE_USER\", \"DEVICE_TOKEN\")) {\n      Serial.println(\"Broker connection failed\");\n    }\n  }\n  if (mqtt.connected()) {\n    mqtt.loop();\n    if (!mqtt.publish(\"lab/sensor/reading\", \"23.5\")) {\n      Serial.println(\"Publish failed\");\n    }\n  }\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important safety and compatibility note",
+      "text": "`PubSubClient` is a separate dependency, and Wi-Fi must already be connected. This sketch publishes a fixed `23.5`; read a real sensor, check the connection result, and never commit passwords or tokens."
+    }
+  ],
+  "testId": "embedded_test_wifi_remote_messaging_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

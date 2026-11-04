@@ -1,0 +1,160 @@
+{
+  "id": "esp32_esp_gpio",
+  "title": "GPIO, interrupt ve debouncing",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_gpio_tr",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “GPIO, interrupt ve debouncing” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: ISR kısa tutulur, asıl iş normal task veya loop içinde yapılır. Gerçek projede şu öneriyi izleyin: Interrupt kaynağını ve pin tetikleme kipini dikkatle seçin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nconst int buttonPin = 4;\nconst int ledPin = 2; // Use an external LED with a resistor if this pin has no onboard LED.\nvolatile bool eventReady = false;\nvoid IRAM_ATTR onEdge() { eventReady = true; }\nvoid setup() {\n    pinMode(buttonPin, INPUT_PULLUP);\n    pinMode(ledPin, OUTPUT);\n    attachInterrupt(digitalPinToInterrupt(buttonPin), onEdge, FALLING);\n}\nvoid loop() {\n    if (eventReady) { noInterrupts(); eventReady = false; interrupts(); digitalWrite(ledPin, !digitalRead(ledPin)); }\n    delay(1);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ISR yalnızca bir flag ayarlar; tam davranış için hedefe uygun GPIO ve kesme kurulumu gerekir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "GPIO giriş/çıkışını uygun pinlerde yapılandırın. Interrupt içinde kısa bayrak ve zaman damgası kaydedin; mekanik butonları debounce etmeden tekrarlanan olay saymayın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "attachInterrupt(digitalPinToInterrupt(buttonPin), onEdge, FALLING);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: ISR kısa tutulur, asıl iş normal task veya loop içinde yapılır.\nNeden seçildi: Interrupt kaynağını ve pin tetikleme kipini dikkatle seçin.\nAtlanır veya değiştirilirse: FreeRTOS görevleriyle paylaşılan değişkenlerde uygun eşzamanlama ve ISR-safe API gerekir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "FreeRTOS görevleriyle paylaşılan değişkenlerde uygun eşzamanlama ve ISR-safe API gerekir."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ISR kısa tutulur, asıl iş normal task veya loop içinde yapılır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Interrupt kaynağını ve pin tetikleme kipini dikkatle seçin."
+    },
+    {
+      "type": "text",
+      "text": "Arduino Core eşdeğer sketch\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nconst int pin = 2; // Use an external LED with a resistor if needed.\nvoid setup() { pinMode(pin, OUTPUT); }\nvoid loop() { digitalWrite(pin, !digitalRead(pin)); delay(500); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "GPIO 2'ye bağlı LED yanıp söner; pin eşlemesini doğrulayın ve direnç kullanın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Interrupt içinde kısa bayrak ve zaman damgası kaydedin; mekanik butonları debounce etmeden tekrarlanan olay saymayın."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "FreeRTOS görevleriyle paylaşılan değişkenlerde uygun eşzamanlama ve ISR-safe API gerekir."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

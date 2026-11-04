@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_memory_en",
+  "title": "Heap, stacks, and static allocation",
+  "questions": [
+    {
+      "id": "freertos_freertos_memory_1",
+      "topicId": "freertos_freertos_memory",
+      "type": "multiple_choice",
+      "prompt": "Which statement gives the core rule for “Heap, stacks, and static allocation”?",
+      "options": [
+        "Each task consumes stack; priority affects scheduler choices.",
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "Release allocated memory and plan long-lived objects deliberately.",
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU."
+      ],
+      "answer": "Release allocated memory and plan long-lived objects deliberately.",
+      "explanation": "Release allocated memory and plan long-lived objects deliberately.\nWhy: Every FreeRTOS task consumes its own stack; tasks, queues, and timers may also allocate from the kernel heap. Creation can fail when memory is exhausted, while stack overflow can corrupt state. Measure stack high-water marks and minimum heap, and consider static allocation where supported; do not copy demo sizes into production without measurement."
+    },
+    {
+      "id": "freertos_freertos_memory_2",
+      "topicId": "freertos_freertos_memory",
+      "type": "multiple_choice",
+      "prompt": "When applying “Heap, stacks, and static allocation” in a project, which action is recommended?",
+      "options": [
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU.",
+        "An infinite task should block or wait periodically so it does not monopolize the CPU.",
+        "Check task-creation results and stack use; budget RAM across tasks, queues, and buffers."
+      ],
+      "answer": "Check task-creation results and stack use; budget RAM across tasks, queues, and buffers.",
+      "explanation": "Check task-creation results and stack use; budget RAM across tasks, queues, and buffers.\nWhy: Every FreeRTOS task consumes its own stack; tasks, queues, and timers may also allocate from the kernel heap. Creation can fail when memory is exhausted, while stack overflow can corrupt state. Measure stack high-water marks and minimum heap, and consider static allocation where supported; do not copy demo sizes into production without measurement."
+    },
+    {
+      "id": "freertos_freertos_memory_3",
+      "topicId": "freertos_freertos_memory",
+      "type": "multiple_choice",
+      "prompt": "Which implementation detail matters in the “Heap, stacks, and static allocation” example?",
+      "options": [
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs.",
+        "Stack-size units vary by port/API; the ESP32 Arduino Core API shown here uses bytes.",
+        "Task stack sizes consume RAM and must fit the selected target's budget.",
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU."
+      ],
+      "answer": "Stack-size units vary by port/API; the ESP32 Arduino Core API shown here uses bytes.",
+      "explanation": "Stack-size units vary by port/API; the ESP32 Arduino Core API shown here uses bytes.\nWhy: Every FreeRTOS task consumes its own stack; tasks, queues, and timers may also allocate from the kernel heap. Creation can fail when memory is exhausted, while stack overflow can corrupt state. Measure stack high-water marks and minimum heap, and consider static allocation where supported; do not copy demo sizes into production without measurement."
+    },
+    {
+      "id": "freertos_freertos_memory_4",
+      "topicId": "freertos_freertos_memory",
+      "type": "multiple_choice",
+      "prompt": "Which additional constraint or condition should be checked for “Heap, stacks, and static allocation”?",
+      "options": [
+        "The scheduler runs tasks; `vTaskDelay` lets other work use the CPU.",
+        "Creation can fail when memory is exhausted, while stack overflow can corrupt state",
+        "Serial output from multiple tasks may interleave; serialize shared output and measure stack use.",
+        "Start with a simple `loop()`; add tasks only for independent work with distinct timing needs."
+      ],
+      "answer": "Creation can fail when memory is exhausted, while stack overflow can corrupt state",
+      "explanation": "Creation can fail when memory is exhausted, while stack overflow can corrupt state\nWhy: Every FreeRTOS task consumes its own stack; tasks, queues, and timers may also allocate from the kernel heap. Creation can fail when memory is exhausted, while stack overflow can corrupt state. Measure stack high-water marks and minimum heap, and consider static allocation where supported; do not copy demo sizes into production without measurement."
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "id": "rust_test_rust_libraries_az",
+  "title": "Vacib Rust crate-ləri: nə üçündür və kim hazırlayır?",
+  "questions": [
+    {
+      "id": "rust_rust_libraries_1",
+      "topicId": "rust_rust_libraries",
+      "type": "multiple_choice",
+      "prompt": "“Vacib Rust crate-ləri: nə üçündür və kim hazırlayır?” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "Serde derive поля автоматически сериализует; `serde_json` выдаёт JSON, а библиотеку нужно добавить в Cargo.",
+        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir."
+      ],
+      "answer": "Serde derive поля автоматически сериализует; `serde_json` выдаёт JSON, а библиотеку нужно добавить в Cargo.",
+      "explanation": "Serde derive поля автоматически сериализует; `serde_json` выдаёт JSON, а библиотеку нужно добавить в Cargo.\nİzah: Rust crate-i hazır funksiyalar toplusudur; `Cargo.toml`-a əlavə edib `use` ilə istifadə edirik. `serde` məlumatı JSON kimi formata çevirir və onu oxuyur; David Tolnay və açıq mənbə iştirakçıları tərəfindən hazırlanır. `tokio` asinxron server və şəbəkə işlərini idarə edən runtime-dır; Carl Lerche-nin başladığı layihəni icma davam etdirir. `clap` terminal arqumentlərini, `reqwest` HTTP sorğularını, `embedded-hal` isə mikrokontroller sürücüləri üçün ortaq interfeysləri asanlaşdırır. Standart kitabxana Rust ilə gəlir, bu crate-lər isə ayrıca asılılıqdır. Versiya, lisenziya, uyğunluq və təhlükəsizlik yeniləmələrini yoxlayın.\n\nCargo.toml asılılıqları (nümunə): `tokio = { version = \"1\", features = [\"macros\", \"rt-multi-thread\", \"time\"] }`, `serde = { version = \"1\", features = [\"derive\"] }`, `serde_json = \"1\"`, `anyhow = \"1\"`, `thiserror = \"2\"`, `embedded-hal = \"1\"`. Tokio async runtime/time, Serde formatdan asılı olmayan serialize/deserialize, `anyhow` tətbiq səviyyəsində kontekstli xətalar, `thiserror` kitabxana üçün konkret error tipi, `embedded-hal` isə board-a məxsus HAL üzərində portativ driver trait-ləri verir. Tokio komandası, Serde icması və Rust Embedded WG bu ekosistemin əsas texniki saxlayıcılarıdır. HAL implementasiyası olmadan embedded-hal GPIO-nu fiziki idarə etmir."
+    },
+    {
+      "id": "rust_rust_libraries_2",
+      "topicId": "rust_rust_libraries",
+      "type": "multiple_choice",
+      "prompt": "“Vacib Rust crate-ləri: nə üçündür və kim hazırlayır?” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "Dəyişənliyi yalnız həqiqətən lazım olduqda aktiv edin.",
+        "Serde nümunəsi üçün `cargo add serde --features derive` və `cargo add serde_json` işlədin; sənədləri oxuyun və gizli açarları mənbə koduna yazmayın.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir."
+      ],
+      "answer": "Serde nümunəsi üçün `cargo add serde --features derive` və `cargo add serde_json` işlədin; sənədləri oxuyun və gizli açarları mənbə koduna yazmayın.",
+      "explanation": "Serde nümunəsi üçün `cargo add serde --features derive` və `cargo add serde_json` işlədin; sənədləri oxuyun və gizli açarları mənbə koduna yazmayın.\nİzah: Rust crate-i hazır funksiyalar toplusudur; `Cargo.toml`-a əlavə edib `use` ilə istifadə edirik. `serde` məlumatı JSON kimi formata çevirir və onu oxuyur; David Tolnay və açıq mənbə iştirakçıları tərəfindən hazırlanır. `tokio` asinxron server və şəbəkə işlərini idarə edən runtime-dır; Carl Lerche-nin başladığı layihəni icma davam etdirir. `clap` terminal arqumentlərini, `reqwest` HTTP sorğularını, `embedded-hal` isə mikrokontroller sürücüləri üçün ortaq interfeysləri asanlaşdırır. Standart kitabxana Rust ilə gəlir, bu crate-lər isə ayrıca asılılıqdır. Versiya, lisenziya, uyğunluq və təhlükəsizlik yeniləmələrini yoxlayın.\n\nCargo.toml asılılıqları (nümunə): `tokio = { version = \"1\", features = [\"macros\", \"rt-multi-thread\", \"time\"] }`, `serde = { version = \"1\", features = [\"derive\"] }`, `serde_json = \"1\"`, `anyhow = \"1\"`, `thiserror = \"2\"`, `embedded-hal = \"1\"`. Tokio async runtime/time, Serde formatdan asılı olmayan serialize/deserialize, `anyhow` tətbiq səviyyəsində kontekstli xətalar, `thiserror` kitabxana üçün konkret error tipi, `embedded-hal` isə board-a məxsus HAL üzərində portativ driver trait-ləri verir. Tokio komandası, Serde icması və Rust Embedded WG bu ekosistemin əsas texniki saxlayıcılarıdır. HAL implementasiyası olmadan embedded-hal GPIO-nu fiziki idarə etmir."
+    },
+    {
+      "id": "rust_rust_libraries_3",
+      "topicId": "rust_rust_libraries",
+      "type": "multiple_choice",
+      "prompt": "“Vacib Rust crate-ləri: nə üçündür və kim hazırlayır?” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Kitabxana seçimi platforma və layihəyə bağlıdır: məsələn, `embedded-hal` mikrokontroller sürücülərinə, Tokio isə ümumi məqsədli asinxron I/O-ya yönəlib.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir."
+      ],
+      "answer": "Kitabxana seçimi platforma və layihəyə bağlıdır: məsələn, `embedded-hal` mikrokontroller sürücülərinə, Tokio isə ümumi məqsədli asinxron I/O-ya yönəlib.",
+      "explanation": "Kitabxana seçimi platforma və layihəyə bağlıdır: məsələn, `embedded-hal` mikrokontroller sürücülərinə, Tokio isə ümumi məqsədli asinxron I/O-ya yönəlib.\nİzah: Rust crate-i hazır funksiyalar toplusudur; `Cargo.toml`-a əlavə edib `use` ilə istifadə edirik. `serde` məlumatı JSON kimi formata çevirir və onu oxuyur; David Tolnay və açıq mənbə iştirakçıları tərəfindən hazırlanır. `tokio` asinxron server və şəbəkə işlərini idarə edən runtime-dır; Carl Lerche-nin başladığı layihəni icma davam etdirir. `clap` terminal arqumentlərini, `reqwest` HTTP sorğularını, `embedded-hal` isə mikrokontroller sürücüləri üçün ortaq interfeysləri asanlaşdırır. Standart kitabxana Rust ilə gəlir, bu crate-lər isə ayrıca asılılıqdır. Versiya, lisenziya, uyğunluq və təhlükəsizlik yeniləmələrini yoxlayın.\n\nCargo.toml asılılıqları (nümunə): `tokio = { version = \"1\", features = [\"macros\", \"rt-multi-thread\", \"time\"] }`, `serde = { version = \"1\", features = [\"derive\"] }`, `serde_json = \"1\"`, `anyhow = \"1\"`, `thiserror = \"2\"`, `embedded-hal = \"1\"`. Tokio async runtime/time, Serde formatdan asılı olmayan serialize/deserialize, `anyhow` tətbiq səviyyəsində kontekstli xətalar, `thiserror` kitabxana üçün konkret error tipi, `embedded-hal` isə board-a məxsus HAL üzərində portativ driver trait-ləri verir. Tokio komandası, Serde icması və Rust Embedded WG bu ekosistemin əsas texniki saxlayıcılarıdır. HAL implementasiyası olmadan embedded-hal GPIO-nu fiziki idarə etmir."
+    },
+    {
+      "id": "rust_rust_libraries_4",
+      "topicId": "rust_rust_libraries",
+      "type": "multiple_choice",
+      "prompt": "“Vacib Rust crate-ləri: nə üçündür və kim hazırlayır?” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "API crate-lər və feature flag-ləri versiyaya görə dəyişə bilər; Cargo.lock faylını tətbiq layihəsində saxlayın və nümunəni öz toolchain-inizdə yoxlayın.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir."
+      ],
+      "answer": "API crate-lər və feature flag-ləri versiyaya görə dəyişə bilər; Cargo.lock faylını tətbiq layihəsində saxlayın və nümunəni öz toolchain-inizdə yoxlayın.",
+      "explanation": "API crate-lər və feature flag-ləri versiyaya görə dəyişə bilər; Cargo.lock faylını tətbiq layihəsində saxlayın və nümunəni öz toolchain-inizdə yoxlayın.\nİzah: Rust crate-i hazır funksiyalar toplusudur; `Cargo.toml`-a əlavə edib `use` ilə istifadə edirik. `serde` məlumatı JSON kimi formata çevirir və onu oxuyur; David Tolnay və açıq mənbə iştirakçıları tərəfindən hazırlanır. `tokio` asinxron server və şəbəkə işlərini idarə edən runtime-dır; Carl Lerche-nin başladığı layihəni icma davam etdirir. `clap` terminal arqumentlərini, `reqwest` HTTP sorğularını, `embedded-hal` isə mikrokontroller sürücüləri üçün ortaq interfeysləri asanlaşdırır. Standart kitabxana Rust ilə gəlir, bu crate-lər isə ayrıca asılılıqdır. Versiya, lisenziya, uyğunluq və təhlükəsizlik yeniləmələrini yoxlayın.\n\nCargo.toml asılılıqları (nümunə): `tokio = { version = \"1\", features = [\"macros\", \"rt-multi-thread\", \"time\"] }`, `serde = { version = \"1\", features = [\"derive\"] }`, `serde_json = \"1\"`, `anyhow = \"1\"`, `thiserror = \"2\"`, `embedded-hal = \"1\"`. Tokio async runtime/time, Serde formatdan asılı olmayan serialize/deserialize, `anyhow` tətbiq səviyyəsində kontekstli xətalar, `thiserror` kitabxana üçün konkret error tipi, `embedded-hal` isə board-a məxsus HAL üzərində portativ driver trait-ləri verir. Tokio komandası, Serde icması və Rust Embedded WG bu ekosistemin əsas texniki saxlayıcılarıdır. HAL implementasiyası olmadan embedded-hal GPIO-nu fiziki idarə etmir."
+    }
+  ]
+}

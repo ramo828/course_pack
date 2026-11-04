@@ -1,0 +1,160 @@
+{
+  "id": "freertos_freertos_memory",
+  "title": "Heap, stack и статическое выделение",
+  "difficulty": "hard",
+  "testId": "freertos_test_freertos_memory_ru",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/09-Memory-management/01-Memory-management"
+  ],
+  "estimatedMinutes": 20,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Heap, stack и статическое выделение» в программе или устройстве. Основной принцип: Освобождайте выделенную память и заранее планируйте долгоживущие объекты. В проекте следуйте рекомендации: Проверяйте создание задач и расход стека; учитывайте RAM всех задач, очередей и буферов.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid setup() { Serial.begin(115200); void* memory = pvPortMalloc(128); if (memory != nullptr) { Serial.println(\"128 bytes available\"); vPortFree(memory); } else { Serial.println(\"heap exhausted\"); } }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Успешное выделение памяти выводится, если в heap FreeRTOS доступно не менее 128 байт.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Каждая задача FreeRTOS расходует собственный stack; задачи, очереди и таймеры также могут занимать kernel heap. При нехватке памяти создание завершается ошибкой, а переполнение стека повреждает состояние. Измеряйте high-water mark и минимум heap; при необходимости используйте статическое выделение и не переносите размеры из примера без проверки.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { Serial.begin(115200); void* memory = pvPortMalloc(128); if (memory != nullptr) { Serial.println(\"128 bytes available\"); vPortFree(memory); } else { Serial.println(\"heap exhausted\"); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Освобождайте выделенную память и заранее планируйте долгоживущие объекты.\nЗачем она нужна: Проверяйте создание задач и расход стека; учитывайте RAM всех задач, очередей и буферов.\nЕсли пропустить или изменить: Единицы размера stack зависят от port/API; показанный API Arduino Core для ESP32 принимает байты.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: Проверяйте создание задач и расход стека; учитывайте RAM всех задач, очередей и буферов."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Освобождайте выделенную память и заранее планируйте долгоживущие объекты.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Проверяйте создание задач и расход стека; учитывайте RAM всех задач, очередей и буферов."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid setup() { Serial.begin(115200); void* block = pvPortMalloc(64); if (block) { Serial.println(\"allocated 64 bytes\"); vPortFree(block); } else { Serial.println(\"allocation failed\"); } }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "При наличии в heap FreeRTOS не менее 128 байт выводится сообщение об успешном выделении.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Единицы размера stack зависят от port/API; показанный API Arduino Core для ESP32 принимает байты."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Выводы, пределы напряжения/тока, тайминги и периферия зависят от платы; проверьте её документацию перед подключением и загрузкой."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму состояний и приоритетов задач, очередей/синхронизации и временную шкалу."
+}

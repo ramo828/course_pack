@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_libraries_en",
+  "title": "Essential Python libraries and their creators",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_libraries",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 1 in this lesson produce?\n\nimport json\nfrom pathlib import Path\n\nrecord = {\"name\": \"Ada\", \"score\": 10}\ntext = json.dumps(record)\nPath(\"student.json\").write_text(text, encoding=\"utf-8\")\nprint(text)",
+      "options": [
+        "{\"name\": \"Ada\", \"score\": 10}",
+        "{'status': 'ok'}",
+        "[2, 4, 6]",
+        "{\"NAME\": \"aDA\", \"SCORE\": 10}"
+      ],
+      "answer": "{\"name\": \"Ada\", \"score\": 10}",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`import json` — Imports functionality from a module; without it, the name is unavailable and may raise NameError.\n`from pathlib import Path` — Imports specific names from a module; without it, those names are unavailable.\n`record = {\"name\": \"Ada\", \"score\": 10}` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`text = json.dumps(record)` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`Path(\"student.json\").write_text(text, encoding=\"utf-8\")` — Writes the supplied text to the file, replacing its existing contents; the encoding is explicit.\n`print(text)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_libraries",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 2 in this lesson produce?\n\nimport numpy as np\nvalues = np.array([1, 2, 3])\nprint((values * 2).tolist())",
+      "options": [
+        "[2, 4]",
+        "{\"name\": \"Ada\", \"score\": 10}",
+        "[2, 4, 6]",
+        "{'status': 'ok'}"
+      ],
+      "answer": "[2, 4, 6]",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`import numpy as np` — Imports functionality from a module; without it, the name is unavailable and may raise NameError.\n`values = np.array([1, 2, 3])` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`print((values * 2).tolist())` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_libraries",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 3 in this lesson produce?\n\nfrom fastapi import FastAPI\napp = FastAPI()\n@app.get('/health')\ndef health():\n    return {'status': 'ok'}\nprint(health())",
+      "options": [
+        "{'status': 'ok'}",
+        "{\"name\": \"Ada\", \"score\": 10}",
+        "[2, 4, 6]",
+        "{'STATUS': 'OK'}"
+      ],
+      "answer": "{'status': 'ok'}",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`from fastapi import FastAPI` — Imports specific names from a module; without it, those names are unavailable.\n`app = FastAPI()` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`@app.get('/health')` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`def health():` — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n`return {'status': 'ok'}` — Sends a result to the caller; without it, a function usually returns None.\n`print(health())` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_libraries",
+      "type": "multiple_choice",
+      "prompt": "Which statement accurately describes “Essential Python libraries and their creators”?",
+      "options": [
+        "Libraries let a project reuse tested functionality.",
+        "Python is used for automation, web services, and data analysis because its readable syntax and broad library ecosystem make small, testable steps practical.",
+        "NumPy provides homogeneous numeric arrays and vectorized computation.",
+        "Syntax and indentation mark code-block boundaries; a mistake can prevent a route or condition from running."
+      ],
+      "answer": "Libraries let a project reuse tested functionality.",
+      "explanation": "Libraries let a project reuse tested functionality. Python's standard-library asyncio module came from Guido van Rossum's PEP 3156 work and coordinates I/O waits. External projects include Travis Oliphant's NumPy for arrays, pandas (begun by Wes McKinney at AQR) for tables, John D. Hunter's Matplotlib for plots, Michael Waskom's Seaborn for statistical graphics, Samuel Colvin's Pydantic for validation, Michael Bayer's SQLAlchemy for SQL/ORM, Adrian Holovaty and Simon Willison's Django for newsroom web apps, and Sebastián Ramírez's FastAPI for typed HTTP APIs. Install external packages in a virtual environment and pin their versions."
+    }
+  ]
+}

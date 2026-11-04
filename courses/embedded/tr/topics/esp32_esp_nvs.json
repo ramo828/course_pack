@@ -1,0 +1,173 @@
+{
+  "id": "esp32_esp_nvs",
+  "title": "NVS ve kalıcı yapılandırma",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_nvs_tr",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/storage/nvs_flash.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “NVS ve kalıcı yapılandırma” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: NVS güç kesilince de kalan yapılandırmayı saklar. Gerçek projede şu öneriyi izleyin: Sık değişen sayacı her döngüde flash'a yazmak bellek ömrünü azaltabilir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <Preferences.h>\nPreferences preferences;\nvoid setup() {\n    Serial.begin(115200);\n    preferences.begin(\"settings\", false);\n    preferences.putInt(\"sample_rate\", 10);\n    Serial.println(preferences.getInt(\"sample_rate\", 0));\n    preferences.end();\n}\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Başlatma ve commit başarılıysa ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "sample_rate",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kalıcı olur; flash durumu ve kurtarma hataları hesaba katılmalıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NVS küçük anahtar-değer yapılandırmasını flash'ta saklar. Yazma sıklığını sınırlayın, biçim sürümünü kaydedin ve başarısız geçişte güvenli varsayılana dönün.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "preferences.putInt(\"sample_rate\", 10);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: NVS güç kesilince de kalan yapılandırmayı saklar.\nNeden seçildi: Sık değişen sayacı her döngüde flash'a yazmak bellek ömrünü azaltabilir.\nAtlanır veya değiştirilirse: Sık değişen sayacı her döngüde flash'a yazmak bellek ömrünü azaltabilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: Sık değişen sayacı her döngüde flash'a yazmak bellek ömrünü azaltabilir."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NVS güç kesilince de kalan yapılandırmayı saklar.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Sık değişen sayacı her döngüde flash'a yazmak bellek ömrünü azaltabilir."
+    },
+    {
+      "type": "text",
+      "text": "Arduino Preferences örneği\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Preferences.h>\nPreferences p;\nvoid setup() { Serial.begin(115200); p.begin(\"app\", false); p.putBool(\"ready\", true); Serial.println(p.getBool(\"ready\", false)); p.end(); }\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "1\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Yazma sıklığını sınırlayın, biçim sürümünü kaydedin ve başarısız geçişte güvenli varsayılana dönün."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Pinler, gerilim/akım sınırları, zamanlama ve çevre birimleri karta bağlıdır; bağlantı veya yükleme öncesinde kart belgesini doğrulayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

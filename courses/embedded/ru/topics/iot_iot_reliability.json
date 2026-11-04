@@ -1,0 +1,160 @@
+{
+  "id": "iot_iot_reliability",
+  "title": "Работа без сети, повторы и телеметрия",
+  "difficulty": "medium",
+  "testId": "iot_test_iot_reliability_ru",
+  "sources": [
+    "https://www.rfc-editor.org/rfc/rfc6298.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Работа без сети, повторы и телеметрия» в программе или устройстве. Основной принцип: Backoff уменьшает нагрузку от повторов. В проекте следуйте рекомендации: Jitter предотвращает одновременные повторные подключения множества устройств.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nunsigned long retryDelayMs = 1000;\nconst unsigned long maximumDelayMs = 60000;\nvoid setup() { Serial.begin(115200); }\nvoid loop() {\n    Serial.print(\"retry in ms: \");\n    Serial.println(retryDelayMs);\n    delay(retryDelayMs);\n    retryDelayMs = min(retryDelayMs * 2UL, maximumDelayMs);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Первая повторная попытка выполняется через 1000 мс; production backoff должен иметь предел и jitter.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "При сбоях сети используйте ограниченную очередь, повторное подключение с backoff и идемпотентную обработку. Следите за качеством датчиков, связью и ошибками.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { Serial.begin(115200); }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Backoff уменьшает нагрузку от повторов.\nЗачем она нужна: Jitter предотвращает одновременные повторные подключения множества устройств.\nЕсли пропустить или изменить: Jitter предотвращает одновременные повторные подключения множества устройств.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: Jitter предотвращает одновременные повторные подключения множества устройств."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Backoff уменьшает нагрузку от повторов.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Jitter предотвращает одновременные повторные подключения множества устройств."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nunsigned long delayMs = 1000;\nvoid setup() { Serial.begin(115200); }\nvoid loop() { Serial.println(delayMs); delay(delayMs); delayMs = min(delayMs * 2UL, 60000UL); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Интервал повторов растёт до 60 секунд; для fleet устройств добавьте jitter.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Следите за качеством датчиков, связью и ошибками."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Выводы, пределы напряжения/тока, тайминги и периферия зависят от платы; проверьте её документацию перед подключением и загрузкой."
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "Устройство передаёт измерения через шлюз или брокер сервису; команды могут идти обратно."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

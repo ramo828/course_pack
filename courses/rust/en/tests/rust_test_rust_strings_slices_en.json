@@ -1,0 +1,62 @@
+{
+  "id": "rust_test_rust_strings_slices_en",
+  "title": "Strings, UTF-8, and slices",
+  "questions": [
+    {
+      "id": "rust_rust_strings_slices_1",
+      "topicId": "rust_rust_strings_slices",
+      "type": "multiple_choice",
+      "prompt": "Which statement gives the core rule for “Strings, UTF-8, and slices”?",
+      "options": [
+        "Cargo is the main tool for creating, building, and testing projects.",
+        "`String` owns the text; `&str` borrows a view.",
+        "Rust bindings are immutable unless declared mut.",
+        "Use rustup to keep toolchain updates and installed versions explicit."
+      ],
+      "answer": "`String` owns the text; `&str` borrows a view.",
+      "explanation": "`String` owns the text; `&str` borrows a view.\nWhy: A Rust `String` owns growable UTF-8 text on the heap; `&str` is a borrowed view. UTF-8 characters can use multiple bytes, so `text[0]` indexing is unavailable: `len()` counts bytes, while `chars()` iterates Unicode scalar values. A slice views part of text or an array without copying it; a function accepting `&str` can work with both a `String` and a string literal."
+    },
+    {
+      "id": "rust_rust_strings_slices_2",
+      "topicId": "rust_rust_strings_slices",
+      "type": "multiple_choice",
+      "prompt": "When applying “Strings, UTF-8, and slices” in a project, which action is recommended?",
+      "options": [
+        "Use rustup to keep toolchain updates and installed versions explicit.",
+        "Use `String` when text must be owned or changed; accept `&str` when a function only needs to read it.",
+        "Enable mutability only where it is needed.",
+        "Cargo is the main tool for creating, building, and testing projects."
+      ],
+      "answer": "Use `String` when text must be owned or changed; accept `&str` when a function only needs to read it.",
+      "explanation": "Use `String` when text must be owned or changed; accept `&str` when a function only needs to read it.\nWhy: A Rust `String` owns growable UTF-8 text on the heap; `&str` is a borrowed view. UTF-8 characters can use multiple bytes, so `text[0]` indexing is unavailable: `len()` counts bytes, while `chars()` iterates Unicode scalar values. A slice views part of text or an array without copying it; a function accepting `&str` can work with both a `String` and a string literal."
+    },
+    {
+      "id": "rust_rust_strings_slices_3",
+      "topicId": "rust_rust_strings_slices",
+      "type": "multiple_choice",
+      "prompt": "Which implementation detail matters in the “Strings, UTF-8, and slices” example?",
+      "options": [
+        "Rust bindings are immutable unless declared mut.",
+        "UTF-8 byte boundaries are not character boundaries; `&text[..1]` is not a safe character slice for every string.",
+        "Cargo is the main tool for creating, building, and testing projects.",
+        "Use rustup to keep toolchain updates and installed versions explicit."
+      ],
+      "answer": "UTF-8 byte boundaries are not character boundaries; `&text[..1]` is not a safe character slice for every string.",
+      "explanation": "UTF-8 byte boundaries are not character boundaries; `&text[..1]` is not a safe character slice for every string.\nWhy: A Rust `String` owns growable UTF-8 text on the heap; `&str` is a borrowed view. UTF-8 characters can use multiple bytes, so `text[0]` indexing is unavailable: `len()` counts bytes, while `chars()` iterates Unicode scalar values. A slice views part of text or an array without copying it; a function accepting `&str` can work with both a `String` and a string literal."
+    },
+    {
+      "id": "rust_rust_strings_slices_4",
+      "topicId": "rust_rust_strings_slices",
+      "type": "multiple_choice",
+      "prompt": "Which additional constraint or condition should be checked for “Strings, UTF-8, and slices”?",
+      "options": [
+        "Use rustup to keep toolchain updates and installed versions explicit.",
+        "Rust bindings are immutable unless declared mut.",
+        "Cargo is the main tool for creating, building, and testing projects.",
+        "UTF-8 characters can use multiple bytes, so `text[0]` indexing is unavailable: `len()` counts bytes, while `chars()` iterates Unicode scalar values"
+      ],
+      "answer": "UTF-8 characters can use multiple bytes, so `text[0]` indexing is unavailable: `len()` counts bytes, while `chars()` iterates Unicode scalar values",
+      "explanation": "UTF-8 characters can use multiple bytes, so `text[0]` indexing is unavailable: `len()` counts bytes, while `chars()` iterates Unicode scalar values\nWhy: A Rust `String` owns growable UTF-8 text on the heap; `&str` is a borrowed view. UTF-8 characters can use multiple bytes, so `text[0]` indexing is unavailable: `len()` counts bytes, while `chars()` iterates Unicode scalar values. A slice views part of text or an array without copying it; a function accepting `&str` can work with both a `String` and a string literal."
+    }
+  ]
+}

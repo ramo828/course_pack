@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_auth_en",
+  "title": "Authentication basics",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_auth",
+      "type": "multiple_choice",
+      "prompt": "How should the API respond to this practical HTTP request?\nGET /profile  Authorization: Bearer development-only-token",
+      "options": [
+        "Return the same response to every request without checking its data.",
+        "Demo token returns 200 JSON; a missing token returns 401 with `WWW-Authenticate: Bearer`.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Keep all state in a global variable and skip authentication."
+      ],
+      "answer": "Demo token returns 200 JSON; a missing token returns 401 with `WWW-Authenticate: Bearer`.",
+      "explanation": "This is the expected behavior for `GET /profile  Authorization: Bearer development-only-token`. Demo token returns 200 JSON; a missing token returns 401 with `WWW-Authenticate: Bearer`."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_auth",
+      "type": "multiple_choice",
+      "prompt": "Which design principle is correct for this topic?",
+      "options": [
+        "Return the same response to every request without checking its data.",
+        "Keep all state in a global variable and skip authentication.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "A bearer token is sent in `Authorization`; the server must validate it and separately check resource permissions."
+      ],
+      "answer": "A bearer token is sent in `Authorization`; the server must validate it and separately check resource permissions.",
+      "explanation": "A bearer token is sent in `Authorization`; the server must validate it and separately check resource permissions. Authentication and authorization are different. A valid identity is not permission for every action; also check ownership and roles."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_auth",
+      "type": "multiple_choice",
+      "prompt": "What changes if the important part shown in the lesson is omitted?",
+      "options": [
+        "Return the same response to every request without checking its data.",
+        "Keep all state in a global variable and skip authentication.",
+        "Without identity checks, anyone who can reach the endpoint may receive protected data; do not infer identity from a request.",
+        "Ignore HTTP status codes and present failures as successful responses."
+      ],
+      "answer": "Without identity checks, anyone who can reach the endpoint may receive protected data; do not infer identity from a request.",
+      "explanation": "Without identity checks, anyone who can reach the endpoint may receive protected data; do not infer identity from a request. Authentication checks who made a request; authorization decides what that identity may access. In a bearer-token flow, the client sends a token and FastAPI extracts it before the endpoint. The fixed token below is for a lesson demo only."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_auth",
+      "type": "multiple_choice",
+      "prompt": "Which action best prevents the common mistake from this lesson?",
+      "options": [
+        "Keep all state in a global variable and skip authentication.",
+        "Use Authorize in `/docs` to send a bearer token; test missing and incorrect tokens as separate 401 cases.",
+        "Return the same response to every request without checking its data.",
+        "Ignore HTTP status codes and present failures as successful responses."
+      ],
+      "answer": "Use Authorize in `/docs` to send a bearer token; test missing and incorrect tokens as separate 401 cases.",
+      "explanation": "Use Authorize in `/docs` to send a bearer token; test missing and incorrect tokens as separate 401 cases. This fixed token is intentionally not secure. Use a standard OAuth2/OIDC provider, TLS, expiry/rotation, and secret management in a real system."
+    }
+  ]
+}

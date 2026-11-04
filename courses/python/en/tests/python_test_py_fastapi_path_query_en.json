@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_path_query_en",
+  "title": "Path and query parameters",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_path_query",
+      "type": "multiple_choice",
+      "prompt": "How should the API respond to this practical HTTP request?\nGET /books/12?limit=5",
+      "options": [
+        "Keep all state in a global variable and skip authentication.",
+        "200 OK; JSON: {\"book_id\":12,\"limit\":5}",
+        "Return the same response to every request without checking its data.",
+        "Ignore HTTP status codes and present failures as successful responses."
+      ],
+      "answer": "200 OK; JSON: {\"book_id\":12,\"limit\":5}",
+      "explanation": "This is the expected behavior for `GET /books/12?limit=5`. 200 OK; JSON: {\"book_id\":12,\"limit\":5}"
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_path_query",
+      "type": "multiple_choice",
+      "prompt": "Which design principle is correct for this topic?",
+      "options": [
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Return the same response to every request without checking its data.",
+        "Path parameters identify resources; query parameters affect selection or presentation.",
+        "Keep all state in a global variable and skip authentication."
+      ],
+      "answer": "Path parameters identify resources; query parameters affect selection or presentation.",
+      "explanation": "Path parameters identify resources; query parameters affect selection or presentation. The path carries resource identity; the query carries presentation or filter options. Use `Query(...)` to make a query parameter required."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_path_query",
+      "type": "multiple_choice",
+      "prompt": "What changes if the important part shown in the lesson is omitted?",
+      "options": [
+        "Return the same response to every request without checking its data.",
+        "Without the path value the resource is unknown; removing the query value returns the endpoint to its default, unfiltered behavior.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Keep all state in a global variable and skip authentication."
+      ],
+      "answer": "Without the path value the resource is unknown; removing the query value returns the endpoint to its default, unfiltered behavior.",
+      "explanation": "Without the path value the resource is unknown; removing the query value returns the endpoint to its default, unfiltered behavior. A path parameter identifies a resource; a query parameter controls filtering or paging. FastAPI derives parameter names and types from the Python function. Required and default values define the URL contract."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_path_query",
+      "type": "multiple_choice",
+      "prompt": "Which action best prevents the common mistake from this lesson?",
+      "options": [
+        "Keep all state in a global variable and skip authentication.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Try `/books/12?limit=5` in `/docs`; `book_id` is in the path and `limit` is in the query string after `?`.",
+        "Return the same response to every request without checking its data."
+      ],
+      "answer": "Try `/books/12?limit=5` in `/docs`; `book_id` is in the path and `limit` is in the query string after `?`.",
+      "explanation": "Try `/books/12?limit=5` in `/docs`; `book_id` is in the path and `limit` is in the query string after `?`. Do not concatenate user values into file paths or SQL; pass them as parameters and limit result counts."
+    }
+  ]
+}

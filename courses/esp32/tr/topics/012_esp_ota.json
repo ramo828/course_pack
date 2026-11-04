@@ -1,0 +1,160 @@
+{
+  "id": "esp32_esp_ota",
+  "title": "OTA, partition ve rollback",
+  "difficulty": "advanced",
+  "testId": "esp32_test_esp_ota_tr",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html"
+  ],
+  "estimatedMinutes": 35,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “OTA, partition ve rollback” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Rollback güvenli önceki image'e dönme yoludur. Gerçek projede şu öneriyi izleyin: Güncellemeyi güç kesintisi, zayıf ağ ve uyumsuz sürümle test edin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_ota_ops.h>\nvoid setup() {\n    const esp_partition_t* running = esp_ota_get_running_partition();\n    esp_ota_img_states_t state;\n    if (esp_ota_get_state_partition(running, &state) == ESP_OK && state == ESP_OTA_IMG_PENDING_VERIFY) {\n        esp_ota_mark_app_valid_cancel_rollback();\n    }\n}\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Güncelleme yalnızca özgünlük ve uyumluluk denetimlerinden sonra güvenlidir; partition ve kurtarma tasarımı projeye özeldir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "OTA yeni firmware'i etkin image yanındaki uygun partition'a yazabilir. Partition tablosu, image boyutu, sürüm/imza denetimi, sağlık onayı ve rollback birlikte tasarlanmalıdır.\n\nBu kod ESP-IDF OTA partition API'sini Arduino-ESP32 projesinde kullanır. Partition seçimi, rollback ve imza doğrulaması genel Arduino API'si değildir; basit ArduinoOTA/Update seçenekleri vardır, ancak güvenli boot/rollback için ESP-IDF partition ve doğrulama ayarları açıkça kurulmalıdır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "esp_ota_mark_app_valid_cancel_rollback();",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Rollback güvenli önceki image'e dönme yoludur.\nNeden seçildi: Güncellemeyi güç kesintisi, zayıf ağ ve uyumsuz sürümle test edin.\nAtlanır veya değiştirilirse: İmzayı doğrulamadan OTA imajını boot için seçmeyin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "İmzayı doğrulamadan OTA imajını boot için seçmeyin."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rollback güvenli önceki image'e dönme yoludur.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Güncellemeyi güç kesintisi, zayıf ağ ve uyumsuz sürümle test edin."
+    },
+    {
+      "type": "text",
+      "text": "Arduino Core içindeki IDF OTA API'si\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_ota_ops.h>\nvoid setup() { Serial.begin(115200); const esp_partition_t* part = esp_ota_get_running_partition(); if (part == nullptr) { Serial.println(\"running partition unavailable\"); return; } esp_ota_img_states_t state; const esp_err_t result = esp_ota_get_state_partition(part, &state); if (result == ESP_OK) Serial.println(static_cast<int>(state)); else Serial.printf(\"partition state query failed: %d\\n\", static_cast<int>(result)); }\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Partition destekliyorsa Serial Monitor çalışan image durumunu gösterir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Partition seçimi, rollback ve imza doğrulaması genel Arduino API'si değildir; basit ArduinoOTA/Update seçenekleri vardır, ancak güvenli boot/rollback için ESP-IDF partition ve doğrulama ayarları açıkça kurulmalıdır."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "İmzayı doğrulamadan OTA imajını boot için seçmeyin."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

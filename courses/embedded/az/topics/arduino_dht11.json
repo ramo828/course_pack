@@ -1,0 +1,75 @@
+{
+  "id": "arduino_dht11",
+  "title": "DHT11/DHT22: temperatur və rütubət",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://github.com/adafruit/DHT-sensor-library",
+    "https://learn.adafruit.com/dht"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "BU DƏRS NƏYİ ÖYRƏDİR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "DHT11 və DHT22 havanın temperaturu və nisbi rütubətini ölçür. DHT22 adətən daha geniş aralıq və daha yaxşı dəqiqlik verir, amma dəqiq göstəricilər konkret texniki sənəd-dən asılıdır.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "NECƏ BAĞLANIR?\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Modul kartında VCC, DATA, GND yazıları varsa DATA → D2. Çılpaq sensor üçün DATA ilə VCC arasında adətən 4,7–10 kΩ pull-up rezistor lazımdır. VCC gərginliyini sensor modelinə görə seçin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_dht_wiring",
+      "caption": "Sadələşdirilmiş sxemdir; real modulun pin yazılarını yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "ARDUINO KODU\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <DHT.h>\n\n#define DHTPIN 2\n#define DHTTYPE DHT11 // DHT22 istifadə edirsinizsə dəyişin\nDHT dht(DHTPIN, DHTTYPE);\n\nvoid setup() {\n  Serial.begin(9600);\n  dht.begin();\n}\n\nvoid loop() {\n  const float humidity = dht.readHumidity();\n  const float temperature = dht.readTemperature();\n  if (isnan(humidity) || isnan(temperature)) {\n    Serial.println(\"Oxuma xetasi\");\n  } else {\n    Serial.print(temperature); Serial.print(\" C, \");\n    Serial.print(humidity); Serial.println(\" %\");\n  }\n  delay(2000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\nKodu yüklədikdən sonra Serial Monitor-u açın (əgər nümunə serial çıxış verirsə), bağlantını yoxlayın və sensoru/mexanizmi dəyişərək sınayın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "warning",
+      "title": "Təhlükəsizlik və yoxlama",
+      "text": "Arduino IDE Library Manager-dən DHT sensor library və Adafruit Unified Sensor kitabxanalarını quraşdırın. Sensoru çox tez oxumayın; DHT11 üçün 1–2 saniyə aralıq verin."
+    },
+    {
+      "type": "tip",
+      "title": "Yadda saxla",
+      "text": "İlk sınağı enerjisi ayrılmış halda naqilləyin. VCC, GND və siqnal pinlərini modulun öz etiketindən və texniki sənəd-indən təsdiqləyin."
+    }
+  ],
+  "testId": "embedded_test_arduino_dht11_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

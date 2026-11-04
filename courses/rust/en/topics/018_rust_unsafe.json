@@ -1,0 +1,184 @@
+{
+  "id": "rust_rust_unsafe",
+  "title": "Unsafe Rust and FFI boundaries",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_unsafe_en",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Unsafe Rust and FFI boundaries” to a real program or device. The key principle is: The programmer must uphold the safety invariant for an unsafe operation. In a project, follow this guidance: Keep unsafe code in a small, separately reviewed API boundary.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn main() {\n    let value = 7;\n    let pointer = &value as *const i32;\n    // SAFETY: pointer is aligned, non-null, and valid while value is alive.\n    let copied = unsafe { *pointer };\n    println!(\"{copied}\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "7\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "unsafe permits operations such as raw-pointer dereferencing and some foreign calls that the compiler cannot verify. It does not make code safe: document invariants, minimize the block, and provide a safe wrapper.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "unsafe",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " permits operations the compiler cannot verify, such as raw-pointer dereferencing, union access, unsafe calls, and unsafe trait implementations. It does not turn checks off or make incorrect code safe; the author must define and uphold safety invariants. FFI must agree with the foreign library on ABI, types, buffer ownership, sizes, nullability, and destruction. Keep unsafe code small and add a safe wrapper, documented invariants, and tests.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let copied = unsafe { *pointer };",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: The programmer must uphold the safety invariant for an unsafe operation.\nWhy it is used: Keep unsafe code in a small, separately reviewed API boundary.\nIf omitted or changed: Incorrect pointers, buffer lengths, or ABI assumptions at an FFI boundary can corrupt memory.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Incorrect pointers, buffer lengths, or ABI assumptions at an FFI boundary can corrupt memory."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The programmer must uphold the safety invariant for an unsafe operation.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Keep unsafe code in a small, separately reviewed API boundary."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn main() { let value = 7; let pointer = &value as *const i32; let copy = unsafe { *pointer }; println!(\"{copy}\"); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "7\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "It does not make code safe: document invariants, minimize the block, and provide a safe wrapper."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Incorrect pointers, buffer lengths, or ABI assumptions at an FFI boundary can corrupt memory."
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement gives the core rule for “Unsafe Rust and FFI boundaries”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: The programmer must uphold the safety invariant for an unsafe operation.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "A separate visual is not essential; a small runnable code example and its expected output explain the topic."
+}

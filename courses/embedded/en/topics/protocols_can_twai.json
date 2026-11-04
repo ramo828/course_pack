@@ -1,0 +1,35 @@
+{
+  "id": "protocols_can_twai",
+  "title": "CAN bus and ESP32 TWAI: automotive and industrial networks",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/twai.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "CAN is a noise-tolerant differential, message-based bus used in vehicle ECUs, industrial control, and robotics. ESP32 calls its CAN 2.0 controller peripheral TWAI; controller pins cannot connect directly to CAN wiring.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_can_bus",
+      "caption": "CAN bus and ESP32 TWAI: automotive and industrial networks"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"driver/twai.h\"\n\nvoid setup() {\n  auto general = TWAI_GENERAL_CONFIG_DEFAULT(\n      GPIO_NUM_5, GPIO_NUM_4, TWAI_MODE_NORMAL);\n  auto timing = TWAI_TIMING_CONFIG_500KBITS();\n  auto filter = TWAI_FILTER_CONFIG_ACCEPT_ALL();\n  ESP_ERROR_CHECK(twai_driver_install(&general, &timing, &filter));\n  ESP_ERROR_CHECK(twai_start());\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "A separate CAN transceiver is required. Terminate both ends of the CANH/CANL bus with 120 Ω as specified by the topology. This is an ESP-IDF API example, not CAN-FD; test with two nodes at matching bit rates."
+    }
+  ],
+  "testId": "embedded_test_protocols_can_twai_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

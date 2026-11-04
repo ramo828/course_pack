@@ -1,0 +1,184 @@
+{
+  "id": "freertos_freertos_queues",
+  "title": "Queue ilə task-lar arasında mesaj",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_queues_az",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/02-Queues-mutexes-and-semaphores/01-Queues"
+  ],
+  "estimatedMinutes": 22,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Queue ilə task-lar arasında mesaj” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Queue ortaq qlobal dəyişəndən daha aydın ownership və sinxronizasiya sərhədi yaradır. Real layihədə bu göstərişə əməl edin: Queue ölçüsünü ən böyük burst və istehlak sürətinə əsasən seçin; dolu queue davranışını müəyyən edin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nQueueHandle_t readings = nullptr;\nvoid producer(void*) { int value = 0; for (;;) { ++value; if (xQueueSend(readings, &value, pdMS_TO_TICKS(100)) != pdPASS) vTaskDelay(pdMS_TO_TICKS(100)); vTaskDelay(pdMS_TO_TICKS(500)); } }\nvoid setup() { Serial.begin(115200); readings = xQueueCreate(4, sizeof(int)); if (readings == nullptr || xTaskCreate(producer, \"producer\", 2048, nullptr, 1, nullptr) != pdPASS) { if (readings) vQueueDelete(readings); readings = nullptr; } }\nvoid loop() { int value; if (readings && xQueueReceive(readings, &value, portMAX_DELAY) == pdPASS) Serial.println(value); else vTaskDelay(pdMS_TO_TICKS(100)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor bir task-ın yaratdığı və digərinin qəbul etdiyi artan tam ədədləri göstərir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Queue sabit ölçülü elementləri FIFO qaydasında saxlayır və producer-consumer task-larını bir-birindən ayırır. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "xQueueSend",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "xQueueReceive",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " vaxt limiti ilə bloklana bilər; payload surət kimi köçürülür, böyük obyektlər üçün pointer ömrünü ayrıca idarə edin. Queue dolanda məlumatı səssiz itirmək əvəzinə göndəriş nəticəsini yoxlayın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void producer(void*) { int value = 0; for (;;) { ++value; if (xQueueSend(readings, &value, pdMS_TO_TICKS(100)) != pdPASS) vTaskDelay(pdMS_TO_TICKS(100)); vTaskDelay(pdMS_TO_TICKS(500)); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Queue ortaq qlobal dəyişəndən daha aydın ownership və sinxronizasiya sərhədi yaradır.\nNiyə seçilib: Queue ölçüsünü ən böyük burst və istehlak sürətinə əsasən seçin; dolu queue davranışını müəyyən edin.\nBuraxılsa və ya dəyişdirilsə: Queue handle yaradılmasının uğurlu olduğunu yoxlayın; ölçünü böyütmək RAM sərf edir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Queue handle yaradılmasının uğurlu olduğunu yoxlayın; ölçünü böyütmək RAM sərf edir."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Queue ortaq qlobal dəyişəndən daha aydın ownership və sinxronizasiya sərhədi yaradır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Queue ölçüsünü ən böyük burst və istehlak sürətinə əsasən seçin; dolu queue davranışını müəyyən edin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nQueueHandle_t readings = nullptr;\nvoid setup() { Serial.begin(115200); readings = xQueueCreate(4, sizeof(int)); const int sample = 23; if (readings && xQueueSend(readings, &sample, 0) != pdPASS) Serial.println(\"queue send failed\"); }\nvoid loop() { int sample; if (readings && xQueueReceive(readings, &sample, pdMS_TO_TICKS(100)) == pdPASS) Serial.println(sample); vTaskDelay(pdMS_TO_TICKS(100)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "23\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Queue dolanda məlumatı səssiz itirmək əvəzinə göndəriş nəticəsini yoxlayın."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Queue handle yaradılmasının uğurlu olduğunu yoxlayın; ölçünü böyütmək RAM sərf edir."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: tapşırıqların vəziyyətini, prioritetini, növbə/sinxronizasiya əlaqəsini və zaman xəttini göstərən diaqram."
+}

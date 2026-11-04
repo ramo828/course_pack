@@ -1,0 +1,58 @@
+{
+  "id": "wifi_remote_messaging",
+  "title": "Удалённая связь по Wi-Fi: MQTT, TLS и облако",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html",
+    "https://pubsubclient.knolleary.net/",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/protocols/mqtt.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Устройство в локальной сети не становится автоматически доступным из интернета. Урок показывает отправку показаний датчика облачному брокеру и защиту соединения.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "КАК ЭТО РАБОТАЕТ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "В режиме STA устройство подключается к маршрутизатору; если у него есть интернет, можно связаться с удалённым MQTT-брокером по TLS. MQTT использует publish/subscribe: датчик публикует показание в топик, приложение подписывается на него. QoS задаёт уровень доставки, retained сохраняет последнее значение, Last Will сообщает о неожиданном отключении. Локальный HTTP-сервер может работать без интернета. Для удалённого доступа используйте аутентификацию, шифрование и ограниченные права топиков, а не открывайте порт устройства наружу. NAT и firewall обычно не позволяют напрямую подключиться из интернета к устройству за домашним маршрутизатором.\n\nПример использует "
+    },
+    {
+      "type": "text",
+      "text": "PubSubClient",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и TLS-брокер на порту 8883. Сначала подключите Wi-Fi в режиме STA; применяйте собственный CA-сертификат и учётную запись брокера.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFiClientSecure.h>\n#include <PubSubClient.h>\n\nextern const char rootCa[];  // Define with your trusted CA.\nWiFiClientSecure tls;\nPubSubClient mqtt(tls);\nunsigned long retryAt = 0;\n\nvoid setup() {\n  Serial.begin(115200);\n  tls.setCACert(rootCa);\n  mqtt.setServer(\"broker.example.org\", 8883);\n}\n\nvoid loop() {\n  if (!mqtt.connected() && millis() - retryAt > 5000) {\n    retryAt = millis();\n    if (!mqtt.connect(\"sensor-01\", \"DEVICE_USER\", \"DEVICE_TOKEN\")) {\n      Serial.println(\"Broker connection failed\");\n    }\n  }\n  if (mqtt.connected()) {\n    mqtt.loop();\n    if (!mqtt.publish(\"lab/sensor/reading\", \"23.5\")) {\n      Serial.println(\"Publish failed\");\n    }\n  }\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание о безопасности и совместимости",
+      "text": "`PubSubClient` устанавливается отдельно, а Wi-Fi нужно подключить заранее. Пример отправляет постоянное значение `23.5`; в проекте читайте датчик, проверяйте результат подключения и не добавляйте пароли/токены в репозиторий."
+    }
+  ],
+  "testId": "embedded_test_wifi_remote_messaging_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

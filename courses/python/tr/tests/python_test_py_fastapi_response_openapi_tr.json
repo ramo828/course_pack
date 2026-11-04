@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_response_openapi_tr",
+  "title": "Yanıt modeli ve OpenAPI belgesi",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_response_openapi",
+      "type": "multiple_choice",
+      "prompt": "Bu gerçek HTTP isteğine API nasıl yanıt vermelidir?\nGET /users/1",
+      "options": [
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "200 OK; yalnızca açık alanlar: {\"id\":1,\"name\":\"Ada\"}",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin."
+      ],
+      "answer": "200 OK; yalnızca açık alanlar: {\"id\":1,\"name\":\"Ada\"}",
+      "explanation": "Bu, `GET /users/1` isteğinin beklenen davranışıdır. 200 OK; yalnızca açık alanlar: {\"id\":1,\"name\":\"Ada\"}"
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_response_openapi",
+      "type": "multiple_choice",
+      "prompt": "Bu konuda hangi tasarım ilkesi doğrudur?",
+      "options": [
+        "`response_model` yanıt biçimini doğrular, OpenAPI sözleşmesini oluşturur ve gösterilecek alanları sınırlar.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin."
+      ],
+      "answer": "`response_model` yanıt biçimini doğrular, OpenAPI sözleşmesini oluşturur ve gösterilecek alanları sınırlar.",
+      "explanation": "`response_model` yanıt biçimini doğrular, OpenAPI sözleşmesini oluşturur ve gösterilecek alanları sınırlar. OpenAPI makinece okunabilir bir sözleşmedir; `/docs` bu şemadan üretilir. Belge tek başına kimlik doğrulama veya yetkilendirme sağlamaz."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_response_openapi",
+      "type": "multiple_choice",
+      "prompt": "Derste gösterilen önemli bölüm çıkarılırsa ne değişir?",
+      "options": [
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "Yanıt modeli olmazsa ek iç alanlar yanıta sızabilir ve belgeler belirsiz kalabilir; dönüş sözleşmesini açık tutun."
+      ],
+      "answer": "Yanıt modeli olmazsa ek iç alanlar yanıta sızabilir ve belgeler belirsiz kalabilir; dönüş sözleşmesini açık tutun.",
+      "explanation": "Yanıt modeli olmazsa ek iç alanlar yanıta sızabilir ve belgeler belirsiz kalabilir; dönüş sözleşmesini açık tutun. `response_model`, API'nin istemciye hangi alanları döndüreceğini belirler, sonucu doğrular ve OpenAPI şemasına ekler. Bu, iç veriyi yanlışlıkla açmamak ve istemcilere kararlı sözleşme sunmak için önemlidir."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_response_openapi",
+      "type": "multiple_choice",
+      "prompt": "Dersteki yaygın hatayı önlemek için hangi adım daha doğrudur?",
+      "options": [
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "Yanıt şemasını görmek için `/openapi.json` açın ve modelde olmayan `internal_note` alanının yanıtta görünmediğini test edin."
+      ],
+      "answer": "Yanıt şemasını görmek için `/openapi.json` açın ve modelde olmayan `internal_note` alanının yanıtta görünmediğini test edin.",
+      "explanation": "Yanıt şemasını görmek için `/openapi.json` açın ve modelde olmayan `internal_note` alanının yanıtta görünmediğini test edin. Yanıt modellerini hassas alanları gizlemek için de kullanın; alanın belgede görünmemesi, sunucu yanıtında gizli olduğunu kanıtlamaz."
+    }
+  ]
+}

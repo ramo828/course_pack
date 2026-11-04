@@ -1,0 +1,234 @@
+{
+  "id": "rust_rust_struct_enum",
+  "title": "Struct, enum ve Result",
+  "difficulty": "medium",
+  "testId": "rust_test_rust_struct_enum_tr",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch05-00-structs.html",
+    "https://doc.rust-lang.org/book/ch06-00-enums.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Struct, enum ve Result” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Result<T, E> başarı ve hata seçeneklerini türde gösterir. Gerçek projede şu öneriyi izleyin: Hatayı Result ile döndürmek çağıranın nasıl devam edeceğini açık kılar.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[derive(Debug)]\nenum Reading { Valid(u32), Missing }\nfn parse(text: &str) -> Result<Reading, std::num::ParseIntError> {\n    Ok(Reading::Valid(text.parse()?))\n}\nfn main() { println!(\"{:?}\", parse(\"23\")); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ok(",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "Valid(23)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ")\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "struct ilişkili alanları, enum ise sınırlı seçenekleri modeller. Result<T, E> başarıyı ve hatayı açıklar; match, ? ve dönüşümler uygulamanın hata politikasını görünür kılar.\n\nstruct ilişkili alanları gruplar; tuple struct alanlara ad vermeden yeni tür oluşturabilir. enum sonlu seçenek kümesidir ve her seçenek veri taşıyabilir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "impl",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " metotları ve associated function'ları türe bağlar; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "match",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " seçeneği açar ve kapsamlılık denetimi sağlar. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Option<T>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " değerin yokluğunu, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Result<T,E>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " başarı/hata durumunu açıkça modeller; null ve gizli exception yerine tür güvenliği sunar.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Ok(Reading::Valid(text.parse()?))",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Result<T, E> başarı ve hata seçeneklerini türde gösterir.\nNeden seçildi: Hatayı Result ile döndürmek çağıranın nasıl devam edeceğini açık kılar.\nAtlanır veya değiştirilirse: Hatayı Result ile döndürmek çağıranın nasıl devam edeceğini açık kılar.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: Hatayı Result ile döndürmek çağıranın nasıl devam edeceğini açık kılar."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Result<T, E> başarı ve hata seçeneklerini türde gösterir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Hatayı Result ile döndürmek çağıranın nasıl devam edeceğini açık kılar."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "enum State { Ready, Failed }\nfn main() { let state = State::Ready; println!(\"{}\", matches!(state, State::Ready)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "true\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Result<T, E> başarıyı ve hatayı açıklar; match, ? ve dönüşümler uygulamanın hata politikasını görünür kılar."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Kod örnekleri odaklı parçalardır; seçilen araç zinciri ve hedefte derleyip test edin, çünkü API ve tanılamalar sürüme göre değişebilir."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Struct, enum ve Result” konusunda hangi ifade temel kuralı doğru açıklar?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Result<T, E> başarı ve hata seçeneklerini türde gösterir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı."
+}

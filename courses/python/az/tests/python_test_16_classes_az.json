@@ -1,0 +1,90 @@
+{
+  "id": "python_test_16_classes_az",
+  "title": "OOP və Magic Methods",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_16_classes_az",
+      "type": "multiple_choice",
+      "prompt": "Nümunə yaradılarkən `__new__` və `__init__` üçün hansı fərq doğrudur?",
+      "options": [
+        "__init__ obyekt yaradır, __new__ onu JSON-a çevirir",
+        "__new__ nümunəni yaradır, __init__ yaranmış nümunəni başladır",
+        "Hər ikisi yalnız `print()` çağıranda işləyir",
+        "__init__ istifadəçinin açıq çağırmalı olduğu adi metoddur"
+      ],
+      "answer": "__new__ nümunəni yaradır, __init__ yaranmış nümunəni başladır",
+      "explanation": "Obyektin yaradılma mərhələsi `__new__`-ə, başlanğıc vəziyyətinin qurulması `__init__`-ə aiddir. Gündəlik siniflərdə adətən yalnız `__init__` override edilir."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_16_classes_az",
+      "type": "multiple_choice",
+      "prompt": "`print(obj)` üçün insanın rahat oxuya biləcəyi təsviri hansı metod verir?",
+      "options": [
+        "__repr__ yalnız, str heç vaxt",
+        "__str__; o yoxdursa Python çox vaxt __repr__-a qayıdır",
+        "__len__",
+        "__getitem__"
+      ],
+      "answer": "__str__; o yoxdursa Python çox vaxt __repr__-a qayıdır",
+      "explanation": "`__str__` istifadəçi təqdimatı, `__repr__` isə debugger/REPL üçün daha texniki təsvirdir. Hər ikisi mətn qaytarmalıdır."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_16_classes_az",
+      "type": "multiple_choice",
+      "prompt": "Sinifdə `__bool__` yazılmayıb, `__len__` isə 0 qaytarır. `if obj:` hansı nəticəyə gəlir?",
+      "options": [
+        "Obyekt doğru sayılır",
+        "Obyekt yanlış sayılır",
+        "Həmişə TypeError yaranır",
+        "Obyekt stringə çevrilir"
+      ],
+      "answer": "Obyekt yanlış sayılır",
+      "explanation": "Truth test üçün Python əvvəl `__bool__`-a, o yoxdursa `__len__` nəticəsinə baxır. Uzunluq 0 olduqda obyekt yanlış sayılır."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_16_classes_az",
+      "type": "multiple_choice",
+      "prompt": "Bərabərlik `__eq__`-ə əsaslanırsa, `__hash__` üçün hansı qayda vacibdir?",
+      "options": [
+        "Bərabər obyektlər fərqli hash verməlidir",
+        "Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir",
+        "Hash həmişə obyektin bütün mutable sahələrindən hesablanmalıdır",
+        "__hash__ istənilən vaxt təsadüfi dəyər qaytara bilər"
+      ],
+      "answer": "Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir",
+      "explanation": "Set və dict açarlarının axtarışı bu müqaviləyə əsaslanır. Dəyişən hash elementi sonradan kolleksiyada tapılmaz edə bilər."
+    },
+    {
+      "id": "q5",
+      "topicId": "python_16_classes_az",
+      "type": "multiple_choice",
+      "prompt": "`__exit__` context manager-dən exception zamanı `False` qaytarırsa nə baş verir?",
+      "options": [
+        "Exception udulur",
+        "Exception normal şəkildə yuxarı yayılır",
+        "Proqram avtomatik restart olunur",
+        "Fayl obyekti JSON-a çevrilir"
+      ],
+      "answer": "Exception normal şəkildə yuxarı yayılır",
+      "explanation": "`__exit__` yalnız `True` qaytardıqda exception-u udur. `False` və `None` exception-un davam etməsinə imkan verir; resurs təmizliyi yenə aparıla bilər."
+    },
+    {
+      "id": "q6",
+      "topicId": "python_16_classes_az",
+      "type": "multiple_choice",
+      "prompt": "Fayl və lock kimi resursları bağlamaq üçün niyə `__del__`-ə güvənmək olmaz?",
+      "options": [
+        "Python `__del__` metodunu heç vaxt çağırmır",
+        "Çağırılma vaxtına zəmanət yoxdur; `with`/`__exit__` idarəli təmizləmə verir",
+        "__del__ yalnız list-lərdə işləyir",
+        "__del__ resursu həmişə iki dəfə bağlayır"
+      ],
+      "answer": "Çağırılma vaxtına zəmanət yoxdur; `with`/`__exit__` idarəli təmizləmə verir",
+      "explanation": "Destruktorun icrası gecikə və ya proqram bağlanma ardıcıllığından təsirlənə bilər. Kontekst meneceri resursun blokdan çıxışda bağlanmasını təmin etmək üçün nəzərdə tutulub."
+    }
+  ]
+}

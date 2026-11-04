@@ -1,0 +1,379 @@
+{
+  "id": "rust_rust_ownership",
+  "title": "Ownership və köçürmə",
+  "difficulty": "hard",
+  "testId": "rust_test_rust_ownership_az",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html"
+  ],
+  "estimatedMinutes": 24,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Ownership və köçürmə” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: String kimi ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " olmayan dəyərlər köçürülür; integer kimi ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " tiplər isə surətlənir. Heap-də yerləşmək təkbaşına bu davranışı müəyyən etmir. Real layihədə bu göstərişə əməl edin: Move-dan sonra əvvəlki dəyişən həmin dəyərə sahib olmur; kompilyator bunu yoxlayır.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn main() {\n    let first = String::from(\"Rust\");\n    let second = first;\n    println!(\"{second}\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust hər dəyər üçün sahib müəyyən edir; sahib scope-dan çıxanda resurs azad edilir. Bəzi tiplər move olur, Copy tipləri isə ucuz dəyər nüsxəsi kimi köçürülür.\n\nOwnership qaydası: hər dəyərin bir sahibi var; sahib scope-dan çıxanda resurs buraxılır. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "let second = first",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kimi String köçürüləndə ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "first",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " artıq istifadə edilmir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " tiplər (məsələn, i32) köçürülmək əvəzinə kopyalanır. Bu compile-time qaydadır və garbage collector tələb etmir.\n\nOwnership müəyyən edir ki, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmayan dəyərə hansı binding sahibdir və resursu kim azad edir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kimi ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmayan dəyərin təyini onu köçürür; integer kimi ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " tiplər surətlənə bilər. Dəyərin heap-də yerləşməsi təkbaşına köçürmə və ya surətlənmə qərarını vermir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "clone()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " dəstəkləndikdə ayrıca nüsxəni açıq şəkildə yaradır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let second = first;",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: String kimi ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmayan dəyərlər köçürülür; integer kimi ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " tiplər isə surətlənir. Heap-də yerləşmək təkbaşına bu davranışı müəyyən etmir.\nNiyə seçilib: Move-dan sonra əvvəlki dəyişən həmin dəyərə sahib olmur; kompilyator bunu yoxlayır.\nBuraxılsa və ya dəyişdirilsə: Ownership yaddaşın əl ilə idarəsini əvəz edən dil qaydalarıdır; garbage collector istifadə etmir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Move-dan sonra əvvəlki dəyişən həmin dəyərə sahib olmur; kompilyator bunu yoxlayır."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "String kimi ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " olmayan dəyərlər köçürülür; integer kimi ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " tiplər isə surətlənir. Heap-də yerləşmək təkbaşına bu davranışı müəyyən etmir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Move-dan sonra əvvəlki dəyişən həmin dəyərə sahib olmur; kompilyator bunu yoxlayır."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn main() { let original = String::from(\"move\"); let owned = original; println!(\"{owned}\"); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "move\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Ownership yaddaşın əl ilə idarəsini əvəz edən dil qaydalarıdır; garbage collector istifadə etmir."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Kod nümunələri fokuslanmış hissələrdir; seçilmiş toolchain və target-də compile/test edin, çünki API və diaqnostika versiyaya görə dəyişə bilər."
+    },
+    {
+      "type": "diagram",
+      "id": "rust_ownership",
+      "caption": "Dəyərin sahibi, borcalan və istifadə edən kod arasındakı əlaqə Rust-da compile zamanı yoxlanılır."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Ownership və köçürmə” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: String kimi ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olmayan dəyərlər köçürülür; integer kimi ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Copy",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " tiplər isə surətlənir. Heap-də yerləşmək təkbaşına bu davranışı müəyyən etmir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: stack/heap və yaddaş ömrünü, sahiblik və ya məlumat axınını göstərən yaddaş diaqramı."
+}

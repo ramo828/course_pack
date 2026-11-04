@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_uploads_az",
+  "title": "Fayl yükləmə",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_uploads",
+      "type": "multiple_choice",
+      "prompt": "Bu real HTTP sorğusuna API necə cavab verməlidir?\nPOST /upload  multipart file=<small text file>",
+      "options": [
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "200 JSON `{size: N, content_type: ...}`; faylın özü demo üçün saxlanılmır."
+      ],
+      "answer": "200 JSON `{size: N, content_type: ...}`; faylın özü demo üçün saxlanılmır.",
+      "explanation": "Bu, `POST /upload  multipart file=<small text file>` sorğusunun gözlənilən davranışıdır. 200 JSON `{size: N, content_type: ...}`; faylın özü demo üçün saxlanılmır."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_uploads",
+      "type": "multiple_choice",
+      "prompt": "Bu mövzuda hansı dizayn prinsipi doğrudur?",
+      "options": [
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Fayl yükləməsi multipart-dır; fayl adı və MIME müştəri iddiasıdır, ölçü və məzmun serverdə yoxlanmalıdır."
+      ],
+      "answer": "Fayl yükləməsi multipart-dır; fayl adı və MIME müştəri iddiasıdır, ölçü və məzmun serverdə yoxlanmalıdır.",
+      "explanation": "Fayl yükləməsi multipart-dır; fayl adı və MIME müştəri iddiasıdır, ölçü və məzmun serverdə yoxlanmalıdır. `UploadFile` böyük fayllar üçün axınlı müvəqqəti fayldan istifadə edə bilər; amma parser və proxy body-ni əvvəlcədən qəbul edə bilər, ona görə təkcə endpoint yoxlaması kifayət deyil."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_uploads",
+      "type": "multiple_choice",
+      "prompt": "Dərsdə göstərilən vacib hissə çıxarılsa, hansı dəyişiklik baş verər?",
+      "options": [
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Ölçü məhdudiyyəti olmasa, böyük body yaddaşı və server resurslarını tükədə bilər; düzgün məzmun yoxlaması olmasa yanlış fayl tipi qəbul oluna bilər.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın."
+      ],
+      "answer": "Ölçü məhdudiyyəti olmasa, böyük body yaddaşı və server resurslarını tükədə bilər; düzgün məzmun yoxlaması olmasa yanlış fayl tipi qəbul oluna bilər.",
+      "explanation": "Ölçü məhdudiyyəti olmasa, böyük body yaddaşı və server resurslarını tükədə bilər; düzgün məzmun yoxlaması olmasa yanlış fayl tipi qəbul oluna bilər. Fayl endpoint-i `UploadFile` və multipart sorğusu qəbul edir; yüklənən adı və MIME növünü klient idarə etdiyi üçün onları etibarlı saymaq olmaz. Nümunə yalnız 1 MiB-a qədər oxuyur və faylı diskə yazmır. Quraşdırma: `pip install fastapi uvicorn httpx python-multipart`."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_uploads",
+      "type": "multiple_choice",
+      "prompt": "Dərsdəki tipik səhvi önləmək üçün hansı addım daha düzgündür?",
+      "options": [
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "İstehsalda reverse proxy, API və tətbiq səviyyələrində ölçü limitini eyni müqavilə ilə təyin edin.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin."
+      ],
+      "answer": "İstehsalda reverse proxy, API və tətbiq səviyyələrində ölçü limitini eyni müqavilə ilə təyin edin.",
+      "explanation": "İstehsalda reverse proxy, API və tətbiq səviyyələrində ölçü limitini eyni müqavilə ilə təyin edin. Yüklənən faylın adını serverdə yol kimi işlətməyin; zərərli məzmun, həddən artıq ölçü və arxiv bombası risklərini ayrıca idarə edin."
+    }
+  ]
+}

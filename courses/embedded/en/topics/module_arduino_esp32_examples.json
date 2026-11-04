@@ -1,0 +1,47 @@
+{
+  "id": "module_arduino_esp32_examples",
+  "title": "Finding and trying Arduino IDE and ESP32 examples",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/built-in-examples/",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/examples.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Arduino IDE's File → Examples lists examples from installed libraries and board packages. Blink, Button, AnalogReadSerial, and Wire.begin are useful first checks.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "After installing the ESP32 Arduino core, explore GPIO, WiFiScan, Preferences, and Deep Sleep under File → Examples → ESP32. ESP-IDF examples use a separate project and build system.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Open an example, select the board and port, read its pin/library requirements, then upload it unchanged first. Check LED_BUILTIN on UNO and the actual LED pin on ESP32 boards.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_examples_flow",
+      "caption": "Finding and trying Arduino IDE and ESP32 examples"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#if defined(ARDUINO_ARCH_ESP32)\nconst int ledPin = 2;  // Check your board's LED pin.\n#else\nconst int ledPin = LED_BUILTIN;\n#endif\n\nvoid setup() {\n  pinMode(ledPin, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(ledPin, HIGH);\n  delay(500);\n  digitalWrite(ledPin, LOW);\n  delay(500);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important safety note",
+      "text": "LED GPIOs, Wi-Fi, and peripherals vary by board. Adapt examples to the selected board and library version."
+    }
+  ],
+  "testId": "embedded_test_module_arduino_esp32_examples_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

@@ -1,0 +1,53 @@
+{
+  "id": "ota_transport_choices",
+  "title": "Güncelleme yolları: USB, yerel Wi-Fi, uzak Wi-Fi ve SD",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.arduino.cc/learn/programming/ota-getting-started/",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/sd.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Programı karta ulaştırmanın birkaç yolu vardır. Doğru seçim; aygıtın yanınızda olup olmamasına, ağa, belleğe ve güncelleme sonrası kurtarma olanağına bağlıdır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NASIL ÇALIŞIR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "USB/Serial: aygıt yanınızdadır ve kabloyla bootloader'a yüklersiniz; kolaydır ama uzaktan çalışmaz. Yerel Wi-Fi: ArduinoOTA veya aygıttaki güncelleme sayfası aynı ev/ofis ağında kullanışlıdır. Uzak Wi-Fi: aygıt internete bağlanıp imzalı sürümü HTTPS sunucusundan alır; TLS tek başına programın güvenilir olduğunu kanıtlamaz. SD kart: internet olmayan yerde dosyayı kartla taşıyıp aygıta kurabilirsiniz. Bluetooth ile dosya aktarılabilir; ancak firmware güncellemesi için özel aktarım, boot/flash bölümleri, bütünlük denetimi ve kurtarma kodu gerekir. Bu, Arduino/ESP32'de ortak ve hazır bir OTA yöntemi değildir.\n\nKlasik UNO gibi Wi-Fi'siz kartlar kendi başına ağdan güncellenemez. Arduino IDE'deki USB yüklemesi OTA değildir. ESP32'de iki uygulama bölümlü A/B güncelleme, elektrik kesilince önceki çalışan programı korumaya yardım eder; USB, SD ve tüm veri bölümleri için bu güvence kendiliğinden oluşmaz.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "enum class FirmwarePath {\n  UsbSerial,\n  LocalWifi,\n  RemoteHttps,\n  SdCard,\n  BluetoothCustom\n};\n\n// Pick a path the exact board and bootloader support.",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Güncelleme yolları: USB, yerel Wi-Fi, uzak Wi-Fi ve SD"
+    },
+    {
+      "type": "warning",
+      "title": "Önemli güvenlik ve uyumluluk notu",
+      "text": "Her yöntemde kartın desteklediği bellek düzenini doğrulayın. Uzaktan güncellemede sürüm ve kriptografik imza denetimi ile elektrik kesintisine karşı kurtarma yolu gerekir."
+    }
+  ],
+  "testId": "embedded_test_ota_transport_choices_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

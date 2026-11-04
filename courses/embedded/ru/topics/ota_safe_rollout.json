@@ -1,0 +1,52 @@
+{
+  "id": "ota_safe_rollout",
+  "title": "Проверка и безопасное развёртывание OTA",
+  "difficulty": "advanced",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.arduino.cc/learn/programming/ota-getting-started/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Обновить одно устройство просто, а сразу сотни — рискованно. Поэтапный выпуск сначала обновляет тестовое устройство, затем небольшую группу и расширяется только после успешной проверки.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Как это работает\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Перед обновлением проверьте модель платы, версию программы, размер файла и криптографическую подпись. Используйте TLS/HTTPS и проверяйте сертификат сервера; выдавайте каждому устройству отдельный ключ или сертификат. Проверьте отключение питания, слабый Wi-Fi, заполненную память, несовместимый образ и неполную загрузку.\n\nПосле обновления убедитесь, что устройство запускается, датчики отвечают, показания правдоподобны, а сеть доступна. При росте числа сбоев остановите выпуск. По возможности сохраните возврат к заведомо рабочей версии. Не записывайте пароли и закрытые ключи в журналы.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Пример кода\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "1. Test on a spare device.\n2. Verify model, version, size, and signature.\n3. Update a small test group.\n4. Check boot, sensor readings, and connectivity.\n5. Pause rollout if failures rise; recover if needed.",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Схема: Проверка и безопасное развёртывание OTA"
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Устанавливайте только образы с проверенной подписью и совместимостью. Перед обновлением проверьте питание, память и возможность восстановления."
+    }
+  ],
+  "testId": "embedded_test_ota_safe_rollout_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

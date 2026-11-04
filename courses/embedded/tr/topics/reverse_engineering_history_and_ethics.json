@@ -1,0 +1,48 @@
+{
+  "id": "reverse_engineering_history_and_ethics",
+  "title": "Tersine mühendislik: tarih, protokol inceleme ve etik sınırlar",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Clean_room_design",
+    "https://www.usenix.org/legacy/publications/library/proceedings/usenix98/full_papers/schulman/schulman_html/",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/uart.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Tersine mühendislik, çalışan bir aygıtın nasıl işlediğini gözlemleyip belgelemektir. Onarım, uyumluluk, veri taşıma ve kendi ürünümüzde hata bulma için yararlıdır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NASIL ÇALIŞIR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Tarihsel örnek: 1980'lerde IBM PC uyumlu bilgisayar üretmek isteyen bazı şirketler BIOS davranışını inceleyip bağımsız kod yazdı; clean-room yaklaşımında gözlem ve uygulama ayrı ekiplerde yürütülüyordu. Bu, uyumluluğun nasıl sağlanabileceğini gösterir; hukuki izin anlamına gelmez.\n\nKendi sensör projenizde önce veri sayfası ve açık protokolü okuyun; sonra mantık analizörüyle kendi kartınızdaki UART/I²C/SPI sinyallerini gözleyip bayt biçimini, sağlama toplamını ve birimleri belgeleyin. Örnek, kendi aygıtınızdan gelen basit bir çerçeveyi çözer. Firmware incelemesinde kaynağı ve sahibin iznini doğrulayın, sürümü kaydedin, özgün kopyayı koruyun ve davranışı laboratuvarda sınayın.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <stddef.h>\n#include <stdint.h>\n\nbool decodeFrame(const uint8_t* frame, size_t length,\n                 uint16_t& millivolts) {\n  if (frame == nullptr || length != 4 || frame[0] != 0xA5) {\n    return false;\n  }\n  if ((frame[1] ^ frame[2]) != frame[3]) return false;\n  millivolts = (uint16_t(frame[1]) << 8) | frame[2];\n  return true;\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli güvenlik ve uyumluluk notu",
+      "text": "Yalnızca sahibi olduğunuz veya yazılı izin aldığınız aygıtı inceleyin. Koruma aşma, veri çıkarma veya üçüncü taraf ağında deneme için bu dersi kullanmayın; telif, patent, sözleşme ve yerel yasalar değişebilir."
+    }
+  ],
+  "testId": "embedded_test_reverse_engineering_history_and_ethics_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

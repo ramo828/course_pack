@@ -1,0 +1,48 @@
+{
+  "id": "freertos_tasks_queues_design",
+  "title": "FreeRTOS: nə vaxt tapşırıq, növbə və dövr istifadə etməli?",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/freertos_idf.html",
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/02-Queues-mutexes-and-semaphores/01-Queues"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "RTOS işi vaxt məhdudiyyətinə və scheduler-ə uyğun tapşırıq-lara bölür; hər tapşırığa ayrıca yığın və prioritet verilir. Sadə ardıcıl iş üçün ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " saxlayın. Ayrı vaxt cədvəli və ya bloklanan iş olduqda tapşırıq, tapşırıqlar arasında məlumat ötürmək üçün növbə seçin. ESP32 Arduino nüvə FreeRTOS-dan istifadə edir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_rtos_queue",
+      "caption": "FreeRTOS: nə vaxt tapşırıq, növbə və dövr istifadə etməli?"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nQueueHandle_t readings;\n\nvoid producer(void*) {\n  int value = 0;\n  for (;;) {\n    xQueueSend(readings, &value, portMAX_DELAY);\n    ++value;\n    vTaskDelay(pdMS_TO_TICKS(500));\n  }\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  readings = xQueueCreate(4, sizeof(int));\n  configASSERT(readings);\n  xTaskCreate(producer, \"sensor\", 2048, nullptr, 1, nullptr);\n}\n\nvoid loop() {\n  int value;\n  if (xQueueReceive(readings, &value, portMAX_DELAY))\n    Serial.println(value);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Paylaşılan dəyişəni mutex olmadan yazıb-oxumayın; ISR daxilində bloklanan API çağırmayın. Yığın yaddaşının ölçüsü, `xTaskCreate` nəticəsi, prioritet və watchdog-u yoxlayın; hər sensor üçün tapşırıq yaratmaq lazım deyil."
+    }
+  ],
+  "testId": "embedded_test_freertos_tasks_queues_design_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: tapşırıqların vəziyyətini, prioritetini, növbə/sinxronizasiya əlaqəsini və zaman xəttini göstərən diaqram."
+}

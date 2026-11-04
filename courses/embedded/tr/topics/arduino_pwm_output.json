@@ -1,0 +1,42 @@
+{
+  "id": "arduino_pwm_output",
+  "title": "analogWrite ve PWM: dijital pinle parlaklık ve hız",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/analog-io/analogWrite/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "PWM çıkışı dijital sinyali hızla açıp kapatarak ortalama gücü ayarlar; LED parlaklığı ve uygun DC motor hızı böyle denetlenebilir. Klasik UNO'da ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "analogWrite",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " genellikle 0–255 görev oranlı PWM üretir, gerçek analog gerilim üretmez. ESP32'de PWM, LEDC çevrebirimi/API'si ile kurulur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "constexpr uint8_t LED_PIN = 9;\n\nvoid setup() {\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  analogWrite(LED_PIN, 128);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Yalnızca PWM destekleyen pini seçip kartın frekans ve çözünürlük kurallarını kontrol edin. Motoru GPIO'dan beslemeyin; sürücü ve uygun harici güç kullanın."
+    }
+  ],
+  "testId": "embedded_test_arduino_pwm_output_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

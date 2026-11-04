@@ -1,0 +1,316 @@
+{
+  "id": "rust_rust_lifetimes_deep",
+  "title": "Lifetime'lar, elision ve yapı invariantları",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_lifetimes_deep_tr",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Lifetime'lar, elision ve yapı invariantları” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Aynı ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "'a",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ", iki girdinin ve sonucun ortak geçerli süreyle sınırlı olduğunu ifade eder. Gerçek projede şu öneriyi izleyin: Lifetime hatasını ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "static",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yazarak gizlemeyin; önce sahiplik modelini ve ödüncün neden yaşadığını inceleyin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_lifetime_flow",
+      "caption": "Lifetime'lar, elision ve yapı invariantları"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn longest<'a>(left: &'a str, right: &'a str) -> &'a str {\n    if left.len() >= right.len() { left } else { right }\n}\n\nfn main() {\n    {\n        let first = String::from(\"borrowed view\");\n        let second = String::from(\"Rust\");\n        let result = longest(&first, &second);\n        println!(\"{result}\");\n    }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "longest",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "borrowed view",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " sonucunu döndürür; referans yalnızca iki String de scope içindeyken kullanılır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Lifetime anotasyonu referansların ilişkisini bildirir; belleği tutmaz veya ömrü uzatmaz. İki referans alıp birini döndüren işlevde, sonucun hangi girdiye bağlı olduğunu bazen açık lifetime ile belirtmek gerekir. Referans tutan struct'ta ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "'a",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " alanın kullanılabileceği süreyi sınırlar; mümkünse String gibi sahipli türler ilişkiyi basitleştirir.\n\nLifetime anotasyonu bir referansı uzatmaz; scope'lar arasındaki geçerlilik ilişkisini belirtir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "longest<'a>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", sonucun iki girdi referansının da geçerli olduğu ortak süreden uzun yaşayamayacağını söyler. Compiler basit durumlarda lifetime'ı çıkarır; ilişkiyi anlatmak gerektiğinde açıkça yazın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "fn longest<'a>(left: &'a str, right: &'a str) -> &'a str {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Aynı ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "'a",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", iki girdinin ve sonucun ortak geçerli süreyle sınırlı olduğunu ifade eder.\nNeden seçildi: Lifetime hatasını ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "static",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yazarak gizlemeyin; önce sahiplik modelini ve ödüncün neden yaşadığını inceleyin.\nAtlanır veya değiştirilirse: Lifetime hatasını ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "static",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yazarak gizlemeyin; önce sahiplik modelini ve ödüncün neden yaşadığını inceleyin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: Lifetime hatasını `static` yazarak gizlemeyin; önce sahiplik modelini ve ödüncün neden yaşadığını inceleyin."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Aynı ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "'a",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": ", iki girdinin ve sonucun ortak geçerli süreyle sınırlı olduğunu ifade eder.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Lifetime hatasını `static` yazarak gizlemeyin; önce sahiplik modelini ve ödüncün neden yaşadığını inceleyin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn longer<'a>(a: &'a str, b: &'a str) -> &'a str { if a.len() >= b.len() { a } else { b } }\nfn main() { println!(\"{}\", longer(\"borrow\", \"life\")); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "borrow\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Compiler basit durumlarda lifetime'ı çıkarır; ilişkiyi anlatmak gerektiğinde açıkça yazın."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Kod örnekleri odaklı parçalardır; seçilen araç zinciri ve hedefte derleyip test edin, çünkü API ve tanılamalar sürüme göre değişebilir."
+    },
+    {
+      "type": "diagram",
+      "id": "rust_ownership",
+      "caption": "Değer sahibi, ödünç alan ve kullanan kod arasındaki ilişki Rust tarafından derleme sırasında denetlenir."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Lifetime'lar, elision ve yapı invariantları” konusunda hangi ifade temel kuralı doğru açıklar?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Aynı ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "'a",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", iki girdinin ve sonucun ortak geçerli süreyle sınırlı olduğunu ifade eder.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı."
+}

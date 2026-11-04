@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_deployment_az",
+  "title": "API-ni yerləşdirmə və işlətmə",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_deployment",
+      "type": "multiple_choice",
+      "prompt": "Bu real HTTP sorğusuna API necə cavab verməlidir?\nUvicorn process starts app; GET /health returns readiness status",
+      "options": [
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Server 127.0.0.1:8000-də dinləyir; `/health` 200 JSON qaytarır. Deployment platforması prosesi monitorinq etməlidir."
+      ],
+      "answer": "Server 127.0.0.1:8000-də dinləyir; `/health` 200 JSON qaytarır. Deployment platforması prosesi monitorinq etməlidir.",
+      "explanation": "Bu, `Uvicorn process starts app; GET /health returns readiness status` sorğusunun gözlənilən davranışıdır. Server 127.0.0.1:8000-də dinləyir; `/health` 200 JSON qaytarır. Deployment platforması prosesi monitorinq etməlidir."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_deployment",
+      "type": "multiple_choice",
+      "prompt": "Bu mövzuda hansı dizayn prinsipi doğrudur?",
+      "options": [
+        "Tətbiq kodu serverdəki API-dir; production onu development reload rejimi olmadan, mühit konfiqurasiyası və sağlamlıq yoxlaması ilə işlətməlidir.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın."
+      ],
+      "answer": "Tətbiq kodu serverdəki API-dir; production onu development reload rejimi olmadan, mühit konfiqurasiyası və sağlamlıq yoxlaması ilə işlətməlidir.",
+      "explanation": "Tətbiq kodu serverdəki API-dir; production onu development reload rejimi olmadan, mühit konfiqurasiyası və sağlamlıq yoxlaması ilə işlətməlidir. İstehsal prosesi process manager/container ilə restart və monitorinq alır; paralel worker sayı və in-memory state deployment modelinə uyğun seçilməlidir."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_deployment",
+      "type": "multiple_choice",
+      "prompt": "Dərsdə göstərilən vacib hissə çıxarılsa, hansı dəyişiklik baş verər?",
+      "options": [
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Health check olmasa, orkestrləşdirici sıradan çıxmış serverə trafik yönləndirə bilər; secrets kodda olsa, repozitoriya ilə yayıla bilər.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın."
+      ],
+      "answer": "Health check olmasa, orkestrləşdirici sıradan çıxmış serverə trafik yönləndirə bilər; secrets kodda olsa, repozitoriya ilə yayıla bilər.",
+      "explanation": "Health check olmasa, orkestrləşdirici sıradan çıxmış serverə trafik yönləndirə bilər; secrets kodda olsa, repozitoriya ilə yayıla bilər. Yerli development serveri ilə production yerləşdirməsi eyni deyil. Uvicorn ASGI tətbiqini işlədə bilər; real mühitdə dəyişən konfiqurasiya, secret-lər, TLS terminasiya, health check, log və restart siyasəti də lazımdır. `--reload` yalnız development üçündür."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_deployment",
+      "type": "multiple_choice",
+      "prompt": "Dərsdəki tipik səhvi önləmək üçün hansı addım daha düzgündür?",
+      "options": [
+        "Əvvəl `uvicorn app:app --host 127.0.0.1 --port 8000` işlədin; sonra deployment platformasının process və health-check tələblərinə uyğunlaşdırın.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın."
+      ],
+      "answer": "Əvvəl `uvicorn app:app --host 127.0.0.1 --port 8000` işlədin; sonra deployment platformasının process və health-check tələblərinə uyğunlaşdırın.",
+      "explanation": "Əvvəl `uvicorn app:app --host 127.0.0.1 --port 8000` işlədin; sonra deployment platformasının process və health-check tələblərinə uyğunlaşdırın. Host, firewall, proxy, secret manager, resource limit və DB migration addımları platformaya bağlıdır; bu nümunə hazır production konfigurasiya deyil."
+    }
+  ]
+}

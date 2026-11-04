@@ -1,0 +1,683 @@
+{
+  "id": "python_py_fastapi_websockets",
+  "title": "WebSocket ile gerçek zamanlı iletişim",
+  "difficulty": "hard",
+  "testId": "python_test_py_fastapi_websockets_tr",
+  "estimatedMinutes": 22,
+  "sources": [
+    "https://fastapi.tiangolo.com/advanced/websockets/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NEDEN KULLANILIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FastAPI, web ve mobil uygulamaların HTTP üzerinden veri alışverişi yaptığı JSON API'leri kurar; tür açıklamaları girdileri doğrulamaya ve API sözleşmesini belgelemeye yardımcı olur.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "AMAÇ VE GERÇEK KULLANIM\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sıradan HTTP isteği yanıttan sonra biter; WebSocket iki yönlü iletişim için bağlantıyı açık tutar. FastAPI uç noktası bağlantıyı kabul eder, mesajı okur ve yanıtlar. Örnek bir echo sunucusudur; tarayıcı istemcisi WebSocket API'sini kullanır.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Örnekleri yerelde çalıştırmak için ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "pip install fastapi uvicorn httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kurun; derste belirtilen ek paketleri de ekleyin. Sunucu örneğini ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "app.py",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " olarak kaydedip ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "uvicorn app:app --reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ile başlatın. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "--reload",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yalnızca geliştirme içindir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "GERÇEK HAYATTA NEREDE?\nCanlı sohbet, ortak pano veya oyun odası yeni olayları istemciye anında gönderebilir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Bu bölüm atlanırsa: Sürekli güncelleme için istemcinin tekrar tekrar sorgu göndermesi gecikme ve trafik yaratır; WebSocket açık bağlantı kullanır.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM ÇALIŞAN ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI, WebSocket, WebSocketDisconnect\n\napp = FastAPI()\n\n@app.websocket(\"/ws\")\nasync def websocket_echo(websocket: WebSocket):\n    await websocket.accept()\n    try:\n        while True:\n            message = await websocket.receive_text()\n            await websocket.send_text(f\"Echo: {message}\")\n    except WebSocketDisconnect:\n        return\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İSTEK VE BEKLENEN YANIT\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "İstek: Connect ws://127.0.0.1:8000/ws; send \"hello\"\nYanıt: Sunucu aynı bağlantıda \"Echo: hello\" iletisini geri gönderir.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SATIR SATIR AÇIKLAMASI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI, WebSocket, WebSocketDisconnect",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " uygulama nesnesi ASGI sunucusuna verilir ve rotaları tutar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.websocket(\"/ws\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yöntemini ve URL yolunu bu işleve bağlar; dekoratör olmadan işlev bir API uç noktası olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def websocket_echo(websocket: WebSocket):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "await websocket.accept()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Asenkron I/O işleminin bitmesini bekler; await olmazsa sonuç coroutine olabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "try:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Satır uygulamanın verisini veya akışını sürdürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "while True:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Satır uygulamanın verisini veya akışını sürdürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "message = await websocket.receive_text()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Asenkron I/O işleminin bitmesini bekler; await olmazsa sonuç coroutine olabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "await websocket.send_text(f\"Echo: {message}\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Asenkron I/O işleminin bitmesini bekler; await olmazsa sonuç coroutine olabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "except WebSocketDisconnect:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Satır uygulamanın verisini veya akışını sürdürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "UYGULAMA: HTTP İSTEMCİSİYLE DENETLEME\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Aşağıdaki tam dosya uygulamayı TestClient ile yerel çağırır; ayrı bir port açmanız gerekmez. TestClient için ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "httpx",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kurun.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "TAM ÇALIŞAN TEST KODU\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod ne yazdıracak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi import FastAPI, WebSocket, WebSocketDisconnect\n\napp = FastAPI()\n\n@app.websocket(\"/ws\")\nasync def websocket_echo(websocket: WebSocket):\n    await websocket.accept()\n    try:\n        while True:\n            message = await websocket.receive_text()\n            await websocket.send_text(f\"Echo: {message}\")\n    except WebSocketDisconnect:\n        return\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    with client.websocket_connect(\"/ws\") as socket:\n        socket.send_text(\"hello\")\n        reply = socket.receive_text()\nprint(reply)\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "TESTİN BEKLENEN SONUCU\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Echo: hello",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "KODUN SATIR SATIR AÇIKLAMASI\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi import FastAPI, WebSocket, WebSocketDisconnect",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "app = FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — ",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "FastAPI()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " uygulama nesnesi ASGI sunucusuna verilir ve rotaları tutar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@app.websocket(\"/ws\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yöntemini ve URL yolunu bu işleve bağlar; dekoratör olmadan işlev bir API uç noktası olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "async def websocket_echo(websocket: WebSocket):",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "await websocket.accept()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Asenkron I/O işleminin bitmesini bekler; await olmazsa sonuç coroutine olabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "try:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Satır uygulamanın verisini veya akışını sürdürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "while True:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Satır uygulamanın verisini veya akışını sürdürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "message = await websocket.receive_text()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Asenkron I/O işleminin bitmesini bekler; await olmazsa sonuç coroutine olabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "await websocket.send_text(f\"Echo: {message}\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Asenkron I/O işleminin bitmesini bekler; await olmazsa sonuç coroutine olabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "except WebSocketDisconnect:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Satır uygulamanın verisini veya akışını sürdürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "return",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "from fastapi.testclient import TestClient",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Uygulamaya sunucu portu açmadan HTTP isteği gönderecek TestClient sınıfını içe aktarır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with TestClient(app) as client:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Uygulama için bir test HTTP istemcisi açar ve blok bittiğinde kapatır.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with client.websocket_connect(\"/ws\") as socket:",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "socket.send_text(\"hello\")",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "reply = socket.receive_text()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(reply)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İstek sırasında işlem yapılır; sonuç veya yan etki yanıtı etkiler.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "SIK YAPILAN HATALAR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "WebSocket'i normal HTTP GET sanmak ve bağlantı kopmasını yönetmemek; bağlantı kesilebilir, istemci denetimi ve temizleme gerekir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Uygulama ipucu",
+      "text": "Sunucuyu başlatın, tarayıcı konsolunda `new WebSocket('ws://127.0.0.1:8000/ws')` oluşturup `send()` ve `onmessage` deneyin."
+    },
+    {
+      "type": "detail",
+      "title": "Bir adım daha",
+      "text": "WebSocket bağlantıları sunucu belleği ve dosya tanıtıcıları kullanır; çok istemcide bağlantı sınırı ve yayın mekanizmasını planlayın."
+    },
+    {
+      "type": "warning",
+      "title": "Önemli uyarı",
+      "text": "Üretimde origin denetimi, kimlik doğrulama, ileti boyutu ve bağlantı hız sınırı ekleyin."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: Dersteki yaygın hatayı önlemek için hangi adım daha doğrudur?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Sunucuyu başlatın, tarayıcı konsolunda ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "new WebSocket('ws://127.0.0.1:8000/ws')",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " oluşturup ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "send()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "onmessage",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " deneyin.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

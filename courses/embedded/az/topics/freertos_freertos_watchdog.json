@@ -1,0 +1,186 @@
+{
+  "id": "freertos_freertos_watchdog",
+  "title": "Watchdog, diaqnostika və istehsal nümunələri",
+  "difficulty": "advanced",
+  "testId": "freertos_test_freertos_watchdog_az",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/wdts.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/performance/speed.html"
+  ],
+  "estimatedMinutes": 28,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Watchdog, diaqnostika və istehsal nümunələri” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Watchdog bərpanı başladır, amma kök səbəbi təkbaşına tapmır; səbəbi log, ölçü və fault record ilə saxlayın. Real layihədə bu göstərişə əməl edin: Watchdog-u yalnız irəliləyişdən sonra qidalandırın; sonsuz bloklanan tapşırığı sağlam kimi göstərməyin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_task_wdt.h>\nvoid setup() { Serial.begin(115200); esp_task_wdt_add(nullptr); }\nvoid loop() { Serial.println(\"alive\"); esp_task_wdt_reset(); delay(500); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "alive",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " göstərir; watchdog API-sinin mövcudluğu ESP-IDF/Arduino Nüvə versiyasından asılıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Watchdog müəyyən müddətdə irəliləyiş görmədikdə sistemi yenidən başladır; onu kor-koranə reset etmək yox, sağlamlıq müqaviləsi üçün istifadə edin. Hər tapşırıq öz işi bitəndə watchdog-u qidalandırmalı, bloklama və deadlock hallarını log və nüvə dump ilə araşdırmaq mümkün olmalıdır. Production daxili proqram təminatı-də watchdog yanaşı bounded növbə, timeout, retry/backoff, yığın ölçümü və recovery davranışı planlaşdırın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "esp_task_wdt_*",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " Espressif-in ESP-IDF proqramlaşdırma interfeysi-sidir və Arduino-ESP32 nüvə-da müəyyən versiyalarda əlçatandır; bu generic Arduino API deyil. Portativ proqram üçün hərəkəti və timeout-u ayrıca müəyyən edin, lövhə/nüvə sənədində API dəstəyini yoxlayın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#include <esp_task_wdt.h>",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Watchdog bərpanı başladır, amma kök səbəbi təkbaşına tapmır; səbəbi log, ölçü və fault record ilə saxlayın.\nNiyə seçilib: Watchdog-u yalnız irəliləyişdən sonra qidalandırın; sonsuz bloklanan tapşırığı sağlam kimi göstərməyin.\nBuraxılsa və ya dəyişdirilsə: ESP-IDF watchdog API-si hədəf sistem və IDF versiyasından asılıdır; Arduino-ESP32-də dəstəklənən API-ni yoxlayın və watchdog konfiqurasiyasını lövhə üzrə təsdiqləyin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "ESP-IDF watchdog API-si hədəf sistem və IDF versiyasından asılıdır; Arduino-ESP32-də dəstəklənən API-ni yoxlayın və watchdog konfiqurasiyasını lövhə üzrə təsdiqləyin."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Watchdog bərpanı başladır, amma kök səbəbi təkbaşına tapmır; səbəbi log, ölçü və fault record ilə saxlayın.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Watchdog-u yalnız irəliləyişdən sonra qidalandırın; sonsuz bloklanan tapşırığı sağlam kimi göstərməyin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_task_wdt.h>\nvoid setup() { Serial.begin(115200); esp_task_wdt_add(nullptr); }\nvoid loop() { Serial.println(\"task is responsive\"); esp_task_wdt_reset(); delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Watchdog API-sinin mövcudluğu və konfiqurasiyası ESP-IDF/Arduino Nüvə versiyasından asılıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Portativ proqram üçün hərəkəti və timeout-u ayrıca müəyyən edin, lövhə/nüvə sənədində API dəstəyini yoxlayın."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "ESP-IDF watchdog API-si hədəf sistem və IDF versiyasından asılıdır; Arduino-ESP32-də dəstəklənən API-ni yoxlayın və watchdog konfiqurasiyasını lövhə üzrə təsdiqləyin."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: tapşırıqların vəziyyətini, prioritetini, növbə/sinxronizasiya əlaqəsini və zaman xəttini göstərən diaqram."
+}

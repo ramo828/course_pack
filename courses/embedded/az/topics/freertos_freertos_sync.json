@@ -1,0 +1,160 @@
+{
+  "id": "freertos_freertos_sync",
+  "title": "Binary semaphore, mutex və deadlock",
+  "difficulty": "hard",
+  "testId": "freertos_test_freertos_sync_az",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/02-Queues-mutexes-and-semaphores/02-Semaphores-and-Mutexes"
+  ],
+  "estimatedMinutes": 25,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Binary semaphore, mutex və deadlock” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Mutex qısa kritik bölməni qoruyur; növbə isə dəyərləri ötürür, eyni məqsədlər deyil. Real layihədə bu göstərişə əməl edin: Ortaq dəyişənə girişdən əvvəl mutex alın və hər uğurlu take üçün bütün çıxış yollarında give edin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nSemaphoreHandle_t mutex = nullptr;\nint sharedValue = 0;\nvoid writer(void*) { for (;;) { if (xSemaphoreTake(mutex, pdMS_TO_TICKS(100)) == pdTRUE) { ++sharedValue; xSemaphoreGive(mutex); } vTaskDelay(pdMS_TO_TICKS(250)); } }\nvoid setup() { Serial.begin(115200); mutex = xSemaphoreCreateMutex(); if (mutex) xTaskCreate(writer, \"writer\", 2048, nullptr, 1, nullptr); }\nvoid loop() { int snapshot; if (mutex && xSemaphoreTake(mutex, pdMS_TO_TICKS(50)) == pdTRUE) { snapshot = sharedValue; xSemaphoreGive(mutex); Serial.println(snapshot); } vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Mutex oxuma və yazmanı qoruyarkən Serial Monitor paylaşılan sayğacı göstərir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Semaphore hadisə bildirişi və resurs sayını koordinasiya edir; mutex isə ortaq mutable resursu qoruyur və sahiblik/prioritet miraslaması semantikası daşıyır. Mutex-i qısa müddət saxlayın, bloklayıcı I/O zamanı buraxın və lock sırasını bütün tapşırıq-larda eyni edin. Bu qaydalar deadlock və priority inversion riskini azaldır; ISR daxilində mutex götürmək olmaz.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void writer(void*) { for (;;) { if (xSemaphoreTake(mutex, pdMS_TO_TICKS(100)) == pdTRUE) { ++sharedValue; xSemaphoreGive(mutex); } vTaskDelay(pdMS_TO_TICKS(250)); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Mutex qısa kritik bölməni qoruyur; növbə isə dəyərləri ötürür, eyni məqsədlər deyil.\nNiyə seçilib: Ortaq dəyişənə girişdən əvvəl mutex alın və hər uğurlu take üçün bütün çıxış yollarında give edin.\nBuraxılsa və ya dəyişdirilsə: Lock-i unudaraq buraxmaq tapşırıqları daimi bloklaya bilər; hər error və early-return yolunu yoxlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Lock-i unudaraq buraxmaq tapşırıqları daimi bloklaya bilər; hər error və early-return yolunu yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Mutex qısa kritik bölməni qoruyur; növbə isə dəyərləri ötürür, eyni məqsədlər deyil.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Ortaq dəyişənə girişdən əvvəl mutex alın və hər uğurlu take üçün bütün çıxış yollarında give edin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nSemaphoreHandle_t gate = nullptr;\nint sharedCount = 0;\nvoid worker(void*) { for (;;) { if (xSemaphoreTake(gate, pdMS_TO_TICKS(100)) == pdTRUE) { ++sharedCount; xSemaphoreGive(gate); } vTaskDelay(pdMS_TO_TICKS(10)); } }\nvoid setup() { Serial.begin(115200); gate = xSemaphoreCreateMutex(); if (gate) xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr); }\nvoid loop() { int snapshot; if (gate && xSemaphoreTake(gate, pdMS_TO_TICKS(50)) == pdTRUE) { snapshot = sharedCount; xSemaphoreGive(gate); Serial.println(snapshot); } vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Mutex paylaşılan sayğacın oxunması və yazılmasını qoruyur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Bu qaydalar deadlock və priority inversion riskini azaldır; ISR daxilində mutex götürmək olmaz."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Lock-i unudaraq buraxmaq tapşırıqları daimi bloklaya bilər; hər error və early-return yolunu yoxlayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: tapşırıqların vəziyyətini, prioritetini, növbə/sinxronizasiya əlaqəsini və zaman xəttini göstərən diaqram."
+}

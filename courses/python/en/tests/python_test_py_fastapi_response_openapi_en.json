@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_response_openapi_en",
+  "title": "Response models and OpenAPI",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_response_openapi",
+      "type": "multiple_choice",
+      "prompt": "How should the API respond to this practical HTTP request?\nGET /users/1",
+      "options": [
+        "200 OK; public fields only: {\"id\":1,\"name\":\"Ada\"}",
+        "Return the same response to every request without checking its data.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Keep all state in a global variable and skip authentication."
+      ],
+      "answer": "200 OK; public fields only: {\"id\":1,\"name\":\"Ada\"}",
+      "explanation": "This is the expected behavior for `GET /users/1`. 200 OK; public fields only: {\"id\":1,\"name\":\"Ada\"}"
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_response_openapi",
+      "type": "multiple_choice",
+      "prompt": "Which design principle is correct for this topic?",
+      "options": [
+        "Return the same response to every request without checking its data.",
+        "Keep all state in a global variable and skip authentication.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "`response_model` validates the response shape, contributes to OpenAPI, and limits exposed fields."
+      ],
+      "answer": "`response_model` validates the response shape, contributes to OpenAPI, and limits exposed fields.",
+      "explanation": "`response_model` validates the response shape, contributes to OpenAPI, and limits exposed fields. OpenAPI is a machine-readable contract from which `/docs` is generated. Documentation does not provide authentication or authorization."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_response_openapi",
+      "type": "multiple_choice",
+      "prompt": "What changes if the important part shown in the lesson is omitted?",
+      "options": [
+        "Keep all state in a global variable and skip authentication.",
+        "Return the same response to every request without checking its data.",
+        "Without a response model, extra internal fields can leak and docs may be vague; make the return contract explicit.",
+        "Ignore HTTP status codes and present failures as successful responses."
+      ],
+      "answer": "Without a response model, extra internal fields can leak and docs may be vague; make the return contract explicit.",
+      "explanation": "Without a response model, extra internal fields can leak and docs may be vague; make the return contract explicit. `response_model` defines which fields the API returns, validates the result, and adds it to OpenAPI. This helps prevent accidental data exposure and gives clients a stable contract."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_response_openapi",
+      "type": "multiple_choice",
+      "prompt": "Which action best prevents the common mistake from this lesson?",
+      "options": [
+        "Inspect `/openapi.json`, then test that an `internal_note` field absent from the model is not exposed.",
+        "Return the same response to every request without checking its data.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Keep all state in a global variable and skip authentication."
+      ],
+      "answer": "Inspect `/openapi.json`, then test that an `internal_note` field absent from the model is not exposed.",
+      "explanation": "Inspect `/openapi.json`, then test that an `internal_note` field absent from the model is not exposed. Use response models to exclude sensitive fields; a field missing from docs is not proof that the server hides it."
+    }
+  ]
+}

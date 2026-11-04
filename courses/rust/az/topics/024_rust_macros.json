@@ -1,0 +1,204 @@
+{
+  "id": "rust_rust_macros",
+  "title": "Macro-lar və derive",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_macros_az",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch19-06-macros.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Macro-lar və derive” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: derive atributu sadə trait implementasiyalarını manual təkrardan azad edir. Real layihədə bu göstərişə əməl edin: Makro API-si dəyişiklikləri geniş təsir edir; token parsing və compiler versiyası ilə uyğunluğu test edin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[derive(Debug, Clone, PartialEq)]\nstruct Point {\n    x: i32,\n    y: i32,\n}\nfn main() {\n    let point = Point { x: 0, y: 0 };\n    println!(\"{point:?}\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "point",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " yaradılıb Debug formatında çap ediləndə ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "Point { x: 0, y: 0 }",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " görünür.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Declarative macro ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "macro_rules!",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " token nümunələrini genişləndirərək təkrarlanan sintaksis yaradır; derive macro isə struct/enum üçün trait implementasiyasının bir hissəsini avtomatlaşdırır. Macro kodu compile time-da genişləndirildiyi üçün adi debugger axını fərqli ola bilər, compiler error-u isə yaranan koda işarə edə bilər. Əvvəl funksiya və generics ilə həll edin; macro yalnız təkrarlanan sintaksis və ya compile-time introspection üçün əsaslıdır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let point = Point { x: 0, y: 0 };",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: derive atributu sadə trait implementasiyalarını manual təkrardan azad edir.\nNiyə seçilib: Makro API-si dəyişiklikləri geniş təsir edir; token parsing və compiler versiyası ilə uyğunluğu test edin.\nBuraxılsa və ya dəyişdirilsə: Makro API-si dəyişiklikləri geniş təsir edir; token parsing və compiler versiyası ilə uyğunluğu test edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Makro API-si dəyişiklikləri geniş təsir edir; token parsing və compiler versiyası ilə uyğunluğu test edin."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "derive atributu sadə trait implementasiyalarını manual təkrardan azad edir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Makro API-si dəyişiklikləri geniş təsir edir; token parsing və compiler versiyası ilə uyğunluğu test edin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "macro_rules! triple { ($value:expr) => { $value * 3 }; }\nfn main() { println!(\"{}\", triple!(4)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "12\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Əvvəl funksiya və generics ilə həll edin; macro yalnız təkrarlanan sintaksis və ya compile-time introspection üçün əsaslıdır."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Kod nümunələri fokuslanmış hissələrdir; seçilmiş toolchain və target-də compile/test edin, çünki API və diaqnostika versiyaya görə dəyişə bilər."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Macro-lar və derive” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: derive atributu sadə trait implementasiyalarını manual təkrardan azad edir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

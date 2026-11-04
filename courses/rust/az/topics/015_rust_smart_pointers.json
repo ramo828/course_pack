@@ -1,0 +1,172 @@
+{
+  "id": "rust_rust_smart_pointers",
+  "title": "Smart pointer-lar: Box, Rc, Arc və Mutex",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_smart_pointers_az",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch15-00-smart-pointers.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Smart pointer-lar: Box, Rc, Arc və Mutex” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Arc paylaşımı thread-lərarası edir, Mutex isə kritik hissədə mutable girişi növbələyir. Real layihədə bu göstərişə əməl edin: Arc<Mutex<T>> həmişə ən yaxşı seçim deyil; paylaşılan dəyişən vəziyyət əvəzinə mesajla sahiblik ötürməyin mümkün olub-olmadığını əvvəlcə yoxlayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::sync::{Arc, Mutex};\nuse std::thread;\nfn main() {\n    let count = Arc::new(Mutex::new(0));\n    let worker_count = Arc::clone(&count);\n    let worker = thread::spawn(move || {\n        if let Ok(mut value) = worker_count.lock() { *value += 1; }\n    });\n    if worker.join().is_err() { eprintln!(\"worker panicked\"); return; }\n    match count.lock() {\n        Ok(value) => println!(\"{value}\"),\n        Err(_) => eprintln!(\"count lock was poisoned\"),\n    };\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Thread uğurla tamamlanarsa qorunan sayğac 1 olur; lock poison və thread panic ayrıca göstərilir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Box<T> dəyəri heap-də saxlayır və recursive strukturlara sabit ölçülü pointer verir. Rc<T> bir thread daxilində reference count ilə paylaşım, Arc<T> isə atomik sayğacla thread-lərarası paylaşım üçündür; bunlar avtomatik mutable paylaşımı təhlükəsiz etmir. Dəyişən ortaq vəziyyət üçün Mutex/RwLock kimi sinxronizasiya və aydın lock scope tələb olunur.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let worker_count = Arc::clone(&count);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Arc paylaşımı thread-lərarası edir, Mutex isə kritik hissədə mutable girişi növbələyir.\nNiyə seçilib: Arc<Mutex<T>> həmişə ən yaxşı seçim deyil; paylaşılan dəyişən vəziyyət əvəzinə mesajla sahiblik ötürməyin mümkün olub-olmadığını əvvəlcə yoxlayın.\nBuraxılsa və ya dəyişdirilsə: Lock daxilində uzun I/O və ya gözləmə deadlock və gecikmə riskini artırır; lock poisoning-i də idarə edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Lock daxilində uzun I/O və ya gözləmə deadlock və gecikmə riskini artırır; lock poisoning-i də idarə edin."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Arc paylaşımı thread-lərarası edir, Mutex isə kritik hissədə mutable girişi növbələyir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Arc<Mutex<T>> həmişə ən yaxşı seçim deyil; paylaşılan dəyişən vəziyyət əvəzinə mesajla sahiblik ötürməyin mümkün olub-olmadığını əvvəlcə yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::sync::Arc;\nuse std::thread;\nfn main() {\n    let message = Arc::new(String::from(\"sensor ready\"));\n    let worker_message = Arc::clone(&message);\n    let worker = thread::spawn(move || worker_message.len());\n    match worker.join() {\n        Ok(length) => println!(\"{} {length}\", message.as_str()),\n        Err(_) => eprintln!(\"worker panicked\"),\n    };\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "sensor ready 12\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Dəyişən ortaq vəziyyət üçün Mutex/RwLock kimi sinxronizasiya və aydın lock scope tələb olunur."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Lock daxilində uzun I/O və ya gözləmə deadlock və gecikmə riskini artırır; lock poisoning-i də idarə edin."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Smart pointer-lar: Box, Rc, Arc və Mutex” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Arc paylaşımı thread-lərarası edir, Mutex isə kritik hissədə mutable girişi növbələyir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: stack/heap və yaddaş ömrünü, sahiblik və ya məlumat axınını göstərən yaddaş diaqramı."
+}

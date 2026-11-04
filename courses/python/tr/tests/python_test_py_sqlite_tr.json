@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_sqlite_tr",
+  "title": "SQLite ile yerel veriler",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_sqlite",
+      "type": "multiple_choice",
+      "prompt": "Bu örnek çalıştırıldığında hangi gözlemlenebilir sonuç oluşur?\n\nimport sqlite3\n\nwith sqlite3.connect('app.db') as db:\n    db.execute('CREATE TABLE IF NOT EXISTS notes (text TEXT)')\n    db.execute('INSERT INTO notes VALUES (?)', ('Salam',))",
+      "options": [
+        "No console output; restored is {'active': True, 'count': 3}.",
+        "No console output; creates the table if needed and inserts one row.",
+        "1",
+        "('Ada', 10)"
+      ],
+      "answer": "No console output; creates the table if needed and inserts one row.",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`import sqlite3` — Modül işlevini getirir; satır olmazsa ad kullanılamaz ve NameError oluşabilir.\n`with sqlite3.connect('app.db') as db:` — Kaynağı blok boyunca yönetir; bağlam yöneticisi olmazsa dosya veya bağlantı açık kalabilir.\n`db.execute('CREATE TABLE IF NOT EXISTS notes (text TEXT)')` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`db.execute('INSERT INTO notes VALUES (?)', ('Salam',))` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_sqlite",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 2. kod örneği tam olarak ne yazdırır?\n\nimport sqlite3\nconnection = sqlite3.connect(':memory:')\nconnection.execute('CREATE TABLE scores (name TEXT, value INTEGER)')\nconnection.execute('INSERT INTO scores VALUES (?, ?)', ('Ada', 10))\nprint(connection.execute('SELECT name, value FROM scores').fetchone())\nconnection.close()",
+      "options": [
+        "('Ada', 10)",
+        "No console output; creates the table if needed and inserts one row.",
+        "('Ada',)",
+        "1"
+      ],
+      "answer": "('Ada', 10)",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`import sqlite3` — Modül işlevini getirir; satır olmazsa ad kullanılamaz ve NameError oluşabilir.\n`connection = sqlite3.connect(':memory:')` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`connection.execute('CREATE TABLE scores (name TEXT, value INTEGER)')` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`connection.execute('INSERT INTO scores VALUES (?, ?)', ('Ada', 10))` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`print(connection.execute('SELECT name, value FROM scores').fetchone())` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`connection.close()` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_sqlite",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 3. kod örneği tam olarak ne yazdırır?\n\nimport sqlite3\nwith sqlite3.connect(':memory:') as connection:\n    connection.execute('CREATE TABLE item (name TEXT)')\n    connection.execute('INSERT INTO item VALUES (?)', ('book',))\n    print(connection.execute('SELECT COUNT(*) FROM item').fetchone()[0])",
+      "options": [
+        "1",
+        "('Ada', 10)",
+        "No console output; creates the table if needed and inserts one row.",
+        "2"
+      ],
+      "answer": "1",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`import sqlite3` — Modül işlevini getirir; satır olmazsa ad kullanılamaz ve NameError oluşabilir.\n`with sqlite3.connect(':memory:') as connection:` — Kaynağı blok boyunca yönetir; bağlam yöneticisi olmazsa dosya veya bağlantı açık kalabilir.\n`connection.execute('CREATE TABLE item (name TEXT)')` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`connection.execute('INSERT INTO item VALUES (?)', ('book',))` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`print(connection.execute('SELECT COUNT(*) FROM item').fetchone()[0])` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_sqlite",
+      "type": "multiple_choice",
+      "prompt": "“SQLite ile yerel veriler” konusunu doğru tanımlayan ifade hangisidir?",
+      "options": [
+        "SQLite, küçük uygulamalarda veriyi SQL tablolarında saklar; sorgu parametreleri kullanıcı değerini SQL kodundan ayırır.",
+        "HTTP isteğinde durum kodu, yanıt başlıkları ve gövdeyi ayrı denetleyin.",
+        "Dosya yollarını platformadan bağımsız biçimde pathlib ile kurun.",
+        "JSON iç içe nesneler ve listeler, CSV ise tablo verileri için uygundur."
+      ],
+      "answer": "SQLite, küçük uygulamalarda veriyi SQL tablolarında saklar; sorgu parametreleri kullanıcı değerini SQL kodundan ayırır.",
+      "explanation": "SQLite, küçük uygulamalarda veriyi SQL tablolarında saklar; sorgu parametreleri kullanıcı değerini SQL kodundan ayırır.\n\nSATIR SATIR AÇIKLAMA\n`import sqlite3` — Modül işlevini getirir; satır olmazsa ad kullanılamaz ve NameError oluşabilir.\n`connection = sqlite3.connect(':memory:')` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`connection.execute('CREATE TABLE scores (name TEXT, value INTEGER)')` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`connection.execute('INSERT INTO scores VALUES (?, ?)', ('Ada', 10))` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`print(connection.execute('SELECT name, value FROM scores').fetchone())` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`connection.close()` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    }
+  ]
+}

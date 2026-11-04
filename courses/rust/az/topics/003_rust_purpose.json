@@ -1,0 +1,189 @@
+{
+  "id": "rust_rust_purpose",
+  "title": "Rust nə üçün istifadə olunur?",
+  "difficulty": "easy",
+  "testId": "rust_test_rust_purpose_az",
+  "sources": [
+    "https://doc.rust-lang.org/book/",
+    "https://source.android.com/docs/setup/build/rust/building-rust-modules",
+    "https://github.com/firecracker-microvm/firecracker",
+    "https://github.com/cloudflare/pingora"
+  ],
+  "estimatedMinutes": 12,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Rust nə üçün istifadə olunur?” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Rust həm yüksək səviyyəli abstraksiyaları, həm də aşağı səviyyəli nəzarəti compile time yoxlamaları ilə birləşdirir. Real layihədə bu göstərişə əməl edin: Rust GC tələb etmir, amma bu, resurs idarəsini avtomatik olaraq sadə etmir: sahibliyi, lifetime-ları və xəta hallarını dizayn edin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn parse_port(text: &str) -> Result<u16, std::num::ParseIntError> { Ok(text.parse()?) }\nfn main() { println!(\"{:?}\", parse_port(\"8080\")); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ok(8080)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust performans, aşağı səviyyəli resurs nəzarəti və yaddaş təhlükəsizliyini birlikdə tələb edən proqramlar üçün hazırlanmış sistem proqramlaşdırma dilidir. Əməliyyat sistemləri, komanda sətri alətləri, şəbəkə xidmətləri, oyun infrastrukturu, WebAssembly və mikrokontroller firmware-i kimi sahələrdə istifadə olunur. Ownership və borrow checker bir çox yaddaş səhvini compile time-da aşkarlayır; bunun əvəzində proqramçı sahiblik, borclanma və tipləri açıq modelləşdirməlidir.\n\nŞirkətlərdən nümunələr: Google Android platformasında Rust-dan istifadə edir; AWS-in Firecracker virtual maşın monitoru və Cloudflare-in Pingora proxy layihəsi Rust ilə yazılıb. Bu, bütün proqramlarının Rust-da olduğu demək deyil; şirkətlər onu uyğun sistem komponentlərində seçirlər. Mənbələr: https://source.android.com/docs/setup/build/rust/building-rust-modules · https://github.com/firecracker-microvm/firecracker · https://github.com/cloudflare/pingora\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "fn parse_port(text: &str) -> Result<u16, std::num::ParseIntError> { Ok(text.parse()?) }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Rust həm yüksək səviyyəli abstraksiyaları, həm də aşağı səviyyəli nəzarəti compile time yoxlamaları ilə birləşdirir.\nNiyə seçilib: Rust GC tələb etmir, amma bu, resurs idarəsini avtomatik olaraq sadə etmir: sahibliyi, lifetime-ları və xəta hallarını dizayn edin.\nBuraxılsa və ya dəyişdirilsə: Dil məqsədini layihənin tələb etdiyi latency, yaddaş büdcəsi, hədəf platforma və komanda bacarığı ilə müqayisə edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Rust GC tələb etmir, amma bu, resurs idarəsini avtomatik olaraq sadə etmir: sahibliyi, lifetime-ları və xəta hallarını dizayn edin."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust həm yüksək səviyyəli abstraksiyaları, həm də aşağı səviyyəli nəzarəti compile time yoxlamaları ilə birləşdirir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Rust GC tələb etmir, amma bu, resurs idarəsini avtomatik olaraq sadə etmir: sahibliyi, lifetime-ları və xəta hallarını dizayn edin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn maximum(values: &[i16]) -> Option<i16> { values.iter().copied().max() }\nfn main() { let readings = [12, 18, 9]; println!(\"{:?}\", maximum(&readings)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Some(18)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Dil məqsədini layihənin tələb etdiyi latency, yaddaş büdcəsi, hədəf platforma və komanda bacarığı ilə müqayisə edin."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Kod nümunələri fokuslanmış hissələrdir; seçilmiş toolchain və target-də compile/test edin, çünki API və diaqnostika versiyaya görə dəyişə bilər."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Rust nə üçün istifadə olunur?” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Rust həm yüksək səviyyəli abstraksiyaları, həm də aşağı səviyyəli nəzarəti compile time yoxlamaları ilə birləşdirir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

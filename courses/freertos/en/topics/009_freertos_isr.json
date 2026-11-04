@@ -1,0 +1,172 @@
+{
+  "id": "freertos_freertos_isr",
+  "title": "Passing events safely from an ISR",
+  "difficulty": "hard",
+  "testId": "freertos_test_freertos_isr_en",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/02-Queues-mutexes-and-semaphores/01-Queues"
+  ],
+  "estimatedMinutes": 25,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Passing events safely from an ISR” to a real program or device. The key principle is: A queue moves the event to a task, which can do longer work without blocking interrupts. In a project, follow this guidance: Do not call delay, take a mutex, allocate dynamically, or perform long Serial output in an ISR.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nconst int buttonPin = 4;\nQueueHandle_t events = nullptr;\nportMUX_TYPE dropMux = portMUX_INITIALIZER_UNLOCKED;\nuint32_t droppedEvents = 0;\nvoid IRAM_ATTR buttonIsr() { const int event = 1; BaseType_t higherPriorityTaskWoken = pdFALSE; if (events == nullptr || xQueueSendFromISR(events, &event, &higherPriorityTaskWoken) != pdPASS) { portENTER_CRITICAL_ISR(&dropMux); ++droppedEvents; portEXIT_CRITICAL_ISR(&dropMux); } if (higherPriorityTaskWoken == pdTRUE) portYIELD_FROM_ISR(); }\nvoid setup() { Serial.begin(115200); events = xQueueCreate(4, sizeof(int)); if (events == nullptr) { Serial.println(\"event queue creation failed\"); return; } pinMode(buttonPin, INPUT_PULLUP); attachInterrupt(digitalPinToInterrupt(buttonPin), buttonIsr, FALLING); }\nvoid loop() { int event; if (events && xQueueReceive(events, &event, pdMS_TO_TICKS(1000)) == pdPASS) { uint32_t dropped; portENTER_CRITICAL(&dropMux); dropped = droppedEvents; portEXIT_CRITICAL(&dropMux); Serial.printf(\"button event; dropped=%lu\\n\", static_cast<unsigned long>(dropped)); } else { vTaskDelay(pdMS_TO_TICKS(100)); } }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Prints button event handled in task after an interrupt queues the event.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "An interrupt service routine (ISR) reacts to hardware events and should do only short, non-blocking work. FreeRTOS ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "FromISR",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " APIs can send a queue item or notification; move sensor reads, logging, and protocol work to a task. The correct ISR API, IRAM placement, and pin interrupt support depend on the target and board.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void IRAM_ATTR buttonIsr() { const int event = 1; BaseType_t higherPriorityTaskWoken = pdFALSE; if (events == nullptr || xQueueSendFromISR(events, &event, &higherPriorityTaskWoken) != pdPASS) { portENTER_CRITICAL_ISR(&dropMux); ++droppedEvents; portEXIT_CRITICAL_ISR(&dropMux); } if (higherPriorityTaskWoken == pdTRUE) portYIELD_FROM_ISR(); }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: A queue moves the event to a task, which can do longer work without blocking interrupts.\nWhy it is used: Do not call delay, take a mutex, allocate dynamically, or perform long Serial output in an ISR.\nIf omitted or changed: Buttons bounce; define debounce and full-queue behavior on real hardware.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Buttons bounce; define debounce and full-queue behavior on real hardware."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A queue moves the event to a task, which can do longer work without blocking interrupts.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Do not call delay, take a mutex, allocate dynamically, or perform long Serial output in an ISR."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nconst int buttonPin = 4;\nQueueHandle_t events;\nvoid IRAM_ATTR onPress() { int event = 1; BaseType_t wake = pdFALSE; if (events) xQueueSendFromISR(events, &event, &wake); if (wake == pdTRUE) portYIELD_FROM_ISR(); }\nvoid setup() { Serial.begin(115200); events = xQueueCreate(4, sizeof(int)); if (events) { pinMode(buttonPin, INPUT_PULLUP); attachInterrupt(digitalPinToInterrupt(buttonPin), onPress, FALLING); } }\nvoid loop() { int event; if (events && xQueueReceive(events, &event, portMAX_DELAY) == pdPASS) Serial.println(\"button event\"); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The task handles the button event after an interrupt queues it.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "The correct ISR API, IRAM placement, and pin interrupt support depend on the target and board."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Buttons bounce; define debounce and full-queue behavior on real hardware."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a diagram showing task states, priorities, queue/synchronization relationships, and timing."
+}

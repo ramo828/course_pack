@@ -1,0 +1,62 @@
+{
+  "id": "arduino_test_arduino_timing_en",
+  "title": "millis(), buttons, and interrupts",
+  "questions": [
+    {
+      "id": "arduino_arduino_timing_1",
+      "topicId": "arduino_arduino_timing",
+      "type": "multiple_choice",
+      "prompt": "Which statement gives the core rule for “millis(), buttons, and interrupts”?",
+      "options": [
+        "Peripheral and pin mappings depend on the board's MCU.",
+        "Elapsed-time checks with millis() avoid blocking in delay().",
+        "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
+        "Compile and upload are separate; a successful build does not guarantee the selected port is correct."
+      ],
+      "answer": "Elapsed-time checks with millis() avoid blocking in delay().",
+      "explanation": "Elapsed-time checks with millis() avoid blocking in delay().\nWhy: millis() enables non-blocking timing while loop handles other work. Keep interrupts short: set a flag for the main loop rather than delaying or doing lengthy work in an ISR."
+    },
+    {
+      "id": "arduino_arduino_timing_2",
+      "topicId": "arduino_arduino_timing",
+      "type": "multiple_choice",
+      "prompt": "When applying “millis(), buttons, and interrupts” in a project, which action is recommended?",
+      "options": [
+        "Record the board package version so the build can be reproduced.",
+        "Peripheral and pin mappings depend on the board's MCU.",
+        "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
+        "Use unsigned elapsed-time arithmetic so timer wraparound is handled safely."
+      ],
+      "answer": "Use unsigned elapsed-time arithmetic so timer wraparound is handled safely.",
+      "explanation": "Use unsigned elapsed-time arithmetic so timer wraparound is handled safely.\nWhy: millis() enables non-blocking timing while loop handles other work. Keep interrupts short: set a flag for the main loop rather than delaying or doing lengthy work in an ISR."
+    },
+    {
+      "id": "arduino_arduino_timing_3",
+      "topicId": "arduino_arduino_timing",
+      "type": "multiple_choice",
+      "prompt": "Which implementation detail matters in the “millis(), buttons, and interrupts” example?",
+      "options": [
+        "Peripheral and pin mappings depend on the board's MCU.",
+        "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
+        "The datasheet and board schematic specify pin voltage, current, and alternate functions.",
+        "millis() enables non-blocking timing while loop handles other work"
+      ],
+      "answer": "millis() enables non-blocking timing while loop handles other work",
+      "explanation": "millis() enables non-blocking timing while loop handles other work\nWhy: millis() enables non-blocking timing while loop handles other work. Keep interrupts short: set a flag for the main loop rather than delaying or doing lengthy work in an ISR."
+    },
+    {
+      "id": "arduino_arduino_timing_4",
+      "topicId": "arduino_arduino_timing",
+      "type": "multiple_choice",
+      "prompt": "Which additional constraint or condition should be checked for “millis(), buttons, and interrupts”?",
+      "options": [
+        "Compile and upload are separate; a successful build does not guarantee the selected port is correct.",
+        "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
+        "Serial output, delays, and blocking I/O inside an ISR can cause unreliable behavior.",
+        "Peripheral and pin mappings depend on the board's MCU."
+      ],
+      "answer": "Serial output, delays, and blocking I/O inside an ISR can cause unreliable behavior.",
+      "explanation": "Serial output, delays, and blocking I/O inside an ISR can cause unreliable behavior.\nWhy: millis() enables non-blocking timing while loop handles other work. Keep interrupts short: set a flag for the main loop rather than delaying or doing lengthy work in an ISR."
+    }
+  ]
+}

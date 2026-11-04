@@ -1,0 +1,2975 @@
+{
+  "id": "python_16_classes_az",
+  "title": "OOP və Magic Methods: siniflər, obyektlər və xüsusi metodlar",
+  "difficulty": "advanced",
+  "testId": "python_test_16_classes_az",
+  "estimatedMinutes": 50,
+  "sources": [
+    "https://docs.python.org/3/tutorial/classes.html",
+    "https://docs.python.org/3/reference/datamodel.html#special-method-names",
+    "https://docs.python.org/3/library/dataclasses.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NİYƏ LAZIMDIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Siniflər bir-biri ilə əlaqəli vəziyyəti və davranışı bir obyekt ətrafında qruplaşdırır; oyun personajı, sifariş və ya cihaz modeli buna nümunədir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Siniflər bir-biri ilə əlaqəli vəziyyəti və davranışı bir obyekt ətrafında qruplaşdırır; oyun personajı, sifariş və ya cihaz modeli buna nümunədir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Siniflər bir-biri ilə əlaqəli vəziyyəti və davranışı bir obyekt ətrafında qruplaşdırır; oyun personajı, sifariş və ya cihaz modeli buna nümunədir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Siniflər bir-biri ilə əlaqəli vəziyyəti və davranışı bir obyekt ətrafında qruplaşdırır; oyun personajı, sifariş və ya cihaz modeli buna nümunədir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "OOP NƏDİR, NƏ ÜÇÜN LAZIMDIR?\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Gəlin oyun personajını düşünək. Onun adı, sağlamlıq xalı və hərəkətləri var. Bunları ayrı-ayrı yerlərdə saxlamaq əvəzinə bir qaydada birləşdirsək, kodu anlamaq asanlaşar. Obyekt-yönümlü proqramlaşdırma — qısaca OOP — bunun üçün istifadə olunur.\n\nSinif bir növ plan və ya qəlibdir. Obyekt həmin plandan yaradılmış konkret nümunədir. Məsələn,",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Profile",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "sinfi profilin qaydalarını təsvir edir;",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Profile(...)",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə bir istifadəçi üçün obyekt yaradır.\n\nMetod sinifdə yazılan funksiyadır. ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "`self`",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "hazırda işlədiyimiz obyekti göstərir və Python onu adi metodlara özü ötürür. OOP hər məsələyə lazım deyil: bir neçə əlaqəsiz dəyər üçün lüğət daha rahat ola bilər. Bəs nə vaxt sinif seçək? Məlumatla birlikdə davranış və qaydalar da varsa, sinif kömək edir.",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "BÜTÖV İŞLƏK NÜMUNƏ: OBEKTLƏRİN DAVRANIŞI",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "class Profile:\n    __slots__ = (\"_user_id\", \"_fields\")\n\n    def __init__(self, user_id, fields):\n        if not isinstance(user_id, str) or not user_id:\n            raise ValueError(\"user_id boş olmayan mətn olmalıdır\")\n        object.__setattr__(self, \"_user_id\", user_id)\n        object.__setattr__(self, \"_fields\", dict(fields))\n\n    def __setattr__(self, name, value):\n        if name == \"_user_id\" and hasattr(self, \"_user_id\"):\n            raise AttributeError(\"user_id yaradıldıqdan sonra dəyişmir\")\n        object.__setattr__(self, name, value)\n\n    @property\n    def user_id(self):\n        return self._user_id\n\n    def __str__(self):\n        return f\"{self._fields.get('name', 'Adsız')} ({len(self)} sahə)\"\n\n    def __repr__(self):\n        return f\"Profile(user_id={self._user_id!r}, fields={self._fields!r})\"\n\n    def __len__(self):\n        return len(self._fields)\n\n    def __getitem__(self, key):\n        return self._fields[key]\n\n    def __setitem__(self, key, value):\n        self._fields[key] = value\n\n    def __delitem__(self, key):\n        del self._fields[key]\n\n    def __iter__(self):\n        return iter(self._fields)\n\n    def __contains__(self, key):\n        return key in self._fields\n\n    def __bool__(self):\n        return bool(self._fields)\n\n    def __call__(self, bonus=0):\n        return self._fields.get(\"score\", 0) + bonus\n\n    def __eq__(self, other):\n        if not isinstance(other, Profile):\n            return NotImplemented\n        return self._user_id == other._user_id\n\n    def __hash__(self):\n        return hash(self._user_id)\n\n    def __enter__(self):\n        return self\n\n    def __exit__(self, exception_type, exception, traceback):\n        return False\n\n\ndef main():\n    profile = Profile(\"u-17\", {\"name\": \"Aylin\", \"score\": 90})\n    print(str(profile))\n    print(repr(profile))\n    print(len(profile), profile[\"name\"])\n    profile[\"city\"] = \"Baku\"\n    print(\"name\" in profile, list(profile), bool(profile))\n    print(\"hesab:\", profile(bonus=5))\n    with profile as active:\n        active[\"score\"] += 1\n    del profile[\"city\"]\n    same_user = Profile(\"u-17\", {\"name\": \"Başqa\", \"score\": 10})\n    print(profile[\"score\"], profile == same_user, len({profile, same_user}))\n\nif __name__ == \"__main__\":\n    main()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ",
+      "size": 19,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Aylin (2 sahə)\nProfile(user_id='u-17', fields={'name': 'Aylin', 'score': 90})\n2 Aylin\nTrue ['name', 'score', 'city'] True\nhesab: 95\n91 True 1",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "İndi ikinci tam nümunəyə baxaq. ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Measurement",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ölçü dəyəri ilə vahidini saxlayır. Obyektləri bərabərlik və “kiçikdir” müqayisəsi ilə yoxlayırıq. Vahidi də saxlayırıq, çünki 21°C ilə 21°F eyni ölçü deyil.",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "class Measurement:\n    def __init__(self, value, unit):\n        if value < 0:\n            raise ValueError(\"Ölçü mənfi ola bilməz\")\n        self.value = value\n        self.unit = unit\n\n    def __repr__(self):\n        return f\"Measurement({self.value!r}, {self.unit!r})\"\n\n    def __eq__(self, other):\n        if not isinstance(other, Measurement):\n            return NotImplemented\n        return self.value == other.value and self.unit == other.unit\n\n    def __lt__(self, other):\n        if not isinstance(other, Measurement):\n            return NotImplemented\n        if self.unit != other.unit:\n            raise ValueError(\"Fərqli vahidləri birbaşa müqayisə etmək olmaz\")\n        return self.value < other.value\n\n\ndef main():\n    room = Measurement(21, \"C\")\n    target = Measurement(24, \"C\")\n    same_room = Measurement(21, \"C\")\n    print(room)\n    print(room == same_room)\n    print(room < target)\n\n\nif __name__ == \"__main__\":\n    main()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ",
+      "size": 19,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Measurement(21, 'C')\nTrue\nTrue",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "Gəlin nümunəni parçalayaq. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__init__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ölçü ilə vahidi saxlayır. Dəyər mənfidirsə,",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ValueError",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ilə aydın xəta veririk. Yoxlamanı çıxarsaq, səhv ölçü səssizcə qəbul oluna bilər.\n\n",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__repr__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "obyektin proqramçıya aydın görünüşünü verir. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "bərabərliyi,",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__lt__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə “kiçikdir” müqayisəsini idarə edir. Başqa tipli obyekt gələndə",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "NotImplemented",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "qaytarırıq; beləliklə, Python qarşı tərəfin müqayisə qaydasını yoxlaya bilər.\n\nVahidləri də müqayisə edirik. Əks halda selsi ilə farenheiti səhvən müqayisə edə bilərdik. Bu sinfə hash lazım olsa, hash-ə təsir edən dəyərlər dəyişməz qalmalıdır.",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "İndi birinci nümunəyə qayıdaq. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "`class Profile`:",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "yeni tipin qaydasını yaradır. Bu olmasa, profil məlumatı ilə ona aid davranışı bir yerdə saxlamaq çətinləşər.\n\n",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__slots__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "mümkün atribut adlarını məhdudlaşdırır. Bu, bəzi yaddaşa həssas siniflərdə kömək edir, amma hər sinifdə lazım deyil. Sonradan sərbəst yeni atribut əlavə etmək istəyiriksə, bu məhdudiyyəti nəzərə alaq.\n\n",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__init__(...)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "obyekt yaranandan sonra başlanğıc dəyərləri qurur. Onu yazmasaq, öz sahələrimiz avtomatik yaranmayacaq. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "isinstance(...)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "tipin uyğunluğunu yoxlayır;",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "raise ValueError(...)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "səhv dəyər üçün aydın xəta verir.\n\n",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "object.__setattr__(...)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "atributu aşağı səviyyədə təyin edir. Burada ID-ni ilk dəfə qurmağa imkan verir. Sonrakı",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__setattr__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə ID-nin dəyişməsinə mane olur. Belə xüsusi davranışı səbəb olmadan yazma; səhv override obyektin qurulmasını çətinləşdirə bilər.\n\n",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "@property",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "profile.user_id",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "kimi oxunaqlı giriş yaradır. Setter yazmadığımız üçün bu yolla dəyişiklik edə bilmərik. Sadə sahədə adi atribut da kifayət edə bilər.\n\n",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__str__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "insanın oxuyacağı qısa mətn verir. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__repr__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "sazlama üçün daha dəqiq təsvir göstərir. Birincini yazmasaq, Python çox vaxt ikincisinə qayıdır; ikisi də yoxdursa ümumi təsvir görünür.\n\n",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__len__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "len(profile)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "sorğusuna cavab verir. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__bool__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "`if` profile:",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "yoxlamasını idarə edir. İkinci metod yoxdursa, Python uzunluğa baxır; hər ikisi yoxdursa obyekt adətən doğru sayılır.\n\n",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__getitem__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ",",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__setitem__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "və",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__delitem__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "kvadrat mötərizə ilə oxuma, yazma və silmə üçündür. Məsələn,",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "profile['name']",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "oxuyur,",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "profile['city'] = 'Bakı'",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "yazır. Bu metodlar olmasa, obyekt lüğət kimi işləməz.\n\n",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__iter__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "obyektin elementləri üzərində dövr etməyə imkan verir. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__contains__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "in",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "yoxlamasını idarə edir. Nümunədə sahə adlarını gəzə və",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "name in profile",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "yaza bilirik.\n\n",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__call__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "obyekti funksiya kimi çağırmağa imkan verir:",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "profile(bonus=5)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ". ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__enter__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "və",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__exit__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "obyekti",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "blokunda işlətmək üçündür. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "__exit__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "burada",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "False",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "qaytarır, yəni baş verən xətanı gizlətmir.",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "XÜSUSİ METODLAR ÜZRƏ TAM BƏLƏDÇİ",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Xüsusi metodlar Python-un adi əməliyyatlarının arxasında işləyir. Gəlin soruşaq:",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "len(obj)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "yazanda Python hansı qaydanı axtarır?\n\nYaradılma zamanı",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__new__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "obyektin özünü yaradır;",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__init__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə yaranmış obyektə başlanğıc dəyərləri verir. Gündəlik siniflərdə adətən yalnız başlanğıc dəyərlərini qururuq. Xüsusi yaradılma qaydası lazım deyilsə, birinci metoda toxunmaya bilərik.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__str__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "istifadəçiyə qısa görünüş,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__repr__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə sazlama üçün aydın təsvir verir. Bunları yazmasaq, Python ümumi obyekt görünüşü göstərə bilər. Məsələn, kitab adı ekranda qısa, sazlayıcıda isə sahələri ilə görünə bilər.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__len__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "len(obj)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "əməliyyatına cavab verir. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__bool__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "`if` obj:",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "yoxlamasını idarə edir. İkinci metod yoxdursa, Python uzunluğa baxa bilər; heç biri yoxdursa, obyekt adətən doğru sayılır.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__getitem__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "oxuma,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__setitem__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "yazma,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__delitem__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə açarla silmə üçündür. Bu metodlarla obyektə",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "obj[key]",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "kimi müraciət edə bilərik. Yazılmasalar kvadrat mötərizə qaydası işləməyəcək.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__iter__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "dövr üçün elementləri verir. Iteratorun",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__next__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "metodu növbəti elementi qaytarır; elementlər bitəndə",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "StopIteration",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "dayanma siqnalıdır. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__contains__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "value in obj",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "yoxlamasını idarə edir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__enter__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "with",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "blokuna girəndə hazırlıq görür və",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "as",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "dəyişəninə veriləcək dəyəri qaytarır. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__exit__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "blokdan çıxanda təmizləyir. Xətanı gizlətmək istəmiriksə,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "True",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "qaytarmırıq.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__call__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "obyektə funksiya kimi mötərizə ilə müraciət etməyə imkan verir. Məsələn,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "counter(3)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ". Bu metodu yazmasaq, obyekt çağırıla bilməz.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "==",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "müqayisəsini,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə obyektin set və ya lüğət açarı olmasını dəstəkləyir. Bərabər obyektlər eyni hash verməlidir. Hash-ə təsir edən dəyəri dəyişdirsək, obyekt kolleksiyada tapılmaya bilər.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__getattr__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "adi axtarış uğursuz olanda işləyir. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__getattribute__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "hər atribut oxunuşunda çağırılır; ehtiyatsız yazı sonsuz təkrara səbəb ola bilər. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__setattr__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "yazmanı,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__delattr__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "silinməni idarə edir. Bunlara yalnız aydın ehtiyac varsa müdaxilə edək.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__format__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "formatlı mətn üçün xüsusi görünüş yaradır. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__add__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ",",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__sub__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ",",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__mul__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "riyazi işarələrə,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__lt__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ",",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__le__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ",",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__gt__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ",",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__ge__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "müqayisələrə məna verə bilər. Bu işarələri obyekt üçün təbii məna olduqda əlavə et.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "__del__",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "obyekt silinməyə hazır olanda çağırıla bilər, amma vaxtına zəmanət yoxdur. Buna görə fayl və şəbəkə əlaqəsi kimi resursları bağlamaq üçün ona güvənmə. Resursu idarəli şəkildə təmizləmək lazımdır.",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "warning",
+      "title": "Hash və dəyişən obyekt barədə vacib düzəliş",
+      "text": "Hash və bərabərlik uyğun olmalıdır. Bərabər sayılan iki obyekt eyni hash verməlidir. Hash hesablanan dəyər dəyişsə, obyekt lüğətdə və ya set-də gözlədiyimiz yerdə tapılmaya bilər. Ona görə dəyişən məlumatdan hash düzəltməyək."
+    },
+    {
+      "type": "detail",
+      "title": "Hər məlumat üçün sinif yaratmaq lazımdır?",
+      "text": "Hər məlumat üçün sinif yaratmaq lazımdır? Xeyr. Sadə məlumat üçün lüğət və ya tuple kifayət edə bilər. Məlumatla birlikdə davranış və qaydalar da dəyişirsə, sinif kömək edir. Məlumat saxlamaq üçün nəzərdə tutulan dekorator başlanğıc və təqdimat kodunun bir hissəsini yarada bilər. İrsiyyət seçməzdən əvvəl soruş: doğrudan “bu, o növün bir növüdür” münasibəti varmı? Yoxdursa, obyektləri birləşdirmək daha sadə ola bilər."
+    },
+    {
+      "type": "tip",
+      "title": "Yadda saxla",
+      "text": "Yadda saxla: xüsusi metodlar adi sintaksisin arxasında işləyir. Uzunluğu soruşmaq, açarla məlumat oxumaq və resursu idarəli blokda işlətmək Python-a sinfin hansı davranışı dəstəklədiyini bildirir. Lazım olmayan metodu yazma; standart davranış yetərli ola bilər."
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: Bərabərlik ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__eq__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ə əsaslanırsa, ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "__hash__",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üçün hansı qayda vacibdir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Bərabər obyektlər eyni hash verməli, hash-ə təsir edən sahələr dəyişməməlidir\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

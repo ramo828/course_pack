@@ -1,0 +1,36 @@
+{
+  "id": "protocols_esp_now_multinode",
+  "title": "ESP-NOW çok düğümlü ağ: yıldız topolojisi ve güvenilir teslim",
+  "difficulty": "advanced",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_now.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ESP-NOW, ESP aygıtları arasında IP ağına veya yönlendiriciye katılmadan kısa mesaj taşır. Çok düğümlü başlangıç için yıldız topolojisi kolaydır: coordinator her düğümün MAC adresini peer olarak ekler, telemetriyi sırayla yollar veya ACK toplar. Tüm düğümler aynı Wi-Fi kanalında olmalıdır. Örnek, compiler padding'inden kaçınmak için alanları big-endian sırada 7 bayta kodlar; alıcı aynı biçimi çözmelidir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Bu basit düzende bir coordinator iki peer'e telemetri gönderir. ESP-NOW kendi başına mesh yönlendirmesi yapmaz: düğüm sayısı arttığında kanal planı, peer sınırı, ACK/retry, sıra numarası, yinelenen paketi atma ve gateway'e aktarma kuralları ayrıca tasarlanmalıdır. Şunları test edin: aynı kanaldaki iki peer, yanlış kanaldaki peer, kayıp ACK ve yinelenen sequence numarası.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <string.h>\n#include <WiFi.h>\n#include <esp_now.h>\n\nconstexpr uint8_t PEER_COUNT = 2;\nconst uint8_t peerMacs[PEER_COUNT][6] = {\n  {0x24, 0x6F, 0x28, 0xAA, 0xBB, 0x01},\n  {0x24, 0x6F, 0x28, 0xAA, 0xBB, 0x02},\n};\n\nstruct SamplePacket {\n  uint8_t nodeId;\n  uint32_t sequence;\n  int16_t temperatureCentiC;\n};\n\nSamplePacket packet{1, 0, 2150};\n\nvoid encodePacket(uint8_t* frame) {\n  frame[0] = packet.nodeId;\n  frame[1] = static_cast<uint8_t>(packet.sequence >> 24);\n  frame[2] = static_cast<uint8_t>(packet.sequence >> 16);\n  frame[3] = static_cast<uint8_t>(packet.sequence >> 8);\n  frame[4] = static_cast<uint8_t>(packet.sequence);\n  const uint16_t temperature =\n      static_cast<uint16_t>(packet.temperatureCentiC);\n  frame[5] = static_cast<uint8_t>(temperature >> 8);\n  frame[6] = static_cast<uint8_t>(temperature);\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  if (!WiFi.mode(WIFI_STA)) {\n    Serial.println(\"Wi-Fi station mode failed\");\n    return;\n  }\n  if (esp_now_init() != ESP_OK) {\n    Serial.println(\"ESP-NOW initialization failed\");\n    return;\n  }\n\n  for (uint8_t i = 0; i < PEER_COUNT; ++i) {\n    esp_now_peer_info_t peer{};\n    memcpy(peer.peer_addr, peerMacs[i], 6);\n    peer.channel = 0;\n    peer.ifidx = WIFI_IF_STA;\n    peer.encrypt = false;\n    if (esp_now_add_peer(&peer) != ESP_OK) {\n      Serial.printf(\"peer %u could not be added\\n\", static_cast<unsigned>(i));\n    }\n  }\n}\n\nvoid loop() {\n  ++packet.sequence;\n  uint8_t frame[7];\n  encodePacket(frame);\n  for (uint8_t i = 0; i < PEER_COUNT; ++i) {\n    if (esp_now_send(peerMacs[i],\n                     frame,\n                     sizeof(frame)) != ESP_OK) {\n      Serial.printf(\"send to peer %u failed\\n\", static_cast<unsigned>(i));\n    }\n  }\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Örnek MAC adresleri ve şifreleme ayarları gösterim içindir; gerçek üründe doğru peer adresi, PMK/LMK şifreleme anahtarları ve giriş verisi doğrulaması gerekir. `esp_now_send()` başarısı alıcının paketi işlediğini kanıtlamaz; alıcı ACK, sıra numarası ve timeout/retry mekanizması kurmalıdır. ESP-NOW otomatik mesh değildir; düğüm/peer sınırları, geri çağırım API'si ve radyo kanalı yonga/çekirdek sürümüne bağlıdır."
+    }
+  ],
+  "testId": "embedded_test_protocols_esp_now_multinode_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

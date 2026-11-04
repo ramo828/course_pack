@@ -1,0 +1,52 @@
+{
+  "id": "ota_safe_rollout",
+  "title": "OTA güncellemesini güvenli biçimde sınamak",
+  "difficulty": "advanced",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.arduino.cc/learn/programming/ota-getting-started/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Tek aygıtı güncellemek kolaydır; yüzlerce aygıtı aynı anda güncellemek risklidir. Aşamalı dağıtım önce deneme aygıtında, sonra küçük bir grupta, başarıdan sonra tüm aygıtlarda güncelleme yapar.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Konu açıklaması\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Güncellemeden önce kart modelini, yazılım sürümünü, dosya boyutunu ve kriptografik imzayı doğrulayın. TLS/HTTPS kullanın ve sunucu sertifikasını denetleyin; her aygıta ayrı anahtar veya sertifika verin. Ardından güç kesintisi, zayıf Wi-Fi, dolu bellek, uyumsuz image ve yarım kalan dosya senaryolarını sınayın.\n\nGüncelleme sonrasında aygıtın açıldığını, sensörlerin yanıt verdiğini, verilerin doğru olduğunu ve ağa bağlandığını kontrol edin. Hata artarsa dağıtımı durdurun. Mümkünse bilinen çalışan sürüme dönüş yolu tutun. Günlüklerde parola ve gizli anahtarları yazmayın.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Örnek kod\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "1. Test on a spare device.\n2. Verify model, version, size, and signature.\n3. Update a small test group.\n4. Check boot, sensor readings, and connectivity.\n5. Pause rollout if failures rise; recover if needed.",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Şema: OTA güncellemesini güvenli biçimde sınamak"
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Yalnız imzası ve uyumluluğu doğrulanmış image'i kurun. Her güncellemeden önce aygıtın güç, bellek ve kurtarma koşullarını denetleyin."
+    }
+  ],
+  "testId": "embedded_test_ota_safe_rollout_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

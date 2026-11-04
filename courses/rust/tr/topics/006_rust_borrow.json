@@ -1,0 +1,249 @@
+{
+  "id": "rust_rust_borrow",
+  "title": "Borrowing ve lifetime girişi",
+  "difficulty": "hard",
+  "testId": "rust_test_rust_borrow_tr",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html"
+  ],
+  "estimatedMinutes": 24,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Borrowing ve lifetime girişi” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Referans, sahipliği almadan ödünç değere erişir. Gerçek projede şu öneriyi izleyin: Önce referanssız, sonra mümkünse değişmez referansla tasarlayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn length(text: &str) -> usize { text.len() }\nfn main() {\n    let name = String::from(\"Rust\");\n    println!(\"{}\", length(&name));\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "4\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Referans değere sahip olmadan erişim sağlar. Ödünç kuralları aynı anda uyumlu sayıda değiştirilebilir veya salt okunur referans bulunmasını denetler; lifetime anotasyonu ilişkiyi açıklar, belleği uzatmaz.\n\nBorrowing, değeri taşımadan referans vermeyi sağlar. İstenilen sayıda immutable ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&T",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " veya aynı anda tek bir mutable ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&mut T",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bulunabilir; mutable referans etkinken aynı veriye başka referansla erişim data race riskini önlemek için yasaktır. Referans sahibinden uzun yaşayamaz.\n\nBorrowing, sahipliği devretmeden referansla erişim sağlar. Aynı anda çok sayıda shared ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&T",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " veya tek bir exclusive ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&mut T",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bulunabilir; bu kural aliasing ve veri yarışı riskini sınırlar. Referans sahibinden uzun yaşayamaz, bu nedenle derleyici dangling referansı reddeder. Slice (",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&str",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&[T]",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ") koleksiyonun bir bölümünü sahiplenmeden gösterir; lifetime anotasyonu ilişkiyi tanımlar, çalışma zamanında ömür yaratmaz.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let name = String::from(\"Rust\");",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Referans, sahipliği almadan ödünç değere erişir.\nNeden seçildi: Önce referanssız, sonra mümkünse değişmez referansla tasarlayın.\nAtlanır veya değiştirilirse: Unsafe kodda lifetime ve pointer güvenliği derleyici tarafından sağlanmaz.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Unsafe kodda lifetime ve pointer güvenliği derleyici tarafından sağlanmaz."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Referans, sahipliği almadan ödünç değere erişir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Önce referanssız, sonra mümkünse değişmez referansla tasarlayın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn bytes(text: &str) -> usize { text.len() }\nfn main() { println!(\"{}\", bytes(\"safe\")); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "4\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Referans sahibinden uzun yaşayamaz."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Unsafe kodda lifetime ve pointer güvenliği derleyici tarafından sağlanmaz."
+    },
+    {
+      "type": "diagram",
+      "id": "rust_ownership",
+      "caption": "Değer sahibi, ödünç alan ve kullanan kod arasındaki ilişki Rust tarafından derleme sırasında denetlenir."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Borrowing ve lifetime girişi” konusunda hangi ifade temel kuralı doğru açıklar?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Referans, sahipliği almadan ödünç değere erişir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: stack/heap ve bellek ömrünü, sahipliği veya veri akışını gösteren bellek diyagramı."
+}

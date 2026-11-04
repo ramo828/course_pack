@@ -1,0 +1,48 @@
+{
+  "id": "bluetooth_audio_hid_and_network",
+  "title": "Bluetooth tətbiqləri: klaviatura, səs və internet sərhədləri",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://github.com/pschatzmann/ESP32-A2DP",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/i2s.html",
+    "https://www.bluetooth.com/learn-about-bluetooth/tech-overview/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Eyni Bluetooth radio müxtəlif rollarda işləyə bilər: sensor məlumatı, simsiz klaviatura, pult, serial konsol və dinamikə səs ötürülməsi. Hər iş üçün uyğun profil və uyğun çip lazımdır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NECƏ İŞLƏYİR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Klaviatura işi iki ayrı ssenaridir: HID Device kimi ESP32 kompüterə düymə hadisələri göndərir; HID Host kimi isə mövcud klaviaturadan giriş alır. BLE HID kitabxanası və lövhə dəstəyi dəyişir. Düymə hadisəsi real istifadəçi hərəkətinə bağlı olmalıdır; cihazdan gizli və icazəsiz klaviatura əmri göndərmək təhlükəlidir. A2DP sink orijinal ESP32 Classic BT-ni Bluetooth dinamik mənbəyinə qoşur; səsi eşitmək üçün çox vaxt I2S DAC gücləndirici (məsələn, MAX98357A) və dinamik lazımdır. Bu, təkcə proqramla səs çıxışı deyil.\n\nBluetooth-un özü internet deyil. Telefon/PC interneti Wi-Fi və ya mobil şəbəkə ilə alır, ESP32 ilə Bluetooth-dan idarəetmə üçün istifadə edə bilər. Telefona Bluetooth tethering (PAN) ilə qoşulmaq yalnız cihaz, profil, əməliyyat sistemi və stack PAN rolunu dəstəkləyirsə mümkündür; standart BLE GATT internet tuneli yaratmır. ESP32-də adi internet yolu Wi-Fi STA-dır.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "// Requires the external ESP32-A2DP library.\n#include \"BluetoothA2DPSink.h\"\n\nBluetoothA2DPSink speaker;\n\nvoid setup() {\n  speaker.start(\"ESP32 Audio\");\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib təhlükəsizlik və uyğunluq qeydi",
+      "text": "A2DP Classic BT tələb edir; BLE-yə malik hər ESP32-də işləmir. Kitabxananın çip siyahısını və I2S DAC bağlantısını yoxlayın. Bluetooth tethering-in hər telefonda/ESP32-də işlədiyini güman etməyin."
+    }
+  ],
+  "testId": "embedded_test_bluetooth_audio_hid_and_network_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

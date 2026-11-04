@@ -1,0 +1,36 @@
+{
+  "id": "protocols_onewire",
+  "title": "1-Wire: the DS18B20 temperature sensor",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://www.analog.com/en/resources/technical-articles/1wire-communication-through-software.html",
+    "https://github.com/milesburton/Arduino-Temperature-Control-Library"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "1-Wire connects compatible devices on one bus with few wires. DS18B20 measures temperature digitally and has a unique identifier. The data line needs a suitable pull-up; wiring and power matter on long cables.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_onewire_bus",
+      "caption": "1-Wire: the DS18B20 temperature sensor"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <OneWire.h>\n#include <DallasTemperature.h>\n\nOneWire wireBus(4);\nDallasTemperature sensors(&wireBus);\n\nvoid setup() {\n  Serial.begin(115200);\n  sensors.begin();\n}\n\nvoid loop() {\n  sensors.requestTemperatures();\n  const float temperatureC = sensors.getTempCByIndex(0);\n  if (temperatureC == DEVICE_DISCONNECTED_C) {\n    Serial.println(\"DS18B20 disconnected\");\n  } else {\n    Serial.println(temperatureC);\n  }\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Install the OneWire and DallasTemperature libraries. The example checks `DEVICE_DISCONNECTED_C`; parasite-power mode changes conversion timing and wiring, so follow the sensor datasheet."
+    }
+  ],
+  "testId": "embedded_test_protocols_onewire_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

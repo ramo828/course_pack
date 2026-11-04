@@ -1,0 +1,88 @@
+{
+  "id": "ota_esp32_rollback",
+  "title": "ESP32 OTA: partitions and recovery from a failed update",
+  "difficulty": "advanced",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html#app-rollback"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "For safer ESP32 updates, flash can hold the running application and another app slot. The new image is written to the inactive slot; after reboot, the device performs basic health checks. If they pass, the new image is confirmed. If it cannot start correctly, the bootloader can return to the previous working slot.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "How it works\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "esp_ota_get_running_partition()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " finds the active slot; "
+    },
+    {
+      "type": "text",
+      "text": "ESP_OTA_IMG_PENDING_VERIFY",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " means the new image is still on trial. This example checks the partition and API results. Call "
+    },
+    {
+      "type": "text",
+      "text": "confirmPendingImage(true)",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " only after essential health checks pass; "
+    },
+    {
+      "type": "text",
+      "text": "false",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " requests rollback and reboot. The caller must also inspect the confirmation API's return value.\n\nThis is an ESP-IDF API and may be exposed by Arduino-ESP32, but do not assume it works in a plain Arduino sketch without configuration. The partition table, rollback option, and image verification must agree. Start from Espressif's official OTA example for ESP-IDF projects.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Example code\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <esp_err.h>\n#include <esp_ota_ops.h>\n\nesp_err_t confirmPendingImage(bool healthChecksPassed) {\n  const esp_partition_t* running = esp_ota_get_running_partition();\n  if (running == nullptr) return ESP_ERR_NOT_FOUND;\n\n  esp_ota_img_states_t state;\n  const esp_err_t stateResult = esp_ota_get_state_partition(running, &state);\n  if (stateResult != ESP_OK) return stateResult;\n  if (state != ESP_OTA_IMG_PENDING_VERIFY) return ESP_OK;\n\n  if (!healthChecksPassed) {\n    return esp_ota_mark_app_invalid_rollback_and_reboot();\n  }\n  return esp_ota_mark_app_valid_cancel_rollback();\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Diagram: ESP32 OTA: partitions and recovery from a failed update"
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Confirm the image only after real sensor, storage, and communication checks pass. Changing the partition table can erase flash data; prepare a backup and recovery method first."
+    }
+  ],
+  "testId": "embedded_test_ota_esp32_rollback_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

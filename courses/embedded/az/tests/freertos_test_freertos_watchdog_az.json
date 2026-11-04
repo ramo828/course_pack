@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_watchdog_az",
+  "title": "Watchdog, diaqnostika və istehsal nümunələri",
+  "questions": [
+    {
+      "id": "freertos_freertos_watchdog_1",
+      "topicId": "freertos_freertos_watchdog",
+      "type": "multiple_choice",
+      "prompt": "“Watchdog, diaqnostika və istehsal nümunələri” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "Watchdog bərpanı başladır, amma kök səbəbi təkbaşına tapmır; səbəbi log, ölçü və fault record ilə saxlayın.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Hər task üçün stack ayrılır, prioritet scheduler qərarına təsir edir."
+      ],
+      "answer": "Watchdog bərpanı başladır, amma kök səbəbi təkbaşına tapmır; səbəbi log, ölçü və fault record ilə saxlayın.",
+      "explanation": "Watchdog bərpanı başladır, amma kök səbəbi təkbaşına tapmır; səbəbi log, ölçü və fault record ilə saxlayın.\nİzah: Watchdog müəyyən müddətdə irəliləyiş görmədikdə sistemi yenidən başladır; onu kor-koranə reset etmək yox, sağlamlıq müqaviləsi üçün istifadə edin. Hər task öz işi bitəndə watchdog-u qidalandırmalı, bloklama və deadlock hallarını log və core dump ilə araşdırmaq mümkün olmalıdır. Production firmware-də watchdog yanaşı bounded queue, timeout, retry/backoff, stack ölçümü və recovery davranışı planlaşdırın.\n\n`esp_task_wdt_*` Espressif-in ESP-IDF API-sidir və Arduino-ESP32 core-da müəyyən versiyalarda əlçatandır; bu generic Arduino API deyil. Portativ sketch üçün hərəkəti və timeout-u ayrıca müəyyən edin, board/core sənədində API dəstəyini yoxlayın."
+    },
+    {
+      "id": "freertos_freertos_watchdog_2",
+      "topicId": "freertos_freertos_watchdog",
+      "type": "multiple_choice",
+      "prompt": "“Watchdog, diaqnostika və istehsal nümunələri” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "Sonsuz dövrədə işləyən hər task vaxtaşırı gözləməli və ya bloklanmalıdır; əks halda CPU-nu inhisara ala bilər.",
+        "Watchdog-u yalnız irəliləyişdən sonra qidalandırın; sonsuz bloklanan task-ı sağlam kimi göstərməyin."
+      ],
+      "answer": "Watchdog-u yalnız irəliləyişdən sonra qidalandırın; sonsuz bloklanan task-ı sağlam kimi göstərməyin.",
+      "explanation": "Watchdog-u yalnız irəliləyişdən sonra qidalandırın; sonsuz bloklanan task-ı sağlam kimi göstərməyin.\nİzah: Watchdog müəyyən müddətdə irəliləyiş görmədikdə sistemi yenidən başladır; onu kor-koranə reset etmək yox, sağlamlıq müqaviləsi üçün istifadə edin. Hər task öz işi bitəndə watchdog-u qidalandırmalı, bloklama və deadlock hallarını log və core dump ilə araşdırmaq mümkün olmalıdır. Production firmware-də watchdog yanaşı bounded queue, timeout, retry/backoff, stack ölçümü və recovery davranışı planlaşdırın.\n\n`esp_task_wdt_*` Espressif-in ESP-IDF API-sidir və Arduino-ESP32 core-da müəyyən versiyalarda əlçatandır; bu generic Arduino API deyil. Portativ sketch üçün hərəkəti və timeout-u ayrıca müəyyən edin, board/core sənədində API dəstəyini yoxlayın."
+    },
+    {
+      "id": "freertos_freertos_watchdog_3",
+      "topicId": "freertos_freertos_watchdog",
+      "type": "multiple_choice",
+      "prompt": "“Watchdog, diaqnostika və istehsal nümunələri” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "Task stack ölçüsü byte ilə verilir və target/runtime versiyasına görə RAM məhdudiyyətini nəzərə almaq lazımdır.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "Watchdog müəyyən müddətdə irəliləyiş görmədikdə sistemi yenidən başladır; onu kor-koranə reset etmək yox, sağlamlıq müqaviləsi üçün istifadə edin",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin."
+      ],
+      "answer": "Watchdog müəyyən müddətdə irəliləyiş görmədikdə sistemi yenidən başladır; onu kor-koranə reset etmək yox, sağlamlıq müqaviləsi üçün istifadə edin",
+      "explanation": "Watchdog müəyyən müddətdə irəliləyiş görmədikdə sistemi yenidən başladır; onu kor-koranə reset etmək yox, sağlamlıq müqaviləsi üçün istifadə edin\nİzah: Watchdog müəyyən müddətdə irəliləyiş görmədikdə sistemi yenidən başladır; onu kor-koranə reset etmək yox, sağlamlıq müqaviləsi üçün istifadə edin. Hər task öz işi bitəndə watchdog-u qidalandırmalı, bloklama və deadlock hallarını log və core dump ilə araşdırmaq mümkün olmalıdır. Production firmware-də watchdog yanaşı bounded queue, timeout, retry/backoff, stack ölçümü və recovery davranışı planlaşdırın.\n\n`esp_task_wdt_*` Espressif-in ESP-IDF API-sidir və Arduino-ESP32 core-da müəyyən versiyalarda əlçatandır; bu generic Arduino API deyil. Portativ sketch üçün hərəkəti və timeout-u ayrıca müəyyən edin, board/core sənədində API dəstəyini yoxlayın."
+    },
+    {
+      "id": "freertos_freertos_watchdog_4",
+      "topicId": "freertos_freertos_watchdog",
+      "type": "multiple_choice",
+      "prompt": "“Watchdog, diaqnostika və istehsal nümunələri” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "Serial yazıları bir neçə task-dan qarışa bilər; ortaq çıxışı serializasiya edin və task stack ölçüsünü ölçün.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "ESP-IDF watchdog API-si target və IDF versiyasından asılıdır; Arduino-ESP32-də dəstəklənən API-ni yoxlayın və watchdog konfiqurasiyasını board üzrə təsdiqləyin."
+      ],
+      "answer": "ESP-IDF watchdog API-si target və IDF versiyasından asılıdır; Arduino-ESP32-də dəstəklənən API-ni yoxlayın və watchdog konfiqurasiyasını board üzrə təsdiqləyin.",
+      "explanation": "ESP-IDF watchdog API-si target və IDF versiyasından asılıdır; Arduino-ESP32-də dəstəklənən API-ni yoxlayın və watchdog konfiqurasiyasını board üzrə təsdiqləyin.\nİzah: Watchdog müəyyən müddətdə irəliləyiş görmədikdə sistemi yenidən başladır; onu kor-koranə reset etmək yox, sağlamlıq müqaviləsi üçün istifadə edin. Hər task öz işi bitəndə watchdog-u qidalandırmalı, bloklama və deadlock hallarını log və core dump ilə araşdırmaq mümkün olmalıdır. Production firmware-də watchdog yanaşı bounded queue, timeout, retry/backoff, stack ölçümü və recovery davranışı planlaşdırın.\n\n`esp_task_wdt_*` Espressif-in ESP-IDF API-sidir və Arduino-ESP32 core-da müəyyən versiyalarda əlçatandır; bu generic Arduino API deyil. Portativ sketch üçün hərəkəti və timeout-u ayrıca müəyyən edin, board/core sənədində API dəstəyini yoxlayın."
+    }
+  ]
+}

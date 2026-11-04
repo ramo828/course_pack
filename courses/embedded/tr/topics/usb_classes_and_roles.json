@@ -1,0 +1,58 @@
+{
+  "id": "usb_classes_and_roles",
+  "title": "USB: CDC, HID, depolama, host ve aygıt rolleri",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb_host.html",
+    "https://www.usb.org/defined-class-codes"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "USB yalnızca güç ve Seri Monitör kablosu değildir. Uygun çip ve kartla mikrodenetleyici bilgisayara aygıt olabilir veya host olarak klavye/depolama bağlayabilir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NASIL ÇALIŞIR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Device rolunda CDC seri tanılama, HID klavye/fare, MSC depolama, MIDI ve desteklenen kartlarda DFU güncellemesi sunabilir. Host rolunda klavye, fare ve USB depolama aygıtını yönetir; host 5 V VBUS ve akım sağlamalıdır. ESP32-S2/S3 USB OTG ile host/device olabilir; pinler ve Arduino USB Mode seçimi önemlidir. S3'te USB Serial/JTAG ve OTG aynı PHY'yi paylaşabilir. C3'te dahili CDC/JTAG vardır ama tam host OTG yoktur. Klasik ESP32'de yerel USB çevre birimi bulunmaz. UNO'da kablo genellikle USB-UART yongasına gider; UNO standart USB klavyesi gibi davranamaz. ATmega32U4 ve uyumlu ESP32-S2/S3 kartları native HID sunabilir.\n\nSerial Monitor örneğinde "
+    },
+    {
+      "type": "text",
+      "text": "Serial",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", bazı kartlarda native CDC'ye, bazılarında USB-UART köprüsü üzerinden UART'a gider; IDE ayarını ve kart belgesini kontrol edin.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "void setup() {\n  Serial.begin(115200);\n}\n\nvoid loop() {\n  Serial.println(\"USB serial is ready\");\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli güvenlik ve uyumluluk notu",
+      "text": "USB host için kartın VBUS güç devresini doğrulayın; klavye/depolamayı GPIO'dan beslemeyin. HID tuş olayları yalnızca kullanıcının açık eylemi ve izniyle gönderilmelidir."
+    }
+  ],
+  "testId": "embedded_test_usb_classes_and_roles_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

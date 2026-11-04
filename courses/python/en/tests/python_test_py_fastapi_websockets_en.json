@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_websockets_en",
+  "title": "Real-time communication with WebSockets",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_websockets",
+      "type": "multiple_choice",
+      "prompt": "How should the API respond to this practical HTTP request?\nConnect ws://127.0.0.1:8000/ws; send \"hello\"",
+      "options": [
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Return the same response to every request without checking its data.",
+        "Keep all state in a global variable and skip authentication.",
+        "The server sends `Echo: hello` back on the same connection."
+      ],
+      "answer": "The server sends `Echo: hello` back on the same connection.",
+      "explanation": "This is the expected behavior for `Connect ws://127.0.0.1:8000/ws; send \"hello\"`. The server sends `Echo: hello` back on the same connection."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_websockets",
+      "type": "multiple_choice",
+      "prompt": "Which design principle is correct for this topic?",
+      "options": [
+        "A WebSocket stays open for client/server messages instead of closing after one HTTP response.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Keep all state in a global variable and skip authentication.",
+        "Return the same response to every request without checking its data."
+      ],
+      "answer": "A WebSocket stays open for client/server messages instead of closing after one HTTP response.",
+      "explanation": "A WebSocket stays open for client/server messages instead of closing after one HTTP response. WebSocket connections consume server memory and file descriptors; plan connection limits and fan-out for many clients."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_websockets",
+      "type": "multiple_choice",
+      "prompt": "What changes if the important part shown in the lesson is omitted?",
+      "options": [
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Return the same response to every request without checking its data.",
+        "Keep all state in a global variable and skip authentication.",
+        "Polling repeatedly for updates adds delay and traffic; WebSocket uses an open connection."
+      ],
+      "answer": "Polling repeatedly for updates adds delay and traffic; WebSocket uses an open connection.",
+      "explanation": "Polling repeatedly for updates adds delay and traffic; WebSocket uses an open connection. A normal HTTP request ends with its response; a WebSocket keeps a connection open for two-way messages. A FastAPI endpoint accepts, reads, and replies. This is an echo server; a browser client uses the WebSocket API."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_websockets",
+      "type": "multiple_choice",
+      "prompt": "Which action best prevents the common mistake from this lesson?",
+      "options": [
+        "Keep all state in a global variable and skip authentication.",
+        "Return the same response to every request without checking its data.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Run the server, then use `new WebSocket('ws://127.0.0.1:8000/ws')` in a browser console and try `send()` and `onmessage`."
+      ],
+      "answer": "Run the server, then use `new WebSocket('ws://127.0.0.1:8000/ws')` in a browser console and try `send()` and `onmessage`.",
+      "explanation": "Run the server, then use `new WebSocket('ws://127.0.0.1:8000/ws')` in a browser console and try `send()` and `onmessage`. Add origin checks, authentication, message-size limits, and connection-rate limits in production."
+    }
+  ]
+}

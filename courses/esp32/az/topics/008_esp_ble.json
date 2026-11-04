@@ -1,0 +1,160 @@
+{
+  "id": "esp32_esp_ble",
+  "title": "Bluetooth LE və GATT",
+  "difficulty": "hard",
+  "testId": "esp32_test_esp_ble_az",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/ble/"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Bluetooth LE və GATT” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: GATT məlumatı service və characteristic-lər altında təşkil edir. Real layihədə bu göstərişə əməl edin: Yalnızca oxunmalı characteristic belə məxfi məlumatı qoruya bilər; pairing və icazə siyasətini düşünün.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <BLEDevice.h>\n#include <BLEServer.h>\n#include <BLEUtils.h>\n#include <BLE2902.h>\nstatic BLECharacteristic* reading;\nvoid setup() {\n    BLEDevice::init(\"SensorDemo\");\n    BLEServer* server = BLEDevice::createServer();\n    BLEService* service = server->createService(\"180A\");\n    reading = service->createCharacteristic(\"2A57\", BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_NOTIFY);\n    reading->addDescriptor(new BLE2902());\n    reading->setValue(\"ready\");\n    service->start();\n    BLEDevice::getAdvertising()->start();\n}\nvoid loop() { reading->setValue(\"sample\"); reading->notify(); delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Advertising yalnız stack, callback, service və advertising data qurulduqdan sonra başlayır; API BLE stack-dən asılıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "BLE GATT server service və characteristic-lər vasitəsilə məlumat paylaşır. Reklam, qoşulma, MTU və enerji davranışı variant və SDK-dan asılıdır; icazəni və məlumatın kim tərəfindən oxuna biləcəyini əvvəlcədən müəyyən edin.\n\nBLE skeçi Arduino-ESP32-nin BLE kitabxanasına uyğundur; header/API dəstəyi core versiyasına görə dəyişə bilər. ESP-IDF GATT API-si fərqli callback və lifecycle modelinə malikdir, bu sketch onu təqlid etmir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#include <BLEDevice.h>",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: GATT məlumatı service və characteristic-lər altında təşkil edir.\nNiyə seçilib: Yalnızca oxunmalı characteristic belə məxfi məlumatı qoruya bilər; pairing və icazə siyasətini düşünün.\nBuraxılsa və ya dəyişdirilsə: Yalnızca oxunmalı characteristic belə məxfi məlumatı qoruya bilər; pairing və icazə siyasətini düşünün.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Yalnızca oxunmalı characteristic belə məxfi məlumatı qoruya bilər; pairing və icazə siyasətini düşünün."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "GATT məlumatı service və characteristic-lər altında təşkil edir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Yalnızca oxunmalı characteristic belə məxfi məlumatı qoruya bilər; pairing və icazə siyasətini düşünün."
+    },
+    {
+      "type": "text",
+      "text": "Arduino Core GATT skeleti\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <BLEDevice.h>\n#include <BLEServer.h>\nvoid setup() { BLEDevice::init(\"SensorDemo\"); BLEServer* server = BLEDevice::createServer(); BLEService* service = server->createService(\"180A\"); service->start(); BLEDevice::getAdvertising()->start(); }\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "BLE service reklam olunur; seçilmiş core üçün dəstəyi və kitabxana versiyasını yoxlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "ESP-IDF GATT API-si fərqli callback və lifecycle modelinə malikdir, bu sketch onu təqlid etmir."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Pinlər, gərginlik/cərəyan limitləri, timing və periferik imkanlar lövhədən asılıdır; naqilləmədən və yükləmədən əvvəl dəqiq board sənədini yoxlayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

@@ -1,0 +1,46 @@
+{
+  "id": "module_rfid_mfrc522",
+  "title": "NFC/RFID: MFRC522 və PN532 modulları",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://github.com/miguelbalboa/rfid",
+    "https://learn.adafruit.com/adafruit-pn532-rfid-nfc"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "MFRC522 kartı 13,56 MHz RFID/NFC teqlərini oxuyur; PN532 isə daha geniş NFC imkanları verir. Bu nümunə yalnız kartın mövcudluğunu yoxlayır, giriş icazəsi vermir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "MFRC522: UNO SDA/SS→D10, RST→D9, MOSI→D11, MISO→D12, SCK→D13, 3.3V→3.3V, GND→GND. ESP32-də SPI pinləri lövhədən asılıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Arduino IDE-də MFRC522 kitabxanasını quraşdırın. Platforma: UNO və uyğun ESP32 SPI. Etiket UID-sini parol kimi istifadə etməyin; UID asanlıqla kopyalana bilər.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_rfid_spi",
+      "caption": "NFC/RFID: MFRC522 və PN532 modulları"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <SPI.h>\n#include <MFRC522.h>\n\nconstexpr byte SS_PIN = 10;\nconstexpr byte RST_PIN = 9;\nMFRC522 reader(SS_PIN, RST_PIN);\n\nvoid setup() {\n  Serial.begin(9600);\n  SPI.begin();\n  reader.PCD_Init();\n}\n\nvoid loop() {\n  if (!reader.PICC_IsNewCardPresent() ||\n      !reader.PICC_ReadCardSerial()) return;\n  Serial.println(\"Kart oxundu\");\n  reader.PICC_HaltA();\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib təhlükəsizlik qeydi",
+      "text": "MFRC522 modulunu 3.3 V ilə qidalandırın; 5 V siqnal onu zədələyə bilər. Güvənli giriş üçün UID təkbaşına autentifikasiya deyil."
+    }
+  ],
+  "testId": "embedded_test_module_rfid_mfrc522_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

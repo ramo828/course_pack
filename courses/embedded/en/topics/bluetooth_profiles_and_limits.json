@@ -1,0 +1,58 @@
+{
+  "id": "bluetooth_profiles_and_limits",
+  "title": "Bluetooth LE and Classic: GATT, SPP, connections, and compatibility",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/bluetooth.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/bluetooth/index.html",
+    "https://www.bluetooth.com/learn-about-bluetooth/tech-overview/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Bluetooth connects phones, sensors, controls, and computers over short-range radio. LE and Classic share a brand but use different profiles and design goals.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "HOW IT WORKS\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "BLE is designed for low energy. A peripheral advertises GATT services/characteristics; a central scans, connects, reads/writes, and receives notifications. It suits sensors, setup, battery devices, and BLE Mesh. Bluetooth Classic BR/EDR supports continuous streams and profiles such as SPP serial, A2DP audio, and HID input. ESP-IDF Bluedroid supports both stacks; NimBLE is BLE-only. Arduino "
+    },
+    {
+      "type": "text",
+      "text": "BluetoothSerial",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " SPP is available only on ESP32 chips with Classic Bluetooth, notably the original ESP32; ESP32-S3/C3/C6/H2 do not all support Classic BT/SPP.\n\nThe sketch provides a paired text terminal using SerialBT. BLE uses GATT characteristics and notifications instead; GATT is not the SPP protocol. Check RAM, concurrent radio use, range, and phone compatibility.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <BluetoothSerial.h>\n\nBluetoothSerial SerialBT;\n\nvoid setup() {\n  Serial.begin(115200);\n  SerialBT.begin(\"Sensor-Console\");\n}\n\nvoid loop() {\n  if (SerialBT.available()) {\n    const char command = SerialBT.read();\n    if (command == '?') SerialBT.println(\"Ready\");\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important safety and compatibility note",
+      "text": "This sketch requires a chip and core configuration with Classic BT/SPP. Use authenticated, encrypted pairing for sensitive control; never trust a command solely because it arrived over Bluetooth."
+    }
+  ],
+  "testId": "embedded_test_bluetooth_profiles_and_limits_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

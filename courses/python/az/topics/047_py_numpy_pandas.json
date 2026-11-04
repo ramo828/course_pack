@@ -1,0 +1,506 @@
+{
+  "id": "python_py_numpy_pandas",
+  "title": "NumPy və pandas: massivlər və cədvəl məlumatı",
+  "difficulty": "medium",
+  "testId": "python_test_py_numpy_pandas_az",
+  "sources": [
+    "https://numpy.org/doc/stable/user/absolute_beginners.html",
+    "https://numpy.org/about/",
+    "https://pandas.pydata.org/docs/getting_started/intro_tutorials/",
+    "https://pandas.pydata.org/about/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NİYƏ LAZIMDIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Travis Oliphant-in qurucu olduğu NumPy massivlərdə sürətli ədədi hesablamalar üçün yaradılıb; pandas-ın inkişafı Wes McKinney tərəfindən AQR-də 2008-ci ildə başladılıb və cədvəl məlumatını təhlil etməyə yönəlib. NumPy ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ndarray",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ", pandas isə indeksli ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Series",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "DataFrame",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " verir. Böyük dataset RAM-a sığmaya bilər; dtype və chunk seçin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NumPy eyni tipli ədədi massivlər və vektorlaşdırılmış hesablama, pandas isə sətir/sütun etiketli cədvəllər üçün istifadə olunur. NumPy-də ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ndarray",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bütün elementlər üzərində sürətli əməliyyat aparır; pandas ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "DataFrame",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " CSV kimi məlumatı filtrləmək, qruplaşdırmaq və ümumiləşdirmək üçün uyğundur. Bunlar xarici asılılıqlardır; kiçik məlumatda adi Python daha sadə ola bilər.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "python_dataframe_flow",
+      "caption": "NumPy və pandas: massivlər və cədvəl məlumatı"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import numpy as np\nimport pandas as pd\n\nsamples = np.array([20.0, 22.0, 24.0])\nreadings = pd.DataFrame({'celsius': samples})\nprint(samples.mean(), readings['celsius'].max())",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "22.0 24.0",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SƏTİR-SƏTİR İZAH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import numpy as np",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modul funksionallığını gətirir; sətir olmasa ad əlçatan deyil və istifadədə NameError yaranar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import pandas as pd",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modul funksionallığını gətirir; sətir olmasa ad əlçatan deyil və istifadədə NameError yaranar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "samples = np.array([20.0, 22.0, 24.0])",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "readings = pd.DataFrame({'celsius': samples})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(samples.mean(), readings['celsius'].max())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NumPy orta qiyməti, pandas isə sütundakı maksimumu hesablayır; nəticə ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "22.0 24.0",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " olur.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Aktiv `.venv` mühitində `python -m pip install numpy pandas` işlədin. Məlumatı yükləyərkən sütun tiplərini, boş dəyərləri və sayısal diapazonları ayrıca yoxlayın."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Böyük faylı tam yaddaşa yükləmək RAM-ı tükədə bilər; chunking və uyğun dtype istifadə edin, nəticəni kiçik nümunə ilə yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "PRAKTİK NÜMUNƏ 2 · NumPy və pandas: massivlər və cədvəl məlumatı\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import numpy as np\n\nvalues = np.array([18, 22, 25])\nprint(values[values >= 22].tolist())",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "[22, 25]",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SƏTİR-SƏTİR İZAH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import numpy as np",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modul funksionallığını gətirir; sətir olmasa ad əlçatan deyil və istifadədə NameError yaranar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "values = np.array([18, 22, 25])",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(values[values >= 22].tolist())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "PRAKTİK NÜMUNƏ 3 · NumPy və pandas: massivlər və cədvəl məlumatı\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import pandas as pd\n\nreadings = pd.DataFrame({\n    'site': ['north', 'north', 'south'],\n    'celsius': [20.0, 22.0, 24.0],\n})\nmeans = readings.groupby('site')['celsius'].mean()\nprint(means.to_dict())",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "{'north': 21.0, 'south': 24.0}",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SƏTİR-SƏTİR İZAH\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import pandas as pd",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modul funksionallığını gətirir; sətir olmasa ad əlçatan deyil və istifadədə NameError yaranar.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "readings = pd.DataFrame({",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "'site': ['north', 'north', 'south'],",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "'celsius': [20.0, 22.0, 24.0],",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "means = readings.groupby('site')['celsius'].mean()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(means.to_dict())",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "detail",
+      "title": "Niyə vacibdir?",
+      "text": "Travis Oliphant-in qurucu olduğu NumPy massivlərdə sürətli ədədi hesablamalar üçün yaradılıb; pandas-ın inkişafı Wes McKinney tərəfindən AQR-də 2008-ci ildə başladılıb və cədvəl məlumatını təhlil etməyə yönəlib. NumPy `ndarray`, pandas isə indeksli `Series`/`DataFrame` verir. Böyük dataset RAM-a sığmaya bilər; dtype və chunk seçin."
+    },
+    {
+      "type": "text",
+      "text": "TEZ-TEZ BURAXILAN SƏHVLƏR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Dəyişən adı, girinti və şərhi bir-birindən ayırın; boşluq sintaksisə, şərh isə sənədləşdirməyə xidmət edir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Sual: “NumPy və pandas: massivlər və cədvəl məlumatı” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Travis Oliphant-in qurucu olduğu NumPy massivlərdə sürətli ədədi hesablamalar üçün yaradılıb; pandas-ın inkişafı Wes McKinney tərəfindən AQR-də 2008-ci ildə başladılıb və cədvəl məlumatını təhlil etməyə yönəlib.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “NumPy və pandas: massivlər və cədvəl məlumatı” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Travis Oliphant-in qurucu olduğu NumPy massivlərdə sürətli ədədi hesablamalar üçün yaradılıb; pandas-ın inkişafı Wes McKinney tərəfindən AQR-də 2008-ci ildə başladılıb və cədvəl məlumatını təhlil etməyə yönəlib.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı.",
+  "estimatedMinutes": 22
+}

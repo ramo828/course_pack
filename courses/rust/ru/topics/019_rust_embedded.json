@@ -1,0 +1,256 @@
+{
+  "id": "rust_rust_embedded",
+  "title": "no_std, embedded и бюджет ресурсов",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_embedded_ru",
+  "sources": [
+    "https://docs.rust-embedded.org/book/"
+  ],
+  "estimatedMinutes": 35,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «no_std, embedded и бюджет ресурсов» в программе или устройстве. Основной принцип: Программе no_std нужен panic handler и платформенная настройка startup и linker. В проекте следуйте рекомендации: Проверяйте target triple, toolchain, размер стека задач и поведение при нехватке RAM.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_embedded_hal_flow",
+      "caption": "no_std, embedded и бюджет ресурсов"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#![no_std]\n\npub fn clamp_adc(raw: u16, maximum: u16) -> u16 {\n    if raw > maximum { maximum } else { raw }\n}\n\n// Compile as a library: rustc --crate-type lib adc.rs",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вывода в консоль нет; ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "rustc --crate-type lib adc.rs",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " собирает библиотеку ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "no_std",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " для host target.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust использует ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "no_std",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " для прошивок без служб ОС из стандартной библиотеки; остаются ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "core",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и платформенные абстракции вроде embedded-hal. Измеряйте heap, stack, flash, RAM и задержки прерываний для конкретного чипа и linker. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "no_std",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " сам по себе не гарантирует real-time и безопасность оборудования; отдельно проверяйте HAL, драйверы и unsafe-границы.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#![no_std]",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Программе no_std нужен panic handler и платформенная настройка startup и linker.\nЗачем она нужна: Проверяйте target triple, toolchain, размер стека задач и поведение при нехватке RAM.\nЕсли пропустить или изменить: Проверяйте выводы, напряжение и ток по документации платы: неверное подключение повреждает компоненты.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Проверяйте выводы, напряжение и ток по документации платы: неверное подключение повреждает компоненты."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Программе no_std нужен panic handler и платформенная настройка startup и linker.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Проверяйте target triple, toolchain, размер стека задач и поведение при нехватке RAM."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#![no_std]\npub fn is_high(raw: u16, threshold: u16) -> bool { raw >= threshold }\n// Compile with: rustc --crate-type lib threshold.rs",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Библиотека ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "no_std",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " собирается без host executable.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "`no_std` сам по себе не гарантирует real-time и безопасность оборудования; отдельно проверяйте HAL, драйверы и unsafe-границы."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Проверяйте выводы, напряжение и ток по документации платы: неверное подключение повреждает компоненты."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Rust проверяет при компиляции отношения владельца значения, заимствующего кода и места использования."
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение верно передаёт основное правило темы «no_std, embedded и бюджет ресурсов»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Программе no_std нужен panic handler и платформенная настройка startup и linker.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

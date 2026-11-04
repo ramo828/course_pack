@@ -1,0 +1,63 @@
+{
+  "id": "usb_device_profiles_custom",
+  "title": "USB cihazı: CDC, HID, MSC və xüsusi siniflər",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb.html",
+    "https://github.com/espressif/arduino-esp32/tree/master/libraries/USB/examples",
+    "https://www.usb.org/defined-class-codes"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "USB device kompüterə qoşulan tərəfdir. ESP32-S2/S3 kimi USB periferiyası olan lövhə serial port, klaviatura, yaddaş və ya xüsusi cihaz kimi görünə bilər.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NECƏ İŞLƏYİR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "CDC serial diaqnostika və kompüterlə sadə məlumat mübadiləsi üçündür; HID klaviatura/siçan kimi standart giriş cihazı yaradır; MSC cihazın öz flash yaddaşını disk kimi təqdim edə bilər. Composite cihaz bir USB kabelində bir neçə interfeys göstərə bilər. Custom/vendor interfeysində kompüter tərəfi üçün ayrıca sürücü və proqram yazılır.\n\nArduino-ESP32 USB API-si USB periferiyası olan uyğun çiplərdə işləyir. Native CDC nümunəsi lövhə nümunələrindədir; HID/MSC/composite üçün Arduino-ESP32 USB nümunələrini istifadə edin və USB mode seçimini yoxlayın. "
+    },
+    {
+      "type": "text",
+      "text": "USB.usbPower()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kimi elanlar real enerji çıxışını dəyişmir, yalnız descriptor məlumatıdır.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"USB.h\"\n#include \"USBHIDKeyboard.h\"\n\nUSBHIDKeyboard keyboard;\nconstexpr int BUTTON_PIN = 4;\nbool previous = HIGH;\n\nvoid setup() {\n  pinMode(BUTTON_PIN, INPUT_PULLUP);\n  keyboard.begin();\n  USB.begin();\n}\n\nvoid loop() {\n  const bool pressed = digitalRead(BUTTON_PIN) == LOW;\n  if (pressed && previous == HIGH) {\n    keyboard.write('a');  // Test in a text editor on your own computer.\n  }\n  previous = pressed;\n  delay(25);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "USB cihazı: CDC, HID, MSC və xüsusi siniflər"
+    },
+    {
+      "type": "warning",
+      "title": "Vacib təhlükəsizlik və uyğunluq qeydi",
+      "text": "Yalnız USB periferiyası olan uyğun lövhədə işləyir; Tools/USB Mode və pinləri yoxlayın. HID klaviatura real giriş yaradır: fiziki istifadəçi düyməsi ilə sadə simvol göndərin, gizli düymə/əmr ardıcıllığı göndərməyin. USB MSC yazısı enerji kəsiləndə fayl sistemini korlaya bilər."
+    }
+  ],
+  "testId": "embedded_test_usb_device_profiles_custom_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

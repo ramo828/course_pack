@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_path_query_tr",
+  "title": "Path ve query parametreleri",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_path_query",
+      "type": "multiple_choice",
+      "prompt": "Bu gerçek HTTP isteğine API nasıl yanıt vermelidir?\nGET /books/12?limit=5",
+      "options": [
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "200 OK; JSON: {\"book_id\":12,\"limit\":5}",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin."
+      ],
+      "answer": "200 OK; JSON: {\"book_id\":12,\"limit\":5}",
+      "explanation": "Bu, `GET /books/12?limit=5` isteğinin beklenen davranışıdır. 200 OK; JSON: {\"book_id\":12,\"limit\":5}"
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_path_query",
+      "type": "multiple_choice",
+      "prompt": "Bu konuda hangi tasarım ilkesi doğrudur?",
+      "options": [
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
+        "Path parametresi kaynağı tanımlar, query parametresi ise seçimi ve sunumu etkiler.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin."
+      ],
+      "answer": "Path parametresi kaynağı tanımlar, query parametresi ise seçimi ve sunumu etkiler.",
+      "explanation": "Path parametresi kaynağı tanımlar, query parametresi ise seçimi ve sunumu etkiler. Path nesne kimliğini, query ise sunum/filtre parametrelerini taşır; zorunlu query değerinin varsayılanı yoksa `Query(...)` ile açıkça belirtin."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_path_query",
+      "type": "multiple_choice",
+      "prompt": "Derste gösterilen önemli bölüm çıkarılırsa ne değişir?",
+      "options": [
+        "Path parametresini rotadan çıkarırsanız hangi kaynağın istendiği bilinmez; query parametresini kaldırmak uç noktayı filtresiz/varsayılan davranışa döndürür.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın."
+      ],
+      "answer": "Path parametresini rotadan çıkarırsanız hangi kaynağın istendiği bilinmez; query parametresini kaldırmak uç noktayı filtresiz/varsayılan davranışa döndürür.",
+      "explanation": "Path parametresini rotadan çıkarırsanız hangi kaynağın istendiği bilinmez; query parametresini kaldırmak uç noktayı filtresiz/varsayılan davranışa döndürür. Path parametresi hangi kaynağın istendiğini, query parametresi ise listenin nasıl filtreleneceğini veya sayfalanacağını belirtir. FastAPI ad ve türü Python işlevinden çıkarır. Zorunlu ve varsayılan değerler URL sözleşmesini belirler."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_path_query",
+      "type": "multiple_choice",
+      "prompt": "Dersteki yaygın hatayı önlemek için hangi adım daha doğrudur?",
+      "options": [
+        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
+        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
+        "`/books/12?limit=5` biçimini `/docs` içinde deneyin; `book_id` yolun, `limit` ise `?` sonrasındaki sorgunun parçasıdır.",
+        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın."
+      ],
+      "answer": "`/books/12?limit=5` biçimini `/docs` içinde deneyin; `book_id` yolun, `limit` ise `?` sonrasındaki sorgunun parçasıdır.",
+      "explanation": "`/books/12?limit=5` biçimini `/docs` içinde deneyin; `book_id` yolun, `limit` ise `?` sonrasındaki sorgunun parçasıdır. Kullanıcı değerlerini dosya yoluna veya SQL sorgusuna birleştirmeyin; parametre olarak aktarın ve sonuç sayısını sınırlayın."
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "id": "ota_remote_https",
+  "title": "Удалённое HTTPS-обновление: безопасная загрузка прошивки",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html",
+    "https://github.com/espressif/arduino-esp32/tree/master/libraries/HTTPUpdate"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Удалённое устройство может само получить новую версию с интернет-сервера. Так можно обновлять множество датчиков, не посещая каждый объект.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "КАК ЭТО РАБОТАЕТ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "На ESP32 "
+    },
+    {
+      "type": "text",
+      "text": "WiFiClientSecure",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и совместимая библиотека "
+    },
+    {
+      "type": "text",
+      "text": "HTTPUpdate",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " могут установить HTTPS-соединение. Задайте доверенный корневой сертификат центра сертификации в прошивке или защищённом обновляемом хранилище; не отключайте проверку сертификата. Сервер предоставляет манифест для модели платы, версии и канала выпуска. До установки проверьте подпись, модель, версию и размер образа. После записи перезапустите устройство, проверьте датчики и связь и подтвердите новую версию только при успешной работе.\n\nЗамените "
+    },
+    {
+      "type": "text",
+      "text": "ROOT_CA_PEM",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " на доверенный PEM-сертификат проекта. API "
+    },
+    {
+      "type": "text",
+      "text": "HTTPUpdate",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " зависит от версии Arduino-ESP32 и платы, поэтому сверяйтесь с установленной библиотекой и официальным примером. Классическая UNO этот скетч выполнить не может.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFiClientSecure.h>\n#include <HTTPUpdate.h>\n\nconst char* firmwareUrl =\n    \"https://updates.example.org/esp32/stable.bin\";\nextern const char rootCa[];        // Define with the trusted CA PEM.\nWiFiClientSecure tls;\n\nvoid setup() {\n  Serial.begin(115200);\n  // Connect Wi-Fi and validate the signed update manifest first.\n  tls.setCACert(rootCa);           // Keep certificate checks enabled.\n  const auto result = httpUpdate.update(tls, firmwareUrl);\n  if (result == HTTP_UPDATE_OK) {\n    ESP.restart();\n  } else if (result == HTTP_UPDATE_FAILED) {\n    Serial.println(httpUpdate.getLastErrorString());\n  } else {\n    Serial.println(\"No update available\");\n  }\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Удалённое HTTPS-обновление: безопасная загрузка прошивки"
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание о безопасности и совместимости",
+      "text": "Не доверяйте загруженному файлу только потому, что используется HTTPS: проверяйте подписанный манифест и подпись прошивки. Не добавляйте в репозиторий пароль Wi-Fi, токены и закрытые ключи CA."
+    }
+  ],
+  "testId": "embedded_test_ota_remote_https_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

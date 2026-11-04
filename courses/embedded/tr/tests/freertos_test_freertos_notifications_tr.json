@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_notifications_tr",
+  "title": "Task notification ve event group",
+  "questions": [
+    {
+      "id": "freertos_freertos_notifications_1",
+      "topicId": "freertos_freertos_notifications",
+      "type": "multiple_choice",
+      "prompt": "“Task notification ve event group” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Notification yalnızca hedef göreve gider; queue gibi keyfi veri taşımaz.",
+        "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "Notification yalnızca hedef göreve gider; queue gibi keyfi veri taşımaz.",
+      "explanation": "Notification yalnızca hedef göreve gider; queue gibi keyfi veri taşımaz.\nAçıklama: Task notification bir göreve doğrudan hafif sinyal gönderir; tek alıcılı birçok olayda ayrı queue'dan daha az bellek kullanır. `ulTaskNotifyTake` bildirimi bekler; birden çok tüketici veya bit alanı gerekiyorsa event group daha uygundur. Gönderenin task handle'ı geçerli olmalı, olayların birikme ve temizlenme davranışı baştan seçilmelidir."
+    },
+    {
+      "id": "freertos_freertos_notifications_2",
+      "topicId": "freertos_freertos_notifications",
+      "type": "multiple_choice",
+      "prompt": "“Task notification ve event group” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Tek tüketici varsa notification düşünün; event group'u birden çok olay biti gerektiğinde seçin."
+      ],
+      "answer": "Tek tüketici varsa notification düşünün; event group'u birden çok olay biti gerektiğinde seçin.",
+      "explanation": "Tek tüketici varsa notification düşünün; event group'u birden çok olay biti gerektiğinde seçin.\nAçıklama: Task notification bir göreve doğrudan hafif sinyal gönderir; tek alıcılı birçok olayda ayrı queue'dan daha az bellek kullanır. `ulTaskNotifyTake` bildirimi bekler; birden çok tüketici veya bit alanı gerekiyorsa event group daha uygundur. Gönderenin task handle'ı geçerli olmalı, olayların birikme ve temizlenme davranışı baştan seçilmelidir."
+    },
+    {
+      "id": "freertos_freertos_notifications_3",
+      "topicId": "freertos_freertos_notifications",
+      "type": "multiple_choice",
+      "prompt": "“Task notification ve event group” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Notification counter, bit maskesi ve overwrite kipleri farklıdır; gönderici ile alıcı aynı sözleşmeyi kullanmalıdır.",
+        "Görev stack boyutu byte cinsindendir; hedef ve runtime sürümünün RAM sınırını hesaba katın.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin."
+      ],
+      "answer": "Notification counter, bit maskesi ve overwrite kipleri farklıdır; gönderici ile alıcı aynı sözleşmeyi kullanmalıdır.",
+      "explanation": "Notification counter, bit maskesi ve overwrite kipleri farklıdır; gönderici ile alıcı aynı sözleşmeyi kullanmalıdır.\nAçıklama: Task notification bir göreve doğrudan hafif sinyal gönderir; tek alıcılı birçok olayda ayrı queue'dan daha az bellek kullanır. `ulTaskNotifyTake` bildirimi bekler; birden çok tüketici veya bit alanı gerekiyorsa event group daha uygundur. Gönderenin task handle'ı geçerli olmalı, olayların birikme ve temizlenme davranışı baştan seçilmelidir."
+    },
+    {
+      "id": "freertos_freertos_notifications_4",
+      "topicId": "freertos_freertos_notifications",
+      "type": "multiple_choice",
+      "prompt": "“Task notification ve event group” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Görevleri scheduler sıraya alır; `vTaskDelay` boş CPU süresini diğer görevlere bırakır.",
+        "Önce basit `loop()` ile başlayın; yalnız bağımsız ve farklı zamanlama isteyen işler varsa task ekleyin.",
+        "`ulTaskNotifyTake` bildirimi bekler; birden çok tüketici veya bit alanı gerekiyorsa event group daha uygundur",
+        "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün."
+      ],
+      "answer": "`ulTaskNotifyTake` bildirimi bekler; birden çok tüketici veya bit alanı gerekiyorsa event group daha uygundur",
+      "explanation": "`ulTaskNotifyTake` bildirimi bekler; birden çok tüketici veya bit alanı gerekiyorsa event group daha uygundur\nAçıklama: Task notification bir göreve doğrudan hafif sinyal gönderir; tek alıcılı birçok olayda ayrı queue'dan daha az bellek kullanır. `ulTaskNotifyTake` bildirimi bekler; birden çok tüketici veya bit alanı gerekiyorsa event group daha uygundur. Gönderenin task handle'ı geçerli olmalı, olayların birikme ve temizlenme davranışı baştan seçilmelidir."
+    }
+  ]
+}

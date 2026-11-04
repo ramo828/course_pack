@@ -1,0 +1,79 @@
+{
+  "id": "cpp_pointers_callbacks",
+  "title": "Указатели, ссылки и обратные вызовы",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/pointer.html",
+    "https://en.cppreference.com/w/cpp/language/reference.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Указатель хранит адрес и может быть равен ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "nullptr",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; ссылка — другое имя существующего объекта, она должна быть инициализирована. Параметр-ссылка избегает копирования, а ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "const T&",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " читает большой объект без копии. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "T**",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " хранит адрес указателя. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void*",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " может хранить адрес неизвестного типа, но перед использованием его нужно привести к правильному типу. Указатель на функцию или обратный вызов передаёт действие для выполнения при событии.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "void addOne(int& value) { ++value; }\nvoid onReady(void (*callback)(int), int value) {\n  if (callback != nullptr) callback(value);\n}\nvoid printValue(int value) { Serial.println(value); }\nvoid setup() {\n  Serial.begin(9600);\n  onReady(printValue, 42);\n}\n\nint reading = 7;\nvoid* rawAddress = &reading;\nint* typedAddress = static_cast<int*>(rawAddress);\nint* pointer = &reading;\nint** pointerToPointer = &pointer;\nint* values = &reading;\nptrdiff_t distance = values - pointer; // Same-array rule applies.",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Арифметика указателей допустима только внутри одного массива; для `void*` она не определена. Обращение по нулевому, неверному или устаревшему адресу может повредить программу. Правила обратный вызов и ISR зависят от библиотеки и платы; не вызывайте блокирующий код из ISR."
+    }
+  ],
+  "testId": "embedded_test_cpp_pointers_callbacks_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму памяти со стеком/кучей, временем жизни, владением или потоком данных."
+}

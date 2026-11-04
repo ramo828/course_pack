@@ -1,0 +1,402 @@
+{
+  "courseId": "rust",
+  "locale": "az",
+  "title": "Rust lüğəti: yaddaş, tiplər və layihələr",
+  "version": 1,
+  "sections": [
+    {
+      "id": "ownership",
+      "title": "Sahiblik və borclanma",
+      "entries": [
+        {
+          "term": "Sahiblik (ownership)",
+          "kind": "anlayış",
+          "short": "Hər dəyərin onu idarə edən bir sahibi olur.",
+          "detail": "Sahib əhatə dairəsindən çıxanda dəyər təmizlənir. Bu qayda yaddaşın təhlükəsiz idarəsini əlavə zibil toplayıcısı olmadan təmin edir.",
+          "example": "fn main() { let name = String::from(\"Rust\"); println!(\"{name}\"); }",
+          "output": "Rust"
+        },
+        {
+          "term": "Köçürmə (move)",
+          "kind": "əməliyyat",
+          "short": "Dəyərin sahibliyini yeni dəyişənə ötürür.",
+          "detail": "`String` kimi köçürülə bilən dəyər ötürüldükdən sonra köhnə dəyişəndən istifadə edilmir. Bu, iki sahibin eyni yaddaşı azad etməsinin qarşısını alır.",
+          "example": "fn main() { let first = String::from(\"salam\"); let second = first; println!(\"{second}\"); }",
+          "output": "salam"
+        },
+        {
+          "term": "Copy tipi",
+          "kind": "trait",
+          "short": "Sadə dəyərlər ötürüləndə köçürülmək əvəzinə kopyalana bilər.",
+          "detail": "Tam ədədlər kimi kiçik tiplər adətən `Copy` olur; `String` isə olmur. Kopyadan sonra hər iki dəyişən istifadə edilə bilər.",
+          "example": "fn main() { let a = 7; let b = a; println!(\"{a} {b}\"); }",
+          "output": "7 7"
+        },
+        {
+          "term": "Borclanma (borrowing)",
+          "kind": "anlayış",
+          "short": "Referans ötürərək dəyəri köçürmədən istifadə etməyə imkan verir.",
+          "detail": "Funksiyaya `&T` verildikdə funksiya dəyərin sahibi olmur. Çağıran kod dəyəri sonradan da istifadə edə bilər.",
+          "example": "fn size(text: &String) -> usize { text.len() } fn main() { let s = String::from(\"Rust\"); println!(\"{} {}\", size(&s), s); }",
+          "output": "4 Rust"
+        },
+        {
+          "term": "Dəyişən referans",
+          "kind": "referans",
+          "short": "`&mut T` borc götürülmüş dəyəri dəyişməyə imkan verir.",
+          "detail": "Eyni anda bir dəyişən referans və ya çoxlu dəyişməz referans ola bilər, amma hər ikisi birlikdə yox. Bu məhdudiyyət məlumat yarışlarını önləməyə kömək edir.",
+          "example": "fn main() { let mut score = 2; let score_ref = &mut score; *score_ref += 3; println!(\"{score}\"); }",
+          "output": "5"
+        },
+        {
+          "term": "Ömür (lifetime)",
+          "kind": "anlayış",
+          "short": "Referansın hansı müddətdə etibarlı qaldığını ifadə edir.",
+          "detail": "Ömür annotasiyası dəyəri uzatmır; referansların əlaqəsini bildirir. Kompilyator beləliklə qaytarılan referansın girişlərdən artıq yaşamamasını yoxlaya bilir.",
+          "example": "fn longer<'a>(a: &'a str, b: &'a str) -> &'a str { if a.len() > b.len() { a } else { b } } fn main() { println!(\"{}\", longer(\"Rust\", \"C\")); }",
+          "output": "Rust"
+        },
+        {
+          "term": "Slice",
+          "kind": "tip",
+          "short": "Kolleksiyanın bir hissəsinə borc referansı verir.",
+          "detail": "Slice məlumatı özü saxlamır; başlanğıc və uzunluqla mövcud məlumatı göstərir. Bu nümunədə massivdən iki element seçilir.",
+          "example": "fn main() { let nums = [2, 4, 6]; println!(\"{:?}\", &nums[1..]); }",
+          "output": "[4, 6]"
+        }
+      ]
+    },
+    {
+      "id": "types",
+      "title": "Tiplər və nümunələr",
+      "entries": [
+        {
+          "term": "Struct",
+          "kind": "tip",
+          "short": "Əlaqəli sahələri adlarla bir dəyərdə birləşdirir.",
+          "detail": "Sahələrə nöqtə ilə müraciət edilir. `mut` dəyişəni olduqda onun dəyişdirilə bilən sahələri yenilənə bilər.",
+          "example": "#[derive(Debug)] struct Point { x: i32, y: i32 } fn main() { let p = Point { x: 2, y: 3 }; println!(\"({}, {})\", p.x, p.y); }",
+          "output": "(2, 3)"
+        },
+        {
+          "term": "Enum",
+          "kind": "tip",
+          "short": "Dəyərin mümkün variantlarını bir tip altında müəyyən edir.",
+          "detail": "Variantlar məlumat daşıya bilər. Enum şəbəkə mesajı və ya vəziyyət kimi seçimləri açıq göstərir.",
+          "example": "enum Shade { Blue, Red } fn main() { let color = Shade::Blue; match color { Shade::Blue => println!(\"blue\"), Shade::Red => println!(\"red\") } }",
+          "output": "blue"
+        },
+        {
+          "term": "match ifadəsi",
+          "kind": "idarə axını",
+          "short": "Bütün mümkün halları nümunələrlə yoxlayır və dəyər qaytara bilir.",
+          "detail": "Rust `match` qolunun bütün halları əhatə etməsini tələb edir. `_` qalan halları tutur; konkret variantlar daha oxunaqlı olur.",
+          "example": "fn main() { let n = 2; let label = match n { 1 => \"one\", 2 => \"two\", _ => \"other\" }; println!(\"{label}\"); }",
+          "output": "two"
+        },
+        {
+          "term": "if let",
+          "kind": "sintaksis",
+          "short": "Yalnız uyğun gələn bir variantı qısa şəkildə emal edir.",
+          "detail": "Yalnız bir variant maraqlıdırsa tam `match` əvəzinə uyğundur. Uyğun gəlməyən dəyər üçün əlavə qol yazmağa ehtiyac qalmır.",
+          "example": "fn main() { let value = Some(8); if let Some(n) = value { println!(\"{n}\"); } }",
+          "output": "8"
+        },
+        {
+          "term": "Option<T>",
+          "kind": "enum",
+          "short": "Dəyərin ola və ya olmaya biləcəyini göstərir.",
+          "detail": "`Some(value)` mövcud dəyəri, `None` isə yoxluğu bildirir. `Option` boş nəticəni ayrıca və təhlükəsiz şəkildə ifadə edir.",
+          "example": "fn main() { let maybe = Some(4); println!(\"{}\", maybe.unwrap_or(0)); }",
+          "output": "4"
+        },
+        {
+          "term": "Result<T, E>",
+          "kind": "enum",
+          "short": "Uğurlu nəticəni və ya xətanı qaytarır.",
+          "detail": "`Ok(value)` uğuru, `Err(error)` xətanı daşıyır. Çağıran kod xətanı nəzərə alıb nəticəni uyğun idarə edə bilər.",
+          "example": "fn main() { let result: Result<i32, &str> = Ok(9); println!(\"{}\", result.unwrap_or(0)); }",
+          "output": "9"
+        }
+      ]
+    },
+    {
+      "id": "errors",
+      "title": "Xətaların idarəsi",
+      "entries": [
+        {
+          "term": "? operatoru",
+          "kind": "operator",
+          "short": "Xəta olduqda onu qaytarır, uğurda dəyəri açır.",
+          "detail": "Funksiyanın qaytarma tipi uyğun `Result` və ya `Option` olmalıdır. `?` ardıcıl xəta ötürməsini qısaldır, xətanı gizlətmir.",
+          "example": "use std::num::ParseIntError; fn doubled(s: &str) -> Result<i32, ParseIntError> { Ok(s.parse::<i32>()? * 2) } fn main() { println!(\"{}\", doubled(\"6\").unwrap()); }",
+          "output": "12"
+        },
+        {
+          "term": "unwrap_or",
+          "kind": "metod",
+          "short": "Xəta və ya boş nəticə üçün ehtiyat dəyər qaytarır.",
+          "detail": "Proqramın davam edə bildiyi halda sabit ehtiyat dəyər yararlıdır. Sazlama zamanı xətanı görmək vacibdirsə, `unwrap` əvəzinə `?` və ya açıq `match` seçin.",
+          "example": "fn main() { let value: Result<i32, &str> = Err(\"bad input\"); println!(\"{}\", value.unwrap_or(0)); }",
+          "output": "0"
+        },
+        {
+          "term": "? ilə Option",
+          "kind": "operator istifadəsi",
+          "short": "`None` olduqda funksiyadan çıxır, `Some` dəyərini qaytarır.",
+          "detail": "Bu forma zəncirvari boşluq yoxlamasını rahat edir. Funksiyanın özü də `Option` qaytarmalıdır.",
+          "example": "fn first_char(s: &str) -> Option<char> { s.chars().next() } fn main() { println!(\"{:?}\", first_char(\"Rust\")); }",
+          "output": "Some('R')"
+        },
+        {
+          "term": "panic!",
+          "kind": "makro",
+          "short": "Bərpa olunmayan proqram xətasını dərhal bildirir.",
+          "detail": "`panic!` gözlənilməz, davamı təhlükəsiz olmayan vəziyyətlər üçündür. İstifadəçi girişini yoxlamaq kimi adi hallarda `Result` daha uyğundur.",
+          "example": "fn main() { std::panic::set_hook(Box::new(|_| {})); let result = std::panic::catch_unwind(|| panic!(\"stop\")); println!(\"{}\", result.is_err()); }",
+          "output": "true"
+        },
+        {
+          "term": "Saturating əməliyyat",
+          "kind": "tam ədəd əməliyyatı",
+          "short": "Daşma baş verəndə nəticəni tipin sərhədində saxlayır.",
+          "detail": "`saturating_add` daşma zamanı panic və ya dövrəvurma əvəzinə maksimum dəyərə çatır. Sərhəd semantikası sizə uyğun gələndə istifadə edin.",
+          "example": "fn main() { println!(\"{}\", u8::MAX.saturating_add(1)); }",
+          "output": "255"
+        }
+      ]
+    },
+    {
+      "id": "traits",
+      "title": "Trait-lər və generiklər",
+      "entries": [
+        {
+          "term": "Trait",
+          "kind": "müqavilə",
+          "short": "Tipin təqdim etməli olduğu davranışları müəyyən edir.",
+          "detail": "Trait tələb etdiyi metodları elan edir; onu implement edən tiplər həmin davranışı təmin edir. Generik kod trait sərhədləri ilə bu davranışlardan istifadə edə bilər.",
+          "example": "trait Greet { fn say(&self) -> &str; } struct Student; impl Greet for Student { fn say(&self) -> &str { \"hello\" } } fn main() { println!(\"{}\", Student.say()); }",
+          "output": "hello"
+        },
+        {
+          "term": "impl bloku",
+          "kind": "sintaksis",
+          "short": "Tip üçün metod və ya trait davranışı yazır.",
+          "detail": "Adi `impl` bloku tipin metodlarını, `impl Trait for Type` isə trait uyğunluğunu bildirir. Metodlar uyğun referansla qəbul edildikdə çağırış sadə qalır.",
+          "example": "struct Counter { value: i32 } impl Counter { fn value(&self) -> i32 { self.value } } fn main() { println!(\"{}\", Counter { value: 3 }.value()); }",
+          "output": "3"
+        },
+        {
+          "term": "Generik funksiya",
+          "kind": "funksiya forması",
+          "short": "Konkret tipdən asılı olmayan funksiya yazmağa imkan verir.",
+          "detail": "`<T>` tip parametridir. Kompilyator çox vaxt `T` tipini arqumentdən müəyyən edir; çağıran kod bütün tiplərdə eyni məntiqdən istifadə edir.",
+          "example": "fn identity<T>(value: T) -> T { value } fn main() { println!(\"{}\", identity(12)); }",
+          "output": "12"
+        },
+        {
+          "term": "Trait sərhədi",
+          "kind": "tip məhdudiyyəti",
+          "short": "Generik tipdən tələb olunan davranışı bildirir.",
+          "detail": "`T: Display` olduqda funksiya `T` dəyərini formatlaya bilər. Sərhədlər generik kodun hansı əməliyyatlara arxalana biləcəyini göstərir.",
+          "example": "use std::fmt::Display; fn show<T: Display>(value: T) { println!(\"{value}\"); } fn main() { show(5); }",
+          "output": "5"
+        },
+        {
+          "term": "derive makrosu",
+          "kind": "atribut",
+          "short": "Geniş yayılmış trait-lər üçün avtomatik implementasiya yaradır.",
+          "detail": "`Debug` dəyəri `{:?}` ilə göstərməyə imkan verir. `derive` uyğun trait-lər üçün təkrarlanan kodu azaldır, amma davranışı özünüz müəyyən etməlisinizsə əl ilə implement edin.",
+          "example": "#[derive(Debug)] struct Badge { level: u8 } fn main() { println!(\"{:?}\", Badge { level: 2 }); }",
+          "output": "Badge { level: 2 }"
+        },
+        {
+          "term": "Closure",
+          "kind": "ifadə",
+          "short": "Dəyişənə verilə və davranış tuta bilən anonim funksiyadır.",
+          "detail": "Closure sintaksisi `|parametr| ifadə` formasındadır. Ətraf mühiti istifadə etməsə belə `map` kimi iterator metodlarına ötürülə bilər.",
+          "example": "fn main() { let twice = |n| n * 2; println!(\"{}\", twice(4)); }",
+          "output": "8"
+        }
+      ]
+    },
+    {
+      "id": "collections",
+      "title": "İteratorlar və kolleksiyalar",
+      "entries": [
+        {
+          "term": "Iterator",
+          "kind": "trait",
+          "short": "Elementləri bir-bir təqdim edən ardıcıllıqdır.",
+          "detail": "Iterator çox vaxt tənbəl işləyir: `next` və ya `sum` kimi istehlakçı çağırılana qədər hesablamır. Bu, lazımsız ara kolleksiyaları azaltmağa kömək edir.",
+          "example": "fn main() { let total: i32 = [1, 2, 3].iter().sum(); println!(\"{total}\"); }",
+          "output": "6"
+        },
+        {
+          "term": "map və filter",
+          "kind": "iterator metodları",
+          "short": "Elementləri çevirir və ya şərtə görə saxlayır.",
+          "detail": "`map` hər elementə funksiya tətbiq edir, `filter` isə uyğun elementləri seçir. Nəticə iterator olur və adətən sonradan toplanır.",
+          "example": "fn main() { let total: i32 = [1, 2, 3, 4].iter().filter(|n| **n > 2).map(|n| n * 2).sum(); println!(\"{total}\"); }",
+          "output": "14"
+        },
+        {
+          "term": "collect",
+          "kind": "iterator metodu",
+          "short": "Iterator nəticələrini kolleksiyada toplayır.",
+          "detail": "Nəticə tipi birmənalı deyilsə, onu `Vec<T>` kimi annotasiya edin. `collect` iteratoru istehlak edir və yeni kolleksiya yaradır.",
+          "example": "fn main() { let squares: Vec<i32> = (1..=3).map(|n| n * n).collect(); println!(\"{:?}\", squares); }",
+          "output": "[1, 4, 9]"
+        },
+        {
+          "term": "Vec<T>",
+          "kind": "kolleksiya tipi",
+          "short": "Ölçüsü dəyişə bilən, eyni tipli elementlər saxlayır.",
+          "detail": "Elementləri ardıcıl saxlayır; indeksləmə sərhəddən çıxanda panic verə bilər. Mövcud olmayan indeks üçün `get` ilə `Option` yoxlayın.",
+          "example": "fn main() { let mut nums = vec![1, 2]; nums.push(3); println!(\"{:?}\", nums); }",
+          "output": "[1, 2, 3]"
+        },
+        {
+          "term": "HashMap<K, V>",
+          "kind": "kolleksiya tipi",
+          "short": "Açarları dəyərlərlə əlaqələndirir.",
+          "detail": "Açar unikaldır; `insert` eyni açarı yeniləyir. Axtarışda `get` `Option<&V>` qaytarır, buna görə yoxluq açıq şəkildə idarə olunur.",
+          "example": "use std::collections::HashMap; fn main() { let mut scores = HashMap::new(); scores.insert(\"Ada\", 10); println!(\"{}\", scores[\"Ada\"]); }",
+          "output": "10"
+        },
+        {
+          "term": "String və str",
+          "kind": "mətn tipləri",
+          "short": "`String` sahib mətn, `str` isə adətən borc alınmış mətn görünüşüdür.",
+          "detail": "`String` dəyişdirilə və böyüdülə bilər; `&str` isə mətnə referansdır. Funksiyalar çox vaxt `&str` qəbul etməklə həm literal, həm də `String` ilə işləyir.",
+          "example": "fn main() { let owned = String::from(\"hello\"); let view: &str = &owned; println!(\"{view}\"); }",
+          "output": "hello"
+        }
+      ]
+    },
+    {
+      "id": "project",
+      "title": "Modullar, testlər və Cargo",
+      "entries": [
+        {
+          "term": "Modul",
+          "kind": "kod quruluşu",
+          "short": "Əlaqəli kodu ad fəzasında qruplaşdırır.",
+          "detail": "`mod` modul elan edir, `pub` isə elementin görünməsini açır. Layihə böyüdükcə modullar məsuliyyətləri və adları nizamlayır.",
+          "example": "mod math { pub fn double(n: i32) -> i32 { n * 2 } } fn main() { println!(\"{}\", math::double(4)); }",
+          "output": "8"
+        },
+        {
+          "term": "Görünürlük (pub)",
+          "kind": "qayda",
+          "short": "Modul daxilində hansı adların əlçatan olduğunu idarə edir.",
+          "detail": "Elementlər standart olaraq öz modulunda qalır. Lazım olan funksiyanı `pub` etmək API-ni kiçik və aydın saxlamağa kömək edir.",
+          "example": "mod api { pub fn version() -> u8 { 1 } } fn main() { println!(\"{}\", api::version()); }",
+          "output": "1"
+        },
+        {
+          "term": "Vahid testi",
+          "kind": "test növü",
+          "short": "Kiçik funksiyanı və ya modul davranışını ayrıca yoxlayır.",
+          "detail": "Testlər adətən `#[test]` funksiyalarında yazılır və Cargo ilə işə salınır. Sadə nümunə iddianı icra edib nəticəni göstərir.",
+          "example": "fn main() { assert_eq!(2 + 2, 4); println!(\"test passed\"); }",
+          "output": "test passed"
+        },
+        {
+          "term": "Cargo",
+          "kind": "qurma aləti",
+          "short": "Rust layihələrini yaradır, qurur və yoxlayır.",
+          "detail": "Cargo kompilyatoru və asılılıqları koordinasiya edir. `cargo new`, `cargo build`, `cargo run` və `cargo test` gündəlik əsas əmrlərdir.",
+          "example": "fn main() { println!(\"Rust project ready\"); }",
+          "output": "Rust project ready"
+        },
+        {
+          "term": "Cargo.toml",
+          "kind": "manifest faylı",
+          "short": "Paketin adını, versiyasını və asılılıqlarını saxlayır.",
+          "detail": "Cargo manifesti layihənin quruluşunu təsvir edir. Asılılıqlar `[dependencies]` bölməsində bildirilir; versiya idarəsi üçün `Cargo.lock` da istifadə oluna bilər.",
+          "example": "fn main() { println!(\"package manifest\"); }",
+          "output": "package manifest"
+        },
+        {
+          "term": "cargo test",
+          "kind": "Cargo əmri",
+          "short": "Layihənin testlərini tapır və icra edir.",
+          "detail": "`cargo test` həm vahid, həm də inteqrasiya testlərini işə salır. Bu nümunədəki assert uğursuz olarsa test prosesi də uğursuz sayılar.",
+          "example": "fn main() { assert_eq!(\"rust\".len(), 4); println!(\"checks passed\"); }",
+          "output": "checks passed"
+        },
+        {
+          "term": "İnteqrasiya testi",
+          "kind": "test növü",
+          "short": "Paketin xaricdən görünən hissələrini birlikdə yoxlayır.",
+          "detail": "Cargo inteqrasiya testlərini `tests/` qovluğunda saxlayır və hər faylı ayrıca test kimi qurur. Public API-ni istifadə edən test daxili detallardan asılılığı azaldır.",
+          "example": "fn main() { let public_value = 3; assert_eq!(public_value, 3); println!(\"public API checked\"); }",
+          "output": "public API checked"
+        }
+      ]
+    },
+    {
+      "id": "concurrency",
+      "title": "Axınlar və async",
+      "entries": [
+        {
+          "term": "Thread",
+          "kind": "icra axını",
+          "short": "İşi əsas proqramla paralel icra etməyə imkan verir.",
+          "detail": "`std::thread::spawn` yeni axın başladır. `join` nəticəni gözləyir və axında yaranan panic-i də nəticə kimi bildirir.",
+          "example": "fn main() { let handle = std::thread::spawn(|| 2 + 3); println!(\"{}\", handle.join().unwrap()); }",
+          "output": "5"
+        },
+        {
+          "term": "JoinHandle",
+          "kind": "standard library tipi",
+          "short": "Yeni axının bitməsini gözləmək üçün tutacaqdır.",
+          "detail": "`join()` axının qaytardığı dəyəri `Result` içində verir. Handle saxlanmasa da thread işləyər, amma əsas thread bitəndə proqram sona çata bilər.",
+          "example": "fn main() { let handle = std::thread::spawn(|| \"done\"); println!(\"{}\", handle.join().unwrap()); }",
+          "output": "done"
+        },
+        {
+          "term": "Arc<T>",
+          "kind": "ağıllı göstərici",
+          "short": "Thread-lər arasında dəyərə sayğaclı ortaq sahiblik verir.",
+          "detail": "`Arc` atomik sayğacdan istifadə edir və thread-lər arasında paylaşıla bilər. Dəyəri dəyişmək üçün adətən `Mutex` ilə birləşdirilir.",
+          "example": "use std::sync::Arc; fn main() { let value = Arc::new(7); let other = Arc::clone(&value); println!(\"{} {}\", value, other); }",
+          "output": "7 7"
+        },
+        {
+          "term": "Mutex<T>",
+          "kind": "sinxronizasiya tipi",
+          "short": "Paylaşılan dəyərə eyni anda bir təhlükəsiz giriş verir.",
+          "detail": "Lock götürüləndə qorunan dəyərə guard vasitəsilə baxılır. Guard əhatə dairəsindən çıxanda kilid avtomatik açılır.",
+          "example": "use std::sync::Mutex; fn main() { let count = Mutex::new(1); *count.lock().unwrap() += 2; println!(\"{}\", *count.lock().unwrap()); }",
+          "output": "3"
+        },
+        {
+          "term": "Kanal (channel)",
+          "kind": "ünsiyyət vasitəsi",
+          "short": "Thread-lər arasında mesaj ötürür.",
+          "detail": "`mpsc::channel` çoxsaylı göndərici və bir qəbuledici modeli verir. Göndərici mesajı ötürür, qəbuledici onu oxuyur.",
+          "example": "fn main() { let (tx, rx) = std::sync::mpsc::channel(); tx.send(\"hi\").unwrap(); println!(\"{}\", rx.recv().unwrap()); }",
+          "output": "hi"
+        },
+        {
+          "term": "Send və Sync",
+          "kind": "marker trait-lər",
+          "short": "Tipin thread-lər arasında ötürülmə və paylaşılma təhlükəsizliyini bildirir.",
+          "detail": "`Send` dəyərin başqa thread-ə ötürülməsinə, `Sync` isə ona referansın thread-lər arasında paylaşılmasına imkan verdiyini göstərir. Rust bu trait-ləri çox vaxt avtomatik müəyyən edir.",
+          "example": "fn main() { fn assert_send<T: Send>() {} assert_send::<i32>(); println!(\"i32 is Send\"); }",
+          "output": "i32 is Send"
+        },
+        {
+          "term": "async fn",
+          "kind": "sintaksis",
+          "short": "Çağırıldıqda işin nəticəsini gələcək kimi təmsil edir.",
+          "detail": "Async funksiya çağırılanda gövdəsi dərhal tamamlanmır; `Future` yaradır. Onu işlətmək üçün async runtime və `.await` lazımdır; standart kitabxana executor təqdim etmir.",
+          "example": "async fn answer() -> i32 { 42 } fn main() { let _future = answer(); println!(\"future created\"); }",
+          "output": "future created"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "id": "arduino_arduino_gpio",
+  "title": "Rəqəmsal GPIO giriş və çıxışı",
+  "difficulty": "medium",
+  "testId": "arduino_test_arduino_gpio_az",
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/digital-io/pinMode/"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Rəqəmsal GPIO giriş və çıxışı” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: INPUT_PULLUP düymə basılmadıqda girişə daxili pull-up tətbiq edir. Real layihədə bu göstərişə əməl edin: Düymə girişini sabit səviyyəyə bağlamaq saxta dəyişiklikləri azaldır.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int buttonPin = 2;\nvoid setup() {\n  pinMode(buttonPin, INPUT_PULLUP);\n}\nvoid loop() {\n  bool pressed = digitalRead(buttonPin) == LOW;\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "INPUT_PULLUP zamanı düymə basıldıqda giriş LOW oxunur və LED yanır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "pinMode pin istiqamətini, digitalRead və digitalWrite isə məntiq səviyyəsini idarə edir. Giriş havada üzməməlidir: uyğun pull-up/pull-down seçin və düymə kontaktının titrəməsini nəzərə alın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "bool pressed = digitalRead(buttonPin) == LOW;",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: INPUT_PULLUP düymə basılmadıqda girişə daxili pull-up tətbiq edir.\nNiyə seçilib: Düymə girişini sabit səviyyəyə bağlamaq saxta dəyişiklikləri azaldır.\nBuraxılsa və ya dəyişdirilsə: Məntiq səviyyəsi və GPIO limitləri lövhədən asılıdır; pinə təyin olunmuş cərəyanı aşmayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Məntiq səviyyəsi və GPIO limitləri lövhədən asılıdır; pinə təyin olunmuş cərəyanı aşmayın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "INPUT_PULLUP düymə basılmadıqda girişə daxili pull-up tətbiq edir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Düymə girişini sabit səviyyəyə bağlamaq saxta dəyişiklikləri azaldır."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int buttonPin = 2;\nconst int ledPin = LED_BUILTIN;\nvoid setup() { pinMode(buttonPin, INPUT_PULLUP); pinMode(ledPin, OUTPUT); }\nvoid loop() { digitalWrite(ledPin, digitalRead(buttonPin) == LOW); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Düymə basıldıqda LED yanır; naqillər, pin və LED polaritesi board-dan asılıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Giriş havada üzməməlidir: uyğun pull-up/pull-down seçin və düymə kontaktının titrəməsini nəzərə alın."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Məntiq səviyyəsi və GPIO limitləri lövhədən asılıdır; pinə təyin olunmuş cərəyanı aşmayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

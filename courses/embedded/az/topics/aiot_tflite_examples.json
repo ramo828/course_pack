@@ -1,0 +1,133 @@
+{
+  "id": "aiot_tflite_examples",
+  "title": "TFLite Micro kitabxanası və vacib nümunələr",
+  "difficulty": "medium",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://github.com/tensorflow/tflite-micro",
+    "https://github.com/espressif/esp-tflite-micro",
+    "https://ai.google.dev/edge/litert/microcontrollers"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "TFLite Micro modeli özü yaratmır; hazırlanmış modeli işlədən proqram mühiti və uyğun C/C++ kitabxanalarıdır. Modeli kompüterdə öyrədib uyğun formata çevirdikdən sonra qurğuda nəticə hesablanır. Seçim lövhədən və proqram mühitindən asılıdır: Espressif nümunələri ESP-IDF komponenti kimi dəstəklənir; Arduino layihəsində isə konkret lövhə və əsas proqram paketinin versiyası ilə uyğun kitabxana seçilməlidir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Mövzunun izahı\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ESP-IDF üçün Espressif-in "
+    },
+    {
+      "type": "text",
+      "text": "esp-tflite-micro",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " komponenti praktik başlanğıcdır. Rəsmi nümunələr fərqli işləri göstərir:\n• "
+    },
+    {
+      "type": "text",
+      "text": "hello_world",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — modelə giriş verməyi, nəticəni oxumağı və sadə hesablamanı öyrədir;\n• "
+    },
+    {
+      "type": "text",
+      "text": "micro_speech",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — mikrofondan alınan səs parçalarında bir neçə söz və ya əmri tanıyır;\n• "
+    },
+    {
+      "type": "text",
+      "text": "person_detection",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — uyğun kamera lövhəsində görüntüdə insanın olub-olmadığını müəyyən edir.\n\nNümunələr konkret lövhə və hissələrdən asılıdır; məsələn, insan tanıma üçün kamera və uyğun ESP32-S3 lövhəsi tələb oluna bilər. Arduino IDE-də hər ESP32 üçün eyni kitabxananın işləyəcəyini fərz etməyin: kitabxana və əsas proqram paketinin versiyasını, tərtibçi uyğunluğunu, modeli və əməliyyatları yoxlayın. Başlanğıcda ESP-IDF-in rəsmi nümunəsini seçmək, asılılıq versiyasını sabitləmək və həmin lövhə üçün yığmaq daha etibarlıdır.\n\nModel "
+    },
+    {
+      "type": "text",
+      "text": "MicroInterpreter",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ilə işləyir; "
+    },
+    {
+      "type": "text",
+      "text": "MicroMutableOpResolver",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " modelin istifadə etdiyi əməliyyatları qeyd etməlidir. "
+    },
+    {
+      "type": "text",
+      "text": "AllocateTensors()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " uğurla tamamlanmalı, girişin ölçüsü/tipi və kvantlaşdırma parametrləri modelə uyğun olmalı, "
+    },
+    {
+      "type": "text",
+      "text": "Invoke()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nəticəsi yoxlanmalıdır. Lazımsız əməliyyatlar flash və RAM istifadəsini artıra bilər.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Nümunə kodu\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "idf.py add-dependency \"esp-tflite-micro\"\nidf.py create-project-from-example \"esp-tflite-micro:hello_world\"\nidf.py set-target esp32s3\nidf.py build\nidf.py -p PORT flash monitor",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_tflite_pipeline",
+      "caption": "Sxem: TFLite Micro kitabxanası və vacib nümunələr"
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Nümunə əmrləri ESP-IDF layihəsi üçündür; Arduino IDE-yə birbaşa köçürülmür. Hər nümunənin izah faylında lövhə, kamera/mikrofon, yaddaş və proqram mühiti tələblərini yoxlayın. Tensor arena ölçüsünü təxmin etməyin, real modeldə ölçün."
+    }
+  ],
+  "testId": "embedded_test_aiot_tflite_examples_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_mutable_defaults_en",
+  "title": "Mutable default arguments in functions",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_mutable_defaults",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 1 in this lesson produce?\n\ndef add_item(value: str, items: list[str] | None = None) -> list[str]:\n    if items is None:\n        items = []\n    items.append(value)\n    return items\n\nprint(add_item('a'))\nprint(add_item('b'))",
+      "options": [
+        "False",
+        "['a']\n['a', 'b']",
+        "['a']\n['b']",
+        "['A']\n['B']"
+      ],
+      "answer": "['a']\n['b']",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`def add_item(value: str, items: list[str] | None = None) -> list[str]:` — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n`if items is None:` — Selects behavior for a condition; without branches, different cases follow the same path.\n`items = []` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`items.append(value)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`return items` — Sends a result to the caller; without it, a function usually returns None.\n`print(add_item('a'))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`print(add_item('b'))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_mutable_defaults",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 2 in this lesson produce?\n\ndef add_item(value, items=[]):\n    items.append(value)\n    return items\n\nprint(add_item('a'))\nprint(add_item('b'))",
+      "options": [
+        "False",
+        "['a']\n['a', 'b']",
+        "['A']\n['A', 'B']",
+        "['a']\n['b']"
+      ],
+      "answer": "['a']\n['a', 'b']",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`def add_item(value, items=[]):` — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n`items.append(value)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`return items` — Sends a result to the caller; without it, a function usually returns None.\n`print(add_item('a'))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`print(add_item('b'))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_mutable_defaults",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 3 in this lesson produce?\n\ndef add_item(value, items=None):\n    if items is None:\n        items = []\n    items.append(value)\n    return items\n\nfirst = add_item('a')\nsecond = add_item('b')\nprint(first is second)",
+      "options": [
+        "['a']\n['a', 'b']",
+        "False",
+        "['a']\n['b']",
+        "True"
+      ],
+      "answer": "False",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`def add_item(value, items=None):` — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n`if items is None:` — Selects behavior for a condition; without branches, different cases follow the same path.\n`items = []` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`items.append(value)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`return items` — Sends a result to the caller; without it, a function usually returns None.\n`first = add_item('a')` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`second = add_item('b')` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`print(first is second)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_mutable_defaults",
+      "type": "multiple_choice",
+      "prompt": "Which statement accurately describes “Mutable default arguments in functions”?",
+      "options": [
+        "Syntax and indentation mark code-block boundaries; a mistake can prevent a route or condition from running.",
+        "Comments explain a non-obvious decision instead of repeating the code, such as why a particular limit was chosen.",
+        "A default expression is evaluated once when the function is defined.",
+        "Python is used for automation, web services, and data analysis because its readable syntax and broad library ecosystem make small, testable steps practical."
+      ],
+      "answer": "A default expression is evaluated once when the function is defined.",
+      "explanation": "A default expression is evaluated once when the function is defined. A mutable list, dict, or set can therefore become shared state across calls. Use a `None` sentinel and create a fresh object per call. If sharing is intentional, make it explicit rather than hiding it in a default."
+    }
+  ]
+}

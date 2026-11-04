@@ -1,0 +1,88 @@
+{
+  "id": "ota_esp32_rollback",
+  "title": "ESP32 OTA: bölmələr və uğursuz yeniləmədən qayıdış",
+  "difficulty": "advanced",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html#app-rollback"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ESP32-də təhlükəsiz yeniləmə üçün flash yaddaşda aktiv proqramla yanaşı boş proqram bölməsi saxlanıla bilər. Yeni image əvvəlcə boş bölməyə yazılır; cihaz yenidən başlayıb əsas özünü yoxlamalarını keçir. Yoxlamalar uğurludursa yeni proqram təsdiqlənir. Cihaz düzgün açılmasa, bootloader əvvəlki işlək bölməyə qayıda bilər.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Mövzunun izahı\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "esp_ota_get_running_partition()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " işləyən bölməni tapır; "
+    },
+    {
+      "type": "text",
+      "text": "ESP_OTA_IMG_PENDING_VERIFY",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yeni image-in sınaqda olduğunu bildirir. Bu nümunə bölməni və API nəticələrini yoxlayır. Sağlamlıq yoxlamaları uğurludursa "
+    },
+    {
+      "type": "text",
+      "text": "confirmPendingImage(true)",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " çağırın; uğursuzdursa "
+    },
+    {
+      "type": "text",
+      "text": "false",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " rollback və yenidən başlatma istəyir. Təsdiq API-sinin nəticəsini çağıran kodda yoxlayın.\n\nBu ESP-IDF API-sidir və Arduino-ESP32 içində də mövcud ola bilər, lakin adi Arduino eskizində avtomatik işlək sayılmır. Partition cədvəli, rollback seçimi və image doğrulaması uyğun qurulmalıdır. ESP-IDF layihəsində rəsmi OTA nümunəsindən başlayın.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Nümunə kodu\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <esp_err.h>\n#include <esp_ota_ops.h>\n\nesp_err_t confirmPendingImage(bool healthChecksPassed) {\n  const esp_partition_t* running = esp_ota_get_running_partition();\n  if (running == nullptr) return ESP_ERR_NOT_FOUND;\n\n  esp_ota_img_states_t state;\n  const esp_err_t stateResult = esp_ota_get_state_partition(running, &state);\n  if (stateResult != ESP_OK) return stateResult;\n  if (state != ESP_OTA_IMG_PENDING_VERIFY) return ESP_OK;\n\n  if (!healthChecksPassed) {\n    return esp_ota_mark_app_invalid_rollback_and_reboot();\n  }\n  return esp_ota_mark_app_valid_cancel_rollback();\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Sxem: ESP32 OTA: bölmələr və uğursuz yeniləmədən qayıdış"
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Yalnız real sensor, yaddaş və rabitə yoxlamaları uğurlu olduqdan sonra image-i təsdiqləyin. Partition cədvəlini dəyişmək flash məlumatlarını silə bilər; əvvəl ehtiyat nüsxə və bərpa üsulu hazırlayın."
+    }
+  ],
+  "testId": "embedded_test_ota_esp32_rollback_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

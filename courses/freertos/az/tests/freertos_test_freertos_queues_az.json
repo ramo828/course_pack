@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_queues_az",
+  "title": "Queue ilə task-lar arasında mesaj",
+  "questions": [
+    {
+      "id": "freertos_freertos_queues_1",
+      "topicId": "freertos_freertos_queues",
+      "type": "multiple_choice",
+      "prompt": "“Queue ilə task-lar arasında mesaj” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "Hər task üçün stack ayrılır, prioritet scheduler qərarına təsir edir.",
+        "Queue ortaq qlobal dəyişəndən daha aydın ownership və sinxronizasiya sərhədi yaradır.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir."
+      ],
+      "answer": "Queue ortaq qlobal dəyişəndən daha aydın ownership və sinxronizasiya sərhədi yaradır.",
+      "explanation": "Queue ortaq qlobal dəyişəndən daha aydın ownership və sinxronizasiya sərhədi yaradır.\nİzah: Queue sabit ölçülü elementləri FIFO qaydasında saxlayır və producer-consumer task-larını bir-birindən ayırır. `xQueueSend` və `xQueueReceive` vaxt limiti ilə bloklana bilər; payload surət kimi köçürülür, böyük obyektlər üçün pointer ömrünü ayrıca idarə edin. Queue dolanda məlumatı səssiz itirmək əvəzinə göndəriş nəticəsini yoxlayın."
+    },
+    {
+      "id": "freertos_freertos_queues_2",
+      "topicId": "freertos_freertos_queues",
+      "type": "multiple_choice",
+      "prompt": "“Queue ilə task-lar arasında mesaj” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "Queue ölçüsünü ən böyük burst və istehlak sürətinə əsasən seçin; dolu queue davranışını müəyyən edin.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "Sonsuz dövrədə işləyən hər task vaxtaşırı gözləməli və ya bloklanmalıdır; əks halda CPU-nu inhisara ala bilər."
+      ],
+      "answer": "Queue ölçüsünü ən böyük burst və istehlak sürətinə əsasən seçin; dolu queue davranışını müəyyən edin.",
+      "explanation": "Queue ölçüsünü ən böyük burst və istehlak sürətinə əsasən seçin; dolu queue davranışını müəyyən edin.\nİzah: Queue sabit ölçülü elementləri FIFO qaydasında saxlayır və producer-consumer task-larını bir-birindən ayırır. `xQueueSend` və `xQueueReceive` vaxt limiti ilə bloklana bilər; payload surət kimi köçürülür, böyük obyektlər üçün pointer ömrünü ayrıca idarə edin. Queue dolanda məlumatı səssiz itirmək əvəzinə göndəriş nəticəsini yoxlayın."
+    },
+    {
+      "id": "freertos_freertos_queues_3",
+      "topicId": "freertos_freertos_queues",
+      "type": "multiple_choice",
+      "prompt": "“Queue ilə task-lar arasında mesaj” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "Task stack ölçüsü byte ilə verilir və target/runtime versiyasına görə RAM məhdudiyyətini nəzərə almaq lazımdır.",
+        "Queue sabit ölçülü elementləri FIFO qaydasında saxlayır və producer-consumer task-larını bir-birindən ayırır",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir."
+      ],
+      "answer": "Queue sabit ölçülü elementləri FIFO qaydasında saxlayır və producer-consumer task-larını bir-birindən ayırır",
+      "explanation": "Queue sabit ölçülü elementləri FIFO qaydasında saxlayır və producer-consumer task-larını bir-birindən ayırır\nİzah: Queue sabit ölçülü elementləri FIFO qaydasında saxlayır və producer-consumer task-larını bir-birindən ayırır. `xQueueSend` və `xQueueReceive` vaxt limiti ilə bloklana bilər; payload surət kimi köçürülür, böyük obyektlər üçün pointer ömrünü ayrıca idarə edin. Queue dolanda məlumatı səssiz itirmək əvəzinə göndəriş nəticəsini yoxlayın."
+    },
+    {
+      "id": "freertos_freertos_queues_4",
+      "topicId": "freertos_freertos_queues",
+      "type": "multiple_choice",
+      "prompt": "“Queue ilə task-lar arasında mesaj” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Serial yazıları bir neçə task-dan qarışa bilər; ortaq çıxışı serializasiya edin və task stack ölçüsünü ölçün.",
+        "Queue handle yaradılmasının uğurlu olduğunu yoxlayın; ölçünü böyütmək RAM sərf edir.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir."
+      ],
+      "answer": "Queue handle yaradılmasının uğurlu olduğunu yoxlayın; ölçünü böyütmək RAM sərf edir.",
+      "explanation": "Queue handle yaradılmasının uğurlu olduğunu yoxlayın; ölçünü böyütmək RAM sərf edir.\nİzah: Queue sabit ölçülü elementləri FIFO qaydasında saxlayır və producer-consumer task-larını bir-birindən ayırır. `xQueueSend` və `xQueueReceive` vaxt limiti ilə bloklana bilər; payload surət kimi köçürülür, böyük obyektlər üçün pointer ömrünü ayrıca idarə edin. Queue dolanda məlumatı səssiz itirmək əvəzinə göndəriş nəticəsini yoxlayın."
+    }
+  ]
+}

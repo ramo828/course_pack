@@ -1,0 +1,160 @@
+{
+  "id": "arduino_arduino_gpio",
+  "title": "Digital GPIO input and output",
+  "difficulty": "medium",
+  "testId": "arduino_test_arduino_gpio_en",
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/digital-io/pinMode/"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Digital GPIO input and output” to a real program or device. The key principle is: INPUT_PULLUP enables an internal pull-up for the idle input. In a project, follow this guidance: Give a button input a defined idle level to reduce false transitions.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int buttonPin = 2;\nvoid setup() {\n  pinMode(buttonPin, INPUT_PULLUP);\n}\nvoid loop() {\n  bool pressed = digitalRead(buttonPin) == LOW;\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "No output; with INPUT_PULLUP, pressed is true when the input reads LOW.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "pinMode configures direction; digitalRead and digitalWrite handle logic levels. Inputs must not float: use a suitable pull-up/down and account for button bounce.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "bool pressed = digitalRead(buttonPin) == LOW;",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: INPUT_PULLUP enables an internal pull-up for the idle input.\nWhy it is used: Give a button input a defined idle level to reduce false transitions.\nIf omitted or changed: Logic levels and GPIO limits are board-specific; never exceed pin current ratings.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Logic levels and GPIO limits are board-specific; never exceed pin current ratings."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "INPUT_PULLUP enables an internal pull-up for the idle input.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Give a button input a defined idle level to reduce false transitions."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int buttonPin = 2;\nconst int ledPin = LED_BUILTIN;\nvoid setup() { pinMode(buttonPin, INPUT_PULLUP); pinMode(ledPin, OUTPUT); }\nvoid loop() { digitalWrite(ledPin, digitalRead(buttonPin) == LOW); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The LED follows the button when pressed; wiring, pin availability, and LED polarity are board-dependent.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Inputs must not float: use a suitable pull-up/down and account for button bounce."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Logic levels and GPIO limits are board-specific; never exceed pin current ratings."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

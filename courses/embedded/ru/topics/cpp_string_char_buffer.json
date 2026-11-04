@@ -1,0 +1,90 @@
+{
+  "id": "cpp_string_char_buffer",
+  "title": "String, char[] и char*: выбор хранения текста",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/variables/data-types/string/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Arduino ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "String",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " удобен для изменяемого текста. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "char[]",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — буфер фиксированного размера; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "char*",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — указатель, который сам память не выделяет. Строковые литералы храните как ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "const char*",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", так как менять их нельзя. C-строка заканчивается ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "\\0",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; важны размер и границы буфера.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const char* label = \"ready\";\nchar message[16] = \"sensor\";\nstrncpy(message, label, sizeof(message) - 1);\nmessage[sizeof(message) - 1] = '\\0';\n\nString friendly = \"ready\";\nfriendly += \"!\";\nSerial.println(friendly);",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Частая динамическая конкатенация `String` может фрагментировать кучу на AVR с малым объёмом ОЗУ, например UNO; могут подойти фиксированный буфер и `snprintf`. На ESP32 остаются риски выделения памяти, времени жизни и границ."
+    }
+  ],
+  "testId": "embedded_test_cpp_string_char_buffer_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

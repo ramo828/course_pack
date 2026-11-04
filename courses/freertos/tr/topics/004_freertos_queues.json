@@ -1,0 +1,184 @@
+{
+  "id": "freertos_freertos_queues",
+  "title": "Queue ile görevler arasında mesaj",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_queues_tr",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/02-Queues-mutexes-and-semaphores/01-Queues"
+  ],
+  "estimatedMinutes": 22,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Queue ile görevler arasında mesaj” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Queue, ortak global değişkenden daha açık bir sahiplik ve eşzamanlama sınırı sağlar. Gerçek projede şu öneriyi izleyin: Queue boyutunu en büyük burst ve tüketim hızına göre seçin; dolu queue davranışını tanımlayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nQueueHandle_t readings = nullptr;\nvoid producer(void*) { int value = 0; for (;;) { ++value; if (xQueueSend(readings, &value, pdMS_TO_TICKS(100)) != pdPASS) vTaskDelay(pdMS_TO_TICKS(100)); vTaskDelay(pdMS_TO_TICKS(500)); } }\nvoid setup() { Serial.begin(115200); readings = xQueueCreate(4, sizeof(int)); if (readings == nullptr || xTaskCreate(producer, \"producer\", 2048, nullptr, 1, nullptr) != pdPASS) { if (readings) vQueueDelete(readings); readings = nullptr; } }\nvoid loop() { int value; if (readings && xQueueReceive(readings, &value, portMAX_DELAY) == pdPASS) Serial.println(value); else vTaskDelay(pdMS_TO_TICKS(100)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor bir görevin ürettiği, diğerinin aldığı artan tam sayıları gösterir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Queue, sabit boyutlu elemanları FIFO düzeninde tutar ve producer-consumer görevlerini ayırır. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "xQueueSend",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "xQueueReceive",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " zaman aşımıyla bloklanabilir; payload kopyalanır, büyük nesnelerde pointer ömrünü ayrıca yönetin. Queue dolduğunda veriyi sessizce kaybetmek yerine gönderim sonucunu denetleyin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void producer(void*) { int value = 0; for (;;) { ++value; if (xQueueSend(readings, &value, pdMS_TO_TICKS(100)) != pdPASS) vTaskDelay(pdMS_TO_TICKS(100)); vTaskDelay(pdMS_TO_TICKS(500)); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Queue, ortak global değişkenden daha açık bir sahiplik ve eşzamanlama sınırı sağlar.\nNeden seçildi: Queue boyutunu en büyük burst ve tüketim hızına göre seçin; dolu queue davranışını tanımlayın.\nAtlanır veya değiştirilirse: Queue handle oluşturmanın başarılı olduğunu denetleyin; boyutu büyütmek RAM tüketir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Queue handle oluşturmanın başarılı olduğunu denetleyin; boyutu büyütmek RAM tüketir."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Queue, ortak global değişkenden daha açık bir sahiplik ve eşzamanlama sınırı sağlar.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Queue boyutunu en büyük burst ve tüketim hızına göre seçin; dolu queue davranışını tanımlayın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nQueueHandle_t readings = nullptr;\nvoid setup() { Serial.begin(115200); readings = xQueueCreate(4, sizeof(int)); const int sample = 23; if (readings && xQueueSend(readings, &sample, 0) != pdPASS) Serial.println(\"queue send failed\"); }\nvoid loop() { int sample; if (readings && xQueueReceive(readings, &sample, pdMS_TO_TICKS(100)) == pdPASS) Serial.println(sample); vTaskDelay(pdMS_TO_TICKS(100)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "23\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Queue dolduğunda veriyi sessizce kaybetmek yerine gönderim sonucunu denetleyin."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Queue handle oluşturmanın başarılı olduğunu denetleyin; boyutu büyütmek RAM tüketir."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: görev durumlarını, öncelikleri, kuyruk/eşzamanlama ilişkisini ve zaman çizelgesini gösteren diyagram."
+}

@@ -1,0 +1,84 @@
+{
+  "id": "zigbee_mesh",
+  "title": "Zigbee 3.0 mesh: ESP32-H2, rollar və Home Assistant",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-zigbee-sdk/en/latest/esp32h2/introduction.html",
+    "https://github.com/espressif/esp-zigbee-sdk/tree/main/examples/home_automation_devices/on_off_light",
+    "https://www.zigbee2mqtt.io/guide/adapters/",
+    "https://www.home-assistant.io/integrations/zha/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Zigbee aşağı enerji sərf edən sensor və idarəetmə cihazları üçün şəbəkə protokoludur. ESP32-H2/C6 kimi 802.15.4 radio dəstəyi olan çip tələb olunur.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NECƏ İŞLƏYİR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Zigbee şəbəkəsində bir Coordinator şəbəkəni yaradır və qovşaqları qəbul edir; Router mesajları ötürür və adətən daim oyaq qalır; End Device sensor kimi işləyə, yuxuya gedə və məlumatı valideyn qovşağa çatdıra bilər. Mesh marşrutlama Router-lər vasitəsilə genişlənir; batareyalı sleepy End Device mesajı özü marşrutlamır. Zigbee 3.0 cihazları interoperabellik üçün uyğun profil və ZCL cluster-lərindən (məsələn, On/Off "
+    },
+    {
+      "type": "text",
+      "text": "0x0006",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", Temperature Measurement "
+    },
+    {
+      "type": "text",
+      "text": "0x0402",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ") istifadə edir.\n\nESP Zigbee SDK, ESP-IDF layihəsidir; Arduino UNO üçün ümumi kitabxana deyil. "
+    },
+    {
+      "type": "text",
+      "text": "home_automation_devices/on_off_light",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " rəsmi nümunəsi H2/C6-da Coordinator rolunda işləyib On/Off cluster əmrləri qəbul edir. Home Assistant-da Zigbee2MQTT seçilirsə, uyğun radio adapterə ayrıca coordinator firmware və onu dəstəkləyən serial/protokol inteqrasiyası lazımdır; hər ESP32 Zigbee layihəsi hazır adapter deyil. Zigbee2MQTT MQTT broker vasitəsilə cihazları Home Assistant-a təqdim edir.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Rəsmi ESP-IDF On/Off Coordinator nümunəsini qur\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "git clone --recursive https://github.com/espressif/esp-zigbee-sdk.git\ncd esp-zigbee-sdk/examples/home_automation_devices/on_off_light\nidf.py set-target esp32h2\nidf.py -p PORT erase_flash flash monitor",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Zigbee 3.0 mesh: ESP32-H2, rollar və Home Assistant"
+    },
+    {
+      "type": "warning",
+      "title": "Vacib təhlükəsizlik və uyğunluq qeydi",
+      "text": "ESP32 klassik, S2 və S3-də IEEE 802.15.4 radiosu yoxdur; H2/C6 kimi uyğun board seçin. Coordinator rolunu istehsal sistemində ehtiyat nüsxə və şifrələmə açarlarının təhlükəsiz saxlanması ilə qurun; Wi-Fi və Zigbee 2.4 GHz kanalları bir-birinə mane ola bilər."
+    }
+  ],
+  "testId": "embedded_test_zigbee_mesh_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

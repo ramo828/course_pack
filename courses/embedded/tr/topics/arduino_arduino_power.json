@@ -1,0 +1,160 @@
+{
+  "id": "arduino_arduino_power",
+  "title": "Sensörler, aktüatör ve güç güvenliği",
+  "difficulty": "medium",
+  "testId": "arduino_test_arduino_power_tr",
+  "sources": [
+    "https://docs.arduino.cc/learn/electronics/power-pins/"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Sensörler, aktüatör ve güç güvenliği” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: GPIO yalnızca kartın belgelenmiş akım sınırındaki yükleri sürmelidir. Gerçek projede şu öneriyi izleyin: Kartın besleme gerilimini, akım bütçesini ve topraklamayı ölçerek denetleyin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int sensorPin = A0;\nconst int ledPin = LED_BUILTIN;\nvoid setup() { pinMode(ledPin, OUTPUT); }\nvoid loop() {\n  int reading = analogRead(sensorPin);\n  digitalWrite(ledPin, reading > 500);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Analog okuma 500'den büyük olduğunda dahili LED yanar; sensör ve ADC değerleri donanıma bağlıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sensör fiziksel büyüklüğü ölçer, aktüatör elektriği hareket, ışık veya sese dönüştürür. Motor ve röleyi pine doğrudan bağlamayın; sürücü, koruma diyodu ve ortak toprak gerekebilir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int reading = analogRead(sensorPin);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: GPIO yalnızca kartın belgelenmiş akım sınırındaki yükleri sürmelidir.\nNeden seçildi: Kartın besleme gerilimini, akım bütçesini ve topraklamayı ölçerek denetleyin.\nAtlanır veya değiştirilirse: Bileşen seçerken absolute maximum yerine önerilen çalışma aralığına bakın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Şebeke gerilimi tehlikelidir; başlangıç projelerinde düşük gerilimli, akım sınırlı kaynak kullanın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "GPIO yalnızca kartın belgelenmiş akım sınırındaki yükleri sürmelidir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Kartın besleme gerilimini, akım bütçesini ve topraklamayı ölçerek denetleyin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int sensorPin = A0;\nvoid setup() { Serial.begin(115200); }\nvoid loop() {\n  int raw = analogRead(sensorPin);\n  Serial.println(raw);\n  delay(500);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ADC örnekleri yazdırılır; aralığı ve sensör anlamını karta göre kalibre edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Bileşen seçerken absolute maximum yerine önerilen çalışma aralığına bakın."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Şebeke gerilimi tehlikelidir; başlangıç projelerinde düşük gerilimli, akım sınırlı kaynak kullanın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

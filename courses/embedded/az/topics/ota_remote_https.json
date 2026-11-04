@@ -1,0 +1,93 @@
+{
+  "id": "ota_remote_https",
+  "title": "Uzaqdan HTTPS yeniləməsi: serverdən təhlükəsiz proqram almaq",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html",
+    "https://github.com/espressif/arduino-esp32/tree/master/libraries/HTTPUpdate"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Uzaq cihaz yeni proqram buraxılışını internetdəki serverdən özü ala bilər. Bu, çoxlu sensoru sahəyə getmədən yeniləməyə yarayır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NECƏ İŞLƏYİR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ESP32-də "
+    },
+    {
+      "type": "text",
+      "text": "WiFiClientSecure",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və lövhənin uyğun "
+    },
+    {
+      "type": "text",
+      "text": "HTTPUpdate",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kitabxanası ilə HTTPS bağlantısı qurulur. Sertifikat mərkəzinin etibarlı kök sertifikatını proqramda və ya yenilənə bilən etibarlı anbarda saxlayın; sertifikat yoxlamasını söndürmək olmaz. Server cihaz modeli, versiya və kanal üçün manifest verir. Firmware yazmazdan əvvəl imzanı, model uyğunluğunu, versiyanı və fayl ölçüsünü yoxlayın. Uğurlu yazılışdan sonra cihaz yenidən başlayır, öz sensor/rabitə yoxlamasını edir və yalnız sağlamdırsa yeni versiyanı təsdiqləyir.\n\nNümunədə "
+    },
+    {
+      "type": "text",
+      "text": "ROOT_CA_PEM",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " layihənin rəsmi CA PEM mətninin yerinə qoyulmalıdır. "
+    },
+    {
+      "type": "text",
+      "text": "HTTPUpdate",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " API-si ESP32 Arduino Core və seçilmiş lövhə versiyasına görə fərqlənə bilər; IDE kitabxanası və rəsmi nümunəni yoxlayın. Klassik UNO bu kodu işlədə bilməz.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFiClientSecure.h>\n#include <HTTPUpdate.h>\n\nconst char* firmwareUrl =\n    \"https://updates.example.org/esp32/stable.bin\";\nextern const char rootCa[];        // Define with the trusted CA PEM.\nWiFiClientSecure tls;\n\nvoid setup() {\n  Serial.begin(115200);\n  // Connect Wi-Fi and validate the signed update manifest first.\n  tls.setCACert(rootCa);           // Keep certificate checks enabled.\n  const auto result = httpUpdate.update(tls, firmwareUrl);\n  if (result == HTTP_UPDATE_OK) {\n    ESP.restart();\n  } else if (result == HTTP_UPDATE_FAILED) {\n    Serial.println(httpUpdate.getLastErrorString());\n  } else {\n    Serial.println(\"No update available\");\n  }\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Uzaqdan HTTPS yeniləməsi: serverdən təhlükəsiz proqram almaq"
+    },
+    {
+      "type": "warning",
+      "title": "Vacib təhlükəsizlik və uyğunluq qeydi",
+      "text": "İnternetdən gələn faylı yalnız HTTPS-ə güvənərək qəbul etməyin: imzalanmış manifest və proqram imzasını da yoxlayın. Wi-Fi parolunu, tokeni və şəxsi CA açarını repoya yazmayın."
+    }
+  ],
+  "testId": "embedded_test_ota_remote_https_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

@@ -1,0 +1,331 @@
+{
+  "id": "rust_rust_error_design",
+  "title": "Result, ? и проектирование ошибок",
+  "difficulty": "hard",
+  "testId": "rust_test_rust_error_design_ru",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch09-00-error-handling.html"
+  ],
+  "estimatedMinutes": 24,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Result, ? и проектирование ошибок» в программе или устройстве. Основной принцип: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " передаёт ошибку вызывающему коду, а успешное значение возвращает дальше. В проекте следуйте рекомендации: Не превращайте ошибку в ложный успех; повторяйте только безопасные операции и ограничивайте попытки.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_result_flow",
+      "caption": "Result, ? и проектирование ошибок"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::error::Error;\nfn parse_port(text: &str) -> Result<u16, std::num::ParseIntError> {\n    let port = text.parse()?;\n    Ok(port)\n}\nfn main() -> Result<(), Box<dyn Error>> {\n    let port = parse_port(\"8080\")?;\n    println!(\"{port}\");\n    Ok(())\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "При успехе выводится порт 8080; ошибка разбора передаётся через ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Result<T, E> выражает успех и ошибку на уровне типов; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " передаёт совместимую ошибку по цепочке вызовов. На границе приложения преобразуйте ошибку в понятное сообщение, сохраняя причины и контекст во внутренних слоях. Оставляйте ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "unwrap()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " для примеров или доказанных инвариантов, когда panic допустим.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Option<T>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " представляет отсутствие значения (",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "None",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "), а ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Result<T, E>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — успех или описываемую ошибку. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " передаёт ошибку вызывающему коду без лишнего panic; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "main -> Result",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " позволяет вернуть ошибку на верхнем уровне. Оставляйте ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "unwrap()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " для тестов или доказанных инвариантов.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let port = text.parse()?;",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " передаёт ошибку вызывающему коду, а успешное значение возвращает дальше.\nЗачем она нужна: Не превращайте ошибку в ложный успех; повторяйте только безопасные операции и ограничивайте попытки.\nЕсли пропустить или изменить: Не превращайте ошибку в ложный успех; повторяйте только безопасные операции и ограничивайте попытки.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: Не превращайте ошибку в ложный успех; повторяйте только безопасные операции и ограничивайте попытки."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " передаёт ошибку вызывающему коду, а успешное значение возвращает дальше.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Не превращайте ошибку в ложный успех; повторяйте только безопасные операции и ограничивайте попытки."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn parse_port(text: &str) -> Result<u16, std::num::ParseIntError> {\n    text.parse()\n}\nfn main() {\n    match parse_port(\"not-a-port\") {\n        Ok(port) => println!(\"{port}\"),\n        Err(_) => println!(\"invalid port\"),\n    }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "invalid port\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Оставляйте `unwrap()` для тестов или доказанных инвариантов."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Примеры сосредоточены на теме; компилируйте и тестируйте их для выбранного toolchain и target, поскольку API и диагностика зависят от версии."
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение верно передаёт основное правило темы «Result, ? и проектирование ошибок»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " передаёт ошибку вызывающему коду, а успешное значение возвращает дальше.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

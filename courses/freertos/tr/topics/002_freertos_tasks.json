@@ -1,0 +1,196 @@
+{
+  "id": "freertos_freertos_tasks",
+  "title": "Görev oluşturma ve öncelikler",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_tasks_tr",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/01-Tasks-and-co-routines/01-Tasks"
+  ],
+  "estimatedMinutes": 20,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Görev oluşturma ve öncelikler” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Her görev için stack ayrılır ve öncelik scheduler kararını etkiler. Gerçek projede şu öneriyi izleyin: Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid fastTask(void*) { for (;;) { Serial.println(\"fast task\"); vTaskDelay(pdMS_TO_TICKS(300)); } }\nvoid slowTask(void*) { for (;;) { Serial.println(\"slow task\"); vTaskDelay(pdMS_TO_TICKS(1000)); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(fastTask, \"fast\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"fast task creation failed\"); if (xTaskCreate(slowTask, \"slow\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"slow task creation failed\"); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor hızlı ve yavaş görev mesajlarını kendi aralıklarında gösterir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Task, ayrı stack ve yürütme bağlamına sahip bir fonksiyondur; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "xTaskCreate",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " onu scheduler'a ekler. Önceliği gerçek zaman gereksinimine göre seçin: yüksek öncelikli bir task CPU'yu fazla kullanırsa düşük öncelikliler aç kalabilir. Arduino ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " da bir RTOS task'ında çalışır; Serial ve GPIO paylaşımını planlayın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { Serial.begin(115200); if (xTaskCreate(fastTask, \"fast\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"fast task creation failed\"); if (xTaskCreate(slowTask, \"slow\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"slow task creation failed\"); }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.\nNeden seçildi: Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.\nAtlanır veya değiştirilirse: Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid sensorTask(void*) { for (;;) { Serial.println(\"sample\"); vTaskDelay(pdMS_TO_TICKS(500)); } }\nvoid setup() { Serial.begin(115200); xTaskCreate(sensorTask, \"sensor\", 2048, nullptr, 1, nullptr); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sensor görevi yaklaşık her 500 ms'de ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sample",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yazdırır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Arduino `loop()` da bir RTOS task'ında çalışır; Serial ve GPIO paylaşımını planlayın."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: görev durumlarını, öncelikleri, kuyruk/eşzamanlama ilişkisini ve zaman çizelgesini gösteren diyagram."
+}

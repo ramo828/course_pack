@@ -1,0 +1,52 @@
+{
+  "id": "esp32_esp_ota",
+  "title": "Что такое OTA? Обновление Arduino и ESP32",
+  "difficulty": "advanced",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.arduino.cc/learn/programming/ota-getting-started/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "OTA (Over-The-Air) — обновление устройства по сети без USB-кабеля. Например, новую программу можно передать по Wi-Fi датчику в теплице. OTA упрощает обслуживание, но при пропадании питания или связи устройству нужен безопасный способ восстановления.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Как это работает\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Главное отличие — способ доставки программы: для USB/Serial компьютер и кабель должны быть рядом, а OTA передаёт файл по Wi-Fi или другой сети. ArduinoOTA упрощает загрузку из IDE на поддерживаемые платы с Wi-Fi, например ESP32/ESP8266. Веб-обновление использует браузер в локальной сети. При HTTPS-загрузке устройство получает файл с сервера. ESP-IDF OTA может использовать два раздела приложения (A/B), записывать новый образ в неактивный раздел и возвращаться к прежнему при неудачной первой проверке.\n\nНе каждая плата поддерживает OTA: у классической UNO нет Wi-Fi, поэтому без дополнительного оборудования и специальной схемы она не обновится по сети. Не путайте обычную загрузку по USB с OTA. Сначала проверьте плату, разметку flash, загрузчик и поддержку выбранного программного ядра.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Пример кода\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "build firmware\ncheck board + version\ntransfer over a supported link\nverify image\ninstall, reboot, run health checks\nkeep old image until confirmed",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Схема: Что такое OTA? Обновление Arduino и ESP32"
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Сначала проверяйте обновление на своей плате. Не устанавливайте неподписанный или непроверенный образ; предусмотрите восстановление после отключения питания."
+    }
+  ],
+  "testId": "esp32_test_esp_ota_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

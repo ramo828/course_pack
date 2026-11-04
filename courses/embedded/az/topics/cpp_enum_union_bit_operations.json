@@ -1,0 +1,74 @@
+{
+  "id": "cpp_enum_union_bit_operations",
+  "title": "enum class, union və bit əməliyyatları",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/enum.html",
+    "https://en.cppreference.com/w/cpp/language/union.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "enum",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " vəziyyətlərə ad verir; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "enum class",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " adları əhatədə saxlayır və təsadüfi tam ədədə çevrilməni önləyir. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "static_cast<uint8_t>(Mode::Sample)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " lazım olduqda açıq çevirmədir. Bit əməliyyatları maska ilə registrdə bayraq qurmağa, yoxlamağa və silməyə yarayır. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "union",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üzvləri eyni yaddaşı paylaşır və yalnız son yazılmış üzvün dəyəri etibarlı sayılır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "enum class Mode : uint8_t { Idle, Sample, Alarm };\nuint8_t flags = 0;\nconstexpr uint8_t READY = 1u << 0;\nflags |= READY;                 // Set bit\nbool ready = (flags & READY) != 0;\nflags &= static_cast<uint8_t>(~READY); // Clear bit\n\nunion RawValue { uint16_t word; uint8_t bytes[2]; };\nstruct StatusBits { unsigned ready : 1; unsigned mode : 2; };",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Registrə birbaşa yazmaq başqa bitləri də dəyişə bilər; çip sənədi və istehsalçının API-sinə əməl edin. Bitfield sahələrinin düzülüşü kompilyator və lövhəyə görə dəyişə bilər. `union` vasitəsilə üzvlər arasında çevirmə portativ deyil; bayt sırası da platformadan asılıdır."
+    }
+  ],
+  "testId": "embedded_test_cpp_enum_union_bit_operations_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

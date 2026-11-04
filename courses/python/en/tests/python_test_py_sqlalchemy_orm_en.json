@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_sqlalchemy_orm_en",
+  "title": "SQLAlchemy 2 ORM: working with databases",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_sqlalchemy_orm",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 1 in this lesson produce?\n\nfrom sqlalchemy import create_engine, select\nfrom sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column\n\nclass Base(DeclarativeBase):\n    pass\n\nclass Device(Base):\n    __tablename__ = 'devices'\n    id: Mapped[int] = mapped_column(primary_key=True)\n    name: Mapped[str]\n\nengine = create_engine('sqlite+pysqlite:///:memory:')\nBase.metadata.create_all(engine)\nwith Session(engine) as session:\n    session.add(Device(name='sensor-1'))\n    session.commit()\n    names = session.scalars(select(Device.name)).all()\n    print(names)",
+      "options": [
+        "[]",
+        "['b']",
+        "safe",
+        "['sensor-1']"
+      ],
+      "answer": "['sensor-1']",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`from sqlalchemy import create_engine, select` — Imports specific names from a module; without it, those names are unavailable.\n`from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column` — Imports specific names from a module; without it, those names are unavailable.\n`class Base(DeclarativeBase):` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`pass` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`class Device(Base):` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`__tablename__ = 'devices'` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`id: Mapped[int] = mapped_column(primary_key=True)` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`name: Mapped[str]` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`engine = create_engine('sqlite+pysqlite:///:memory:')` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`Base.metadata.create_all(engine)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`with Session(engine) as session:` — Manages a resource for the block; without the context manager, a file or connection may remain open.\n`session.add(Device(name='sensor-1'))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`session.commit()` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`names = session.scalars(select(Device.name)).all()` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`print(names)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_sqlalchemy_orm",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 2 in this lesson produce?\n\nfrom sqlalchemy import create_engine, select\nfrom sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column\n\nclass Base(DeclarativeBase):\n    pass\n\nclass Device(Base):\n    __tablename__ = 'devices'\n    id: Mapped[int] = mapped_column(primary_key=True)\n    name: Mapped[str]\n\nengine = create_engine('sqlite+pysqlite:///:memory:')\nBase.metadata.create_all(engine)\nwith Session(engine) as session:\n    session.add_all([Device(name='a'), Device(name='b')])\n    session.commit()\n    names = session.scalars(select(Device.name).where(Device.name == 'b')).all()\n    print(names)",
+      "options": [
+        "[]",
+        "['sensor-1']",
+        "['b']",
+        "safe"
+      ],
+      "answer": "['b']",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`from sqlalchemy import create_engine, select` — Imports specific names from a module; without it, those names are unavailable.\n`from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column` — Imports specific names from a module; without it, those names are unavailable.\n`class Base(DeclarativeBase):` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`pass` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`class Device(Base):` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`__tablename__ = 'devices'` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`id: Mapped[int] = mapped_column(primary_key=True)` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`name: Mapped[str]` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`engine = create_engine('sqlite+pysqlite:///:memory:')` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`Base.metadata.create_all(engine)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`with Session(engine) as session:` — Manages a resource for the block; without the context manager, a file or connection may remain open.\n`session.add_all([Device(name='a'), Device(name='b')])` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`session.commit()` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`names = session.scalars(select(Device.name).where(Device.name == 'b')).all()` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`print(names)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_sqlalchemy_orm",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 3 in this lesson produce?\n\nfrom sqlalchemy import create_engine, text\n\nengine = create_engine('sqlite+pysqlite:///:memory:')\nwith engine.connect() as connection:\n    value = connection.execute(\n        text('select :value'), {'value': 'safe'}\n    ).scalar_one()\n    print(value)",
+      "options": [
+        "SAFE",
+        "['b']",
+        "['sensor-1']",
+        "safe"
+      ],
+      "answer": "safe",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`from sqlalchemy import create_engine, text` — Imports specific names from a module; without it, those names are unavailable.\n`engine = create_engine('sqlite+pysqlite:///:memory:')` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`with engine.connect() as connection:` — Manages a resource for the block; without the context manager, a file or connection may remain open.\n`value = connection.execute(` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`text('select :value'), {'value': 'safe'}` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`).scalar_one()` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`print(value)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_sqlalchemy_orm",
+      "type": "multiple_choice",
+      "prompt": "Which statement accurately describes “SQLAlchemy 2 ORM: working with databases”?",
+      "options": [
+        "Comments explain a non-obvious decision instead of repeating the code, such as why a particular limit was chosen.",
+        "Python is used for automation, web services, and data analysis because its readable syntax and broad library ecosystem make small, testable steps practical.",
+        "Syntax and indentation mark code-block boundaries; a mistake can prevent a route or condition from running.",
+        "SQLAlchemy began under Michael Bayer's authorship as a Python SQL toolkit and ORM, designed to provide flexible, efficient database access in a Pythonic API."
+      ],
+      "answer": "SQLAlchemy began under Michael Bayer's authorship as a Python SQL toolkit and ORM, designed to provide flexible, efficient database access in a Pythonic API.",
+      "explanation": "SQLAlchemy began under Michael Bayer's authorship as a Python SQL toolkit and ORM, designed to provide flexible, efficient database access in a Pythonic API. Version 2 uses `Mapped`, `select()`, and scoped `Session` objects; transactions and parameterized queries remain essential."
+    }
+  ]
+}

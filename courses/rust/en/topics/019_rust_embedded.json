@@ -1,0 +1,231 @@
+{
+  "id": "rust_rust_embedded",
+  "title": "no_std, embedded systems, and resource budgets",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_embedded_en",
+  "sources": [
+    "https://docs.rust-embedded.org/book/"
+  ],
+  "estimatedMinutes": 35,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “no_std, embedded systems, and resource budgets” to a real program or device. The key principle is: A no_std program needs a panic handler and platform-specific startup/linker setup. In a project, follow this guidance: Check target/toolchain compatibility, task stack sizes, and behavior under RAM exhaustion.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_embedded_hal_flow",
+      "caption": "no_std, embedded systems, and resource budgets"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#![no_std]\n\npub fn clamp_adc(raw: u16, maximum: u16) -> u16 {\n    if raw > maximum { maximum } else { raw }\n}\n\n// Compile as a library: rustc --crate-type lib adc.rs",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "No console output; ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "rustc --crate-type lib adc.rs",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " compiles a no_std library for the host target.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust can use ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "no_std",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " for firmware that cannot rely on OS services from the standard library, while ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "core",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and platform abstractions such as embedded-hal remain available. Measure heap, stack, flash, RAM, and interrupt latency for the actual chip and linker configuration. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "no_std",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " alone guarantees neither real-time behavior nor hardware safety; review HALs, drivers, and unsafe boundaries.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#![no_std]",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: A no_std program needs a panic handler and platform-specific startup/linker setup.\nWhy it is used: Check target/toolchain compatibility, task stack sizes, and behavior under RAM exhaustion.\nIf omitted or changed: Verify pin, voltage, and current limits in the board documentation; incorrect wiring can damage components.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Verify pin, voltage, and current limits in the board documentation; incorrect wiring can damage components."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A no_std program needs a panic handler and platform-specific startup/linker setup.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Check target/toolchain compatibility, task stack sizes, and behavior under RAM exhaustion."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#![no_std]\npub fn is_high(raw: u16, threshold: u16) -> bool { raw >= threshold }\n// Compile with: rustc --crate-type lib threshold.rs",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The no_std library compiles without a host executable.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "`no_std` alone guarantees neither real-time behavior nor hardware safety; review HALs, drivers, and unsafe boundaries."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Verify pin, voltage, and current limits in the board documentation; incorrect wiring can damage components."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Rust checks the relationship between a value's owner, its borrower, and the code using it at compile time."
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement gives the core rule for “no_std, embedded systems, and resource budgets”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: A no_std program needs a panic handler and platform-specific startup/linker setup.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
+}

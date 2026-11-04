@@ -1,0 +1,55 @@
+{
+  "id": "cpp_volatile_interrupt",
+  "title": "volatile и прерывания: видимость не означает атомарность",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/variables/variable-scope-qualifiers/volatile/",
+    "https://docs.arduino.cc/language-reference/en/functions/external-interrupts/attachInterrupt/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Обработчик прерывания быстро реагирует на событие, не ожидая основной цикл. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "volatile",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " сообщает компилятору, что значение может неожиданно измениться, поэтому оно перечитывается из памяти. Это не делает операцию атомарной, не устраняет гонку и не передаёт данные. В обработчике установите флаг, а работу выполните в ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "volatile bool eventReady = false;\n\nvoid onButtonEdge() {\n  eventReady = true;\n}\n\nvoid setup() {\n  pinMode(2, INPUT_PULLUP);\n  attachInterrupt(digitalPinToInterrupt(2), onButtonEdge, FALLING);\n}\n\nvoid loop() {\n  if (eventReady) {\n    noInterrupts();\n    eventReady = false;\n    interrupts();\n    // Handle the event outside the interrupt.\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Отдельно устраните дребезг кнопки. Чтение многобайтного счётчика может прерваться; способ защиты зависит от MCU/RTOS. Не вызывайте `Serial`, задержки и выделение памяти из ISR."
+    }
+  ],
+  "testId": "embedded_test_cpp_volatile_interrupt_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

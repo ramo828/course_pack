@@ -1,0 +1,184 @@
+{
+  "id": "rust_rust_unsafe",
+  "title": "Unsafe Rust и границы FFI",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_unsafe_ru",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Unsafe Rust и границы FFI» в программе или устройстве. Основной принцип: Программист обязан обеспечить инвариант безопасности unsafe-операции. В проекте следуйте рекомендации: Оставляйте unsafe небольшим отдельно проверяемым участком.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn main() {\n    let value = 7;\n    let pointer = &value as *const i32;\n    // SAFETY: pointer is aligned, non-null, and valid while value is alive.\n    let copied = unsafe { *pointer };\n    println!(\"{copied}\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "7\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "unsafe разрешает разыменование raw-указателей и некоторые внешние вызовы, которые компилятор не проверяет. Код не становится безопасным: документируйте инварианты и ограничивайте опасный участок.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "unsafe",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " разрешает операции, безопасность которых компилятор не может проверить: разыменование raw pointer, доступ к union, вызов unsafe-функции и реализацию unsafe trait. Ключевое слово не отключает проверки и не делает ошибочный код безопасным; автор обязан определить и соблюдать инварианты безопасности. FFI должен согласовать ABI, типы, владение буферами, размеры, nullability и освобождение с внешней библиотекой. Ограничивайте unsafe небольшим модулем, добавляйте безопасную обёртку, документируйте инварианты и пишите тесты.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let copied = unsafe { *pointer };",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Программист обязан обеспечить инвариант безопасности unsafe-операции.\nЗачем она нужна: Оставляйте unsafe небольшим отдельно проверяемым участком.\nЕсли пропустить или изменить: Ошибки указателей, длины буфера или ABI на границе FFI могут повредить память.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Ошибки указателей, длины буфера или ABI на границе FFI могут повредить память."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Программист обязан обеспечить инвариант безопасности unsafe-операции.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Оставляйте unsafe небольшим отдельно проверяемым участком."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn main() { let value = 7; let pointer = &value as *const i32; let copy = unsafe { *pointer }; println!(\"{copy}\"); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "7\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Код не становится безопасным: документируйте инварианты и ограничивайте опасный участок."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Ошибки указателей, длины буфера или ABI на границе FFI могут повредить память."
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение верно передаёт основное правило темы «Unsafe Rust и границы FFI»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Программист обязан обеспечить инвариант безопасности unsafe-операции.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Отдельная иллюстрация не обязательна; небольшого запускаемого примера и ожидаемого результата достаточно."
+}

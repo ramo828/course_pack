@@ -1,0 +1,133 @@
+{
+  "id": "aiot_tflite_examples",
+  "title": "Библиотеки TFLite Micro и полезные примеры",
+  "difficulty": "medium",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://github.com/tensorflow/tflite-micro",
+    "https://github.com/espressif/esp-tflite-micro",
+    "https://ai.google.dev/edge/litert/microcontrollers"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "TFLite Micro не создаёт модель: это среда выполнения и C/C++-библиотека для подготовленной модели. Обучите и преобразуйте модель на компьютере, затем выполняйте вывод на устройстве. Пакет зависит от платы и программной среды: Espressif публикует компонент и примеры для ESP-IDF; в Arduino нужна библиотека, совместимая с конкретной платой и версией ядра.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Как это работает\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Компонент Espressif "
+    },
+    {
+      "type": "text",
+      "text": "esp-tflite-micro",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — практичный вариант для начала в ESP-IDF. Официальные примеры показывают разные задачи:\n• "
+    },
+    {
+      "type": "text",
+      "text": "hello_world",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — вход, выход модели и простой цикл вывода;\n• "
+    },
+    {
+      "type": "text",
+      "text": "micro_speech",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — распознавание небольшого набора слов или команд по звуковым окнам с микрофона;\n• "
+    },
+    {
+      "type": "text",
+      "text": "person_detection",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — определение наличия человека в кадре на поддерживаемой плате с камерой.\n\nПримеры зависят от платы и периферии: для person detection могут понадобиться камера и поддерживаемая плата ESP32-S3. Не считайте, что одна библиотека Arduino IDE подходит всем ESP32: проверьте её версию, совместимость с ядром/компилятором, модель и операции. Для первого проекта используйте официальный пример ESP-IDF, зафиксируйте версию зависимости и соберите его для конкретной платы.\n\nМодель запускает "
+    },
+    {
+      "type": "text",
+      "text": "MicroInterpreter",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; в "
+    },
+    {
+      "type": "text",
+      "text": "MicroMutableOpResolver",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " следует добавить только используемые моделью операции. Проверьте "
+    },
+    {
+      "type": "text",
+      "text": "AllocateTensors()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", соответствие формы/типа входа и параметров квантования модели, а также результат "
+    },
+    {
+      "type": "text",
+      "text": "Invoke()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". Лишние операции увеличивают расход flash и RAM.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Пример кода\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "idf.py add-dependency \"esp-tflite-micro\"\nidf.py create-project-from-example \"esp-tflite-micro:hello_world\"\nidf.py set-target esp32s3\nidf.py build\nidf.py -p PORT flash monitor",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_tflite_pipeline",
+      "caption": "Схема: Библиотеки TFLite Micro и полезные примеры"
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Команды предназначены для проекта ESP-IDF и не являются готовой загрузкой из Arduino IDE. Проверьте README каждого примера: плата, камера/микрофон, память и framework. Измерьте tensor arena на настоящей модели, не подбирайте размер наугад."
+    }
+  ],
+  "testId": "embedded_test_aiot_tflite_examples_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

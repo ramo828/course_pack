@@ -1,0 +1,47 @@
+{
+  "id": "arduino_analog_read_adc",
+  "title": "analogRead: ADC, analog sensör ve gerilim",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/analog-io/analogRead/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ADC analog gerilimi sayıya çevirir. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "analogRead(A0)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ham değer döndürür; klasik UNO'da varsayılan aralık çoğunlukla 0–1023, ESP32'de kart/çekirdek ayarına göre değişir ve sıklıkla 12 bittir. Ham değeri doğrudan volt veya sıcaklık saymayın; aralık, referans gerilimi ve sensör kalibrasyonu gerekir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_voltage_divider",
+      "caption": "analogRead: ADC, analog sensör ve gerilim"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "constexpr uint8_t SENSOR_PIN = A0;\n\nvoid setup() {\n  Serial.begin(115200);\n}\n\nvoid loop() {\n  int raw = analogRead(SENSOR_PIN);\n  Serial.println(raw);\n  delay(200);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "ESP32 ADC pinine 5 V uygulamayın. `analogReadResolution` ve attenuasyon ayarlarının seçilen kart ve çekirdek'daki davranışını kontrol edin."
+    }
+  ],
+  "testId": "embedded_test_arduino_analog_read_adc_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

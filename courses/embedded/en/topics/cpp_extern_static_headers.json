@@ -1,0 +1,151 @@
+{
+  "id": "cpp_extern_static_headers",
+  "title": "extern, static, and header files",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/storage_duration.html",
+    "https://en.cppreference.com/w/cpp/preprocessor/impl.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "In a header, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "extern",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " declares a global variable without defining storage; define it once in a ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": ".cpp",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " file. A function-local ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "static",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " keeps its value between calls, while file-scope ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "static",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " limits a name to that file. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#pragma once",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " prevents a header from being included repeatedly; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#ifndef",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#define",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#endif",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " is the portable guard pattern. Arduino IDE may combine ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": ".ino",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " files, so use explicit headers and ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": ".cpp",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " files as projects grow.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "        // shared.h: use this guard instead of #pragma once when portability matters\n        // Alternative: #pragma once\n        #include <stdint.h>\n        #ifndef SHARED_H\n        #define SHARED_H\n        extern uint32_t pulseCount;\n        void resetPulseCount();\n        #endif\n\n        // shared.cpp\n        #include \"shared.h\"\n        static uint8_t localHelperState = 0;\n        static void resetHelper() { localHelperState = 0; }\n        uint32_t callCount() {\n          static uint32_t calls = 0;\n          return ++calls;\n        }\n        uint32_t pulseCount = 0;\n        void resetPulseCount() { pulseCount = 0; }",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Do not put a non-inline variable definition in a shared header; multiple definitions can fail at link time. `#pragma once` is widely supported but is not a standard C++ directive. Avoid circular includes by keeping headers dependent on declarations where possible."
+    }
+  ],
+  "testId": "embedded_test_cpp_extern_static_headers_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

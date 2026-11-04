@@ -1,0 +1,62 @@
+{
+  "id": "rust_test_rust_lifetimes_deep_en",
+  "title": "Lifetimes, elision, and struct invariants",
+  "questions": [
+    {
+      "id": "rust_rust_lifetimes_deep_1",
+      "topicId": "rust_rust_lifetimes_deep",
+      "type": "multiple_choice",
+      "prompt": "Which statement gives the core rule for “Lifetimes, elision, and struct invariants”?",
+      "options": [
+        "The shared `'a` ties both inputs and the result to a common valid lifetime.",
+        "Rust bindings are immutable unless declared mut.",
+        "Use rustup to keep toolchain updates and installed versions explicit.",
+        "Cargo is the main tool for creating, building, and testing projects."
+      ],
+      "answer": "The shared `'a` ties both inputs and the result to a common valid lifetime.",
+      "explanation": "The shared `'a` ties both inputs and the result to a common valid lifetime.\nWhy: Lifetime annotations describe relationships between references; they do not store data or extend its life. A function returning one of two input references may need an explicit lifetime to show which input the result is tied to. A struct holding a reference uses `'a` to constrain how long that field can be used; owned types such as String often simplify the relationship.\n\nA lifetime annotation does not extend a reference's life; it describes how valid scopes relate. `longest<'a>` says the result cannot outlive the shared validity period of both inputs. The compiler elides simple lifetimes; write them when the relationship needs to be expressed."
+    },
+    {
+      "id": "rust_rust_lifetimes_deep_2",
+      "topicId": "rust_rust_lifetimes_deep",
+      "type": "multiple_choice",
+      "prompt": "When applying “Lifetimes, elision, and struct invariants” in a project, which action is recommended?",
+      "options": [
+        "Do not silence a lifetime error by writing `static`; first inspect ownership and why the borrow must live that long.",
+        "Enable mutability only where it is needed.",
+        "Cargo is the main tool for creating, building, and testing projects.",
+        "Use rustup to keep toolchain updates and installed versions explicit."
+      ],
+      "answer": "Do not silence a lifetime error by writing `static`; first inspect ownership and why the borrow must live that long.",
+      "explanation": "Do not silence a lifetime error by writing `static`; first inspect ownership and why the borrow must live that long.\nWhy: Lifetime annotations describe relationships between references; they do not store data or extend its life. A function returning one of two input references may need an explicit lifetime to show which input the result is tied to. A struct holding a reference uses `'a` to constrain how long that field can be used; owned types such as String often simplify the relationship.\n\nA lifetime annotation does not extend a reference's life; it describes how valid scopes relate. `longest<'a>` says the result cannot outlive the shared validity period of both inputs. The compiler elides simple lifetimes; write them when the relationship needs to be expressed."
+    },
+    {
+      "id": "rust_rust_lifetimes_deep_3",
+      "topicId": "rust_rust_lifetimes_deep",
+      "type": "multiple_choice",
+      "prompt": "Which implementation detail matters in the “Lifetimes, elision, and struct invariants” example?",
+      "options": [
+        "Lifetime annotations describe relationships between references; they do not store data or extend its life",
+        "Use rustup to keep toolchain updates and installed versions explicit.",
+        "Cargo is the main tool for creating, building, and testing projects.",
+        "Rust bindings are immutable unless declared mut."
+      ],
+      "answer": "Lifetime annotations describe relationships between references; they do not store data or extend its life",
+      "explanation": "Lifetime annotations describe relationships between references; they do not store data or extend its life\nWhy: Lifetime annotations describe relationships between references; they do not store data or extend its life. A function returning one of two input references may need an explicit lifetime to show which input the result is tied to. A struct holding a reference uses `'a` to constrain how long that field can be used; owned types such as String often simplify the relationship.\n\nA lifetime annotation does not extend a reference's life; it describes how valid scopes relate. `longest<'a>` says the result cannot outlive the shared validity period of both inputs. The compiler elides simple lifetimes; write them when the relationship needs to be expressed."
+    },
+    {
+      "id": "rust_rust_lifetimes_deep_4",
+      "topicId": "rust_rust_lifetimes_deep",
+      "type": "multiple_choice",
+      "prompt": "Which additional constraint or condition should be checked for “Lifetimes, elision, and struct invariants”?",
+      "options": [
+        "A function returning one of two input references may need an explicit lifetime to show which input the result is tied to",
+        "Use rustup to keep toolchain updates and installed versions explicit.",
+        "Cargo is the main tool for creating, building, and testing projects.",
+        "Rust bindings are immutable unless declared mut."
+      ],
+      "answer": "A function returning one of two input references may need an explicit lifetime to show which input the result is tied to",
+      "explanation": "A function returning one of two input references may need an explicit lifetime to show which input the result is tied to\nWhy: Lifetime annotations describe relationships between references; they do not store data or extend its life. A function returning one of two input references may need an explicit lifetime to show which input the result is tied to. A struct holding a reference uses `'a` to constrain how long that field can be used; owned types such as String often simplify the relationship.\n\nA lifetime annotation does not extend a reference's life; it describes how valid scopes relate. `longest<'a>` says the result cannot outlive the shared validity period of both inputs. The compiler elides simple lifetimes; write them when the relationship needs to be expressed."
+    }
+  ]
+}

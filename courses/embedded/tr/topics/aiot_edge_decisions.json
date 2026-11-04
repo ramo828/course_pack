@@ -1,0 +1,52 @@
+{
+  "id": "aiot_edge_decisions",
+  "title": "Model sonucunu güvenli bir karara dönüştürme",
+  "difficulty": "medium",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://ai.google.dev/edge/litert/microcontrollers",
+    "https://www.tensorflow.org/lite/microcontrollers"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Model yalnızca bir tahmin üretir; Arduino programı bu tahmini ne zaman kullanacağına karar verir. Güven değeri düşükse veya sensör hatalıysa aygıtın önceden belirlenen güvenli davranışını koruyun.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Konu açıklaması\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Örneğin titreşim modeli “olağandışı” dediğinde arızayı hemen kesin ilan etmek yerine sonucu kaydedip yeni ölçümleri bekleyebilirsiniz. Modeli farklı sıcaklık, gürültü, sensör farkı ve zayıf Wi-Fi koşullarında sınayın. Giriş boyutu, örnekleme hızı ve normalleştirme eğitimdekiyle aynı olmalıdır.\n\nESP32 sonucu aygıtta hesaplayıp MQTT ile yalnızca kısa bir uyarı gönderebilir; ham sensör verisini göndermek şart değildir. Modeli güncellerken eski modele dönme, sürümü izleme ve başarısızlığı kaydetme planı hazırlayın.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Örnek kod\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "if (!sensorReadingIsValid()) {\n  keepSafeDefault();\n} else {\n  const float confidence = runModel();\n  if (confidence >= 0.85f) {\n    reportPrediction();\n  } else {\n    reportUncertain();\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_aiot_architecture",
+      "caption": "Şema: Model sonucunu güvenli bir karara dönüştürme"
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Güven yüzdesi her model ve kitaplıkta aynı anlama gelmez. Eşiği test verisiyle seçin; kritik sistemlerde model kararını bağımsız bir güvenlik mekanizmasıyla sınırlandırın."
+    }
+  ],
+  "testId": "embedded_test_aiot_edge_decisions_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

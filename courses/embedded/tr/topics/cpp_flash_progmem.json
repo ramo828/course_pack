@@ -1,0 +1,91 @@
+{
+  "id": "cpp_flash_progmem",
+  "title": "PROGMEM, F() ve flash bellek",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/variables/utilities/PROGMEM",
+    "https://docs.arduino.cc/language-reference/en/structure/further-syntax/define/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "UNO gibi AVR kartlarında ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "PROGMEM",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", büyük sabit tabloları SRAM yerine flash'ta tutabilir; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "pgm_read_byte()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "pgm_read_word()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bu bellekten okur. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "F(\"...\")",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Serial.print",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " gibi destekleyen işlevlere metin sabitini RAM'e kopyalamadan vermek içindir. RAM'i az aygıtlarda bellek kazandırabilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#if defined(ARDUINO_ARCH_AVR)\n#include <avr/pgmspace.h>\n        #include <stdint.h>\nconst char label[] PROGMEM = \"Sensor ready\";\nconst uint16_t points[] PROGMEM = {300, 600};\nuint8_t first = pgm_read_byte(label);\nuint16_t point = pgm_read_word(&points[0]);\n#endif\n\nvoid setup() {\n  Serial.begin(9600);\n  Serial.println(F(\"Startup\")); // AVR: keep literal in flash\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Yöntem platforma özeldir. `ARDUINO_ARCH_AVR` ile koşullu derleyin; ESP32 flash'ı farklı eşlendiği için AVR okuma işlevlerini orada kullanmayın. Büyük metinlerde kütüphanenin `Print` desteğini doğrulayın."
+    }
+  ],
+  "testId": "embedded_test_cpp_flash_progmem_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: stack/heap ve bellek ömrünü, sahipliği veya veri akışını gösteren bellek diyagramı."
+}

@@ -1,0 +1,88 @@
+{
+  "id": "bluetooth_beacon_flutter_sync",
+  "title": "BLE iBeacon и Flutter: реклама и данные GATT",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/bluetooth.html",
+    "https://github.com/espressif/arduino-esp32/tree/master/libraries/BLE/examples",
+    "https://pub.dev/packages/flutter_blue_plus",
+    "https://www.bluetooth.com/specifications/specs/human-interface-device-profile-1-1/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "BLE-реклама сообщает о близости, а подключение GATT передаёт показания телефону. Это разные механизмы.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "КАК ЭТО РАБОТАЕТ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "iBeacon — формат BLE-рекламы Apple с UUID, major/minor и калиброванной мощностью Tx. Он подходит для приблизительной оценки близости, но RSSI не даёт точного расстояния: сигнал зависит от стен, ориентации и помех. Реклама не требует соединения и не подходит для потока сенсорных данных. GATT-сервер публикует службы/характеристики; Flutter BLE central подключается, включает уведомления и получает обновления. Для рекламы соединение не нужно, для GATT-notify — нужно.\n\nПример ESP32 передаёт iBeacon-кадр через BLE API Arduino-ESP32. Flutter-примеры сканируют manufacturer data и подписываются на GATT-уведомления с "
+    },
+    {
+      "type": "text",
+      "text": "flutter_blue_plus",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". Настройте разрешения Bluetooth Android/iOS и используйте UUID из прошивки.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ESP32: передача кадра iBeacon\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <BLEDevice.h>\n#include <BLEBeacon.h>\n#include <BLEAdvertising.h>\n\nvoid setup() {\n  BLEDevice::init(\"Room-Beacon\");\n  BLEBeacon beacon;\n  beacon.setManufacturerId(0x4C00);\n  beacon.setProximityUUID(BLEUUID(\"74278BDA-B644-4520-8F0C-720EAF059935\"));\n  beacon.setMajor(1);\n  beacon.setMinor(1);\n  beacon.setSignalPower(-59);\n\n  BLEAdvertisementData data;\n  data.setFlags(0x04);\n  data.setManufacturerData(beacon.getData());\n  BLEAdvertising* advertising = BLEDevice::getAdvertising();\n  advertising->setAdvertisementData(data);\n  advertising->start();\n}\n\nvoid loop() {\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "Flutter: сканирование manufacturer data\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "dart",
+      "code": "import 'package:flutter_blue_plus/flutter_blue_plus.dart';\n\nFuture<void> scanBeacons() async {\n  final subscription = FlutterBluePlus.onScanResults.listen((results) {\n    for (final result in results) {\n      final manufacturerData =\n          result.advertisementData.manufacturerData[0x004C];\n      if (manufacturerData != null) {\n        print('Beacon candidate RSSI: ${result.rssi} dBm');\n      }\n    }\n  });\n  await FlutterBluePlus.startScan(timeout: const Duration(seconds: 5));\n  await FlutterBluePlus.stopScan();\n  await subscription.cancel();\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "Flutter: подписка на уведомления GATT\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "dart",
+      "code": "import 'dart:async';\nimport 'package:flutter_blue_plus/flutter_blue_plus.dart';\n\nFuture<StreamSubscription<List<int>>> listenToSensor(\n  BluetoothDevice device,\n  Guid serviceId,\n  Guid characteristicId,\n) async {\n  await device.connect();\n  final services = await device.discoverServices();\n  final service = services.firstWhere((item) => item.uuid == serviceId);\n  final characteristic =\n      service.characteristics.firstWhere((item) => item.uuid == characteristicId);\n  await characteristic.setNotifyValue(true);\n  return characteristic.onValueReceived.listen((bytes) {\n    if (bytes.isNotEmpty) {\n      print('Sensor byte: ${bytes.first}');\n    }\n  });\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "BLE iBeacon и Flutter: реклама и данные GATT"
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание о безопасности и совместимости",
+      "text": "`flutter_blue_plus` может требовать коммерческую лицензию; проверьте актуальные условия до выпуска коммерческого приложения. Отменяйте подписки при закрытии экрана и обрабатывайте разрыв соединения. Не используйте маяки для скрытого отслеживания."
+    }
+  ],
+  "testId": "embedded_test_bluetooth_beacon_flutter_sync_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

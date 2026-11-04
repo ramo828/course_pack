@@ -1,0 +1,62 @@
+{
+  "id": "esp32_test_esp_ota_az",
+  "title": "OTA, partition və rollback",
+  "questions": [
+    {
+      "id": "esp32_esp_ota_1",
+      "topicId": "esp32_esp_ota",
+      "type": "multiple_choice",
+      "prompt": "“OTA, partition və rollback” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "ESP-IDF layihə hədəfini build-dən əvvəl seçir.",
+        "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
+        "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
+        "Rollback təhlükəsiz əvvəlki image-ə qayıtma yoludur."
+      ],
+      "answer": "Rollback təhlükəsiz əvvəlki image-ə qayıtma yoludur.",
+      "explanation": "Rollback təhlükəsiz əvvəlki image-ə qayıtma yoludur.\nİzah: OTA yeni firmware-i aktiv image-in yanındakı uyğun partition-a yaza bilər. Partition cədvəli, image ölçüsü, versiya və imza yoxlanışı, sağlamlıq təsdiqi və rollback ssenarisi birlikdə layihələndirilməlidir.\n\nBu kod ESP-IDF OTA partition API-sini Arduino-ESP32 layihəsində istifadə edir. Partition seçimi, rollback və imza yoxlaması generic Arduino API deyil; sadə ArduinoOTA/Update alternativləri var, lakin secure boot/rollback tələbləri üçün layihə ESP-IDF partition və verification konfiqurasiyasını açıq qurmalıdır."
+    },
+    {
+      "id": "esp32_esp_ota_2",
+      "topicId": "esp32_esp_ota",
+      "type": "multiple_choice",
+      "prompt": "“OTA, partition və rollback” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
+        "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
+        "Yenilənməni enerji kəsilməsi, zəif şəbəkə və uyğun olmayan versiya ilə sınaqdan keçirin.",
+        "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun."
+      ],
+      "answer": "Yenilənməni enerji kəsilməsi, zəif şəbəkə və uyğun olmayan versiya ilə sınaqdan keçirin.",
+      "explanation": "Yenilənməni enerji kəsilməsi, zəif şəbəkə və uyğun olmayan versiya ilə sınaqdan keçirin.\nİzah: OTA yeni firmware-i aktiv image-in yanındakı uyğun partition-a yaza bilər. Partition cədvəli, image ölçüsü, versiya və imza yoxlanışı, sağlamlıq təsdiqi və rollback ssenarisi birlikdə layihələndirilməlidir.\n\nBu kod ESP-IDF OTA partition API-sini Arduino-ESP32 layihəsində istifadə edir. Partition seçimi, rollback və imza yoxlaması generic Arduino API deyil; sadə ArduinoOTA/Update alternativləri var, lakin secure boot/rollback tələbləri üçün layihə ESP-IDF partition və verification konfiqurasiyasını açıq qurmalıdır."
+    },
+    {
+      "id": "esp32_esp_ota_3",
+      "topicId": "esp32_esp_ota",
+      "type": "multiple_choice",
+      "prompt": "“OTA, partition və rollback” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
+        "ESP32-H2 kimi bəzi variantlar Wi-Fi əvəzinə IEEE 802.15.4/Bluetooth LE yönümlü ola bilər.",
+        "OTA yeni firmware-i aktiv image-in yanındakı uyğun partition-a yaza bilər",
+        "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun."
+      ],
+      "answer": "OTA yeni firmware-i aktiv image-in yanındakı uyğun partition-a yaza bilər",
+      "explanation": "OTA yeni firmware-i aktiv image-in yanındakı uyğun partition-a yaza bilər\nİzah: OTA yeni firmware-i aktiv image-in yanındakı uyğun partition-a yaza bilər. Partition cədvəli, image ölçüsü, versiya və imza yoxlanışı, sağlamlıq təsdiqi və rollback ssenarisi birlikdə layihələndirilməlidir.\n\nBu kod ESP-IDF OTA partition API-sini Arduino-ESP32 layihəsində istifadə edir. Partition seçimi, rollback və imza yoxlaması generic Arduino API deyil; sadə ArduinoOTA/Update alternativləri var, lakin secure boot/rollback tələbləri üçün layihə ESP-IDF partition və verification konfiqurasiyasını açıq qurmalıdır."
+    },
+    {
+      "id": "esp32_esp_ota_4",
+      "topicId": "esp32_esp_ota",
+      "type": "multiple_choice",
+      "prompt": "“OTA, partition və rollback” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "ESP-IDF layihə hədəfini build-dən əvvəl seçir.",
+        "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
+        "İmzanı yoxlamadan OTA image-i boot üçün seçməyin.",
+        "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır."
+      ],
+      "answer": "İmzanı yoxlamadan OTA image-i boot üçün seçməyin.",
+      "explanation": "İmzanı yoxlamadan OTA image-i boot üçün seçməyin.\nİzah: OTA yeni firmware-i aktiv image-in yanındakı uyğun partition-a yaza bilər. Partition cədvəli, image ölçüsü, versiya və imza yoxlanışı, sağlamlıq təsdiqi və rollback ssenarisi birlikdə layihələndirilməlidir.\n\nBu kod ESP-IDF OTA partition API-sini Arduino-ESP32 layihəsində istifadə edir. Partition seçimi, rollback və imza yoxlaması generic Arduino API deyil; sadə ArduinoOTA/Update alternativləri var, lakin secure boot/rollback tələbləri üçün layihə ESP-IDF partition və verification konfiqurasiyasını açıq qurmalıdır."
+    }
+  ]
+}

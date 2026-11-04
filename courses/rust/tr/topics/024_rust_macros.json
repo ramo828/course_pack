@@ -1,0 +1,204 @@
+{
+  "id": "rust_rust_macros",
+  "title": "Makrolar ve derive",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_macros_tr",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch19-06-macros.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Makrolar ve derive” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: derive niteliği basit trait implementasyonlarını elle yazma gereğini azaltır. Gerçek projede şu öneriyi izleyin: Makro API değişiklikleri geniş etkiler; token çözümlemeyi ve derleyici sürüm uyumunu test edin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[derive(Debug, Clone, PartialEq)]\nstruct Point {\n    x: i32,\n    y: i32,\n}\nfn main() {\n    let point = Point { x: 0, y: 0 };\n    println!(\"{point:?}\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "point",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " oluşturulup Debug biçiminde yazdırıldığında ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "Point { x: 0, y: 0 }",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " görünür.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bildirimsel ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "macro_rules!",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " token kalıplarını genişleterek tekrarlanan sözdizimi kurar; derive macro struct/enum için trait implementasyonunu otomatikleştirir. Macro derleme zamanında genişlediğinden debugger akışı değişebilir ve compiler hatası üretilen koda işaret edebilir. Önce fonksiyon ve generics deneyin; macro tekrarlı sözdizimi veya derleme zamanı yansıma için gerekliyse kullanın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let point = Point { x: 0, y: 0 };",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: derive niteliği basit trait implementasyonlarını elle yazma gereğini azaltır.\nNeden seçildi: Makro API değişiklikleri geniş etkiler; token çözümlemeyi ve derleyici sürüm uyumunu test edin.\nAtlanır veya değiştirilirse: Makro API değişiklikleri geniş etkiler; token çözümlemeyi ve derleyici sürüm uyumunu test edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: Makro API değişiklikleri geniş etkiler; token çözümlemeyi ve derleyici sürüm uyumunu test edin."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "derive niteliği basit trait implementasyonlarını elle yazma gereğini azaltır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Makro API değişiklikleri geniş etkiler; token çözümlemeyi ve derleyici sürüm uyumunu test edin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "macro_rules! triple { ($value:expr) => { $value * 3 }; }\nfn main() { println!(\"{}\", triple!(4)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "12\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Önce fonksiyon ve generics deneyin; macro tekrarlı sözdizimi veya derleme zamanı yansıma için gerekliyse kullanın."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Kod örnekleri odaklı parçalardır; seçilen araç zinciri ve hedefte derleyip test edin, çünkü API ve tanılamalar sürüme göre değişebilir."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Makrolar ve derive” konusunda hangi ifade temel kuralı doğru açıklar?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: derive niteliği basit trait implementasyonlarını elle yazma gereğini azaltır.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

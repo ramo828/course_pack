@@ -1,0 +1,2894 @@
+{
+  "id": "python_18_file_io_az",
+  "title": "Fayllarla iş (File I/O): təhlükəsiz oxuma və yazma",
+  "difficulty": "hard",
+  "testId": "python_test_18_file_io_az",
+  "estimatedMinutes": 40,
+  "sources": [
+    "https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files",
+    "https://docs.python.org/3/library/functions.html#open",
+    "https://docs.python.org/3/library/io.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NİYƏ LAZIMDIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Fayl əməliyyatları proqram bağlandıqdan sonra da qalmalı olan hesabat, parametrlər və qeydləri oxumaq və saxlamaq üçün istifadə olunur.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Fayl əməliyyatları proqram bağlandıqdan sonra da qalmalı olan hesabat, parametrlər və qeydləri oxumaq və saxlamaq üçün istifadə olunur.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Fayl əməliyyatları proqram bağlandıqdan sonra da qalmalı olan hesabat, parametrlər və qeydləri oxumaq və saxlamaq üçün istifadə olunur.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Fayl əməliyyatları proqram bağlandıqdan sonra da qalmalı olan hesabat, parametrlər və qeydləri oxumaq və saxlamaq üçün istifadə olunur.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "FAYL I/O NƏYİ HƏLL EDİR?\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Gəlin bir vəziyyət düşünək. Proqram hesablayıb nəticə tapdı, amma proqramı bağlayanda məlumat RAM-dan itə bilər. Bəs nəticəni sabah da görmək istəyiriksə? Onu faylda saxlayırıq. Faylı kompüterdəki dəftər kimi düşün: yaza, sonra açıb yenidən oxuya bilərik.\n\nFaylla işləməyə I/O deyilir. Bu, input/output sözlərinin qısaltmasıdır: məlumatı oxumaq və yazmaq. Məsələn, oyun nəticəni, tətbiq sazlamaları, server isə baş verənləri faylda saxlaya bilər.\n\nFaylı açan funksiya",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "open(...)",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "-dır. O, bizə fayl obyekti verir. Açarkən fayl yolunu, rejimini və mətn üçün kodlaşdırmanı seçirik. Yol səhv olsa və ya icazəmiz çatmasa, xəta ala bilərik. Gəlin bunları nümunədə addım-addım yoxlayaq.",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "MODERN ÜSUL: BÜTÖV İŞLƏK PROQRAM",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def main():\n    path = \"lesson_notes.txt\"\n    with open(path, \"w\", encoding=\"utf-8\") as file:\n        file.write(\"Python fayl dərsi\\n\")\n        file.writelines([\"Birinci qeyd\\n\", \"İkinci qeyd\\n\"])\n\n    with open(path, \"r\", encoding=\"utf-8\") as file:\n        content = file.read()\n    print(content, end=\"\")\n\n    with open(path, \"a\", encoding=\"utf-8\") as file:\n        file.write(\"Sonradan əlavə edildi\\n\")\n\n    with open(path, \"r\", encoding=\"utf-8\") as file:\n        first_line = file.readline().rstrip(\"\\n\")\n        print(\"ilk sətir:\", first_line)\n\nif __name__ == \"__main__\":\n    main()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ",
+      "size": 19,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Python fayl dərsi\nBirinci qeyd\nİkinci qeyd\nilk sətir: Python fayl dərsi",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "Gəlin proqramı birlikdə oxuyaq. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "path",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "faylın adını saxlayır. Nisbi yol proqramı başladığımız qovluğa görə hesablanır. Fayl tapılmırsa, əvvəl həmin qovluğu yoxlayaq.\n\n",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with open(path, 'w', encoding='utf-8') as file:",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "faylı yazmaq üçün açır. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "w",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "köhnə məzmunu silib yenisini yazır; fayl yoxdursa yaradır. Bəs proqram xəta ilə bitsə? ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "with",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "blokdan çıxanda faylı bağlayır. UTF-8 kodlaşdırması Azərbaycan hərflərini düzgün saxlamağa kömək edir.\n\n",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "file.write(...)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "mətn yazır, amma yeni sətir əlavə etmir. Ona görə kodda",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "\\n",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "işarəsi var. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "file.writelines(...)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "bir neçə mətn parçasını yazır; sətirsonunu yenə biz əlavə etməliyik.\n\nSonra faylı",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "r",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "— oxu rejimində açırıq. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "file.`read()`",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "bütün faylı oxuyur. Kiçik faylda bu rahatdır. Bəs fayl böyükdürsə? ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "`for` line in file",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ilə sətir-sətir oxuyaq ki, hamısını RAM-a yığmayaq. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "file.`readline()`",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "bir sətir,",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "file.`readlines()`",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə bütün sətirləri siyahı kimi qaytarır.\n\n",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "rstrip('\\n')",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "sətrin sonundakı yeni sətir işarəsini götürür. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "`strip()`",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə kənardakı boşluqları da silə bilər; məlumatdakı boşluqlar vacibdirsə ehtiyatlı olaq. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "print(..., end='')",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "əlavə boş sətir çap etməməyə kömək edir.\n\nAxırda",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "a",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "rejimində açırıq. Köhnə məlumat qalır, yenisi sona əlavə olunur. ",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "`if` __name__ == '__main__':",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "qoruyucusu",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "``main()``",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "funksiyasını yalnız faylı birbaşa işə salanda çağırır, import zamanı yox.",
+      "size": 16,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "AÇMA REJİMLƏRİ:",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "r",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ",",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "w",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ",",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "a",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ",",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "x",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ",",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "b",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ",",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "t",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ",",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "+",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Gəlin rejimləri nümunə ilə yadda saxlayaq. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "r",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "— oxu: fayl əvvəlcədən olmalıdır. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "w",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "— yaz: fayl yoxdursa yaradır, varsa köhnə məzmunu silir. Buna görə vacib sənəddə ehtiyatlı ol.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "a",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "əvvəlki yazıları saxlayıb yenini sona əlavə edir. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "x",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə yalnız yeni fayl yaradır; həmin adlı fayl varsa, onun üstünə yazmaq əvəzinə xəta verir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "b",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "byte rejimidir. Şəkil və audio kimi məlumatlar mətn deyil, byte-lardır. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "t",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "mətn rejimidir və standart seçimdir. Mətn oxuyarkən kodlaşdırmanı seçə bilərik. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "errors",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "kodlaşdırma xətasında nə baş verəcəyini,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "newline",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə sətirsonlarını idarə edir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "+",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "eyni açılışda həm oxumağa, həm yazmağa icazə verir. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "r+",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "mövcud faylı dəyişir;",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "w+",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "əvvəl silir;",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "a+",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "yazını sona əlavə edir;",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "x+",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "yalnız yeni fayl yaradır. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "`tell()`",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "hazırkı mövqeyi,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "seek(...)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə yeni mövqeyi göstərir. Yadda saxla:",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "+",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "özü faylı silmir,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "w",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "silir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "buffering",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "məlumatın aralıq yaddaşdan ötürülməsinə təsir edir; adətən standart dəyər kifayətdir. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "errors='strict'",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "kodlaşdırma xətasını gizlətmir. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "closefd",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "və",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "opener",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "daha xüsusi sistem işləri üçündür; başlanğıcda onlara toxunmaya bilərik.",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "KÖHNƏ ÜSUL: ƏLLƏ AÇMA VƏ BAĞLAMA",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def read_first_line(path):\n    file = None\n    try:\n        file = open(path, \"r\", encoding=\"utf-8\")\n        return file.readline().rstrip(\"\\n\")\n    finally:\n        if file is not None:\n            file.close()\n\ndef main():\n    with open(\"lesson_notes.txt\", \"w\", encoding=\"utf-8\") as file:\n        file.write(\"Python fayl dərsi\\n\")\n    print(read_first_line(\"lesson_notes.txt\"))\n\nif __name__ == \"__main__\":\n    main()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ",
+      "size": 19,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Python fayl dərsi",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "Gəlin köhnə üsula da baxaq. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "try",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "daxilində faylı açmağa çalışırıq. Açılma alınmasa,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "file",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "boş qalır. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "finally",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə xəta olsa da işləyir və açılmış faylı bağlayır.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "file.`close()`",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "əməliyyat sisteminə fayl resursunu qaytarır, yazılmağı gözləyən məlumatı da ötürür. Amma hər çıxış yolunda bağlamağı xatırlamaq çətindir. Bir yerdə unudulsa, fayl açıq qala bilər. Buna görə yeni kodda",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "with",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "seçirik: o, bağlamağı bizim əvəzimizə edir.",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "BINARY FAYL: BÜTÖV İŞLƏK NÜMUNƏ",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def main():\n    path = \"sample_bytes.bin\"\n    with open(path, \"wb\") as file:\n        file.write(b\"ABC\")\n    with open(path, \"rb\") as file:\n        content = file.read()\n    print(content, len(content))\n\nif __name__ == \"__main__\":\n    main()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ",
+      "size": 19,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "b'ABC' 3",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "İndi byte-larla işləyən nümunəyə baxaq. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "wb",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "binary fayl yaradır və mövcud məzmunu sıfırlayır. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "b'ABC'",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "üç byte-dır. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "rb",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "həmin byte-ları geri oxuyur. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "len(content)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "neçə byte oxunduğunu göstərir.\n\nBu yol şəkil və audio kimi mətn olmayan fayllar üçündür. Belə faylı adi mətn kimi açsaq, Python byte-ları hərf kimi başa düşməyə çalışar və kodlaşdırma xətası yarana bilər.",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "detail",
+      "title": "Binary nümunə",
+      "text": "Şəkil və digər binary faylları mətn kimi çevirməyə çalışma. Binary məlumat byte-lardan ibarətdir. Əvvəl faylın növünə uyğun rejimi seç, sonra oxunan dəyəri byte kimi emal et."
+    },
+    {
+      "type": "text",
+      "text": "FAYL OBYEKTİNİN ƏSAS ƏMƏLİYYATLARI VƏ PARAMETRLƏR",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Gəlin fayl əmrlərini kiçik addımlarla öyrənək. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "read(size=-1)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ölçü göstərməsək qalan məzmunu oxuyur; məsələn,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "read(5)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "beş simvol götürür. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "`readline()`",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "bir sətir oxuyur. Böyük faylda",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "`for` line in file",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "sətirləri tədricən emal edir. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "`readlines()`",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "bütün sətirləri siyahıya yığır; çox böyük faylda RAM-ı çox tuta bilər.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "write(text)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "mətni yazır və yazılan simvolların sayını qaytarır. Yeni sətir lazımdırsa, onu özümüz əlavə edirik. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "writelines(lines)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "bir neçə sətri yazır, amma aralarına yeni sətir qoymur.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "`flush()`",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "aralıq yaddaşda gözləyən məlumatı sistemə ötürməyə çalışır; bu, enerji itkisinə qarşı tam zəmanət deyil. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "`tell()`",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "cari mövqeyi,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "seek(offset, whence=0)",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "isə yeni mövqeyi verir. ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "whence=0",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "başlanğıcdan,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "1",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "cari yerdən,",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "2",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "sondan hesablayır. Mətn rejimində mövqe qaydaları məhduddur; dəqiq byte ünvanı üçün binary rejim uyğundur. Faylı bağlamaq yazmağı bitirir və resursu boşaldır.",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "warning",
+      "title": "Məlumatı itirməmək üçün",
+      "text": "Diqqət: yazı rejimi köhnə faylı boşalda bilər. Vacib məlumat varsa, ehtiyat nüsxə və təsdiq addımı düşün. Mətn faylında kodlaşdırmanı açıq seç. Fayl yolu istifadəçidən gəlirsə, ona kor-koranə etibar etmə. Fayl tapılmaya, icazə verilməyə və ya disk dolu ola bilər. Belə hallarda proqram aydın xəta mesajı göstərsin."
+    },
+    {
+      "type": "tip",
+      "title": "Yadda saxla",
+      "text": "Yadda saxla: oxuma, yazma, sona əlavə etmə və yalnız yeni fayl yaratma ayrı rejimlərdir. Mətn faylında kodlaşdırmanı seç; şəkil kimi fayllarda byte rejimindən istifadə et. Faylı açanda onu etibarlı şəkildə bağlamağı da planlaşdır."
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: Niyə böyük faylda ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "readlines()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " əvəzinə ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for line in file",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " üstün tutula bilər?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Çünki iterasiya sətirləri bir-bir emal edib hamısını yaddaşa yığmır\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

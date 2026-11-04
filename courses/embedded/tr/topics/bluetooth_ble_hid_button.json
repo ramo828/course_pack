@@ -1,0 +1,134 @@
+{
+  "id": "bluetooth_ble_hid_button",
+  "title": "BLE HID klavye: fiziksel düğmeyle çalışan örnek",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://github.com/ramo828/iBle-HID",
+    "https://github.com/ramo828/iBle-HID/blob/main/README.az.md",
+    "https://github.com/ramo828/iBle-HID/blob/main/README.en.md",
+    "https://www.bluetooth.com/specifications/specs/human-interface-device-profile-1-1/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "iBle-HID kitaplığı, uyumlu bir ESP32 kartını Bluetooth Low Energy (BLE) klavye, fare veya oyun kumandası olarak kullanmayı sağlar. Bu örnek yalnızca fiziksel düğmeye basılınca tek harf gönderir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NASIL ÇALIŞIR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kitaplığı [GitHub'dan](https://github.com/ramo828/iBle-HID) indirin, "
+    },
+    {
+      "type": "text",
+      "text": "Arduino/libraries/iBle_HID",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " klasörüne koyun, Arduino IDE'yi yeniden başlatın ve kart olarak ESP32'yi seçin. "
+    },
+    {
+      "type": "text",
+      "text": "#include <iBleHID.h>",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ortak başlığı klavye, fare ve diğer HID parçalarını ekler. NimBLE-Arduino kurmanız gerekmez; iBle-HID, ESP32 Arduino çekirdeğinin BLE özelliklerini kullanır.\n\nBilgisayar veya telefondan kartın Bluetooth adına bağlandıktan sonra "
+    },
+    {
+      "type": "text",
+      "text": "isConnected()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bağlantının kurulduğunu bildirir. "
+    },
+    {
+      "type": "text",
+      "text": "write('a')",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bir karakter, "
+    },
+    {
+      "type": "text",
+      "text": "print()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve "
+    },
+    {
+      "type": "text",
+      "text": "println()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " metin gönderir; "
+    },
+    {
+      "type": "text",
+      "text": "press()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve "
+    },
+    {
+      "type": "text",
+      "text": "release()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " tuş basma ve bırakma işlemleridir. Kitaplık ayrıca fareyi, oyun kumandasını ve klavye+fare birleşik aygıtını destekler. Sunum kumandası ve erişilebilirlik düğmesi gibi projelerde kullanılabilir.\n\nKitaplık Arduino-ESP32 3.3.11 ve sonraki 3.x sürümlerini hedefler; başka kart/çekirdek uyumunu önceden doğrulayın. Kurulum ve API için [İngilizce yönergeye](https://github.com/ramo828/iBle-HID/blob/main/README.en.md) bakın.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <iBleHID.h>\n\nconstexpr uint8_t BUTTON_PIN = 4;\nBleKeyboard keyboard;\nbool wasPressed = false;\n\nvoid setup() {\n  pinMode(BUTTON_PIN, INPUT_PULLUP);\n  keyboard.begin();\n}\n\nvoid loop() {\n  const bool pressed = digitalRead(BUTTON_PIN) == LOW;\n  if (pressed && !wasPressed && keyboard.isConnected()) {\n    keyboard.write('a');\n  }\n  wasPressed = pressed;\n  delay(25);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "BLE HID klavye: fiziksel düğmeyle çalışan örnek"
+    },
+    {
+      "type": "warning",
+      "title": "Önemli güvenlik ve uyumluluk notu",
+      "text": "Harici düğmeyi GPIO 4 ile GND arasına bağlayın; kartınızda bu pin yoksa kullanılabilir bir giriş pini seçin. Arduino IDE'de Arduino-ESP32 3.3.11 veya daha yeni bir 3.x çekirdeği seçin. HID klavye gerçek bir giriş aygıtıdır: yalnızca kullanıcının açık fiziksel eylemine yanıt verin ve testi kendi aygıtınızda yapın."
+    }
+  ],
+  "testId": "embedded_test_bluetooth_ble_hid_button_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

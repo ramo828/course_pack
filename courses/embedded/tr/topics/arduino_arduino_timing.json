@@ -1,0 +1,254 @@
+{
+  "id": "arduino_arduino_timing",
+  "title": "millis(), buton ve interrupt",
+  "difficulty": "medium",
+  "testId": "arduino_test_arduino_timing_tr",
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/functions/time/millis/"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "millis()",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ", buton ve interrupt” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "millis()",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ile geçen süreyi ölçmek ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "delay()",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kaynaklı bloklanmayı azaltır. Gerçek projede şu öneriyi izleyin: Sayaç taştığında da doğru çalışması için zaman farkını unsigned aritmetikle hesaplayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int ledPin = LED_BUILTIN;\nunsigned long previous = 0;\nvoid setup() { pinMode(ledPin, OUTPUT); }\nvoid loop() {\n    unsigned long now = millis();\n    if (now - previous >= 1000) {\n        previous = now;\n        digitalWrite(ledPin, !digitalRead(ledPin));\n    }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Dahili LED yaklaşık saniyede bir durum değiştirir; zamanlama ve polarite karta bağlıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "millis()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " zamanı bloklamadan izleyip döngü'un diğer işlerini sürdürür. Interrupt kısa olmalı; ana döngüye bayrak bırakmalı, uzun hesaplama ve gecikme ISR'de yapılmamalıdır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "unsigned long now = millis();",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "millis()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile geçen süreyi ölçmek ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "delay()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kaynaklı bloklanmayı azaltır.\nNeden seçildi: Sayaç taştığında da doğru çalışması için zaman farkını unsigned aritmetikle hesaplayın.\nAtlanır veya değiştirilirse: ISR içinde Serial, delay ve bloklayıcı iletişim güvenilmez davranış yaratabilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "ISR içinde Serial, delay ve bloklayıcı iletişim güvenilmez davranış yaratabilir."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "millis()",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " ile geçen süreyi ölçmek ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "delay()",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " kaynaklı bloklanmayı azaltır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Sayaç taştığında da doğru çalışması için zaman farkını unsigned aritmetikle hesaplayın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int pin = LED_BUILTIN;\nunsigned long last = 0;\nvoid setup() { pinMode(pin, OUTPUT); }\nvoid loop() { if (millis() - last >= 500) { last = millis(); digitalWrite(pin, !digitalRead(pin)); } }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kart destekliyorsa dahili LED saniyede yaklaşık iki kez durum değiştirir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Interrupt kısa olmalı; ana döngüye bayrak bırakmalı, uzun hesaplama ve gecikme ISR'de yapılmamalıdır."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "ISR içinde Serial, delay ve bloklayıcı iletişim güvenilmez davranış yaratabilir."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

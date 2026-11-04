@@ -1,0 +1,53 @@
+{
+  "id": "ota_transport_choices",
+  "title": "Способы обновления: USB, локальный и удалённый Wi-Fi, SD",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.arduino.cc/learn/programming/ota-getting-started/",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/sd.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Передать прошивку на плату можно разными способами. Выбор зависит от доступа к устройству, сети, накопителя и возможности восстановления после сбоя.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "КАК ЭТО РАБОТАЕТ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "USB/Serial: плата находится рядом, программа загружается по кабелю через загрузчик; это просто, но не удалённо. Локальный Wi-Fi: ArduinoOTA или веб-страница устройства удобны в одной домашней/офисной сети. Удалённый Wi-Fi: устройство получает подписанный выпуск с HTTPS-сервера; один TLS не подтверждает подлинность самой прошивки. SD-карта: файл можно перенести к устройству без интернета и установить локально. Передать файл по Bluetooth возможно, но для обновления нужны специальная передача, разметка boot/flash, проверка целостности и восстановление; готового универсального OTA-способа для Arduino/ESP32 нет.\n\nПлата без Wi-Fi, например классическая UNO, не может сама обновляться по сети. Загрузка из Arduino IDE по USB — не OTA. Два раздела приложений ESP32 помогают сохранить прежнюю программу при прерывании обновления приложения, но это не гарантируется автоматически для USB, SD и всех разделов данных.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "enum class FirmwarePath {\n  UsbSerial,\n  LocalWifi,\n  RemoteHttps,\n  SdCard,\n  BluetoothCustom\n};\n\n// Pick a path the exact board and bootloader support.",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Способы обновления: USB, локальный и удалённый Wi-Fi, SD"
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание о безопасности и совместимости",
+      "text": "Для каждого способа проверяйте разметку flash конкретной платы. Удалённому обновлению нужны проверка версии и подписи, а также восстановление после потери питания."
+    }
+  ],
+  "testId": "embedded_test_ota_transport_choices_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

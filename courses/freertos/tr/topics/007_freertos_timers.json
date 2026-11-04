@@ -1,0 +1,160 @@
+{
+  "id": "freertos_freertos_timers",
+  "title": "Software timer ve callback kuralları",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_timers_tr",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/06-software-timers/01-Software-timers"
+  ],
+  "estimatedMinutes": 22,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Software timer ve callback kuralları” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Periyodik software timer, donanım timer'ı kadar kesin değildir; jitter ve scheduler yükünü ölçün. Gerçek projede şu öneriyi izleyin: Callback içinde yalnızca kısa bir flag veya mesaj gönderin; kalan işi normal göreve aktarın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nTaskHandle_t timerWorker = nullptr;\nTimerHandle_t sampleTimer = nullptr;\nvoid timerCallback(TimerHandle_t) { if (timerWorker) xTaskNotifyGive(timerWorker); }\nvoid timerWorkerTask(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"timer event\"); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(timerWorkerTask, \"timer-worker\", 2048, nullptr, 1, &timerWorker) != pdPASS) { Serial.println(\"timer worker creation failed\"); return; } sampleTimer = xTimerCreate(\"sample\", pdMS_TO_TICKS(1000), pdTRUE, nullptr, timerCallback); if (sampleTimer == nullptr) { Serial.println(\"timer creation failed\"); return; } if (xTimerStart(sampleTimer, 0) != pdPASS) { Serial.println(\"timer start failed\"); xTimerDelete(sampleTimer, 0); sampleTimer = nullptr; } }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Timer callback yalnızca göreve bildirim gönderir; worker görevi olayı Serial Monitor'da gösterir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Software timer callback'i ayrı timer service task'ında çalışır; periyodik sinyal için uygundur ancak callback uzun iş yapmamalıdır. Callback'te bloklama, uzun Serial yazısı veya ağır sensör okuması timer task'ını durdurup tüm timer'ları geciktirebilir. Uzun işi queue ya da notification ile worker task'a aktarın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { Serial.begin(115200); if (xTaskCreate(timerWorkerTask, \"timer-worker\", 2048, nullptr, 1, &timerWorker) != pdPASS) { Serial.println(\"timer worker creation failed\"); return; } sampleTimer = xTimerCreate(\"sample\", pdMS_TO_TICKS(1000), pdTRUE, nullptr, timerCallback); if (sampleTimer == nullptr) { Serial.println(\"timer creation failed\"); return; } if (xTimerStart(sampleTimer, 0) != pdPASS) { Serial.println(\"timer start failed\"); xTimerDelete(sampleTimer, 0); sampleTimer = nullptr; } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Periyodik software timer, donanım timer'ı kadar kesin değildir; jitter ve scheduler yükünü ölçün.\nNeden seçildi: Callback içinde yalnızca kısa bir flag veya mesaj gönderin; kalan işi normal göreve aktarın.\nAtlanır veya değiştirilirse: Timer command queue boyutu start/stop/reset komutlarının gecikmesini etkileyebilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: Callback içinde yalnızca kısa bir flag veya mesaj gönderin; kalan işi normal göreve aktarın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Periyodik software timer, donanım timer'ı kadar kesin değildir; jitter ve scheduler yükünü ölçün.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Callback içinde yalnızca kısa bir flag veya mesaj gönderin; kalan işi normal göreve aktarın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nTaskHandle_t timerWorker = nullptr;\nTimerHandle_t timerHandle = nullptr;\nvoid onTimer(TimerHandle_t) { if (timerWorker) xTaskNotifyGive(timerWorker); }\nvoid timerWorkerTask(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"timer event\"); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(timerWorkerTask, \"timer-worker\", 2048, nullptr, 1, &timerWorker) != pdPASS) return; timerHandle = xTimerCreate(\"sample\", pdMS_TO_TICKS(1000), pdTRUE, nullptr, onTimer); if (timerHandle == nullptr || xTimerStart(timerHandle, 0) != pdPASS) Serial.println(\"timer setup failed\"); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Timer callback yalnızca bildirim gönderir; olayı worker görevi işler.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Timer command queue boyutu start/stop/reset komutlarının gecikmesini etkileyebilir."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Pinler, gerilim/akım sınırları, zamanlama ve çevre birimleri karta bağlıdır; bağlantı veya yükleme öncesinde kart belgesini doğrulayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: görev durumlarını, öncelikleri, kuyruk/eşzamanlama ilişkisini ve zaman çizelgesini gösteren diyagram."
+}

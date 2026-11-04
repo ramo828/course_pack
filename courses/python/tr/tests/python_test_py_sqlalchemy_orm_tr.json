@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_sqlalchemy_orm_tr",
+  "title": "SQLAlchemy 2 ORM: veritabanıyla çalışma",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_sqlalchemy_orm",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 1. kod örneği tam olarak ne yazdırır?\n\nfrom sqlalchemy import create_engine, select\nfrom sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column\n\nclass Base(DeclarativeBase):\n    pass\n\nclass Device(Base):\n    __tablename__ = 'devices'\n    id: Mapped[int] = mapped_column(primary_key=True)\n    name: Mapped[str]\n\nengine = create_engine('sqlite+pysqlite:///:memory:')\nBase.metadata.create_all(engine)\nwith Session(engine) as session:\n    session.add(Device(name='sensor-1'))\n    session.commit()\n    names = session.scalars(select(Device.name)).all()\n    print(names)",
+      "options": [
+        "[]",
+        "['b']",
+        "safe",
+        "['sensor-1']"
+      ],
+      "answer": "['sensor-1']",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`from sqlalchemy import create_engine, select` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`class Base(DeclarativeBase):` — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n`pass` — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n`class Device(Base):` — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n`__tablename__ = 'devices'` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`id: Mapped[int] = mapped_column(primary_key=True)` — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n`name: Mapped[str]` — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n`engine = create_engine('sqlite+pysqlite:///:memory:')` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`Base.metadata.create_all(engine)` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`with Session(engine) as session:` — Kaynağı blok boyunca yönetir; bağlam yöneticisi olmazsa dosya veya bağlantı açık kalabilir.\n`session.add(Device(name='sensor-1'))` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`session.commit()` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`names = session.scalars(select(Device.name)).all()` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`print(names)` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_sqlalchemy_orm",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 2. kod örneği tam olarak ne yazdırır?\n\nfrom sqlalchemy import create_engine, select\nfrom sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column\n\nclass Base(DeclarativeBase):\n    pass\n\nclass Device(Base):\n    __tablename__ = 'devices'\n    id: Mapped[int] = mapped_column(primary_key=True)\n    name: Mapped[str]\n\nengine = create_engine('sqlite+pysqlite:///:memory:')\nBase.metadata.create_all(engine)\nwith Session(engine) as session:\n    session.add_all([Device(name='a'), Device(name='b')])\n    session.commit()\n    names = session.scalars(select(Device.name).where(Device.name == 'b')).all()\n    print(names)",
+      "options": [
+        "[]",
+        "['sensor-1']",
+        "['b']",
+        "safe"
+      ],
+      "answer": "['b']",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`from sqlalchemy import create_engine, select` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`class Base(DeclarativeBase):` — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n`pass` — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n`class Device(Base):` — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n`__tablename__ = 'devices'` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`id: Mapped[int] = mapped_column(primary_key=True)` — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n`name: Mapped[str]` — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n`engine = create_engine('sqlite+pysqlite:///:memory:')` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`Base.metadata.create_all(engine)` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`with Session(engine) as session:` — Kaynağı blok boyunca yönetir; bağlam yöneticisi olmazsa dosya veya bağlantı açık kalabilir.\n`session.add_all([Device(name='a'), Device(name='b')])` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`session.commit()` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n`names = session.scalars(select(Device.name).where(Device.name == 'b')).all()` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`print(names)` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_sqlalchemy_orm",
+      "type": "multiple_choice",
+      "prompt": "Bu dersteki 3. kod örneği tam olarak ne yazdırır?\n\nfrom sqlalchemy import create_engine, text\n\nengine = create_engine('sqlite+pysqlite:///:memory:')\nwith engine.connect() as connection:\n    value = connection.execute(\n        text('select :value'), {'value': 'safe'}\n    ).scalar_one()\n    print(value)",
+      "options": [
+        "SAFE",
+        "['b']",
+        "['sensor-1']",
+        "safe"
+      ],
+      "answer": "safe",
+      "explanation": "SATIR SATIR AÇIKLAMA\n`from sqlalchemy import create_engine, text` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`engine = create_engine('sqlite+pysqlite:///:memory:')` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`with engine.connect() as connection:` — Kaynağı blok boyunca yönetir; bağlam yöneticisi olmazsa dosya veya bağlantı açık kalabilir.\n`value = connection.execute(` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`text('select :value'), {'value': 'safe'}` — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n`).scalar_one()` — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n`print(value)` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_sqlalchemy_orm",
+      "type": "multiple_choice",
+      "prompt": "“SQLAlchemy 2 ORM: veritabanıyla çalışma” konusunu doğru tanımlayan ifade hangisidir?",
+      "options": [
+        "Yorum, açık olmayan bir kararın nedenini açıklar; iyi yorum kodu yinelemez, örneğin özel bir sınırın neden seçildiğini belirtir.",
+        "Python; okunabilir sözdizimi ve geniş kütüphanesi sayesinde otomasyon, web hizmetleri ve veri analizinde kullanılır.",
+        "Sözdizimi ve girinti kod bloklarının başlangıcını gösterir; web rotalarında ve koşullarda yanlış girinti programı çalıştırmaz.",
+        "Michael Bayer'in başlattığı SQLAlchemy, Python nesnelerini SQL işlemlerine eşleyen toolkit ve ORM'dir; amacı güçlü ve verimli veritabanı erişimini Python tarzında sunmaktır."
+      ],
+      "answer": "Michael Bayer'in başlattığı SQLAlchemy, Python nesnelerini SQL işlemlerine eşleyen toolkit ve ORM'dir; amacı güçlü ve verimli veritabanı erişimini Python tarzında sunmaktır.",
+      "explanation": "Michael Bayer'in başlattığı SQLAlchemy, Python nesnelerini SQL işlemlerine eşleyen toolkit ve ORM'dir; amacı güçlü ve verimli veritabanı erişimini Python tarzında sunmaktır. 2.x'te `Mapped`, `select()` ve `Session` kullanılır; transaction ve parametreli sorgular önemlidir."
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "id": "freertos_freertos_watchdog",
+  "title": "Watchdogs, debugging, and production patterns",
+  "difficulty": "advanced",
+  "testId": "freertos_test_freertos_watchdog_en",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/wdts.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/performance/speed.html"
+  ],
+  "estimatedMinutes": 28,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Watchdogs, debugging, and production patterns” to a real program or device. The key principle is: A watchdog triggers recovery but does not identify the root cause; retain logs, measurements, and fault records. In a project, follow this guidance: Feed the watchdog only after progress; do not report a permanently blocked task as healthy.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_task_wdt.h>\nvoid setup() { Serial.begin(115200); esp_task_wdt_add(nullptr); }\nvoid loop() { Serial.println(\"alive\"); esp_task_wdt_reset(); delay(500); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor prints alive; watchdog API availability and configuration depend on ESP-IDF/Arduino Core versions.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A watchdog restarts a system when expected progress stops; use it as a health contract, not as a blind reset. Tasks should report progress only after useful work, and logs or core dumps should help diagnose blocking and deadlocks. Production firmware also needs bounded queues, timeouts, retry/backoff, stack measurements, and a recovery plan.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "esp_task_wdt_*",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " are Espressif ESP-IDF APIs exposed by some Arduino-ESP32 core versions, not portable Arduino APIs. For another board, implement an appropriate health/timeout strategy and verify the selected core's support.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#include <esp_task_wdt.h>",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: A watchdog triggers recovery but does not identify the root cause; retain logs, measurements, and fault records.\nWhy it is used: Feed the watchdog only after progress; do not report a permanently blocked task as healthy.\nIf omitted or changed: ESP-IDF watchdog APIs vary by target/version; verify the Arduino-ESP32 API and board configuration.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "ESP-IDF watchdog APIs vary by target/version; verify the Arduino-ESP32 API and board configuration."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A watchdog triggers recovery but does not identify the root cause; retain logs, measurements, and fault records.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Feed the watchdog only after progress; do not report a permanently blocked task as healthy."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_task_wdt.h>\nvoid setup() { Serial.begin(115200); esp_task_wdt_add(nullptr); }\nvoid loop() { Serial.println(\"task is responsive\"); esp_task_wdt_reset(); delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Watchdog API availability and configuration depend on ESP-IDF/Arduino Core versions.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "For another board, implement an appropriate health/timeout strategy and verify the selected core's support."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "ESP-IDF watchdog APIs vary by target/version; verify the Arduino-ESP32 API and board configuration."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a diagram showing task states, priorities, queue/synchronization relationships, and timing."
+}

@@ -1,0 +1,345 @@
+{
+  "id": "rust_rust_concurrency",
+  "title": "Потоки и общее состояние",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_concurrency_ru",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch16-00-fearless-concurrency.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Потоки и общее состояние» в программе или устройстве. Основной принцип: Mutex защищает общий доступ к состоянию. В проекте следуйте рекомендации: Долгая операция под блокировкой может задержать другие потоки.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_send_sync_flow",
+      "caption": "Потоки и общее состояние"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::sync::{Arc, Mutex};\nuse std::thread;\nfn require_send_sync<T: Send + Sync>() {}\nfn main() {\n    require_send_sync::<u32>();\n    let shared = Arc::new(Mutex::new(0));\n    let worker_shared = Arc::clone(&shared);\n    let worker = thread::spawn(move || {\n        if let Ok(mut value) = worker_shared.lock() { *value += 1; }\n    });\n    if worker.join().is_err() { println!(\"worker failed\"); return; }\n    match shared.lock() {\n        Ok(value) => println!(\"{value}\"),\n        Err(_) => println!(\"lock poisoned\"),\n    };\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Worker-поток увеличивает общий счётчик до 1 под защитой mutex.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust предоставляет потоки и обмен сообщениями. Понимайте Send/Sync, защиту Mutex и область блокировки; по возможности начинайте с простого обмена сообщениями.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Send",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " означает, что владение можно передать между потоками; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Sync",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — что ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "&T",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " можно безопасно разделять между потоками. Обычно эти traits выводит компилятор. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Rc<T>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " не потокобезопасен; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Arc<T>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " использует атомарный счётчик ссылок, а для совместного изменения нужны ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Mutex",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " или ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "RwLock",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". Сам по себе ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Arc",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " не защищает внутренние данные. Для Tokio ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "spawn",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " обычно требуется Future с ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Send + 'static",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ".\n\nRust запускает потоки через ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "std::thread",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "; каналы передают владение сообщениями. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Send",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " характеризует передачу значения между потоками, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Sync",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " — безопасное совместное использование ссылок. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Arc<Mutex<T>>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " защищает изменяемое общее состояние, но не устраняет ошибки порядка блокировок, poisoning и deadlock. Система типов предотвращает многие гонки данных, но не все логические гонки и проблемы прогресса.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let worker = thread::spawn(move || {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Mutex защищает общий доступ к состоянию.\nЗачем она нужна: Долгая операция под блокировкой может задержать другие потоки.\nЕсли пропустить или изменить: Обрабатывайте poisoning Mutex и не вызывайте рискованные callbacks под блокировкой.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Обрабатывайте poisoning Mutex и не вызывайте рискованные callbacks под блокировкой."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Mutex защищает общий доступ к состоянию.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Долгая операция под блокировкой может задержать другие потоки."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::thread;\nfn main() {\n    let message = String::from(\"message from worker\");\n    let worker = thread::spawn(move || message);\n    match worker.join() {\n        Ok(message) => println!(\"{message}\"),\n        Err(_) => println!(\"worker panicked\"),\n    };\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "message from worker\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Для Tokio `spawn` обычно требуется Future с `Send + 'static`."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Обрабатывайте poisoning Mutex и не вызывайте рискованные callbacks под блокировкой."
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение верно передаёт основное правило темы «Потоки и общее состояние»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: Mutex защищает общий доступ к состоянию.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

@@ -1,0 +1,54 @@
+{
+  "id": "cpp_struct_enum",
+  "title": "struct and enum: grouping sensor data",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/struct.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "A ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "struct",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " groups related values; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "enum class",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " names a fixed set of states. A reading's raw ADC value, temperature, and status stay together instead of scattered globals.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "enum class SensorState : uint8_t { Ok, Missing, Error };\n\nstruct Reading {\n  uint16_t raw;\n  float celsius;\n  SensorState state;\n};\n\nReading lastReading{512, 24.5f, SensorState::Ok};",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Size and padding can vary across targets. Do not send a struct's raw memory as a wire format; encode fields explicitly."
+    }
+  ],
+  "testId": "embedded_test_cpp_struct_enum_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

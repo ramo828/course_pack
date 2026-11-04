@@ -1,0 +1,82 @@
+{
+  "id": "python_py_fastapi_testing",
+  "title": "FastAPI bağımlılıkları, async ve test",
+  "difficulty": "advanced",
+  "testId": "python_test_py_fastapi_testing_tr",
+  "sources": [
+    "https://docs.python.org/3/tutorial/",
+    "https://docs.python.org/3/using/",
+    "https://docs.python.org/3/library/",
+    "https://docs.python.org/3/library/turtle.html",
+    "https://docs.python.org/3/library/tkinter.html",
+    "https://fastapi.tiangolo.com/tutorial/",
+    "https://www.python.org/about/success/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bağımlılık enjeksiyonu tekrarlanan kimlik doğrulama, veritabanı oturumu ve yapılandırmayı uç nokta kodundan ayırır. async def yalnızca kullanılan kütüphane gerçekten async I/O sağlıyorsa yararlıdır; bloklayan kod event loop'u durdurur. TestClient ile istek/yanıtı, doğrulama hatalarını ve durum kodlarını sınayın; ASGI sunucusu ve worker sayısını dağıtım ortamına göre seçin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi.testclient import TestClient\n\nclient = TestClient(app)\nresponse = client.post('/items', json={'name': 'pen', 'price': 1.5})\nassert response.status_code == 200",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "No console output; the assertion passes when POST /items returns HTTP 200.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "TestClient ağ portu açmadan uygulamanın HTTP davranışını sınar.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Senkron veritabanı çağrısı async uç noktada da bloklayabilir; uygun async sürücü veya ayrı worker kullanın."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Geliştirme sunucusunu internete açmayın; production proxy ve secret yapılandırması ayrıca incelenmelidir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı."
+}

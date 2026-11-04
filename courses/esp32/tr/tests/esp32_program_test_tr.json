@@ -1,0 +1,734 @@
+{
+  "id": "esp32_program_test_tr",
+  "title": "ESP32 ve ailesi · Genel test",
+  "questions": [
+    {
+      "id": "esp32_esp_family_1",
+      "topicId": "esp32_esp_family",
+      "type": "multiple_choice",
+      "prompt": "“ESP32 ailesi ve kart seçimi” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "Pin seçimi tam modül ve kart şemasına göre doğrulanmalıdır.",
+        "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz."
+      ],
+      "answer": "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+      "explanation": "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.\nAçıklama: ESP32, S2, S3, C2/C3/C6 ve H2 varyantlarının CPU mimarisi, radyo, USB ve çevre birimleri farklıdır. Projeden önce modül veri sayfasını, kart şemasını ve framework desteğini kontrol edin.\n\nKöken ve yıl: ESP32 ailesini Espressif Systems geliştirdi; ilk ESP32 çipi 2016'da tanıtıldı. Amaç, Wi‑Fi ve Bluetooth'u tek bir MCU'da birleştirerek ayrı radyo ve işlemci bileşenlerinin maliyetini ve karmaşıklığını azaltmaktı. ESP32 sensör düğümlerinde, akıllı cihazlarda, ağ geçitlerinde ve düşük maliyetli IoT ürünlerinde kullanılır; gömülü firmware, IoT platformu, radyo testi ve güç optimizasyonu rollerine uygundur. Sensör ölçümünü kablosuz bir servise taşıyan küçük ve enerji duyarlı cihazlar ilginizi çekiyorsa doğru ESP32 varyantını seçmeyi öğrenin.\n\nEk `idf.py` komutları yalnız ESP-IDF projesini yapılandırıp derlemek içindir. Arduino sketch'inin bire bir karşılığı yoktur; Arduino-ESP32'de kart paketi seçilir ve sketch Arduino IDE/CLI ile derlenir."
+    },
+    {
+      "id": "esp32_esp_family_2",
+      "topicId": "esp32_esp_family",
+      "type": "multiple_choice",
+      "prompt": "“ESP32 ailesi ve kart seçimi” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "GPIO numarası karttaki fiziksel konektör sırasıyla aynı olmayabilir.",
+        "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer."
+      ],
+      "answer": "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+      "explanation": "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.\nAçıklama: ESP32, S2, S3, C2/C3/C6 ve H2 varyantlarının CPU mimarisi, radyo, USB ve çevre birimleri farklıdır. Projeden önce modül veri sayfasını, kart şemasını ve framework desteğini kontrol edin.\n\nKöken ve yıl: ESP32 ailesini Espressif Systems geliştirdi; ilk ESP32 çipi 2016'da tanıtıldı. Amaç, Wi‑Fi ve Bluetooth'u tek bir MCU'da birleştirerek ayrı radyo ve işlemci bileşenlerinin maliyetini ve karmaşıklığını azaltmaktı. ESP32 sensör düğümlerinde, akıllı cihazlarda, ağ geçitlerinde ve düşük maliyetli IoT ürünlerinde kullanılır; gömülü firmware, IoT platformu, radyo testi ve güç optimizasyonu rollerine uygundur. Sensör ölçümünü kablosuz bir servise taşıyan küçük ve enerji duyarlı cihazlar ilginizi çekiyorsa doğru ESP32 varyantını seçmeyi öğrenin.\n\nEk `idf.py` komutları yalnız ESP-IDF projesini yapılandırıp derlemek içindir. Arduino sketch'inin bire bir karşılığı yoktur; Arduino-ESP32'de kart paketi seçilir ve sketch Arduino IDE/CLI ile derlenir."
+    },
+    {
+      "id": "esp32_esp_family_3",
+      "topicId": "esp32_esp_family",
+      "type": "multiple_choice",
+      "prompt": "“ESP32 ailesi ve kart seçimi” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "ESP32-H2 gibi bazı varyantlar Wi-Fi yerine IEEE 802.15.4/Bluetooth LE odaklı olabilir.",
+        "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "ESP-IDF kurulum yöneticisi ve resmi belgeler işletim sistemine uygun araç adımlarını verir."
+      ],
+      "answer": "ESP32-H2 gibi bazı varyantlar Wi-Fi yerine IEEE 802.15.4/Bluetooth LE odaklı olabilir.",
+      "explanation": "ESP32-H2 gibi bazı varyantlar Wi-Fi yerine IEEE 802.15.4/Bluetooth LE odaklı olabilir.\nAçıklama: ESP32, S2, S3, C2/C3/C6 ve H2 varyantlarının CPU mimarisi, radyo, USB ve çevre birimleri farklıdır. Projeden önce modül veri sayfasını, kart şemasını ve framework desteğini kontrol edin.\n\nKöken ve yıl: ESP32 ailesini Espressif Systems geliştirdi; ilk ESP32 çipi 2016'da tanıtıldı. Amaç, Wi‑Fi ve Bluetooth'u tek bir MCU'da birleştirerek ayrı radyo ve işlemci bileşenlerinin maliyetini ve karmaşıklığını azaltmaktı. ESP32 sensör düğümlerinde, akıllı cihazlarda, ağ geçitlerinde ve düşük maliyetli IoT ürünlerinde kullanılır; gömülü firmware, IoT platformu, radyo testi ve güç optimizasyonu rollerine uygundur. Sensör ölçümünü kablosuz bir servise taşıyan küçük ve enerji duyarlı cihazlar ilginizi çekiyorsa doğru ESP32 varyantını seçmeyi öğrenin.\n\nEk `idf.py` komutları yalnız ESP-IDF projesini yapılandırıp derlemek içindir. Arduino sketch'inin bire bir karşılığı yoktur; Arduino-ESP32'de kart paketi seçilir ve sketch Arduino IDE/CLI ile derlenir."
+    },
+    {
+      "id": "esp32_esp_family_4",
+      "topicId": "esp32_esp_family",
+      "type": "multiple_choice",
+      "prompt": "“ESP32 ailesi ve kart seçimi” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "ESP32 GPIO girişleri 5 V tolerant değildir; uygun level shifter ve sensör kullanın.",
+        "Projeden önce modül veri sayfasını, kart şemasını ve framework desteğini kontrol edin",
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin."
+      ],
+      "answer": "Projeden önce modül veri sayfasını, kart şemasını ve framework desteğini kontrol edin",
+      "explanation": "Projeden önce modül veri sayfasını, kart şemasını ve framework desteğini kontrol edin\nAçıklama: ESP32, S2, S3, C2/C3/C6 ve H2 varyantlarının CPU mimarisi, radyo, USB ve çevre birimleri farklıdır. Projeden önce modül veri sayfasını, kart şemasını ve framework desteğini kontrol edin.\n\nKöken ve yıl: ESP32 ailesini Espressif Systems geliştirdi; ilk ESP32 çipi 2016'da tanıtıldı. Amaç, Wi‑Fi ve Bluetooth'u tek bir MCU'da birleştirerek ayrı radyo ve işlemci bileşenlerinin maliyetini ve karmaşıklığını azaltmaktı. ESP32 sensör düğümlerinde, akıllı cihazlarda, ağ geçitlerinde ve düşük maliyetli IoT ürünlerinde kullanılır; gömülü firmware, IoT platformu, radyo testi ve güç optimizasyonu rollerine uygundur. Sensör ölçümünü kablosuz bir servise taşıyan küçük ve enerji duyarlı cihazlar ilginizi çekiyorsa doğru ESP32 varyantını seçmeyi öğrenin.\n\nEk `idf.py` komutları yalnız ESP-IDF projesini yapılandırıp derlemek içindir. Arduino sketch'inin bire bir karşılığı yoktur; Arduino-ESP32'de kart paketi seçilir ve sketch Arduino IDE/CLI ile derlenir."
+    },
+    {
+      "id": "esp32_esp_setup_1",
+      "topicId": "esp32_esp_setup",
+      "type": "multiple_choice",
+      "prompt": "“Arduino Core ve ESP-IDF kurulumu” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "Pin seçimi tam modül ve kart şemasına göre doğrulanmalıdır."
+      ],
+      "answer": "ESP-IDF derlemeden önce hedef yongayı seçer.",
+      "explanation": "ESP-IDF derlemeden önce hedef yongayı seçer.\nAçıklama: Arduino-ESP32 çekirdeği Arduino ekosisteminin basit sketch modelini sunar. ESP-IDF; bileşen, CMake, Kconfig ve FreeRTOS tabanlı Espressif framework'üdür; ihtiyaca göre seçip sürümü sabitleyin.\n\n`idf.py` komutları yalnızca ESP-IDF projesi ve araç zinciri içindir. Arduino-ESP32 için Arduino CLI/IDE board paketi ve ayrı build akışı kullanılır; bu komutları Arduino sketch'iyle karıştırmayın."
+    },
+    {
+      "id": "esp32_esp_setup_2",
+      "topicId": "esp32_esp_setup",
+      "type": "multiple_choice",
+      "prompt": "“Arduino Core ve ESP-IDF kurulumu” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "GPIO numarası karttaki fiziksel konektör sırasıyla aynı olmayabilir.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin."
+      ],
+      "answer": "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin.",
+      "explanation": "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin.\nAçıklama: Arduino-ESP32 çekirdeği Arduino ekosisteminin basit sketch modelini sunar. ESP-IDF; bileşen, CMake, Kconfig ve FreeRTOS tabanlı Espressif framework'üdür; ihtiyaca göre seçip sürümü sabitleyin.\n\n`idf.py` komutları yalnızca ESP-IDF projesi ve araç zinciri içindir. Arduino-ESP32 için Arduino CLI/IDE board paketi ve ayrı build akışı kullanılır; bu komutları Arduino sketch'iyle karıştırmayın."
+    },
+    {
+      "id": "esp32_esp_setup_3",
+      "topicId": "esp32_esp_setup",
+      "type": "multiple_choice",
+      "prompt": "“Arduino Core ve ESP-IDF kurulumu” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "ESP32-H2 gibi bazı varyantlar Wi-Fi yerine IEEE 802.15.4/Bluetooth LE odaklı olabilir.",
+        "ESP-IDF kurulum yöneticisi ve resmi belgeler işletim sistemine uygun araç adımlarını verir.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz."
+      ],
+      "answer": "ESP-IDF kurulum yöneticisi ve resmi belgeler işletim sistemine uygun araç adımlarını verir.",
+      "explanation": "ESP-IDF kurulum yöneticisi ve resmi belgeler işletim sistemine uygun araç adımlarını verir.\nAçıklama: Arduino-ESP32 çekirdeği Arduino ekosisteminin basit sketch modelini sunar. ESP-IDF; bileşen, CMake, Kconfig ve FreeRTOS tabanlı Espressif framework'üdür; ihtiyaca göre seçip sürümü sabitleyin.\n\n`idf.py` komutları yalnızca ESP-IDF projesi ve araç zinciri içindir. Arduino-ESP32 için Arduino CLI/IDE board paketi ve ayrı build akışı kullanılır; bu komutları Arduino sketch'iyle karıştırmayın."
+    },
+    {
+      "id": "esp32_esp_setup_4",
+      "topicId": "esp32_esp_setup",
+      "type": "multiple_choice",
+      "prompt": "“Arduino Core ve ESP-IDF kurulumu” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "ESP-IDF; bileşen, CMake, Kconfig ve FreeRTOS tabanlı Espressif framework'üdür; ihtiyaca göre seçip sürümü sabitleyin",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32 GPIO girişleri 5 V tolerant değildir; uygun level shifter ve sensör kullanın.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin."
+      ],
+      "answer": "ESP-IDF; bileşen, CMake, Kconfig ve FreeRTOS tabanlı Espressif framework'üdür; ihtiyaca göre seçip sürümü sabitleyin",
+      "explanation": "ESP-IDF; bileşen, CMake, Kconfig ve FreeRTOS tabanlı Espressif framework'üdür; ihtiyaca göre seçip sürümü sabitleyin\nAçıklama: Arduino-ESP32 çekirdeği Arduino ekosisteminin basit sketch modelini sunar. ESP-IDF; bileşen, CMake, Kconfig ve FreeRTOS tabanlı Espressif framework'üdür; ihtiyaca göre seçip sürümü sabitleyin.\n\n`idf.py` komutları yalnızca ESP-IDF projesi ve araç zinciri içindir. Arduino-ESP32 için Arduino CLI/IDE board paketi ve ayrı build akışı kullanılır; bu komutları Arduino sketch'iyle karıştırmayın."
+    },
+    {
+      "id": "esp32_esp_pins_1",
+      "topicId": "esp32_esp_pins",
+      "type": "multiple_choice",
+      "prompt": "“GPIO, boot strap ve elektrik sınırları” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "Pin seçimi tam modül ve kart şemasına göre doğrulanmalıdır.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer."
+      ],
+      "answer": "Pin seçimi tam modül ve kart şemasına göre doğrulanmalıdır.",
+      "explanation": "Pin seçimi tam modül ve kart şemasına göre doğrulanmalıdır.\nAçıklama: Bazı ESP32 GPIO'ları açılışta örneklenir, bazıları giriş veya özel çevre birimine ayrılır. Kart şemasında flash/PSRAM, USB ve strapping pinlerini kontrol edin; gerilimi yongaya uygun tutun."
+    },
+    {
+      "id": "esp32_esp_pins_2",
+      "topicId": "esp32_esp_pins",
+      "type": "multiple_choice",
+      "prompt": "“GPIO, boot strap ve elektrik sınırları” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "GPIO numarası karttaki fiziksel konektör sırasıyla aynı olmayabilir.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin."
+      ],
+      "answer": "GPIO numarası karttaki fiziksel konektör sırasıyla aynı olmayabilir.",
+      "explanation": "GPIO numarası karttaki fiziksel konektör sırasıyla aynı olmayabilir.\nAçıklama: Bazı ESP32 GPIO'ları açılışta örneklenir, bazıları giriş veya özel çevre birimine ayrılır. Kart şemasında flash/PSRAM, USB ve strapping pinlerini kontrol edin; gerilimi yongaya uygun tutun."
+    },
+    {
+      "id": "esp32_esp_pins_3",
+      "topicId": "esp32_esp_pins",
+      "type": "multiple_choice",
+      "prompt": "“GPIO, boot strap ve elektrik sınırları” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Bazı ESP32 GPIO'ları açılışta örneklenir, bazıları giriş veya özel çevre birimine ayrılır",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32-H2 gibi bazı varyantlar Wi-Fi yerine IEEE 802.15.4/Bluetooth LE odaklı olabilir.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz."
+      ],
+      "answer": "Bazı ESP32 GPIO'ları açılışta örneklenir, bazıları giriş veya özel çevre birimine ayrılır",
+      "explanation": "Bazı ESP32 GPIO'ları açılışta örneklenir, bazıları giriş veya özel çevre birimine ayrılır\nAçıklama: Bazı ESP32 GPIO'ları açılışta örneklenir, bazıları giriş veya özel çevre birimine ayrılır. Kart şemasında flash/PSRAM, USB ve strapping pinlerini kontrol edin; gerilimi yongaya uygun tutun."
+    },
+    {
+      "id": "esp32_esp_pins_4",
+      "topicId": "esp32_esp_pins",
+      "type": "multiple_choice",
+      "prompt": "“GPIO, boot strap ve elektrik sınırları” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "ESP32 GPIO girişleri 5 V tolerant değildir; uygun level shifter ve sensör kullanın.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin."
+      ],
+      "answer": "ESP32 GPIO girişleri 5 V tolerant değildir; uygun level shifter ve sensör kullanın.",
+      "explanation": "ESP32 GPIO girişleri 5 V tolerant değildir; uygun level shifter ve sensör kullanın.\nAçıklama: Bazı ESP32 GPIO'ları açılışta örneklenir, bazıları giriş veya özel çevre birimine ayrılır. Kart şemasında flash/PSRAM, USB ve strapping pinlerini kontrol edin; gerilimi yongaya uygun tutun."
+    },
+    {
+      "id": "esp32_esp_gpio_1",
+      "topicId": "esp32_esp_gpio",
+      "type": "multiple_choice",
+      "prompt": "“GPIO, interrupt ve debouncing” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "ISR kısa tutulur, asıl iş normal task veya loop içinde yapılır.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer."
+      ],
+      "answer": "ISR kısa tutulur, asıl iş normal task veya loop içinde yapılır.",
+      "explanation": "ISR kısa tutulur, asıl iş normal task veya loop içinde yapılır.\nAçıklama: GPIO giriş/çıkışını uygun pinlerde yapılandırın. Interrupt içinde kısa bayrak ve zaman damgası kaydedin; mekanik butonları debounce etmeden tekrarlanan olay saymayın."
+    },
+    {
+      "id": "esp32_esp_gpio_2",
+      "topicId": "esp32_esp_gpio",
+      "type": "multiple_choice",
+      "prompt": "“GPIO, interrupt ve debouncing” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin.",
+        "Interrupt kaynağını ve pin tetikleme kipini dikkatle seçin.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz."
+      ],
+      "answer": "Interrupt kaynağını ve pin tetikleme kipini dikkatle seçin.",
+      "explanation": "Interrupt kaynağını ve pin tetikleme kipini dikkatle seçin.\nAçıklama: GPIO giriş/çıkışını uygun pinlerde yapılandırın. Interrupt içinde kısa bayrak ve zaman damgası kaydedin; mekanik butonları debounce etmeden tekrarlanan olay saymayın."
+    },
+    {
+      "id": "esp32_esp_gpio_3",
+      "topicId": "esp32_esp_gpio",
+      "type": "multiple_choice",
+      "prompt": "“GPIO, interrupt ve debouncing” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "ESP32-H2 gibi bazı varyantlar Wi-Fi yerine IEEE 802.15.4/Bluetooth LE odaklı olabilir.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "GPIO giriş/çıkışını uygun pinlerde yapılandırın",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz."
+      ],
+      "answer": "GPIO giriş/çıkışını uygun pinlerde yapılandırın",
+      "explanation": "GPIO giriş/çıkışını uygun pinlerde yapılandırın\nAçıklama: GPIO giriş/çıkışını uygun pinlerde yapılandırın. Interrupt içinde kısa bayrak ve zaman damgası kaydedin; mekanik butonları debounce etmeden tekrarlanan olay saymayın."
+    },
+    {
+      "id": "esp32_esp_gpio_4",
+      "topicId": "esp32_esp_gpio",
+      "type": "multiple_choice",
+      "prompt": "“GPIO, interrupt ve debouncing” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "FreeRTOS görevleriyle paylaşılan değişkenlerde uygun eşzamanlama ve ISR-safe API gerekir."
+      ],
+      "answer": "FreeRTOS görevleriyle paylaşılan değişkenlerde uygun eşzamanlama ve ISR-safe API gerekir.",
+      "explanation": "FreeRTOS görevleriyle paylaşılan değişkenlerde uygun eşzamanlama ve ISR-safe API gerekir.\nAçıklama: GPIO giriş/çıkışını uygun pinlerde yapılandırın. Interrupt içinde kısa bayrak ve zaman damgası kaydedin; mekanik butonları debounce etmeden tekrarlanan olay saymayın."
+    },
+    {
+      "id": "esp32_esp_adc_pwm_1",
+      "topicId": "esp32_esp_adc_pwm",
+      "type": "multiple_choice",
+      "prompt": "“ADC, LEDC PWM ve dokunma” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "ADC pini ve davranışı ESP32 varyantına göre değişir."
+      ],
+      "answer": "ADC pini ve davranışı ESP32 varyantına göre değişir.",
+      "explanation": "ADC pini ve davranışı ESP32 varyantına göre değişir.\nAçıklama: ESP32 ADC birimi, kanal eşlemesi ve attenuation varyanta bağlıdır; ham sonucu doğrudan gerilim saymayın. LEDC timer/channel ile PWM üretir; touch desteğini modelden doğrulayın."
+    },
+    {
+      "id": "esp32_esp_adc_pwm_2",
+      "topicId": "esp32_esp_adc_pwm",
+      "type": "multiple_choice",
+      "prompt": "“ADC, LEDC PWM ve dokunma” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "ADC ölçümünde gürültü, kalibrasyon ve giriş aralığını hesaba katın.",
+        "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin."
+      ],
+      "answer": "ADC ölçümünde gürültü, kalibrasyon ve giriş aralığını hesaba katın.",
+      "explanation": "ADC ölçümünde gürültü, kalibrasyon ve giriş aralığını hesaba katın.\nAçıklama: ESP32 ADC birimi, kanal eşlemesi ve attenuation varyanta bağlıdır; ham sonucu doğrudan gerilim saymayın. LEDC timer/channel ile PWM üretir; touch desteğini modelden doğrulayın."
+    },
+    {
+      "id": "esp32_esp_adc_pwm_3",
+      "topicId": "esp32_esp_adc_pwm",
+      "type": "multiple_choice",
+      "prompt": "“ADC, LEDC PWM ve dokunma” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32-H2 gibi bazı varyantlar Wi-Fi yerine IEEE 802.15.4/Bluetooth LE odaklı olabilir.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32 ADC birimi, kanal eşlemesi ve attenuation varyanta bağlıdır; ham sonucu doğrudan gerilim saymayın"
+      ],
+      "answer": "ESP32 ADC birimi, kanal eşlemesi ve attenuation varyanta bağlıdır; ham sonucu doğrudan gerilim saymayın",
+      "explanation": "ESP32 ADC birimi, kanal eşlemesi ve attenuation varyanta bağlıdır; ham sonucu doğrudan gerilim saymayın\nAçıklama: ESP32 ADC birimi, kanal eşlemesi ve attenuation varyanta bağlıdır; ham sonucu doğrudan gerilim saymayın. LEDC timer/channel ile PWM üretir; touch desteğini modelden doğrulayın."
+    },
+    {
+      "id": "esp32_esp_adc_pwm_4",
+      "topicId": "esp32_esp_adc_pwm",
+      "type": "multiple_choice",
+      "prompt": "“ADC, LEDC PWM ve dokunma” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ADC pinini veri sayfasındaki gerilim sınırının dışına çıkarmayın."
+      ],
+      "answer": "ADC pinini veri sayfasındaki gerilim sınırının dışına çıkarmayın.",
+      "explanation": "ADC pinini veri sayfasındaki gerilim sınırının dışına çıkarmayın.\nAçıklama: ESP32 ADC birimi, kanal eşlemesi ve attenuation varyanta bağlıdır; ham sonucu doğrudan gerilim saymayın. LEDC timer/channel ile PWM üretir; touch desteğini modelden doğrulayın."
+    },
+    {
+      "id": "esp32_esp_buses_1",
+      "topicId": "esp32_esp_buses",
+      "type": "multiple_choice",
+      "prompt": "“I2C, SPI ve UART çevre birimleri” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "I2C'de her aygıtın adresi doğru seçilmelidir.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin."
+      ],
+      "answer": "I2C'de her aygıtın adresi doğru seçilmelidir.",
+      "explanation": "I2C'de her aygıtın adresi doğru seçilmelidir.\nAçıklama: ESP32 çevre birimini seçerken pin matrix, kartta ayrılmış pin ve sürücü API'sini birlikte değerlendirin. I2C pull-up gerektirebilir; SPI chip-select, UART uygun baud ve hat seviyesi ister."
+    },
+    {
+      "id": "esp32_esp_buses_2",
+      "topicId": "esp32_esp_buses",
+      "type": "multiple_choice",
+      "prompt": "“I2C, SPI ve UART çevre birimleri” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "İletişim hatasında önce kablo, GND, hız ve adresi kontrol edin.",
+        "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin."
+      ],
+      "answer": "İletişim hatasında önce kablo, GND, hız ve adresi kontrol edin.",
+      "explanation": "İletişim hatasında önce kablo, GND, hız ve adresi kontrol edin.\nAçıklama: ESP32 çevre birimini seçerken pin matrix, kartta ayrılmış pin ve sürücü API'sini birlikte değerlendirin. I2C pull-up gerektirebilir; SPI chip-select, UART uygun baud ve hat seviyesi ister."
+    },
+    {
+      "id": "esp32_esp_buses_3",
+      "topicId": "esp32_esp_buses",
+      "type": "multiple_choice",
+      "prompt": "“I2C, SPI ve UART çevre birimleri” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32 çevre birimini seçerken pin matrix, kartta ayrılmış pin ve sürücü API'sini birlikte değerlendirin",
+        "ESP32-H2 gibi bazı varyantlar Wi-Fi yerine IEEE 802.15.4/Bluetooth LE odaklı olabilir."
+      ],
+      "answer": "ESP32 çevre birimini seçerken pin matrix, kartta ayrılmış pin ve sürücü API'sini birlikte değerlendirin",
+      "explanation": "ESP32 çevre birimini seçerken pin matrix, kartta ayrılmış pin ve sürücü API'sini birlikte değerlendirin\nAçıklama: ESP32 çevre birimini seçerken pin matrix, kartta ayrılmış pin ve sürücü API'sini birlikte değerlendirin. I2C pull-up gerektirebilir; SPI chip-select, UART uygun baud ve hat seviyesi ister."
+    },
+    {
+      "id": "esp32_esp_buses_4",
+      "topicId": "esp32_esp_buses",
+      "type": "multiple_choice",
+      "prompt": "“I2C, SPI ve UART çevre birimleri” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "I2C pull-up gerektirebilir; SPI chip-select, UART uygun baud ve hat seviyesi ister.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz."
+      ],
+      "answer": "I2C pull-up gerektirebilir; SPI chip-select, UART uygun baud ve hat seviyesi ister.",
+      "explanation": "I2C pull-up gerektirebilir; SPI chip-select, UART uygun baud ve hat seviyesi ister.\nAçıklama: ESP32 çevre birimini seçerken pin matrix, kartta ayrılmış pin ve sürücü API'sini birlikte değerlendirin. I2C pull-up gerektirebilir; SPI chip-select, UART uygun baud ve hat seviyesi ister."
+    },
+    {
+      "id": "esp32_esp_wifi_1",
+      "topicId": "esp32_esp_wifi",
+      "type": "multiple_choice",
+      "prompt": "“Wi-Fi station ve access point” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "WiFi.mode(WIFI_STA) cihazı station kipine alır."
+      ],
+      "answer": "WiFi.mode(WIFI_STA) cihazı station kipine alır.",
+      "explanation": "WiFi.mode(WIFI_STA) cihazı station kipine alır.\nAçıklama: Station kipi mevcut routera bağlanır; access point cihazın yerel ağ oluşturmasını sağlar. Yeniden bağlantıyı durum makinesiyle yönetin; Wi-Fi işleri ana kontrol görevini uzun süre bloklamasın."
+    },
+    {
+      "id": "esp32_esp_wifi_2",
+      "topicId": "esp32_esp_wifi",
+      "type": "multiple_choice",
+      "prompt": "“Wi-Fi station ve access point” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin.",
+        "Ağ adını ve parolunu firmware kaynak koduna gömmeyin.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz."
+      ],
+      "answer": "Ağ adını ve parolunu firmware kaynak koduna gömmeyin.",
+      "explanation": "Ağ adını ve parolunu firmware kaynak koduna gömmeyin.\nAçıklama: Station kipi mevcut routera bağlanır; access point cihazın yerel ağ oluşturmasını sağlar. Yeniden bağlantıyı durum makinesiyle yönetin; Wi-Fi işleri ana kontrol görevini uzun süre bloklamasın."
+    },
+    {
+      "id": "esp32_esp_wifi_3",
+      "topicId": "esp32_esp_wifi",
+      "type": "multiple_choice",
+      "prompt": "“Wi-Fi station ve access point” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Station kipi mevcut routera bağlanır; access point cihazın yerel ağ oluşturmasını sağlar",
+        "ESP32-H2 gibi bazı varyantlar Wi-Fi yerine IEEE 802.15.4/Bluetooth LE odaklı olabilir.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz."
+      ],
+      "answer": "Station kipi mevcut routera bağlanır; access point cihazın yerel ağ oluşturmasını sağlar",
+      "explanation": "Station kipi mevcut routera bağlanır; access point cihazın yerel ağ oluşturmasını sağlar\nAçıklama: Station kipi mevcut routera bağlanır; access point cihazın yerel ağ oluşturmasını sağlar. Yeniden bağlantıyı durum makinesiyle yönetin; Wi-Fi işleri ana kontrol görevini uzun süre bloklamasın."
+    },
+    {
+      "id": "esp32_esp_wifi_4",
+      "topicId": "esp32_esp_wifi",
+      "type": "multiple_choice",
+      "prompt": "“Wi-Fi station ve access point” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "Üretim cihazında açık access point veya sabit varsayılan parola bırakmayın.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer."
+      ],
+      "answer": "Üretim cihazında açık access point veya sabit varsayılan parola bırakmayın.",
+      "explanation": "Üretim cihazında açık access point veya sabit varsayılan parola bırakmayın.\nAçıklama: Station kipi mevcut routera bağlanır; access point cihazın yerel ağ oluşturmasını sağlar. Yeniden bağlantıyı durum makinesiyle yönetin; Wi-Fi işleri ana kontrol görevini uzun süre bloklamasın."
+    },
+    {
+      "id": "esp32_esp_ble_1",
+      "topicId": "esp32_esp_ble",
+      "type": "multiple_choice",
+      "prompt": "“Bluetooth LE ve GATT” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "GATT veriyi servis ve characteristic altında düzenler.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin."
+      ],
+      "answer": "GATT veriyi servis ve characteristic altında düzenler.",
+      "explanation": "GATT veriyi servis ve characteristic altında düzenler.\nAçıklama: BLE GATT server servis ve characteristic'lerle veri paylaşır. Reklam, bağlantı, MTU ve güç davranışı varyant ve SDK'ya bağlıdır; yetkiyi ve veriyi kimin okuyacağını belirleyin.\n\nBLE sketch'i Arduino-ESP32 BLE kütüphanesini kullanır; header/API desteği çekirdek sürümüne göre değişebilir. ESP-IDF GATT API'sinin callback ve yaşam döngüsü farklıdır; bu sketch onu taklit etmez."
+    },
+    {
+      "id": "esp32_esp_ble_2",
+      "topicId": "esp32_esp_ble",
+      "type": "multiple_choice",
+      "prompt": "“Bluetooth LE ve GATT” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "Salt okunur characteristic bile hassas veri taşıyabilir; eşleştirme ve yetkiyi planlayın."
+      ],
+      "answer": "Salt okunur characteristic bile hassas veri taşıyabilir; eşleştirme ve yetkiyi planlayın.",
+      "explanation": "Salt okunur characteristic bile hassas veri taşıyabilir; eşleştirme ve yetkiyi planlayın.\nAçıklama: BLE GATT server servis ve characteristic'lerle veri paylaşır. Reklam, bağlantı, MTU ve güç davranışı varyant ve SDK'ya bağlıdır; yetkiyi ve veriyi kimin okuyacağını belirleyin.\n\nBLE sketch'i Arduino-ESP32 BLE kütüphanesini kullanır; header/API desteği çekirdek sürümüne göre değişebilir. ESP-IDF GATT API'sinin callback ve yaşam döngüsü farklıdır; bu sketch onu taklit etmez."
+    },
+    {
+      "id": "esp32_esp_ble_3",
+      "topicId": "esp32_esp_ble",
+      "type": "multiple_choice",
+      "prompt": "“Bluetooth LE ve GATT” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32-H2 gibi bazı varyantlar Wi-Fi yerine IEEE 802.15.4/Bluetooth LE odaklı olabilir.",
+        "BLE GATT server servis ve characteristic'lerle veri paylaşır"
+      ],
+      "answer": "BLE GATT server servis ve characteristic'lerle veri paylaşır",
+      "explanation": "BLE GATT server servis ve characteristic'lerle veri paylaşır\nAçıklama: BLE GATT server servis ve characteristic'lerle veri paylaşır. Reklam, bağlantı, MTU ve güç davranışı varyant ve SDK'ya bağlıdır; yetkiyi ve veriyi kimin okuyacağını belirleyin.\n\nBLE sketch'i Arduino-ESP32 BLE kütüphanesini kullanır; header/API desteği çekirdek sürümüne göre değişebilir. ESP-IDF GATT API'sinin callback ve yaşam döngüsü farklıdır; bu sketch onu taklit etmez."
+    },
+    {
+      "id": "esp32_esp_ble_4",
+      "topicId": "esp32_esp_ble",
+      "type": "multiple_choice",
+      "prompt": "“Bluetooth LE ve GATT” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "Reklam, bağlantı, MTU ve güç davranışı varyant ve SDK'ya bağlıdır; yetkiyi ve veriyi kimin okuyacağını belirleyin"
+      ],
+      "answer": "Reklam, bağlantı, MTU ve güç davranışı varyant ve SDK'ya bağlıdır; yetkiyi ve veriyi kimin okuyacağını belirleyin",
+      "explanation": "Reklam, bağlantı, MTU ve güç davranışı varyant ve SDK'ya bağlıdır; yetkiyi ve veriyi kimin okuyacağını belirleyin\nAçıklama: BLE GATT server servis ve characteristic'lerle veri paylaşır. Reklam, bağlantı, MTU ve güç davranışı varyant ve SDK'ya bağlıdır; yetkiyi ve veriyi kimin okuyacağını belirleyin.\n\nBLE sketch'i Arduino-ESP32 BLE kütüphanesini kullanır; header/API desteği çekirdek sürümüne göre değişebilir. ESP-IDF GATT API'sinin callback ve yaşam döngüsü farklıdır; bu sketch onu taklit etmez."
+    },
+    {
+      "id": "esp32_esp_freertos_1",
+      "topicId": "esp32_esp_freertos",
+      "type": "multiple_choice",
+      "prompt": "“ESP32'de FreeRTOS: Arduino ve ESP-IDF” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Queue görevler arasında ileti aktarıp işi ayırır.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer."
+      ],
+      "answer": "Queue görevler arasında ileti aktarıp işi ayırır.",
+      "explanation": "Queue görevler arasında ileti aktarıp işi ayırır.\nAçıklama: ESP-IDF işi FreeRTOS görev ve queue'larıyla böler. Stack boyutu, öncelik, core affinity ve bloklanma süresini ölçün; ilerlemeyen görev watchdog'u tetikleyebilir."
+    },
+    {
+      "id": "esp32_esp_freertos_2",
+      "topicId": "esp32_esp_freertos",
+      "type": "multiple_choice",
+      "prompt": "“ESP32'de FreeRTOS: Arduino ve ESP-IDF” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Görevler arası değiştirilebilir veriyi kilit veya mesaj kuyruğuyla koruyun.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz."
+      ],
+      "answer": "Görevler arası değiştirilebilir veriyi kilit veya mesaj kuyruğuyla koruyun.",
+      "explanation": "Görevler arası değiştirilebilir veriyi kilit veya mesaj kuyruğuyla koruyun.\nAçıklama: ESP-IDF işi FreeRTOS görev ve queue'larıyla böler. Stack boyutu, öncelik, core affinity ve bloklanma süresini ölçün; ilerlemeyen görev watchdog'u tetikleyebilir."
+    },
+    {
+      "id": "esp32_esp_freertos_3",
+      "topicId": "esp32_esp_freertos",
+      "type": "multiple_choice",
+      "prompt": "“ESP32'de FreeRTOS: Arduino ve ESP-IDF” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32-H2 gibi bazı varyantlar Wi-Fi yerine IEEE 802.15.4/Bluetooth LE odaklı olabilir.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP-IDF işi FreeRTOS görev ve queue'larıyla böler"
+      ],
+      "answer": "ESP-IDF işi FreeRTOS görev ve queue'larıyla böler",
+      "explanation": "ESP-IDF işi FreeRTOS görev ve queue'larıyla böler\nAçıklama: ESP-IDF işi FreeRTOS görev ve queue'larıyla böler. Stack boyutu, öncelik, core affinity ve bloklanma süresini ölçün; ilerlemeyen görev watchdog'u tetikleyebilir."
+    },
+    {
+      "id": "esp32_esp_freertos_4",
+      "topicId": "esp32_esp_freertos",
+      "type": "multiple_choice",
+      "prompt": "“ESP32'de FreeRTOS: Arduino ve ESP-IDF” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "Watchdog'u kapatıp bloklanmayı gizlemeyin; görevin neden ilerlemediğini bulun.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz."
+      ],
+      "answer": "Watchdog'u kapatıp bloklanmayı gizlemeyin; görevin neden ilerlemediğini bulun.",
+      "explanation": "Watchdog'u kapatıp bloklanmayı gizlemeyin; görevin neden ilerlemediğini bulun.\nAçıklama: ESP-IDF işi FreeRTOS görev ve queue'larıyla böler. Stack boyutu, öncelik, core affinity ve bloklanma süresini ölçün; ilerlemeyen görev watchdog'u tetikleyebilir."
+    },
+    {
+      "id": "esp32_esp_nvs_1",
+      "topicId": "esp32_esp_nvs",
+      "type": "multiple_choice",
+      "prompt": "“NVS ve kalıcı yapılandırma” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "NVS güç kesilince de kalan yapılandırmayı saklar.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz."
+      ],
+      "answer": "NVS güç kesilince de kalan yapılandırmayı saklar.",
+      "explanation": "NVS güç kesilince de kalan yapılandırmayı saklar.\nAçıklama: NVS küçük anahtar-değer yapılandırmasını flash'ta saklar. Yazma sıklığını sınırlayın, biçim sürümünü kaydedin ve başarısız geçişte güvenli varsayılana dönün."
+    },
+    {
+      "id": "esp32_esp_nvs_2",
+      "topicId": "esp32_esp_nvs",
+      "type": "multiple_choice",
+      "prompt": "“NVS ve kalıcı yapılandırma” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "Sık değişen sayacı her döngüde flash'a yazmak bellek ömrünü azaltabilir."
+      ],
+      "answer": "Sık değişen sayacı her döngüde flash'a yazmak bellek ömrünü azaltabilir.",
+      "explanation": "Sık değişen sayacı her döngüde flash'a yazmak bellek ömrünü azaltabilir.\nAçıklama: NVS küçük anahtar-değer yapılandırmasını flash'ta saklar. Yazma sıklığını sınırlayın, biçim sürümünü kaydedin ve başarısız geçişte güvenli varsayılana dönün."
+    },
+    {
+      "id": "esp32_esp_nvs_3",
+      "topicId": "esp32_esp_nvs",
+      "type": "multiple_choice",
+      "prompt": "“NVS ve kalıcı yapılandırma” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "NVS küçük anahtar-değer yapılandırmasını flash'ta saklar",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32-H2 gibi bazı varyantlar Wi-Fi yerine IEEE 802.15.4/Bluetooth LE odaklı olabilir."
+      ],
+      "answer": "NVS küçük anahtar-değer yapılandırmasını flash'ta saklar",
+      "explanation": "NVS küçük anahtar-değer yapılandırmasını flash'ta saklar\nAçıklama: NVS küçük anahtar-değer yapılandırmasını flash'ta saklar. Yazma sıklığını sınırlayın, biçim sürümünü kaydedin ve başarısız geçişte güvenli varsayılana dönün."
+    },
+    {
+      "id": "esp32_esp_nvs_4",
+      "topicId": "esp32_esp_nvs",
+      "type": "multiple_choice",
+      "prompt": "“NVS ve kalıcı yapılandırma” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "Yazma sıklığını sınırlayın, biçim sürümünü kaydedin ve başarısız geçişte güvenli varsayılana dönün."
+      ],
+      "answer": "Yazma sıklığını sınırlayın, biçim sürümünü kaydedin ve başarısız geçişte güvenli varsayılana dönün.",
+      "explanation": "Yazma sıklığını sınırlayın, biçim sürümünü kaydedin ve başarısız geçişte güvenli varsayılana dönün.\nAçıklama: NVS küçük anahtar-değer yapılandırmasını flash'ta saklar. Yazma sıklığını sınırlayın, biçim sürümünü kaydedin ve başarısız geçişte güvenli varsayılana dönün."
+    },
+    {
+      "id": "esp32_esp_sleep_1",
+      "topicId": "esp32_esp_sleep",
+      "type": "multiple_choice",
+      "prompt": "“Deep sleep ve güç bütçesi” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "Deep sleep öncesinde uyanma kaynağı yapılandırılmalıdır.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin."
+      ],
+      "answer": "Deep sleep öncesinde uyanma kaynağı yapılandırılmalıdır.",
+      "explanation": "Deep sleep öncesinde uyanma kaynağı yapılandırılmalıdır.\nAçıklama: Pilli cihazın güç bütçesi CPU, radyo, sensör, regülatör ve uyku akımını içerir. Deep sleep'te uyanma kaynağını, korunan durumu ve yeniden provisioning ihtiyacını planlayıp kartta ölçün.\n\nÖrnekteki `esp_sleep_*` işlevleri Espressif ESP-IDF API'sidir ve Arduino-ESP32 çekirdeğinde dışa açılır; genel Arduino kartlarında aynı API garanti edilmez."
+    },
+    {
+      "id": "esp32_esp_sleep_2",
+      "topicId": "esp32_esp_sleep",
+      "type": "multiple_choice",
+      "prompt": "“Deep sleep ve güç bütçesi” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin.",
+        "Veri sayfasındaki yonga akımı tüm geliştirme kartının uyku akımı değildir.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz."
+      ],
+      "answer": "Veri sayfasındaki yonga akımı tüm geliştirme kartının uyku akımı değildir.",
+      "explanation": "Veri sayfasındaki yonga akımı tüm geliştirme kartının uyku akımı değildir.\nAçıklama: Pilli cihazın güç bütçesi CPU, radyo, sensör, regülatör ve uyku akımını içerir. Deep sleep'te uyanma kaynağını, korunan durumu ve yeniden provisioning ihtiyacını planlayıp kartta ölçün.\n\nÖrnekteki `esp_sleep_*` işlevleri Espressif ESP-IDF API'sidir ve Arduino-ESP32 çekirdeğinde dışa açılır; genel Arduino kartlarında aynı API garanti edilmez."
+    },
+    {
+      "id": "esp32_esp_sleep_3",
+      "topicId": "esp32_esp_sleep",
+      "type": "multiple_choice",
+      "prompt": "“Deep sleep ve güç bütçesi” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "Pilli cihazın güç bütçesi CPU, radyo, sensör, regülatör ve uyku akımını içerir",
+        "ESP32-H2 gibi bazı varyantlar Wi-Fi yerine IEEE 802.15.4/Bluetooth LE odaklı olabilir.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz."
+      ],
+      "answer": "Pilli cihazın güç bütçesi CPU, radyo, sensör, regülatör ve uyku akımını içerir",
+      "explanation": "Pilli cihazın güç bütçesi CPU, radyo, sensör, regülatör ve uyku akımını içerir\nAçıklama: Pilli cihazın güç bütçesi CPU, radyo, sensör, regülatör ve uyku akımını içerir. Deep sleep'te uyanma kaynağını, korunan durumu ve yeniden provisioning ihtiyacını planlayıp kartta ölçün.\n\nÖrnekteki `esp_sleep_*` işlevleri Espressif ESP-IDF API'sidir ve Arduino-ESP32 çekirdeğinde dışa açılır; genel Arduino kartlarında aynı API garanti edilmez."
+    },
+    {
+      "id": "esp32_esp_sleep_4",
+      "topicId": "esp32_esp_sleep",
+      "type": "multiple_choice",
+      "prompt": "“Deep sleep ve güç bütçesi” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "Deep sleep'te uyanma kaynağını, korunan durumu ve yeniden provisioning ihtiyacını planlayıp kartta ölçün",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer."
+      ],
+      "answer": "Deep sleep'te uyanma kaynağını, korunan durumu ve yeniden provisioning ihtiyacını planlayıp kartta ölçün",
+      "explanation": "Deep sleep'te uyanma kaynağını, korunan durumu ve yeniden provisioning ihtiyacını planlayıp kartta ölçün\nAçıklama: Pilli cihazın güç bütçesi CPU, radyo, sensör, regülatör ve uyku akımını içerir. Deep sleep'te uyanma kaynağını, korunan durumu ve yeniden provisioning ihtiyacını planlayıp kartta ölçün.\n\nÖrnekteki `esp_sleep_*` işlevleri Espressif ESP-IDF API'sidir ve Arduino-ESP32 çekirdeğinde dışa açılır; genel Arduino kartlarında aynı API garanti edilmez."
+    },
+    {
+      "id": "esp32_esp_ota_1",
+      "topicId": "esp32_esp_ota",
+      "type": "multiple_choice",
+      "prompt": "“OTA, partition ve rollback” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "Rollback güvenli önceki image'e dönme yoludur.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer."
+      ],
+      "answer": "Rollback güvenli önceki image'e dönme yoludur.",
+      "explanation": "Rollback güvenli önceki image'e dönme yoludur.\nAçıklama: OTA yeni firmware'i etkin image yanındaki uygun partition'a yazabilir. Partition tablosu, image boyutu, sürüm/imza denetimi, sağlık onayı ve rollback birlikte tasarlanmalıdır.\n\nBu kod ESP-IDF OTA partition API'sini Arduino-ESP32 projesinde kullanır. Partition seçimi, rollback ve imza doğrulaması genel Arduino API'si değildir; basit ArduinoOTA/Update seçenekleri vardır, ancak güvenli boot/rollback için ESP-IDF partition ve doğrulama ayarları açıkça kurulmalıdır."
+    },
+    {
+      "id": "esp32_esp_ota_2",
+      "topicId": "esp32_esp_ota",
+      "type": "multiple_choice",
+      "prompt": "“OTA, partition ve rollback” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "Güncellemeyi güç kesintisi, zayıf ağ ve uyumsuz sürümle test edin.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin."
+      ],
+      "answer": "Güncellemeyi güç kesintisi, zayıf ağ ve uyumsuz sürümle test edin.",
+      "explanation": "Güncellemeyi güç kesintisi, zayıf ağ ve uyumsuz sürümle test edin.\nAçıklama: OTA yeni firmware'i etkin image yanındaki uygun partition'a yazabilir. Partition tablosu, image boyutu, sürüm/imza denetimi, sağlık onayı ve rollback birlikte tasarlanmalıdır.\n\nBu kod ESP-IDF OTA partition API'sini Arduino-ESP32 projesinde kullanır. Partition seçimi, rollback ve imza doğrulaması genel Arduino API'si değildir; basit ArduinoOTA/Update seçenekleri vardır, ancak güvenli boot/rollback için ESP-IDF partition ve doğrulama ayarları açıkça kurulmalıdır."
+    },
+    {
+      "id": "esp32_esp_ota_3",
+      "topicId": "esp32_esp_ota",
+      "type": "multiple_choice",
+      "prompt": "“OTA, partition ve rollback” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "OTA yeni firmware'i etkin image yanındaki uygun partition'a yazabilir",
+        "ESP32-H2 gibi bazı varyantlar Wi-Fi yerine IEEE 802.15.4/Bluetooth LE odaklı olabilir.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin."
+      ],
+      "answer": "OTA yeni firmware'i etkin image yanındaki uygun partition'a yazabilir",
+      "explanation": "OTA yeni firmware'i etkin image yanındaki uygun partition'a yazabilir\nAçıklama: OTA yeni firmware'i etkin image yanındaki uygun partition'a yazabilir. Partition tablosu, image boyutu, sürüm/imza denetimi, sağlık onayı ve rollback birlikte tasarlanmalıdır.\n\nBu kod ESP-IDF OTA partition API'sini Arduino-ESP32 projesinde kullanır. Partition seçimi, rollback ve imza doğrulaması genel Arduino API'si değildir; basit ArduinoOTA/Update seçenekleri vardır, ancak güvenli boot/rollback için ESP-IDF partition ve doğrulama ayarları açıkça kurulmalıdır."
+    },
+    {
+      "id": "esp32_esp_ota_4",
+      "topicId": "esp32_esp_ota",
+      "type": "multiple_choice",
+      "prompt": "“OTA, partition ve rollback” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "İmzayı doğrulamadan OTA imajını boot için seçmeyin.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz."
+      ],
+      "answer": "İmzayı doğrulamadan OTA imajını boot için seçmeyin.",
+      "explanation": "İmzayı doğrulamadan OTA imajını boot için seçmeyin.\nAçıklama: OTA yeni firmware'i etkin image yanındaki uygun partition'a yazabilir. Partition tablosu, image boyutu, sürüm/imza denetimi, sağlık onayı ve rollback birlikte tasarlanmalıdır.\n\nBu kod ESP-IDF OTA partition API'sini Arduino-ESP32 projesinde kullanır. Partition seçimi, rollback ve imza doğrulaması genel Arduino API'si değildir; basit ArduinoOTA/Update seçenekleri vardır, ancak güvenli boot/rollback için ESP-IDF partition ve doğrulama ayarları açıkça kurulmalıdır."
+    },
+    {
+      "id": "esp32_esp_debug_1",
+      "topicId": "esp32_esp_debug",
+      "type": "multiple_choice",
+      "prompt": "“Monitor, core dump ve üretim hazırlığı” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "Derleme boyutu ve günlükler kaynak sorunlarını üretimden önce yakalar."
+      ],
+      "answer": "Derleme boyutu ve günlükler kaynak sorunlarını üretimden önce yakalar.",
+      "explanation": "Derleme boyutu ve günlükler kaynak sorunlarını üretimden önce yakalar.\nAçıklama: Serial monitor başlangıç günlüklerini, hata kodlarını ve build bilgisini gösterir. Üretimde firmware sürümü, reset nedeni, crash yakalama, log düzeyi ve kurtarma sürecini belgeleyin.\n\n`idf.py monitor` ve `idf.py size`, ESP-IDF araçlarıdır. Arduino-ESP32 projesinde derleme/serial monitor Arduino IDE veya Arduino CLI ile yürütülür; ek örnek Serial tanılamasını gösterir."
+    },
+    {
+      "id": "esp32_esp_debug_2",
+      "topicId": "esp32_esp_debug",
+      "type": "multiple_choice",
+      "prompt": "“Monitor, core dump ve üretim hazırlığı” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "İlk testte board paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "Günlükleri yararlı, kısa ve hassas veriden arındırılmış tutun."
+      ],
+      "answer": "Günlükleri yararlı, kısa ve hassas veriden arındırılmış tutun.",
+      "explanation": "Günlükleri yararlı, kısa ve hassas veriden arındırılmış tutun.\nAçıklama: Serial monitor başlangıç günlüklerini, hata kodlarını ve build bilgisini gösterir. Üretimde firmware sürümü, reset nedeni, crash yakalama, log düzeyi ve kurtarma sürecini belgeleyin.\n\n`idf.py monitor` ve `idf.py size`, ESP-IDF araçlarıdır. Arduino-ESP32 projesinde derleme/serial monitor Arduino IDE veya Arduino CLI ile yürütülür; ek örnek Serial tanılamasını gösterir."
+    },
+    {
+      "id": "esp32_esp_debug_3",
+      "topicId": "esp32_esp_debug",
+      "type": "multiple_choice",
+      "prompt": "“Monitor, core dump ve üretim hazırlığı” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "ESP32-H2 gibi bazı varyantlar Wi-Fi yerine IEEE 802.15.4/Bluetooth LE odaklı olabilir.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz.",
+        "Serial monitor başlangıç günlüklerini, hata kodlarını ve build bilgisini gösterir"
+      ],
+      "answer": "Serial monitor başlangıç günlüklerini, hata kodlarını ve build bilgisini gösterir",
+      "explanation": "Serial monitor başlangıç günlüklerini, hata kodlarını ve build bilgisini gösterir\nAçıklama: Serial monitor başlangıç günlüklerini, hata kodlarını ve build bilgisini gösterir. Üretimde firmware sürümü, reset nedeni, crash yakalama, log düzeyi ve kurtarma sürecini belgeleyin.\n\n`idf.py monitor` ve `idf.py size`, ESP-IDF araçlarıdır. Arduino-ESP32 projesinde derleme/serial monitor Arduino IDE veya Arduino CLI ile yürütülür; ek örnek Serial tanılamasını gösterir."
+    },
+    {
+      "id": "esp32_esp_debug_4",
+      "topicId": "esp32_esp_debug",
+      "type": "multiple_choice",
+      "prompt": "“Monitor, core dump ve üretim hazırlığı” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "ESP-IDF derlemeden önce hedef yongayı seçer.",
+        "ESP32 adı pin uyumluluğu veya Wi-Fi/Bluetooth desteğini garanti etmez; model kodunu inceleyin.",
+        "Üretimde firmware sürümü, reset nedeni, crash yakalama, log düzeyi ve kurtarma sürecini belgeleyin",
+        "ESP32 ailesinin her varyantı aynı radyo ve çevre birimlerini taşımaz."
+      ],
+      "answer": "Üretimde firmware sürümü, reset nedeni, crash yakalama, log düzeyi ve kurtarma sürecini belgeleyin",
+      "explanation": "Üretimde firmware sürümü, reset nedeni, crash yakalama, log düzeyi ve kurtarma sürecini belgeleyin\nAçıklama: Serial monitor başlangıç günlüklerini, hata kodlarını ve build bilgisini gösterir. Üretimde firmware sürümü, reset nedeni, crash yakalama, log düzeyi ve kurtarma sürecini belgeleyin.\n\n`idf.py monitor` ve `idf.py size`, ESP-IDF araçlarıdır. Arduino-ESP32 projesinde derleme/serial monitor Arduino IDE veya Arduino CLI ile yürütülür; ek örnek Serial tanılamasını gösterir."
+    }
+  ]
+}

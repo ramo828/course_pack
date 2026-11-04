@@ -1,0 +1,58 @@
+{
+  "id": "wifi_remote_messaging",
+  "title": "Wi-Fi ilə uzaq rabitə: MQTT, TLS və bulud bağlantısı",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html",
+    "https://pubsubclient.knolleary.net/",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/protocols/mqtt.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Yerli şəbəkədə işləyən cihazla internet üzərindən uzaqdan idarə olunan cihaz eyni şey deyil. Bu dərs sensor məlumatını bulud brokerinə göndərməyi və bağlantını qorumağı göstərir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NECƏ İŞLƏYİR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cihaz STA rejimində router-ə qoşulur; router internetə çıxırsa, cihaz uzaq MQTT brokerinə TLS ilə qoşula bilər. MQTT publish/subscribe mesajlaşmasıdır: cihaz ölçünü mövzuya göndərir, tətbiq həmin mövzunu izləyir. QoS çatdırılma səviyyəsini, retained son dəyərin saxlanmasını, Last Will isə gözlənilməz bağlantı kəsilməsini bildirir. Ev daxilində lokal HTTP server internet olmadan da işləyə bilər. Uzaqdan giriş üçün portu birbaşa açmaq əvəzinə autentifikasiya, şifrəli bağlantı və səlahiyyətləri məhdud topic istifadə edin. NAT/firewall səbəbindən internetdən router arxasındakı cihaza birbaşa giriş adətən olmur.\n\nNümunə "
+    },
+    {
+      "type": "text",
+      "text": "PubSubClient",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kitabxanası ilə 8883 portunda TLS brokerə qoşulur. Əvvəlki Wi-Fi dərsindəki STA bağlantısı artıq qurulmalıdır; CA sertifikatı və broker hesabı sizə məxsus olmalıdır.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFiClientSecure.h>\n#include <PubSubClient.h>\n\nextern const char rootCa[];  // Define with your trusted CA.\nWiFiClientSecure tls;\nPubSubClient mqtt(tls);\nunsigned long retryAt = 0;\n\nvoid setup() {\n  Serial.begin(115200);\n  tls.setCACert(rootCa);\n  mqtt.setServer(\"broker.example.org\", 8883);\n}\n\nvoid loop() {\n  if (!mqtt.connected() && millis() - retryAt > 5000) {\n    retryAt = millis();\n    if (!mqtt.connect(\"sensor-01\", \"DEVICE_USER\", \"DEVICE_TOKEN\")) {\n      Serial.println(\"Broker connection failed\");\n    }\n  }\n  if (mqtt.connected()) {\n    mqtt.loop();\n    if (!mqtt.publish(\"lab/sensor/reading\", \"23.5\")) {\n      Serial.println(\"Publish failed\");\n    }\n  }\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib təhlükəsizlik və uyğunluq qeydi",
+      "text": "`PubSubClient` ayrıca quraşdırılır və kod Wi-Fi qoşulmasını bu nümunədən əvvəl etməlidir. Nümunə sabit `23.5` göndərir; real layihədə sensoru oxuyun, bağlantı nəticəsini yoxlayın və parol/tokeni repoya yazmayın."
+    }
+  ],
+  "testId": "embedded_test_wifi_remote_messaging_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

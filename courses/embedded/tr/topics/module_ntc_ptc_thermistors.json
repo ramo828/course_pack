@@ -1,0 +1,46 @@
+{
+  "id": "module_ntc_ptc_thermistors",
+  "title": "NTC ve PTC termistörler: sıcaklık ölçümü",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://learn.adafruit.com/thermistor/using-a-thermistor",
+    "https://learn.sparkfun.com/tutorials/voltage-dividers/all"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Termistörün direnci sıcaklıkla değişir: NTC'de sıcaklık artınca direnç düşer, PTC'de yükselir. Bu özellik ölçüm ve aşırı sıcaklık korumasında kullanılır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "10 kΩ sabit direnci kartın beslemesi ile A0 arasına, NTC'yi A0 ile GND arasına bağlayın. UNO için 5V, ESP32 için 3.3V kullanın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Örnek, gerilim bölücünün direncini yaklaşık hesaplar. Hassas sıcaklık için termistörün Beta veya Steinhart–Hart katsayıları, kalibrasyon ve kartın ADC aralığı gerekir. Platform: Arduino ve ESP32.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_thermistor_divider",
+      "caption": "NTC ve PTC termistörler: sıcaklık ölçümü"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const byte sensorPin = A0;\nconst float fixedResistor = 10000.0;\n#if defined(ESP32)\nconst float supplyVoltage = 3.3;\nconst int adcMaximum = 4095;\n#else\nconst float supplyVoltage = 5.0;\nconst int adcMaximum = 1023;\n#endif\n\nvoid setup() {\n  Serial.begin(9600);\n#if defined(ESP32)\n  analogReadResolution(12);\n#endif\n}\n\nvoid loop() {\n  const int raw = analogRead(sensorPin);\n  if (raw <= 0 || raw >= adcMaximum) {\n    Serial.println(\"ADC is at a rail; check wiring and input range\");\n    delay(500);\n    return;\n  }\n  const float voltage =\n      static_cast<float>(raw) * supplyVoltage / adcMaximum;\n  const float sensorResistance =\n      fixedResistor * voltage / (supplyVoltage - voltage);\n  Serial.print(\"ADC=\");\n  Serial.print(raw);\n  Serial.print(\" R=\");\n  Serial.println(sensorResistance);\n  delay(500);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli güvenlik notu",
+      "text": "Termistörün nominal değeri ve bağlantı yönü formülü etkiler. ADC girişine kartın izin verdiğinden yüksek gerilim uygulamayın."
+    }
+  ],
+  "testId": "embedded_test_module_ntc_ptc_thermistors_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

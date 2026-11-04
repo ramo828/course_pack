@@ -1,0 +1,187 @@
+{
+  "id": "iot_iot_protocols",
+  "title": "HTTP, MQTT ve protokol seçimi",
+  "difficulty": "medium",
+  "testId": "iot_test_iot_protocols_tr",
+  "sources": [
+    "https://www.rfc-editor.org/rfc/rfc9110.html",
+    "https://www.rfc-editor.org/rfc/rfc8446.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “HTTP, MQTT ve protokol seçimi” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: HTTP istek/yanıt, MQTT ise pub/sub modelidir. Gerçek projede şu öneriyi izleyin: Protokol QoS'u uygulamadaki iş işleminin yalnızca bir kez çalışmasını garanti etmez.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "curl --fail-with-body -H \"Content-Type: application/json\" -d '{\"device\":\"sensor-12\",\"value\":21.4,\"unit\":\"degC\"}' https://api.example.test/telemetry",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Örnek, ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "application/json",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " ile ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "/telemetry",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " adresine POST isteğidir; yanıt API'ye bağlıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HTTP istek/yanıt ve REST API'lerde, MQTT ise broker üzerinden publish/subscribe telemetride kullanılır. Ağ, gecikme, ileti boyutu, QoS ve cihaz kısıtına göre seçim yapın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "curl --fail-with-body -H \"Content-Type: application/json\" -d '{\"device\":\"sensor-12\",\"value\":21.4,\"unit\":\"degC\"}' https://api.example.test/telemetry",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: HTTP istek/yanıt, MQTT ise pub/sub modelidir.\nNeden seçildi: Protokol QoS'u uygulamadaki iş işleminin yalnızca bir kez çalışmasını garanti etmez.\nAtlanır veya değiştirilirse: Protokol QoS'u uygulamadaki iş işleminin yalnızca bir kez çalışmasını garanti etmez.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: Protokol QoS'u uygulamadaki iş işleminin yalnızca bir kez çalışmasını garanti etmez."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "HTTP istek/yanıt, MQTT ise pub/sub modelidir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Protokol QoS'u uygulamadaki iş işleminin yalnızca bir kez çalışmasını garanti etmez."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "curl -i -H \"Content-Type: application/json\" -d '{\"temperatureC\":21.5}' https://api.example.test/telemetry",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Erişilebilir bir API ve geçerli endpoint gerekir; HTTP durumu ve yanıt servise bağlıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Ağ, gecikme, ileti boyutu, QoS ve cihaz kısıtına göre seçim yapın."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Pinler, gerilim/akım sınırları, zamanlama ve çevre birimleri karta bağlıdır; bağlantı veya yükleme öncesinde kart belgesini doğrulayın."
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "Cihaz ölçümü ağ geçidi/broker üzerinden servise iletir; komut ters yönde dönebilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

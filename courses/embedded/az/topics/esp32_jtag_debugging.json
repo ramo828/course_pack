@@ -1,0 +1,60 @@
+{
+  "id": "esp32_jtag_debugging",
+  "title": "ESP32 JTAG sazlaması: breakpoint və watchpoint",
+  "difficulty": "advanced",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/jtag-debugging/index.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/core_dump.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "JTAG real ESP32 aparatında kodun icrasını dayandırmağa, sətrlə addımlamağa, dəyişənləri və yaddaşı izləməyə imkan verir. OpenOCD prosessorla GDB arasında körpüdür. Bu nümunədə ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sampleCount",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-ı breakpoint-də və ya watchpoint ilə izləyin; dövr bir saniyə gözlədiyi üçün CPU-nu sıx məşğul etmir. JTAG bütün lövhələrdə açıq və ya əlçatan deyil; bəzi modellər USB Serial/JTAG dəstəkləyir, digərləri xarici adapter tələb edir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "İş axını: lövhə və JTAG interfeysinin uyğunluğunu yoxlayın, ESP-IDF layihəsini sazlama simvolları ilə yığın, OpenOCD-ni başladın və GDB ilə qoşulun. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "++sampleCount",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " sətrinə breakpoint qoyub dəyişənin dəyərini izləyin. Yığın problemi üçün FreeRTOS yığın high-water mark-ını yoxlayın; watchdog reset zamanı log və nüvə dump-ı qoruyun.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <inttypes.h>\n#include \"esp_log.h\"\n#include \"freertos/FreeRTOS.h\"\n#include \"freertos/task.h\"\n\nstatic const char* TAG = \"jtag-demo\";\nstatic uint32_t sampleCount = 0;\n\nextern \"C\" void app_main(void) {\n  for (;;) {\n    ++sampleCount;\n    ESP_LOGI(TAG, \"sample=%\" PRIu32, sampleCount);\n    vTaskDelay(pdMS_TO_TICKS(1000));\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "JTAG pinlərinin funksiyası, adapterin gərginlik səviyyəsi və USB Serial/JTAG dəstəyi modeldən asılıdır. Yalnız öz development lövhənizdə sazlama edin. Production cihazında JTAG söndürülməsi, secure boot və fleş yaddaşı encryption siyasətini zəiflətməyin; eFuse dəyişiklikləri geri qaytarılmaya bilər."
+    }
+  ],
+  "testId": "embedded_test_esp32_jtag_debugging_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

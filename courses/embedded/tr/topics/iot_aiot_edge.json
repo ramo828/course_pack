@@ -1,0 +1,52 @@
+{
+  "id": "iot_aiot_edge",
+  "title": "AIoT nedir ve neden kullanılır?",
+  "difficulty": "medium",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://www.tensorflow.org/lite/microcontrollers",
+    "https://ai.google.dev/edge/litert/microcontrollers/overview"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "IoT aygıtları internete bağlanıp veri gönderir. AIoT (Artificial Intelligence of Things), bu aygıtlara yapay zekâ ekler: veriyi yalnızca iletmek yerine ondan anlamlı bir sonuç çıkarabilir. Örneğin mikrofon sesi buluta göndermeden alkış algılayabilir; titreşim sensörü de arızaya benzeyen hareketi bildirebilir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Konu açıklaması\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Neden kullanılır? Yerel karar daha hızlıdır, internet olmasa da çalışabilir ve ham sesin/kişisel verinin buluta gönderilmesini azaltabilir. Model bulutta çalışırsa güçlü bir bilgisayar kullanılır ve aygıt basit kalır; uç yapay zekâ (edge AI), modelin aygıtta veya yakındaki ağ geçidinde çalışmasıdır. Küçük ESP32'de hafif bir model ve basit görev seçilmelidir.\n\nÖrnekler: odanın dolu olup olmadığını tahmin etmek, arızaya benzeyen titreşimi belirlemek, ses olayını tanımak, bitkide susuzluk işaretini bulmak. Modelin sonucu bir olasılıktır, kesinlik değildir. Kritik denetimde normal sınırları ve güvenli yedek davranışı koruyun.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Örnek kod\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "sensor data -> small local model -> prediction\nif prediction is reliable:\n    take a safe action\nelse:\n    keep the safe default\nsend summary to cloud when useful",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_aiot_architecture",
+      "caption": "Şema: AIoT nedir ve neden kullanılır?"
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "AIoT kritik güvenlik işlevini tek başına yönetmemelidir. Model yanılabilir; güven eşiğini, normal sensör kontrollerini ve yedek davranışı önceden belirleyin."
+    }
+  ],
+  "testId": "iot_test_aiot_edge_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

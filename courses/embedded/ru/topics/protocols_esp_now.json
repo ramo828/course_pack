@@ -1,0 +1,43 @@
+{
+  "id": "protocols_esp_now",
+  "title": "ESP-NOW: связь ESP32 без маршрутизатора",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_now.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ESP-NOW — протокол Espressif на основе Wi-Fi для коротких сообщений между устройствами ESP без подключения к IP-сети. Он подходит для показаний датчиков, пультов, умных светильников и небольших сетей устройств; маршрутизатор и интернет не нужны. Это не обычная сеть Wi-Fi и не доступ в интернет. Оба устройства должны поддерживать ESP-NOW, работать на одном канале Wi-Fi и знать MAC-адрес получателя.\n\nПередатчик включает режим станции Wi-Fi, запускает ESP-NOW, добавляет получателя как peer и отправляет сообщение. Успешный возврат ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "esp_now_send()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " означает, что пакет принят к передаче, но не подтверждает обработку сообщения приложением получателя. Для надёжной доставки предусмотрите подтверждение приложения, повтор, номер последовательности и тайм-аут. Получатель отдельно регистрирует обратный вызов приёма; его сигнатура зависит от версии Arduino-ESP32.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <esp_now.h>\n\nuint8_t receiverMac[] = {0x24, 0x6F, 0x28, 0xAA, 0xBB, 0xCC};\nconst char message[] = \"sensor=24\";\n\nvoid setup() {\n  Serial.begin(115200);\n  if (!WiFi.mode(WIFI_STA)) {\n    Serial.println(\"Wi-Fi station mode failed\");\n    return;\n  }\n  if (esp_now_init() != ESP_OK) {\n    Serial.println(\"ESP-NOW initialization failed\");\n    return;\n  }\n\n  esp_now_peer_info_t peer{};\n  memcpy(peer.peer_addr, receiverMac, 6);\n  peer.channel = 0;\n  peer.encrypt = false;  // Demo only; configure encryption for private data.\n  if (esp_now_add_peer(&peer) != ESP_OK) return;\n\n  esp_err_t result = esp_now_send(\n      receiverMac, reinterpret_cast<const uint8_t*>(message), sizeof(message));\n  Serial.println(result == ESP_OK ? \"queued\" : \"send error\");\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "В учебном примере шифрование отключено, а MAC-адрес условный. В реальном устройстве проверьте адрес, настройте шифрование с подходящими ключами PMK/LMK, проверяйте входные данные и не передавайте секреты открыто. Ограничения пакетов, API обратный вызов и совместная работа с Wi-Fi зависят от микросхемы и версии ядро; сверяйтесь с документацией ESP-IDF для выбранной модели."
+    }
+  ],
+  "testId": "embedded_test_protocols_esp_now_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

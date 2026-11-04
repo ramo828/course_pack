@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_background_az",
+  "title": "Fon sorğuları",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_background",
+      "type": "multiple_choice",
+      "prompt": "Bu real HTTP sorğusuna API necə cavab verməlidir?\nPOST /notify?message=saved",
+      "options": [
+        "Cavab 200 `{accepted:true}` verir; background qeyd cavabdan sonra başlayır və yalnız demo yaddaşında görünür.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın."
+      ],
+      "answer": "Cavab 200 `{accepted:true}` verir; background qeyd cavabdan sonra başlayır və yalnız demo yaddaşında görünür.",
+      "explanation": "Bu, `POST /notify?message=saved` sorğusunun gözlənilən davranışıdır. Cavab 200 `{accepted:true}` verir; background qeyd cavabdan sonra başlayır və yalnız demo yaddaşında görünür."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_background",
+      "type": "multiple_choice",
+      "prompt": "Bu mövzuda hansı dizayn prinsipi doğrudur?",
+      "options": [
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "`BackgroundTasks` cavabdan sonra qısa işi başlatmağa kömək edir, lakin davamlı növbə və retry təmin etmir.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın."
+      ],
+      "answer": "`BackgroundTasks` cavabdan sonra qısa işi başlatmağa kömək edir, lakin davamlı növbə və retry təmin etmir.",
+      "explanation": "`BackgroundTasks` cavabdan sonra qısa işi başlatmağa kömək edir, lakin davamlı növbə və retry təmin etmir. Ayrı worker queue uzun işləri retry, monitorinq və sürət limiti ilə idarə edə bilər; bu xüsusiyyətlər `BackgroundTasks`-də avtomatik yaranmır."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_background",
+      "type": "multiple_choice",
+      "prompt": "Dərsdə göstərilən vacib hissə çıxarılsa, hansı dəyişiklik baş verər?",
+      "options": [
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "Yüngül əlavə işi sorğunun içində sinxron görsəniz, klient cavabı lazımsız gecikə bilər."
+      ],
+      "answer": "Yüngül əlavə işi sorğunun içində sinxron görsəniz, klient cavabı lazımsız gecikə bilər.",
+      "explanation": "Yüngül əlavə işi sorğunun içində sinxron görsəniz, klient cavabı lazımsız gecikə bilər. FastAPI `BackgroundTasks` cavab göndərildikdən sonra həmin prosesdə qısa işi planlaşdırır; məsələn, yüngül bildiriş qeydi. Sorğudan ayrılmış uzun və etibarlı iş növbə sisteminə verilməlidir. Bu nümunə demo siyahısına qeyd yazır; proses yaddaşı davamlı saxlama deyil."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_background",
+      "type": "multiple_choice",
+      "prompt": "Dərsdəki tipik səhvi önləmək üçün hansı addım daha düzgündür?",
+      "options": [
+        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
+        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
+        "`BackgroundTasks`-i sürətli, kiçik işlər üçün saxlayın; cavabdan əvvəl müştəriyə işin qəbul edildiyini bildirin."
+      ],
+      "answer": "`BackgroundTasks`-i sürətli, kiçik işlər üçün saxlayın; cavabdan əvvəl müştəriyə işin qəbul edildiyini bildirin.",
+      "explanation": "`BackgroundTasks`-i sürətli, kiçik işlər üçün saxlayın; cavabdan əvvəl müştəriyə işin qəbul edildiyini bildirin. İstifadəçi üçün vacib e-poçt, ödəniş və ya məlumat itkisi riski olan işləri yalnız prosesdaxili background callback-ə etibar etməyin."
+    }
+  ]
+}

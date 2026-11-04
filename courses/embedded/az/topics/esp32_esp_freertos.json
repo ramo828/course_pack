@@ -1,0 +1,172 @@
+{
+  "id": "esp32_esp_freertos",
+  "title": "ESP32-də FreeRTOS: Arduino və ESP-IDF",
+  "difficulty": "advanced",
+  "testId": "esp32_test_esp_freertos_az",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/freertos_idf.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “ESP32-də FreeRTOS: Arduino və ESP-IDF” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Növbə tapşırıqlar arasında mesaj ötürmək və işi ayırmaq üçün istifadə olunur. Real layihədə bu göstərişə əməl edin: Tapşırıq arasında paylaşılmış mutable məlumatı lock və ya message növbə ilə qoruyun.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid worker(void*) {\n    for (;;) { Serial.println(\"worker tick\"); vTaskDelay(pdMS_TO_TICKS(1000)); }\n}\nvoid setup() {\n    Serial.begin(115200);\n    xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr);\n}\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yaddaş çatmadıqda tapşırıq yaradılması uğursuz ola bilər; yığın yaddaşının ölçüsü və prioriteti hədəf sistem-də yoxlanmalıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ESP-IDF FreeRTOS tapşırıq və növbə vasitəsilə işi bölüşdürür. Yığın yaddaşının ölçüsü, prioritet, nüvə affinity və bloklanma müddətini ölçün; uzun müddət irəliləməyən tapşırıq watchdog-u işə sala bilər.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Növbə tapşırıqlar arasında mesaj ötürmək və işi ayırmaq üçün istifadə olunur.\nNiyə seçilib: Tapşırıq arasında paylaşılmış mutable məlumatı lock və ya message növbə ilə qoruyun.\nBuraxılsa və ya dəyişdirilsə: Watchdog-u deaktiv etməklə bloklanmanı ört-basdır etməyin; tapşırığın niyə irəliləmədiyini tapın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Watchdog-u deaktiv etməklə bloklanmanı ört-basdır etməyin; tapşırığın niyə irəliləmədiyini tapın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Növbə tapşırıqlar arasında mesaj ötürmək və işi ayırmaq üçün istifadə olunur.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Tapşırıq arasında paylaşılmış mutable məlumatı lock və ya message növbə ilə qoruyun."
+    },
+    {
+      "type": "text",
+      "text": "Arduino Nüvə FreeRTOS nümunəsi\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid task(void*) { for (;;) { Serial.println(\"tick\"); vTaskDelay(pdMS_TO_TICKS(500)); } }\nvoid setup() { Serial.begin(115200); xTaskCreate(task, \"sample\", 2048, nullptr, 1, nullptr); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Worker tapşırıq təxminən saniyədə iki dəfə ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "tick",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " çap edir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Yığın yaddaşının ölçüsü, prioritet, nüvə affinity və bloklanma müddətini ölçün; uzun müddət irəliləməyən tapşırıq watchdog-u işə sala bilər."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Watchdog-u deaktiv etməklə bloklanmanı ört-basdır etməyin; tapşırığın niyə irəliləmədiyini tapın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: tapşırıqların vəziyyətini, prioritetini, növbə/sinxronizasiya əlaqəsini və zaman xəttini göstərən diaqram."
+}

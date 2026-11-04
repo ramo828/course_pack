@@ -1,0 +1,58 @@
+{
+  "id": "bluetooth_profiles_and_limits",
+  "title": "Bluetooth LE и Classic: GATT, SPP, подключение и совместимость",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/bluetooth.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/bluetooth/index.html",
+    "https://www.bluetooth.com/learn-about-bluetooth/tech-overview/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Bluetooth связывает телефоны, датчики, пульты и компьютеры по радио на небольшом расстоянии. LE и Classic имеют разные профили и задачи.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "КАК ЭТО РАБОТАЕТ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "BLE рассчитан на низкое энергопотребление. Peripheral передаёт рекламу и GATT-службы/характеристики; Central сканирует, подключается, читает/записывает и получает уведомления. Это удобно для датчиков, настройки и батарейных устройств; BLE Mesh объединяет совместимые узлы. Bluetooth Classic BR/EDR поддерживает непрерывные потоки и профили SPP (последовательный канал), A2DP (звук), HID (устройства ввода). ESP-IDF Bluedroid поддерживает оба стека, NimBLE — только BLE. Arduino "
+    },
+    {
+      "type": "text",
+      "text": "BluetoothSerial",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "/SPP работает лишь на чипах с Classic BT, например исходном ESP32; ESP32-S3/C3/C6/H2 не все поддерживают Classic BT/SPP.\n\nПример создаёт текстовый канал SerialBT после сопряжения. В BLE используют GATT-характеристики и уведомления; GATT не является протоколом SPP. Учитывайте RAM, совместное использование радио, дальность и совместимость телефона.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <BluetoothSerial.h>\n\nBluetoothSerial SerialBT;\n\nvoid setup() {\n  Serial.begin(115200);\n  SerialBT.begin(\"Sensor-Console\");\n}\n\nvoid loop() {\n  if (SerialBT.available()) {\n    const char command = SerialBT.read();\n    if (command == '?') SerialBT.println(\"Ready\");\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание о безопасности и совместимости",
+      "text": "Пример требует чипа и конфигурации core с Classic BT/SPP. Для важных команд используйте аутентифицированное шифрование и не доверяйте команде только из-за Bluetooth-соединения."
+    }
+  ],
+  "testId": "embedded_test_bluetooth_profiles_and_limits_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

@@ -1,0 +1,52 @@
+{
+  "id": "aiot_edge_decisions",
+  "title": "Turning a model prediction into a safe decision",
+  "difficulty": "medium",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://ai.google.dev/edge/litert/microcontrollers",
+    "https://www.tensorflow.org/lite/microcontrollers"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "A model only makes a prediction; the Arduino program decides when to act on it. If confidence is low or the sensor is faulty, keep the device in a predefined safe state.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "How it works\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "For example, if a vibration model says “unusual,” record the result and check more samples rather than declaring a failure immediately. Test across temperature, noise, sensor variation, and weak Wi-Fi. Input shape, sampling rate, and normalization must match training.\n\nAn ESP32 can infer locally and send only a short MQTT alert; it need not upload raw sensor data. When replacing a model, plan version tracking, failure reporting, and a way to restore the previous model.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Example code\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "if (!sensorReadingIsValid()) {\n  keepSafeDefault();\n} else {\n  const float confidence = runModel();\n  if (confidence >= 0.85f) {\n    reportPrediction();\n  } else {\n    reportUncertain();\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_aiot_architecture",
+      "caption": "Diagram: Turning a model prediction into a safe decision"
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "A confidence value does not mean the same thing for every model. Choose thresholds using test data and constrain critical actions with independent safety checks."
+    }
+  ],
+  "testId": "embedded_test_aiot_edge_decisions_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

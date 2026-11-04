@@ -1,0 +1,161 @@
+{
+  "id": "arduino_mcu_basics",
+  "title": "MCU, memory, and pins",
+  "difficulty": "easy",
+  "testId": "arduino_test_mcu_basics_en",
+  "sources": [
+    "https://docs.arduino.cc/learn/",
+    "https://www.arduino.cc/en/about/"
+  ],
+  "estimatedMinutes": 12,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “MCU, memory, and pins” to a real program or device. The key principle is: Peripheral and pin mappings depend on the board's MCU. In a project, follow this guidance: Do not assume Arduino UNO pin mappings apply to a different MCU family.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "void setup() {\n  pinMode(LED_BUILTIN, OUTPUT);\n}\nvoid loop() {\n  digitalWrite(LED_BUILTIN, HIGH);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The built-in LED turns on if the selected board defines LED_BUILTIN and the sketch is uploaded successfully; hardware behavior varies.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A microcontroller combines a CPU, memory, and I/O peripherals. RAM is working memory, flash stores firmware, and pin capabilities depend on the board's datasheet.\n\nOrigin and date: the Arduino project began in 2005 in Ivrea, Italy, for education and physical computing. Arduino's official About page names Massimo Banzi, David Cuartielles, Tom Igoe, and David Mellis as co-founders. Its purpose was to lower the barrier between electronics and programming by making sensor-and-actuator projects approachable with an affordable board. Arduino is used in prototypes, education, measurement instruments, and IoT devices; it connects to careers in embedded development, electronics prototyping, and test engineering. If building systems that sense and affect the physical world inspires you, start by learning how pins, RAM, and flash fit together.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "pinMode(LED_BUILTIN, OUTPUT);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: Peripheral and pin mappings depend on the board's MCU.\nWhy it is used: Do not assume Arduino UNO pin mappings apply to a different MCU family.\nIf omitted or changed: The datasheet and board schematic specify pin voltage, current, and alternate functions.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Skipping this check before applying the rule: Do not assume Arduino UNO pin mappings apply to a different MCU family."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Peripheral and pin mappings depend on the board's MCU.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Do not assume Arduino UNO pin mappings apply to a different MCU family."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int ledPin = LED_BUILTIN;\nvoid setup() { pinMode(ledPin, OUTPUT); }\nvoid loop() { digitalWrite(ledPin, HIGH); delay(250); digitalWrite(ledPin, LOW); delay(250); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The built-in LED blinks if supported by the selected board; pin and polarity vary by board.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "The datasheet and board schematic specify pin voltage, current, and alternate functions."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Pins, voltage/current limits, timing, and peripheral support are board-dependent; verify the exact board documentation before wiring or uploading."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a memory diagram showing stack/heap, lifetime, ownership, or data flow."
+}

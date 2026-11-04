@@ -1,0 +1,604 @@
+{
+  "id": "rust_rust_libraries",
+  "title": "Vacib Rust crate-ləri: nə üçündür və kim hazırlayır?",
+  "difficulty": "medium",
+  "testId": "rust_test_rust_libraries_az",
+  "sources": [
+    "https://serde.rs/",
+    "https://github.com/serde-rs/serde",
+    "https://tokio.rs/",
+    "https://tokio.rs/tokio/team",
+    "https://docs.rs/anyhow/",
+    "https://docs.rs/thiserror/",
+    "https://docs.rs/clap/",
+    "https://github.com/rust-embedded/embedded-hal"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Vacib Rust crate-ləri: nə üçündür və kim hazırlayır?” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Serde derive поля автоматически сериализует; ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "serde_json",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " выдаёт JSON, а библиотеку нужно добавить в Cargo. Real layihədə bu göstərişə əməl edin: Serde nümunəsi üçün ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "cargo add serde --features derive",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " və ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "cargo add serde_json",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " işlədin; sənədləri oxuyun və gizli açarları mənbə koduna yazmayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_serde_flow",
+      "caption": "Vacib Rust crate-ləri: nə üçündür və kim hazırlayır?"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use serde::Serialize;\n#[derive(Serialize)]\nstruct Reading { name: String, score: u8 }\nfn main() -> Result<(), serde_json::Error> {\n    let reading = Reading { name: \"Ada\".into(), score: 10 };\n    println!(\"{}\", serde_json::to_string(&reading)?);\n    Ok(())\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serde serializasiya edir və JSON nəticəsi ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "{\"name\":\"Ada\",\"score\":10}",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " olur.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust crate-i hazır funksiyalar toplusudur; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Cargo.toml",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-a əlavə edib ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "use",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ilə istifadə edirik. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "serde",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " məlumatı JSON kimi formata çevirir və onu oxuyur; David Tolnay və açıq mənbə iştirakçıları tərəfindən hazırlanır. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "tokio",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " asinxron server və şəbəkə işlərini idarə edən runtime-dır; Carl Lerche-nin başladığı layihəni icma davam etdirir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "clap",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " terminal arqumentlərini, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "reqwest",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " HTTP sorğularını, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "embedded-hal",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " isə mikrokontroller sürücüləri üçün ortaq interfeysləri asanlaşdırır. Standart kitabxana Rust ilə gəlir, bu crate-lər isə ayrıca asılılıqdır. Versiya, lisenziya, uyğunluq və təhlükəsizlik yeniləmələrini yoxlayın.\n\nCargo.toml asılılıqları (nümunə): ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "tokio = { version = \"1\", features = [\"macros\", \"rt-multi-thread\", \"time\"] }",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "serde = { version = \"1\", features = [\"derive\"] }",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "serde_json = \"1\"",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "anyhow = \"1\"",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "thiserror = \"2\"",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "embedded-hal = \"1\"",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". Tokio async runtime/time, Serde formatdan asılı olmayan serialize/deserialize, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "anyhow",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " tətbiq səviyyəsində kontekstli xətalar, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "thiserror",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kitabxana üçün konkret error tipi, ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "embedded-hal",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " isə board-a məxsus HAL üzərində portativ driver trait-ləri verir. Tokio komandası, Serde icması və Rust Embedded WG bu ekosistemin əsas texniki saxlayıcılarıdır. HAL implementasiyası olmadan embedded-hal GPIO-nu fiziki idarə etmir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let reading = Reading { name: \"Ada\".into(), score: 10 };",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: Serde derive поля автоматически сериализует; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "serde_json",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " выдаёт JSON, а библиотеку нужно добавить в Cargo.\nNiyə seçilib: Serde nümunəsi üçün ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "cargo add serde --features derive",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "cargo add serde_json",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " işlədin; sənədləri oxuyun və gizli açarları mənbə koduna yazmayın.\nBuraxılsa və ya dəyişdirilsə: Kitabxana seçimi platforma və layihəyə bağlıdır: məsələn, ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "embedded-hal",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " mikrokontroller sürücülərinə, Tokio isə ümumi məqsədli asinxron I/O-ya yönəlib.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "API crate-lər və feature flag-ləri versiyaya görə dəyişə bilər; Cargo.lock faylını tətbiq layihəsində saxlayın və nümunəni öz toolchain-inizdə yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serde derive поля автоматически сериализует; ",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "serde_json",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " выдаёт JSON, а библиотеку нужно добавить в Cargo.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Serde nümunəsi üçün `cargo add serde --features derive` və `cargo add serde_json` işlədin; sənədləri oxuyun və gizli açarları mənbə koduna yazmayın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use serde::Serialize;\n#[derive(Serialize)]\nstruct Device { name: String, online: bool }\nfn main() -> Result<(), serde_json::Error> {\n    let device = Device { name: \"sensor-1\".into(), online: true };\n    println!(\"{}\", serde_json::to_string(&device)?);\n    Ok(())\n}\n// Add serde with the derive feature and serde_json in Cargo.toml.",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "{\"name\":\"sensor-1\",\"online\":true}\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Tokio: async runtime və vaxt limiti\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[tokio::main]\nasync fn main() {\n    tokio::time::sleep(std::time::Duration::from_millis(1)).await;\n    println!(\"task complete\");\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "task complete\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "thiserror: tətbiqə məxsus xəta tipi\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[derive(Debug, thiserror::Error)]\nenum PortError {\n    #[error(\"invalid port\")]\n    Invalid(#[from] std::num::ParseIntError),\n}\nfn parse_port(text: &str) -> Result<u16, PortError> {\n    Ok(text.parse()?)\n}\nfn main() {\n    match parse_port(\"bad\") {\n        Ok(port) => println!(\"{port}\"),\n        Err(error) => println!(\"{error}\"),\n    }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "invalid port\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "anyhow: tətbiq səviyyəsində xəta konteksti\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use anyhow::Context;\nfn load_port(text: &str) -> anyhow::Result<u16> {\n    let port = text.parse::<u16>().context(\"port must be a number\")?;\n    anyhow::ensure!(port != 0, \"port must be non-zero\");\n    Ok(port)\n}\nfn main() {\n    match load_port(\"8080\") {\n        Ok(port) => println!(\"port={port}\"),\n        Err(error) => eprintln!(\"{error:#}\"),\n    }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "port=8080\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "embedded-hal 1.0: portativ GPIO driver interfeysi\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use embedded_hal::digital::OutputPin;\nfn set_indicator<P: OutputPin>(pin: &mut P) -> Result<(), P::Error> {\n    pin.set_high()?;\n    pin.set_low()\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Generic driver kodu embedded-hal 1.0 OutputPin implementasiyası ilə compile olunur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Kitabxana seçimi platforma və layihəyə bağlıdır: məsələn, `embedded-hal` mikrokontroller sürücülərinə, Tokio isə ümumi məqsədli asinxron I/O-ya yönəlib."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "API crate-lər və feature flag-ləri versiyaya görə dəyişə bilər; Cargo.lock faylını tətbiq layihəsində saxlayın və nümunəni öz toolchain-inizdə yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Vacib Rust crate-ləri: nə üçündür və kim hazırlayır?” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Serde derive поля автоматически сериализует; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "serde_json",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " выдаёт JSON, а библиотеку нужно добавить в Cargo.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_pydantic_v2_en",
+  "title": "Pydantic v2: validating external data",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_pydantic_v2",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 1 in this lesson produce?\n\nfrom pydantic import BaseModel, Field\n\nclass SensorReading(BaseModel):\n    device_id: str\n    celsius: float = Field(ge=-80, le=150)\n\nreading = SensorReading.model_validate(\n    {'device_id': 'sensor-1', 'celsius': 21.5}\n)\nprint(reading.device_id, reading.celsius)",
+      "options": [
+        "{'username': 'ada'}",
+        "SENSOR-1 21.5",
+        "invalid reading",
+        "sensor-1 21.5"
+      ],
+      "answer": "sensor-1 21.5",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`from pydantic import BaseModel, Field` — Imports specific names from a module; without it, those names are unavailable.\n`class SensorReading(BaseModel):` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`device_id: str` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`celsius: float = Field(ge=-80, le=150)` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`reading = SensorReading.model_validate(` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`{'device_id': 'sensor-1', 'celsius': 21.5}` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`)` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`print(reading.device_id, reading.celsius)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_pydantic_v2",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 2 in this lesson produce?\n\nfrom pydantic import BaseModel, ValidationError\n\nclass Reading(BaseModel):\n    celsius: float\n\ntry:\n    Reading.model_validate({'celsius': 'not-a-number'})\nexcept ValidationError:\n    print('invalid reading')",
+      "options": [
+        "{'username': 'ada'}",
+        "sensor-1 21.5",
+        "INVALID READING",
+        "invalid reading"
+      ],
+      "answer": "invalid reading",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`from pydantic import BaseModel, ValidationError` — Imports specific names from a module; without it, those names are unavailable.\n`class Reading(BaseModel):` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`celsius: float` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`try:` — Marks operations that may fail; without a handler, an expected error can stop the caller.\n`Reading.model_validate({'celsius': 'not-a-number'})` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`except ValidationError:` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`print('invalid reading')` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_pydantic_v2",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 3 in this lesson produce?\n\nfrom pydantic import BaseModel, Field\n\nclass Account(BaseModel):\n    username: str = Field(min_length=3)\n\naccount = Account.model_validate({'username': 'ada'})\nprint(account.model_dump())",
+      "options": [
+        "sensor-1 21.5",
+        "invalid reading",
+        "{'USERNAME': 'ADA'}",
+        "{'username': 'ada'}"
+      ],
+      "answer": "{'username': 'ada'}",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`from pydantic import BaseModel, Field` — Imports specific names from a module; without it, those names are unavailable.\n`class Account(BaseModel):` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`username: str = Field(min_length=3)` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`account = Account.model_validate({'username': 'ada'})` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`print(account.model_dump())` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_pydantic_v2",
+      "type": "multiple_choice",
+      "prompt": "Which statement accurately describes “Pydantic v2: validating external data”?",
+      "options": [
+        "Python is used for automation, web services, and data analysis because its readable syntax and broad library ecosystem make small, testable steps practical.",
+        "Comments explain a non-obvious decision instead of repeating the code, such as why a particular limit was chosen.",
+        "Pydantic was created by Samuel Colvin to make parsing and validating external data with Python types practical.",
+        "Syntax and indentation mark code-block boundaries; a mistake can prevent a route or condition from running."
+      ],
+      "answer": "Pydantic was created by Samuel Colvin to make parsing and validating external data with Python types practical.",
+      "explanation": "Pydantic was created by Samuel Colvin to make parsing and validating external data with Python types practical. In v2, `BaseModel` defines the schema and `Field` adds constraints; treat `ValidationError` as an expected input failure. Type hints alone do not validate at runtime, and Pydantic does not replace authorization or business rules."
+    }
+  ]
+}

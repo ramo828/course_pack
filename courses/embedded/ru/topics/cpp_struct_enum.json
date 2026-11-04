@@ -1,0 +1,49 @@
+{
+  "id": "cpp_struct_enum",
+  "title": "struct и enum: объединение данных датчика",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/struct.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "struct",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " объединяет связанные значения, а ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "enum class",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " задаёт именованный набор состояний. Исходное значение ADC, температура и статус хранятся вместе, а не в разрозненных глобальных переменных.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "enum class SensorState : uint8_t { Ok, Missing, Error };\n\nstruct Reading {\n  uint16_t raw;\n  float celsius;\n  SensorState state;\n};\n\nReading lastReading{512, 24.5f, SensorState::Ok};",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Размер и выравнивание зависят от цели. Не отправляйте память struct напрямую как сетевой формат — кодируйте поля явно."
+    }
+  ],
+  "testId": "embedded_test_cpp_struct_enum_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

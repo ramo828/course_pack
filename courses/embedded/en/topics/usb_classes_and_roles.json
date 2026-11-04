@@ -1,0 +1,58 @@
+{
+  "id": "usb_classes_and_roles",
+  "title": "USB: CDC, HID, storage, host and device roles",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/usb_host.html",
+    "https://www.usb.org/defined-class-codes"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "USB is more than power and a Serial Monitor cable. With the right chip and board, a microcontroller can appear as a computer peripheral or act as a host for devices.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "HOW IT WORKS\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "As a device, USB can expose CDC serial diagnostics, HID input, MSC storage, MIDI, or supported DFU updates. As a host, it manages keyboards, mice, and storage; the host must provide 5 V VBUS and suitable current. ESP32-S2/S3 have USB OTG for host/device roles, subject to board wiring and Arduino USB Mode settings; S3 USB Serial/JTAG and OTG can share a PHY. C3 has native CDC/JTAG but not full USB host OTG. The original ESP32 has no native USB peripheral. An UNO's USB connector normally leads to a USB-UART bridge, so it cannot act as a standard USB keyboard. ATmega32U4 and suitable ESP32-S2/S3 boards can provide native HID.\n\nIn the sample, "
+    },
+    {
+      "type": "text",
+      "text": "Serial",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " maps to native CDC on some boards and to UART through a USB-UART bridge on others; check IDE options and the board schematic.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "void setup() {\n  Serial.begin(115200);\n}\n\nvoid loop() {\n  Serial.println(\"USB serial is ready\");\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important safety and compatibility note",
+      "text": "Check the board's VBUS power circuit for USB host use; never power peripherals from a GPIO pin. HID key events must be tied to clear, authorized user action."
+    }
+  ],
+  "testId": "embedded_test_usb_classes_and_roles_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

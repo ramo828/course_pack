@@ -1,0 +1,172 @@
+{
+  "id": "freertos_freertos_isr",
+  "title": "ISR'den güvenli olay aktarmak",
+  "difficulty": "hard",
+  "testId": "freertos_test_freertos_isr_tr",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/02-Queues-mutexes-and-semaphores/01-Queues"
+  ],
+  "estimatedMinutes": 25,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “ISR'den güvenli olay aktarmak” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Kuyruk olayı ISR'den göreve aktarır; görev uzun işi interrupt'ları engellemeden yapar. Gerçek projede şu öneriyi izleyin: ISR içinde delay, mutex, dinamik allocation veya uzun Serial çıktısı kullanmayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nconst int buttonPin = 4;\nQueueHandle_t events = nullptr;\nportMUX_TYPE dropMux = portMUX_INITIALIZER_UNLOCKED;\nuint32_t droppedEvents = 0;\nvoid IRAM_ATTR buttonIsr() { const int event = 1; BaseType_t higherPriorityTaskWoken = pdFALSE; if (events == nullptr || xQueueSendFromISR(events, &event, &higherPriorityTaskWoken) != pdPASS) { portENTER_CRITICAL_ISR(&dropMux); ++droppedEvents; portEXIT_CRITICAL_ISR(&dropMux); } if (higherPriorityTaskWoken == pdTRUE) portYIELD_FROM_ISR(); }\nvoid setup() { Serial.begin(115200); events = xQueueCreate(4, sizeof(int)); if (events == nullptr) { Serial.println(\"event queue creation failed\"); return; } pinMode(buttonPin, INPUT_PULLUP); attachInterrupt(digitalPinToInterrupt(buttonPin), buttonIsr, FALLING); }\nvoid loop() { int event; if (events && xQueueReceive(events, &event, pdMS_TO_TICKS(1000)) == pdPASS) { uint32_t dropped; portENTER_CRITICAL(&dropMux); dropped = droppedEvents; portEXIT_CRITICAL(&dropMux); Serial.printf(\"button event; dropped=%lu\\n\", static_cast<unsigned long>(dropped)); } else { vTaskDelay(pdMS_TO_TICKS(100)); } }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kesme kuyruğa olay ekler; görev ardından düğme olayını işleyip yazdırır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Interrupt service routine (ISR) donanım olayına hemen yanıt verir; içinde yalnızca kısa ve bloklamayan işlem olmalıdır. FreeRTOS ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "FromISR",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " API'leri ISR'den kuyruk veya notification kullanır; sensör okuma, günlükleme ve protokol işini normal göreve bırakın. ISR API'si, IRAM gereksinimi ve pin interrupt desteği hedef/karta bağlıdır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void IRAM_ATTR buttonIsr() { const int event = 1; BaseType_t higherPriorityTaskWoken = pdFALSE; if (events == nullptr || xQueueSendFromISR(events, &event, &higherPriorityTaskWoken) != pdPASS) { portENTER_CRITICAL_ISR(&dropMux); ++droppedEvents; portEXIT_CRITICAL_ISR(&dropMux); } if (higherPriorityTaskWoken == pdTRUE) portYIELD_FROM_ISR(); }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Kuyruk olayı ISR'den göreve aktarır; görev uzun işi interrupt'ları engellemeden yapar.\nNeden seçildi: ISR içinde delay, mutex, dinamik allocation veya uzun Serial çıktısı kullanmayın.\nAtlanır veya değiştirilirse: Buton bounce üretir; gerçek cihazda debounce ve kuyruk doluyken davranışı da planlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Buton bounce üretir; gerçek cihazda debounce ve kuyruk doluyken davranışı da planlayın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kuyruk olayı ISR'den göreve aktarır; görev uzun işi interrupt'ları engellemeden yapar.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "ISR içinde delay, mutex, dinamik allocation veya uzun Serial çıktısı kullanmayın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nconst int buttonPin = 4;\nQueueHandle_t events;\nvoid IRAM_ATTR onPress() { int event = 1; BaseType_t wake = pdFALSE; if (events) xQueueSendFromISR(events, &event, &wake); if (wake == pdTRUE) portYIELD_FROM_ISR(); }\nvoid setup() { Serial.begin(115200); events = xQueueCreate(4, sizeof(int)); if (events) { pinMode(buttonPin, INPUT_PULLUP); attachInterrupt(digitalPinToInterrupt(buttonPin), onPress, FALLING); } }\nvoid loop() { int event; if (events && xQueueReceive(events, &event, portMAX_DELAY) == pdPASS) Serial.println(\"button event\"); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kesme olayı kuyruğa gönderir; görev daha sonra işler.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "ISR API'si, IRAM gereksinimi ve pin interrupt desteği hedef/karta bağlıdır."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Buton bounce üretir; gerçek cihazda debounce ve kuyruk doluyken davranışı da planlayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: görev durumlarını, öncelikleri, kuyruk/eşzamanlama ilişkisini ve zaman çizelgesini gösteren diyagram."
+}

@@ -1,0 +1,184 @@
+{
+  "id": "rust_rust_testing",
+  "title": "Модульные, интеграционные и doc-тесты",
+  "difficulty": "medium",
+  "testId": "rust_test_rust_testing_ru",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch11-00-testing.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Модульные, интеграционные и doc-тесты» в программе или устройстве. Основной принцип: cargo test запускает #[test] и подходящие примеры rustdoc. В проекте следуйте рекомендации: Делайте тесты детерминированными; изолируйте сеть и время с помощью заглушек и fixtures.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#[test]\nfn adds_values() {\n    assert_eq!(2 + 2, 4);\n}\n\n/// Adds two values.\n///\n/// ```\n/// assert_eq!(2 + 2, 4);\n/// ```\npub fn add(a: i32, b: i32) -> i32 { a + b }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Проверки модульных и документационных тестов проходят; сводка Cargo зависит от версии.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Модульные тесты проверяют private-поведение внутри модуля; интеграционные используют публичный API crate как клиент. Doc-тесты запускают примеры из документации и выявляют устаревший код. Проверяйте успешные, граничные и ошибочные случаи; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "cargo test",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " запускает набор.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#[test]",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: cargo test запускает #[test] и подходящие примеры rustdoc.\nЗачем она нужна: Делайте тесты детерминированными; изолируйте сеть и время с помощью заглушек и fixtures.\nЕсли пропустить или изменить: Делайте тесты детерминированными; изолируйте сеть и время с помощью заглушек и fixtures.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: Делайте тесты детерминированными; изолируйте сеть и время с помощью заглушек и fixtures."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "cargo test запускает #[test] и подходящие примеры rustdoc.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Делайте тесты детерминированными; изолируйте сеть и время с помощью заглушек и fixtures."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "pub fn add(a: i32, b: i32) -> i32 { a + b }\n#[test]\nfn adds() { assert_eq!(add(2, 2), 4); }\n// Save as src/lib.rs and run cargo test.",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Модульный и подходящие документационные тесты проходят.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Проверяйте успешные, граничные и ошибочные случаи; `cargo test` запускает набор."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Примеры сосредоточены на теме; компилируйте и тестируйте их для выбранного toolchain и target, поскольку API и диагностика зависят от версии."
+    },
+    {
+      "type": "text",
+      "text": "ПРОВЕРЬТЕ СЕБЯ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Вопрос: Какое утверждение верно передаёт основное правило темы «Модульные, интеграционные и doc-тесты»?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ответ: cargo test запускает #[test] и подходящие примеры rustdoc.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Отдельная иллюстрация не обязательна; небольшого запускаемого примера и ожидаемого результата достаточно."
+}

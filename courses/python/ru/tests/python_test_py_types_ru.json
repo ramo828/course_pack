@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_types_ru",
+  "title": "Аннотации типов и dataclass",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_types",
+      "type": "multiple_choice",
+      "prompt": "Какой точный результат выводит пример кода 1 в этом уроке?\n\nfrom dataclasses import dataclass\nfrom typing import TypedDict\n\nclass Config(TypedDict):\n    device_id: str\n    enabled: bool\n\n@dataclass(slots=True)\nclass Sensor:\n    name: str\n    value: float\n\ndef label(sensor: Sensor, unit: str | None = None) -> str:\n    suffix = f' {unit}' if unit else ''\n    return f'{sensor.name}: {sensor.value}{suffix}'\n\nconfig: Config = {'device_id': 'sensor-1', 'enabled': True}\nprint(label(Sensor(config['device_id'], 21.5), 'C'))",
+      "options": [
+        "value=7",
+        "sensor-1: 21.5 C",
+        "temperature: unknown",
+        "SENSOR-1: 21.5 c"
+      ],
+      "answer": "sensor-1: 21.5 C",
+      "explanation": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n`from dataclasses import dataclass` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`from typing import TypedDict` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`class Config(TypedDict):` — Определяет тип, объединяющий данные и поведение; без класса нельзя создать объект по этому контракту.\n`device_id: str` — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n`enabled: bool` — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n`@dataclass(slots=True)` — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n`class Sensor:` — Определяет тип, объединяющий данные и поведение; без класса нельзя создать объект по этому контракту.\n`name: str` — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n`value: float` — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n`def label(sensor: Sensor, unit: str | None = None) -> str:` — Создаёт повторно используемую функцию; без определения её нельзя вызвать.\n`suffix = f' {unit}' if unit else ''` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`return f'{sensor.name}: {sensor.value}{suffix}'` — Передаёт результат вызывающему коду; без return функция обычно вернёт None.\n`config: Config = {'device_id': 'sensor-1', 'enabled': True}` — Связывает значение и записывает подсказку типа; сама аннотация не проверяет тип при выполнении.\n`print(label(Sensor(config['device_id'], 21.5), 'C'))` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_types",
+      "type": "multiple_choice",
+      "prompt": "Какой точный результат выводит пример кода 2 в этом уроке?\n\nfrom typing import Protocol\n\nclass HasValue(Protocol):\n    @property\n    def value(self) -> int: ...\n\ndef describe(item: HasValue) -> str:\n    return f'value={item.value}'\n\nclass Sample:\n    value = 7\n\nprint(describe(Sample()))",
+      "options": [
+        "sensor-1: 21.5 C",
+        "temperature: unknown",
+        "value=7",
+        "VALUE=7"
+      ],
+      "answer": "value=7",
+      "explanation": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n`from typing import Protocol` — Импортирует конкретные имена из модуля; без строки эти имена недоступны.\n`class HasValue(Protocol):` — Определяет тип, объединяющий данные и поведение; без класса нельзя создать объект по этому контракту.\n`@property` — Строка продолжает вычисление или поток управления; без неё этот шаг не выполнится и последующий результат может измениться.\n`def value(self) -> int: ...` — Создаёт повторно используемую функцию; без определения её нельзя вызвать.\n`def describe(item: HasValue) -> str:` — Создаёт повторно используемую функцию; без определения её нельзя вызвать.\n`return f'value={item.value}'` — Передаёт результат вызывающему коду; без return функция обычно вернёт None.\n`class Sample:` — Определяет тип, объединяющий данные и поведение; без класса нельзя создать объект по этому контракту.\n`value = 7` — Связывает вычисленное выражение с именем; без присваивания результат нельзя использовать дальше.\n`print(describe(Sample()))` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_types",
+      "type": "multiple_choice",
+      "prompt": "Какой точный результат выводит пример кода 3 в этом уроке?\n\ndef label(name: str, unit: str | None = None) -> str:\n    return f'{name}: {unit or \"unknown\"}'\n\nprint(label('temperature'))",
+      "options": [
+        "TEMPERATURE: UNKNOWN",
+        "value=7",
+        "sensor-1: 21.5 C",
+        "temperature: unknown"
+      ],
+      "answer": "temperature: unknown",
+      "explanation": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ\n`def label(name: str, unit: str | None = None) -> str:` — Создаёт повторно используемую функцию; без определения её нельзя вызвать.\n`return f'{name}: {unit or \"unknown\"}'` — Передаёт результат вызывающему коду; без return функция обычно вернёт None.\n`print(label('temperature'))` — Выполняет выражение: print показывает значение, вызов может иметь эффект; без строки действие не произойдёт."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_types",
+      "type": "multiple_choice",
+      "prompt": "Какое утверждение точно описывает тему «Аннотации типов и dataclass»?",
+      "options": [
+        "Типы определяют обработку чисел, текста и коллекций.",
+        "Современные аннотации описывают контракты `list[str]`, `str | None`, `TypedDict` и `Protocol`, но обычный Python не проверяет их при выполнении.",
+        "Числовое преобразование подготавливает пользовательский ввод к вычислениям, но важно учитывать округление и потерю точности.",
+        "Функции делят работу на именованные повторно используемые части и позволяют одинаково применять правило в разных местах приложения."
+      ],
+      "answer": "Современные аннотации описывают контракты `list[str]`, `str | None`, `TypedDict` и `Protocol`, но обычный Python не проверяет их при выполнении.",
+      "explanation": "Современные аннотации описывают контракты `list[str]`, `str | None`, `TypedDict` и `Protocol`, но обычный Python не проверяет их при выполнении. Их анализируют статические инструменты Pyright или mypy. `Protocol` задаёт необходимое поведение без обязательного наследования, а `TypedDict` описывает ожидаемые ключи словаря. Внешние данные отдельно проверяйте runtime-валидатором, например Pydantic."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "id": "esp32_esp_ota",
+  "title": "OTA nedir? Arduino ve ESP32 güncelleme yöntemleri",
+  "difficulty": "advanced",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.arduino.cc/learn/programming/ota-getting-started/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "OTA (Over-The-Air), programı USB kablosu takmadan ağ üzerinden cihaza güncellemektir. Örneğin uzaktaki sera sensörüne yeni program Wi-Fi ile gönderilebilir. OTA bakımı kolaylaştırır; ancak güç ya da bağlantı kesilirse aygıtın çalışır kalması için güvenli bir kurtarma yolu gerekir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Konu açıklaması\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Temel fark şudur: USB/seri güncellemede bilgisayar kabloyla aygıtın yanındadır; OTA'da dosya Wi-Fi veya başka bir ağ üzerinden gelir. ArduinoOTA, ESP32/ESP8266 gibi uyumlu Wi-Fi kartlarına IDE'den aktarımı kolaylaştırır. Web güncelleyici tarayıcı ve yerel ağı kullanır. HTTPS ile aygıt sunucudan imzalı dosya alabilir. ESP-IDF OTA ise ESP32'de iki uygulama bölümü (A/B), yeni bölüme yazma ve başarısız açılışta eski programa dönme olanağı sağlar.\n\nHer kart OTA desteklemez: klasik UNO'da Wi-Fi yoktur, bu nedenle tek başına ağdan güncellenemez; uyumlu Wi-Fi donanımı ve özel kurulum gerekir. Standart Arduino USB güncellemesini OTA ile karıştırmayın. Önce kartı, belleği, bootloader'ı ve seçilen yazılım ortamının resmi desteğini doğrulayın.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Örnek kod\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "build firmware\ncheck board + version\ntransfer over a supported link\nverify image\ninstall, reboot, run health checks\nkeep old image until confirmed",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Şema: OTA nedir? Arduino ve ESP32 güncelleme yöntemleri"
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Güncellemeyi önce kendi kartınızda sınayın. İmzası ve sürümü doğrulanmamış programı kurmayın; güç kesintisine karşı kurtarma planı bulundurun."
+    }
+  ],
+  "testId": "esp32_test_esp_ota_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

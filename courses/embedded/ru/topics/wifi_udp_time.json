@@ -1,0 +1,101 @@
+{
+  "id": "wifi_udp_time",
+  "title": "Wi-Fi UDP и NTPClient: дейтаграммы и время",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html#udp",
+    "https://github.com/arduino-libraries/NTPClient"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "UDP — лёгкий транспорт для коротких сообщений, а NTP предоставляет сетевое время. Примеры запускаются после подключения Wi-Fi.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "КАК ЭТО РАБОТАЕТ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "WiFiClient",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " открывает TCP-соединение с IP/портом сервера и читает или записывает поток байтов; TCP отвечает за порядок и повторную отправку. UDP передаёт дейтаграммы через "
+    },
+    {
+      "type": "text",
+      "text": "WiFiUDP",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " без сеанса и не повторяет потерянные пакеты. NTPClient по UDP получает epoch-время сервера. В HTTPS-примере "
+    },
+    {
+      "type": "text",
+      "text": "WiFiClientSecure",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " должен проверять сертификат сервера; отключать проверку небезопасно. NTP может понадобиться для настройки часов до проверки TLS-сертификата.\n\nПервый sketch принимает UDP-пакет и отвечает. Второй получает время через отдельную библиотеку NTPClient; "
+    },
+    {
+      "type": "text",
+      "text": "WiFiUDP",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " входит в Arduino-ESP32.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "UDPClientServer: принять дейтаграмму и ответить\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <WiFiUdp.h>\n\nWiFiUDP udp;\nconstexpr uint16_t LOCAL_PORT = 4210;\nchar packet[128];\n\nvoid setup() {\n  Serial.begin(115200);\n  WiFi.mode(WIFI_STA);\n  WiFi.begin(\"YOUR_WIFI_NAME\", \"YOUR_WIFI_PASSWORD\");\n  while (WiFi.status() != WL_CONNECTED) delay(250);\n  if (!udp.begin(LOCAL_PORT)) {\n    Serial.println(\"UDP bind failed\");\n  }\n}\n\nvoid loop() {\n  const int packetSize = udp.parsePacket();\n  if (packetSize <= 0) return;\n  const int count = udp.read(packet, sizeof(packet) - 1);\n  if (count <= 0) return;\n  packet[count] = '\\0';\n  Serial.println(packet);\n  udp.beginPacket(udp.remoteIP(), udp.remotePort());\n  udp.write(reinterpret_cast<const uint8_t*>(\"ack\"), 3);\n  if (udp.endPacket() == 0) {\n    Serial.println(\"UDP reply failed\");\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "NTPClient: синхронизация времени\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <WiFiUdp.h>\n#include <NTPClient.h>\n\nWiFiUDP ntpTransport;\nNTPClient clockClient(ntpTransport, \"pool.ntp.org\", 0, 60000);\n\nvoid setup() {\n  Serial.begin(115200);\n  WiFi.mode(WIFI_STA);\n  WiFi.begin(\"YOUR_WIFI_NAME\", \"YOUR_WIFI_PASSWORD\");\n  while (WiFi.status() != WL_CONNECTED) delay(250);\n  clockClient.begin();\n}\n\nvoid loop() {\n  if (clockClient.update()) {\n    Serial.println(clockClient.getFormattedTime());\n  }\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Wi-Fi UDP и NTPClient: дейтаграммы и время"
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание о безопасности и совместимости",
+      "text": "Передавайте пароль Wi-Fi безопасно и не добавляйте его в репозиторий. UDP не гарантирует доставку: для важных команд нужны аутентификация, номера последовательности и повторы. Обычный NTP не является аутентифицированным источником времени."
+    }
+  ],
+  "testId": "embedded_test_wifi_udp_time_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

@@ -1,0 +1,108 @@
+{
+  "id": "ota_arduino_wifi",
+  "title": "ArduinoOTA: upload firmware to a board over Wi-Fi",
+  "difficulty": "advanced",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://docs.arduino.cc/learn/programming/ota-getting-started/",
+    "https://github.com/espressif/arduino-esp32/tree/master/libraries/ArduinoOTA"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "This example uploads from Arduino IDE to a supported ESP32 on the same Wi-Fi network. The first setup still needs USB: install a sketch with Wi-Fi and OTA support over the cable, then later uploads can use the network.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "How it works\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "WiFi.begin()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " connects the board; "
+    },
+    {
+      "type": "text",
+      "text": "ArduinoOTA.begin()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " starts the receiver; "
+    },
+    {
+      "type": "text",
+      "text": "ArduinoOTA.handle()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " must run often in "
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " to process the transfer. The board should appear as a network port in the IDE. Select the same network and the correct board/core. Long "
+    },
+    {
+      "type": "text",
+      "text": "delay()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " calls or blocking sensor code can interrupt OTA handling.\n\nThis is an Arduino-ESP32-style example; "
+    },
+    {
+      "type": "text",
+      "text": "WiFi.h",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and ArduinoOTA are not available on every Arduino board. Wi-Fi-enabled MKR and other boards may use a different API, so follow their board documentation.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Example code\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <ArduinoOTA.h>\n\nconst char* ssid = \"YOUR_WIFI_NAME\";\nconst char* password = \"YOUR_WIFI_PASSWORD\";\n\nvoid setup() {\n  Serial.begin(115200);\n  WiFi.begin(ssid, password);\n  while (WiFi.status() != WL_CONNECTED) delay(250);\n  ArduinoOTA.setHostname(\"sensor-01\");\n  ArduinoOTA.begin();\n}\n\nvoid loop() {\n  ArduinoOTA.handle();  // Call often; do not block for long.\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Diagram: ArduinoOTA: upload firmware to a board over Wi-Fi"
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Replace Wi-Fi placeholders locally; never commit credentials. Configure ArduinoOTA authentication and do not expose unauthenticated updates on an untrusted network. Require secure transport and image verification in production."
+    }
+  ],
+  "testId": "embedded_test_ota_arduino_wifi_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

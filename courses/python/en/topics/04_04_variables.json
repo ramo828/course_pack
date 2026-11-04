@@ -1,0 +1,1328 @@
+{
+  "id": "python_04_variables_en",
+  "title": "Variables",
+  "difficulty": "easy",
+  "testId": "python_test_04_variables_en",
+  "estimatedMinutes": 8,
+  "sources": [
+    "https://docs.python.org/3/tutorial/introduction.html",
+    "https://peps.python.org/pep-0008/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "WHY USE THIS?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Variables name and reuse values; aliases to a mutable list share the same object, so a change through one name is visible through the other.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Variables name and reuse values; aliases to a mutable list share the same object, so a change through one name is visible through the other.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Variables name and reuse values; aliases to a mutable list share the same object, so a change through one name is visible through the other.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Variables name and reuse values; aliases to a mutable list share the same object, so a change through one name is visible through the other.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "VARIABLES: NAMES BOUND TO OBJECTS",
+      "size": 24,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A variable gives a useful name to a value so a program can read it, reuse it, and update its state. In Python, assignment does not declare a fixed storage box: it binds a name to an object. Understanding that distinction explains reassignment, aliases, and why changing a list can be visible through more than one name.\n\n",
+      "size": 17
+    },
+    {
+      "type": "image",
+      "path": "images/python_name_binding.png",
+      "alt": "Diagram showing two names referring to the same mutable list object.",
+      "caption": "Rebinding a name is different from mutating a shared object."
+    },
+    {
+      "type": "text",
+      "text": "1. ASSIGNMENT CREATES A NAME BINDING",
+      "size": 21,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The = operator evaluates its right-hand side first and then binds the name on its left to the resulting object. It is not the mathematical claim that both sides are permanently equal. Reassigning a name changes what that name refers to; it does not retroactively change earlier values or other names.\n\n",
+      "font": "NimbusSans",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Example 1 · bind, read, and rebind",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "student_name = \"Aylin\"\nscore = 82\nnext_score = score + 8\nscore = next_score\nprint(student_name)\nprint(next_score, score)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "Output",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Aylin\n90 90",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "The first print reads the string bound to student_name. The expression score + 8 is evaluated ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "while",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " score is 82, so next_score is bound to 90. Rebinding score to next_score does not alter the already printed name or the integer object 82.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Trace the value",
+      "text": "When debugging, write down each name and the object it refers to after every assignment. This is more reliable than thinking of = as a permanent equation."
+    },
+    {
+      "type": "text",
+      "text": "2. NAMES, CONVENTIONS, AND MULTIPLE ASSIGNMENT",
+      "size": 21,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A Python identifier may contain letters, digits, and underscores, but cannot start with a digit. Names are case-sensitive: total, Total, and TOTAL are three different names. Reserved keywords such as ",
+      "font": "NimbusSans",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "if",
+      "font": "NimbusSans",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " and ",
+      "font": "NimbusSans",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "class cannot",
+      "font": "NimbusSans",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " be used as identifiers. Prefer descriptive snake_case names (monthly_total) over cryptic names; uppercase names conventionally signal constants, although Python does not enforce immutability.\n\n",
+      "font": "NimbusSans",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Example 2 · unpack values and swap names",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "width, height = 4, 3\nwidth, height = height, width\narea = width * height\nprint(width, height)\nprint(area)",
+      "showCopyButton": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "3 4\n12",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "The right side is evaluated before assignment, so the swap safely uses the original pair of values. Unpacking makes the intent clearer than introducing a temporary name. If the number of target names does not ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "match",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " the iterable's items, Python raises ValueError rather than silently dropping values.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "3. MUTABLE OBJECTS AND ALIASES",
+      "size": 21,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A list is mutable: methods such as append change that list object. Assigning a second name to the list does not copy it; both names refer to the same object. This is an alias. Use",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "list.`copy()`",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "or",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "copy.`copy()`",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " a shallow copy when an independent outer list is needed. A shallow copy still shares nested mutable objects, so nested data may require",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "copy.`deepcopy()`",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "or an explicit copy strategy.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Example 3 · alias versus shallow copy",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "scores = [80, 92]\nalias = scores\nindependent = scores.copy()\nalias.append(100)\nprint(scores)\nprint(independent)\nprint(alias is scores)",
+      "showCopyButton": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "[80, 92, 100]\n[80, 92]\nTrue",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "The append call mutates the one list shared by scores and alias, ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "while",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " independent contains a separate outer list. The is operator checks object identity, not value equality; use == when you mean “has the same value.”",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "detail",
+      "title": "When would we avoid a mutable alias?",
+      "text": "If two parts of a program unexpectedly share a mutable object, one can change data that the other assumes is stable. Copy the data at a clear ownership boundary, use an immutable representation where practical, or document intentional shared mutation. Copying has a cost and may be shallow, so choose based on the data shape and expected behavior."
+    },
+    {
+      "type": "text",
+      "text": "COMMON ERRORS AND A PRACTICAL CHECKLIST",
+      "size": 21,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "•",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "2score",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "is invalid because an identifier cannot start with a digit.\n•",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "class = \"A\"",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "is invalid because ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "class is",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " a reserved keyword.\n•",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "score = score + 1",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "reads the old value, computes a new integer, then rebinds score.\n•",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "a = b = []",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "binds both names to the same list; ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "use two",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " separate literals ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "if",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " independent lists are intended.\n• Use",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "==",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " value comparison and reserve",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "is",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "for",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " identity checks (most commonly",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "value is `None`",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ").\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "warning",
+      "title": "Shared mutable values",
+      "text": "Avoid assuming assignment makes a copy. With lists, dictionaries, and other mutable objects, a second assignment usually creates another reference to the same object."
+    },
+    {
+      "type": "text",
+      "text": "KEY IDEA",
+      "size": 20,
+      "color": "#00897B",
+      "bold": true,
+      "underline": true
+    },
+    {
+      "type": "text",
+      "text": "A name refers to an object; assignment binds or rebinds the name. Mutable objects can be shared through aliases, so decide deliberately whether you want shared state or a copy.\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: After ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values = [1]; alias = values; alias.append(2)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", what is ",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "values",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: [1, 2]\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "A separate visual is not essential; a small runnable code example and its expected output explain the topic."
+}

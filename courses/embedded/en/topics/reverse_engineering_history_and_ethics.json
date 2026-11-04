@@ -1,0 +1,48 @@
+{
+  "id": "reverse_engineering_history_and_ethics",
+  "title": "Reverse engineering: history, protocol analysis, and ethical limits",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Clean_room_design",
+    "https://www.usenix.org/legacy/publications/library/proceedings/usenix98/full_papers/schulman/schulman_html/",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/uart.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Reverse engineering observes and documents how an existing device works. It can support repair, interoperability, migration, and debugging of equipment you own or are authorized to test.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "HOW IT WORKS\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Historical example: in the 1980s, companies building IBM-PC-compatible computers studied BIOS behavior and wrote independent implementations; clean-room practice separated observation from implementation. This illustrates interoperability, not blanket legal permission.\n\nFor your own sensor, start with its datasheet and public protocol. Use a logic analyzer on your own UART/I²C/SPI signals, document the byte layout, checksum, and units, then test a decoder. The sample parses a tiny frame from a device you control. For firmware research, confirm ownership and permission, record the exact version, preserve an original copy, and test only in a lab.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <stddef.h>\n#include <stdint.h>\n\nbool decodeFrame(const uint8_t* frame, size_t length,\n                 uint16_t& millivolts) {\n  if (frame == nullptr || length != 4 || frame[0] != 0xA5) {\n    return false;\n  }\n  if ((frame[1] ^ frame[2]) != frame[3]) return false;\n  millivolts = (uint16_t(frame[1]) << 8) | frame[2];\n  return true;\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important safety and compatibility note",
+      "text": "Analyze only devices you own or are explicitly authorized to test. Do not use this lesson to bypass protections, extract others' data, or probe third-party networks. Copyright, patent, contract, and local laws vary."
+    }
+  ],
+  "testId": "embedded_test_reverse_engineering_history_and_ethics_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

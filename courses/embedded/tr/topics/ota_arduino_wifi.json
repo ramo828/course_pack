@@ -1,0 +1,108 @@
+{
+  "id": "ota_arduino_wifi",
+  "title": "ArduinoOTA: Wi-Fi ile karta program yüklemek",
+  "difficulty": "advanced",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://docs.arduino.cc/learn/programming/ota-getting-started/",
+    "https://github.com/espressif/arduino-esp32/tree/master/libraries/ArduinoOTA"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Bu örnek, Arduino IDE'den aynı Wi-Fi ağındaki uyumlu bir ESP32 kartına kablosuz program gönderir. İlk kurulumda USB kablosu gerekir: Wi-Fi ve OTA desteği olan başlangıç programı önce kabloyla yüklenir. Sonraki güncellemeler ağ üzerinden yapılabilir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Konu açıklaması\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "WiFi.begin()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kartı ağa bağlar; "
+    },
+    {
+      "type": "text",
+      "text": "ArduinoOTA.begin()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " OTA alımını başlatır; "
+    },
+    {
+      "type": "text",
+      "text": "ArduinoOTA.handle()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ise aktarımı işlemek için "
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " içinde sık çağrılır. Kart IDE'nin port listesinde ağ aygıtı olarak görünmelidir. Yüklerken aynı ağı ve doğru board/core seçimini kullanın. Uzun "
+    },
+    {
+      "type": "text",
+      "text": "delay()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve bloklayan sensör okumaları aktarımı yarıda bırakabilir.\n\nBu, Arduino-ESP32 tarzı bir örnektir; "
+    },
+    {
+      "type": "text",
+      "text": "WiFi.h",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve ArduinoOTA her Arduino kartında bulunmaz. Wi-Fi destekli MKR ve diğer kartların API'si farklı olabilir; kartın belgelerine bakın.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Örnek kod\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <ArduinoOTA.h>\n\nconst char* ssid = \"YOUR_WIFI_NAME\";\nconst char* password = \"YOUR_WIFI_PASSWORD\";\n\nvoid setup() {\n  Serial.begin(115200);\n  WiFi.begin(ssid, password);\n  while (WiFi.status() != WL_CONNECTED) delay(250);\n  ArduinoOTA.setHostname(\"sensor-01\");\n  ArduinoOTA.begin();\n}\n\nvoid loop() {\n  ArduinoOTA.handle();  // Call often; do not block for long.\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Şema: ArduinoOTA: Wi-Fi ile karta program yüklemek"
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Ağ adı ve parolunu örnekteki yer tutucularla değiştirin; paylaşılan koda eklemeyin. ArduinoOTA kimlik doğrulamasını yapılandırın ve güvenilmeyen ağda açık güncelleme kullanmayın. Üretimde imza denetimi ve güvenli aktarım kullanın."
+    }
+  ],
+  "testId": "embedded_test_ota_arduino_wifi_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

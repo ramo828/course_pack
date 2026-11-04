@@ -1,0 +1,74 @@
+{
+  "id": "cpp_enum_union_bit_operations",
+  "title": "enum class, union и операции с битами",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/enum.html",
+    "https://en.cppreference.com/w/cpp/language/union.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "enum",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " задаёт имена состояниям; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "enum class",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " изолирует эти имена и запрещает случайное преобразование в целое. При необходимости используйте явное ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "static_cast<uint8_t>(Mode::Sample)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". Побитовые маски устанавливают, проверяют и очищают флаги регистра. Члены ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "union",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " используют одну память, поэтому обычно допустимо читать только последний записанный член.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "enum class Mode : uint8_t { Idle, Sample, Alarm };\nuint8_t flags = 0;\nconstexpr uint8_t READY = 1u << 0;\nflags |= READY;                 // Set bit\nbool ready = (flags & READY) != 0;\nflags &= static_cast<uint8_t>(~READY); // Clear bit\n\nunion RawValue { uint16_t word; uint8_t bytes[2]; };\nstruct StatusBits { unsigned ready : 1; unsigned mode : 2; };",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Прямая запись в регистр может изменить соседние биты; следуйте справочнику микросхемы и API производителя. Раскладка битовых полей зависит от компилятора и платы. Чтение другого члена `union` для переинтерпретации данных непереносимо, порядок байтов тоже различается."
+    }
+  ],
+  "testId": "embedded_test_cpp_enum_union_bit_operations_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

@@ -1,0 +1,62 @@
+{
+  "id": "rust_test_rust_embedded_az",
+  "title": "no_std, embedded və resurs büdcəsi",
+  "questions": [
+    {
+      "id": "rust_rust_embedded_1",
+      "topicId": "rust_rust_embedded",
+      "type": "multiple_choice",
+      "prompt": "“no_std, embedded və resurs büdcəsi” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "no_std tətbiqdə panic handler tələb olunur və platformaya uyğun startup/linker quruluşu da lazımdır."
+      ],
+      "answer": "no_std tətbiqdə panic handler tələb olunur və platformaya uyğun startup/linker quruluşu da lazımdır.",
+      "explanation": "no_std tətbiqdə panic handler tələb olunur və platformaya uyğun startup/linker quruluşu da lazımdır.\nİzah: Rust embedded proqramlarında `no_std` ilə standart kitabxananın əməliyyat sistemi tələb edən hissələri olmadan işləyə bilər; `core` və platformaya uyğun `embedded-hal` abstraksiyaları qalır. Firmware-də heap, stack, flash, RAM və interrupt latency büdcəsini target chip və linker konfiqurasiyasına görə ölçmək lazımdır. `no_std` təkbaşına real-time zəmanəti və ya hardware təhlükəsizliyi vermir; HAL, driver və unsafe sərhədləri ayrıca nəzərdən keçirilməlidir."
+    },
+    {
+      "id": "rust_rust_embedded_2",
+      "topicId": "rust_rust_embedded",
+      "type": "multiple_choice",
+      "prompt": "“no_std, embedded və resurs büdcəsi” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "Dəyişənliyi yalnız həqiqətən lazım olduqda aktiv edin.",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "Target triple ilə toolchain uyğunluğunu, hər task-ın stack ölçüsünü və RAM çatışmazlığı zamanı davranışı yoxlayın."
+      ],
+      "answer": "Target triple ilə toolchain uyğunluğunu, hər task-ın stack ölçüsünü və RAM çatışmazlığı zamanı davranışı yoxlayın.",
+      "explanation": "Target triple ilə toolchain uyğunluğunu, hər task-ın stack ölçüsünü və RAM çatışmazlığı zamanı davranışı yoxlayın.\nİzah: Rust embedded proqramlarında `no_std` ilə standart kitabxananın əməliyyat sistemi tələb edən hissələri olmadan işləyə bilər; `core` və platformaya uyğun `embedded-hal` abstraksiyaları qalır. Firmware-də heap, stack, flash, RAM və interrupt latency büdcəsini target chip və linker konfiqurasiyasına görə ölçmək lazımdır. `no_std` təkbaşına real-time zəmanəti və ya hardware təhlükəsizliyi vermir; HAL, driver və unsafe sərhədləri ayrıca nəzərdən keçirilməlidir."
+    },
+    {
+      "id": "rust_rust_embedded_3",
+      "topicId": "rust_rust_embedded",
+      "type": "multiple_choice",
+      "prompt": "“no_std, embedded və resurs büdcəsi” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "Rust embedded proqramlarında `no_std` ilə standart kitabxananın əməliyyat sistemi tələb edən hissələri olmadan işləyə bilər; `core` və platformaya uyğun `embedded-hal` abstraksiyaları qalır",
+        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir."
+      ],
+      "answer": "Rust embedded proqramlarında `no_std` ilə standart kitabxananın əməliyyat sistemi tələb edən hissələri olmadan işləyə bilər; `core` və platformaya uyğun `embedded-hal` abstraksiyaları qalır",
+      "explanation": "Rust embedded proqramlarında `no_std` ilə standart kitabxananın əməliyyat sistemi tələb edən hissələri olmadan işləyə bilər; `core` və platformaya uyğun `embedded-hal` abstraksiyaları qalır\nİzah: Rust embedded proqramlarında `no_std` ilə standart kitabxananın əməliyyat sistemi tələb edən hissələri olmadan işləyə bilər; `core` və platformaya uyğun `embedded-hal` abstraksiyaları qalır. Firmware-də heap, stack, flash, RAM və interrupt latency büdcəsini target chip və linker konfiqurasiyasına görə ölçmək lazımdır. `no_std` təkbaşına real-time zəmanəti və ya hardware təhlükəsizliyi vermir; HAL, driver və unsafe sərhədləri ayrıca nəzərdən keçirilməlidir."
+    },
+    {
+      "id": "rust_rust_embedded_4",
+      "topicId": "rust_rust_embedded",
+      "type": "multiple_choice",
+      "prompt": "“no_std, embedded və resurs büdcəsi” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Fiziki pin, gərginlik və cərəyan limitlərini lövhənin sənədindən yoxlayın; yanlış elektrik bağlantısı komponentləri zədələyə bilər.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir."
+      ],
+      "answer": "Fiziki pin, gərginlik və cərəyan limitlərini lövhənin sənədindən yoxlayın; yanlış elektrik bağlantısı komponentləri zədələyə bilər.",
+      "explanation": "Fiziki pin, gərginlik və cərəyan limitlərini lövhənin sənədindən yoxlayın; yanlış elektrik bağlantısı komponentləri zədələyə bilər.\nİzah: Rust embedded proqramlarında `no_std` ilə standart kitabxananın əməliyyat sistemi tələb edən hissələri olmadan işləyə bilər; `core` və platformaya uyğun `embedded-hal` abstraksiyaları qalır. Firmware-də heap, stack, flash, RAM və interrupt latency büdcəsini target chip və linker konfiqurasiyasına görə ölçmək lazımdır. `no_std` təkbaşına real-time zəmanəti və ya hardware təhlükəsizliyi vermir; HAL, driver və unsafe sərhədləri ayrıca nəzərdən keçirilməlidir."
+    }
+  ]
+}

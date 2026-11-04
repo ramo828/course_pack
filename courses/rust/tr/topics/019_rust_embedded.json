@@ -1,0 +1,263 @@
+{
+  "id": "rust_rust_embedded",
+  "title": "no_std, embedded ve kaynak bütçesi",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_embedded_tr",
+  "sources": [
+    "https://docs.rust-embedded.org/book/"
+  ],
+  "estimatedMinutes": 35,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “no_std, embedded ve kaynak bütçesi” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: no_std uygulamada panic handler gerekir; ayrıca platformaya uygun startup ve linker yapılandırması gerekir. Gerçek projede şu öneriyi izleyin: Hedef triple ve araç zinciri uyumunu, görev yığın boyutunu ve RAM yetersizliğini planlayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_embedded_hal_flow",
+      "caption": "no_std, embedded ve kaynak bütçesi"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#![no_std]\n\npub fn clamp_adc(raw: u16, maximum: u16) -> u16 {\n    if raw > maximum { maximum } else { raw }\n}\n\n// Compile as a library: rustc --crate-type lib adc.rs",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Konsol çıktısı yoktur; ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "rustc --crate-type lib adc.rs",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ", host hedefi için ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "no_std",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " kütüphanesini derler.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rust embedded yazılımda ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "no_std",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile işletim sistemi isteyen standart kütüphane bölümleri olmadan çalışabilir; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "core",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ve platformaya uygun ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "embedded-hal",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " soyutlamaları kullanılabilir. Firmware'de heap, stack, flash, RAM ve interrupt gecikmesi hedef yonga ile linker ayarlarına göre ölçülmelidir. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "no_std",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " tek başına real-time garantisi veya donanım güvenliği sağlamaz; HAL, sürücüler ve unsafe sınırlar ayrıca incelenmelidir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "#![no_std]",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: no_std uygulamada panic handler gerekir; ayrıca platformaya uygun startup ve linker yapılandırması gerekir.\nNeden seçildi: Hedef triple ve araç zinciri uyumunu, görev yığın boyutunu ve RAM yetersizliğini planlayın.\nAtlanır veya değiştirilirse: Fiziksel pin, gerilim ve akım sınırlarını kart belgesinden doğrulayın; yanlış bağlantı bileşenleri bozabilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Fiziksel pin, gerilim ve akım sınırlarını kart belgesinden doğrulayın; yanlış bağlantı bileşenleri bozabilir."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "no_std uygulamada panic handler gerekir; ayrıca platformaya uygun startup ve linker yapılandırması gerekir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Hedef triple ve araç zinciri uyumunu, görev yığın boyutunu ve RAM yetersizliğini planlayın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "#![no_std]\npub fn is_high(raw: u16, threshold: u16) -> bool { raw >= threshold }\n// Compile with: rustc --crate-type lib threshold.rs",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "no_std",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kitaplığı host executable olmadan derlenir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "`no_std` tek başına real-time garantisi veya donanım güvenliği sağlamaz; HAL, sürücüler ve unsafe sınırlar ayrıca incelenmelidir."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Fiziksel pin, gerilim ve akım sınırlarını kart belgesinden doğrulayın; yanlış bağlantı bileşenleri bozabilir."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Değer sahibi, ödünç alan ve kullanan kod arasındaki ilişki Rust tarafından derleme sırasında denetlenir."
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “no_std, embedded ve kaynak bütçesi” konusunda hangi ifade temel kuralı doğru açıklar?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: no_std uygulamada panic handler gerekir; ayrıca platformaya uygun startup ve linker yapılandırması gerekir.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı."
+}

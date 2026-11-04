@@ -1,0 +1,84 @@
+{
+  "id": "arduino_resistor_pullup",
+  "title": "Rezistor: pull-up, pull-down və gərginlik bölücü",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://learn.sparkfun.com/tutorials/pull-up-resistors/all",
+    "https://learn.sparkfun.com/tutorials/voltage-dividers/all",
+    "https://docs.arduino.cc/language-reference/en/functions/digital-io/pinMode/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "BU DƏRS NƏYİ ÖYRƏDİR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rezistor cərəyanı məhdudlaşdırır. Pull-up girişə boş vaxtda HIGH, pull-down isə LOW verir; beləliklə pin havada qalmır. İki rezistor ardıcıl qoşulanda gərginlik bölücü qurmaq mümkündür.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "NECƏ BAĞLANIR?\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Xarici pull-down nümunəsi: D2 ilə GND arasına 10 kΩ rezistor, düyməni 5V ilə D2 arasında qoşun. Daxili INPUT_PULLUP istifadə edirsinizsə düymə D2 ilə GND arasında olur və basılanda LOW oxunur. Potensiometr/LDR bölücüdə orta nöqtə A0-a gedir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_circuit_symbols",
+      "caption": "Sadələşdirilmiş sxemdir; real modulun pin yazılarını yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "SADƏ HESABLAMA\n",
+      "size": 19,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bölücüdə Vout = Vin × Ralt / (Ryuxarı + Ralt). A0 yalnız orta nöqtənin gərginliyini oxuyur; Ralt GND-yə gedən rezistordur.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ARDUINO KODU\n",
+      "size": 19,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const byte buttonPin = 2;\n\nvoid setup() {\n  Serial.begin(9600);\n  pinMode(buttonPin, INPUT_PULLUP);\n}\n\nvoid loop() {\n  Serial.println(digitalRead(buttonPin) == LOW ? \"Basildi\" : \"Buraxildi\");\n  delay(100);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\nKodu yüklədikdən sonra Serial Monitor-u açın (əgər nümunə serial çıxış verirsə), bağlantını yoxlayın və sensoru/mexanizmi dəyişərək sınayın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "tip",
+      "title": "Yadda saxla",
+      "text": "İlk sınağı enerjisi ayrılmış halda naqilləyin. VCC, GND və siqnal pinlərini modulun öz etiketindən və texniki sənəd-indən təsdiqləyin."
+    }
+  ],
+  "testId": "arduino_test_arduino_resistor_pullup_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

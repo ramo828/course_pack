@@ -1,0 +1,59 @@
+{
+  "id": "esp32_rgb_builtin",
+  "title": "Встроенный RGB LED ESP32: сначала проверьте плату",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/led.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "У многих плат ESP32 нет встроенного RGB LED. Если он есть, это может быть адресуемый или обычный трёхцветный LED с другой разводкой и драйвером. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "RGB_BUILTIN",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "rgbLedWrite",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " требуют совместимой версии Arduino-ESP32 и платы.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_esp32_rgb",
+      "caption": "Встроенный RGB LED ESP32: сначала проверьте плату"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n\n#if defined(RGB_BUILTIN)\nvoid setup() {}\nvoid loop() {\n  rgbLedWrite(RGB_BUILTIN, 16, 0, 0);\n  delay(300);\n  rgbLedWrite(RGB_BUILTIN, 0, 0, 16);\n  delay(300);\n}\n#else\n#error \"This board package does not define RGB_BUILTIN\"\n#endif",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Ошибка компиляции часто означает неподходящую плату или версию ядро. Проверьте схему платы и не угадывайте GPIO светодиода."
+    }
+  ],
+  "testId": "embedded_test_esp32_rgb_builtin_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

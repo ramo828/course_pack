@@ -1,0 +1,62 @@
+{
+  "id": "freertos_test_freertos_notifications_az",
+  "title": "Task notification və event group",
+  "questions": [
+    {
+      "id": "freertos_freertos_notifications_1",
+      "topicId": "freertos_freertos_notifications",
+      "type": "multiple_choice",
+      "prompt": "“Task notification və event group” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "Notification yalnız hədəf task-a yönəlir; queue kimi ixtiyari məlumat paketi daşımır.",
+        "Hər task üçün stack ayrılır, prioritet scheduler qərarına təsir edir.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin."
+      ],
+      "answer": "Notification yalnız hədəf task-a yönəlir; queue kimi ixtiyari məlumat paketi daşımır.",
+      "explanation": "Notification yalnız hədəf task-a yönəlir; queue kimi ixtiyari məlumat paketi daşımır.\nİzah: Task notification bir task-a birbaşa yüngül siqnal göndərir və bir çox bir-alıcı hadisəsində ayrıca queue-dan az yaddaş istifadə edir. `ulTaskNotifyTake` hadisə bitini/sayını gözləyir; birdən çox consumer və bir neçə bitlik sistem vəziyyəti lazımdırsa event group daha uyğundur. Göndərən task handle-ı etibarlı olmalı, hadisə yığılması və təmizlənməsi semantikası əvvəlcədən seçilməlidir."
+    },
+    {
+      "id": "freertos_freertos_notifications_2",
+      "topicId": "freertos_freertos_notifications",
+      "type": "multiple_choice",
+      "prompt": "“Task notification və event group” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Sonsuz dövrədə işləyən hər task vaxtaşırı gözləməli və ya bloklanmalıdır; əks halda CPU-nu inhisara ala bilər.",
+        "Bir consumer varsa notification düşünün; event group seçimini birden çox event biti həqiqətən lazım olduqda edin."
+      ],
+      "answer": "Bir consumer varsa notification düşünün; event group seçimini birden çox event biti həqiqətən lazım olduqda edin.",
+      "explanation": "Bir consumer varsa notification düşünün; event group seçimini birden çox event biti həqiqətən lazım olduqda edin.\nİzah: Task notification bir task-a birbaşa yüngül siqnal göndərir və bir çox bir-alıcı hadisəsində ayrıca queue-dan az yaddaş istifadə edir. `ulTaskNotifyTake` hadisə bitini/sayını gözləyir; birdən çox consumer və bir neçə bitlik sistem vəziyyəti lazımdırsa event group daha uyğundur. Göndərən task handle-ı etibarlı olmalı, hadisə yığılması və təmizlənməsi semantikası əvvəlcədən seçilməlidir."
+    },
+    {
+      "id": "freertos_freertos_notifications_3",
+      "topicId": "freertos_freertos_notifications",
+      "type": "multiple_choice",
+      "prompt": "“Task notification və event group” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Task stack ölçüsü byte ilə verilir və target/runtime versiyasına görə RAM məhdudiyyətini nəzərə almaq lazımdır.",
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "Notification counter, bit-mask və overwrite rejimləri fərqli semantikaya malikdir; sender və receiver eyni müqaviləni paylaşmalıdır."
+      ],
+      "answer": "Notification counter, bit-mask və overwrite rejimləri fərqli semantikaya malikdir; sender və receiver eyni müqaviləni paylaşmalıdır.",
+      "explanation": "Notification counter, bit-mask və overwrite rejimləri fərqli semantikaya malikdir; sender və receiver eyni müqaviləni paylaşmalıdır.\nİzah: Task notification bir task-a birbaşa yüngül siqnal göndərir və bir çox bir-alıcı hadisəsində ayrıca queue-dan az yaddaş istifadə edir. `ulTaskNotifyTake` hadisə bitini/sayını gözləyir; birdən çox consumer və bir neçə bitlik sistem vəziyyəti lazımdırsa event group daha uyğundur. Göndərən task handle-ı etibarlı olmalı, hadisə yığılması və təmizlənməsi semantikası əvvəlcədən seçilməlidir."
+    },
+    {
+      "id": "freertos_freertos_notifications_4",
+      "topicId": "freertos_freertos_notifications",
+      "type": "multiple_choice",
+      "prompt": "“Task notification və event group” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "Task-lar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa task-lara verir.",
+        "`ulTaskNotifyTake` hadisə bitini/sayını gözləyir; birdən çox consumer və bir neçə bitlik sistem vəziyyəti lazımdırsa event group daha uyğundur",
+        "Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa task əlavə edin.",
+        "Serial yazıları bir neçə task-dan qarışa bilər; ortaq çıxışı serializasiya edin və task stack ölçüsünü ölçün."
+      ],
+      "answer": "`ulTaskNotifyTake` hadisə bitini/sayını gözləyir; birdən çox consumer və bir neçə bitlik sistem vəziyyəti lazımdırsa event group daha uyğundur",
+      "explanation": "`ulTaskNotifyTake` hadisə bitini/sayını gözləyir; birdən çox consumer və bir neçə bitlik sistem vəziyyəti lazımdırsa event group daha uyğundur\nİzah: Task notification bir task-a birbaşa yüngül siqnal göndərir və bir çox bir-alıcı hadisəsində ayrıca queue-dan az yaddaş istifadə edir. `ulTaskNotifyTake` hadisə bitini/sayını gözləyir; birdən çox consumer və bir neçə bitlik sistem vəziyyəti lazımdırsa event group daha uyğundur. Göndərən task handle-ı etibarlı olmalı, hadisə yığılması və təmizlənməsi semantikası əvvəlcədən seçilməlidir."
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "id": "freertos_freertos_memory",
+  "title": "Heap, yığın ve statik allocation",
+  "difficulty": "hard",
+  "testId": "freertos_test_freertos_memory_tr",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/09-Memory-management/01-Memory-management"
+  ],
+  "estimatedMinutes": 20,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Heap, yığın ve statik allocation” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Kernel heap'inden ayrılan belleği geri bırakın; uzun ömürlü nesneleri mümkünse önceden planlayın. Gerçek projede şu öneriyi izleyin: Görev oluşturma sonucunu ve yığın kullanımını denetleyin; RAM bütçesini tüm görev, kuyruk ve tampon'lar için hesaplayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid setup() { Serial.begin(115200); void* memory = pvPortMalloc(128); if (memory != nullptr) { Serial.println(\"128 bytes available\"); vPortFree(memory); } else { Serial.println(\"heap exhausted\"); } }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "FreeRTOS heap'inde en az 128 bayt varsa bellek ayırma başarılı olur.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Her FreeRTOS görevi kendi yığın belleğini tüketir; kuyruk, timer ve görev oluşturma kernel heap'inden RAM alabilir. Heap tükenince oluşturma çağrıları başarısız olabilir; yığın taşması bozulmaya yol açabilir. High-water mark, minimum heap ve statik allocation seçeneklerini ölçün; örnek boyutlarını üretime kopyalamayın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void setup() { Serial.begin(115200); void* memory = pvPortMalloc(128); if (memory != nullptr) { Serial.println(\"128 bytes available\"); vPortFree(memory); } else { Serial.println(\"heap exhausted\"); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Kernel heap'inden ayrılan belleği geri bırakın; uzun ömürlü nesneleri mümkünse önceden planlayın.\nNeden seçildi: Görev oluşturma sonucunu ve yığın kullanımını denetleyin; RAM bütçesini tüm görev, kuyruk ve tampon'lar için hesaplayın.\nAtlanır veya değiştirilirse: FreeRTOS yığın parametresi port ve API'ye göre farklı birim kullanabilir; ESP32 Arduino Çekirdek örneğinde API byte alır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: Görev oluşturma sonucunu ve yığın kullanımını denetleyin; RAM bütçesini tüm görev, kuyruk ve tampon'lar için hesaplayın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kernel heap'inden ayrılan belleği geri bırakın; uzun ömürlü nesneleri mümkünse önceden planlayın.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Görev oluşturma sonucunu ve yığın kullanımını denetleyin; RAM bütçesini tüm görev, kuyruk ve tampon'lar için hesaplayın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid setup() { Serial.begin(115200); void* block = pvPortMalloc(64); if (block) { Serial.println(\"allocated 64 bytes\"); vPortFree(block); } else { Serial.println(\"allocation failed\"); } }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "128 baytlık bellek ayırma başarılıysa başarı mesajı yazdırılır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "FreeRTOS yığın parametresi port ve API'ye göre farklı birim kullanabilir; ESP32 Arduino Çekirdek örneğinde API byte alır."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Pinler, gerilim/akım sınırları, zamanlama ve çevre birimleri karta bağlıdır; bağlantı veya yükleme öncesinde kart belgesini doğrulayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: görev durumlarını, öncelikleri, kuyruk/eşzamanlama ilişkisini ve zaman çizelgesini gösteren diyagram."
+}

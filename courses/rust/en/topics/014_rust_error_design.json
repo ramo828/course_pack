@@ -1,0 +1,331 @@
+{
+  "id": "rust_rust_error_design",
+  "title": "Result, ?, and error design",
+  "difficulty": "hard",
+  "testId": "rust_test_rust_error_design_en",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch09-00-error-handling.html"
+  ],
+  "estimatedMinutes": 24,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Result, ?, and error design” to a real program or device. The key principle is: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " returns an error to the caller and passes the success value onward. In a project, follow this guidance: Do not swallow errors into success-shaped defaults; retry only repeatable operations with a bound.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "rust_result_flow",
+      "caption": "Result, ?, and error design"
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::error::Error;\nfn parse_port(text: &str) -> Result<u16, std::num::ParseIntError> {\n    let port = text.parse()?;\n    Ok(port)\n}\nfn main() -> Result<(), Box<dyn Error>> {\n    let port = parse_port(\"8080\")?;\n    println!(\"{port}\");\n    Ok(())\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Prints port 8080 on success; a parse failure is propagated with ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Result<T, E> represents success or failure in the type system; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " propagates compatible errors through a call chain. Translate concrete errors into useful messages at application boundaries while preserving causes and context in internal layers. Reserve ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "unwrap()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " for small examples or proven invariants where a panic is acceptable.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Option<T>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " represents an expected absence (",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "None",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "); ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Result<T, E>",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " represents success or a reportable failure. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " propagates errors instead of introducing an unnecessary panic, and ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "main -> Result",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " can report a top-level failure. Reserve ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "unwrap()",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " for tests or proven invariants.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let port = text.parse()?;",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " returns an error to the caller and passes the success value onward.\nWhy it is used: Do not swallow errors into success-shaped defaults; retry only repeatable operations with a bound.\nIf omitted or changed: Do not swallow errors into success-shaped defaults; retry only repeatable operations with a bound.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Skipping this check before applying the rule: Do not swallow errors into success-shaped defaults; retry only repeatable operations with a bound."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " returns an error to the caller and passes the success value onward.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Do not swallow errors into success-shaped defaults; retry only repeatable operations with a bound."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "fn parse_port(text: &str) -> Result<u16, std::num::ParseIntError> {\n    text.parse()\n}\nfn main() {\n    match parse_port(\"not-a-port\") {\n        Ok(port) => println!(\"{port}\"),\n        Err(_) => println!(\"invalid port\"),\n    }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "invalid port\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Reserve `unwrap()` for tests or proven invariants."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Examples focus on the concept; compile and test with the selected toolchain and target because APIs and diagnostics can vary by version."
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement gives the core rule for “Result, ?, and error design”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "?",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " returns an error to the caller and passes the success value onward.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
+}

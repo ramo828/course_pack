@@ -1,0 +1,193 @@
+{
+  "id": "esp32_esp_wifi",
+  "title": "Wi-Fi station ve access point",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_wifi_tr",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/wifi.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Wi-Fi station ve access point” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "WiFi.mode(WIFI_STA)",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " cihazı station kipine alır. Gerçek projede şu öneriyi izleyin: Ağ adını ve parolunu firmware kaynak koduna gömmeyin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\nconst char* ssid = \"YOUR_WIFI_NAME\";\nconst char* password = \"YOUR_WIFI_PASSWORD\";\nvoid setup() {\n    Serial.begin(115200);\n    WiFi.mode(WIFI_STA);\n    WiFi.begin(ssid, password);\n}\nvoid loop() {\n    if (WiFi.status() == WL_CONNECTED) Serial.println(WiFi.localIP());\n    else Serial.println(\"waiting for Wi-Fi\");\n    delay(2000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Station mode yapılandırılır; bağlantı için kimlik bilgileri, event handler ve erişilebilir bir access point gerekir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Station kipi mevcut routera bağlanır; access point cihazın yerel ağ oluşturmasını sağlar. Yeniden bağlantıyı durum makinesiyle yönetin; Wi-Fi işleri ana kontrol görevini uzun süre bloklamasın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "WiFi.begin(ssid, password);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "WiFi.mode(WIFI_STA)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " cihazı station kipine alır.\nNeden seçildi: Ağ adını ve parolunu firmware kaynak koduna gömmeyin.\nAtlanır veya değiştirilirse: Üretim cihazında açık access point veya sabit varsayılan parola bırakmayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Üretim cihazında açık access point veya sabit varsayılan parola bırakmayın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "WiFi.mode(WIFI_STA)",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " cihazı station kipine alır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Ağ adını ve parolunu firmware kaynak koduna gömmeyin."
+    },
+    {
+      "type": "text",
+      "text": "Arduino Core örneği\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\nvoid setup() { Serial.begin(115200); WiFi.mode(WIFI_STA); }\nvoid loop() { Serial.println(WiFi.status()); delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor geçerli Wi-Fi durum kodunu gösterir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Yeniden bağlantıyı durum makinesiyle yönetin; Wi-Fi işleri ana kontrol görevini uzun süre bloklamasın."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Üretim cihazında açık access point veya sabit varsayılan parola bırakmayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: cihazları, bağlantı yönünü, protokolü ve veri akışını gösteren sistem mimarisi diyagramı."
+}

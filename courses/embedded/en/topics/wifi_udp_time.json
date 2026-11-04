@@ -1,0 +1,101 @@
+{
+  "id": "wifi_udp_time",
+  "title": "Wi-Fi UDP and NTPClient: datagrams and time",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html#udp",
+    "https://github.com/arduino-libraries/NTPClient"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "UDP is a lightweight transport for short messages; NTP provides network time. These examples run after Wi-Fi connects.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "HOW IT WORKS\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "WiFiClient",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " opens a TCP connection to a server IP/port and reads or writes a byte stream; TCP handles ordering and retransmission. UDP sends and receives datagrams through "
+    },
+    {
+      "type": "text",
+      "text": "WiFiUDP",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " without a session and does not retransmit lost packets for you. NTPClient uses UDP to obtain epoch time from a time server. The HTTPS lesson uses "
+    },
+    {
+      "type": "text",
+      "text": "WiFiClientSecure",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and must verify the server certificate; disabling certificate checks is not a safe fix. NTP may be needed to set the clock before validating a TLS certificate.\n\nThe first sketch receives a UDP packet and replies. The second reads time with the separately installed NTPClient library; "
+    },
+    {
+      "type": "text",
+      "text": "WiFiUDP",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " is included with Arduino-ESP32.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "UDPClientServer: receive a datagram and reply\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <WiFiUdp.h>\n\nWiFiUDP udp;\nconstexpr uint16_t LOCAL_PORT = 4210;\nchar packet[128];\n\nvoid setup() {\n  Serial.begin(115200);\n  WiFi.mode(WIFI_STA);\n  WiFi.begin(\"YOUR_WIFI_NAME\", \"YOUR_WIFI_PASSWORD\");\n  while (WiFi.status() != WL_CONNECTED) delay(250);\n  if (!udp.begin(LOCAL_PORT)) {\n    Serial.println(\"UDP bind failed\");\n  }\n}\n\nvoid loop() {\n  const int packetSize = udp.parsePacket();\n  if (packetSize <= 0) return;\n  const int count = udp.read(packet, sizeof(packet) - 1);\n  if (count <= 0) return;\n  packet[count] = '\\0';\n  Serial.println(packet);\n  udp.beginPacket(udp.remoteIP(), udp.remotePort());\n  udp.write(reinterpret_cast<const uint8_t*>(\"ack\"), 3);\n  if (udp.endPacket() == 0) {\n    Serial.println(\"UDP reply failed\");\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "NTPClient: synchronize the clock\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <WiFiUdp.h>\n#include <NTPClient.h>\n\nWiFiUDP ntpTransport;\nNTPClient clockClient(ntpTransport, \"pool.ntp.org\", 0, 60000);\n\nvoid setup() {\n  Serial.begin(115200);\n  WiFi.mode(WIFI_STA);\n  WiFi.begin(\"YOUR_WIFI_NAME\", \"YOUR_WIFI_PASSWORD\");\n  while (WiFi.status() != WL_CONNECTED) delay(250);\n  clockClient.begin();\n}\n\nvoid loop() {\n  if (clockClient.update()) {\n    Serial.println(clockClient.getFormattedTime());\n  }\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Wi-Fi UDP and NTPClient: datagrams and time"
+    },
+    {
+      "type": "warning",
+      "title": "Important safety and compatibility note",
+      "text": "Provide Wi-Fi credentials securely; never commit them. UDP does not guarantee delivery, so critical commands need authentication, sequence numbers, and retry logic. Plain NTP is not an authenticated time source."
+    }
+  ],
+  "testId": "embedded_test_wifi_udp_time_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

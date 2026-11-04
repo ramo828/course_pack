@@ -1,0 +1,197 @@
+{
+  "id": "freertos_freertos_notifications",
+  "title": "Task notification ve event group",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_notifications_tr",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/03-Direct-to-task-notifications/01-Task-notifications"
+  ],
+  "estimatedMinutes": 22,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “Task notification ve event group” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Notification yalnızca hedef göreve gider; queue gibi keyfi veri taşımaz. Gerçek projede şu öneriyi izleyin: Tek tüketici varsa notification düşünün; event group'u birden çok olay biti gerektiğinde seçin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nTaskHandle_t receiver = nullptr;\nvoid receiverTask(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"one event\"); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(receiverTask, \"receiver\", 2048, nullptr, 1, &receiver) != pdPASS) { receiver = nullptr; Serial.println(\"receiver task creation failed\"); } }\nvoid loop() { if (receiver) xTaskNotifyGive(receiver); vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Görev bildirimi aldığında Serial Monitor ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "one event",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " mesajını gösterir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Task notification bir göreve doğrudan hafif sinyal gönderir; tek alıcılı birçok olayda ayrı queue'dan daha az bellek kullanır. ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ulTaskNotifyTake",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bildirimi bekler; birden çok tüketici veya bit alanı gerekiyorsa event group daha uygundur. Gönderenin task handle'ı geçerli olmalı, olayların birikme ve temizlenme davranışı baştan seçilmelidir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void receiverTask(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"one event\"); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Notification yalnızca hedef göreve gider; queue gibi keyfi veri taşımaz.\nNeden seçildi: Tek tüketici varsa notification düşünün; event group'u birden çok olay biti gerektiğinde seçin.\nAtlanır veya değiştirilirse: Notification counter, bit maskesi ve overwrite kipleri farklıdır; gönderici ile alıcı aynı sözleşmeyi kullanmalıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: Tek tüketici varsa notification düşünün; event group'u birden çok olay biti gerektiğinde seçin."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Notification yalnızca hedef göreve gider; queue gibi keyfi veri taşımaz.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Tek tüketici varsa notification düşünün; event group'u birden çok olay biti gerektiğinde seçin."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nTaskHandle_t workerHandle = nullptr;\nvoid worker(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"event received\"); } }\nvoid setup() { Serial.begin(115200); xTaskCreate(worker, \"worker\", 2048, nullptr, 1, &workerHandle); }\nvoid loop() { if (workerHandle) xTaskNotifyGive(workerHandle); vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Görev bildirimi aldığında Serial Monitor ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "one event",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " gösterir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Notification counter, bit maskesi ve overwrite kipleri farklıdır; gönderici ile alıcı aynı sözleşmeyi kullanmalıdır."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Pinler, gerilim/akım sınırları, zamanlama ve çevre birimleri karta bağlıdır; bağlantı veya yükleme öncesinde kart belgesini doğrulayın."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: görev durumlarını, öncelikleri, kuyruk/eşzamanlama ilişkisini ve zaman çizelgesini gösteren diyagram."
+}

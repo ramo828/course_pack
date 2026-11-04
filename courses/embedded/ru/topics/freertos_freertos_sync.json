@@ -1,0 +1,160 @@
+{
+  "id": "freertos_freertos_sync",
+  "title": "Семафоры, mutex и deadlock",
+  "difficulty": "hard",
+  "testId": "freertos_test_freertos_sync_ru",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/02-Queues-mutexes-and-semaphores/02-Semaphores-and-Mutexes"
+  ],
+  "estimatedMinutes": 25,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Семафоры, mutex и deadlock» в программе или устройстве. Основной принцип: Mutex защищает короткую критическую секцию, а очередь передаёт данные — это разные задачи. В проекте следуйте рекомендации: Берите mutex перед доступом к общим данным и освобождайте его на каждом пути после успешного take.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nSemaphoreHandle_t mutex = nullptr;\nint sharedValue = 0;\nvoid writer(void*) { for (;;) { if (xSemaphoreTake(mutex, pdMS_TO_TICKS(100)) == pdTRUE) { ++sharedValue; xSemaphoreGive(mutex); } vTaskDelay(pdMS_TO_TICKS(250)); } }\nvoid setup() { Serial.begin(115200); mutex = xSemaphoreCreateMutex(); if (mutex) xTaskCreate(writer, \"writer\", 2048, nullptr, 1, nullptr); }\nvoid loop() { int snapshot; if (mutex && xSemaphoreTake(mutex, pdMS_TO_TICKS(50)) == pdTRUE) { snapshot = sharedValue; xSemaphoreGive(mutex); Serial.println(snapshot); } vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor выводит общий счётчик; mutex защищает чтение и запись.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Semaphore координирует событие или количество ресурсов; mutex защищает общие изменяемые данные и имеет семантику владения и наследования приоритета. Держите mutex недолго, освобождайте его перед блокирующим I/O и соблюдайте единый порядок блокировок. Это снижает риск deadlock и priority inversion; mutex нельзя брать из ISR.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void writer(void*) { for (;;) { if (xSemaphoreTake(mutex, pdMS_TO_TICKS(100)) == pdTRUE) { ++sharedValue; xSemaphoreGive(mutex); } vTaskDelay(pdMS_TO_TICKS(250)); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Mutex защищает короткую критическую секцию, а очередь передаёт данные — это разные задачи.\nЗачем она нужна: Берите mutex перед доступом к общим данным и освобождайте его на каждом пути после успешного take.\nЕсли пропустить или изменить: Если забыть освободить lock, задачи могут заблокироваться навсегда; проверьте пути ошибок и раннего выхода.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Если забыть освободить lock, задачи могут заблокироваться навсегда; проверьте пути ошибок и раннего выхода."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Mutex защищает короткую критическую секцию, а очередь передаёт данные — это разные задачи.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Берите mutex перед доступом к общим данным и освобождайте его на каждом пути после успешного take."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nSemaphoreHandle_t gate = nullptr;\nint sharedCount = 0;\nvoid worker(void*) { for (;;) { if (xSemaphoreTake(gate, pdMS_TO_TICKS(100)) == pdTRUE) { ++sharedCount; xSemaphoreGive(gate); } vTaskDelay(pdMS_TO_TICKS(10)); } }\nvoid setup() { Serial.begin(115200); gate = xSemaphoreCreateMutex(); if (gate) xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr); }\nvoid loop() { int snapshot; if (gate && xSemaphoreTake(gate, pdMS_TO_TICKS(50)) == pdTRUE) { snapshot = sharedCount; xSemaphoreGive(gate); Serial.println(snapshot); } vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Mutex защищает чтение и запись общего счётчика.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Это снижает риск deadlock и priority inversion; mutex нельзя брать из ISR."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Если забыть освободить lock, задачи могут заблокироваться навсегда; проверьте пути ошибок и раннего выхода."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму состояний и приоритетов задач, очередей/синхронизации и временную шкалу."
+}

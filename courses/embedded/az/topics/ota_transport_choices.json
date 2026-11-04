@@ -1,0 +1,53 @@
+{
+  "id": "ota_transport_choices",
+  "title": "Yeniləmə yolları: USB, yerli Wi-Fi, uzaqdan Wi-Fi və SD",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html",
+    "https://docs.arduino.cc/learn/programming/ota-getting-started/",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/sd.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Proqramı lövhəyə çatdırmağın bir neçə yolu var. Düzgün seçim cihazın yanınızda olub-olmamasından, şəbəkədən, yaddaşdan və yeniləmədən sonra bərpa imkanından asılıdır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NECƏ İŞLƏYİR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "USB/Serial: cihaz yanınızdadır və kabel ilə bootloader-ə yükləyirsiniz; sadədir, lakin uzaqdan işləmir. Yerli Wi-Fi: ArduinoOTA və ya cihazdakı yeniləmə səhifəsi eyni ev/ofis şəbəkəsində rahatdır. Uzaq Wi-Fi: cihaz internetə çıxır, imzalanmış buraxılışı HTTPS serverindən götürür; TLS təkbaşına proqramın etibarlı olduğunu sübut etmir. SD kart: internet olmayan sahədə faylı kartla aparıb cihazda quraşdırmaq olar. Bluetooth ilə fayl ötürmək mümkündür, amma firmware yeniləməsi üçün xüsusi ötürmə, boot/flash bölgüsü, bütövlük yoxlaması və bərpa proqramı tələb olunur; bu, Arduino/ESP32-də ümumi, hazır OTA üsulu deyil.\n\nKlassik UNO kimi Wi-Fi-siz lövhə şəbəkədən özbaşına yenilənmir. Arduino IDE-də USB ilə yükləmə OTA deyil. ESP32-də iki proqram bölməsi olan A/B yeniləmə, enerji kəsiləndə əvvəlki işlək proqramı saxlamağa kömək edir; USB, SD və bütün məlumat bölmələri üçün bu zəmanət avtomatik deyil.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "enum class FirmwarePath {\n  UsbSerial,\n  LocalWifi,\n  RemoteHttps,\n  SdCard,\n  BluetoothCustom\n};\n\n// Pick a path the exact board and bootloader support.",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Yeniləmə yolları: USB, yerli Wi-Fi, uzaqdan Wi-Fi və SD"
+    },
+    {
+      "type": "warning",
+      "title": "Vacib təhlükəsizlik və uyğunluq qeydi",
+      "text": "İstənilən üsulda lövhənin dəstəklədiyi yaddaş bölgüsünü yoxlayın. Uzaqdan yeniləmədə versiya və kriptoqrafik imza yoxlaması, elektrik kəsilməsi üçün bərpa yolu olmalıdır."
+    }
+  ],
+  "testId": "embedded_test_ota_transport_choices_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

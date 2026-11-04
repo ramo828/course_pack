@@ -1,0 +1,134 @@
+{
+  "id": "bluetooth_ble_hid_button",
+  "title": "BLE HID keyboard: a physical-button example",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://github.com/ramo828/iBle-HID",
+    "https://github.com/ramo828/iBle-HID/blob/main/README.az.md",
+    "https://github.com/ramo828/iBle-HID/blob/main/README.en.md",
+    "https://www.bluetooth.com/specifications/specs/human-interface-device-profile-1-1/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "The iBle-HID library lets a compatible ESP32 act as a Bluetooth Low Energy (BLE) keyboard, mouse, or gamepad. This example sends one letter only after a physical button press.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "HOW IT WORKS\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Download the library from [GitHub](https://github.com/ramo828/iBle-HID), place it in "
+    },
+    {
+      "type": "text",
+      "text": "Arduino/libraries/iBle_HID",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", restart Arduino IDE, and select an ESP32 board. The shared "
+    },
+    {
+      "type": "text",
+      "text": "#include <iBleHID.h>",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " header exposes the keyboard, mouse, and other HID devices. You do not need NimBLE-Arduino: iBle-HID uses the BLE support included in the ESP32 Arduino core.\n\nAfter pairing with the board's Bluetooth name on a computer or phone, "
+    },
+    {
+      "type": "text",
+      "text": "isConnected()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " reports whether the link is ready. "
+    },
+    {
+      "type": "text",
+      "text": "write('a')",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " sends one character; "
+    },
+    {
+      "type": "text",
+      "text": "print()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and "
+    },
+    {
+      "type": "text",
+      "text": "println()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " send text; "
+    },
+    {
+      "type": "text",
+      "text": "press()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " and "
+    },
+    {
+      "type": "text",
+      "text": "release()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " send key-down and key-up actions. The library also provides a mouse, gamepad, and combined keyboard+mouse device. These can be used for projects such as a presentation remote or accessibility switch.\n\nThe library targets Arduino-ESP32 3.3.11 and later 3.x releases; verify compatibility before using another board/core. See the [English setup and API guide](https://github.com/ramo828/iBle-HID/blob/main/README.en.md).\n\n"
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <iBleHID.h>\n\nconstexpr uint8_t BUTTON_PIN = 4;\nBleKeyboard keyboard;\nbool wasPressed = false;\n\nvoid setup() {\n  pinMode(BUTTON_PIN, INPUT_PULLUP);\n  keyboard.begin();\n}\n\nvoid loop() {\n  const bool pressed = digitalRead(BUTTON_PIN) == LOW;\n  if (pressed && !wasPressed && keyboard.isConnected()) {\n    keyboard.write('a');\n  }\n  wasPressed = pressed;\n  delay(25);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "BLE HID keyboard: a physical-button example"
+    },
+    {
+      "type": "warning",
+      "title": "Important safety and compatibility note",
+      "text": "Connect an external button between GPIO 4 and GND; choose an available input pin if your board does not expose it. Select Arduino-ESP32 3.3.11 or a later 3.x core in Arduino IDE. HID is real keyboard input: respond only to deliberate physical user action and test on your own device."
+    }
+  ],
+  "testId": "embedded_test_bluetooth_ble_hid_button_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

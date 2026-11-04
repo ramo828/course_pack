@@ -1,0 +1,748 @@
+{
+  "id": "python_py_seaborn",
+  "title": "Seaborn: istatistik grafikler",
+  "testId": "python_test_py_seaborn_tr",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://seaborn.pydata.org/tutorial/introduction.html",
+    "https://seaborn.pydata.org/tutorial/function_overview.html",
+    "https://seaborn.pydata.org/faq.html",
+    "https://github.com/mwaskom/seaborn"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "NEDEN KULLANILIR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Seaborn, istatistik grafikleri daha kolay üretmek amacıyla Michael Waskom öncülüğünde geliştirildi. pandas tablolarıyla çalışır ve Matplotlib üzerine kurulu olduğu için grafikleri Matplotlib ile gösterip dosyaya kaydedebilir. Renkleri, grupları ve istatistik özetlerini veri sütunlarına bağlayarak karşılaştırmayı kolaylaştırır.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "AMAÇ VE GEREKLİ ARAÇLAR\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Grafik, sayıları hızlıca karşılaştırmaya; eğilimi ve olağan dışı ölçümleri görmeye yardım eder. Matplotlib ve Seaborn grafiği oluşturup ekranda gösterebilir veya dosyaya kaydedebilir. Kurulum: ",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "python -m pip install matplotlib seaborn pandas",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ÇALIŞAN ÖRNEKLER\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Örnek 1: sınıfların ortalama puanlarını karşılaştıran sütun grafiği çiz.\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod hangi grafiği oluşturacak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "diagram",
+      "id": "python_seaborn_plot",
+      "caption": "Seaborn: istatistik grafikler"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import matplotlib.pyplot as plt\nimport pandas as pd\nimport seaborn as sns\n\nscores = pd.DataFrame({\n    'class': ['A', 'A', 'B', 'B', 'C', 'C'],\n    'score': [70, 80, 75, 85, 82, 88],\n})\nsns.set_theme(style='whitegrid')\nfig, ax = plt.subplots()\nsns.barplot(data=scores, x='class', y='score', errorbar=None, ax=ax)\nax.set(title='Average score by class', xlabel='Class', ylabel='Score')\nplt.show()",
+      "showCopyButton": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "A bar chart titled \"Average score by class\" opens.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import matplotlib.pyplot as plt",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modül işlevini getirir; satır olmazsa ad kullanılamaz ve NameError oluşabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import pandas as pd",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modül işlevini getirir; satır olmazsa ad kullanılamaz ve NameError oluşabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import seaborn as sns",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modül işlevini getirir; satır olmazsa ad kullanılamaz ve NameError oluşabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "scores = pd.DataFrame({",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "'class': ['A', 'A', 'B', 'B', 'C', 'C'],",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "'score': [70, 80, 75, 85, 82, 88],",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "sns.set_theme(style='whitegrid')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "fig, ax = plt.subplots()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "sns.barplot(data=scores, x='class', y='score', errorbar=None, ax=ax)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ax.set(title='Average score by class', xlabel='Class', ylabel='Score')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "plt.show()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "UYGULAMALI ÖRNEK 2 · Seaborn: istatistik grafikler\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod hangi grafiği oluşturacak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import matplotlib.pyplot as plt\nimport pandas as pd\nimport seaborn as sns\n\nreadings = pd.DataFrame({\n    'hour': [8, 9, 10, 11],\n    'temperature': [18, 20, 19, 23],\n    'room': ['A', 'A', 'B', 'B'],\n})\nfig, ax = plt.subplots()\nsns.scatterplot(data=readings, x='hour', y='temperature', hue='room', ax=ax)\nplt.show()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "A scatter plot with a separate color for each room opens.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import matplotlib.pyplot as plt",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modül işlevini getirir; satır olmazsa ad kullanılamaz ve NameError oluşabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import pandas as pd",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modül işlevini getirir; satır olmazsa ad kullanılamaz ve NameError oluşabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import seaborn as sns",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modül işlevini getirir; satır olmazsa ad kullanılamaz ve NameError oluşabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "readings = pd.DataFrame({",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "'hour': [8, 9, 10, 11],",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "'temperature': [18, 20, 19, 23],",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "'room': ['A', 'A', 'B', 'B'],",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "fig, ax = plt.subplots()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "sns.scatterplot(data=readings, x='hour', y='temperature', hue='room', ax=ax)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "plt.show()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "UYGULAMALI ÖRNEK 3 · Seaborn: istatistik grafikler\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu kod hangi grafiği oluşturacak? Önce tahmin et, sonra çalıştır.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import matplotlib.pyplot as plt\nimport pandas as pd\nimport seaborn as sns\n\nscores = pd.DataFrame({\n    'class': ['A', 'A', 'A', 'B', 'B', 'B'],\n    'score': [70, 78, 82, 74, 85, 91],\n})\nsns.set_theme(style='whitegrid')\nfig, ax = plt.subplots()\nsns.boxplot(data=scores, x='class', y='score', ax=ax)\nax.set(title='Score spread by class', xlabel='Class', ylabel='Score')\nplt.show()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "A box plot titled \"Score spread by class\" opens.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "SATIR SATIR AÇIKLAMA\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import matplotlib.pyplot as plt",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modül işlevini getirir; satır olmazsa ad kullanılamaz ve NameError oluşabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import pandas as pd",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modül işlevini getirir; satır olmazsa ad kullanılamaz ve NameError oluşabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "import seaborn as sns",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Modül işlevini getirir; satır olmazsa ad kullanılamaz ve NameError oluşabilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "scores = pd.DataFrame({",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "'class': ['A', 'A', 'A', 'B', 'B', 'B'],",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "'score': [70, 78, 82, 74, 85, 91],",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "})",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "sns.set_theme(style='whitegrid')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "fig, ax = plt.subplots()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "sns.boxplot(data=scores, x='class', y='score', ax=ax)",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "ax.set(title='Score spread by class', xlabel='Class', ylabel='Score')",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "plt.show()",
+      "size": 15,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
+      "size": 15,
+      "color": "#37474F"
+    },
+    {
+      "type": "text",
+      "text": "Grafikler ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "fig, ax = plt.subplots()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " ile oluşturulan eksende çizilir. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "plt.show()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " uygun etkileşimli ortamda grafiği açar; sunucu ve otomatik testlerde ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "fig.savefig('chart.png', dpi=150)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " kullanın, iş bitince kaynakları bırakmak için ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "plt.close(fig)",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " çağırın. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ax.set()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " başlık ve eksen adlarını belirginleştirir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "tip",
+      "title": "Uygulama ipucu",
+      "text": "Küçük bir değişiklikten sonra yeniden çalıştırın; önce hata satırını ve girintiyi denetleyin."
+    },
+    {
+      "type": "detail",
+      "title": "Neden önemli?",
+      "text": "Seaborn, istatistik grafikleri daha kolay üretmek amacıyla Michael Waskom öncülüğünde geliştirildi. pandas tablolarıyla çalışır ve Matplotlib üzerine kurulu olduğu için grafikleri Matplotlib ile gösterip dosyaya kaydedebilir. Renkleri, grupları ve istatistik özetlerini veri sütunlarına bağlayarak karşılaştırmayı kolaylaştırır."
+    },
+    {
+      "type": "warning",
+      "title": "Dikkat",
+      "text": "Değişken adı değerin kopyası değildir; değişebilir liste veya sözlük paylaşılırsa değişiklik diğer başvurularda görünür."
+    },
+    {
+      "type": "text",
+      "text": "SIK YAPILAN HATALAR\n",
+      "size": 20,
+      "color": "#C62828",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Değişken adı, girinti ve yorumu ayırın; boşluk sözdizimine, yorum ise açıklamaya hizmet eder.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Seaborn: istatistik grafikler” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Seaborn, istatistik grafikleri daha kolay üretmek amacıyla Michael Waskom öncülüğünde geliştirildi.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Seaborn: istatistik grafikler” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Seaborn, istatistik grafikleri daha kolay üretmek amacıyla Michael Waskom öncülüğünde geliştirildi.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Seaborn istatistik grafik önizlemesini ve pandas sütunlarının grafiğe nasıl bağlandığını gösterin."
+}

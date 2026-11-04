@@ -1,0 +1,274 @@
+{
+  "id": "freertos_freertos_timing",
+  "title": "Периодическая работа и задержки задач",
+  "difficulty": "medium",
+  "testId": "freertos_test_freertos_timing_ru",
+  "sources": [
+    "https://www.freertos.org/Documentation/02-Kernel/04-API-references/02-Task-control/04-vTaskDelay"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Периодическая работа и задержки задач» в программе или устройстве. Основной принцип: ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " сохраняет период, но долгие блокирующие операции всё равно могут сорвать deadline. В проекте следуйте рекомендации: Для периодической задачи используйте ",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " и измеряйте интервал по меткам времени или прибором.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid clockTask(void*) { TickType_t last = xTaskGetTickCount(); const TickType_t period = pdMS_TO_TICKS(500); for (;;) { Serial.println(\"500 ms\"); vTaskDelayUntil(&last, period); } }\nvoid setup() { Serial.begin(115200); if (xTaskCreate(clockTask, \"clock\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"clock task creation failed\"); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor выводит ",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "periodic",
+      "size": 16,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": " с номинальным интервалом 500 мс; на точность влияют tick и нагрузка.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelay",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " блокирует задачу на заданное число tick; ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "pdMS_TO_TICKS",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " переводит миллисекунды в tick. Для периодического опроса ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " отсчитывает время от предыдущего запуска и уменьшает накопление дрейфа. Частота tick и задержка планировщика не дают гарантии микросекундной точности — измеряйте фактический интервал.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void clockTask(void*) { TickType_t last = xTaskGetTickCount(); const TickType_t period = pdMS_TO_TICKS(500); for (;;) { Serial.println(\"500 ms\"); vTaskDelayUntil(&last, period); } }",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " сохраняет период, но долгие блокирующие операции всё равно могут сорвать deadline.\nЗачем она нужна: Для периодической задачи используйте ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и измеряйте интервал по меткам времени или прибором.\nЕсли пропустить или изменить: Короткий период может округлиться до нуля tick; разрешение зависит от конфигурации.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: Для периодической задачи используйте `vTaskDelayUntil` и измеряйте интервал по меткам времени или прибором."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "vTaskDelayUntil",
+      "size": 17,
+      "color": "#1565C0",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "text",
+      "text": " сохраняет период, но долгие блокирующие операции всё равно могут сорвать deadline.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Для периодической задачи используйте `vTaskDelayUntil` и измеряйте интервал по меткам времени или прибором."
+    },
+    {
+      "type": "text",
+      "text": "ВТОРОЙ ПРАКТИЧЕСКИЙ ПРИМЕР\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\nvoid periodicTask(void*) { TickType_t last = xTaskGetTickCount(); const TickType_t period = pdMS_TO_TICKS(500); for (;;) { Serial.println(\"periodic\"); vTaskDelayUntil(&last, period); } }\nvoid setup() { Serial.begin(115200); xTaskCreate(periodicTask, \"periodic\", 2048, nullptr, 1, nullptr); }\nvoid loop() { vTaskDelay(pdMS_TO_TICKS(1000)); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor выводит ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "periodic",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " с номинальным интервалом 500 мс; на точность влияют tick и нагрузка.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Короткий период может округлиться до нуля tick; разрешение зависит от конфигурации."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Выводы, пределы напряжения/тока, тайминги и периферия зависят от платы; проверьте её документацию перед подключением и загрузкой."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму состояний и приоритетов задач, очередей/синхронизации и временную шкалу."
+}

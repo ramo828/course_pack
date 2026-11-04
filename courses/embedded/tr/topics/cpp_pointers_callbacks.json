@@ -1,0 +1,91 @@
+{
+  "id": "cpp_pointers_callbacks",
+  "title": "İşaretçiler, başvurular ve geri çağırımlar",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/pointer.html",
+    "https://en.cppreference.com/w/cpp/language/reference.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "İşaretçi adres tutar ve ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "nullptr",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " olabilir; başvuru var olan nesnenin başka adıdır ve oluşturulurken geçerli bir değer almalıdır. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "&",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " referans parametresi, değişkeni kopyalamadan iletir; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "const T&",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " büyük bir nesneyi kopyalamadan okumayı sağlar. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "T**",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " başka bir işaretçinin adresini tutar; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "void*",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " bilinmeyen türde adres tutsa da kullanılmadan önce doğru türe çevrilmelidir. İşlev işaretçisi/geri çağırım, olay olduğunda çalıştırılacak işlemi iletir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "void addOne(int& value) { ++value; }\nvoid onReady(void (*callback)(int), int value) {\n  if (callback != nullptr) callback(value);\n}\nvoid printValue(int value) { Serial.println(value); }\nvoid setup() {\n  Serial.begin(9600);\n  onReady(printValue, 42);\n}\n\nint reading = 7;\nvoid* rawAddress = &reading;\nint* typedAddress = static_cast<int*>(rawAddress);\nint* pointer = &reading;\nint** pointerToPointer = &pointer;\nint* values = &reading;\nptrdiff_t distance = values - pointer; // Same-array rule applies.",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "İşaretçi aritmetiği yalnızca aynı dizide geçerlidir; `void*` üzerinde aritmetik yapılamaz. Geçersiz, boş veya ömrü bitmiş adrese erişim programı bozabilir. ESP32/Arduino geri çağırım kuralları kütüphaneye bağlıdır; kesme içinde bloklayan işlev çağırmayın."
+    }
+  ],
+  "testId": "embedded_test_cpp_pointers_callbacks_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: stack/heap ve bellek ömrünü, sahipliği veya veri akışını gösteren bellek diyagramı."
+}

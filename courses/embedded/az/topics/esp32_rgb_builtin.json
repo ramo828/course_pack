@@ -1,0 +1,59 @@
+{
+  "id": "esp32_rgb_builtin",
+  "title": "ESP32 daxili RGB LED: lövhə pinini əvvəl yoxla",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/led.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Bir çox ESP32 lövhəsində daxili RGB LED yoxdur. Olanlarda ünvanlana bilən LED, adi üçrəngli LED və pin/sürücü quruluşu fərqli ola bilər. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "RGB_BUILTIN",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " və ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "rgbLedWrite",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " yalnız onları dəstəkləyən Arduino-ESP32 versiyası və lövhədə işləyir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_esp32_rgb",
+      "caption": "ESP32 daxili RGB LED: lövhə pinini əvvəl yoxla"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n\n#if defined(RGB_BUILTIN)\nvoid setup() {}\nvoid loop() {\n  rgbLedWrite(RGB_BUILTIN, 16, 0, 0);\n  delay(300);\n  rgbLedWrite(RGB_BUILTIN, 0, 0, 16);\n  delay(300);\n}\n#else\n#error \"This board package does not define RGB_BUILTIN\"\n#endif",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Kompilyasiya xətası çox vaxt lövhə seçiminin və ya nüvə versiyasının uyğun olmadığını göstərir. Lövhə sxemini yoxlayın; LED GPIO-sunu təsadüfi seçməyin."
+    }
+  ],
+  "testId": "embedded_test_esp32_rgb_builtin_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

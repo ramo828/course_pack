@@ -1,0 +1,55 @@
+{
+  "id": "cpp_volatile_interrupt",
+  "title": "volatile and interrupts: visibility is not atomicity",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.arduino.cc/language-reference/en/variables/variable-scope-qualifiers/volatile/",
+    "https://docs.arduino.cc/language-reference/en/functions/external-interrupts/attachInterrupt/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "An interrupt handler responds to a short event without waiting for the main loop. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "volatile",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " tells the compiler a value may change unexpectedly so it reloads it from memory; it does not make an operation atomic, prevent races, or transfer data. Set a flag in the handler and do the work in ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ".\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "volatile bool eventReady = false;\n\nvoid onButtonEdge() {\n  eventReady = true;\n}\n\nvoid setup() {\n  pinMode(2, INPUT_PULLUP);\n  attachInterrupt(digitalPinToInterrupt(2), onButtonEdge, FALLING);\n}\n\nvoid loop() {\n  if (eventReady) {\n    noInterrupts();\n    eventReady = false;\n    interrupts();\n    // Handle the event outside the interrupt.\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important note",
+      "text": "Debounce a physical button separately. Multi-byte reads may tear on some MCUs; the safe guard depends on MCU/RTOS. Do not call `Serial`, delay, or allocate memory in an ISR."
+    }
+  ],
+  "testId": "embedded_test_cpp_volatile_interrupt_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

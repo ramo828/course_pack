@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_fastapi_dependencies_en",
+  "title": "Dependencies and dependency injection",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_fastapi_dependencies",
+      "type": "multiple_choice",
+      "prompt": "How should the API respond to this practical HTTP request?\nGET /profile  (dependency cari istifadəçini müəyyən edir)",
+      "options": [
+        "200 OK; the endpoint receives the result of `Depends(get_current_user)`.",
+        "Return the same response to every request without checking its data.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Keep all state in a global variable and skip authentication."
+      ],
+      "answer": "200 OK; the endpoint receives the result of `Depends(get_current_user)`.",
+      "explanation": "This is the expected behavior for `GET /profile  (dependency cari istifadəçini müəyyən edir)`. 200 OK; the endpoint receives the result of `Depends(get_current_user)`."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_fastapi_dependencies",
+      "type": "multiple_choice",
+      "prompt": "Which design principle is correct for this topic?",
+      "options": [
+        "`Depends` supplies a dependency's result to an endpoint and allows that dependency to be overridden in tests.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Return the same response to every request without checking its data.",
+        "Keep all state in a global variable and skip authentication."
+      ],
+      "answer": "`Depends` supplies a dependency's result to an endpoint and allows that dependency to be overridden in tests.",
+      "explanation": "`Depends` supplies a dependency's result to an endpoint and allows that dependency to be overridden in tests. Dependencies can have dependencies; FastAPI can cache results within a request. Use `yield` patterns for resources that need cleanup."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_fastapi_dependencies",
+      "type": "multiple_choice",
+      "prompt": "What changes if the important part shown in the lesson is omitted?",
+      "options": [
+        "Keep all state in a global variable and skip authentication.",
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Return the same response to every request without checking its data.",
+        "Repeating setup in every endpoint leads to inconsistent changes and harder tests."
+      ],
+      "answer": "Repeating setup in every endpoint leads to inconsistent changes and harder tests.",
+      "explanation": "Repeating setup in every endpoint leads to inconsistent changes and harder tests. FastAPI dependencies move reusable setup out of endpoint functions, such as query parameters, the current user, configuration, or a database session. `Depends` supplies the result and lets tests replace it."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_fastapi_dependencies",
+      "type": "multiple_choice",
+      "prompt": "Which action best prevents the common mistake from this lesson?",
+      "options": [
+        "Ignore HTTP status codes and present failures as successful responses.",
+        "Keep all state in a global variable and skip authentication.",
+        "Return the same response to every request without checking its data.",
+        "Move authorization lookup into a dependency, then provide a test user through `app.dependency_overrides`."
+      ],
+      "answer": "Move authorization lookup into a dependency, then provide a test user through `app.dependency_overrides`.",
+      "explanation": "Move authorization lookup into a dependency, then provide a test user through `app.dependency_overrides`. Dependency injection does not make authentication secure by itself; the checks inside the dependency still matter."
+    }
+  ]
+}

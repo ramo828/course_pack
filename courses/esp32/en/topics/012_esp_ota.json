@@ -1,0 +1,160 @@
+{
+  "id": "esp32_esp_ota",
+  "title": "OTA, partitions, and rollback",
+  "difficulty": "advanced",
+  "testId": "esp32_test_esp_ota_en",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html"
+  ],
+  "estimatedMinutes": 35,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “OTA, partitions, and rollback” to a real program or device. The key principle is: Rollback provides a path back to a known-good image. In a project, follow this guidance: Test update recovery under power loss, poor connectivity, and incompatible versions.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_ota_ops.h>\nvoid setup() {\n    const esp_partition_t* running = esp_ota_get_running_partition();\n    esp_ota_img_states_t state;\n    if (esp_ota_get_state_partition(running, &state) == ESP_OK && state == ESP_OTA_IMG_PENDING_VERIFY) {\n        esp_ota_mark_app_valid_cancel_rollback();\n    }\n}\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Safe only after authenticity and compatibility checks; partition layout and recovery behavior are project-specific.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "OTA can write firmware to an inactive partition. Design partition layout, image size, signature/version checks, health confirmation, and rollback together.\n\nThis example calls the ESP-IDF OTA partition API from an Arduino-ESP32 sketch. Partition selection, rollback, and signature verification are not generic Arduino APIs. ArduinoOTA/Update can support simpler update flows, but secure rollback needs explicit ESP-IDF partition and verification configuration.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "esp_ota_mark_app_valid_cancel_rollback();",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: Rollback provides a path back to a known-good image.\nWhy it is used: Test update recovery under power loss, poor connectivity, and incompatible versions.\nIf omitted or changed: Do not boot an OTA image before validating its signature.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Do not boot an OTA image before validating its signature."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Rollback provides a path back to a known-good image.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Test update recovery under power loss, poor connectivity, and incompatible versions."
+    },
+    {
+      "type": "text",
+      "text": "IDF OTA API exposed in Arduino Core\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_ota_ops.h>\nvoid setup() { Serial.begin(115200); const esp_partition_t* part = esp_ota_get_running_partition(); if (part == nullptr) { Serial.println(\"running partition unavailable\"); return; } esp_ota_img_states_t state; const esp_err_t result = esp_ota_get_state_partition(part, &state); if (result == ESP_OK) Serial.println(static_cast<int>(state)); else Serial.printf(\"partition state query failed: %d\\n\", static_cast<int>(result)); }\nvoid loop() { delay(1000); }",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Serial Monitor shows the running image state when the partition supports it.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "ArduinoOTA/Update can support simpler update flows, but secure rollback needs explicit ESP-IDF partition and verification configuration."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Do not boot an OTA image before validating its signature."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

@@ -1,0 +1,121 @@
+{
+  "id": "wifi_udp_time",
+  "title": "Wi-Fi UDP və NTPClient: datagram və vaxt",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html#udp",
+    "https://github.com/arduino-libraries/NTPClient"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "UDP qısa mesajlar üçün yüngül nəqliyyat qatıdır; NTP şəbəkə vaxtını verir. Bu nümunələr Wi-Fi bağlantısından sonra işləyir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "NECƏ İŞLƏYİR?\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "WiFiClient",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " TCP bağlantısı yaradır: əvvəl server IP/portuna qoşulur, sonra axın şəklində bayt oxuyub-yazır. TCP çatdırılma sırası və itkinin yenidən göndərilməsini idarə edir. UDP əlaqə sessiyası yaratmır; "
+    },
+    {
+      "type": "text",
+      "text": "WiFiUDP",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " datagram göndərir və qəbul edir, itmiş paketi özü təkrar göndərmir. NTPClient UDP ilə vaxt serverindən epoch vaxtını alır. Bu dərsdəki "
+    },
+    {
+      "type": "text",
+      "text": "HTTP(S)",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " nümunəsi "
+    },
+    {
+      "type": "text",
+      "text": "WiFiClientSecure",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "-i sertifikat yoxlaması ilə işlətməlidir; sertifikat yoxlamasını söndürmək təhlükəsiz həll deyil. NTP vaxtı ilkin etibar üçün istifadə edilə bilər, lakin TLS sertifikatını yoxlamadan əvvəl saatı qurmaq tələb oluna bilər.\n\nBirinci sketch UDP portunda mesaj qəbul edir və cavab verir. İkinci sketch NTPClient kitabxanası ilə vaxtı oxuyur. "
+    },
+    {
+      "type": "text",
+      "text": "NTPClient",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " Arduino Library Manager-dən ayrıca quraşdırılır; "
+    },
+    {
+      "type": "text",
+      "text": "WiFiUDP",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " Arduino-ESP32 core-dan gəlir.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "UDPClientServer: datagram qəbul et və cavab ver\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <WiFiUdp.h>\n\nWiFiUDP udp;\nconstexpr uint16_t LOCAL_PORT = 4210;\nchar packet[128];\n\nvoid setup() {\n  Serial.begin(115200);\n  WiFi.mode(WIFI_STA);\n  WiFi.begin(\"YOUR_WIFI_NAME\", \"YOUR_WIFI_PASSWORD\");\n  while (WiFi.status() != WL_CONNECTED) delay(250);\n  if (!udp.begin(LOCAL_PORT)) {\n    Serial.println(\"UDP bind failed\");\n  }\n}\n\nvoid loop() {\n  const int packetSize = udp.parsePacket();\n  if (packetSize <= 0) return;\n  const int count = udp.read(packet, sizeof(packet) - 1);\n  if (count <= 0) return;\n  packet[count] = '\\0';\n  Serial.println(packet);\n  udp.beginPacket(udp.remoteIP(), udp.remotePort());\n  udp.write(reinterpret_cast<const uint8_t*>(\"ack\"), 3);\n  if (udp.endPacket() == 0) {\n    Serial.println(\"UDP reply failed\");\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "NTPClient: vaxtı sinxronlaşdır\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <WiFiUdp.h>\n#include <NTPClient.h>\n\nWiFiUDP ntpTransport;\nNTPClient clockClient(ntpTransport, \"pool.ntp.org\", 0, 60000);\n\nvoid setup() {\n  Serial.begin(115200);\n  WiFi.mode(WIFI_STA);\n  WiFi.begin(\"YOUR_WIFI_NAME\", \"YOUR_WIFI_PASSWORD\");\n  while (WiFi.status() != WL_CONNECTED) delay(250);\n  clockClient.begin();\n}\n\nvoid loop() {\n  if (clockClient.update()) {\n    Serial.println(clockClient.getFormattedTime());\n  }\n  delay(1000);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Wi-Fi UDP və NTPClient: datagram və vaxt"
+    },
+    {
+      "type": "warning",
+      "title": "Vacib təhlükəsizlik və uyğunluq qeydi",
+      "text": "Nümunələrdə şəbəkə parolunu özünüzə uyğun olaraq təhlükəsiz şəkildə verin və repoya yazmayın. UDP itkisiz rabitə zəmanəti vermir; vacib əmrlərə sıra nömrəsi, autentifikasiya və təkrar mexanizmi əlavə edin. NTP vaxtı autentifikasiya olunmuş mənbə deyil."
+    }
+  ],
+  "testId": "embedded_test_wifi_udp_time_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: cihazları, əlaqə istiqamətini, protokolu və məlumat axınını göstərən sistem arxitekturası diaqramı."
+}

@@ -1,0 +1,35 @@
+{
+  "id": "protocols_can_twai",
+  "title": "CAN magistralı və ESP32 TWAI: avtomobil və sənaye rabitəsi",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/twai.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "CAN mesaj yönümlü, səs-küyə davamlı diferensial bus-dur; avtomobil ECU-ları, sənaye idarəetməsi və robotlarda istifadə olunur. ESP32-də TWAI adı CAN 2.0 controller periferiya API-sinə aiddir; controller pinindən birbaşa CAN naqilinə qoşulmaq olmaz.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_can_bus",
+      "caption": "CAN magistralı və ESP32 TWAI: avtomobil və sənaye rabitəsi"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include \"driver/twai.h\"\n\nvoid setup() {\n  auto general = TWAI_GENERAL_CONFIG_DEFAULT(\n      GPIO_NUM_5, GPIO_NUM_4, TWAI_MODE_NORMAL);\n  auto timing = TWAI_TIMING_CONFIG_500KBITS();\n  auto filter = TWAI_FILTER_CONFIG_ACCEPT_ALL();\n  ESP_ERROR_CHECK(twai_driver_install(&general, &timing, &filter));\n  ESP_ERROR_CHECK(twai_start());\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Vacib qeyd",
+      "text": "Ayrıca CAN qəbuledici-ötürücü lazımdır, CANH/CANL xəttinin iki ucunda bus topologiyasına uyğun 120 Ω terminasiya istifadə olunur. Bu kod ESP-IDF proqramlaşdırma interfeysi nümunəsidir; CAN-FD dəstəyi hesab etməyin və iki ucu qoşulu, düzgün bit-rate тохируулсан test bus дээр туршаарай."
+    }
+  ],
+  "testId": "embedded_test_protocols_can_twai_az",
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

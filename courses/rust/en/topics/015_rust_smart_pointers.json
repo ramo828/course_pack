@@ -1,0 +1,172 @@
+{
+  "id": "rust_rust_smart_pointers",
+  "title": "Smart pointers: Box, Rc, Arc, and Mutex",
+  "difficulty": "advanced",
+  "testId": "rust_test_rust_smart_pointers_en",
+  "sources": [
+    "https://doc.rust-lang.org/book/ch15-00-smart-pointers.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Goal: apply “Smart pointers: Box, Rc, Arc, and Mutex” to a real program or device. The key principle is: Arc shares ownership across threads; Mutex serializes mutable access to the critical section. In a project, follow this guidance: Arc<Mutex<T>> is not always the best design; consider message passing before shared mutable state.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::sync::{Arc, Mutex};\nuse std::thread;\nfn main() {\n    let count = Arc::new(Mutex::new(0));\n    let worker_count = Arc::clone(&count);\n    let worker = thread::spawn(move || {\n        if let Ok(mut value) = worker_count.lock() { *value += 1; }\n    });\n    if worker.join().is_err() { eprintln!(\"worker panicked\"); return; }\n    match count.lock() {\n        Ok(value) => println!(\"{value}\"),\n        Err(_) => eprintln!(\"count lock was poisoned\"),\n    };\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The protected counter becomes 1 when the thread succeeds; a poisoned lock or thread panic is handled explicitly.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Box<T> stores a value on the heap and enables recursive structures with a fixed-size pointer. Rc<T> provides reference-counted sharing within one thread; Arc<T> uses an atomic count for cross-thread sharing, but neither makes shared mutation automatically safe. Mutable shared state needs synchronization such as Mutex/RwLock and careful lock scopes.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "let worker_count = Arc::clone(&count);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nWhat it does: Arc shares ownership across threads; Mutex serializes mutable access to the critical section.\nWhy it is used: Arc<Mutex<T>> is not always the best design; consider message passing before shared mutable state.\nIf omitted or changed: Slow I/O while holding a lock increases deadlock and latency risk; handle poisoning too.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Slow I/O while holding a lock increases deadlock and latency risk; handle poisoning too."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Arc shares ownership across threads; Mutex serializes mutable access to the critical section.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Arc<Mutex<T>> is not always the best design; consider message passing before shared mutable state."
+    },
+    {
+      "type": "text",
+      "text": "SECOND PRACTICAL EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "rust",
+      "code": "use std::sync::Arc;\nuse std::thread;\nfn main() {\n    let message = Arc::new(String::from(\"sensor ready\"));\n    let worker_message = Arc::clone(&message);\n    let worker = thread::spawn(move || worker_message.len());\n    match worker.join() {\n        Ok(length) => println!(\"{} {length}\", message.as_str()),\n        Err(_) => eprintln!(\"worker panicked\"),\n    };\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SECOND EXAMPLE RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "sensor ready 12\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Mutable shared state needs synchronization such as Mutex/RwLock and careful lock scopes."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Slow I/O while holding a lock increases deadlock and latency risk; handle poisoning too."
+    },
+    {
+      "type": "text",
+      "text": "QUICK RECALL\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement gives the core rule for “Smart pointers: Box, Rc, Arc, and Mutex”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: Arc shares ownership across threads; Mutex serializes mutable access to the critical section.\n\n",
+      "size": 16
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a memory diagram showing stack/heap, lifetime, ownership, or data flow."
+}

@@ -1,0 +1,46 @@
+{
+  "id": "module_ntc_ptc_thermistors",
+  "title": "Термисторы NTC и PTC: измерение температуры",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://learn.adafruit.com/thermistor/using-a-thermistor",
+    "https://learn.sparkfun.com/tutorials/voltage-dividers/all"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Сопротивление термистора зависит от температуры: у NTC оно падает при нагреве, у PTC — растёт. Это используют для измерения и защиты от перегрева.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Подключите постоянный резистор 10 кОм между питанием платы и A0, а NTC — между A0 и GND. Для UNO используйте 5 В, для ESP32 — 3,3 В.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Пример приблизительно вычисляет сопротивление делителя. Для точной температуры нужны коэффициенты Beta или Steinhart–Hart, калибровка и диапазон АЦП платы. Платформа: Arduino или ESP32.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_thermistor_divider",
+      "caption": "Термисторы NTC и PTC: измерение температуры"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const byte sensorPin = A0;\nconst float fixedResistor = 10000.0;\n#if defined(ESP32)\nconst float supplyVoltage = 3.3;\nconst int adcMaximum = 4095;\n#else\nconst float supplyVoltage = 5.0;\nconst int adcMaximum = 1023;\n#endif\n\nvoid setup() {\n  Serial.begin(9600);\n#if defined(ESP32)\n  analogReadResolution(12);\n#endif\n}\n\nvoid loop() {\n  const int raw = analogRead(sensorPin);\n  if (raw <= 0 || raw >= adcMaximum) {\n    Serial.println(\"ADC is at a rail; check wiring and input range\");\n    delay(500);\n    return;\n  }\n  const float voltage =\n      static_cast<float>(raw) * supplyVoltage / adcMaximum;\n  const float sensorResistance =\n      fixedResistor * voltage / (supplyVoltage - voltage);\n  Serial.print(\"ADC=\");\n  Serial.print(raw);\n  Serial.print(\" R=\");\n  Serial.println(sensorResistance);\n  delay(500);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание по безопасности",
+      "text": "Номинал термистора и направление делителя важны. Не превышайте допустимое напряжение на входе АЦП."
+    }
+  ],
+  "testId": "embedded_test_module_ntc_ptc_thermistors_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

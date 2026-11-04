@@ -1,0 +1,172 @@
+{
+  "id": "esp32_esp_sleep",
+  "title": "Deep sleep и энергопотребление",
+  "difficulty": "medium",
+  "testId": "esp32_test_esp_sleep_ru",
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/sleep_modes.html"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Цель урока — применить тему «Deep sleep и энергопотребление» в программе или устройстве. Основной принцип: Настройте источник пробуждения перед deep sleep. В проекте следуйте рекомендации: Ток сна чипа не равен току всей отладочной платы.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_attr.h>\n#include <esp_sleep.h>\nRTC_DATA_ATTR uint32_t wakeCount = 0;\nvoid setup() {\n    Serial.begin(115200);\n    const esp_sleep_wakeup_cause_t cause = esp_sleep_get_wakeup_cause();\n    ++wakeCount;\n    Serial.printf(\"wake cause=%d count=%lu\\n\", static_cast<int>(cause), static_cast<unsigned long>(wakeCount));\n    if (esp_sleep_enable_timer_wakeup(10ULL * 1000000ULL) != ESP_OK) {\n        Serial.println(\"timer wake setup failed\");\n        return;\n    }\n    Serial.flush();\n    esp_deep_sleep_start();\n}\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Запрашивается пробуждение по LOW на GPIO 33; поддержка вывода, подключение и поведение зависят от чипа и платы.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Энергобюджет батарейного устройства учитывает CPU, радио, датчики, стабилизатор и ток сна. Планируйте пробуждение и сохранённое состояние, измеряйте на реальной плате.\n\nВызовы ",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "esp_sleep_*",
+      "size": 17,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " относятся к ESP-IDF и доступны через Arduino-ESP32; универсальный Arduino API для других плат не гарантирует их наличие.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "if (esp_sleep_enable_timer_wakeup(10ULL * 1000000ULL) != ESP_OK) {",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nЧто она делает: Настройте источник пробуждения перед deep sleep.\nЗачем она нужна: Ток сна чипа не равен току всей отладочной платы.\nЕсли пропустить или изменить: Ток сна чипа не равен току всей отладочной платы.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Пропустить эту проверку перед применением правила: Ток сна чипа не равен току всей отладочной платы."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Настройте источник пробуждения перед deep sleep.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Ток сна чипа не равен току всей отладочной платы."
+    },
+    {
+      "type": "text",
+      "text": "Пример сна Arduino-ESP32\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n#include <esp_sleep.h>\nvoid setup() { Serial.begin(115200); if (esp_sleep_enable_timer_wakeup(5000000ULL) != ESP_OK) { Serial.println(\"wake timer setup failed\"); return; } Serial.flush(); esp_deep_sleep_start(); }\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "РЕЗУЛЬТАТ ВТОРОГО ПРИМЕРА\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Плата засыпает и перезапускается примерно через пять секунд; пробуждение зависит от чипа.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Планируйте пробуждение и сохранённое состояние, измеряйте на реальной плате.\n\nВызовы `esp_sleep_*` относятся к ESP-IDF и доступны через Arduino-ESP32; универсальный Arduino API для других плат не гарантирует их наличие."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Выводы, пределы напряжения/тока, тайминги и периферия зависят от платы; проверьте её документацию перед подключением и загрузкой."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

@@ -1,0 +1,60 @@
+{
+  "id": "esp32_jtag_debugging",
+  "title": "ESP32 JTAG hata ayıklama: breakpoint ve watchpoint",
+  "difficulty": "advanced",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/jtag-debugging/index.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/core_dump.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "JTAG, gerçek ESP32 donanımında kodu durdurmayı, satır satır ilerlemeyi, değişkenleri ve belleği incelemeyi sağlar. OpenOCD, işlemci ile GDB arasında köprü kurar. Bu örnekte breakpoint veya watchpoint ile ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "sampleCount",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " değerini izleyin; döngü CPU'yu sürekli meşgul etmemek için bir saniye bekler. Her kartta JTAG pinleri dışarı çıkarılmamış veya etkin olmayabilir; bazı modeller USB Serial/JTAG, bazıları harici prob kullanır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "İş akışı: kart ve JTAG arayüzü uyumunu doğrulayın, ESP-IDF projesini hata ayıklama sembolleriyle derleyin, OpenOCD'yi başlatıp GDB ile bağlanın. ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "++sampleCount",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " satırına breakpoint koyup değeri izleyin. Yığın sorunlarında FreeRTOS yığın high-water mark değerini kontrol edin; watchdog resetinde log ve çekirdek dump'ı koruyun.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <inttypes.h>\n#include \"esp_log.h\"\n#include \"freertos/FreeRTOS.h\"\n#include \"freertos/task.h\"\n\nstatic const char* TAG = \"jtag-demo\";\nstatic uint32_t sampleCount = 0;\n\nextern \"C\" void app_main(void) {\n  for (;;) {\n    ++sampleCount;\n    ESP_LOGI(TAG, \"sample=%\" PRIu32, sampleCount);\n    vTaskDelay(pdMS_TO_TICKS(1000));\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "JTAG pinleri, prob gerilimi ve USB Serial/JTAG desteği modele bağlıdır. Yalnızca kendi geliştirme kartınızda hata ayıklayın. Üretim cihazında JTAG, secure boot veya flash encryption politikasını gevşetmeyin; eFuse değişiklikleri geri alınamayabilir."
+    }
+  ],
+  "testId": "embedded_test_esp32_jtag_debugging_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

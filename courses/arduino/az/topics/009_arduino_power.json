@@ -1,0 +1,160 @@
+{
+  "id": "arduino_arduino_power",
+  "title": "Sensorlar, actuator və enerji təhlükəsizliyi",
+  "difficulty": "medium",
+  "testId": "arduino_test_arduino_power_az",
+  "sources": [
+    "https://docs.arduino.cc/learn/electronics/power-pins/"
+  ],
+  "estimatedMinutes": 18,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dərsin məqsədi “Sensorlar, actuator və enerji təhlükəsizliyi” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: GPIO yalnız lövhənin sənədləşdirilmiş cərəyan həddində yük sürməlidir. Real layihədə bu göstərişə əməl edin: Kartın qidalanma gərginliyini, cərəyan büdcəsini və torpaqlama sxemini ölçərək yoxlayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int sensorPin = A0;\nconst int ledPin = LED_BUILTIN;\nvoid setup() { pinMode(ledPin, OUTPUT); }\nvoid loop() {\n  int reading = analogRead(sensorPin);\n  digitalWrite(ledPin, reading > 500);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Analog oxunuş 500-dən böyük olduqda daxili LED yanır; sensor və ADC dəyərləri avadanlıqdan asılıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sensor fiziki kəmiyyəti ölçür, actuator isə elektrik enerjisini hərəkət, işıq və ya səsə çevirir. Motor və rele kimi yükləri pinə birbaşa qoşmayın; uyğun sürücü, qoruma diodu və ortaq torpaqlama tələb oluna bilər.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int reading = analogRead(sensorPin);",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNə edir: GPIO yalnız lövhənin sənədləşdirilmiş cərəyan həddində yük sürməlidir.\nNiyə seçilib: Kartın qidalanma gərginliyini, cərəyan büdcəsini və torpaqlama sxemini ölçərək yoxlayın.\nBuraxılsa və ya dəyişdirilsə: Komponent seçərkən datasheet-də absolute maximum deyil, tövsiyə edilən iş rejiminə baxın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Şəbəkə gərginliyində işləyən qurğular təhlükəlidir; başlanğıc layihələrində aşağı gərginlikli, cərəyan məhdudlaşdırılmış təchizatdan istifadə edin."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "GPIO yalnız lövhənin sənədləşdirilmiş cərəyan həddində yük sürməlidir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Kartın qidalanma gərginliyini, cərəyan büdcəsini və torpaqlama sxemini ölçərək yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ PRAKTİK NÜMUNƏ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const int sensorPin = A0;\nvoid setup() { Serial.begin(115200); }\nvoid loop() {\n  int raw = analogRead(sensorPin);\n  Serial.println(raw);\n  delay(500);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ NÜMUNƏNİN NƏTİCƏSİ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ADC nümunələri çap olunur; diapazonu və sensor mənasını board üçün kalibrasiya edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Komponent seçərkən datasheet-də absolute maximum deyil, tövsiyə edilən iş rejiminə baxın."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Şəbəkə gərginliyində işləyən qurğular təhlükəlidir; başlanğıc layihələrində aşağı gərginlikli, cərəyan məhdudlaşdırılmış təchizatdan istifadə edin."
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: lövhə pinlərini, VCC/GND-ni və siqnal istiqamətini göstərən naqilləmə sxemi və pin xəritəsi; uyğun olduqda yaddaş və ya tapşırıq vəziyyət diaqramı."
+}

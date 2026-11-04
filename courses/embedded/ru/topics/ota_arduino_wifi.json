@@ -1,0 +1,108 @@
+{
+  "id": "ota_arduino_wifi",
+  "title": "ArduinoOTA: загрузка программы на плату по Wi-Fi",
+  "difficulty": "advanced",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://docs.arduino.cc/learn/programming/ota-getting-started/",
+    "https://github.com/espressif/arduino-esp32/tree/master/libraries/ArduinoOTA"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Этот пример загружает программу из Arduino IDE на поддерживаемую ESP32 в той же сети Wi-Fi. Для первого запуска всё равно нужен USB: сначала загрузите по кабелю программу с поддержкой Wi-Fi и OTA, а последующие обновления можно отправлять по сети.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Как это работает\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "WiFi.begin()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " подключает плату к сети; "
+    },
+    {
+      "type": "text",
+      "text": "ArduinoOTA.begin()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " запускает приём обновления; "
+    },
+    {
+      "type": "text",
+      "text": "ArduinoOTA.handle()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " нужно часто вызывать в "
+    },
+    {
+      "type": "text",
+      "text": "loop()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ", чтобы обрабатывать передачу. Плата должна появиться в IDE как сетевой порт. Выберите ту же сеть и правильную плату/ядро. Долгий "
+    },
+    {
+      "type": "text",
+      "text": "delay()",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и блокирующее чтение датчика могут прервать обработку OTA.\n\nЭто пример в стиле Arduino-ESP32; "
+    },
+    {
+      "type": "text",
+      "text": "WiFi.h",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " и ArduinoOTA есть не на каждой плате Arduino. Платы MKR с Wi-Fi и другие модели могут использовать иной API — смотрите документацию платы.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Пример кода\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <ArduinoOTA.h>\n\nconst char* ssid = \"YOUR_WIFI_NAME\";\nconst char* password = \"YOUR_WIFI_PASSWORD\";\n\nvoid setup() {\n  Serial.begin(115200);\n  WiFi.begin(ssid, password);\n  while (WiFi.status() != WL_CONNECTED) delay(250);\n  ArduinoOTA.setHostname(\"sensor-01\");\n  ArduinoOTA.begin();\n}\n\nvoid loop() {\n  ArduinoOTA.handle();  // Call often; do not block for long.\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "ota_update_flow",
+      "caption": "Схема: ArduinoOTA: загрузка программы на плату по Wi-Fi"
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Замените заполнители Wi-Fi локально и не добавляйте пароли в общий код. Настройте аутентификацию ArduinoOTA и не открывайте незащищённое обновление в недоверенной сети. Для выпуска используйте безопасную передачу и проверку образа."
+    }
+  ],
+  "testId": "embedded_test_ota_arduino_wifi_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

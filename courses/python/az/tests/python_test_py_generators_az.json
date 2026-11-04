@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_generators_az",
+  "title": "Iterator, generator və decorator",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_generators",
+      "type": "multiple_choice",
+      "prompt": "Bu dərsdəki 1-ci kod nümunəsi dəqiq olaraq nə çap edir?\n\ndef squares(limit):\n    for number in range(limit):\n        yield number * number\n\nprint(list(squares(4)))",
+      "options": [
+        "[0, 1, 4, 9]",
+        "14",
+        "[0, 1, 4]",
+        "[3, 2, 1]"
+      ],
+      "answer": "[0, 1, 4, 9]",
+      "explanation": "SƏTİR-SƏTİR İZAH\n`def squares(limit):` — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n`for number in range(limit):` — Kolleksiyanın hər elementini emal edir; dövr olmasa yalnız ayrıca yazılmış element işlənər və siyahının qalanı ötürülər.\n`yield number * number` — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n`print(list(squares(4)))` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_generators",
+      "type": "multiple_choice",
+      "prompt": "Bu dərsdəki 2-ci kod nümunəsi dəqiq olaraq nə çap edir?\n\ndef countdown(limit):\n    for value in range(limit, 0, -1):\n        yield value\nprint(list(countdown(3)))",
+      "options": [
+        "[3, 2]",
+        "[0, 1, 4, 9]",
+        "14",
+        "[3, 2, 1]"
+      ],
+      "answer": "[3, 2, 1]",
+      "explanation": "SƏTİR-SƏTİR İZAH\n`def countdown(limit):` — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n`for value in range(limit, 0, -1):` — Kolleksiyanın hər elementini emal edir; dövr olmasa yalnız ayrıca yazılmış element işlənər və siyahının qalanı ötürülər.\n`yield value` — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n`print(list(countdown(3)))` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_generators",
+      "type": "multiple_choice",
+      "prompt": "Bu dərsdəki 3-ci kod nümunəsi dəqiq olaraq nə çap edir?\n\nsquares = (number * number for number in range(4))\nprint(sum(squares))",
+      "options": [
+        "14",
+        "[0, 1, 4, 9]",
+        "[3, 2, 1]",
+        "15"
+      ],
+      "answer": "14",
+      "explanation": "SƏTİR-SƏTİR İZAH\n`squares = (number * number for number in range(4))` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`print(sum(squares))` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_generators",
+      "type": "multiple_choice",
+      "prompt": "“Iterator, generator və decorator” mövzusunu dəqiq təsvir edən fikir hansıdır?",
+      "options": [
+        "Iterator və generator böyük axını hamısını yaddaşa yükləmədən emal edir; generator tükənəndən sonra nəticəni yenidən almaq üçün təzədən yaratmaq lazımdır.",
+        "Generator böyük fayl və nəticə axınını bir elementi hesablayıb ötürərək yaddaşa qənaət edir; lazımi nöqtədə istehlak olunmalıdır.",
+        "Comprehension məlumatı bir keçiddə çevirməyə və süzməyə kömək edir; şərtlər çoxaldıqda adi dövr daha aydın ola bilər.",
+        "Dövrlər məhsul siyahısını yoxlamaq və ya hesabatdakı sətirləri cəmləmək kimi təkrarlanan işi avtomatlaşdırır; son sərhədi və boş kolleksiyanı yoxlayın."
+      ],
+      "answer": "Generator böyük fayl və nəticə axınını bir elementi hesablayıb ötürərək yaddaşa qənaət edir; lazımi nöqtədə istehlak olunmalıdır.",
+      "explanation": "Generator böyük fayl və nəticə axınını bir elementi hesablayıb ötürərək yaddaşa qənaət edir; lazımi nöqtədə istehlak olunmalıdır.\n\nSƏTİR-SƏTİR İZAH\n`def countdown(limit):` — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n`for value in range(limit, 0, -1):` — Kolleksiyanın hər elementini emal edir; dövr olmasa yalnız ayrıca yazılmış element işlənər və siyahının qalanı ötürülər.\n`yield value` — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n`print(list(countdown(3)))` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz."
+    }
+  ]
+}

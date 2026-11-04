@@ -1,0 +1,72 @@
+{
+  "id": "wifi_dns_local_portal",
+  "title": "Точка доступа Wi-Fi, локальный сервер и перенаправление DNS",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html",
+    "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/webserver.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Для первой настройки устройство может создать Wi-Fi-сеть и локальную страницу управления, доступную с телефона без интернета.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "КАК ЭТО РАБОТАЕТ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ESP32 запускает SoftAP, "
+    },
+    {
+      "type": "text",
+      "text": "WebServer",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " отвечает на локальные HTTP-запросы, а "
+    },
+    {
+      "type": "text",
+      "text": "DNSServer",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " направляет DNS-имена этой сети на IP платы, упрощая доступ к странице настройки. Это основа captive portal; автоматическое окно портала зависит от телефона и ОС. Перед вводом данных пользователь должен понимать, к какому устройству он подключён и как защищена информация.\n\nТочка доступа сама по себе не даёт интернет. Для него нужно отдельно подключиться к маршрутизатору в режиме STA; AP+STA делит радиоресурсы. Проверяйте пример только в собственной сети.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <WiFi.h>\n#include <WebServer.h>\n#include <DNSServer.h>\n\nWebServer server(80);\nDNSServer dns;\n\nvoid setup() {\n  WiFi.mode(WIFI_AP);\n  WiFi.softAP(\"Device-Setup\", \"replace-this-pass\");\n  const IPAddress ip = WiFi.softAPIP();\n  dns.start(53, \"*\", ip);\n  server.on(\"/\", []() {\n    server.send(200, \"text/html\",\n                \"<h1>Device setup</h1><p>Connected locally.</p>\");\n  });\n  server.onNotFound([]() {\n    server.sendHeader(\"Location\", \"/\", true);\n    server.send(302, \"text/plain\", \"\");\n  });\n  server.begin();\n}\n\nvoid loop() {\n  dns.processNextRequest();\n  server.handleClient();\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "Точка доступа Wi-Fi, локальный сервер и перенаправление DNS"
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание о безопасности и совместимости",
+      "text": "Замените пароль. Этот простой HTTP-портал не шифруется и не должен быть открыт в интернет. Перенаправление DNS не гарантирует появление окна портала на каждом телефоне; проверьте AP+STA на своей плате."
+    }
+  ],
+  "testId": "embedded_test_wifi_dns_local_portal_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму архитектуры с устройствами, направлением соединений, протоколом и потоком данных."
+}

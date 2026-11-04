@@ -1,0 +1,46 @@
+{
+  "id": "module_oled_i2c",
+  "title": "OLED display: I2C wiring and text",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://learn.adafruit.com/monochrome-oled-breakouts/arduino-library-and-examples",
+    "https://docs.arduino.cc/learn/communication/wire/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "OLED pixels emit their own light, so no backlight is needed. An I2C SSD1306 module can show text and simple graphics with few wires.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Connect VCC and GND only to voltages supported by the module. SDA/SCL go to the board's I2C pins: A4/A5 on UNO R3; selected I2C pins on ESP32.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "This sketch needs Adafruit_GFX and Adafruit_SSD1306. The address is often 0x3C, sometimes 0x3D. Platform: UNO or ESP32; verify the board's I2C pins.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_oled_i2c",
+      "caption": "OLED display: I2C wiring and text"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Wire.h>\n#include <Adafruit_GFX.h>\n#include <Adafruit_SSD1306.h>\n\nAdafruit_SSD1306 display(128, 64, &Wire, -1);\n\nvoid setup() {\n  Serial.begin(115200);\n  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {\n    Serial.println(\"SSD1306 initialization failed\");\n    return;\n  }\n  display.clearDisplay();\n  display.setTextSize(1);\n  display.setTextColor(SSD1306_WHITE);\n  display.setCursor(0, 0);\n  display.println(\"Salam, OLED!\");\n  display.display();\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important safety note",
+      "text": "Supply voltage and logic levels depend on the display module. Never connect ESP32 GPIO to 5 V."
+    }
+  ],
+  "testId": "embedded_test_module_oled_i2c_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

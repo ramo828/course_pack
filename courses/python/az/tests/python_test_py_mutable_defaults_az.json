@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_mutable_defaults_az",
+  "title": "Funksiyalarda mutable default arqument tələsi",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_mutable_defaults",
+      "type": "multiple_choice",
+      "prompt": "Bu dərsdəki 1-ci kod nümunəsi dəqiq olaraq nə çap edir?\n\ndef add_item(value: str, items: list[str] | None = None) -> list[str]:\n    if items is None:\n        items = []\n    items.append(value)\n    return items\n\nprint(add_item('a'))\nprint(add_item('b'))",
+      "options": [
+        "False",
+        "['a']\n['a', 'b']",
+        "['a']\n['b']",
+        "['A']\n['B']"
+      ],
+      "answer": "['a']\n['b']",
+      "explanation": "SƏTİR-SƏTİR İZAH\n`def add_item(value: str, items: list[str] | None = None) -> list[str]:` — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n`if items is None:` — Şərtə uyğun davranışı seçir; budaq olmasa fərqli hallar fərqləndirilmədən eyni yolla işlənər.\n`items = []` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`items.append(value)` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n`return items` — Nəticəni çağırana verir; return olmasa funksiya adətən None qaytarar və endpoint cavabı itər.\n`print(add_item('a'))` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n`print(add_item('b'))` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_mutable_defaults",
+      "type": "multiple_choice",
+      "prompt": "Bu dərsdəki 2-ci kod nümunəsi dəqiq olaraq nə çap edir?\n\ndef add_item(value, items=[]):\n    items.append(value)\n    return items\n\nprint(add_item('a'))\nprint(add_item('b'))",
+      "options": [
+        "False",
+        "['a']\n['a', 'b']",
+        "['A']\n['A', 'B']",
+        "['a']\n['b']"
+      ],
+      "answer": "['a']\n['a', 'b']",
+      "explanation": "SƏTİR-SƏTİR İZAH\n`def add_item(value, items=[]):` — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n`items.append(value)` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n`return items` — Nəticəni çağırana verir; return olmasa funksiya adətən None qaytarar və endpoint cavabı itər.\n`print(add_item('a'))` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n`print(add_item('b'))` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_mutable_defaults",
+      "type": "multiple_choice",
+      "prompt": "Bu dərsdəki 3-ci kod nümunəsi dəqiq olaraq nə çap edir?\n\ndef add_item(value, items=None):\n    if items is None:\n        items = []\n    items.append(value)\n    return items\n\nfirst = add_item('a')\nsecond = add_item('b')\nprint(first is second)",
+      "options": [
+        "['a']\n['a', 'b']",
+        "False",
+        "['a']\n['b']",
+        "True"
+      ],
+      "answer": "False",
+      "explanation": "SƏTİR-SƏTİR İZAH\n`def add_item(value, items=None):` — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n`if items is None:` — Şərtə uyğun davranışı seçir; budaq olmasa fərqli hallar fərqləndirilmədən eyni yolla işlənər.\n`items = []` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`items.append(value)` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n`return items` — Nəticəni çağırana verir; return olmasa funksiya adətən None qaytarar və endpoint cavabı itər.\n`first = add_item('a')` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`second = add_item('b')` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`print(first is second)` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_mutable_defaults",
+      "type": "multiple_choice",
+      "prompt": "“Funksiyalarda mutable default arqument tələsi” mövzusunu dəqiq təsvir edən fikir hansıdır?",
+      "options": [
+        "Sintaksis və girinti kod bloklarının harada başladığını bildirir; web marşrutlarında və şərt bloklarında səhv girinti proqramın işə düşməsinə mane olur.",
+        "Şərh qeyri-aşkar qərarın səbəbini izah edir; yaxşı şərh kodu təkrarlamır, məsələn, niyə xüsusi limit seçildiyini qeyd edir.",
+        "Default ifadə funksiya yarananda bir dəfə hesablanır.",
+        "Python oxunaqlı sintaksisi və geniş kitabxanası sayəsində avtomatlaşdırma, veb xidmətlər və məlumat təhlilində istifadə olunur; proqramı kiçik, yoxlanıla bilən addımlarla qurmaq öyrənməyə kömək edir."
+      ],
+      "answer": "Default ifadə funksiya yarananda bir dəfə hesablanır.",
+      "explanation": "Default ifadə funksiya yarananda bir dəfə hesablanır. Mutable obyekt həmin funksiya obyektinə bağlı qalır; buna görə list/dict/set default-u çağırışlar arasında ortaq vəziyyət yarada bilər. `None` sentinel-i ilə hər çağırışda yeni obyekt yaradın. Qəsdən paylaşım lazımdırsa, onu gizli default əvəzinə açıq parametr və ya obyekt vəziyyəti edin."
+    }
+  ]
+}

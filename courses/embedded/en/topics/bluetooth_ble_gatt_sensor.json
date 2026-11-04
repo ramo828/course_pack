@@ -1,0 +1,53 @@
+{
+  "id": "bluetooth_ble_gatt_sensor",
+  "title": "A BLE GATT sensor: service, characteristic, and notification",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://github.com/h2zero/NimBLE-Arduino",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/bluetooth/nimble/index.html",
+    "https://www.bluetooth.com/specifications/specs/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "BLE suits battery-powered sensors that send small readings to a phone using little energy. GATT services and characteristics define the data.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "HOW IT WORKS\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "This sketch acts as a BLE peripheral. A phone is the central: it connects, reads the current value, and can subscribe to notifications for new readings. Install NimBLE-Arduino through Arduino IDE Library Manager; it supports BLE-capable ESP32 variants including S3, C3, and C6. In ESP-IDF, use its compatible NimBLE component instead of this Arduino library. Choose service and characteristic UUIDs for your application.\n\nNotify at a sensible interval, measure power, and keep personal information out of advertisements. Visibility, pairing, and notification permissions are controlled by the phone app.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <NimBLEDevice.h>\n\nNimBLECharacteristic* reading;\nuint32_t lastSent = 0;\n\nvoid setup() {\n  NimBLEDevice::init(\"RoomSensor\");\n  NimBLEServer* server = NimBLEDevice::createServer();\n  NimBLEService* service =\n      server->createService(\"7a1b0001-4f2e-4d7b-9a11-112233445566\");\n  reading = service->createCharacteristic(\n      \"7a1b0002-4f2e-4d7b-9a11-112233445566\",\n      NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::NOTIFY);\n  reading->setValue(\"23.5 C\");\n  service->start();\n  NimBLEDevice::getAdvertising()->addServiceUUID(service->getUUID());\n  NimBLEDevice::getAdvertising()->start();\n}\n\nvoid loop() {\n  if (millis() - lastSent >= 2000) {\n    lastSent = millis();\n    reading->setValue(\"23.6 C\");  // Replace with a real sensor reading.\n    reading->notify();\n  }\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "embedded_stack",
+      "caption": "A BLE GATT sensor: service, characteristic, and notification"
+    },
+    {
+      "type": "warning",
+      "title": "Important safety and compatibility note",
+      "text": "Verify the NimBLE-Arduino version and BLE support for the selected board. Replace the sample with a real sensor; add access control and validation if readings are private. BLE is not Wi-Fi internet."
+    }
+  ],
+  "testId": "embedded_test_bluetooth_ble_gatt_sensor_en",
+  "requires_visual": true,
+  "visual_description": "Add a system-architecture diagram showing devices, connection direction, protocol, and data flow."
+}

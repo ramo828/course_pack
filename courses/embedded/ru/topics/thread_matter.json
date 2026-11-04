@@ -1,0 +1,76 @@
+{
+  "id": "thread_matter",
+  "title": "Thread и Matter: IPv6 mesh, Border Router и настройка",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32h2/api-guides/openthread.html",
+    "https://github.com/espressif/esp-idf/tree/master/examples/openthread/ot_cli",
+    "https://docs.espressif.com/projects/esp-matter/en/latest/esp32/developing.html",
+    "https://csa-iot.org/all-solutions/matter/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Thread — маломощная IPv6 mesh-сеть. Matter — прикладной стандарт взаимодействия домашних устройств; Thread — один из поддерживаемых сетевых вариантов.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "КАК ЭТО РАБОТАЕТ\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Thread маршрутизирует IPv6/6LoWPAN-пакеты поверх IEEE 802.15.4. Router пересылают пакеты; Sleepy End Device засыпает для экономии батареи; Border Router маршрутизирует IP-пакеты между Thread и обычной IP-сетью, но сам не переводит прикладной протокол. OpenThread работает как самостоятельный узел на чипах 802.15.4, например ESP32-H2/C6, либо через RCP по UART/SPI с отдельным хостом.\n\nMatter задаёт прикладную модель и безопасную комиссию; он может использовать Wi-Fi, Ethernet или Thread. Matter-устройству на Thread нужны Thread Border Router и контроллер Matter. Thread и Zigbee используют 802.15.4, но это разные сетевые и прикладные протоколы. Пример ESP-IDF "
+    },
+    {
+      "type": "text",
+      "text": "ot_cli",
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " формирует Thread-сеть на двух платах; для Matter отдельно нужны ESP-Matter и поддерживаемый target.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Сборка примера ESP-IDF OpenThread CLI\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "idf.py set-target esp32h2\nidf.py menuconfig\nidf.py -p PORT build flash monitor\n\n# On node 1, form the network and copy the active dataset hex:\not dataset init new\not dataset commit active\not ifconfig up\not thread start\not dataset active -x\n\n# On node 2, replace the placeholder with node 1's dataset hex:\not dataset set active ACTIVE_DATASET_HEX\not ifconfig up\not thread start\not state",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "Добавление Matter SDK в проект ESP-IDF\n",
+      "size": 18,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "idf.py add-dependency \"espressif/esp_matter^1.4.0\"\n# Start from the ESP-Matter managed_component_light example.",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "Thread и Matter: IPv6 mesh, Border Router и настройка"
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание о безопасности и совместимости",
+      "text": "Поддержка OpenThread и Matter зависит от версий ESP-IDF/ESP-Matter и радиовозможностей. Thread- и Zigbee-устройства не входят напрямую в одну сеть. Защищайте ключи комиссии и QR-коды настройки."
+    }
+  ],
+  "testId": "embedded_test_thread_matter_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте схему подключения и карту выводов с обозначением контактов платы, VCC/GND и направления сигнала; при необходимости — диаграмму памяти или состояний задач."
+}

@@ -1,0 +1,161 @@
+{
+  "id": "iot_iot_security",
+  "title": "IoT güvenliği ve güncelleme",
+  "difficulty": "advanced",
+  "testId": "iot_test_iot_security_tr",
+  "sources": [
+    "https://www.rfc-editor.org/rfc/rfc8446.html",
+    "https://www.rfc-editor.org/rfc/rfc9124.html"
+  ],
+  "estimatedMinutes": 30,
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu dersin amacı “IoT güvenliği ve güncelleme” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Donanım yazılımı kurmadan önce imza ve sürüm politikasını doğrulamak güven zincirinin parçasıdır. Gerçek projede şu öneriyi izleyin: Üretim anahtarlarıyla test sertifikalarını ayırın; iptal ve yenilemeyi planlayın.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "json",
+      "code": "{\"transport\":\"TLS\",\"firmware\":\"signed\",\"update\":\"verified-before-install\"}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu bir yapılandırma taslağıdır; TLS için geçerli güven kökleri, kimlik bilgileri ve desteklenen istemci gerekir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cihazda gerekli en az servisi, kimlik doğrulamayı, şifreli aktarımı, imzalı donanım yazılımı'i ve güvenli güncelleme sürecini planlayın. Güncelleme başarısız olduğunda önceki çalışan sürüme güvenli dönüşü test edin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "{\"transport\":\"TLS\",\"firmware\":\"signed\",\"update\":\"verified-before-install\"}",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": "\nNe yapar: Donanım yazılımı kurmadan önce imza ve sürüm politikasını doğrulamak güven zincirinin parçasıdır.\nNeden seçildi: Üretim anahtarlarıyla test sertifikalarını ayırın; iptal ve yenilemeyi planlayın.\nAtlanır veya değiştirilirse: İmzasız OTA ve cihazlar arası ortak gizli anahtar geniş ölçekte risk yaratır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "İmzasız OTA ve cihazlar arası ortak gizli anahtar geniş ölçekte risk yaratır."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Donanım yazılımı kurmadan önce imza ve sürüm politikasını doğrulamak güven zincirinin parçasıdır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Üretim anahtarlarıyla test sertifikalarını ayırın; iptal ve yenilemeyi planlayın."
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ UYGULAMALI ÖRNEK\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "client = connect_tls(\n    broker=\"broker.example.test\",\n    verify_server_certificate=True,\n    device_identity=\"sensor-07\",\n)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İKİNCİ ÖRNEĞİN SONUCU\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yapılandırma taslağıdır; TLS için geçerli güven kökleri, kimlik bilgileri ve desteklenen istemci gerekir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Güncelleme başarısız olduğunda önceki çalışan sürüme güvenli dönüşü test edin."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "İmzasız OTA ve cihazlar arası ortak gizli anahtar geniş ölçekte risk yaratır."
+    },
+    {
+      "type": "diagram",
+      "id": "iot_architecture",
+      "caption": "Cihaz ölçümü ağ geçidi/broker üzerinden servise iletir; komut ters yönde dönebilir."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

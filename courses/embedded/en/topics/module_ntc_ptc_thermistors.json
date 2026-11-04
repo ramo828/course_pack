@@ -1,0 +1,46 @@
+{
+  "id": "module_ntc_ptc_thermistors",
+  "title": "NTC and PTC thermistors: measuring temperature",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://learn.adafruit.com/thermistor/using-a-thermistor",
+    "https://learn.sparkfun.com/tutorials/voltage-dividers/all"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "A thermistor's resistance changes with temperature: NTC resistance falls as temperature rises; PTC resistance rises. This helps measure temperature or protect circuits.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Connect the 10 kΩ fixed resistor between the board supply and A0, and the NTC between A0 and ground. Use 5 V for UNO and 3.3 V for ESP32.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "The sketch estimates resistance in a divider. Accurate temperature needs the thermistor's Beta or Steinhart–Hart data, calibration, and the board's ADC range. Platform: Arduino or ESP32.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "electronics_thermistor_divider",
+      "caption": "NTC and PTC thermistors: measuring temperature"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "const byte sensorPin = A0;\nconst float fixedResistor = 10000.0;\n#if defined(ESP32)\nconst float supplyVoltage = 3.3;\nconst int adcMaximum = 4095;\n#else\nconst float supplyVoltage = 5.0;\nconst int adcMaximum = 1023;\n#endif\n\nvoid setup() {\n  Serial.begin(9600);\n#if defined(ESP32)\n  analogReadResolution(12);\n#endif\n}\n\nvoid loop() {\n  const int raw = analogRead(sensorPin);\n  if (raw <= 0 || raw >= adcMaximum) {\n    Serial.println(\"ADC is at a rail; check wiring and input range\");\n    delay(500);\n    return;\n  }\n  const float voltage =\n      static_cast<float>(raw) * supplyVoltage / adcMaximum;\n  const float sensorResistance =\n      fixedResistor * voltage / (supplyVoltage - voltage);\n  Serial.print(\"ADC=\");\n  Serial.print(raw);\n  Serial.print(\" R=\");\n  Serial.println(sensorResistance);\n  delay(500);\n}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Important safety note",
+      "text": "The nominal resistance and divider orientation matter. Never exceed the board's allowed ADC input voltage."
+    }
+  ],
+  "testId": "embedded_test_module_ntc_ptc_thermistors_en",
+  "requires_visual": true,
+  "visual_description": "Add a wiring schematic and pin map showing board pins, VCC/GND, and signal direction; include a memory or task-state diagram where relevant."
+}

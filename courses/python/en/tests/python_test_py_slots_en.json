@@ -1,0 +1,62 @@
+{
+  "id": "python_test_py_slots_en",
+  "title": "Using __slots__ to reduce object memory",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "python_py_slots",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 1 in this lesson produce?\n\nclass Sample:\n    __slots__ = ('value',)\n\n    def __init__(self, value: int) -> None:\n        self.value = value\n\nsample = Sample(7)\nprint(sample.value)",
+      "options": [
+        "7",
+        "8",
+        "False 12",
+        "6"
+      ],
+      "answer": "7",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`class Sample:` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`__slots__ = ('value',)` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`def __init__(self, value: int) -> None:` — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n`self.value = value` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`sample = Sample(7)` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`print(sample.value)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q2",
+      "topicId": "python_py_slots",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 2 in this lesson produce?\n\nfrom dataclasses import dataclass\n\n@dataclass(slots=True)\nclass Point:\n    x: float\n    y: float\n\npoint = Point(3, 4)\nprint(point.x + point.y)",
+      "options": [
+        "False 12",
+        "6",
+        "7",
+        "8"
+      ],
+      "answer": "7",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`from dataclasses import dataclass` — Imports specific names from a module; without it, those names are unavailable.\n`@dataclass(slots=True)` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`class Point:` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`x: float` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`y: float` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`point = Point(3, 4)` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`print(point.x + point.y)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q3",
+      "topicId": "python_py_slots",
+      "type": "multiple_choice",
+      "prompt": "What exact output does code example 3 in this lesson produce?\n\nclass Reading:\n    __slots__ = ('value',)\n\n    def __init__(self, value: int) -> None:\n        self.value = value\n\nreading = Reading(12)\nprint(hasattr(reading, '__dict__'), reading.value)",
+      "options": [
+        "7",
+        "fALSE 12",
+        "False 12",
+        "True 12"
+      ],
+      "answer": "False 12",
+      "explanation": "LINE-BY-LINE WALKTHROUGH\n`class Reading:` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`__slots__ = ('value',)` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`def __init__(self, value: int) -> None:` — Creates reusable behavior; without the definition, callers cannot invoke or share this rule.\n`self.value = value` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`reading = Reading(12)` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`print(hasattr(reading, '__dict__'), reading.value)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur."
+    },
+    {
+      "id": "q4",
+      "topicId": "python_py_slots",
+      "type": "multiple_choice",
+      "prompt": "Which statement accurately describes “Using __slots__ to reduce object memory”?",
+      "options": [
+        "`__slots__` changes instance layout: it avoids an automatic per-instance `__dict__` and permits only declared attributes.",
+        "Python is used for automation, web services, and data analysis because its readable syntax and broad library ecosystem make small, testable steps practical.",
+        "Comments explain a non-obvious decision instead of repeating the code, such as why a particular limit was chosen.",
+        "Syntax and indentation mark code-block boundaries; a mistake can prevent a route or condition from running."
+      ],
+      "answer": "`__slots__` changes instance layout: it avoids an automatic per-instance `__dict__` and permits only declared attributes.",
+      "explanation": "`__slots__` changes instance layout: it avoids an automatic per-instance `__dict__` and permits only declared attributes. This can help with many small objects, but verify the benefit by measuring. `dataclass(slots=True)` is a convenient option; account for dynamic attributes, weak references, and inheritance."
+    }
+  ]
+}

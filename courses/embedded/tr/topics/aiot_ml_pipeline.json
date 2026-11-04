@@ -1,0 +1,52 @@
+{
+  "id": "aiot_ml_pipeline",
+  "title": "AIoT projesinin yolu: ölçümden modele",
+  "difficulty": "medium",
+  "estimatedMinutes": 20,
+  "sources": [
+    "https://www.tensorflow.org/lite/microcontrollers",
+    "https://ai.google.dev/edge/litert/conversion/tensorflow/overview"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Mikrodenetleyici modelini genellikle aygıtın kendisinde eğitmeyiz. Önce bilgisayarda örnekleri toplar ve etiketler, küçük modeli orada eğitip sınarız; sonra modeli uygun biçime çevirip kartta yalnızca tahmin çalıştırırız (inference).\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "Konu açıklaması\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Basit sıra: 1) sensörü doğru oku; 2) sabit zaman aralıklarında veri topla; 3) her aralığı açıkça etiketle (ör. “normal” ve “olağandışı”); 4) ayrı test verisiyle dene; 5) modeli küçültüp aygıtta ölç; 6) gerçek sensörle yeniden sınayın. Aynı kaydın yakın bölümlerini hem eğitim hem teste koymak sonucu olduğundan iyi gösterebilir; kayıtları veya günleri ayırın.\n\nBaşarı tek ölçüt değildir: yanlış alarm, kaçırılan olay, bellek, çalışma süresi ve enerji tüketimini de izleyin. Önce basit eşik kuralıyla karşılaştırın; her projede küçük bir model gerekmez.\n\n"
+    },
+    {
+      "type": "text",
+      "text": "Örnek kod\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# On a computer: prepare labeled examples, then train and test.\nfeatures, labels = collect_and_label_sensor_windows()\ntrain, test = split_by_recording_session(features, labels)\nmodel = train_small_classifier(train, labels)\nprint(\"test accuracy:\", evaluate(model, test))\n# Convert and optimize only after checking test results.",
+      "showCopyButton": true
+    },
+    {
+      "type": "diagram",
+      "id": "iot_tflite_pipeline",
+      "caption": "Şema: AIoT projesinin yolu: ölçümden modele"
+    },
+    {
+      "type": "warning",
+      "title": "Önemli not",
+      "text": "Eğitim verisini son test verisiyle karıştırmayın. Sensör konumu, örnekleme hızı veya ölçek değişirse model başarısı da değişebilir."
+    }
+  ],
+  "testId": "embedded_test_aiot_ml_pipeline_tr",
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kart pinlerini, VCC/GND'yi ve sinyal yönünü gösteren bağlantı şeması ve pin haritası; uygunsa bellek veya görev durumu diyagramı."
+}

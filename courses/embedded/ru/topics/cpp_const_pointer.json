@@ -1,0 +1,98 @@
+{
+  "id": "cpp_const_pointer",
+  "title": "const и constexpr: неизменяемые значения и указатели",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://en.cppreference.com/w/cpp/language/cv.html",
+    "https://en.cppreference.com/w/cpp/language/constexpr.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "const",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " запрещает последующее изменение значения; ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "constexpr",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " вычисляется во время компиляции, если это возможно. Для ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "const int* p",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " адрес указателя можно менять, но нельзя менять значение через ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "p",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": ". Для ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "int* const p",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " адрес фиксирован, а значение по адресу можно менять. Два ",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "const",
+      "size": 16,
+      "bold": true,
+      "color": "#1565C0"
+    },
+    {
+      "type": "text",
+      "text": " защищают и адрес, и значение.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <Arduino.h>\n\nint reading = 512;\nconst int* readOnlyValue = &reading;\nint* const fixedAddress = &reading;\nconst int* const fixedReadOnly = &reading;\n\nvoid setup() {\n  Serial.begin(115200);\n  Serial.println(*readOnlyValue);\n  *fixedAddress = 600;\n  Serial.println(*fixedReadOnly);\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Важное замечание",
+      "text": "Следите, с какой стороны `*` находится `const`. Указатель не должен жить дольше объекта, на который ссылается; не изменяйте константное значение через указатель."
+    }
+  ],
+  "testId": "embedded_test_cpp_const_pointer_ru",
+  "requires_visual": true,
+  "visual_description": "Добавьте диаграмму памяти со стеком/кучей, временем жизни, владением или потоком данных."
+}
