@@ -1,0 +1,62 @@
+{
+  "id": "sql_test_sql_import_export_az",
+  "title": "Məlumatların köçürülməsi və ehtiyat nüsxə",
+  "questions": [
+    {
+      "id": "sql_sql_import_export_1",
+      "topicId": "sql_sql_import_export",
+      "type": "multiple_choice",
+      "prompt": "“Məlumatların köçürülməsi və ehtiyat nüsxə” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "Sorğu Ada və 42 dəyərlərini iki sütunda qaytarır.",
+        "SQLite çox vaxt tətbiqin daxilində işləyir; MySQL və PostgreSQL adətən ayrıca server prosesi kimi işləyir.",
+        "SQLite əmrləri cədvələ CSV yükləyir və sorğu nəticəsini fayla çıxarır; başqa DBMS-lər öz alətlərindən istifadə edir.",
+        "Əvvəlcə kiçik, oxunaqlı SELECT sorğusu qurun; nəticəni başa düşdükdən sonra onu tətbiqə qoşun."
+      ],
+      "answer": "SQLite əmrləri cədvələ CSV yükləyir və sorğu nəticəsini fayla çıxarır; başqa DBMS-lər öz alətlərindən istifadə edir.",
+      "explanation": "SQLite əmrləri cədvələ CSV yükləyir və sorğu nəticəsini fayla çıxarır; başqa DBMS-lər öz alətlərindən istifadə edir.\nİzah: Cədvəli CSV faylından yükləmək və nəticəni fayla çıxarmaq analitika və sistemlərarası köçürmədə tez-tez lazım olur. SQLite terminalında `.mode csv` və `.import students.csv students` CSV-ni cədvələ gətirir; `.headers on`, `.once result.csv` və SELECT nəticəni CSV-yə yaza bilər. PostgreSQL-in psql alətində `\\copy` müştəri kompüterində faylla işləyir; MySQL-də `LOAD DATA` istifadə edilə bilər, lakin server icazələri tələb oluna bilər. Cədvəl sxemini və kodlaşdırmanı əvvəlcədən yoxlayın, etibarsız CSV dəyərlərini sorğu mətninə birləşdirməyin. Ehtiyat nüsxə üçün SQLite `.backup`, PostgreSQL `pg_dump`, MySQL `mysqldump` kimi alətlər mövcuddur; nüsxəni ayrıca saxlayın və bərpanı sınaqdan keçirin."
+    },
+    {
+      "id": "sql_sql_import_export_2",
+      "topicId": "sql_sql_import_export",
+      "type": "multiple_choice",
+      "prompt": "“Məlumatların köçürülməsi və ehtiyat nüsxə” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "Əvvəlcə layihənin serverə ehtiyacı olub-olmadığını, eyni vaxtda neçə istifadəçinin yazacağını və hansı idarəetmə imkanlarının lazım olduğunu müəyyən edin.",
+        "Sorğu Ada və 42 dəyərlərini iki sütunda qaytarır.",
+        "Əvvəlcə bir neçə sətri sınaq cədvəlinə yükləyin; CSV-də ayırıcı, başlıq, kodlaşdırma və boş dəyərlərin qaydasını dəqiqləşdirin.",
+        "Əvvəlcə kiçik, oxunaqlı SELECT sorğusu qurun; nəticəni başa düşdükdən sonra onu tətbiqə qoşun."
+      ],
+      "answer": "Əvvəlcə bir neçə sətri sınaq cədvəlinə yükləyin; CSV-də ayırıcı, başlıq, kodlaşdırma və boş dəyərlərin qaydasını dəqiqləşdirin.",
+      "explanation": "Əvvəlcə bir neçə sətri sınaq cədvəlinə yükləyin; CSV-də ayırıcı, başlıq, kodlaşdırma və boş dəyərlərin qaydasını dəqiqləşdirin.\nİzah: Cədvəli CSV faylından yükləmək və nəticəni fayla çıxarmaq analitika və sistemlərarası köçürmədə tez-tez lazım olur. SQLite terminalında `.mode csv` və `.import students.csv students` CSV-ni cədvələ gətirir; `.headers on`, `.once result.csv` və SELECT nəticəni CSV-yə yaza bilər. PostgreSQL-in psql alətində `\\copy` müştəri kompüterində faylla işləyir; MySQL-də `LOAD DATA` istifadə edilə bilər, lakin server icazələri tələb oluna bilər. Cədvəl sxemini və kodlaşdırmanı əvvəlcədən yoxlayın, etibarsız CSV dəyərlərini sorğu mətninə birləşdirməyin. Ehtiyat nüsxə üçün SQLite `.backup`, PostgreSQL `pg_dump`, MySQL `mysqldump` kimi alətlər mövcuddur; nüsxəni ayrıca saxlayın və bərpanı sınaqdan keçirin."
+    },
+    {
+      "id": "sql_sql_import_export_3",
+      "topicId": "sql_sql_import_export",
+      "type": "multiple_choice",
+      "prompt": "“Məlumatların köçürülməsi və ehtiyat nüsxə” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "CSV yalnız dəyərləri daşıyır; sütun tiplərini, məhdudiyyətləri və əlaqələri ayrıca sxemdən yaratmaq lazımdır.",
+        "Sorğu Ada və 42 dəyərlərini iki sütunda qaytarır.",
+        "Əvvəlcə kiçik, oxunaqlı SELECT sorğusu qurun; nəticəni başa düşdükdən sonra onu tətbiqə qoşun.",
+        "SQL verilənlər bazası sistemi deyil, həmin sistemlərlə işləmək üçün dildir; SQLite, PostgreSQL, MySQL və SQL Server SQL dialektlərindən istifadə edir."
+      ],
+      "answer": "CSV yalnız dəyərləri daşıyır; sütun tiplərini, məhdudiyyətləri və əlaqələri ayrıca sxemdən yaratmaq lazımdır.",
+      "explanation": "CSV yalnız dəyərləri daşıyır; sütun tiplərini, məhdudiyyətləri və əlaqələri ayrıca sxemdən yaratmaq lazımdır.\nİzah: Cədvəli CSV faylından yükləmək və nəticəni fayla çıxarmaq analitika və sistemlərarası köçürmədə tez-tez lazım olur. SQLite terminalında `.mode csv` və `.import students.csv students` CSV-ni cədvələ gətirir; `.headers on`, `.once result.csv` və SELECT nəticəni CSV-yə yaza bilər. PostgreSQL-in psql alətində `\\copy` müştəri kompüterində faylla işləyir; MySQL-də `LOAD DATA` istifadə edilə bilər, lakin server icazələri tələb oluna bilər. Cədvəl sxemini və kodlaşdırmanı əvvəlcədən yoxlayın, etibarsız CSV dəyərlərini sorğu mətninə birləşdirməyin. Ehtiyat nüsxə üçün SQLite `.backup`, PostgreSQL `pg_dump`, MySQL `mysqldump` kimi alətlər mövcuddur; nüsxəni ayrıca saxlayın və bərpanı sınaqdan keçirin."
+    },
+    {
+      "id": "sql_sql_import_export_4",
+      "topicId": "sql_sql_import_export",
+      "type": "multiple_choice",
+      "prompt": "“Məlumatların köçürülməsi və ehtiyat nüsxə” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "İxrac olunan faylda şəxsi məlumat ola bilər; giriş icazəsini məhdudlaşdırın və ehtiyat nüsxənin bərpasını müntəzəm yoxlayın.",
+        "SQL standartdır, amma verilənlər bazalarının dialektləri, tipləri və bəzi funksiyaları fərqlənir. Hədəf sistemin sənədlərini yoxlayın.",
+        "Əvvəlcə kiçik, oxunaqlı SELECT sorğusu qurun; nəticəni başa düşdükdən sonra onu tətbiqə qoşun.",
+        "Sorğu Ada və 42 dəyərlərini iki sütunda qaytarır."
+      ],
+      "answer": "İxrac olunan faylda şəxsi məlumat ola bilər; giriş icazəsini məhdudlaşdırın və ehtiyat nüsxənin bərpasını müntəzəm yoxlayın.",
+      "explanation": "İxrac olunan faylda şəxsi məlumat ola bilər; giriş icazəsini məhdudlaşdırın və ehtiyat nüsxənin bərpasını müntəzəm yoxlayın.\nİzah: Cədvəli CSV faylından yükləmək və nəticəni fayla çıxarmaq analitika və sistemlərarası köçürmədə tez-tez lazım olur. SQLite terminalında `.mode csv` və `.import students.csv students` CSV-ni cədvələ gətirir; `.headers on`, `.once result.csv` və SELECT nəticəni CSV-yə yaza bilər. PostgreSQL-in psql alətində `\\copy` müştəri kompüterində faylla işləyir; MySQL-də `LOAD DATA` istifadə edilə bilər, lakin server icazələri tələb oluna bilər. Cədvəl sxemini və kodlaşdırmanı əvvəlcədən yoxlayın, etibarsız CSV dəyərlərini sorğu mətninə birləşdirməyin. Ehtiyat nüsxə üçün SQLite `.backup`, PostgreSQL `pg_dump`, MySQL `mysqldump` kimi alətlər mövcuddur; nüsxəni ayrıca saxlayın və bərpanı sınaqdan keçirin."
+    }
+  ]
+}

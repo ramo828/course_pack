@@ -1,0 +1,148 @@
+{
+  "id": "sql_sql_dml",
+  "title": "INSERT, UPDATE və DELETE",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_dml_az",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“INSERT, UPDATE və DELETE” real proqramda konkret problemi həll etmək üçün seçilir. Əvvəl giriş və gözlənilən nəticəni müəyyənləşdirin, sonra nümunədəki anlayışın hansı işi gördüyünü izləyin. Bu mövzu kursda tək sintaksis deyil: oxunaqlılıq, düzgünlük, resurs istifadəsi və gələcək dəyişikliklərə təsiri ilə birlikdə öyrənilməlidir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "INSERT INTO products (product_id, name, price_cents)\nVALUES (1, 'Sensor', 1250);\n\nUPDATE products\nSET price_cents = 1300\nWHERE product_id = 1;\n\nDELETE FROM products\nWHERE product_id = 1;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "INSERT əlavə edir, UPDATE uyğun sətri dəyişir, DELETE uyğun sətri silir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "DML cədvəldəki məlumatı dəyişir. INSERT yeni sətir əlavə edir, UPDATE seçilmiş sətirləri dəyişir, DELETE seçilmiş sətirləri silir. Dəyişiklikdən əvvəl eyni WHERE şərtini SELECT ilə yoxlayın; birdən çox yazını vahid iş kimi idarə etmək üçün transaction istifadə edin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: `INSERT INTO products (product_id, name, price_cents)`\nNə edir: INSERT əlavə edir, UPDATE uyğun sətri dəyişir, DELETE uyğun sətri silir.\nNiyə seçilib: UPDATE və DELETE-dən əvvəl şərti SELECT ilə yoxlayın və transaction-dan əvvəl ehtiyat nüsxə siyasətini anlayın.\nBuraxılsa və ya dəyişdirilsə: INSERT sütun siyahısı göstərmək cədvəldə sonradan əlavə edilən sütunlara qarşı sorğunu daha dayanıqlı edir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "UPDATE və ya DELETE-də WHERE unutmaq bütün cədvəli dəyişə və ya silə bilər."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "INSERT əlavə edir, UPDATE uyğun sətri dəyişir, DELETE uyğun sətri silir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "UPDATE və DELETE-dən əvvəl şərti SELECT ilə yoxlayın və transaction-dan əvvəl ehtiyat nüsxə siyasətini anlayın."
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "INSERT sütun siyahısı göstərmək cədvəldə sonradan əlavə edilən sütunlara qarşı sorğunu daha dayanıqlı edir."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "UPDATE və ya DELETE-də WHERE unutmaq bütün cədvəli dəyişə və ya silə bilər."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

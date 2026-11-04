@@ -1,0 +1,132 @@
+{
+  "id": "sql_sql_subqueries_cte",
+  "title": "Subqueries and CTEs",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_subqueries_cte_en",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/about/history/",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Subqueries and CTEs” is a tool for solving a concrete programming problem. Identify the input and desired result, then trace what role the construct plays in the example. Study it not only as syntax, but also for its effects on readability, correctness, resource use, and future changes.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "WITH course_counts AS (\n  SELECT course_id, COUNT(*) AS learners\n  FROM enrollments\n  GROUP BY course_id\n)\nSELECT course_id, learners\nFROM course_counts\nWHERE learners >= 2;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "First counts enrollments by course, then returns courses with at least two learners.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A subquery runs inside another query. A WITH clause names an intermediate result as a common table expression (CTE), making a complex query easier to read in stages. A CTE is usually scoped to one statement; it is not automatically a persistent or materialized table.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: `WITH course_counts AS (`\nWhat it does: First counts enrollments by course, then returns courses with at least two learners.\nWhy it is used: Give each CTE a meaningful name and inspect intermediate results one step at a time.\nIf omitted or changed: A CTE can improve readability, but it is not guaranteed to be faster on every database.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "CTE and subquery performance depends on the engine and optimizer; inspect large workloads with EXPLAIN."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "First counts enrollments by course, then returns courses with at least two learners.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Give each CTE a meaningful name and inspect intermediate results one step at a time."
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "A CTE can improve readability, but it is not guaranteed to be faster on every database."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "CTE and subquery performance depends on the engine and optimizer; inspect large workloads with EXPLAIN."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_query_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
+}

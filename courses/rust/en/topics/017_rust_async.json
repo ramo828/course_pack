@@ -74,19 +74,7 @@
     },
     {
       "type": "text",
-      "text": "A Rust async function returns a Future rather than immediately running to completion; an executor polls futures and resumes them when ready. ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "await",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " lets a waiting task yield, which can help with network or disk I/O. The standard library does not provide a general executor, so projects commonly choose a runtime such as Tokio and compatible libraries.\n\nThis tiny host example polls only an immediately Ready future; use a runtime such as Tokio for real network I/O, not this demonstration executor.\n\n",
+      "text": "A Rust async function returns a Future rather than immediately running to completion; an executor polls futures and resumes them when ready. `await` lets a waiting task yield, which can help with network or disk I/O. The standard library does not provide a general executor, so projects commonly choose a runtime such as Tokio and compatible libraries.\n\nThis tiny host example polls only an immediately Ready future; use a runtime such as Tokio for real network I/O, not this demonstration executor.\n\n",
       "size": 17
     },
     {
@@ -98,19 +86,7 @@
     },
     {
       "type": "text",
-      "text": "Key line: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "let waker = Waker::from(Arc::new(NoopWake));",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nWhat it does: The runtime schedules futures, and libraries such as HTTP clients must match its async ecosystem.\nWhy it is used: Async does not parallelize CPU-heavy work; long computations may need a blocking pool or dedicated thread.\nIf omitted or changed: Creating many tasks is not unlimited concurrency; set concurrency bounds, timeouts, and cancellation behavior.\n\n",
+      "text": "Key line: `let waker = Waker::from(Arc::new(NoopWake));`\nWhat it does: The runtime schedules futures, and libraries such as HTTP clients must match its async ecosystem.\nWhy it is used: Async does not parallelize CPU-heavy work; long computations may need a blocking pool or dedicated thread.\nIf omitted or changed: Creating many tasks is not unlimited concurrency; set concurrency bounds, timeouts, and cancellation behavior.\n\n",
       "size": 16
     },
     {

@@ -1,0 +1,132 @@
+{
+  "id": "sql_sql_joins",
+  "title": "JOIN: объединение связанных таблиц",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_joins_ru",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/about/history/",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "«JOIN: объединение связанных таблиц» помогает решать конкретную задачу программы. Сначала определите входные данные и ожидаемый результат, затем проследите роль конструкции в примере. Изучайте её не только как синтаксис, но и с точки зрения читаемости, корректности, ресурсов и будущих изменений.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT s.name, e.course_id\nFROM students AS s\nLEFT JOIN enrollments AS e\n  ON e.student_id = s.student_id\nORDER BY s.name, e.course_id;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Показываются все студенты; у студента без записи course_id будет NULL.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "JOIN объединяет связанные таблицы. INNER JOIN оставляет совпавшие пары; LEFT JOIN сохраняет все строки левой таблицы и заполняет отсутствующие данные справа значениями NULL. ON явно задаёт связь. При отношении один-ко-многим одна строка слева может дать несколько строк результата.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: `SELECT s.name, e.course_id`\nЧто она делает: Показываются все студенты; у студента без записи course_id будет NULL.\nЗачем она нужна: Явно указывайте ключи JOIN и заранее оценивайте число совпадений для строки.\nЕсли пропустить или изменить: Поддержка RIGHT и FULL JOIN зависит от СУБД; LEFT JOIN распространён шире.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Неполное или неверное условие ON создаёт лишние пары и неожиданно увеличивает результат."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Показываются все студенты; у студента без записи course_id будет NULL.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Явно указывайте ключи JOIN и заранее оценивайте число совпадений для строки."
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Поддержка RIGHT и FULL JOIN зависит от СУБД; LEFT JOIN распространён шире."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Неполное или неверное условие ON создаёт лишние пары и неожиданно увеличивает результат."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_join",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

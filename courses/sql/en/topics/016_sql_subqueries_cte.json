@@ -1,0 +1,153 @@
+{
+  "id": "sql_sql_subqueries_cte",
+  "title": "Subqueries and CTEs",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_subqueries_cte_en",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Subqueries and CTEs” is a tool for solving a concrete programming problem. Identify the input and desired result, then trace what role the construct plays in the example. Study it not only as syntax, but also for its effects on readability, correctness, resource use, and future changes.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT s.name\nFROM students AS s\nWHERE EXISTS (\n  SELECT 1 FROM enrollments AS e\n  WHERE e.student_id = s.student_id\n);\n\nWITH RECURSIVE numbers(n) AS (\n  SELECT 1\n  UNION ALL\n  SELECT n + 1 FROM numbers WHERE n < 5\n)\nSELECT n FROM numbers;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The first query selects students with at least one enrollment; the recursive CTE generates numbers from 1 through 5.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A subquery runs inside another query; a correlated subquery can refer to a value from the outer row. EXISTS tests whether a subquery returns at least one row and is useful for finding related records. A CTE names an intermediate result with WITH, while WITH RECURSIVE can walk hierarchies step by step. A CTE usually exists only for that statement; it is not automatically a stored table.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: `SELECT s.name`\nWhat it does: The first query selects students with at least one enrollment; the recursive CTE generates numbers from 1 through 5.\nWhy it is used: Give each CTE a meaningful name and inspect intermediate results one step at a time.\nIf omitted or changed: A CTE can improve readability, but it is not guaranteed to be faster on every database.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "CTE and subquery performance depends on the engine and optimizer; inspect large workloads with EXPLAIN."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The first query selects students with at least one enrollment; the recursive CTE generates numbers from 1 through 5.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Give each CTE a meaningful name and inspect intermediate results one step at a time."
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "A CTE can improve readability, but it is not guaranteed to be faster on every database."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "CTE and subquery performance depends on the engine and optimizer; inspect large workloads with EXPLAIN."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_query_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
+}

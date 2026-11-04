@@ -1,0 +1,127 @@
+{
+  "id": "sql_sql_window_functions",
+  "title": "Оконные функции",
+  "difficulty": "advanced",
+  "testId": "sql_test_sql_window_functions_ru",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/about/history/",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "«Оконные функции» помогает решать конкретную задачу программы. Сначала определите входные данные и ожидаемый результат, затем проследите роль конструкции в примере. Изучайте её не только как синтаксис, но и с точки зрения читаемости, корректности, ресурсов и будущих изменений.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT student_id, course_id, score,\n       ROW_NUMBER() OVER (\n         PARTITION BY course_id\n         ORDER BY score DESC, student_id\n       ) AS position\nFROM enrollments;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Студенты нумеруются внутри курса по убыванию балла, затем по student_id.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Оконная функция вычисляет результат по связанным строкам, не сворачивая их в одну, как GROUP BY. PARTITION BY задаёт группы, ORDER BY — порядок внутри группы. ROW_NUMBER, RANK и SUM OVER добавляют номер, ранг или накопительную сумму к каждой исходной строке.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: `SELECT student_id, course_id, score,`\nЧто она делает: Студенты нумеруются внутри курса по убыванию балла, затем по student_id.\nЗачем она нужна: Явно задайте порядок в OVER и поведение при равных значениях.\nЕсли пропустить или изменить: ROW_NUMBER назначает уникальные номера при равенстве, а RANK даёт одинаковый ранг совпавшим значениям.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Синтаксис окон и frame по умолчанию зависит от диалекта; проверьте версию СУБД."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Студенты нумеруются внутри курса по убыванию балла, затем по student_id.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Явно задайте порядок в OVER и поведение при равных значениях."
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "ROW_NUMBER назначает уникальные номера при равенстве, а RANK даёт одинаковый ранг совпавшим значениям."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Синтаксис окон и frame по умолчанию зависит от диалекта; проверьте версию СУБД."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Отдельная иллюстрация не обязательна; небольшого запускаемого примера и ожидаемого результата достаточно."
+}

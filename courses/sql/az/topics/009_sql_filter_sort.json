@@ -1,0 +1,127 @@
+{
+  "id": "sql_sql_filter_sort",
+  "title": "WHERE, NULL, sıralama və limit",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_filter_sort_az",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/about/history/",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“WHERE, NULL, sıralama və limit” real proqramda konkret problemi həll etmək üçün seçilir. Əvvəl giriş və gözlənilən nəticəni müəyyənləşdirin, sonra nümunədəki anlayışın hansı işi gördüyünü izləyin. Bu mövzu kursda tək sintaksis deyil: oxunaqlılıq, düzgünlük, resurs istifadəsi və gələcək dəyişikliklərə təsiri ilə birlikdə öyrənilməlidir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT name, price_cents\nFROM products\nWHERE price_cents >= 500 AND discontinued IS NULL\nORDER BY price_cents DESC, name ASC\nLIMIT 10;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ən bahalı uyğun məhsullardan ən çox 10-u qaytarılır; eyni qiymətdə ad sırası istifadə olunur.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "WHERE sətirləri şərtə görə süzür; ORDER BY nəticəni artan ASC və ya azalan DESC qaydada sıralayır; LIMIT qaytarılan sətirlərin sayını məhdudlaşdırır. NULL məlum olmayan və ya mövcud olmayan dəyərdir: onunla bərabərlik müqayisəsi işlətməyin, IS NULL və IS NOT NULL istifadə edin. Bir neçə şərti AND/OR ilə birləşdirin və mötərizə ilə niyyəti göstərin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: `SELECT name, price_cents`\nNə edir: Ən bahalı uyğun məhsullardan ən çox 10-u qaytarılır; eyni qiymətdə ad sırası istifadə olunur.\nNiyə seçilib: Sorğunun sətir seçib-seçmədiyini əvvəlcə kiçik nümunə cədvəldə yoxlayın; NULL üçün ayrıca hal düşünün.\nBuraxılsa və ya dəyişdirilsə: LIMIT sıralama olmadan hansı sətirlərin seçiləcəyini müəyyən etmir; sabit səhifələmə üçün unikal sıralama açarı əlavə edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "NULL = NULL nəticəsi TRUE deyil, UNKNOWN olur; bu, WHERE sətrinin keçməməsinə səbəb ola bilər."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ən bahalı uyğun məhsullardan ən çox 10-u qaytarılır; eyni qiymətdə ad sırası istifadə olunur.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Sorğunun sətir seçib-seçmədiyini əvvəlcə kiçik nümunə cədvəldə yoxlayın; NULL üçün ayrıca hal düşünün."
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "LIMIT sıralama olmadan hansı sətirlərin seçiləcəyini müəyyən etmir; sabit səhifələmə üçün unikal sıralama açarı əlavə edin."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "NULL = NULL nəticəsi TRUE deyil, UNKNOWN olur; bu, WHERE sətrinin keçməməsinə səbəb ola bilər."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

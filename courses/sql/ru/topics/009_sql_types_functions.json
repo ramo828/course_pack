@@ -1,0 +1,153 @@
+{
+  "id": "sql_sql_types_functions",
+  "title": "Типы данных, операторы и встроенные функции",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_types_functions_ru",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "«Типы данных, операторы и встроенные функции» помогает решать конкретную задачу программы. Сначала определите входные данные и ожидаемый результат, затем проследите роль конструкции в примере. Изучайте её не только как синтаксис, но и с точки зрения читаемости, корректности, ресурсов и будущих изменений.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT LOWER('SQL'), ROUND(12.345, 2),\n       COALESCE(NULL, 'boş'),\n       CAST('42' AS INTEGER),\n       7 BETWEEN 1 AND 10 AS in_range;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Пример возвращает sql в нижнем регистре, 12.35, запасной текст, целое 42 и TRUE.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Тип столбца определяет допустимые значения и правила сравнения. Для текста используйте TEXT, для целых чисел — INTEGER, для точных денежных сумм — целые минимальные единицы или DECIMAL/NUMERIC, если СУБД их поддерживает; типы даты и времени различаются. В выражениях SQL применяются арифметические и сравнительные операторы, AND, OR, NOT и конкатенация, например `||`. Полезны встроенные функции `LOWER`, `UPPER`, `LENGTH`, `ROUND`, `COALESCE`, `NULLIF` и `CAST`. SQLite хранит даты как ISO-8601, числа Julian day или Unix time; PostgreSQL и MySQL также предлагают типы и функции даты/времени. Имена функций и синтаксис дат зависят от СУБД.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: `SELECT LOWER('SQL'), ROUND(12.345, 2),`\nЧто она делает: Пример возвращает sql в нижнем регистре, 12.35, запасной текст, целое 42 и TRUE.\nЗачем она нужна: Не храните деньги в FLOAT; проверяйте числовые функции и даты в целевой СУБД.\nЕсли пропустить или изменить: NULL — не обычное значение: COALESCE выбирает первое не-NULL, а NULLIF возвращает NULL при равенстве аргументов.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Одноимённые функции могут различаться в разных СУБД; отдельно проверяйте даты и часовые пояса."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Пример возвращает sql в нижнем регистре, 12.35, запасной текст, целое 42 и TRUE.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Не храните деньги в FLOAT; проверяйте числовые функции и даты в целевой СУБД."
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "NULL — не обычное значение: COALESCE выбирает первое не-NULL, а NULLIF возвращает NULL при равенстве аргументов."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Одноимённые функции могут различаться в разных СУБД; отдельно проверяйте даты и часовые пояса."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_query_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

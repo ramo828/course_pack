@@ -62,19 +62,7 @@
     },
     {
       "type": "text",
-      "text": "An interrupt service routine (ISR) reacts to hardware events and should do only short, non-blocking work. FreeRTOS ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "FromISR",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " APIs can send a queue item or notification; move sensor reads, logging, and protocol work to a task. The correct ISR API, IRAM placement, and pin interrupt support depend on the target and board.\n\n",
+      "text": "An interrupt service routine (ISR) reacts to hardware events and should do only short, non-blocking work. FreeRTOS `FromISR` APIs can send a queue item or notification; move sensor reads, logging, and protocol work to a task. The correct ISR API, IRAM placement, and pin interrupt support depend on the target and board.\n\n",
       "size": 17
     },
     {
@@ -86,19 +74,7 @@
     },
     {
       "type": "text",
-      "text": "Key line: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "void IRAM_ATTR buttonIsr() { const int event = 1; BaseType_t higherPriorityTaskWoken = pdFALSE; if (events == nullptr || xQueueSendFromISR(events, &event, &higherPriorityTaskWoken) != pdPASS) { portENTER_CRITICAL_ISR(&dropMux); ++droppedEvents; portEXIT_CRITICAL_ISR(&dropMux); } if (higherPriorityTaskWoken == pdTRUE) portYIELD_FROM_ISR(); }",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nWhat it does: A queue moves the event to a task, which can do longer work without blocking interrupts.\nWhy it is used: Do not call delay, take a mutex, allocate dynamically, or perform long Serial output in an ISR.\nIf omitted or changed: Buttons bounce; define debounce and full-queue behavior on real hardware.\n\n",
+      "text": "Key line: `void IRAM_ATTR buttonIsr() { const int event = 1; BaseType_t higherPriorityTaskWoken = pdFALSE; if (events == nullptr || xQueueSendFromISR(events, &event, &higherPriorityTaskWoken) != pdPASS) { portENTER_CRITICAL_ISR(&dropMux); ++droppedEvents; portEXIT_CRITICAL_ISR(&dropMux); } if (higherPriorityTaskWoken == pdTRUE) portYIELD_FROM_ISR(); }`\nWhat it does: A queue moves the event to a task, which can do longer work without blocking interrupts.\nWhy it is used: Do not call delay, take a mutex, allocate dynamically, or perform long Serial output in an ISR.\nIf omitted or changed: Buttons bounce; define debounce and full-queue behavior on real hardware.\n\n",
       "size": 16
     },
     {

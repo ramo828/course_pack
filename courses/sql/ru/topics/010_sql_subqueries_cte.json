@@ -1,0 +1,128 @@
+{
+  "id": "sql_sql_subqueries_cte",
+  "title": "Подзапросы и CTE",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_subqueries_cte_ru",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "«Подзапросы и CTE» помогает решать конкретную задачу программы. Сначала определите входные данные и ожидаемый результат, затем проследите роль конструкции в примере. Изучайте её не только как синтаксис, но и с точки зрения читаемости, корректности, ресурсов и будущих изменений.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "WITH course_counts AS (\n  SELECT course_id, COUNT(*) AS learners\n  FROM enrollments\n  GROUP BY course_id\n)\nSELECT course_id, learners\nFROM course_counts\nWHERE learners >= 2;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Сначала подсчитываются записи по курсам, затем выбираются курсы минимум с двумя участниками.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Подзапрос выполняется внутри другого запроса. CTE с WITH даёт имя промежуточному результату и делит сложный запрос на понятные этапы. Обычно CTE действует только в одном операторе и не является постоянной материализованной таблицей.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: `WITH course_counts AS (`\nЧто она делает: Сначала подсчитываются записи по курсам, затем выбираются курсы минимум с двумя участниками.\nЗачем она нужна: Давайте CTE понятные имена и проверяйте промежуточные результаты поэтапно.\nЕсли пропустить или изменить: CTE может улучшить читаемость, но не гарантирует ускорения в каждой СУБД.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Производительность CTE и подзапроса зависит от оптимизатора и СУБД; проверяйте большие запросы через EXPLAIN."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Сначала подсчитываются записи по курсам, затем выбираются курсы минимум с двумя участниками.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Давайте CTE понятные имена и проверяйте промежуточные результаты поэтапно."
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "CTE может улучшить читаемость, но не гарантирует ускорения в каждой СУБД."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Производительность CTE и подзапроса зависит от оптимизатора и СУБД; проверяйте большие запросы через EXPLAIN."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_query_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

@@ -1,0 +1,153 @@
+{
+  "id": "sql_sql_query_logic",
+  "title": "Şərt operatorları və sorğunun məntiqi ardıcıllığı",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_query_logic_az",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Şərt operatorları və sorğunun məntiqi ardıcıllığı” real proqramda konkret problemi həll etmək üçün seçilir. Əvvəl giriş və gözlənilən nəticəni müəyyənləşdirin, sonra nümunədəki anlayışın hansı işi gördüyünü izləyin. Bu mövzu kursda tək sintaksis deyil: oxunaqlılıq, düzgünlük, resurs istifadəsi və gələcək dəyişikliklərə təsiri ilə birlikdə öyrənilməlidir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT name, price_cents\nFROM products\nWHERE (price_cents BETWEEN 500 AND 2000)\n  AND name LIKE 'S%'\n  AND product_id IN (1, 2, 3)\nORDER BY price_cents DESC\nLIMIT 5;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Qiyməti göstərilən aralıqda olan, adı S ilə başlayan və identifikatoru siyahıda olan ilk beş məhsul göstərilir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "WHERE daxilində müqayisə, AND, OR və NOT işlədərək sətirləri seçin; mötərizə ilə şərtin mənasını aydın edin. BETWEEN aralıqdakı sərhədləri də daxil edir, IN dəyərlər siyahısını yoxlayır, LIKE isə `%` (istənilən sayda simvol) və `_` (bir simvol) şablon işarələri ilə mətn axtarır. Məntiqi icra ardıcıllığı təxminən FROM/JOIN → WHERE → GROUP BY → HAVING → SELECT → DISTINCT → ORDER BY → LIMIT/OFFSET şəklindədir. Bu, SQL-in nəticəni necə qurduğunu izah edir; sistem sorğunu daha səmərəli icra etmək üçün daxildə fərqli plan seçə bilər.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: `SELECT name, price_cents`\nNə edir: Qiyməti göstərilən aralıqda olan, adı S ilə başlayan və identifikatoru siyahıda olan ilk beş məhsul göstərilir.\nNiyə seçilib: LIKE hərflərin böyük-kiçik olmasına görə DBMS ayarlarından asılı dəyişə bilər; `%` və `_` işarələrini literal axtarmaq lazım gələrsə ESCAPE istifadə edin.\nBuraxılsa və ya dəyişdirilsə: Sıralamadan əvvəl LIMIT qoymaq nəticəni sabit etmir; təkrarlana bilən nəticə üçün ORDER BY və unikal son sıralama açarı göstərin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "NULL müqayisəsi TRUE/FALSE əvəzinə UNKNOWN verə bilər; boş dəyərləri IS NULL ilə yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Qiyməti göstərilən aralıqda olan, adı S ilə başlayan və identifikatoru siyahıda olan ilk beş məhsul göstərilir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "LIKE hərflərin böyük-kiçik olmasına görə DBMS ayarlarından asılı dəyişə bilər; `%` və `_` işarələrini literal axtarmaq lazım gələrsə ESCAPE istifadə edin."
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Sıralamadan əvvəl LIMIT qoymaq nəticəni sabit etmir; təkrarlana bilən nəticə üçün ORDER BY və unikal son sıralama açarı göstərin."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "NULL müqayisəsi TRUE/FALSE əvəzinə UNKNOWN verə bilər; boş dəyərləri IS NULL ilə yoxlayın."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_query_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

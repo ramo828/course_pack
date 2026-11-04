@@ -18,33 +18,7 @@
     },
     {
       "type": "text",
-      "text": "Bu dərsin məqsədi “RTOS və FreeRTOS əsasları” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: tapşırıqlar scheduler tərəfindən növbələnir; ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "vTaskDelay",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " boş CPU vaxtını başqa tapşırıq-lara verir. Real layihədə bu göstərişə əməl edin: Əvvəl sadə ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "loop()",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa tapşırıq əlavə edin.\n\n",
+      "text": "Bu dərsin məqsədi “RTOS və FreeRTOS əsasları” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: tapşırıqlar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa tapşırıq-lara verir. Real layihədə bu göstərişə əməl edin: Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa tapşırıq əlavə edin.\n\n",
       "size": 17,
       "color": "#212121"
     },
@@ -76,20 +50,7 @@
     },
     {
       "type": "text",
-      "text": "Serial Monitor tapşırıqdan təxminən saniyədə bir dəfə ",
-      "size": 16,
-      "color": "#2E7D32"
-    },
-    {
-      "type": "text",
-      "text": "hello from a task",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " göstərir.\n\n",
+      "text": "Serial Monitor tapşırıqdan təxminən saniyədə bir dəfə `hello from a task` göstərir.\n\n",
       "size": 16,
       "color": "#2E7D32"
     },
@@ -102,19 +63,7 @@
     },
     {
       "type": "text",
-      "text": "Real vaxtlı əməliyyat sistemi (RTOS) işi kiçik tapşırıq-lara bölür və CPU vaxtını aralarında bölüşdürür; RTOS özü hər tapşırığı daha sürətli etmir, amma gecikməni ölçülə bilən edir. ESP32 Arduino Nüvə FreeRTOS-u artıq işlədir, buna görə proqram-də tapşırıq yaratmaq mümkündür. Bu dərsdə bir tapşırıq yaradırıq, amma tək LED və sensor üçün ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "loop()",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " çox vaxt daha sadədir.\n\n",
+      "text": "Real vaxtlı əməliyyat sistemi (RTOS) işi kiçik tapşırıq-lara bölür və CPU vaxtını aralarında bölüşdürür; RTOS özü hər tapşırığı daha sürətli etmir, amma gecikməni ölçülə bilən edir. ESP32 Arduino Nüvə FreeRTOS-u artıq işlədir, buna görə proqram-də tapşırıq yaratmaq mümkündür. Bu dərsdə bir tapşırıq yaradırıq, amma tək LED və sensor üçün `loop()` çox vaxt daha sadədir.\n\n",
       "size": 17
     },
     {
@@ -126,43 +75,7 @@
     },
     {
       "type": "text",
-      "text": "Kod sətri: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "void setup() { Serial.begin(115200); if (xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"worker creation failed\"); }",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nNə edir: tapşırıqlar scheduler tərəfindən növbələnir; ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "vTaskDelay",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " boş CPU vaxtını başqa tapşırıq-lara verir.\nNiyə seçilib: Əvvəl sadə ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "loop()",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa tapşırıq əlavə edin.\nBuraxılsa və ya dəyişdirilsə: Tapşırıq yığın yaddaşının ölçüsü byte ilə verilir və hədəf sistem/runtime versiyasına görə RAM məhdudiyyətini nəzərə almaq lazımdır.\n\n",
+      "text": "Kod sətri: `void setup() { Serial.begin(115200); if (xTaskCreate(worker, \"worker\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"worker creation failed\"); }`\nNə edir: tapşırıqlar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa tapşırıq-lara verir.\nNiyə seçilib: Əvvəl sadə `loop()` ilə başlayın; yalnız müstəqil və vaxt baxımından fərqli işlər varsa tapşırıq əlavə edin.\nBuraxılsa və ya dəyişdirilsə: Tapşırıq yığın yaddaşının ölçüsü byte ilə verilir və hədəf sistem/runtime versiyasına görə RAM məhdudiyyətini nəzərə almaq lazımdır.\n\n",
       "size": 16
     },
     {
@@ -179,23 +92,7 @@
     },
     {
       "type": "text",
-      "text": "tapşırıqlar scheduler tərəfindən növbələnir; ",
-      "size": 17,
-      "color": "#00695C",
-      "bold": true,
-      "italic": true
-    },
-    {
-      "type": "text",
-      "text": "vTaskDelay",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true,
-      "italic": true
-    },
-    {
-      "type": "text",
-      "text": " boş CPU vaxtını başqa tapşırıq-lara verir.\n\n",
+      "text": "tapşırıqlar scheduler tərəfindən növbələnir; `vTaskDelay` boş CPU vaxtını başqa tapşırıq-lara verir.\n\n",
       "size": 17,
       "color": "#00695C",
       "bold": true,

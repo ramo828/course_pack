@@ -9,7 +9,7 @@
       "prompt": "“Strings, UTF-8 ve slices” konusunda hangi ifade temel kuralı doğru açıklar?",
       "options": [
         "Rust değişkenleri mut yazılmadıkça değişmezdir.",
-        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.",
+        "Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun.",
         "`String` metni sahiplenir, `&str` ödünç görünüm sunar.",
         "Cargo proje oluşturma, derleme ve test için temel araçtır."
       ],
@@ -24,7 +24,7 @@
       "options": [
         "Değişkenliği yalnızca gerektiğinde etkinleştirin.",
         "Cargo proje oluşturma, derleme ve test için temel araçtır.",
-        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.",
+        "Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun.",
         "`String` yalnızca yeni veya değişen metnin sahibi olmalı; fonksiyon yalnızca okuyorsa `&str` kabul edin."
       ],
       "answer": "`String` yalnızca yeni veya değişen metnin sahibi olmalı; fonksiyon yalnızca okuyorsa `&str` kabul edin.",
@@ -37,9 +37,9 @@
       "prompt": "“Strings, UTF-8 ve slices” örneğinde hangi uygulama ayrıntısı önemlidir?",
       "options": [
         "UTF-8 bayt sınırı ile karakter sınırı aynı değildir; `&text[..1]` her metinde güvenli karakter kesimi değildir.",
-        "Cargo proje oluşturma, derleme ve test için temel araçtır.",
-        "Rust değişkenleri mut yazılmadıkça değişmezdir.",
-        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar."
+        "rustup araç zinciri ve hedef bileşenlerini yönetir; Cargo proje, bağımlılık, derleme ve test işlerini yürütür.",
+        "Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun.",
+        "Cargo proje oluşturma, derleme ve test için temel araçtır."
       ],
       "answer": "UTF-8 bayt sınırı ile karakter sınırı aynı değildir; `&text[..1]` her metinde güvenli karakter kesimi değildir.",
       "explanation": "UTF-8 bayt sınırı ile karakter sınırı aynı değildir; `&text[..1]` her metinde güvenli karakter kesimi değildir.\nAçıklama: Rust'ta `String`, heap'te tutulan ve değiştirilebilen UTF-8 metnin sahibidir; `&str` ise metne ödünç alınmış bir görünümdür. UTF-8 karakteri birden çok bayt kullanabildiği için `text[0]` gibi indeksleme yoktur; `len()` bayt sayar, `chars()` Unicode scalar değerlerini dolaşır. Slice, metin veya dizinin bir bölümünü kopyalamadan gösterir; `&str` alan bir fonksiyon hem `String` hem string literal kabul edebilir."
@@ -50,10 +50,10 @@
       "type": "multiple_choice",
       "prompt": "“Strings, UTF-8 ve slices” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
       "options": [
+        "İş bilgisayarında PATH değişikliklerini denetleyin; MSVC ve GNU hedefleri farklı linker ve yerel bağımlılıklar isteyebilir.",
         "Cargo proje oluşturma, derleme ve test için temel araçtır.",
-        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.",
         "UTF-8 karakteri birden çok bayt kullanabildiği için `text[0]` gibi indeksleme yoktur; `len()` bayt sayar, `chars()` Unicode scalar değerlerini dolaşır",
-        "Rust değişkenleri mut yazılmadıkça değişmezdir."
+        "Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun."
       ],
       "answer": "UTF-8 karakteri birden çok bayt kullanabildiği için `text[0]` gibi indeksleme yoktur; `len()` bayt sayar, `chars()` Unicode scalar değerlerini dolaşır",
       "explanation": "UTF-8 karakteri birden çok bayt kullanabildiği için `text[0]` gibi indeksleme yoktur; `len()` bayt sayar, `chars()` Unicode scalar değerlerini dolaşır\nAçıklama: Rust'ta `String`, heap'te tutulan ve değiştirilebilen UTF-8 metnin sahibidir; `&str` ise metne ödünç alınmış bir görünümdür. UTF-8 karakteri birden çok bayt kullanabildiği için `text[0]` gibi indeksleme yoktur; `len()` bayt sayar, `chars()` Unicode scalar değerlerini dolaşır. Slice, metin veya dizinin bir bölümünü kopyalamadan gösterir; `&str` alan bir fonksiyon hem `String` hem string literal kabul edebilir."

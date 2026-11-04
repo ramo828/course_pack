@@ -1,0 +1,128 @@
+{
+  "id": "sql_sql_transactions",
+  "title": "Transactions and ACID",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_transactions_en",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Transactions and ACID” is a tool for solving a concrete programming problem. Identify the input and desired result, then trace what role the construct plays in the example. Study it not only as syntax, but also for its effects on readability, correctness, resource use, and future changes.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "BEGIN;\nUPDATE accounts SET cents = cents - 500\nWHERE account_id = 1;\nUPDATE accounts SET cents = cents + 500\nWHERE account_id = 2;\nCOMMIT;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Both updates are committed together in the same transaction.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A transaction groups several writes into one logical unit. COMMIT accepts the changes; ROLLBACK cancels the transaction's changes. ACID describes atomicity, consistency, isolation, and durability. For example, debiting one account and crediting another must succeed together.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: `BEGIN;`\nWhat it does: Both updates are committed together in the same transaction.\nWhy it is used: Keep transactions short, check errors, and make the application's commit/rollback policy explicit.\nIf omitted or changed: Isolation levels and locking differ by engine; SQLite and PostgreSQL do not have identical concurrency models.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Roll back on failure before commit; a partial change may violate a business rule."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Both updates are committed together in the same transaction.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Keep transactions short, check errors, and make the application's commit/rollback policy explicit."
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Isolation levels and locking differ by engine; SQLite and PostgreSQL do not have identical concurrency models."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Roll back on failure before commit; a partial change may violate a business rule."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_transaction",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
+}

@@ -74,19 +74,7 @@
     },
     {
       "type": "text",
-      "text": "Key line: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "void setup() { Serial.begin(115200); if (xTaskCreate(timerWorkerTask, \"timer-worker\", 2048, nullptr, 1, &timerWorker) != pdPASS) { Serial.println(\"timer worker creation failed\"); return; } sampleTimer = xTimerCreate(\"sample\", pdMS_TO_TICKS(1000), pdTRUE, nullptr, timerCallback); if (sampleTimer == nullptr) { Serial.println(\"timer creation failed\"); return; } if (xTimerStart(sampleTimer, 0) != pdPASS) { Serial.println(\"timer start failed\"); xTimerDelete(sampleTimer, 0); sampleTimer = nullptr; } }",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nWhat it does: A software timer is not a precise hardware timer; measure jitter and scheduler load.\nWhy it is used: Set a short flag or send a message in the callback; move longer work to a regular task.\nIf omitted or changed: The timer command queue can delay start/stop/reset requests when saturated.\n\n",
+      "text": "Key line: `void setup() { Serial.begin(115200); if (xTaskCreate(timerWorkerTask, \"timer-worker\", 2048, nullptr, 1, &timerWorker) != pdPASS) { Serial.println(\"timer worker creation failed\"); return; } sampleTimer = xTimerCreate(\"sample\", pdMS_TO_TICKS(1000), pdTRUE, nullptr, timerCallback); if (sampleTimer == nullptr) { Serial.println(\"timer creation failed\"); return; } if (xTimerStart(sampleTimer, 0) != pdPASS) { Serial.println(\"timer start failed\"); xTimerDelete(sampleTimer, 0); sampleTimer = nullptr; } }`\nWhat it does: A software timer is not a precise hardware timer; measure jitter and scheduler load.\nWhy it is used: Set a short flag or send a message in the callback; move longer work to a regular task.\nIf omitted or changed: The timer command queue can delay start/stop/reset requests when saturated.\n\n",
       "size": 16
     },
     {

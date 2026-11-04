@@ -4,10 +4,8 @@
   "difficulty": "easy",
   "testId": "rust_test_rust_install_tr",
   "sources": [
-    "https://rust-lang.org/",
     "https://rust-lang.org/tools/install/",
-    "https://doc.rust-lang.org/cargo/",
-    "https://blog.rust-lang.org/2015/05/15/Rust-1.0.html"
+    "https://doc.rust-lang.org/cargo/"
   ],
   "estimatedMinutes": 18,
   "spans": [
@@ -20,7 +18,7 @@
     },
     {
       "type": "text",
-      "text": "Bu dersin amacı “rustup, Cargo ve ilk proje” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Cargo proje oluşturma, derleme ve test için temel araçtır. Gerçek projede şu öneriyi izleyin: Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.\n\n",
+      "text": "Bu dersin amacı “rustup, Cargo ve ilk proje” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Cargo proje oluşturma, derleme ve test için temel araçtır. Gerçek projede şu öneriyi izleyin: Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun.\n\n",
       "size": 17,
       "color": "#212121"
     },
@@ -40,7 +38,7 @@
     {
       "type": "code",
       "language": "bash",
-      "code": "cargo new hello-rust\ncd hello-rust\ncargo run\ncargo test",
+      "code": "rustc --version\ncargo --version\ncargo new hello-rust\ncd hello-rust\ncargo run",
       "showCopyButton": true
     },
     {
@@ -65,43 +63,7 @@
     },
     {
       "type": "text",
-      "text": "Rust'ı resmi rustup yükleyicisiyle kurun; rustc derleyicisini, Cargo paket/build aracını ve rustfmt gibi bileşenleri yönetir. Cargo proje oluşturma, derleme, test ve bağımlılık yönetimini birleştirir.\n\nKöken ve yıl: Graydon Hoare Rust üzerinde 2006'da kişisel proje olarak çalışmaya başladı; Mozilla 2009'dan itibaren projeyi destekledi ve Rust 1.0 15 Mayıs 2015'te yayımlandı. Amaç, C/C++ düzeyindeki denetimi bellek güvenliği ve güvenli eşzamanlılıkla birleştirerek use-after-free ve data race gibi sorunları azaltmaktı. Rust bugün CLI araçlarında, sunucularda, tarayıcı bileşenlerinde ve gömülü firmware'de kullanılır; sistem, backend, gömülü yazılım ve derleyici/araç geliştirme rolleri için yararlıdır. Belleğin kime ait olduğunu açıkça modelleyerek hızlı ve güvenilir yazılım kurmak ilginizi çekiyorsa Rust'ı keşfedin.\n\nrustup hedef platformaya uygun araç zinciri bileşenlerini kurup günceller. rustc kaynak kodunu denetleyip makine koduna çevirir; Cargo manifest, derleme, test ve bağımlılık çözümlemesini yönetir. ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "cargo new",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " binary veya library crate oluşturur; ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "cargo check",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " hızlı tip denetimi, ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "cargo run",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " derleme ve çalıştırmayı birleştirir. Release derlemesi optimize edilir ve geliştirme derlemesinden farklı davranabilir.\n\n",
+      "text": "Rust'ı resmi rustup yükleyicisiyle kurun; rustc derleyicisini, Cargo paket/build aracını ve rustfmt gibi bileşenleri yönetir. Cargo proje oluşturma, derleme, test ve bağımlılık yönetimini birleştirir.\n\nKöken ve yıl: Graydon Hoare Rust üzerinde 2006'da kişisel proje olarak çalışmaya başladı; Mozilla 2009'dan itibaren projeyi destekledi ve Rust 1.0 15 Mayıs 2015'te yayımlandı. Amaç, C/C++ düzeyindeki denetimi bellek güvenliği ve güvenli eşzamanlılıkla birleştirerek use-after-free ve data race gibi sorunları azaltmaktı. Rust bugün CLI araçlarında, sunucularda, tarayıcı bileşenlerinde ve gömülü firmware'de kullanılır; sistem, backend, gömülü yazılım ve derleyici/araç geliştirme rolleri için yararlıdır. Belleğin kime ait olduğunu açıkça modelleyerek hızlı ve güvenilir yazılım kurmak ilginizi çekiyorsa Rust'ı keşfedin.\n\nWindows'ta resmi Rust sitesinden rustup-init.exe indirin; MSVC hedefi için Visual Studio Build Tools'ta C++ build tools gerekebilir. macOS'ta resmi rustup yükleyicisini kullanın; yerel derleme gerekiyorsa Xcode Command Line Tools kurun. Linux'ta resmi rustup yükleyicisini çalıştırın; C kitaplığı isteyen crate'ler için dağıtımın compiler ve geliştirme paketleri gerekebilir. Terminali yeniden açıp rustc ve Cargo sürümlerini doğrulayın. Üretim derlemesinde target triple'ı açıkça seçin.\n\nrustup hedef platformaya uygun araç zinciri bileşenlerini kurup günceller. rustc kaynak kodunu denetleyip makine koduna çevirir; Cargo manifest, derleme, test ve bağımlılık çözümlemesini yönetir. `cargo new` binary veya library crate oluşturur; `cargo check` hızlı tip denetimi, `cargo run` derleme ve çalıştırmayı birleştirir. Release derlemesi optimize edilir ve geliştirme derlemesinden farklı davranabilir.\n\n",
       "size": 17
     },
     {
@@ -113,25 +75,13 @@
     },
     {
       "type": "text",
-      "text": "Kod satırı: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "cargo new hello-rust",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nNe yapar: Cargo proje oluşturma, derleme ve test için temel araçtır.\nNeden seçildi: Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.\nAtlanır veya değiştirilirse: Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.\n\n",
+      "text": "Kod satırı: `cargo new hello-rust`\nNe yapar: Cargo proje oluşturma, derleme ve test için temel araçtır.\nNeden seçildi: Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun.\nAtlanır veya değiştirilirse: rustup araç zinciri ve hedef bileşenlerini yönetir; Cargo proje, bağımlılık, derleme ve test işlerini yürütür.\n\n",
       "size": 16
     },
     {
       "type": "detail",
       "title": "Sık yapılan hata",
-      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar."
+      "text": "İş bilgisayarında PATH değişikliklerini denetleyin; MSVC ve GNU hedefleri farklı linker ve yerel bağımlılıklar isteyebilir."
     },
     {
       "type": "text",
@@ -151,7 +101,7 @@
     {
       "type": "tip",
       "title": "Önemli ipucu",
-      "text": "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar."
+      "text": "Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun."
     },
     {
       "type": "text",
@@ -181,12 +131,17 @@
     {
       "type": "detail",
       "title": "Önemli ayrıntı",
-      "text": "Belleğin kime ait olduğunu açıkça modelleyerek hızlı ve güvenilir yazılım kurmak ilginizi çekiyorsa Rust'ı keşfedin."
+      "text": "rustup araç zinciri ve hedef bileşenlerini yönetir; Cargo proje, bağımlılık, derleme ve test işlerini yürütür."
     },
     {
       "type": "warning",
       "title": "Uyarı",
-      "text": "Kod örnekleri odaklı parçalardır; seçilen araç zinciri ve hedefte derleyip test edin, çünkü API ve tanılamalar sürüme göre değişebilir."
+      "text": "İş bilgisayarında PATH değişikliklerini denetleyin; MSVC ve GNU hedefleri farklı linker ve yerel bağımlılıklar isteyebilir."
+    },
+    {
+      "type": "diagram",
+      "id": "tool_install_flow",
+      "caption": "Değer sahibi, ödünç alan ve kullanan kod arasındaki ilişki Rust tarafından derleme sırasında denetlenir."
     },
     {
       "type": "text",
@@ -206,6 +161,6 @@
       "size": 16
     }
   ],
-  "requires_visual": false,
-  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı."
 }

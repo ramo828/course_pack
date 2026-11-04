@@ -9,7 +9,7 @@
       "prompt": "“ESP32 ailəsi və lövhə seçimi” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
       "options": [
         "Pin seçimi konkret modula və board sxeminə görə yoxlanmalıdır.",
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
         "ESP-IDF layihə hədəfini build-dən əvvəl seçir."
       ],
@@ -22,7 +22,7 @@
       "type": "multiple_choice",
       "prompt": "“ESP32 ailəsi və lövhə seçimi” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
       "options": [
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
         "ESP-IDF layihə hədəfini build-dən əvvəl seçir.",
         "GPIO nömrəsi lövhə üzərindəki fiziki konektor sırası ilə eyni olmaya bilər."
@@ -38,8 +38,8 @@
       "options": [
         "ESP32-H2 kimi bəzi variantlar Wi-Fi əvəzinə IEEE 802.15.4/Bluetooth LE yönümlü ola bilər.",
         "ESP-IDF layihə hədəfini build-dən əvvəl seçir.",
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
-        "ESP-IDF quraşdırma meneceri və rəsmi sənədlər OS-ə görə toolchain addımlarını verir."
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
+        "Linux-da serial cihazına giriş üçün distro qaydaları lazım ola bilər; yalnız rəsmi ESP-IDF təlimatındakı icazə dəyişikliklərini edin."
       ],
       "answer": "ESP32-H2 kimi bəzi variantlar Wi-Fi əvəzinə IEEE 802.15.4/Bluetooth LE yönümlü ola bilər.",
       "explanation": "ESP32-H2 kimi bəzi variantlar Wi-Fi əvəzinə IEEE 802.15.4/Bluetooth LE yönümlü ola bilər.\nİzah: ESP32, S2, S3, C2/C3/C6 və H2 kimi variantların CPU arxitekturası, radio imkanları, USB və periferiyaları fərqlənir. Layihəyə başlamazdan əvvəl konkret modulun datasheet-i, dev board sxemi və framework dəstəyini yoxlayın.\n\nMənşə və il: ESP32 ailəsini Espressif Systems hazırlayıb; ilk ESP32 çipi 2016-cı ildə təqdim edildi. Layihənin məqsədi Wi‑Fi və Bluetooth-u bir MCU-da birləşdirərək ayrıca radio və prosessor komponentlərinin xərcini və mürəkkəbliyini azaltmaq idi. ESP32 sensor qovşaqları, ağıllı cihazlar, şlüzlər və aşağı qiymətli IoT məhsullarında istifadə olunur; embedded firmware, IoT platforması, radio sınağı və enerji optimallaşdırması rollarına uyğundur. Sensorun ölçüsünü simsiz xidmətə çatdıran kiçik, enerjiyə həssas cihazlar sizi maraqlandırırsa, dəqiq ESP32 modelini seçməyi öyrənin.\n\nƏlavə `idf.py` əmrləri yalnız ESP-IDF layihəsini konfiqurasiya və build etmək üçündür. Arduino sketch-in birbaşa ekvivalenti yoxdur; Arduino-ESP32-də board package seçilir və sketch Arduino IDE/CLI ilə build edilir."
@@ -50,10 +50,10 @@
       "type": "multiple_choice",
       "prompt": "“ESP32 ailəsi və lövhə seçimi” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
       "options": [
+        "Quraşdırma manager-i yalnız Espressif-in rəsmi mənbəsindən götürün; yanlış chip target və ya port flash uğursuzluğuna səbəb olur.",
         "ESP-IDF layihə hədəfini build-dən əvvəl seçir.",
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
         "Layihəyə başlamazdan əvvəl konkret modulun datasheet-i, dev board sxemi və framework dəstəyini yoxlayın",
-        "ESP32 GPIO girişləri 5 V tolerant deyil; uyğun level shifter və sensor istifadə edin."
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin."
       ],
       "answer": "Layihəyə başlamazdan əvvəl konkret modulun datasheet-i, dev board sxemi və framework dəstəyini yoxlayın",
       "explanation": "Layihəyə başlamazdan əvvəl konkret modulun datasheet-i, dev board sxemi və framework dəstəyini yoxlayın\nİzah: ESP32, S2, S3, C2/C3/C6 və H2 kimi variantların CPU arxitekturası, radio imkanları, USB və periferiyaları fərqlənir. Layihəyə başlamazdan əvvəl konkret modulun datasheet-i, dev board sxemi və framework dəstəyini yoxlayın.\n\nMənşə və il: ESP32 ailəsini Espressif Systems hazırlayıb; ilk ESP32 çipi 2016-cı ildə təqdim edildi. Layihənin məqsədi Wi‑Fi və Bluetooth-u bir MCU-da birləşdirərək ayrıca radio və prosessor komponentlərinin xərcini və mürəkkəbliyini azaltmaq idi. ESP32 sensor qovşaqları, ağıllı cihazlar, şlüzlər və aşağı qiymətli IoT məhsullarında istifadə olunur; embedded firmware, IoT platforması, radio sınağı və enerji optimallaşdırması rollarına uyğundur. Sensorun ölçüsünü simsiz xidmətə çatdıran kiçik, enerjiyə həssas cihazlar sizi maraqlandırırsa, dəqiq ESP32 modelini seçməyi öyrənin.\n\nƏlavə `idf.py` əmrləri yalnız ESP-IDF layihəsini konfiqurasiya və build etmək üçündür. Arduino sketch-in birbaşa ekvivalenti yoxdur; Arduino-ESP32-də board package seçilir və sketch Arduino IDE/CLI ilə build edilir."

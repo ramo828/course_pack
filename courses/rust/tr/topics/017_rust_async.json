@@ -74,19 +74,7 @@
     },
     {
       "type": "text",
-      "text": "Rust async fonksiyonu işi hemen çalıştırmak yerine Future döndürür; executor Future'ları poll ederek hazır olduklarında sürdürür. ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "await",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": ", bekleyen görevin kontrolü bırakmasını sağlar ve ağ/disk I/O gibi beklemeli işlerde yararlıdır. Standart kütüphane genel amaçlı executor sunmaz; projeler genellikle Tokio gibi runtime ve uyumlu async kütüphaneler seçer.\n\nBu küçük host örneği yalnızca hemen Ready olan Future'ı poll eder; gerçek ağ I/O için Tokio gibi executor seçin, bunu üretim executor'ı olarak kullanmayın.\n\n",
+      "text": "Rust async fonksiyonu işi hemen çalıştırmak yerine Future döndürür; executor Future'ları poll ederek hazır olduklarında sürdürür. `await`, bekleyen görevin kontrolü bırakmasını sağlar ve ağ/disk I/O gibi beklemeli işlerde yararlıdır. Standart kütüphane genel amaçlı executor sunmaz; projeler genellikle Tokio gibi runtime ve uyumlu async kütüphaneler seçer.\n\nBu küçük host örneği yalnızca hemen Ready olan Future'ı poll eder; gerçek ağ I/O için Tokio gibi executor seçin, bunu üretim executor'ı olarak kullanmayın.\n\n",
       "size": 17
     },
     {
@@ -98,19 +86,7 @@
     },
     {
       "type": "text",
-      "text": "Kod satırı: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "let waker = Waker::from(Arc::new(NoopWake));",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nNe yapar: Runtime Future'ları planlar; HTTP istemcisi de runtime'ın async ekosistemiyle uyumlu olmalıdır.\nNeden seçildi: Async CPU yoğun işi paralelleştirmez; uzun hesaplamayı blocking pool veya ayrı thread'de yürütmek gerekebilir.\nAtlanır veya değiştirilirse: Çok task oluşturmak sınırsız paralellik değildir; concurrency sınırı, timeout ve iptal politikası belirleyin.\n\n",
+      "text": "Kod satırı: `let waker = Waker::from(Arc::new(NoopWake));`\nNe yapar: Runtime Future'ları planlar; HTTP istemcisi de runtime'ın async ekosistemiyle uyumlu olmalıdır.\nNeden seçildi: Async CPU yoğun işi paralelleştirmez; uzun hesaplamayı blocking pool veya ayrı thread'de yürütmek gerekebilir.\nAtlanır veya değiştirilirse: Çok task oluşturmak sınırsız paralellik değildir; concurrency sınırı, timeout ve iptal politikası belirleyin.\n\n",
       "size": 16
     },
     {

@@ -1,0 +1,153 @@
+{
+  "id": "sql_sql_import_export",
+  "title": "Импорт, экспорт и резервное копирование данных",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_import_export_ru",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "«Импорт, экспорт и резервное копирование данных» помогает решать конкретную задачу программы. Сначала определите входные данные и ожидаемый результат, затем проследите роль конструкции в примере. Изучайте её не только как синтаксис, но и с точки зрения читаемости, корректности, ресурсов и будущих изменений.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "sqlite3 school.db\n.mode csv\n.import students.csv students\n.headers on\n.once students_export.csv\nSELECT student_id, name FROM students;\n\n-- PostgreSQL psql client:\n-- \\copy students(name) FROM 'students.csv' CSV HEADER\n\n-- Backups:\n-- SQLite: .backup school-backup.db\n-- PostgreSQL: pg_dump school > school.sql\n-- MySQL: mysqldump school > school.sql",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Команды SQLite импортируют CSV и экспортируют результат; другие СУБД используют собственные инструменты.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Загрузка CSV в таблицу и экспорт результата часто нужны для анализа и переноса данных. В оболочке SQLite `.mode csv` и `.import students.csv students` импортируют файл; `.headers on`, `.once result.csv` и SELECT позволяют записать результат в CSV. Команда psql `\\copy` работает с файлом на компьютере клиента; MySQL `LOAD DATA` может требовать серверных разрешений. Заранее проверьте схему и кодировку, не склеивайте недоверенные значения CSV с текстом запроса. Для резервного копирования используют SQLite `.backup`, PostgreSQL `pg_dump`, MySQL `mysqldump`; храните копию отдельно и проверяйте восстановление.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: `sqlite3 school.db`\nЧто она делает: Команды SQLite импортируют CSV и экспортируют результат; другие СУБД используют собственные инструменты.\nЗачем она нужна: Сначала проверьте несколько строк; уточните разделитель, заголовок, кодировку и представление пустых значений CSV.\nЕсли пропустить или изменить: CSV переносит значения, но не всю схему; типы, ограничения и связи нужно создать отдельно.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Экспорт может содержать персональные данные; ограничьте доступ и регулярно проверяйте восстановление резервных копий."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Команды SQLite импортируют CSV и экспортируют результат; другие СУБД используют собственные инструменты.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Сначала проверьте несколько строк; уточните разделитель, заголовок, кодировку и представление пустых значений CSV."
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "CSV переносит значения, но не всю схему; типы, ограничения и связи нужно создать отдельно."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Экспорт может содержать персональные данные; ограничьте доступ и регулярно проверяйте восстановление резервных копий."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_transaction",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

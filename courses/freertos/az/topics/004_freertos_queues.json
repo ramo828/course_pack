@@ -62,31 +62,7 @@
     },
     {
       "type": "text",
-      "text": "Queue sabit ölçülü elementləri FIFO qaydasında saxlayır və producer-consumer task-larını bir-birindən ayırır. ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "xQueueSend",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " və ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "xQueueReceive",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " vaxt limiti ilə bloklana bilər; payload surət kimi köçürülür, böyük obyektlər üçün pointer ömrünü ayrıca idarə edin. Queue dolanda məlumatı səssiz itirmək əvəzinə göndəriş nəticəsini yoxlayın.\n\n",
+      "text": "Queue sabit ölçülü elementləri FIFO qaydasında saxlayır və producer-consumer task-larını bir-birindən ayırır. `xQueueSend` və `xQueueReceive` vaxt limiti ilə bloklana bilər; payload surət kimi köçürülür, böyük obyektlər üçün pointer ömrünü ayrıca idarə edin. Queue dolanda məlumatı səssiz itirmək əvəzinə göndəriş nəticəsini yoxlayın.\n\n",
       "size": 17
     },
     {
@@ -98,19 +74,7 @@
     },
     {
       "type": "text",
-      "text": "Kod sətri: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "void producer(void*) { int value = 0; for (;;) { ++value; if (xQueueSend(readings, &value, pdMS_TO_TICKS(100)) != pdPASS) vTaskDelay(pdMS_TO_TICKS(100)); vTaskDelay(pdMS_TO_TICKS(500)); } }",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nNə edir: Queue ortaq qlobal dəyişəndən daha aydın ownership və sinxronizasiya sərhədi yaradır.\nNiyə seçilib: Queue ölçüsünü ən böyük burst və istehlak sürətinə əsasən seçin; dolu queue davranışını müəyyən edin.\nBuraxılsa və ya dəyişdirilsə: Queue handle yaradılmasının uğurlu olduğunu yoxlayın; ölçünü böyütmək RAM sərf edir.\n\n",
+      "text": "Kod sətri: `void producer(void*) { int value = 0; for (;;) { ++value; if (xQueueSend(readings, &value, pdMS_TO_TICKS(100)) != pdPASS) vTaskDelay(pdMS_TO_TICKS(100)); vTaskDelay(pdMS_TO_TICKS(500)); } }`\nNə edir: Queue ortaq qlobal dəyişəndən daha aydın ownership və sinxronizasiya sərhədi yaradır.\nNiyə seçilib: Queue ölçüsünü ən böyük burst və istehlak sürətinə əsasən seçin; dolu queue davranışını müəyyən edin.\nBuraxılsa və ya dəyişdirilsə: Queue handle yaradılmasının uğurlu olduğunu yoxlayın; ölçünü böyütmək RAM sərf edir.\n\n",
       "size": 16
     },
     {

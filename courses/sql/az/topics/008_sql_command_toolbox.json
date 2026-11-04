@@ -1,0 +1,153 @@
+{
+  "id": "sql_sql_command_toolbox",
+  "title": "Əlavə SQL əmrləri: ALTER, CASE, UNION, VIEW və UPSERT",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_command_toolbox_az",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Əlavə SQL əmrləri: ALTER, CASE, UNION, VIEW və UPSERT” real proqramda konkret problemi həll etmək üçün seçilir. Əvvəl giriş və gözlənilən nəticəni müəyyənləşdirin, sonra nümunədəki anlayışın hansı işi gördüyünü izləyin. Bu mövzu kursda tək sintaksis deyil: oxunaqlılıq, düzgünlük, resurs istifadəsi və gələcək dəyişikliklərə təsiri ilə birlikdə öyrənilməlidir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "-- MySQL:\nCREATE DATABASE school;\nUSE school;\n\n-- PostgreSQL:\n-- CREATE DATABASE school;\n-- psql command: \\connect school\n\n-- SQLite opens or creates a database file:\n-- sqlite3 school.db\n\nALTER TABLE products ADD COLUMN active INTEGER NOT NULL DEFAULT 1;\n\nSELECT name,\n       CASE WHEN price_cents >= 1000 THEN 'premium'\n            ELSE 'standard' END AS price_group\nFROM products;\n\nSELECT name FROM products WHERE active = 1\nUNION ALL\nSELECT name FROM products WHERE price_cents = 0;\n\nCREATE VIEW active_products AS\nSELECT product_id, name, price_cents\nFROM products WHERE active = 1;\n\nINSERT INTO products (product_id, name, price_cents)\nVALUES (1, 'Sensor', 1300)\nON CONFLICT(product_id) DO UPDATE\nSET price_cents = excluded.price_cents;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sorğu şərtə uyğun qiymət qrupu qaytarır; konflikt olarsa unikal açarlı məhsulun qiyməti yenilənir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQL əmrlərini məqsədinə görə qruplaşdırmaq olar: DDL sxemi (CREATE, ALTER, DROP), DML məlumatı dəyişir (INSERT, UPDATE, DELETE), DQL məlumatı sorğulayır (SELECT), TCL əməliyyatları idarə edir (COMMIT, ROLLBACK), DCL isə icazələri verir və geri alır (GRANT, REVOKE). ALTER TABLE mövcud cədvəlin sxemini dəyişir; CASE şərtə görə dəyər seçir; UNION nəticələri birləşdirib təkrar sətirləri çıxarır, UNION ALL isə təkrarları saxlayır. Görünüş (VIEW) saxlanılan SELECT sorğusuna ad verir, məlumatın ayrıca nüsxəsini yaratmır. UPSERT unikal açar toqquşanda sətri əlavə edir və ya yeniləyir. Verilənlər bazasını yaratmaq əmri və UPSERT-in yazılışı DBMS-ə görə dəyişir; MySQL-də `ON DUPLICATE KEY UPDATE`, SQLite və PostgreSQL-də isə `ON CONFLICT ... DO UPDATE` istifadə olunur. Tətikləyicilər INSERT, UPDATE və DELETE hadisələrində avtomatik işləyə bilər; yan təsirlərinə görə onlardan ehtiyatla istifadə edin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: `-- MySQL:`\nNə edir: Sxem sütunu əlavə edir; CASE kateqoriya seçir; UNION ALL nəticələri birləşdirir; VIEW təkrar istifadə olunan sorğu, UPSERT isə konflikt zamanı yeniləmə yaradır.\nNiyə seçilib: Yeni sxem dəyişikliyini əvvəlcə test bazasında yoxlayın; eyni nəticəni hədəf DBMS-də yoxlamadan dialektlərarası uyğunluq fərz etməyin.\nBuraxılsa və ya dəyişdirilsə: SQLite/PostgreSQL-də UPSERT üçün `ON CONFLICT ... DO UPDATE` istifadə olunur; MySQL ekvivalentində `ON DUPLICATE KEY UPDATE` yazılır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "DROP TABLE və DROP VIEW məlumatı silə bilər; tətikləyicilər də məlumatı avtomatik dəyişə bilər. Əvvəlcə təsirini anlayın və ehtiyat nüsxə yaradın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sxem sütunu əlavə edir; CASE kateqoriya seçir; UNION ALL nəticələri birləşdirir; VIEW təkrar istifadə olunan sorğu, UPSERT isə konflikt zamanı yeniləmə yaradır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Yeni sxem dəyişikliyini əvvəlcə test bazasında yoxlayın; eyni nəticəni hədəf DBMS-də yoxlamadan dialektlərarası uyğunluq fərz etməyin."
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "SQLite/PostgreSQL-də UPSERT üçün `ON CONFLICT ... DO UPDATE` istifadə olunur; MySQL ekvivalentində `ON DUPLICATE KEY UPDATE` yazılır."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "DROP TABLE və DROP VIEW məlumatı silə bilər; tətikləyicilər də məlumatı avtomatik dəyişə bilər. Əvvəlcə təsirini anlayın və ehtiyat nüsxə yaradın."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_query_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

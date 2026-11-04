@@ -17,33 +17,7 @@
     },
     {
       "type": "text",
-      "text": "Goal: apply “Lifetimes, elision, and struct invariants” to a real program or device. The key principle is: The shared ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "'a",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " ties both inputs and the result to a common valid lifetime. In a project, follow this guidance: Do not silence a lifetime error by writing ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "static",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": "; first inspect ownership and why the borrow must live that long.\n\n",
+      "text": "Goal: apply “Lifetimes, elision, and struct invariants” to a real program or device. The key principle is: The shared `'a` ties both inputs and the result to a common valid lifetime. In a project, follow this guidance: Do not silence a lifetime error by writing `static`; first inspect ownership and why the borrow must live that long.\n\n",
       "size": 17,
       "color": "#212121"
     },
@@ -86,27 +60,7 @@
     },
     {
       "type": "text",
-      "text": "longest",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " returns ",
-      "size": 16,
-      "color": "#2E7D32"
-    },
-    {
-      "type": "text",
-      "text": "borrowed view",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": "; the reference is used only while both Strings are still in scope.\n\n",
+      "text": "`longest` returns `borrowed view`; the reference is used only while both Strings are still in scope.\n\n",
       "size": 16,
       "color": "#2E7D32"
     },
@@ -119,31 +73,7 @@
     },
     {
       "type": "text",
-      "text": "Lifetime annotations describe relationships between references; they do not store data or extend its life. A function returning one of two input references may need an explicit lifetime to show which input the result is tied to. A struct holding a reference uses ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "'a",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " to constrain how long that field can be used; owned types such as String often simplify the relationship.\n\nA lifetime annotation does not extend a reference's life; it describes how valid scopes relate. ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "longest<'a>",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " says the result cannot outlive the shared validity period of both inputs. The compiler elides simple lifetimes; write them when the relationship needs to be expressed.\n\n",
+      "text": "Lifetime annotations describe relationships between references; they do not store data or extend its life. A function returning one of two input references may need an explicit lifetime to show which input the result is tied to. A struct holding a reference uses `'a` to constrain how long that field can be used; owned types such as String often simplify the relationship.\n\nA lifetime annotation does not extend a reference's life; it describes how valid scopes relate. `longest<'a>` says the result cannot outlive the shared validity period of both inputs. The compiler elides simple lifetimes; write them when the relationship needs to be expressed.\n\n",
       "size": 17
     },
     {
@@ -155,55 +85,7 @@
     },
     {
       "type": "text",
-      "text": "Key line: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "fn longest<'a>(left: &'a str, right: &'a str) -> &'a str {",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nWhat it does: The shared ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "'a",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " ties both inputs and the result to a common valid lifetime.\nWhy it is used: Do not silence a lifetime error by writing ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "static",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "; first inspect ownership and why the borrow must live that long.\nIf omitted or changed: Do not silence a lifetime error by writing ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "static",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "; first inspect ownership and why the borrow must live that long.\n\n",
+      "text": "Key line: `fn longest<'a>(left: &'a str, right: &'a str) -> &'a str {`\nWhat it does: The shared `'a` ties both inputs and the result to a common valid lifetime.\nWhy it is used: Do not silence a lifetime error by writing `static`; first inspect ownership and why the borrow must live that long.\nIf omitted or changed: Do not silence a lifetime error by writing `static`; first inspect ownership and why the borrow must live that long.\n\n",
       "size": 16
     },
     {
@@ -220,23 +102,7 @@
     },
     {
       "type": "text",
-      "text": "The shared ",
-      "size": 17,
-      "color": "#00695C",
-      "bold": true,
-      "italic": true
-    },
-    {
-      "type": "text",
-      "text": "'a",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true,
-      "italic": true
-    },
-    {
-      "type": "text",
-      "text": " ties both inputs and the result to a common valid lifetime.\n\n",
+      "text": "The shared `'a` ties both inputs and the result to a common valid lifetime.\n\n",
       "size": 17,
       "color": "#00695C",
       "bold": true,
@@ -301,19 +167,7 @@
     },
     {
       "type": "text",
-      "text": "Answer: The shared ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "'a",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " ties both inputs and the result to a common valid lifetime.\n\n",
+      "text": "Answer: The shared `'a` ties both inputs and the result to a common valid lifetime.\n\n",
       "size": 16
     }
   ],

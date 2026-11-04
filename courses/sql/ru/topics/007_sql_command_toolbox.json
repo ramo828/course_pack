@@ -1,0 +1,132 @@
+{
+  "id": "sql_sql_command_toolbox",
+  "title": "Дополнительные команды SQL: ALTER, CASE, UNION, VIEW и UPSERT",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_command_toolbox_ru",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/about/history/",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "«Дополнительные команды SQL: ALTER, CASE, UNION, VIEW и UPSERT» помогает решать конкретную задачу программы. Сначала определите входные данные и ожидаемый результат, затем проследите роль конструкции в примере. Изучайте её не только как синтаксис, но и с точки зрения читаемости, корректности, ресурсов и будущих изменений.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "ALTER TABLE products ADD COLUMN active INTEGER NOT NULL DEFAULT 1;\n\nSELECT name,\n       CASE WHEN price_cents >= 1000 THEN 'premium'\n            ELSE 'standard' END AS price_group\nFROM products;\n\nSELECT name FROM products WHERE active = 1\nUNION ALL\nSELECT name FROM products WHERE price_cents = 0;\n\nCREATE VIEW active_products AS\nSELECT product_id, name, price_cents\nFROM products WHERE active = 1;\n\nINSERT INTO products (product_id, name, price_cents)\nVALUES (1, 'Sensor', 1300)\nON CONFLICT(product_id) DO UPDATE\nSET price_cents = excluded.price_cents;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Запрос возвращает ценовую категорию; при конфликте обновляется товар с этим уникальным ключом.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Помимо SELECT и DML, ALTER TABLE меняет схему таблицы; CASE выбирает значение по условию; UNION объединяет результаты и удаляет дубликаты, а UNION ALL сохраняет их. VIEW даёт имя сохранённому SELECT, не создавая копию данных. UPSERT добавляет или обновляет строку при конфликте уникального ключа. Команды DCL GRANT и REVOKE выдают и отзывают права; синтаксис CREATE/DROP DATABASE зависит от СУБД. Большинство примеров работает в SQLite и PostgreSQL; MySQL использует `ON DUPLICATE KEY UPDATE`. Триггеры автоматически реагируют на INSERT, UPDATE или DELETE, но требуют осторожности: они могут скрывать побочные эффекты.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: `ALTER TABLE products ADD COLUMN active INTEGER NOT NULL DEFAULT 1;`\nЧто она делает: Добавляется столбец; CASE выбирает категорию; UNION ALL объединяет результаты; VIEW именует запрос; UPSERT обновляет строку при конфликте.\nЗачем она нужна: Сначала проверяйте изменения схемы на тестовой базе; не считайте диалекты совместимыми без проверки в целевой СУБД.\nЕсли пропустить или изменить: SQLite/PostgreSQL используют `ON CONFLICT ... DO UPDATE`; эквивалент MySQL — `ON DUPLICATE KEY UPDATE`.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "DROP TABLE, DROP VIEW и триггеры могут удалять или автоматически менять данные; понимайте последствия и делайте резервную копию."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Добавляется столбец; CASE выбирает категорию; UNION ALL объединяет результаты; VIEW именует запрос; UPSERT обновляет строку при конфликте.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Сначала проверяйте изменения схемы на тестовой базе; не считайте диалекты совместимыми без проверки в целевой СУБД."
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "SQLite/PostgreSQL используют `ON CONFLICT ... DO UPDATE`; эквивалент MySQL — `ON DUPLICATE KEY UPDATE`."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "DROP TABLE, DROP VIEW и триггеры могут удалять или автоматически менять данные; понимайте последствия и делайте резервную копию."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_query_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

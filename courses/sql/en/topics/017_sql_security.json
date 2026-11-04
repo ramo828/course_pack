@@ -1,0 +1,127 @@
+{
+  "id": "sql_sql_security",
+  "title": "SQL injection and parameterized queries",
+  "difficulty": "hard",
+  "testId": "sql_test_sql_security_en",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/about/history/",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“SQL injection and parameterized queries” is a tool for solving a concrete programming problem. Identify the input and desired result, then trace what role the construct plays in the example. Study it not only as syntax, but also for its effects on readability, correctness, resource use, and future changes.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "import sqlite3\n\nuser_id = 7\nwith sqlite3.connect('school.db') as db:\n    rows = db.execute(\n        'SELECT name FROM students WHERE student_id = ?',\n        (user_id,),\n    ).fetchall()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "student_id is bound separately as data and is not interpreted as SQL syntax.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQL injection can change a query's meaning when untrusted user text is concatenated into SQL. Bind values with placeholders; Python's SQLite uses `?`, while PostgreSQL drivers define their own placeholder syntax. Parameters represent values, not table or column names; select dynamic identifiers from a strict allowlist.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: `'SELECT name FROM students WHERE student_id = ?',`\nWhat it does: student_id is bound separately as data and is not interpreted as SQL syntax.\nWhy it is used: Never format user values into SQL text; use parameter binding and least-privilege database accounts.\nIf omitted or changed: Grant only required database privileges in production, and do not expose credentials or personal data in errors.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Parameterization protects query structure, not authorization; separately verify which records the user may access."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "student_id is bound separately as data and is not interpreted as SQL syntax.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Never format user values into SQL text; use parameter binding and least-privilege database accounts."
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Grant only required database privileges in production, and do not expose credentials or personal data in errors."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Parameterization protects query structure, not authorization; separately verify which records the user may access."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "A separate visual is not essential; a small runnable code example and its expected output explain the topic."
+}

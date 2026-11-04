@@ -1,0 +1,82 @@
+{
+  "id": "python_py_mutable_defaults",
+  "title": "Mutable default arguments in functions",
+  "difficulty": "medium",
+  "testId": "python_test_py_mutable_defaults_en",
+  "sources": [
+    "https://docs.python.org/3/tutorial/",
+    "https://docs.python.org/3/using/",
+    "https://docs.python.org/3/library/",
+    "https://docs.python.org/3/library/turtle.html",
+    "https://docs.python.org/3/library/tkinter.html",
+    "https://fastapi.tiangolo.com/tutorial/",
+    "https://www.python.org/about/success/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Python evaluates a default argument once, when the function is defined—not on every call. Thus a default such as `items=[]` is shared across calls and can retain earlier data. Use `None` as the default and create a fresh list inside the function. The same pitfall applies to mutable dictionaries and sets.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def add_item(value: str, items: list[str] | None = None) -> list[str]:\n    if items is None:\n        items = []\n    items.append(value)\n    return items\n\nprint(add_item('a'))\nprint(add_item('b'))",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "['a']\n['b']",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Each call creates a new list, so the results are `['a']` and `['b']`.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Write `def add(value, items=None)`, then create a fresh list with `if items is None: items = []`."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Immutable defaults such as tuples and `None` are usually safe, but nested mutable values can still be shared."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
+}

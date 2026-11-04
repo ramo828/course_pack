@@ -9,7 +9,7 @@
       "prompt": "“Async/await, Future ve executor” konusunda hangi ifade temel kuralı doğru açıklar?",
       "options": [
         "Rust değişkenleri mut yazılmadıkça değişmezdir.",
-        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.",
+        "Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun.",
         "Runtime Future'ları planlar; HTTP istemcisi de runtime'ın async ekosistemiyle uyumlu olmalıdır.",
         "Cargo proje oluşturma, derleme ve test için temel araçtır."
       ],
@@ -22,7 +22,7 @@
       "type": "multiple_choice",
       "prompt": "“Async/await, Future ve executor” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
       "options": [
-        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.",
+        "Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun.",
         "Değişkenliği yalnızca gerektiğinde etkinleştirin.",
         "Async CPU yoğun işi paralelleştirmez; uzun hesaplamayı blocking pool veya ayrı thread'de yürütmek gerekebilir.",
         "Cargo proje oluşturma, derleme ve test için temel araçtır."
@@ -36,10 +36,10 @@
       "type": "multiple_choice",
       "prompt": "“Async/await, Future ve executor” örneğinde hangi uygulama ayrıntısı önemlidir?",
       "options": [
-        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.",
         "Cargo proje oluşturma, derleme ve test için temel araçtır.",
+        "rustup araç zinciri ve hedef bileşenlerini yönetir; Cargo proje, bağımlılık, derleme ve test işlerini yürütür.",
         "Rust async fonksiyonu işi hemen çalıştırmak yerine Future döndürür; executor Future'ları poll ederek hazır olduklarında sürdürür",
-        "Rust değişkenleri mut yazılmadıkça değişmezdir."
+        "Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun."
       ],
       "answer": "Rust async fonksiyonu işi hemen çalıştırmak yerine Future döndürür; executor Future'ları poll ederek hazır olduklarında sürdürür",
       "explanation": "Rust async fonksiyonu işi hemen çalıştırmak yerine Future döndürür; executor Future'ları poll ederek hazır olduklarında sürdürür\nAçıklama: Rust async fonksiyonu işi hemen çalıştırmak yerine Future döndürür; executor Future'ları poll ederek hazır olduklarında sürdürür. `await`, bekleyen görevin kontrolü bırakmasını sağlar ve ağ/disk I/O gibi beklemeli işlerde yararlıdır. Standart kütüphane genel amaçlı executor sunmaz; projeler genellikle Tokio gibi runtime ve uyumlu async kütüphaneler seçer.\n\nBu küçük host örneği yalnızca hemen Ready olan Future'ı poll eder; gerçek ağ I/O için Tokio gibi executor seçin, bunu üretim executor'ı olarak kullanmayın."
@@ -51,9 +51,9 @@
       "prompt": "“Async/await, Future ve executor” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
       "options": [
         "Çok task oluşturmak sınırsız paralellik değildir; concurrency sınırı, timeout ve iptal politikası belirleyin.",
-        "Rust değişkenleri mut yazılmadıkça değişmezdir.",
-        "Cargo proje oluşturma, derleme ve test için temel araçtır.",
-        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar."
+        "Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun.",
+        "İş bilgisayarında PATH değişikliklerini denetleyin; MSVC ve GNU hedefleri farklı linker ve yerel bağımlılıklar isteyebilir.",
+        "Cargo proje oluşturma, derleme ve test için temel araçtır."
       ],
       "answer": "Çok task oluşturmak sınırsız paralellik değildir; concurrency sınırı, timeout ve iptal politikası belirleyin.",
       "explanation": "Çok task oluşturmak sınırsız paralellik değildir; concurrency sınırı, timeout ve iptal politikası belirleyin.\nAçıklama: Rust async fonksiyonu işi hemen çalıştırmak yerine Future döndürür; executor Future'ları poll ederek hazır olduklarında sürdürür. `await`, bekleyen görevin kontrolü bırakmasını sağlar ve ağ/disk I/O gibi beklemeli işlerde yararlıdır. Standart kütüphane genel amaçlı executor sunmaz; projeler genellikle Tokio gibi runtime ve uyumlu async kütüphaneler seçer.\n\nBu küçük host örneği yalnızca hemen Ready olan Future'ı poll eder; gerçek ağ I/O için Tokio gibi executor seçin, bunu üretim executor'ı olarak kullanmayın."

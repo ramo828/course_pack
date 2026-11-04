@@ -1,0 +1,82 @@
+{
+  "id": "python_py_slots",
+  "title": "__slots__ ile bellek kullanımını ölçerek azaltma",
+  "difficulty": "hard",
+  "testId": "python_test_py_slots_tr",
+  "sources": [
+    "https://docs.python.org/3/tutorial/",
+    "https://docs.python.org/3/using/",
+    "https://docs.python.org/3/library/",
+    "https://docs.python.org/3/library/turtle.html",
+    "https://docs.python.org/3/library/tkinter.html",
+    "https://fastapi.tiangolo.com/tutorial/",
+    "https://www.python.org/about/success/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "`__slots__`, her nesne için otomatik `__dict__` oluşturulmasını önleyip izin verilen alanları belirler. Çok sayıda küçük nesnede bellek azaltabilir; kazanç Python sürümüne ve sınıf tasarımına bağlıdır, ölçmeden varsaymayın. Tanımlanmamış alan eklenemez ve dinamik özelliklerle bazı çoklu kalıtım düzenleri etkilenir. Basit veri sınıflarında Python 3.10+ için `@dataclass(slots=True)` seçilebilir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "class Sample:\n    __slots__ = ('value',)\n\n    def __init__(self, value: int) -> None:\n        self.value = value\n\nsample = Sample(7)\nprint(sample.value)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "7",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "`value` tanımlı bir slottur ve nesnede saklanır; çıktı `7` olur.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Önce `tracemalloc` veya `sys.getsizeof` ile gerçek iş yükünü ölçün; `__slots__` tüm uygulamayı otomatik hızlandırmaz."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "`__slots__` güvenlik sınırı değildir ve nesneleri değişmez yapmaz. Gerekli `__weakref__` ve kalıtım davranışını ayrıca planlayın."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: stack/heap ve bellek ömrünü, sahipliği veya veri akışını gösteren bellek diyagramı."
+}

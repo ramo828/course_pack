@@ -8,7 +8,7 @@
       "type": "multiple_choice",
       "prompt": "“Thread-lər və paylaşılmış vəziyyət” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
       "options": [
-        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın.",
         "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
         "Mutex paylaşılmış dəyərə eyni vaxtda girişi qoruyur.",
         "Rust dəyişənləri mut yazılmayınca dəyişməzdir."
@@ -23,7 +23,7 @@
       "prompt": "“Thread-lər və paylaşılmış vəziyyət” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
       "options": [
         "Kilidi uzun I/O və gözləmə zamanı saxlamaq digər thread-ləri bloklaya bilər.",
-        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın.",
         "Dəyişənliyi yalnız həqiqətən lazım olduqda aktiv edin.",
         "Cargo layihə yaratmaq, build və test üçün əsas vasitədir."
       ],
@@ -36,10 +36,10 @@
       "type": "multiple_choice",
       "prompt": "“Thread-lər və paylaşılmış vəziyyət” nümunəsində hansı implementasiya detalı vacibdir?",
       "options": [
-        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
-        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın.",
         "Rust thread-ləri və mesaj ötürməni standart kitabxana ilə təmin edir",
-        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir."
+        "rustup toolchain və target komponentlərini idarə edir; Cargo layihə, dependency, build və test işlərini görür."
       ],
       "answer": "Rust thread-ləri və mesaj ötürməni standart kitabxana ilə təmin edir",
       "explanation": "Rust thread-ləri və mesaj ötürməni standart kitabxana ilə təmin edir\nİzah: Rust thread-ləri və mesaj ötürməni standart kitabxana ilə təmin edir. Paylaşılan vəziyyətdə Send/Sync qaydalarını, Mutex qorumasını və kilid scope-unu anlayın; əvvəlcə sadə mesajlaşmanı üstün tutun.\n\n`Send` sahibliklə thread-lər arasında ötürülə bilən tipi, `Sync` isə `&T` istinadının thread-lər arasında təhlükəsiz paylaşılmasını ifadə edir. Compiler bu trait-ləri avtomatik hesablayır; `Rc<T>` thread-safe deyil, `Arc<T>` atomik reference count verir, amma paylaşılmış mutable vəziyyət üçün `Mutex`/`RwLock` lazımdır. `Arc` öz-özlüyündə daxili məlumatı təhlükəsiz etmir. Tokio `spawn` üçün Future adətən `Send + 'static` olmalıdır."
@@ -50,10 +50,10 @@
       "type": "multiple_choice",
       "prompt": "“Thread-lər və paylaşılmış vəziyyət” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
       "options": [
+        "İş kompüterində PATH dəyişikliklərini yoxlayın; MSVC və GNU target-ları fərqli linker və native asılılıq tələb edə bilər.",
         "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
-        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
         "Mutex zəhərli olduqda lock nəticəsini yoxlayın və kilid daxilində riskli callback çağırmayın.",
-        "Rust dəyişənləri mut yazılmayınca dəyişməzdir."
+        "Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın."
       ],
       "answer": "Mutex zəhərli olduqda lock nəticəsini yoxlayın və kilid daxilində riskli callback çağırmayın.",
       "explanation": "Mutex zəhərli olduqda lock nəticəsini yoxlayın və kilid daxilində riskli callback çağırmayın.\nİzah: Rust thread-ləri və mesaj ötürməni standart kitabxana ilə təmin edir. Paylaşılan vəziyyətdə Send/Sync qaydalarını, Mutex qorumasını və kilid scope-unu anlayın; əvvəlcə sadə mesajlaşmanı üstün tutun.\n\n`Send` sahibliklə thread-lər arasında ötürülə bilən tipi, `Sync` isə `&T` istinadının thread-lər arasında təhlükəsiz paylaşılmasını ifadə edir. Compiler bu trait-ləri avtomatik hesablayır; `Rc<T>` thread-safe deyil, `Arc<T>` atomik reference count verir, amma paylaşılmış mutable vəziyyət üçün `Mutex`/`RwLock` lazımdır. `Arc` öz-özlüyündə daxili məlumatı təhlükəsiz etmir. Tokio `spawn` üçün Future adətən `Send + 'static` olmalıdır."

@@ -74,19 +74,7 @@
     },
     {
       "type": "text",
-      "text": "Ключевая строка: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "void setup() { Serial.begin(115200); if (xTaskCreate(timerWorkerTask, \"timer-worker\", 2048, nullptr, 1, &timerWorker) != pdPASS) { Serial.println(\"timer worker creation failed\"); return; } sampleTimer = xTimerCreate(\"sample\", pdMS_TO_TICKS(1000), pdTRUE, nullptr, timerCallback); if (sampleTimer == nullptr) { Serial.println(\"timer creation failed\"); return; } if (xTimerStart(sampleTimer, 0) != pdPASS) { Serial.println(\"timer start failed\"); xTimerDelete(sampleTimer, 0); sampleTimer = nullptr; } }",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nЧто она делает: Программный таймер не равен точному аппаратному; измеряйте jitter и нагрузку планировщика.\nЗачем она нужна: В обратный вызов установите флаг или отправьте сообщение; длительную работу передайте обычной задаче.\nЕсли пропустить или изменить: Переполнение очереди команд таймера задерживает start/stop/reset.\n\n",
+      "text": "Ключевая строка: `void setup() { Serial.begin(115200); if (xTaskCreate(timerWorkerTask, \"timer-worker\", 2048, nullptr, 1, &timerWorker) != pdPASS) { Serial.println(\"timer worker creation failed\"); return; } sampleTimer = xTimerCreate(\"sample\", pdMS_TO_TICKS(1000), pdTRUE, nullptr, timerCallback); if (sampleTimer == nullptr) { Serial.println(\"timer creation failed\"); return; } if (xTimerStart(sampleTimer, 0) != pdPASS) { Serial.println(\"timer start failed\"); xTimerDelete(sampleTimer, 0); sampleTimer = nullptr; } }`\nЧто она делает: Программный таймер не равен точному аппаратному; измеряйте jitter и нагрузку планировщика.\nЗачем она нужна: В обратный вызов установите флаг или отправьте сообщение; длительную работу передайте обычной задаче.\nЕсли пропустить или изменить: Переполнение очереди команд таймера задерживает start/stop/reset.\n\n",
       "size": 16
     },
     {

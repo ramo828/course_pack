@@ -1,0 +1,132 @@
+{
+  "id": "sql_sql_relational_model",
+  "title": "Реляционная модель: таблицы, строки, столбцы и ключи",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_relational_model_ru",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/about/history/",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "«Реляционная модель: таблицы, строки, столбцы и ключи» помогает решать конкретную задачу программы. Сначала определите входные данные и ожидаемый результат, затем проследите роль конструкции в примере. Изучайте её не только как синтаксис, но и с точки зрения читаемости, корректности, ресурсов и будущих изменений.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "CREATE TABLE students (\n  student_id INTEGER PRIMARY KEY,\n  name TEXT NOT NULL\n);\n\nCREATE TABLE enrollments (\n  course_id INTEGER NOT NULL,\n  student_id INTEGER NOT NULL,\n  PRIMARY KEY (course_id, student_id),\n  FOREIGN KEY (student_id) REFERENCES students(student_id)\n);",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "student_id определяет студента, а пара course_id и student_id — запись о зачислении.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Реляционная база хранит данные в таблицах. Строка — запись, столбец — её атрибут, а схема задаёт имена и типы столбцов. Первичный ключ уникально определяет строку; внешний ключ связывает её с записью другой таблицы. Связь students и enrollments по student_id надёжнее копирования данных студента в каждую запись о курсе.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: `CREATE TABLE students (`\nЧто она делает: student_id определяет студента, а пара course_id и student_id — запись о зачислении.\nЗачем она нужна: Выбирайте устойчивый идентификатор для PRIMARY KEY: имя и адрес электронной почты могут измениться.\nЕсли пропустить или изменить: На ER-диаграмме таблицы изображаются блоками, ключи отмечаются, а связи показывают линиями и кратностью.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "SQLite может требовать включения внешних ключей для соединения; проверьте работу ограничений в своей СУБД."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "student_id определяет студента, а пара course_id и student_id — запись о зачислении.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Выбирайте устойчивый идентификатор для PRIMARY KEY: имя и адрес электронной почты могут измениться."
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "На ER-диаграмме таблицы изображаются блоками, ключи отмечаются, а связи показывают линиями и кратностью."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "SQLite может требовать включения внешних ключей для соединения; проверьте работу ограничений в своей СУБД."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_model",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

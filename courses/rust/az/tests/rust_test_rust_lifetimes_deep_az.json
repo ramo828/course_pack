@@ -9,7 +9,7 @@
       "prompt": "“Lifetime-lar, elision və struktur invariantları” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
       "options": [
         "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
-        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın.",
         "Eyni `'a` hər iki girişin və nəticənin ən azı ortaq etibarlı müddətə malik olduğunu ifadə edir.",
         "Cargo layihə yaratmaq, build və test üçün əsas vasitədir."
       ],
@@ -25,7 +25,7 @@
         "Dəyişənliyi yalnız həqiqətən lazım olduqda aktiv edin.",
         "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
         "Lifetime error-unu `static` yazmaqla gizlətməyin; əvvəl sahiblik modelini və borrow-un niyə yaşadığını yoxlayın.",
-        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir."
+        "Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın."
       ],
       "answer": "Lifetime error-unu `static` yazmaqla gizlətməyin; əvvəl sahiblik modelini və borrow-un niyə yaşadığını yoxlayın.",
       "explanation": "Lifetime error-unu `static` yazmaqla gizlətməyin; əvvəl sahiblik modelini və borrow-un niyə yaşadığını yoxlayın.\nİzah: Lifetime anotasiya referansların bir-biri ilə əlaqəsini bildirir və kompilyatora hansı borcun digərindən uzun yaşaya bilmədiyini göstərir; yaddaşı saxlamır və ömrü uzatmır. Funksiya iki referans qəbul edib birini qaytarırsa, nəticənin hansı girişlə bağlı olduğunu bəzən açıq lifetime ilə göstərmək lazımdır. Referans saxlayan struct üçün `'a` sahənin istifadə edilə biləcəyi müddəti məhdudlaşdırır; mümkün olduqda sahiblik edən String kimi tip ömür əlaqəsini sadələşdirir.\n\nLifetime anotasiya istinadın nə qədər yaşadıldığını uzatmır; hansı scope-ların bir-birinə bağlı olduğunu göstərir. `longest<'a>` nəticənin həm giriş istinadlarının etibarlı olduğu ortaq müddətdən uzun yaşamadığını bildirir. Compiler elision sadə hallarda lifetime-u gizlədir; yalnız əlaqəni ifadə etmək lazım olanda yazın."
@@ -36,10 +36,10 @@
       "type": "multiple_choice",
       "prompt": "“Lifetime-lar, elision və struktur invariantları” nümunəsində hansı implementasiya detalı vacibdir?",
       "options": [
-        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın.",
         "Lifetime anotasiya referansların bir-biri ilə əlaqəsini bildirir və kompilyatora hansı borcun digərindən uzun yaşaya bilmədiyini göstərir; yaddaşı saxlamır və ömrü uzatmır",
-        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
-        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir."
+        "rustup toolchain və target komponentlərini idarə edir; Cargo layihə, dependency, build və test işlərini görür.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir."
       ],
       "answer": "Lifetime anotasiya referansların bir-biri ilə əlaqəsini bildirir və kompilyatora hansı borcun digərindən uzun yaşaya bilmədiyini göstərir; yaddaşı saxlamır və ömrü uzatmır",
       "explanation": "Lifetime anotasiya referansların bir-biri ilə əlaqəsini bildirir və kompilyatora hansı borcun digərindən uzun yaşaya bilmədiyini göstərir; yaddaşı saxlamır və ömrü uzatmır\nİzah: Lifetime anotasiya referansların bir-biri ilə əlaqəsini bildirir və kompilyatora hansı borcun digərindən uzun yaşaya bilmədiyini göstərir; yaddaşı saxlamır və ömrü uzatmır. Funksiya iki referans qəbul edib birini qaytarırsa, nəticənin hansı girişlə bağlı olduğunu bəzən açıq lifetime ilə göstərmək lazımdır. Referans saxlayan struct üçün `'a` sahənin istifadə edilə biləcəyi müddəti məhdudlaşdırır; mümkün olduqda sahiblik edən String kimi tip ömür əlaqəsini sadələşdirir.\n\nLifetime anotasiya istinadın nə qədər yaşadıldığını uzatmır; hansı scope-ların bir-birinə bağlı olduğunu göstərir. `longest<'a>` nəticənin həm giriş istinadlarının etibarlı olduğu ortaq müddətdən uzun yaşamadığını bildirir. Compiler elision sadə hallarda lifetime-u gizlədir; yalnız əlaqəni ifadə etmək lazım olanda yazın."
@@ -50,10 +50,10 @@
       "type": "multiple_choice",
       "prompt": "“Lifetime-lar, elision və struktur invariantları” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
       "options": [
-        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
-        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "İş kompüterində PATH dəyişikliklərini yoxlayın; MSVC və GNU target-ları fərqli linker və native asılılıq tələb edə bilər.",
+        "Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın.",
         "Funksiya iki referans qəbul edib birini qaytarırsa, nəticənin hansı girişlə bağlı olduğunu bəzən açıq lifetime ilə göstərmək lazımdır",
-        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir."
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir."
       ],
       "answer": "Funksiya iki referans qəbul edib birini qaytarırsa, nəticənin hansı girişlə bağlı olduğunu bəzən açıq lifetime ilə göstərmək lazımdır",
       "explanation": "Funksiya iki referans qəbul edib birini qaytarırsa, nəticənin hansı girişlə bağlı olduğunu bəzən açıq lifetime ilə göstərmək lazımdır\nİzah: Lifetime anotasiya referansların bir-biri ilə əlaqəsini bildirir və kompilyatora hansı borcun digərindən uzun yaşaya bilmədiyini göstərir; yaddaşı saxlamır və ömrü uzatmır. Funksiya iki referans qəbul edib birini qaytarırsa, nəticənin hansı girişlə bağlı olduğunu bəzən açıq lifetime ilə göstərmək lazımdır. Referans saxlayan struct üçün `'a` sahənin istifadə edilə biləcəyi müddəti məhdudlaşdırır; mümkün olduqda sahiblik edən String kimi tip ömür əlaqəsini sadələşdirir.\n\nLifetime anotasiya istinadın nə qədər yaşadıldığını uzatmır; hansı scope-ların bir-birinə bağlı olduğunu göstərir. `longest<'a>` nəticənin həm giriş istinadlarının etibarlı olduğu ortaq müddətdən uzun yaşamadığını bildirir. Compiler elision sadə hallarda lifetime-u gizlədir; yalnız əlaqəni ifadə etmək lazım olanda yazın."

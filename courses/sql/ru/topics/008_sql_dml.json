@@ -1,0 +1,123 @@
+{
+  "id": "sql_sql_dml",
+  "title": "INSERT, UPDATE и DELETE",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_dml_ru",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "«INSERT, UPDATE и DELETE» помогает решать конкретную задачу программы. Сначала определите входные данные и ожидаемый результат, затем проследите роль конструкции в примере. Изучайте её не только как синтаксис, но и с точки зрения читаемости, корректности, ресурсов и будущих изменений.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "INSERT INTO products (product_id, name, price_cents)\nVALUES (1, 'Sensor', 1250);\n\nUPDATE products\nSET price_cents = 1300\nWHERE product_id = 1;\n\nDELETE FROM products\nWHERE product_id = 1;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "INSERT добавляет строку, UPDATE изменяет совпавшую, DELETE удаляет её.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "DML изменяет данные таблиц. INSERT добавляет строки, UPDATE меняет совпавшие, DELETE удаляет совпавшие. Перед изменением проверьте тот же фильтр через SELECT; несколько связанных записей выполняйте в транзакции.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: `INSERT INTO products (product_id, name, price_cents)`\nЧто она делает: INSERT добавляет строку, UPDATE изменяет совпавшую, DELETE удаляет её.\nЗачем она нужна: Перед UPDATE или DELETE проверьте строки запросом SELECT и убедитесь в наличии резервной копии.\nЕсли пропустить или изменить: Явный список столбцов в INSERT делает запрос устойчивее к изменениям схемы.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Если забыть WHERE в UPDATE или DELETE, можно изменить или удалить все строки."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "INSERT добавляет строку, UPDATE изменяет совпавшую, DELETE удаляет её.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Перед UPDATE или DELETE проверьте строки запросом SELECT и убедитесь в наличии резервной копии."
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Явный список столбцов в INSERT делает запрос устойчивее к изменениям схемы."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Если забыть WHERE в UPDATE или DELETE, можно изменить или удалить все строки."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Отдельная иллюстрация не обязательна; небольшого запускаемого примера и ожидаемого результата достаточно."
+}

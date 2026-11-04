@@ -63,19 +63,7 @@
     },
     {
       "type": "text",
-      "text": "A watchdog restarts a system when expected progress stops; use it as a health contract, not as a blind reset. Tasks should report progress only after useful work, and logs or core dumps should help diagnose blocking and deadlocks. Production firmware also needs bounded queues, timeouts, retry/backoff, stack measurements, and a recovery plan.\n\n",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "esp_task_wdt_*",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " are Espressif ESP-IDF APIs exposed by some Arduino-ESP32 core versions, not portable Arduino APIs. For another board, implement an appropriate health/timeout strategy and verify the selected core's support.\n\n",
+      "text": "A watchdog restarts a system when expected progress stops; use it as a health contract, not as a blind reset. Tasks should report progress only after useful work, and logs or core dumps should help diagnose blocking and deadlocks. Production firmware also needs bounded queues, timeouts, retry/backoff, stack measurements, and a recovery plan.\n\n`esp_task_wdt_*` are Espressif ESP-IDF APIs exposed by some Arduino-ESP32 core versions, not portable Arduino APIs. For another board, implement an appropriate health/timeout strategy and verify the selected core's support.\n\n",
       "size": 17
     },
     {
@@ -87,19 +75,7 @@
     },
     {
       "type": "text",
-      "text": "Key line: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "#include <esp_task_wdt.h>",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nWhat it does: A watchdog triggers recovery but does not identify the root cause; retain logs, measurements, and fault records.\nWhy it is used: Feed the watchdog only after progress; do not report a permanently blocked task as healthy.\nIf omitted or changed: ESP-IDF watchdog APIs vary by target/version; verify the Arduino-ESP32 API and board configuration.\n\n",
+      "text": "Key line: `#include <esp_task_wdt.h>`\nWhat it does: A watchdog triggers recovery but does not identify the root cause; retain logs, measurements, and fault records.\nWhy it is used: Feed the watchdog only after progress; do not report a permanently blocked task as healthy.\nIf omitted or changed: ESP-IDF watchdog APIs vary by target/version; verify the Arduino-ESP32 API and board configuration.\n\n",
       "size": 16
     },
     {

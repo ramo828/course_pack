@@ -1,0 +1,123 @@
+{
+  "id": "sql_sql_security",
+  "title": "SQL injection ve parametreli sorgular",
+  "difficulty": "hard",
+  "testId": "sql_test_sql_security_tr",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“SQL injection ve parametreli sorgular” gerçek bir programlama problemine çözüm üretmek için kullanılır. Önce girdiyi ve beklenen sonucu belirleyin; sonra örnekteki yapının hangi işi üstlendiğini izleyin. Konuyu yalnızca sözdizimi olarak değil, okunabilirlik, doğruluk, kaynak kullanımı ve ilerideki değişikliklere etkisiyle değerlendirin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "import sqlite3\n\nuser_id = 7\nwith sqlite3.connect('school.db') as db:\n    rows = db.execute(\n        'SELECT name FROM students WHERE student_id = ?',\n        (user_id,),\n    ).fetchall()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "student_id değeri ayrı parametre olarak bağlanır ve SQL kodu gibi yorumlanmaz.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQL injection, güvenilmeyen kullanıcı metni SQL komutuna birleştirildiğinde sorgunun anlamını değiştirebilir. Değerleri placeholder ile parametre olarak verin; Python SQLite'ta `?`, PostgreSQL sürücülerinde sürücünün tanımladığı placeholder kullanılır. Parametreler değerler içindir; tablo/sütun adları için değildir. Dinamik tanımlayıcıları izin verilen sabit listeden seçin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: `'SELECT name FROM students WHERE student_id = ?',`\nNe yapar: student_id değeri ayrı parametre olarak bağlanır ve SQL kodu gibi yorumlanmaz.\nNeden seçildi: Kullanıcı değerini SQL metnine biçimleyerek eklemeyin; parametre bağlama ve en az yetki ilkesini kullanın.\nAtlanır veya değiştirilirse: Üretimde veritabanı hesabına yalnızca gereken izinleri verin; hata yanıtlarında parola ve kişisel veri sızdırmayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Parametre sorguyu güvenli kurar ancak yetkilendirmenin yerini tutmaz; kullanıcının hangi kayıtlara erişebileceğini ayrıca denetleyin."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "student_id değeri ayrı parametre olarak bağlanır ve SQL kodu gibi yorumlanmaz.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Kullanıcı değerini SQL metnine biçimleyerek eklemeyin; parametre bağlama ve en az yetki ilkesini kullanın."
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Üretimde veritabanı hesabına yalnızca gereken izinleri verin; hata yanıtlarında parola ve kişisel veri sızdırmayın."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Parametre sorguyu güvenli kurar ancak yetkilendirmenin yerini tutmaz; kullanıcının hangi kayıtlara erişebileceğini ayrıca denetleyin."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

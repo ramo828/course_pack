@@ -1,0 +1,62 @@
+{
+  "id": "sql_test_sql_query_plans_az",
+  "title": "Sorğu planı və icra sürətinin yoxlanması",
+  "questions": [
+    {
+      "id": "sql_sql_query_plans_1",
+      "topicId": "sql_sql_query_plans",
+      "type": "multiple_choice",
+      "prompt": "“Sorğu planı və icra sürətinin yoxlanması” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "Plan student_id üzrə axtarışı necə apardığını göstərir; indeksin istifadə olunması məlumatdan və optimizatordan asılıdır.",
+        "Əvvəlcə kiçik, oxunaqlı SELECT sorğusu qurun; nəticəni başa düşdükdən sonra onu tətbiqə qoşun.",
+        "Sorğu Ada və 42 dəyərlərini iki sütunda qaytarır.",
+        "SQLite çox vaxt tətbiqin daxilində işləyir; MySQL və PostgreSQL adətən ayrıca server prosesi kimi işləyir."
+      ],
+      "answer": "Plan student_id üzrə axtarışı necə apardığını göstərir; indeksin istifadə olunması məlumatdan və optimizatordan asılıdır.",
+      "explanation": "Plan student_id üzrə axtarışı necə apardığını göstərir; indeksin istifadə olunması məlumatdan və optimizatordan asılıdır.\nİzah: Sorğu yavaş işləyirsə, əvvəlcə kiçik və təmsilçi məlumat dəstində onu ölçün, sonra planı araşdırın. `EXPLAIN` DBMS-in seçdiyi əməliyyatları göstərir; SQLite-da `EXPLAIN QUERY PLAN`, PostgreSQL və MySQL-də `EXPLAIN` işlədilir. Plan tam cədvəl oxunuşunu, indeks axtarışını və birləşdirmə addımlarını göstərə bilər. Süzgəc və birləşdirmədə işlənən sütunlara uyğun indeks, statistikaların yenilənməsi üçün `ANALYZE`, lazımsız sütun və sətirləri oxumamaq performansa kömək edə bilər. Plan çıxışı mühərrik versiyasında dəyişə bilər; onu tətbiq kodunda sabit format kimi emal etməyin."
+    },
+    {
+      "id": "sql_sql_query_plans_2",
+      "topicId": "sql_sql_query_plans",
+      "type": "multiple_choice",
+      "prompt": "“Sorğu planı və icra sürətinin yoxlanması” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "EXPLAIN ANALYZE bəzi sistemlərdə sorğunu həqiqətən icra edir; dəyişiklik yaradan sorğuda ehtiyatlı olun və ölçmənin təsirini anlayın.",
+        "Əvvəlcə kiçik, oxunaqlı SELECT sorğusu qurun; nəticəni başa düşdükdən sonra onu tətbiqə qoşun.",
+        "Əvvəlcə layihənin serverə ehtiyacı olub-olmadığını, eyni vaxtda neçə istifadəçinin yazacağını və hansı idarəetmə imkanlarının lazım olduğunu müəyyən edin.",
+        "Sorğu Ada və 42 dəyərlərini iki sütunda qaytarır."
+      ],
+      "answer": "EXPLAIN ANALYZE bəzi sistemlərdə sorğunu həqiqətən icra edir; dəyişiklik yaradan sorğuda ehtiyatlı olun və ölçmənin təsirini anlayın.",
+      "explanation": "EXPLAIN ANALYZE bəzi sistemlərdə sorğunu həqiqətən icra edir; dəyişiklik yaradan sorğuda ehtiyatlı olun və ölçmənin təsirini anlayın.\nİzah: Sorğu yavaş işləyirsə, əvvəlcə kiçik və təmsilçi məlumat dəstində onu ölçün, sonra planı araşdırın. `EXPLAIN` DBMS-in seçdiyi əməliyyatları göstərir; SQLite-da `EXPLAIN QUERY PLAN`, PostgreSQL və MySQL-də `EXPLAIN` işlədilir. Plan tam cədvəl oxunuşunu, indeks axtarışını və birləşdirmə addımlarını göstərə bilər. Süzgəc və birləşdirmədə işlənən sütunlara uyğun indeks, statistikaların yenilənməsi üçün `ANALYZE`, lazımsız sütun və sətirləri oxumamaq performansa kömək edə bilər. Plan çıxışı mühərrik versiyasında dəyişə bilər; onu tətbiq kodunda sabit format kimi emal etməyin."
+    },
+    {
+      "id": "sql_sql_query_plans_3",
+      "topicId": "sql_sql_query_plans",
+      "type": "multiple_choice",
+      "prompt": "“Sorğu planı və icra sürətinin yoxlanması” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "Sorğu Ada və 42 dəyərlərini iki sütunda qaytarır.",
+        "SQL verilənlər bazası sistemi deyil, həmin sistemlərlə işləmək üçün dildir; SQLite, PostgreSQL, MySQL və SQL Server SQL dialektlərindən istifadə edir.",
+        "PostgreSQL-in EXPLAIN ANALYZE əməli icranı ölçür; SQLite sənədləri EXPLAIN QUERY PLAN çıxışının versiyalar arasında dəyişə biləcəyini bildirir.",
+        "Əvvəlcə kiçik, oxunaqlı SELECT sorğusu qurun; nəticəni başa düşdükdən sonra onu tətbiqə qoşun."
+      ],
+      "answer": "PostgreSQL-in EXPLAIN ANALYZE əməli icranı ölçür; SQLite sənədləri EXPLAIN QUERY PLAN çıxışının versiyalar arasında dəyişə biləcəyini bildirir.",
+      "explanation": "PostgreSQL-in EXPLAIN ANALYZE əməli icranı ölçür; SQLite sənədləri EXPLAIN QUERY PLAN çıxışının versiyalar arasında dəyişə biləcəyini bildirir.\nİzah: Sorğu yavaş işləyirsə, əvvəlcə kiçik və təmsilçi məlumat dəstində onu ölçün, sonra planı araşdırın. `EXPLAIN` DBMS-in seçdiyi əməliyyatları göstərir; SQLite-da `EXPLAIN QUERY PLAN`, PostgreSQL və MySQL-də `EXPLAIN` işlədilir. Plan tam cədvəl oxunuşunu, indeks axtarışını və birləşdirmə addımlarını göstərə bilər. Süzgəc və birləşdirmədə işlənən sütunlara uyğun indeks, statistikaların yenilənməsi üçün `ANALYZE`, lazımsız sütun və sətirləri oxumamaq performansa kömək edə bilər. Plan çıxışı mühərrik versiyasında dəyişə bilər; onu tətbiq kodunda sabit format kimi emal etməyin."
+    },
+    {
+      "id": "sql_sql_query_plans_4",
+      "topicId": "sql_sql_query_plans",
+      "type": "multiple_choice",
+      "prompt": "“Sorğu planı və icra sürətinin yoxlanması” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "Kiçik cədvəldə tam oxunuş indeksdən daha sürətli ola bilər; planı real həcmə yaxın məlumatla ölçün.",
+        "SQL standartdır, amma verilənlər bazalarının dialektləri, tipləri və bəzi funksiyaları fərqlənir. Hədəf sistemin sənədlərini yoxlayın.",
+        "Əvvəlcə kiçik, oxunaqlı SELECT sorğusu qurun; nəticəni başa düşdükdən sonra onu tətbiqə qoşun.",
+        "Sorğu Ada və 42 dəyərlərini iki sütunda qaytarır."
+      ],
+      "answer": "Kiçik cədvəldə tam oxunuş indeksdən daha sürətli ola bilər; planı real həcmə yaxın məlumatla ölçün.",
+      "explanation": "Kiçik cədvəldə tam oxunuş indeksdən daha sürətli ola bilər; planı real həcmə yaxın məlumatla ölçün.\nİzah: Sorğu yavaş işləyirsə, əvvəlcə kiçik və təmsilçi məlumat dəstində onu ölçün, sonra planı araşdırın. `EXPLAIN` DBMS-in seçdiyi əməliyyatları göstərir; SQLite-da `EXPLAIN QUERY PLAN`, PostgreSQL və MySQL-də `EXPLAIN` işlədilir. Plan tam cədvəl oxunuşunu, indeks axtarışını və birləşdirmə addımlarını göstərə bilər. Süzgəc və birləşdirmədə işlənən sütunlara uyğun indeks, statistikaların yenilənməsi üçün `ANALYZE`, lazımsız sütun və sətirləri oxumamaq performansa kömək edə bilər. Plan çıxışı mühərrik versiyasında dəyişə bilər; onu tətbiq kodunda sabit format kimi emal etməyin."
+    }
+  ]
+}

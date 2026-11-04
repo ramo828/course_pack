@@ -1,0 +1,128 @@
+{
+  "id": "sql_sql_transactions",
+  "title": "Transaction və ACID",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_transactions_az",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Transaction və ACID” real proqramda konkret problemi həll etmək üçün seçilir. Əvvəl giriş və gözlənilən nəticəni müəyyənləşdirin, sonra nümunədəki anlayışın hansı işi gördüyünü izləyin. Bu mövzu kursda tək sintaksis deyil: oxunaqlılıq, düzgünlük, resurs istifadəsi və gələcək dəyişikliklərə təsiri ilə birlikdə öyrənilməlidir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "BEGIN;\nUPDATE accounts SET cents = cents - 500\nWHERE account_id = 1;\nUPDATE accounts SET cents = cents + 500\nWHERE account_id = 2;\nCOMMIT;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Hər iki yeniləmə eyni transaction daxilində birlikdə təsdiqlənir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Transaction bir neçə yazını vahid məntiqi iş kimi birləşdirir. COMMIT bütün dəyişiklikləri qəbul edir, ROLLBACK uğursuz işin dəyişikliklərini ləğv edir. ACID atomiklik, ardıcıllıq, izolasiya və davamlılıq xassələrini ifadə edir. Məsələn, hesabdan çıxarma və digər hesaba əlavə etmə birlikdə uğurlu olmalıdır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: `BEGIN;`\nNə edir: Hər iki yeniləmə eyni transaction daxilində birlikdə təsdiqlənir.\nNiyə seçilib: Transaction-u qısa saxlayın, xətanı yoxlayın və tətbiq dilində rollback/commit siyasətini aydın qurun.\nBuraxılsa və ya dəyişdirilsə: İzolasiya səviyyələri və kilidləmə davranışı mühərrikə görə dəyişir; SQLite və PostgreSQL eyni concurrency modelinə malik deyil.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "COMMIT-dən əvvəl xəta baş verərsə rollback edin; qismən dəyişiklik biznes qaydasını poza bilər."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Hər iki yeniləmə eyni transaction daxilində birlikdə təsdiqlənir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Transaction-u qısa saxlayın, xətanı yoxlayın və tətbiq dilində rollback/commit siyasətini aydın qurun."
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "İzolasiya səviyyələri və kilidləmə davranışı mühərrikə görə dəyişir; SQLite və PostgreSQL eyni concurrency modelinə malik deyil."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "COMMIT-dən əvvəl xəta baş verərsə rollback edin; qismən dəyişiklik biznes qaydasını poza bilər."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_transaction",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

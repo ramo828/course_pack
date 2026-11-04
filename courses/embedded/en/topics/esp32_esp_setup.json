@@ -4,7 +4,9 @@
   "difficulty": "medium",
   "testId": "esp32_test_esp_setup_en",
   "sources": [
-    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/"
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/linux-macos-setup.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/windows-setup.html"
   ],
   "estimatedMinutes": 25,
   "spans": [
@@ -17,7 +19,7 @@
     },
     {
       "type": "text",
-      "text": "Goal: apply “Installing Arduino Core and ESP-IDF” to a real program or device. The key principle is: ESP-IDF selects the chip target before building. In a project, follow this guidance: Keep board package, toolchain, and framework versions stable while diagnosing a first build.\n\n",
+      "text": "Goal: apply “Installing Arduino Core and ESP-IDF” to a real program or device. The key principle is: ESP-IDF selects the chip target before building. In a project, follow this guidance: Start with the official `hello_world` example and record the working toolchain version.\n\n",
       "size": 17,
       "color": "#212121"
     },
@@ -37,7 +39,7 @@
     {
       "type": "code",
       "language": "bash",
-      "code": "idf.py --version\nidf.py set-target esp32\nidf.py build",
+      "code": "idf.py --version\nidf.py set-target esp32\nidf.py build\nidf.py -p PORT flash monitor",
       "showCopyButton": true
     },
     {
@@ -62,19 +64,7 @@
     },
     {
       "type": "text",
-      "text": "Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "idf.py",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands.\n\n",
+      "text": "Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n`idf.py` commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands.\n\nOn Windows, macOS, and Linux, use Espressif's official ESP-IDF Installation Manager or the current installation path in the ESP-IDF documentation. The manager can install compatible Python, Git, CMake, Ninja, compiler, and debug tools. Open the ESP-IDF terminal after setup, select the exact ESP32 target, build an official example, and flash the board's USB port. Arduino-ESP32 Core is installed as an Arduino IDE board package and is a different workflow from ESP-IDF.\n\n",
       "size": 17
     },
     {
@@ -86,25 +76,13 @@
     },
     {
       "type": "text",
-      "text": "Key line: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "idf.py --version",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nWhat it does: ESP-IDF selects the chip target before building.\nWhy it is used: Keep board package, toolchain, and framework versions stable while diagnosing a first build.\nIf omitted or changed: ESP-IDF Installation Manager and official setup guides provide OS-specific toolchain steps.\n\n",
+      "text": "Key line: `idf.py --version`\nWhat it does: ESP-IDF selects the chip target before building.\nWhy it is used: Start with the official `hello_world` example and record the working toolchain version.\nIf omitted or changed: Linux may need distribution-specific serial-device permissions; apply only the permission steps in Espressif's official instructions.\n\n",
       "size": 16
     },
     {
       "type": "detail",
       "title": "Common mistake",
-      "text": "Skipping this check before applying the rule: Keep board package, toolchain, and framework versions stable while diagnosing a first build."
+      "text": "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures."
     },
     {
       "type": "text",
@@ -124,7 +102,7 @@
     {
       "type": "tip",
       "title": "Important tip",
-      "text": "Keep board package, toolchain, and framework versions stable while diagnosing a first build."
+      "text": "Start with the official `hello_world` example and record the working toolchain version."
     },
     {
       "type": "text",
@@ -154,16 +132,16 @@
     {
       "type": "detail",
       "title": "Important detail",
-      "text": "ESP-IDF Installation Manager and official setup guides provide OS-specific toolchain steps."
+      "text": "Linux may need distribution-specific serial-device permissions; apply only the permission steps in Espressif's official instructions."
     },
     {
       "type": "warning",
       "title": "Warning",
-      "text": "Pins, voltage/current limits, timing, and peripheral support are board-dependent; verify the exact board documentation before wiring or uploading."
+      "text": "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures."
     },
     {
       "type": "diagram",
-      "id": "embedded_stack",
+      "id": "tool_install_flow",
       "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
     }
   ],

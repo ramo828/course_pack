@@ -1,0 +1,127 @@
+{
+  "id": "sql_sql_security",
+  "title": "SQL injection və parametrli sorğular",
+  "difficulty": "hard",
+  "testId": "sql_test_sql_security_az",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/about/history/",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“SQL injection və parametrli sorğular” real proqramda konkret problemi həll etmək üçün seçilir. Əvvəl giriş və gözlənilən nəticəni müəyyənləşdirin, sonra nümunədəki anlayışın hansı işi gördüyünü izləyin. Bu mövzu kursda tək sintaksis deyil: oxunaqlılıq, düzgünlük, resurs istifadəsi və gələcək dəyişikliklərə təsiri ilə birlikdə öyrənilməlidir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "import sqlite3\n\nuser_id = 7\nwith sqlite3.connect('school.db') as db:\n    rows = db.execute(\n        'SELECT name FROM students WHERE student_id = ?',\n        (user_id,),\n    ).fetchall()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "student_id dəyəri ayrıca parametr kimi bağlanır və SQL kodu kimi şərh edilmir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQL injection etibarsız istifadəçi mətni SQL əmrinə birləşdirildikdə sorğunun mənasını dəyişə bilər. Dəyərləri placeholder ilə parametr kimi ötürün; SQLite Python nümunəsində `?`, PostgreSQL sürücülərində isə sürücünün müəyyən etdiyi placeholder işlədilir. Parametrlər dəyər üçündür, cədvəl və sütun adları üçün deyil; dinamik identifikatorları icazə verilən sabit siyahıdan seçin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: `'SELECT name FROM students WHERE student_id = ?',`\nNə edir: student_id dəyəri ayrıca parametr kimi bağlanır və SQL kodu kimi şərh edilmir.\nNiyə seçilib: İstifadəçi dəyərini heç vaxt SQL mətninə formatlamayın; parametr binding və ən az səlahiyyət prinsipindən istifadə edin.\nBuraxılsa və ya dəyişdirilsə: İstehsalda verilənlər bazası hesabına yalnız tələb olunan əməliyyatları verin; xəta cavablarında parol və şəxsi məlumatları sızdırmayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Parametr sorğunu düzgün edir, amma avtorizasiyanı əvəz etmir; istifadəçinin hansı qeydlərə girişini ayrıca yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "student_id dəyəri ayrıca parametr kimi bağlanır və SQL kodu kimi şərh edilmir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "İstifadəçi dəyərini heç vaxt SQL mətninə formatlamayın; parametr binding və ən az səlahiyyət prinsipindən istifadə edin."
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "İstehsalda verilənlər bazası hesabına yalnız tələb olunan əməliyyatları verin; xəta cavablarında parol və şəxsi məlumatları sızdırmayın."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Parametr sorğunu düzgün edir, amma avtorizasiyanı əvəz etmir; istifadəçinin hansı qeydlərə girişini ayrıca yoxlayın."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

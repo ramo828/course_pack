@@ -62,31 +62,7 @@
     },
     {
       "type": "text",
-      "text": "A queue stores fixed-size items in FIFO order and decouples producer and consumer tasks. ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "xQueueSend",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " and ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "xQueueReceive",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " can block with a timeout; payloads are copied, so large objects need deliberate pointer-lifetime management. Check the send result instead of silently losing data when a queue is full.\n\n",
+      "text": "A queue stores fixed-size items in FIFO order and decouples producer and consumer tasks. `xQueueSend` and `xQueueReceive` can block with a timeout; payloads are copied, so large objects need deliberate pointer-lifetime management. Check the send result instead of silently losing data when a queue is full.\n\n",
       "size": 17
     },
     {
@@ -98,19 +74,7 @@
     },
     {
       "type": "text",
-      "text": "Key line: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "void producer(void*) { int value = 0; for (;;) { ++value; if (xQueueSend(readings, &value, pdMS_TO_TICKS(100)) != pdPASS) vTaskDelay(pdMS_TO_TICKS(100)); vTaskDelay(pdMS_TO_TICKS(500)); } }",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nWhat it does: A queue gives a clearer ownership and synchronization boundary than an unprotected global.\nWhy it is used: Size the queue for bursts and consumer rate, and define what happens when it fills.\nIf omitted or changed: Check that queue creation succeeded; larger queues consume more RAM.\n\n",
+      "text": "Key line: `void producer(void*) { int value = 0; for (;;) { ++value; if (xQueueSend(readings, &value, pdMS_TO_TICKS(100)) != pdPASS) vTaskDelay(pdMS_TO_TICKS(100)); vTaskDelay(pdMS_TO_TICKS(500)); } }`\nWhat it does: A queue gives a clearer ownership and synchronization boundary than an unprotected global.\nWhy it is used: Size the queue for bursts and consumer rate, and define what happens when it fills.\nIf omitted or changed: Check that queue creation succeeded; larger queues consume more RAM.\n\n",
       "size": 16
     },
     {

@@ -8,7 +8,7 @@
       "type": "multiple_choice",
       "prompt": "Which statement gives the core rule for “ESP32 family and board selection”?",
       "options": [
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "ESP32 family members do not all have the same radios and peripherals.",
         "Pin selection must be checked against the exact module and board schematic.",
         "ESP-IDF selects the chip target before building."
@@ -25,7 +25,7 @@
         "ESP-IDF selects the chip target before building.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "A GPIO number is not necessarily the connector's physical pin position.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build."
+        "Start with the official `hello_world` example and record the working toolchain version."
       ],
       "answer": "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
       "explanation": "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.\nWhy: ESP32, S2, S3, C2/C3/C6, and H2 variants differ in CPU, radio, USB, and peripherals. Check the exact module datasheet, board schematic, and framework support before choosing.\n\nOrigin and date: Espressif Systems developed the ESP32 family, and the first ESP32 chip was introduced in 2016. The goal was to combine Wi‑Fi and Bluetooth in one MCU, reducing the cost and complexity of separate radio and processor components. ESP32 boards power sensor nodes, smart devices, gateways, and low-cost IoT products; they connect to careers in embedded firmware, IoT platforms, radio testing, and power optimization. If small, energy-aware devices that move sensor readings to network services inspire you, learn to choose the exact ESP32 variant before designing.\n\nThe additional `idf.py` commands configure and build an ESP-IDF project only. They have no direct Arduino-sketch equivalent; Arduino-ESP32 selects a board package and builds sketches with Arduino IDE/CLI."
@@ -36,8 +36,8 @@
       "type": "multiple_choice",
       "prompt": "Which implementation detail matters in the “ESP32 family and board selection” example?",
       "options": [
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
-        "ESP-IDF Installation Manager and official setup guides provide OS-specific toolchain steps.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
+        "Linux may need distribution-specific serial-device permissions; apply only the permission steps in Espressif's official instructions.",
         "ESP-IDF selects the chip target before building.",
         "Some variants, such as ESP32-H2, focus on IEEE 802.15.4/Bluetooth LE rather than Wi-Fi."
       ],
@@ -50,10 +50,10 @@
       "type": "multiple_choice",
       "prompt": "Which additional constraint or condition should be checked for “ESP32 family and board selection”?",
       "options": [
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
-        "Check the exact module datasheet, board schematic, and framework support before choosing",
         "ESP-IDF selects the chip target before building.",
-        "ESP32 GPIO inputs are not 5 V tolerant; use a suitable level shifter or sensor."
+        "Check the exact module datasheet, board schematic, and framework support before choosing",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
+        "Start with the official `hello_world` example and record the working toolchain version."
       ],
       "answer": "Check the exact module datasheet, board schematic, and framework support before choosing",
       "explanation": "Check the exact module datasheet, board schematic, and framework support before choosing\nWhy: ESP32, S2, S3, C2/C3/C6, and H2 variants differ in CPU, radio, USB, and peripherals. Check the exact module datasheet, board schematic, and framework support before choosing.\n\nOrigin and date: Espressif Systems developed the ESP32 family, and the first ESP32 chip was introduced in 2016. The goal was to combine Wi‑Fi and Bluetooth in one MCU, reducing the cost and complexity of separate radio and processor components. ESP32 boards power sensor nodes, smart devices, gateways, and low-cost IoT products; they connect to careers in embedded firmware, IoT platforms, radio testing, and power optimization. If small, energy-aware devices that move sensor readings to network services inspire you, learn to choose the exact ESP32 variant before designing.\n\nThe additional `idf.py` commands configure and build an ESP-IDF project only. They have no direct Arduino-sketch equivalent; Arduino-ESP32 selects a board package and builds sketches with Arduino IDE/CLI."
@@ -70,7 +70,7 @@
         "ESP32 family members do not all have the same radios and peripherals."
       ],
       "answer": "ESP-IDF selects the chip target before building.",
-      "explanation": "ESP-IDF selects the chip target before building.\nWhy: Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n`idf.py` commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands."
+      "explanation": "ESP-IDF selects the chip target before building.\nWhy: Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n`idf.py` commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands.\n\nOn Windows, macOS, and Linux, use Espressif's official ESP-IDF Installation Manager or the current installation path in the ESP-IDF documentation. The manager can install compatible Python, Git, CMake, Ninja, compiler, and debug tools. Open the ESP-IDF terminal after setup, select the exact ESP32 target, build an official example, and flash the board's USB port. Arduino-ESP32 Core is installed as an Arduino IDE board package and is a different workflow from ESP-IDF."
     },
     {
       "id": "esp32_esp_setup_2",
@@ -79,12 +79,12 @@
       "prompt": "When applying “Installing Arduino Core and ESP-IDF” in a project, which action is recommended?",
       "options": [
         "A GPIO number is not necessarily the connector's physical pin position.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "ESP32 family members do not all have the same radios and peripherals."
       ],
-      "answer": "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
-      "explanation": "Keep board package, toolchain, and framework versions stable while diagnosing a first build.\nWhy: Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n`idf.py` commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands."
+      "answer": "Start with the official `hello_world` example and record the working toolchain version.",
+      "explanation": "Start with the official `hello_world` example and record the working toolchain version.\nWhy: Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n`idf.py` commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands.\n\nOn Windows, macOS, and Linux, use Espressif's official ESP-IDF Installation Manager or the current installation path in the ESP-IDF documentation. The manager can install compatible Python, Git, CMake, Ninja, compiler, and debug tools. Open the ESP-IDF terminal after setup, select the exact ESP32 target, build an official example, and flash the board's USB port. Arduino-ESP32 Core is installed as an Arduino IDE board package and is a different workflow from ESP-IDF."
     },
     {
       "id": "esp32_esp_setup_3",
@@ -93,12 +93,12 @@
       "prompt": "Which implementation detail matters in the “Installing Arduino Core and ESP-IDF” example?",
       "options": [
         "Some variants, such as ESP32-H2, focus on IEEE 802.15.4/Bluetooth LE rather than Wi-Fi.",
-        "ESP-IDF Installation Manager and official setup guides provide OS-specific toolchain steps.",
+        "Linux may need distribution-specific serial-device permissions; apply only the permission steps in Espressif's official instructions.",
         "ESP32 family members do not all have the same radios and peripherals.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part."
       ],
-      "answer": "ESP-IDF Installation Manager and official setup guides provide OS-specific toolchain steps.",
-      "explanation": "ESP-IDF Installation Manager and official setup guides provide OS-specific toolchain steps.\nWhy: Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n`idf.py` commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands."
+      "answer": "Linux may need distribution-specific serial-device permissions; apply only the permission steps in Espressif's official instructions.",
+      "explanation": "Linux may need distribution-specific serial-device permissions; apply only the permission steps in Espressif's official instructions.\nWhy: Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n`idf.py` commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands.\n\nOn Windows, macOS, and Linux, use Espressif's official ESP-IDF Installation Manager or the current installation path in the ESP-IDF documentation. The manager can install compatible Python, Git, CMake, Ninja, compiler, and debug tools. Open the ESP-IDF terminal after setup, select the exact ESP32 target, build an official example, and flash the board's USB port. Arduino-ESP32 Core is installed as an Arduino IDE board package and is a different workflow from ESP-IDF."
     },
     {
       "id": "esp32_esp_setup_4",
@@ -108,11 +108,11 @@
       "options": [
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "ESP32 GPIO inputs are not 5 V tolerant; use a suitable level shifter or sensor.",
-        "ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "ESP32 family members do not all have the same radios and peripherals."
       ],
-      "answer": "ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version",
-      "explanation": "ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version\nWhy: Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n`idf.py` commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands."
+      "answer": "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
+      "explanation": "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.\nWhy: Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n`idf.py` commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands.\n\nOn Windows, macOS, and Linux, use Espressif's official ESP-IDF Installation Manager or the current installation path in the ESP-IDF documentation. The manager can install compatible Python, Git, CMake, Ninja, compiler, and debug tools. Open the ESP-IDF terminal after setup, select the exact ESP32 target, build an official example, and flash the board's USB port. Arduino-ESP32 Core is installed as an Arduino IDE board package and is a different workflow from ESP-IDF."
     },
     {
       "id": "esp32_esp_pins_1",
@@ -136,7 +136,7 @@
       "options": [
         "ESP32 family members do not all have the same radios and peripherals.",
         "A GPIO number is not necessarily the connector's physical pin position.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part."
       ],
       "answer": "A GPIO number is not necessarily the connector's physical pin position.",
@@ -164,7 +164,7 @@
       "options": [
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "ESP32 family members do not all have the same radios and peripherals.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "ESP32 GPIO inputs are not 5 V tolerant; use a suitable level shifter or sensor."
       ],
       "answer": "ESP32 GPIO inputs are not 5 V tolerant; use a suitable level shifter or sensor.",
@@ -190,7 +190,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “GPIO, interrupts, and debouncing” in a project, which action is recommended?",
       "options": [
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "Choose the interrupt source and trigger mode deliberately.",
         "ESP32 family members do not all have the same radios and peripherals."
@@ -219,7 +219,7 @@
       "prompt": "Which additional constraint or condition should be checked for “GPIO, interrupts, and debouncing”?",
       "options": [
         "Shared data between tasks and ISRs requires proper synchronization and ISR-safe APIs.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "ESP32 family members do not all have the same radios and peripherals."
       ],
@@ -249,7 +249,7 @@
         "Account for noise, calibration, and input range in ADC measurements.",
         "ESP32 family members do not all have the same radios and peripherals.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build."
+        "Start with the official `hello_world` example and record the working toolchain version."
       ],
       "answer": "Account for noise, calibration, and input range in ADC measurements.",
       "explanation": "Account for noise, calibration, and input range in ADC measurements.\nWhy: ADC units, channels, and attenuation vary by ESP32; raw readings are not automatically voltage. LEDC generates PWM with timers/channels, while touch support depends on the variant."
@@ -276,7 +276,7 @@
       "options": [
         "ESP32 family members do not all have the same radios and peripherals.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "Do not exceed the documented ADC input range."
       ],
       "answer": "Do not exceed the documented ADC input range.",
@@ -305,7 +305,7 @@
         "When debugging a bus, first check wiring, ground, speed, and address.",
         "ESP32 family members do not all have the same radios and peripherals.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build."
+        "Start with the official `hello_world` example and record the working toolchain version."
       ],
       "answer": "When debugging a bus, first check wiring, ground, speed, and address.",
       "explanation": "When debugging a bus, first check wiring, ground, speed, and address.\nWhy: Consider the pin matrix, board-reserved pins, and driver API together. I2C may need pull-ups; SPI needs chip select; UART requires matching baud and signal levels."
@@ -332,7 +332,7 @@
       "options": [
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "I2C may need pull-ups; SPI needs chip select; UART requires matching baud and signal levels.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "ESP32 family members do not all have the same radios and peripherals."
       ],
       "answer": "I2C may need pull-ups; SPI needs chip select; UART requires matching baud and signal levels.",
@@ -359,7 +359,7 @@
       "prompt": "When applying “Wi-Fi station and access point” in a project, which action is recommended?",
       "options": [
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "Do not embed network credentials in firmware source.",
         "ESP32 family members do not all have the same radios and peripherals."
       ],
@@ -387,7 +387,7 @@
       "prompt": "Which additional constraint or condition should be checked for “Wi-Fi station and access point”?",
       "options": [
         "ESP32 family members do not all have the same radios and peripherals.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "Do not ship an open access point or fixed default password."
       ],
@@ -414,7 +414,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “Bluetooth LE and GATT” in a project, which action is recommended?",
       "options": [
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "ESP32 family members do not all have the same radios and peripherals.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "Read-only characteristics can still expose sensitive data; consider pairing and authorization."
@@ -443,7 +443,7 @@
       "prompt": "Which additional constraint or condition should be checked for “Bluetooth LE and GATT”?",
       "options": [
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "Advertising, connections, MTU, and power behavior vary by chip and SDK; define access control for each characteristic",
         "ESP32 family members do not all have the same radios and peripherals."
       ],
@@ -472,7 +472,7 @@
       "options": [
         "Protect mutable data shared between tasks with synchronization or message queues.",
         "ESP32 family members do not all have the same radios and peripherals.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part."
       ],
       "answer": "Protect mutable data shared between tasks with synchronization or message queues.",
@@ -499,7 +499,7 @@
       "prompt": "Which additional constraint or condition should be checked for “FreeRTOS on ESP32: Arduino and ESP-IDF”?",
       "options": [
         "ESP32 family members do not all have the same radios and peripherals.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "Do not hide a stall by disabling the watchdog; diagnose why the task stopped progressing."
       ],
@@ -528,7 +528,7 @@
       "options": [
         "ESP32 family members do not all have the same radios and peripherals.",
         "Writing a frequently changing counter on every loop can wear flash.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part."
       ],
       "answer": "Writing a frequently changing counter on every loop can wear flash.",
@@ -556,7 +556,7 @@
       "options": [
         "ESP32 family members do not all have the same radios and peripherals.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "Limit write frequency, version the format, and provide safe defaults if migration fails."
       ],
       "answer": "Limit write frequency, version the format, and provide safe defaults if migration fails.",
@@ -582,7 +582,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “Deep sleep and power budgets” in a project, which action is recommended?",
       "options": [
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "ESP32 family members do not all have the same radios and peripherals.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "Chip sleep current is not the total development-board current."
@@ -611,7 +611,7 @@
       "prompt": "Which additional constraint or condition should be checked for “Deep sleep and power budgets”?",
       "options": [
         "Plan wake sources and retained state, then measure on the actual board",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "ESP32 family members do not all have the same radios and peripherals."
       ],
@@ -641,7 +641,7 @@
         "Test update recovery under power loss, poor connectivity, and incompatible versions.",
         "ESP32 family members do not all have the same radios and peripherals.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build."
+        "Start with the official `hello_world` example and record the working toolchain version."
       ],
       "answer": "Test update recovery under power loss, poor connectivity, and incompatible versions.",
       "explanation": "Test update recovery under power loss, poor connectivity, and incompatible versions.\nWhy: OTA can write firmware to an inactive partition. Design partition layout, image size, signature/version checks, health confirmation, and rollback together.\n\nThis example calls the ESP-IDF OTA partition API from an Arduino-ESP32 sketch. Partition selection, rollback, and signature verification are not generic Arduino APIs. ArduinoOTA/Update can support simpler update flows, but secure rollback needs explicit ESP-IDF partition and verification configuration."
@@ -667,7 +667,7 @@
       "prompt": "Which additional constraint or condition should be checked for “OTA, partitions, and rollback”?",
       "options": [
         "ESP32 family members do not all have the same radios and peripherals.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "Do not boot an OTA image before validating its signature."
       ],
@@ -694,7 +694,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “Monitor, core dumps, and production readiness” in a project, which action is recommended?",
       "options": [
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "ESP32 family members do not all have the same radios and peripherals.",
         "Keep logs useful, concise, and free of secrets."
@@ -724,7 +724,7 @@
       "options": [
         "ESP32 family members do not all have the same radios and peripherals.",
         "Document firmware versions, reset reasons, crash capture, log levels, and recovery for production",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part."
       ],
       "answer": "Document firmware versions, reset reasons, crash capture, log levels, and recovery for production",

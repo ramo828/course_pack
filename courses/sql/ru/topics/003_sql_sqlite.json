@@ -1,0 +1,153 @@
+{
+  "id": "sql_sql_sqlite",
+  "title": "SQLite: установка, CLI и команды оболочки",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_sqlite_ru",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "«SQLite: установка, CLI и команды оболочки» помогает решать конкретную задачу программы. Сначала определите входные данные и ожидаемый результат, затем проследите роль конструкции в примере. Изучайте её не только как синтаксис, но и с точки зрения читаемости, корректности, ресурсов и будущих изменений.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "sqlite3 school.db\n.tables\n.schema students\n.mode column\n.headers on\n.read setup.sql\n.backup copy.db\n.quit\n\nPRAGMA foreign_keys = ON;\nSELECT sqlite_version();",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Отображается версия SQLite; таблицы и схему также можно просмотреть в терминале.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLite удобно для изучения SQL и локального хранения данных без отдельного сервера. `sqlite3 school.db` открывает или создаёт файл в терминале. `.tables` показывает таблицы, `.schema students` — схему; `.mode column` и `.headers on` делают вывод читаемым; `.read setup.sql` выполняет SQL-файл; `.backup copy.db` создаёт резервную копию; `.quit` завершает работу. Команды с точкой относятся к оболочке SQLite, а не к стандарту SQL. Оператор `PRAGMA foreign_keys = ON;` включает проверку внешних ключей для текущего соединения. В Python `sqlite3.connect` открывает базу, а параметризованный `execute` выполняет запросы.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: `sqlite3 school.db`\nЧто она делает: Первые команды выполняются в оболочке SQLite; PRAGMA и SELECT — SQL-операторы для базы.\nЗачем она нужна: Проверьте открытый файл через `.tables` и `.schema`; не путайте команды оболочки с SQL.\nЕсли пропустить или изменить: В SQLite нет `CREATE DATABASE`: открытие `sqlite3 school.db` создаёт или открывает файл базы. В MySQL/PostgreSQL базу можно создать отдельной серверной SQL-командой.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Выбирайте безопасный путь для `.backup`; не полагайтесь на копирование открытого файла без стратегии резервирования."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Первые команды выполняются в оболочке SQLite; PRAGMA и SELECT — SQL-операторы для базы.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Проверьте открытый файл через `.tables` и `.schema`; не путайте команды оболочки с SQL."
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "В SQLite нет `CREATE DATABASE`: открытие `sqlite3 school.db` создаёт или открывает файл базы. В MySQL/PostgreSQL базу можно создать отдельной серверной SQL-командой."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Выбирайте безопасный путь для `.backup`; не полагайтесь на копирование открытого файла без стратегии резервирования."
+    },
+    {
+      "type": "diagram",
+      "id": "tool_install_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

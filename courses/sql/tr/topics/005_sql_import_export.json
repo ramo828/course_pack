@@ -1,0 +1,153 @@
+{
+  "id": "sql_sql_import_export",
+  "title": "Veri aktarımı ve yedekleme",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_import_export_tr",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Veri aktarımı ve yedekleme” gerçek bir programlama problemine çözüm üretmek için kullanılır. Önce girdiyi ve beklenen sonucu belirleyin; sonra örnekteki yapının hangi işi üstlendiğini izleyin. Konuyu yalnızca sözdizimi olarak değil, okunabilirlik, doğruluk, kaynak kullanımı ve ilerideki değişikliklere etkisiyle değerlendirin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "sqlite3 school.db\n.mode csv\n.import students.csv students\n.headers on\n.once students_export.csv\nSELECT student_id, name FROM students;\n\n-- PostgreSQL psql client:\n-- \\copy students(name) FROM 'students.csv' CSV HEADER\n\n-- Backups:\n-- SQLite: .backup school-backup.db\n-- PostgreSQL: pg_dump school > school.sql\n-- MySQL: mysqldump school > school.sql",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLite komutları tabloya CSV yükler ve sorgu sonucunu dosyaya aktarır; diğer DBMS'ler kendi araçlarını kullanır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "CSV dosyasından tabloya veri yüklemek ve sonucu dosyaya aktarmak analiz ve sistemler arası aktarımda sık gerekir. SQLite terminalında `.mode csv` ve `.import students.csv students` CSV'yi tabloya alır; `.headers on`, `.once result.csv` ve SELECT sonucu CSV'ye yazabilir. PostgreSQL psql içindeki `\\copy` istemci bilgisayarındaki dosyayla çalışır; MySQL'de `LOAD DATA` kullanılabilir ancak sunucu izinleri gerekebilir. Tablo şemasını ve karakter kodlamasını önceden doğrulayın, güvenilmeyen CSV değerlerini sorgu metnine eklemeyin. Yedekleme için SQLite `.backup`, PostgreSQL `pg_dump`, MySQL `mysqldump` gibi araçlar vardır; yedeği ayrı saklayıp geri yüklemeyi deneyin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: `sqlite3 school.db`\nNe yapar: SQLite komutları tabloya CSV yükler ve sorgu sonucunu dosyaya aktarır; diğer DBMS'ler kendi araçlarını kullanır.\nNeden seçildi: Önce birkaç satırı deneme tablosuna aktarın; CSV ayıracı, başlığı, kodlamayı ve boş değerleri doğrulayın.\nAtlanır veya değiştirilirse: CSV yalnızca değerleri taşır; sütun türleri, kısıtlar ve ilişkiler ayrıca şemayla oluşturulmalıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Dışa aktarılan dosya kişisel veri içerebilir; erişimi sınırlayın ve yedeklerin geri yüklenmesini düzenli sınayın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLite komutları tabloya CSV yükler ve sorgu sonucunu dosyaya aktarır; diğer DBMS'ler kendi araçlarını kullanır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Önce birkaç satırı deneme tablosuna aktarın; CSV ayıracı, başlığı, kodlamayı ve boş değerleri doğrulayın."
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "CSV yalnızca değerleri taşır; sütun türleri, kısıtlar ve ilişkiler ayrıca şemayla oluşturulmalıdır."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Dışa aktarılan dosya kişisel veri içerebilir; erişimi sınırlayın ve yedeklerin geri yüklenmesini düzenli sınayın."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_transaction",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı."
+}

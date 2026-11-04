@@ -1,0 +1,148 @@
+{
+  "id": "sql_sql_indexes",
+  "title": "Indexes and EXPLAIN",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_indexes_en",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Indexes and EXPLAIN” is a tool for solving a concrete programming problem. Identify the input and desired result, then trace what role the construct plays in the example. Study it not only as syntax, but also for its effects on readability, correctness, resource use, and future changes.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "CREATE INDEX idx_enrollments_student\nON enrollments(student_id);\n\nEXPLAIN QUERY PLAN\nSELECT course_id\nFROM enrollments\nWHERE student_id = 7;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The index may help lookups by student_id; the chosen plan depends on the engine and data.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "An index is an additional data structure that can speed lookups on selected columns. PRIMARY KEY and UNIQUE often create indexes; consider others for frequently filtered or joined columns. EXPLAIN and engine-specific analysis tools show a query plan. Indexes can speed reads but use storage and add work to INSERT, UPDATE, and DELETE.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: `CREATE INDEX idx_enrollments_student`\nWhat it does: The index may help lookups by student_id; the chosen plan depends on the engine and data.\nWhy it is used: Measure a real query plan before adding an index; do not index every column blindly.\nIf omitted or changed: Column order matters in a composite index, and its useful query shapes depend on the engine.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "An index does not guarantee the optimizer will use it; a table scan can be cheaper for small tables."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The index may help lookups by student_id; the chosen plan depends on the engine and data.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Measure a real query plan before adding an index; do not index every column blindly."
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Column order matters in a composite index, and its useful query shapes depend on the engine."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "An index does not guarantee the optimizer will use it; a table scan can be cheaper for small tables."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "A separate visual is not essential; a small runnable code example and its expected output explain the topic."
+}

@@ -1,0 +1,148 @@
+{
+  "id": "sql_sql_triggers_procedures",
+  "title": "Views, triggers, and stored routines",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_triggers_procedures_en",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Views, triggers, and stored routines” is a tool for solving a concrete programming problem. Identify the input and desired result, then trace what role the construct plays in the example. Study it not only as syntax, but also for its effects on readability, correctness, resource use, and future changes.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "CREATE TABLE price_audit (\n  product_id INTEGER,\n  old_price INTEGER,\n  new_price INTEGER\n);\n\nCREATE TRIGGER audit_price_change\nAFTER UPDATE OF price_cents ON products\nWHEN OLD.price_cents <> NEW.price_cents\nBEGIN\n  INSERT INTO price_audit\n  VALUES (NEW.product_id, OLD.price_cents, NEW.price_cents);\nEND;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "When a price changes, the trigger records the old and new values in price_audit.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A VIEW is a named SELECT query, not a separate copy of the data. A trigger runs automatically after an INSERT, UPDATE, or DELETE and can enforce rules such as writing an audit record. Stored procedures and functions keep program logic in the database; PostgreSQL and MySQL support them with different languages and syntax. SQLite supports triggers but does not provide a server-style stored procedure system. Assign ownership of each rule clearly instead of duplicating it in both the application and a trigger.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: `CREATE TABLE price_audit (`\nWhat it does: When a price changes, the trigger records the old and new values in price_audit.\nWhy it is used: Document trigger side effects and possible trigger chains; verify changes with migrations and tests.\nIf omitted or changed: Stored-procedure syntax is not portable between PostgreSQL and MySQL; the example here demonstrates SQLite trigger syntax only.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Trigger side effects may be invisible at the call site; review them before adding one to production data."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "When a price changes, the trigger records the old and new values in price_audit.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Document trigger side effects and possible trigger chains; verify changes with migrations and tests."
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Stored-procedure syntax is not portable between PostgreSQL and MySQL; the example here demonstrates SQLite trigger syntax only."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Trigger side effects may be invisible at the call site; review them before adding one to production data."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "A separate visual is not essential; a small runnable code example and its expected output explain the topic."
+}

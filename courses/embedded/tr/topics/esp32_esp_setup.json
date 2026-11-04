@@ -4,7 +4,9 @@
   "difficulty": "medium",
   "testId": "esp32_test_esp_setup_tr",
   "sources": [
-    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/"
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/linux-macos-setup.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/windows-setup.html"
   ],
   "estimatedMinutes": 25,
   "spans": [
@@ -17,7 +19,7 @@
     },
     {
       "type": "text",
-      "text": "Bu dersin amacı “Arduino Çekirdek ve ESP-IDF kurulumu” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: ESP-IDF derlemeden önce hedef yongayı seçer. Gerçek projede şu öneriyi izleyin: İlk testte kart paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin.\n\n",
+      "text": "Bu dersin amacı “Arduino Çekirdek ve ESP-IDF kurulumu” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: ESP-IDF derlemeden önce hedef yongayı seçer. Gerçek projede şu öneriyi izleyin: İlk derleme için resmi `hello_world` örneğiyle başlayın ve çalışan araç zinciri sürümünü kaydedin.\n\n",
       "size": 17,
       "color": "#212121"
     },
@@ -37,7 +39,7 @@
     {
       "type": "code",
       "language": "bash",
-      "code": "idf.py --version\nidf.py set-target esp32\nidf.py build",
+      "code": "idf.py --version\nidf.py set-target esp32\nidf.py build\nidf.py -p PORT flash monitor",
       "showCopyButton": true
     },
     {
@@ -62,19 +64,7 @@
     },
     {
       "type": "text",
-      "text": "Arduino-ESP32 çekirdeği Arduino ekosisteminin basit program modelini sunar. ESP-IDF; bileşen, CMake, Kconfig ve FreeRTOS tabanlı Espressif framework'üdür; ihtiyaca göre seçip sürümü sabitleyin.\n\n",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "idf.py",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " komutları yalnızca ESP-IDF projesi ve araç zinciri içindir. Arduino-ESP32 için Arduino CLI/IDE kart paketi ve ayrı build akışı kullanılır; bu komutları Arduino program'iyle karıştırmayın.\n\n",
+      "text": "Arduino-ESP32 çekirdeği Arduino ekosisteminin basit program modelini sunar. ESP-IDF; bileşen, CMake, Kconfig ve FreeRTOS tabanlı Espressif framework'üdür; ihtiyaca göre seçip sürümü sabitleyin.\n\n`idf.py` komutları yalnızca ESP-IDF projesi ve araç zinciri içindir. Arduino-ESP32 için Arduino CLI/IDE kart paketi ve ayrı build akışı kullanılır; bu komutları Arduino program'iyle karıştırmayın.\n\nWindows, macOS ve Linux'ta Espressif'in resmi ESP-IDF Installation Manager'ını veya güncel ESP-IDF belgelerindeki kurulum yolunu seçin. Manager uygun Python, Git, CMake, Ninja, derleyici ve hata ayıklama araçlarını kurabilir. Kurulumdan sonra ESP-IDF terminalini açın, tam ESP32 hedefini seçin, resmi bir örneği derleyip karta flash edin. Arduino-ESP32 Çekirdek ise Arduino IDE'de kart paketi olarak kurulur ve ESP-IDF'den farklı bir iş akışıdır.\n\n",
       "size": 17
     },
     {
@@ -86,25 +76,13 @@
     },
     {
       "type": "text",
-      "text": "Kod satırı: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "idf.py --version",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nNe yapar: ESP-IDF derlemeden önce hedef yongayı seçer.\nNeden seçildi: İlk testte kart paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin.\nAtlanır veya değiştirilirse: ESP-IDF kurulum yöneticisi ve resmi belgeler işletim sistemine uygun araç adımlarını verir.\n\n",
+      "text": "Kod satırı: `idf.py --version`\nNe yapar: ESP-IDF derlemeden önce hedef yongayı seçer.\nNeden seçildi: İlk derleme için resmi `hello_world` örneğiyle başlayın ve çalışan araç zinciri sürümünü kaydedin.\nAtlanır veya değiştirilirse: Linux'ta seri aygıta erişmek için dağıtım izinleri gerekebilir; yalnızca resmi ESP-IDF yönergelerindeki izin değişikliklerini uygulayın.\n\n",
       "size": 16
     },
     {
       "type": "detail",
       "title": "Sık yapılan hata",
-      "text": "Bu kuralı uygulamadan önce doğrulamayı atlamak: İlk testte kart paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin."
+      "text": "Kurulum yöneticisini yalnızca Espressif'in resmi kaynağından indirin; yanlış yonga hedefi veya port flash işlemini bozar."
     },
     {
       "type": "text",
@@ -124,7 +102,7 @@
     {
       "type": "tip",
       "title": "Önemli ipucu",
-      "text": "İlk testte kart paketi, araç zinciri ve framework sürümünü aynı anda değiştirmeyin."
+      "text": "İlk derleme için resmi `hello_world` örneğiyle başlayın ve çalışan araç zinciri sürümünü kaydedin."
     },
     {
       "type": "text",
@@ -154,16 +132,16 @@
     {
       "type": "detail",
       "title": "Önemli ayrıntı",
-      "text": "ESP-IDF kurulum yöneticisi ve resmi belgeler işletim sistemine uygun araç adımlarını verir."
+      "text": "Linux'ta seri aygıta erişmek için dağıtım izinleri gerekebilir; yalnızca resmi ESP-IDF yönergelerindeki izin değişikliklerini uygulayın."
     },
     {
       "type": "warning",
       "title": "Uyarı",
-      "text": "Pinler, gerilim/akım sınırları, zamanlama ve çevre birimleri karta bağlıdır; bağlantı veya yükleme öncesinde kart belgesini doğrulayın."
+      "text": "Kurulum yöneticisini yalnızca Espressif'in resmi kaynağından indirin; yanlış yonga hedefi veya port flash işlemini bozar."
     },
     {
       "type": "diagram",
-      "id": "embedded_stack",
+      "id": "tool_install_flow",
       "caption": "Sensör verisi MCU'da işlenir; gerektiğinde ağ geçidine ve ağ hizmetine iletilir."
     }
   ],

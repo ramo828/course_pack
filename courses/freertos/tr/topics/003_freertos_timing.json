@@ -17,46 +17,7 @@
     },
     {
       "type": "text",
-      "text": "Bu dersin amacı “Periyodik çalışma ve görev gecikmesi” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "vTaskDelayUntil",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir. Gerçek projede şu öneriyi izleyin: Periyodik işte ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "delay",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " yerine ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "vTaskDelayUntil",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " kullanın ve aralığı osiloskop veya timestamp ile ölçün.\n\n",
+      "text": "Bu dersin amacı “Periyodik çalışma ve görev gecikmesi” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: `vTaskDelayUntil` hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir. Gerçek projede şu öneriyi izleyin: Periyodik işte `delay` yerine `vTaskDelayUntil` kullanın ve aralığı osiloskop veya timestamp ile ölçün.\n\n",
       "size": 17,
       "color": "#212121"
     },
@@ -88,20 +49,7 @@
     },
     {
       "type": "text",
-      "text": "Serial Monitor yaklaşık her 500 ms'de bir ",
-      "size": 16,
-      "color": "#2E7D32"
-    },
-    {
-      "type": "text",
-      "text": "periodic",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " yazar; tick çözünürlüğü ve sistem yükü zamanlamayı etkiler.\n\n",
+      "text": "Serial Monitor yaklaşık her 500 ms'de bir `periodic` yazar; tick çözünürlüğü ve sistem yükü zamanlamayı etkiler.\n\n",
       "size": 16,
       "color": "#2E7D32"
     },
@@ -114,38 +62,7 @@
     },
     {
       "type": "text",
-      "text": "vTaskDelay",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " görevi belirli tick sayısı boyunca bloklar; ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "pdMS_TO_TICKS",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " milisaniyeyi tick'e dönüştürür. Periyodik sensör örneklemesinde ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "vTaskDelayUntil",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " önceki plan zamanını kullandığından işlem süresi aralığa eklenmez. Tick frekansı ve planlama gecikmesi mikro saniye kesinliği sağlamaz; gerçek süreyi ölçün.\n\n",
+      "text": "`vTaskDelay` görevi belirli tick sayısı boyunca bloklar; `pdMS_TO_TICKS` milisaniyeyi tick'e dönüştürür. Periyodik sensör örneklemesinde `vTaskDelayUntil` önceki plan zamanını kullandığından işlem süresi aralığa eklenmez. Tick frekansı ve planlama gecikmesi mikro saniye kesinliği sağlamaz; gerçek süreyi ölçün.\n\n",
       "size": 17
     },
     {
@@ -157,67 +74,7 @@
     },
     {
       "type": "text",
-      "text": "Kod satırı: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "void clockTask(void*) { TickType_t last = xTaskGetTickCount(); const TickType_t period = pdMS_TO_TICKS(500); for (;;) { Serial.println(\"500 ms\"); vTaskDelayUntil(&last, period); } }",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nNe yapar: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "vTaskDelayUntil",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir.\nNeden seçildi: Periyodik işte ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "delay",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " yerine ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "vTaskDelayUntil",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " kullanın ve aralığı osiloskop veya timestamp ile ölçün.\nAtlanır veya değiştirilirse: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "pdMS_TO_TICKS(0)",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " ve çok kısa periyotlara dikkat edin; tick çözünürlüğü yapılandırmaya bağlıdır.\n\n",
+      "text": "Kod satırı: `void clockTask(void*) { TickType_t last = xTaskGetTickCount(); const TickType_t period = pdMS_TO_TICKS(500); for (;;) { Serial.println(\"500 ms\"); vTaskDelayUntil(&last, period); } }`\nNe yapar: `vTaskDelayUntil` hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir.\nNeden seçildi: Periyodik işte `delay` yerine `vTaskDelayUntil` kullanın ve aralığı osiloskop veya timestamp ile ölçün.\nAtlanır veya değiştirilirse: `pdMS_TO_TICKS(0)` ve çok kısa periyotlara dikkat edin; tick çözünürlüğü yapılandırmaya bağlıdır.\n\n",
       "size": 16
     },
     {
@@ -234,15 +91,7 @@
     },
     {
       "type": "text",
-      "text": "vTaskDelayUntil",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true,
-      "italic": true
-    },
-    {
-      "type": "text",
-      "text": " hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir.\n\n",
+      "text": "`vTaskDelayUntil` hedef periyodu korur, ancak uzun bloklayan işler deadline'ı yine kaçırabilir.\n\n",
       "size": 17,
       "color": "#00695C",
       "bold": true,
@@ -275,19 +124,7 @@
     },
     {
       "type": "text",
-      "text": "Serial Monitor yaklaşık her 500 ms'de bir ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "periodic",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " yazar; tick çözünürlüğü ve sistem yükü zamanlamayı etkiler.\n\n",
+      "text": "Serial Monitor yaklaşık her 500 ms'de bir `periodic` yazar; tick çözünürlüğü ve sistem yükü zamanlamayı etkiler.\n\n",
       "size": 16
     },
     {

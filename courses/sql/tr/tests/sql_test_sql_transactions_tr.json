@@ -1,0 +1,62 @@
+{
+  "id": "sql_test_sql_transactions_tr",
+  "title": "Transaction ve ACID",
+  "questions": [
+    {
+      "id": "sql_sql_transactions_1",
+      "topicId": "sql_sql_transactions",
+      "type": "multiple_choice",
+      "prompt": "“Transaction ve ACID” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "options": [
+        "Sorgu, Ada ve 42 değerlerini iki sütunda döndürür.",
+        "SQLite çoğunlukla uygulamanın içinde çalışır; MySQL ve PostgreSQL genellikle ayrı sunucu süreçleridir.",
+        "İki güncelleme aynı transaction içinde birlikte onaylanır.",
+        "Önce küçük ve okunabilir bir SELECT sorgusu yazın; sonucu anladıktan sonra uygulamaya bağlayın."
+      ],
+      "answer": "İki güncelleme aynı transaction içinde birlikte onaylanır.",
+      "explanation": "İki güncelleme aynı transaction içinde birlikte onaylanır.\nAçıklama: Transaction birden çok değişikliği tek mantıksal işte birleştirir. COMMIT değişiklikleri onaylar, ROLLBACK geri alır. ACID; atomiklik, tutarlılık, yalıtım ve kalıcılık ilkeleridir. SAVEPOINT işlem içinde bir ara nokta kurar; ROLLBACK TO bu noktadan sonraki değişiklikleri geri alabilir. Birden fazla kullanıcı aynı veriyi değiştirdiğinde yalıtım düzeyi ve kilit kuralları çakışmaların nasıl ele alınacağını belirler; davranış DBMS'e göre değişir. Örneğin hesaptan para çıkarma ve diğer hesaba ekleme birlikte başarılı olmalıdır."
+    },
+    {
+      "id": "sql_sql_transactions_2",
+      "topicId": "sql_sql_transactions",
+      "type": "multiple_choice",
+      "prompt": "“Transaction ve ACID” yaklaşımını projeye uygularken hangi adım atılmalıdır?",
+      "options": [
+        "Sorgu, Ada ve 42 değerlerini iki sütunda döndürür.",
+        "Önce sunucu gereksinimini, eşzamanlı yazma sayısını ve gereken yönetim özelliklerini belirleyin.",
+        "Önce küçük ve okunabilir bir SELECT sorgusu yazın; sonucu anladıktan sonra uygulamaya bağlayın.",
+        "Transaction'ı kısa tutun, hataları denetleyin ve uygulamada commit/rollback politikasını açık kurun."
+      ],
+      "answer": "Transaction'ı kısa tutun, hataları denetleyin ve uygulamada commit/rollback politikasını açık kurun.",
+      "explanation": "Transaction'ı kısa tutun, hataları denetleyin ve uygulamada commit/rollback politikasını açık kurun.\nAçıklama: Transaction birden çok değişikliği tek mantıksal işte birleştirir. COMMIT değişiklikleri onaylar, ROLLBACK geri alır. ACID; atomiklik, tutarlılık, yalıtım ve kalıcılık ilkeleridir. SAVEPOINT işlem içinde bir ara nokta kurar; ROLLBACK TO bu noktadan sonraki değişiklikleri geri alabilir. Birden fazla kullanıcı aynı veriyi değiştirdiğinde yalıtım düzeyi ve kilit kuralları çakışmaların nasıl ele alınacağını belirler; davranış DBMS'e göre değişir. Örneğin hesaptan para çıkarma ve diğer hesaba ekleme birlikte başarılı olmalıdır."
+    },
+    {
+      "id": "sql_sql_transactions_3",
+      "topicId": "sql_sql_transactions",
+      "type": "multiple_choice",
+      "prompt": "“Transaction ve ACID” örneğinde hangi uygulama ayrıntısı önemlidir?",
+      "options": [
+        "Önce küçük ve okunabilir bir SELECT sorgusu yazın; sonucu anladıktan sonra uygulamaya bağlayın.",
+        "Yalıtım düzeyleri ve kilit davranışı motora göre değişir; SQLite ve PostgreSQL aynı eşzamanlılık modelini kullanmaz.",
+        "Sorgu, Ada ve 42 değerlerini iki sütunda döndürür.",
+        "SQL veritabanının kendisi değildir; SQLite, PostgreSQL, MySQL ve SQL Server farklı SQL lehçeleri olan veritabanı sistemleridir."
+      ],
+      "answer": "Yalıtım düzeyleri ve kilit davranışı motora göre değişir; SQLite ve PostgreSQL aynı eşzamanlılık modelini kullanmaz.",
+      "explanation": "Yalıtım düzeyleri ve kilit davranışı motora göre değişir; SQLite ve PostgreSQL aynı eşzamanlılık modelini kullanmaz.\nAçıklama: Transaction birden çok değişikliği tek mantıksal işte birleştirir. COMMIT değişiklikleri onaylar, ROLLBACK geri alır. ACID; atomiklik, tutarlılık, yalıtım ve kalıcılık ilkeleridir. SAVEPOINT işlem içinde bir ara nokta kurar; ROLLBACK TO bu noktadan sonraki değişiklikleri geri alabilir. Birden fazla kullanıcı aynı veriyi değiştirdiğinde yalıtım düzeyi ve kilit kuralları çakışmaların nasıl ele alınacağını belirler; davranış DBMS'e göre değişir. Örneğin hesaptan para çıkarma ve diğer hesaba ekleme birlikte başarılı olmalıdır."
+    },
+    {
+      "id": "sql_sql_transactions_4",
+      "topicId": "sql_sql_transactions",
+      "type": "multiple_choice",
+      "prompt": "“Transaction ve ACID” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
+      "options": [
+        "Önce küçük ve okunabilir bir SELECT sorgusu yazın; sonucu anladıktan sonra uygulamaya bağlayın.",
+        "Sorgu, Ada ve 42 değerlerini iki sütunda döndürür.",
+        "SQL bir standarttır; ancak veritabanlarının lehçeleri, türleri ve bazı işlevleri farklıdır. Hedef sistemin belgelerini kontrol edin.",
+        "COMMIT öncesi hata oluşursa rollback yapın; kısmi değişiklik iş kuralını bozabilir."
+      ],
+      "answer": "COMMIT öncesi hata oluşursa rollback yapın; kısmi değişiklik iş kuralını bozabilir.",
+      "explanation": "COMMIT öncesi hata oluşursa rollback yapın; kısmi değişiklik iş kuralını bozabilir.\nAçıklama: Transaction birden çok değişikliği tek mantıksal işte birleştirir. COMMIT değişiklikleri onaylar, ROLLBACK geri alır. ACID; atomiklik, tutarlılık, yalıtım ve kalıcılık ilkeleridir. SAVEPOINT işlem içinde bir ara nokta kurar; ROLLBACK TO bu noktadan sonraki değişiklikleri geri alabilir. Birden fazla kullanıcı aynı veriyi değiştirdiğinde yalıtım düzeyi ve kilit kuralları çakışmaların nasıl ele alınacağını belirler; davranış DBMS'e göre değişir. Örneğin hesaptan para çıkarma ve diğer hesaba ekleme birlikte başarılı olmalıdır."
+    }
+  ]
+}

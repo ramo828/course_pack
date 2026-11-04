@@ -18,59 +18,7 @@
     },
     {
       "type": "text",
-      "text": "Bu dərsin məqsədi “ESP32 Arduino-da FreeRTOS: sensor tapşırıq və növbə” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Növbə məlumatı dəyər kimi köçürür; sensor tapşırığı hər yarım saniyədə ölçü göndərir, ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "loop()",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " isə qəbul etdiklərini çap edir. Real ölçmə ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "A0",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": "-ın lövhədə ADC-yə qoşulmuş pinlə əvəz edilməsini tələb edir. Real layihədə bu göstərişə əməl edin: Tətbiq ardıcıllığı: 1) növbə yarat; 2) tapşırıq yaratmanın nəticəsini yoxla; 3) tapşırıqda sensoru oxu və növbəyə vaxt limiti ilə göndər; 4) ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "loop()",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": "-da növbədəki məlumatı qəbul et; 5) növbə dolanda nə ediləcəyini müəyyən et. ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "xTaskCreatePinnedToCore",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " yalnız xüsusi səbəb olduqda lazımdır; pinləmə işi avtomatik sürətləndirmir. ESP-IDF SMP planlaşdırması və Arduino-ESP32 API davranışı versiyadan asılıdır.\n\n",
+      "text": "Bu dərsin məqsədi “ESP32 Arduino-da FreeRTOS: sensor tapşırıq və növbə” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Növbə məlumatı dəyər kimi köçürür; sensor tapşırığı hər yarım saniyədə ölçü göndərir, `loop()` isə qəbul etdiklərini çap edir. Real ölçmə `A0`-ın lövhədə ADC-yə qoşulmuş pinlə əvəz edilməsini tələb edir. Real layihədə bu göstərişə əməl edin: Tətbiq ardıcıllığı: 1) növbə yarat; 2) tapşırıq yaratmanın nəticəsini yoxla; 3) tapşırıqda sensoru oxu və növbəyə vaxt limiti ilə göndər; 4) `loop()`-da növbədəki məlumatı qəbul et; 5) növbə dolanda nə ediləcəyini müəyyən et. `xTaskCreatePinnedToCore` yalnız xüsusi səbəb olduqda lazımdır; pinləmə işi avtomatik sürətləndirmir. ESP-IDF SMP planlaşdırması və Arduino-ESP32 API davranışı versiyadan asılıdır.\n\n",
       "size": 17,
       "color": "#212121"
     },
@@ -115,19 +63,7 @@
     },
     {
       "type": "text",
-      "text": "Arduino-ESP32 proqram platforması FreeRTOS nüvəsini özündə saxlayır; ayrıca RTOS kitabxanası quraşdırmaq lazım deyil. Sensoru oxuyan tapşırıq məlumatı növbəyə göndərir, ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "loop()",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " isə onu alıb ekrana yazır. Beləliklə, sensor işi ilə çıxış işi ayrılır və ortaq dəyişəni qorumaq ehtiyacı azalır. Klassik UNO-nun standart proqram mühiti ESP32 ilə eyni tapşırıq API-sini təqdim etmir; başqa lövhədə uyğun RTOS portu və yaddaş tələblərini ayrıca yoxlayın.\n\n",
+      "text": "Arduino-ESP32 proqram platforması FreeRTOS nüvəsini özündə saxlayır; ayrıca RTOS kitabxanası quraşdırmaq lazım deyil. Sensoru oxuyan tapşırıq məlumatı növbəyə göndərir, `loop()` isə onu alıb ekrana yazır. Beləliklə, sensor işi ilə çıxış işi ayrılır və ortaq dəyişəni qorumaq ehtiyacı azalır. Klassik UNO-nun standart proqram mühiti ESP32 ilə eyni tapşırıq API-sini təqdim etmir; başqa lövhədə uyğun RTOS portu və yaddaş tələblərini ayrıca yoxlayın.\n\n",
       "size": 17
     },
     {
@@ -139,79 +75,7 @@
     },
     {
       "type": "text",
-      "text": "Kod sətri: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "if (xTaskCreate(sensorTask, \"sensor\", 3072, nullptr, 1, nullptr) != pdPASS) {",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nNə edir: Növbə məlumatı dəyər kimi köçürür; sensor tapşırığı hər yarım saniyədə ölçü göndərir, ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "loop()",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " isə qəbul etdiklərini çap edir. Real ölçmə ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "A0",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "-ın lövhədə ADC-yə qoşulmuş pinlə əvəz edilməsini tələb edir.\nNiyə seçilib: Tətbiq ardıcıllığı: 1) növbə yarat; 2) tapşırıq yaratmanın nəticəsini yoxla; 3) tapşırıqda sensoru oxu və növbəyə vaxt limiti ilə göndər; 4) ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "loop()",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "-da növbədəki məlumatı qəbul et; 5) növbə dolanda nə ediləcəyini müəyyən et. ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "xTaskCreatePinnedToCore",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " yalnız xüsusi səbəb olduqda lazımdır; pinləmə işi avtomatik sürətləndirmir. ESP-IDF SMP planlaşdırması və Arduino-ESP32 API davranışı versiyadan asılıdır.\nBuraxılsa və ya dəyişdirilsə: ESP32 Arduino Nüvə FreeRTOS API-sini özündə ehtiva edir; nümunədəki yığın yaddaşının ölçüsü və ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "A0",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " pini bütün lövhələr üçün universal deyil. Növbə və tapşırıq yaradılmasını yoxlayın; növbə dolması üçün siyasət seçin. Sensor oxuma və Serial yazısı bloklana bilər, buna görə yüksək prioritet və sərt vaxt zəmanəti tələb olunan sistemdə əlavə ölçmə aparın.\n\n",
+      "text": "Kod sətri: `if (xTaskCreate(sensorTask, \"sensor\", 3072, nullptr, 1, nullptr) != pdPASS) {`\nNə edir: Növbə məlumatı dəyər kimi köçürür; sensor tapşırığı hər yarım saniyədə ölçü göndərir, `loop()` isə qəbul etdiklərini çap edir. Real ölçmə `A0`-ın lövhədə ADC-yə qoşulmuş pinlə əvəz edilməsini tələb edir.\nNiyə seçilib: Tətbiq ardıcıllığı: 1) növbə yarat; 2) tapşırıq yaratmanın nəticəsini yoxla; 3) tapşırıqda sensoru oxu və növbəyə vaxt limiti ilə göndər; 4) `loop()`-da növbədəki məlumatı qəbul et; 5) növbə dolanda nə ediləcəyini müəyyən et. `xTaskCreatePinnedToCore` yalnız xüsusi səbəb olduqda lazımdır; pinləmə işi avtomatik sürətləndirmir. ESP-IDF SMP planlaşdırması və Arduino-ESP32 API davranışı versiyadan asılıdır.\nBuraxılsa və ya dəyişdirilsə: ESP32 Arduino Nüvə FreeRTOS API-sini özündə ehtiva edir; nümunədəki yığın yaddaşının ölçüsü və `A0` pini bütün lövhələr üçün universal deyil. Növbə və tapşırıq yaradılmasını yoxlayın; növbə dolması üçün siyasət seçin. Sensor oxuma və Serial yazısı bloklana bilər, buna görə yüksək prioritet və sərt vaxt zəmanəti tələb olunan sistemdə əlavə ölçmə aparın.\n\n",
       "size": 16
     },
     {
@@ -228,39 +92,7 @@
     },
     {
       "type": "text",
-      "text": "Növbə məlumatı dəyər kimi köçürür; sensor tapşırığı hər yarım saniyədə ölçü göndərir, ",
-      "size": 17,
-      "color": "#00695C",
-      "bold": true,
-      "italic": true
-    },
-    {
-      "type": "text",
-      "text": "loop()",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true,
-      "italic": true
-    },
-    {
-      "type": "text",
-      "text": " isə qəbul etdiklərini çap edir. Real ölçmə ",
-      "size": 17,
-      "color": "#00695C",
-      "bold": true,
-      "italic": true
-    },
-    {
-      "type": "text",
-      "text": "A0",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true,
-      "italic": true
-    },
-    {
-      "type": "text",
-      "text": "-ın lövhədə ADC-yə qoşulmuş pinlə əvəz edilməsini tələb edir.\n\n",
+      "text": "Növbə məlumatı dəyər kimi köçürür; sensor tapşırığı hər yarım saniyədə ölçü göndərir, `loop()` isə qəbul etdiklərini çap edir. Real ölçmə `A0`-ın lövhədə ADC-yə qoşulmuş pinlə əvəz edilməsini tələb edir.\n\n",
       "size": 17,
       "color": "#00695C",
       "bold": true,
@@ -293,19 +125,7 @@
     },
     {
       "type": "text",
-      "text": "Növbə tapşırığının işlədiyi müddətdə Serial Monitor təxminən yarım saniyədə bir ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "sample=7",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " göstərir.\n\n",
+      "text": "Növbə tapşırığının işlədiyi müddətdə Serial Monitor təxminən yarım saniyədə bir `sample=7` göstərir.\n\n",
       "size": 16
     },
     {

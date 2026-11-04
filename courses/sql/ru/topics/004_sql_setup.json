@@ -1,0 +1,153 @@
+{
+  "id": "sql_sql_setup",
+  "title": "Установка SQL-инструментов: Windows, macOS и Linux",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_setup_ru",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "«Установка SQL-инструментов: Windows, macOS и Linux» помогает решать конкретную задачу программы. Сначала определите входные данные и ожидаемый результат, затем проследите роль конструкции в примере. Изучайте её не только как синтаксис, но и с точки зрения читаемости, корректности, ресурсов и будущих изменений.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT sqlite_version();\n-- Windows: install official SQLite CLI and add it to PATH\n-- macOS: brew install sqlite\n-- Debian/Ubuntu: sudo apt install sqlite3\n-- Verify: sqlite3 --version",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Показывается версия движка; точное значение зависит от установленной версии.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Для работы с SQL нужны СУБД и инструмент для ввода запросов и просмотра результата. SQLite удобен для начала: он хранит базу в одном файле и не требует отдельного сервера; DB Browser for SQLite добавляет графический интерфейс. В Windows загрузите CLI-инструменты со страницы SQLite и добавьте папку в PATH. В macOS их можно установить через Homebrew командой `brew install sqlite`, в Debian/Ubuntu — `sudo apt install sqlite3`. Для других дистрибутивов используйте официальный пакетный менеджер. Для PostgreSQL доступны официальные установщики и инструкции для всех трёх ОС. DB Browser также выпускается для Windows, macOS и Linux. Проверьте установку командой `sqlite3 --version`, откройте учебный файл через `sqlite3 school.db`, а для выхода выполните `.quit`.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: `SELECT sqlite_version();`\nЧто она делает: Проверьте SQLite командой sqlite3 --version; sqlite3 school.db откроет локальный файл базы.\nЗачем она нужна: Используйте официальный источник и выберите пакет для своей ОС и архитектуры процессора.\nЕсли пропустить или изменить: SQLite CLI и DB Browser могут работать с одним движком SQLite: первый — интерфейс командной строки, второй — графический.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Имя пакета Linux зависит от дистрибутива; не скачивайте бинарные файлы с неизвестных сайтов. Открывайте PostgreSQL только в доверенной сети."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Проверьте SQLite командой sqlite3 --version; sqlite3 school.db откроет локальный файл базы.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Используйте официальный источник и выберите пакет для своей ОС и архитектуры процессора."
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "SQLite CLI и DB Browser могут работать с одним движком SQLite: первый — интерфейс командной строки, второй — графический."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Имя пакета Linux зависит от дистрибутива; не скачивайте бинарные файлы с неизвестных сайтов. Открывайте PostgreSQL только в доверенной сети."
+    },
+    {
+      "type": "diagram",
+      "id": "tool_install_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

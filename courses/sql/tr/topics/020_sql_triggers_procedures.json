@@ -1,0 +1,148 @@
+{
+  "id": "sql_sql_triggers_procedures",
+  "title": "Görünümler, tetikleyiciler ve saklı yordamlar",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_triggers_procedures_tr",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Görünümler, tetikleyiciler ve saklı yordamlar” gerçek bir programlama problemine çözüm üretmek için kullanılır. Önce girdiyi ve beklenen sonucu belirleyin; sonra örnekteki yapının hangi işi üstlendiğini izleyin. Konuyu yalnızca sözdizimi olarak değil, okunabilirlik, doğruluk, kaynak kullanımı ve ilerideki değişikliklere etkisiyle değerlendirin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "CREATE TABLE price_audit (\n  product_id INTEGER,\n  old_price INTEGER,\n  new_price INTEGER\n);\n\nCREATE TRIGGER audit_price_change\nAFTER UPDATE OF price_cents ON products\nWHEN OLD.price_cents <> NEW.price_cents\nBEGIN\n  INSERT INTO price_audit\n  VALUES (NEW.product_id, OLD.price_cents, NEW.price_cents);\nEND;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Fiyat değiştiğinde trigger eski ve yeni fiyatı price_audit tablosuna yazar.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "VIEW adlandırılmış bir SELECT sorgusudur; verinin ayrı bir kopyası değildir. Trigger, tabloda INSERT, UPDATE veya DELETE olduğunda otomatik çalışır ve denetim kaydı gibi kurallarda kullanılabilir. Stored procedure ve function veritabanında saklanan program mantığıdır; PostgreSQL ve MySQL bu özellikleri sunar, ancak dil ve sözdizimleri farklıdır. SQLite trigger'ları destekler ama sunucu türü bir stored procedure sistemi sağlamaz. Aynı kuralı hem uygulamada hem trigger'da yinelemek yerine mantığın sahibini açıkça belirleyin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: `CREATE TABLE price_audit (`\nNe yapar: Fiyat değiştiğinde trigger eski ve yeni fiyatı price_audit tablosuna yazar.\nNeden seçildi: Trigger yan etkilerini ve döngü oluşturabilecek başka trigger'ları belgeleyin; değişiklikleri migration ve testlerle doğrulayın.\nAtlanır veya değiştirilirse: Stored procedure sözdizimi PostgreSQL ve MySQL arasında taşınabilir değildir; SQLite örneği yalnızca trigger sözdizimini gösterir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Trigger yan etkileri sorgudan görünmeyebilir; canlı veritabanında oluşturmadan önce etkisini inceleyin."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Fiyat değiştiğinde trigger eski ve yeni fiyatı price_audit tablosuna yazar.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Trigger yan etkilerini ve döngü oluşturabilecek başka trigger'ları belgeleyin; değişiklikleri migration ve testlerle doğrulayın."
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Stored procedure sözdizimi PostgreSQL ve MySQL arasında taşınabilir değildir; SQLite örneği yalnızca trigger sözdizimini gösterir."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Trigger yan etkileri sorgudan görünmeyebilir; canlı veritabanında oluşturmadan önce etkisini inceleyin."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

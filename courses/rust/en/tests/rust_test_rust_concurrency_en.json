@@ -9,7 +9,7 @@
       "prompt": "Which statement gives the core rule for “Threads and shared state”?",
       "options": [
         "Mutex protects concurrent access to shared state.",
-        "Use rustup to keep toolchain updates and installed versions explicit.",
+        "Obtain the installer from rust-lang.org and install native prerequisites only for the target you need.",
         "Rust bindings are immutable unless declared mut.",
         "Cargo is the main tool for creating, building, and testing projects."
       ],
@@ -23,7 +23,7 @@
       "prompt": "When applying “Threads and shared state” in a project, which action is recommended?",
       "options": [
         "Cargo is the main tool for creating, building, and testing projects.",
-        "Use rustup to keep toolchain updates and installed versions explicit.",
+        "Obtain the installer from rust-lang.org and install native prerequisites only for the target you need.",
         "Holding a lock during slow I/O can block other threads.",
         "Enable mutability only where it is needed."
       ],
@@ -36,10 +36,10 @@
       "type": "multiple_choice",
       "prompt": "Which implementation detail matters in the “Threads and shared state” example?",
       "options": [
-        "Rust bindings are immutable unless declared mut.",
-        "Use rustup to keep toolchain updates and installed versions explicit.",
+        "Obtain the installer from rust-lang.org and install native prerequisites only for the target you need.",
+        "Cargo is the main tool for creating, building, and testing projects.",
         "Rust provides threads and message passing in the standard library",
-        "Cargo is the main tool for creating, building, and testing projects."
+        "rustup manages toolchains and targets; Cargo manages project builds, dependencies, and tests."
       ],
       "answer": "Rust provides threads and message passing in the standard library",
       "explanation": "Rust provides threads and message passing in the standard library\nWhy: Rust provides threads and message passing in the standard library. Understand Send/Sync, mutex protection, and lock scope; prefer simple message passing where practical.\n\n`Send` means ownership can move between threads; `Sync` means `&T` can be shared between threads safely. The compiler usually derives these traits. `Rc<T>` is not thread-safe; `Arc<T>` provides atomic reference counting, while shared mutation needs a `Mutex` or `RwLock`. `Arc` alone does not make its contents safe. Tokio `spawn` generally requires a `Send + 'static` future."
@@ -50,10 +50,10 @@
       "type": "multiple_choice",
       "prompt": "Which additional constraint or condition should be checked for “Threads and shared state”?",
       "options": [
-        "Rust bindings are immutable unless declared mut.",
-        "Use rustup to keep toolchain updates and installed versions explicit.",
+        "Obtain the installer from rust-lang.org and install native prerequisites only for the target you need.",
+        "Cargo is the main tool for creating, building, and testing projects.",
         "Handle mutex poisoning and avoid risky callbacks while holding a lock.",
-        "Cargo is the main tool for creating, building, and testing projects."
+        "Check PATH changes on managed computers; MSVC and GNU targets can require different linkers and native dependencies."
       ],
       "answer": "Handle mutex poisoning and avoid risky callbacks while holding a lock.",
       "explanation": "Handle mutex poisoning and avoid risky callbacks while holding a lock.\nWhy: Rust provides threads and message passing in the standard library. Understand Send/Sync, mutex protection, and lock scope; prefer simple message passing where practical.\n\n`Send` means ownership can move between threads; `Sync` means `&T` can be shared between threads safely. The compiler usually derives these traits. `Rc<T>` is not thread-safe; `Arc<T>` provides atomic reference counting, while shared mutation needs a `Mutex` or `RwLock`. `Arc` alone does not make its contents safe. Tokio `spawn` generally requires a `Send + 'static` future."

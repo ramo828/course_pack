@@ -1,0 +1,148 @@
+{
+  "id": "sql_sql_query_plans",
+  "title": "Sorgu planı ve performansın incelenmesi",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_query_plans_tr",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Sorgu planı ve performansın incelenmesi” gerçek bir programlama problemine çözüm üretmek için kullanılır. Önce girdiyi ve beklenen sonucu belirleyin; sonra örnekteki yapının hangi işi üstlendiğini izleyin. Konuyu yalnızca sözdizimi olarak değil, okunabilirlik, doğruluk, kaynak kullanımı ve ilerideki değişikliklere etkisiyle değerlendirin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "EXPLAIN QUERY PLAN\nSELECT course_id\nFROM enrollments\nWHERE student_id = 7;\n\n-- PostgreSQL/MySQL:\n-- EXPLAIN SELECT course_id\n-- FROM enrollments WHERE student_id = 7;\n\n-- SQLite/PostgreSQL:\nANALYZE;\n-- MySQL:\n-- ANALYZE TABLE enrollments;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Plan student_id aramasının nasıl yapıldığını gösterir; indeks kullanımı veriye ve eniyileyiciye bağlıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sorgu yavaşsa önce küçük ve temsili veride ölçün, sonra planı inceleyin. `EXPLAIN` DBMS'in seçtiği işlemleri gösterir; SQLite'ta `EXPLAIN QUERY PLAN`, PostgreSQL ve MySQL'de `EXPLAIN` kullanılır. Plan tam tablo taramasını, indeks aramasını ve birleştirme adımlarını gösterebilir. Filtre ve birleştirmelerde kullanılan sütunlara uygun indeksler, istatistikleri yenilemek için `ANALYZE`, gereksiz sütun ve satırları okumamak performansa yardımcı olabilir. Plan çıktısı motor sürümünde değişebilir; uygulama kodunda sabit biçim varsaymayın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: `EXPLAIN QUERY PLAN`\nNe yapar: Plan student_id aramasının nasıl yapıldığını gösterir; indeks kullanımı veriye ve eniyileyiciye bağlıdır.\nNeden seçildi: Bazı sistemlerde EXPLAIN ANALYZE sorguyu gerçekten çalıştırır; değişiklik yapan sorgularda dikkatli olun.\nAtlanır veya değiştirilirse: PostgreSQL EXPLAIN ANALYZE gerçek yürütmeyi ölçer; SQLite belgeleri EXPLAIN QUERY PLAN çıktısının sürümlerde değişebileceğini belirtir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Küçük tabloda tam tarama indeksten hızlı olabilir; planı gerçekçi veri hacminde ölçün."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Plan student_id aramasının nasıl yapıldığını gösterir; indeks kullanımı veriye ve eniyileyiciye bağlıdır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Bazı sistemlerde EXPLAIN ANALYZE sorguyu gerçekten çalıştırır; değişiklik yapan sorgularda dikkatli olun."
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "PostgreSQL EXPLAIN ANALYZE gerçek yürütmeyi ölçer; SQLite belgeleri EXPLAIN QUERY PLAN çıktısının sürümlerde değişebileceğini belirtir."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Küçük tabloda tam tarama indeksten hızlı olabilir; planı gerçekçi veri hacminde ölçün."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

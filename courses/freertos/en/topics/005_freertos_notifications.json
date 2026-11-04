@@ -62,19 +62,7 @@
     },
     {
       "type": "text",
-      "text": "A task notification sends a lightweight signal directly to one task and often uses less RAM than a separate queue for one receiver. ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "ulTaskNotifyTake",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " waits for that signal; event groups fit multiple consumers or sets of event bits. Ensure the task handle is valid and decide whether notifications accumulate or clear.\n\n",
+      "text": "A task notification sends a lightweight signal directly to one task and often uses less RAM than a separate queue for one receiver. `ulTaskNotifyTake` waits for that signal; event groups fit multiple consumers or sets of event bits. Ensure the task handle is valid and decide whether notifications accumulate or clear.\n\n",
       "size": 17
     },
     {
@@ -86,19 +74,7 @@
     },
     {
       "type": "text",
-      "text": "Key line: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "void receiverTask(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"one event\"); } }",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nWhat it does: A notification targets one task and is not a general-purpose data queue.\nWhy it is used: Prefer a notification for one receiver; use event groups when several event bits are needed.\nIf omitted or changed: Counter, bit-mask, and overwrite modes have different semantics; sender and receiver must agree.\n\n",
+      "text": "Key line: `void receiverTask(void*) { for (;;) { ulTaskNotifyTake(pdTRUE, portMAX_DELAY); Serial.println(\"one event\"); } }`\nWhat it does: A notification targets one task and is not a general-purpose data queue.\nWhy it is used: Prefer a notification for one receiver; use event groups when several event bits are needed.\nIf omitted or changed: Counter, bit-mask, and overwrite modes have different semantics; sender and receiver must agree.\n\n",
       "size": 16
     },
     {

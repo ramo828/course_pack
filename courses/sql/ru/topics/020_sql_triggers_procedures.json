@@ -1,0 +1,148 @@
+{
+  "id": "sql_sql_triggers_procedures",
+  "title": "Представления, триггеры и хранимые процедуры",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_triggers_procedures_ru",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "«Представления, триггеры и хранимые процедуры» помогает решать конкретную задачу программы. Сначала определите входные данные и ожидаемый результат, затем проследите роль конструкции в примере. Изучайте её не только как синтаксис, но и с точки зрения читаемости, корректности, ресурсов и будущих изменений.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "CREATE TABLE price_audit (\n  product_id INTEGER,\n  old_price INTEGER,\n  new_price INTEGER\n);\n\nCREATE TRIGGER audit_price_change\nAFTER UPDATE OF price_cents ON products\nWHEN OLD.price_cents <> NEW.price_cents\nBEGIN\n  INSERT INTO price_audit\n  VALUES (NEW.product_id, OLD.price_cents, NEW.price_cents);\nEND;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "При изменении цены триггер записывает старое и новое значения в price_audit.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "VIEW — именованный запрос SELECT, а не отдельная копия данных. Триггер автоматически срабатывает после INSERT, UPDATE или DELETE и может, например, записывать аудит. Хранимые процедуры и функции содержат программную логику в СУБД; PostgreSQL и MySQL поддерживают их, но синтаксис и языки различаются. SQLite поддерживает триггеры, но не предоставляет серверную систему хранимых процедур. Явно определяйте, где находится правило, чтобы не дублировать его в приложении и триггере.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: `CREATE TABLE price_audit (`\nЧто она делает: При изменении цены триггер записывает старое и новое значения в price_audit.\nЗачем она нужна: Документируйте побочные эффекты и цепочки триггеров; проверяйте изменения миграциями и тестами.\nЕсли пропустить или изменить: Синтаксис процедур PostgreSQL и MySQL несовместим; пример показывает только триггер SQLite.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Побочные эффекты триггера могут быть незаметны в запросе; проверьте его работу до применения к рабочим данным."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "При изменении цены триггер записывает старое и новое значения в price_audit.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Документируйте побочные эффекты и цепочки триггеров; проверяйте изменения миграциями и тестами."
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Синтаксис процедур PostgreSQL и MySQL несовместим; пример показывает только триггер SQLite."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Побочные эффекты триггера могут быть незаметны в запросе; проверьте его работу до применения к рабочим данным."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Отдельная иллюстрация не обязательна; небольшого запускаемого примера и ожидаемого результата достаточно."
+}

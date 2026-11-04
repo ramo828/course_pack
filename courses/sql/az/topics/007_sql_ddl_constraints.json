@@ -1,0 +1,148 @@
+{
+  "id": "sql_sql_ddl_constraints",
+  "title": "Cədvəl yaratmaq, tiplər və məhdudiyyətlər",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_ddl_constraints_az",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Cədvəl yaratmaq, tiplər və məhdudiyyətlər” real proqramda konkret problemi həll etmək üçün seçilir. Əvvəl giriş və gözlənilən nəticəni müəyyənləşdirin, sonra nümunədəki anlayışın hansı işi gördüyünü izləyin. Bu mövzu kursda tək sintaksis deyil: oxunaqlılıq, düzgünlük, resurs istifadəsi və gələcək dəyişikliklərə təsiri ilə birlikdə öyrənilməlidir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "CREATE TABLE products (\n  product_id INTEGER PRIMARY KEY,\n  name TEXT NOT NULL UNIQUE,\n  price_cents INTEGER NOT NULL CHECK (price_cents >= 0)\n);",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "name boş ola bilməz və təkrarlana bilməz; qiymət qəpiklə saxlanır və mənfi ola bilməz.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "DDL sxemi yaradır və dəyişir: CREATE TABLE cədvəl qurur, ALTER TABLE mövcud sxemi dəyişir, DROP TABLE isə onu silir. Mühərrikə uyğun tipləri seçin; SQLite tipləri daha elastik saxlayır, PostgreSQL isə tip yoxlamasını daha sərt edir. NOT NULL, UNIQUE, CHECK və FOREIGN KEY qaydaları səhv məlumatın bazaya yazılmasının qarşısını alır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: `CREATE TABLE products (`\nNə edir: name boş ola bilməz və təkrarlana bilməz; qiymət qəpiklə saxlanır və mənfi ola bilməz.\nNiyə seçilib: Qaydanı yalnız tətbiqdə deyil, verilənlər bazasında da qoyun; bazaya başqa proqram da yaza bilər.\nBuraxılsa və ya dəyişdirilsə: Pul dəyərlərini dəqiq hesablayanda üzən nöqtə əvəzinə qəpik kimi tam ədəd və ya mühərrikin dəqiq decimal tipindən istifadə edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "DROP TABLE məlumatı silə bilər; işlək sistemdə sxem dəyişikliyini ehtiyat nüsxə və yoxlanmış köçürmə skripti ilə aparın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "name boş ola bilməz və təkrarlana bilməz; qiymət qəpiklə saxlanır və mənfi ola bilməz.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Qaydanı yalnız tətbiqdə deyil, verilənlər bazasında da qoyun; bazaya başqa proqram da yaza bilər."
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Pul dəyərlərini dəqiq hesablayanda üzən nöqtə əvəzinə qəpik kimi tam ədəd və ya mühərrikin dəqiq decimal tipindən istifadə edin."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "DROP TABLE məlumatı silə bilər; işlək sistemdə sxem dəyişikliyini ehtiyat nüsxə və yoxlanmış köçürmə skripti ilə aparın."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

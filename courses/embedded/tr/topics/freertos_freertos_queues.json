@@ -62,31 +62,7 @@
     },
     {
       "type": "text",
-      "text": "Kuyruk, sabit boyutlu elemanları FIFO düzeninde tutar ve producer-consumer görevlerini ayırır. ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "xQueueSend",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " ve ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "xQueueReceive",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " zaman aşımıyla bloklanabilir; payload kopyalanır, büyük nesnelerde işaretçi ömrünü ayrıca yönetin. Kuyruk dolduğunda veriyi sessizce kaybetmek yerine gönderim sonucunu denetleyin.\n\n",
+      "text": "Kuyruk, sabit boyutlu elemanları FIFO düzeninde tutar ve producer-consumer görevlerini ayırır. `xQueueSend` ve `xQueueReceive` zaman aşımıyla bloklanabilir; payload kopyalanır, büyük nesnelerde işaretçi ömrünü ayrıca yönetin. Kuyruk dolduğunda veriyi sessizce kaybetmek yerine gönderim sonucunu denetleyin.\n\n",
       "size": 17
     },
     {
@@ -98,19 +74,7 @@
     },
     {
       "type": "text",
-      "text": "Kod satırı: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "void producer(void*) { int value = 0; for (;;) { ++value; if (xQueueSend(readings, &value, pdMS_TO_TICKS(100)) != pdPASS) vTaskDelay(pdMS_TO_TICKS(100)); vTaskDelay(pdMS_TO_TICKS(500)); } }",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nNe yapar: Kuyruk, ortak global değişkenden daha açık bir sahiplik ve eşzamanlama sınırı sağlar.\nNeden seçildi: Kuyruk boyutunu en büyük burst ve tüketim hızına göre seçin; dolu kuyruk davranışını tanımlayın.\nAtlanır veya değiştirilirse: Kuyruk handle oluşturmanın başarılı olduğunu denetleyin; boyutu büyütmek RAM tüketir.\n\n",
+      "text": "Kod satırı: `void producer(void*) { int value = 0; for (;;) { ++value; if (xQueueSend(readings, &value, pdMS_TO_TICKS(100)) != pdPASS) vTaskDelay(pdMS_TO_TICKS(100)); vTaskDelay(pdMS_TO_TICKS(500)); } }`\nNe yapar: Kuyruk, ortak global değişkenden daha açık bir sahiplik ve eşzamanlama sınırı sağlar.\nNeden seçildi: Kuyruk boyutunu en büyük burst ve tüketim hızına göre seçin; dolu kuyruk davranışını tanımlayın.\nAtlanır veya değiştirilirse: Kuyruk handle oluşturmanın başarılı olduğunu denetleyin; boyutu büyütmek RAM tüketir.\n\n",
       "size": 16
     },
     {

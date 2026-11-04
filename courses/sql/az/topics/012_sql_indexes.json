@@ -1,0 +1,123 @@
+{
+  "id": "sql_sql_indexes",
+  "title": "İndekslər və EXPLAIN",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_indexes_az",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“İndekslər və EXPLAIN” real proqramda konkret problemi həll etmək üçün seçilir. Əvvəl giriş və gözlənilən nəticəni müəyyənləşdirin, sonra nümunədəki anlayışın hansı işi gördüyünü izləyin. Bu mövzu kursda tək sintaksis deyil: oxunaqlılıq, düzgünlük, resurs istifadəsi və gələcək dəyişikliklərə təsiri ilə birlikdə öyrənilməlidir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "CREATE INDEX idx_enrollments_student\nON enrollments(student_id);\n\nEXPLAIN QUERY PLAN\nSELECT course_id\nFROM enrollments\nWHERE student_id = 7;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "İndeks student_id üzrə axtarış üçün namizəddir; planın seçilməsi məlumat və mühərrikdən asılıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "İndeks seçilən sütunlar üzrə axtarışı sürətləndirə bilən əlavə verilənlər strukturudur. PRIMARY KEY və UNIQUE çox vaxt indeks yaradır; digər indeksləri tez-tez süzülən və birləşdirilən sütunlara görə düşünün. EXPLAIN və mühərrikin analiz alətləri sorğu planını göstərir. İndeks oxunu sürətləndirə bilər, amma disk sahəsi tutur və INSERT/UPDATE/DELETE zamanı yenilənməlidir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: `CREATE INDEX idx_enrollments_student`\nNə edir: İndeks student_id üzrə axtarış üçün namizəddir; planın seçilməsi məlumat və mühərrikdən asılıdır.\nNiyə seçilib: Əvvəl real sorğu planını və ölçməni yoxlayın; bütün sütunlara kor-koranə indeks əlavə etməyin.\nBuraxılsa və ya dəyişdirilsə: Çoxsütunlu indeksdə sütunların sırası vacibdir və hansı sorğulara kömək edəcəyi mühərrikdən asılıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "İndeksin olması optimizatorun onu seçəcəyinə zəmanət vermir; kiçik cədvəldə tam skan daha ucuz ola bilər."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "İndeks student_id üzrə axtarış üçün namizəddir; planın seçilməsi məlumat və mühərrikdən asılıdır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Əvvəl real sorğu planını və ölçməni yoxlayın; bütün sütunlara kor-koranə indeks əlavə etməyin."
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Çoxsütunlu indeksdə sütunların sırası vacibdir və hansı sorğulara kömək edəcəyi mühərrikdən asılıdır."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "İndeksin olması optimizatorun onu seçəcəyinə zəmanət vermir; kiçik cədvəldə tam skan daha ucuz ola bilər."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

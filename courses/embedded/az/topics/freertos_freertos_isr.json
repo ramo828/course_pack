@@ -62,19 +62,7 @@
     },
     {
       "type": "text",
-      "text": "Interrupt service routine (ISR) aparat hadisəsinə dərhal cavab verir; içində yalnız qısa, gecikməyən əməliyyat olmalıdır. FreeRTOS ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "FromISR",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " API-ləri ISR-dən növbə və notification istifadə etməyə imkan verir; sensor oxumağı, loglamağı və protokol emalını adi tapşırığa verin. ISR təhlükəsiz API seçimi, IRAM tələbi və pin interrupt qabiliyyəti hədəf sistem/lövhə-dan asılıdır.\n\n",
+      "text": "Interrupt service routine (ISR) aparat hadisəsinə dərhal cavab verir; içində yalnız qısa, gecikməyən əməliyyat olmalıdır. FreeRTOS `FromISR` API-ləri ISR-dən növbə və notification istifadə etməyə imkan verir; sensor oxumağı, loglamağı və protokol emalını adi tapşırığa verin. ISR təhlükəsiz API seçimi, IRAM tələbi və pin interrupt qabiliyyəti hədəf sistem/lövhə-dan asılıdır.\n\n",
       "size": 17
     },
     {
@@ -86,19 +74,7 @@
     },
     {
       "type": "text",
-      "text": "Kod sətri: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "void IRAM_ATTR buttonIsr() { const int event = 1; BaseType_t higherPriorityTaskWoken = pdFALSE; if (events == nullptr || xQueueSendFromISR(events, &event, &higherPriorityTaskWoken) != pdPASS) { portENTER_CRITICAL_ISR(&dropMux); ++droppedEvents; portEXIT_CRITICAL_ISR(&dropMux); } if (higherPriorityTaskWoken == pdTRUE) portYIELD_FROM_ISR(); }",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nNə edir: Növbə event-i ISR-dən tapşırığa ötürür; tapşırıq daha uzun işi interrupt-ları bloklamadan yerinə yetirir.\nNiyə seçilib: ISR-də delay, mutex, dinamik allocation və uzun Serial çıxışı istifadə etməyin.\nBuraxılsa və ya dəyişdirilsə: Düymə bounce yaradır; real cihazda debounce və növbə dolu olduqda davranışı da planlaşdırın.\n\n",
+      "text": "Kod sətri: `void IRAM_ATTR buttonIsr() { const int event = 1; BaseType_t higherPriorityTaskWoken = pdFALSE; if (events == nullptr || xQueueSendFromISR(events, &event, &higherPriorityTaskWoken) != pdPASS) { portENTER_CRITICAL_ISR(&dropMux); ++droppedEvents; portEXIT_CRITICAL_ISR(&dropMux); } if (higherPriorityTaskWoken == pdTRUE) portYIELD_FROM_ISR(); }`\nNə edir: Növbə event-i ISR-dən tapşırığa ötürür; tapşırıq daha uzun işi interrupt-ları bloklamadan yerinə yetirir.\nNiyə seçilib: ISR-də delay, mutex, dinamik allocation və uzun Serial çıxışı istifadə etməyin.\nBuraxılsa və ya dəyişdirilsə: Düymə bounce yaradır; real cihazda debounce və növbə dolu olduqda davranışı da planlaşdırın.\n\n",
       "size": 16
     },
     {

@@ -4,10 +4,8 @@
   "difficulty": "easy",
   "testId": "rust_test_rust_install_az",
   "sources": [
-    "https://rust-lang.org/",
     "https://rust-lang.org/tools/install/",
-    "https://doc.rust-lang.org/cargo/",
-    "https://blog.rust-lang.org/2015/05/15/Rust-1.0.html"
+    "https://doc.rust-lang.org/cargo/"
   ],
   "estimatedMinutes": 18,
   "spans": [
@@ -20,7 +18,7 @@
     },
     {
       "type": "text",
-      "text": "Bu dərsin məqsədi “rustup, Cargo və ilk layihə” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Cargo layihə yaratmaq, build və test üçün əsas vasitədir. Real layihədə bu göstərişə əməl edin: Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.\n\n",
+      "text": "Bu dərsin məqsədi “rustup, Cargo və ilk layihə” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Cargo layihə yaratmaq, build və test üçün əsas vasitədir. Real layihədə bu göstərişə əməl edin: Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın.\n\n",
       "size": 17,
       "color": "#212121"
     },
@@ -40,7 +38,7 @@
     {
       "type": "code",
       "language": "bash",
-      "code": "cargo new hello-rust\ncd hello-rust\ncargo run\ncargo test",
+      "code": "rustc --version\ncargo --version\ncargo new hello-rust\ncd hello-rust\ncargo run",
       "showCopyButton": true
     },
     {
@@ -65,43 +63,7 @@
     },
     {
       "type": "text",
-      "text": "Rust-ı rəsmi rustup quraşdırıcısı ilə qurun; rustc kompilyatorunu, Cargo paket/build alətini və rustfmt kimi komponentləri idarə edir. Cargo yeni layihə, build, test və asılılıq idarəetməsini birləşdirir.\n\nMənşə və il: Graydon Hoare Rust üzərində 2006-cı ildə şəxsi layihə kimi işə başladı; Mozilla layihəni 2009-cu ildən dəstəklədi, Rust 1.0 isə 15 may 2015-ci ildə buraxıldı. Məqsəd C/C++ səviyyəsində nəzarəti yaddaş təhlükəsizliyi və təhlükəsiz paralelliklə birləşdirmək, use-after-free və data race kimi problemləri azaltmaq idi. Bu gün Rust CLI alətlərində, serverlərdə, brauzer komponentlərində və embedded firmware-də işlənir; sistem, backend, embedded və compiler/tooling rolları üçün faydalıdır. Yaddaşın kimə məxsus olduğunu aydınlaşdırmaq və etibarlı, sürətli proqram qurmaq sizi maraqlandırırsa, bu dil yaxşı başlanğıc ola bilər.\n\nrustup platformaya uyğun target və toolchain komponentlərini quraşdırıb yeniləyir. rustc mənbə kodunu yoxlayıb maşın koduna çevirir, Cargo isə package manifest-i, build, test və dependency həllini idarə edir. ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "cargo new",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " binary və ya library crate yaradır; ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "cargo check",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " sürətli tip yoxlaması, ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "cargo run",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " isə build və icranı birləşdirir. Release build optimallaşdırılır və development build-dən daha yavaşdır.\n\n",
+      "text": "Rust-ı rəsmi rustup quraşdırıcısı ilə qurun; rustc kompilyatorunu, Cargo paket/build alətini və rustfmt kimi komponentləri idarə edir. Cargo yeni layihə, build, test və asılılıq idarəetməsini birləşdirir.\n\nMənşə və il: Graydon Hoare Rust üzərində 2006-cı ildə şəxsi layihə kimi işə başladı; Mozilla layihəni 2009-cu ildən dəstəklədi, Rust 1.0 isə 15 may 2015-ci ildə buraxıldı. Məqsəd C/C++ səviyyəsində nəzarəti yaddaş təhlükəsizliyi və təhlükəsiz paralelliklə birləşdirmək, use-after-free və data race kimi problemləri azaltmaq idi. Bu gün Rust CLI alətlərində, serverlərdə, brauzer komponentlərində və embedded firmware-də işlənir; sistem, backend, embedded və compiler/tooling rolları üçün faydalıdır. Yaddaşın kimə məxsus olduğunu aydınlaşdırmaq və etibarlı, sürətli proqram qurmaq sizi maraqlandırırsa, bu dil yaxşı başlanğıc ola bilər.\n\nWindows-da rəsmi rustup-init.exe faylını Rust saytından endirin; MSVC target üçün Visual Studio Build Tools-da C++ build tools lazım ola bilər. macOS-da rəsmi rustup quraşdırıcısından istifadə edin və native build tələb olunarsa Xcode Command Line Tools quraşdırın. Linux-da rəsmi rustup quraşdırıcısını işlədin; C kitabxanası tələb edən crate-lər üçün paylamanın compiler və development paketləri lazım ola bilər. Terminalı yenidən açıb rustc və Cargo versiyalarını yoxlayın. İstehsal build-ində target triple-ı açıq seçin.\n\nrustup platformaya uyğun target və toolchain komponentlərini quraşdırıb yeniləyir. rustc mənbə kodunu yoxlayıb maşın koduna çevirir, Cargo isə package manifest-i, build, test və dependency həllini idarə edir. `cargo new` binary və ya library crate yaradır; `cargo check` sürətli tip yoxlaması, `cargo run` isə build və icranı birləşdirir. Release build optimallaşdırılır və development build-dən daha yavaşdır.\n\n",
       "size": 17
     },
     {
@@ -113,25 +75,13 @@
     },
     {
       "type": "text",
-      "text": "Kod sətri: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "cargo new hello-rust",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nNə edir: Cargo layihə yaratmaq, build və test üçün əsas vasitədir.\nNiyə seçilib: Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.\nBuraxılsa və ya dəyişdirilsə: Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.\n\n",
+      "text": "Kod sətri: `cargo new hello-rust`\nNə edir: Cargo layihə yaratmaq, build və test üçün əsas vasitədir.\nNiyə seçilib: Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın.\nBuraxılsa və ya dəyişdirilsə: rustup toolchain və target komponentlərini idarə edir; Cargo layihə, dependency, build və test işlərini görür.\n\n",
       "size": 16
     },
     {
       "type": "detail",
       "title": "Yayğın səhv",
-      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir."
+      "text": "İş kompüterində PATH dəyişikliklərini yoxlayın; MSVC və GNU target-ları fərqli linker və native asılılıq tələb edə bilər."
     },
     {
       "type": "text",
@@ -151,7 +101,7 @@
     {
       "type": "tip",
       "title": "Vacib ipucu",
-      "text": "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir."
+      "text": "Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın."
     },
     {
       "type": "text",
@@ -181,12 +131,17 @@
     {
       "type": "detail",
       "title": "Vacib detal",
-      "text": "Yaddaşın kimə məxsus olduğunu aydınlaşdırmaq və etibarlı, sürətli proqram qurmaq sizi maraqlandırırsa, bu dil yaxşı başlanğıc ola bilər."
+      "text": "rustup toolchain və target komponentlərini idarə edir; Cargo layihə, dependency, build və test işlərini görür."
     },
     {
       "type": "warning",
       "title": "Xəbərdarlıq",
-      "text": "Kod nümunələri fokuslanmış hissələrdir; seçilmiş toolchain və target-də compile/test edin, çünki API və diaqnostika versiyaya görə dəyişə bilər."
+      "text": "İş kompüterində PATH dəyişikliklərini yoxlayın; MSVC və GNU target-ları fərqli linker və native asılılıq tələb edə bilər."
+    },
+    {
+      "type": "diagram",
+      "id": "tool_install_flow",
+      "caption": "Dəyərin sahibi, borcalan və istifadə edən kod arasındakı əlaqə Rust-da compile zamanı yoxlanılır."
     },
     {
       "type": "text",
@@ -206,6 +161,6 @@
       "size": 16
     }
   ],
-  "requires_visual": false,
-  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
 }

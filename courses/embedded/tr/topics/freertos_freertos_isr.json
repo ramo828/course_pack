@@ -62,19 +62,7 @@
     },
     {
       "type": "text",
-      "text": "Interrupt service routine (ISR) donanım olayına hemen yanıt verir; içinde yalnızca kısa ve bloklamayan işlem olmalıdır. FreeRTOS ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "FromISR",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " API'leri ISR'den kuyruk veya notification kullanır; sensör okuma, günlükleme ve protokol işini normal göreve bırakın. ISR API'si, IRAM gereksinimi ve pin interrupt desteği hedef/karta bağlıdır.\n\n",
+      "text": "Interrupt service routine (ISR) donanım olayına hemen yanıt verir; içinde yalnızca kısa ve bloklamayan işlem olmalıdır. FreeRTOS `FromISR` API'leri ISR'den kuyruk veya notification kullanır; sensör okuma, günlükleme ve protokol işini normal göreve bırakın. ISR API'si, IRAM gereksinimi ve pin interrupt desteği hedef/karta bağlıdır.\n\n",
       "size": 17
     },
     {
@@ -86,19 +74,7 @@
     },
     {
       "type": "text",
-      "text": "Kod satırı: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "void IRAM_ATTR buttonIsr() { const int event = 1; BaseType_t higherPriorityTaskWoken = pdFALSE; if (events == nullptr || xQueueSendFromISR(events, &event, &higherPriorityTaskWoken) != pdPASS) { portENTER_CRITICAL_ISR(&dropMux); ++droppedEvents; portEXIT_CRITICAL_ISR(&dropMux); } if (higherPriorityTaskWoken == pdTRUE) portYIELD_FROM_ISR(); }",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nNe yapar: Kuyruk olayı ISR'den göreve aktarır; görev uzun işi interrupt'ları engellemeden yapar.\nNeden seçildi: ISR içinde delay, mutex, dinamik allocation veya uzun Serial çıktısı kullanmayın.\nAtlanır veya değiştirilirse: Buton bounce üretir; gerçek cihazda debounce ve kuyruk doluyken davranışı da planlayın.\n\n",
+      "text": "Kod satırı: `void IRAM_ATTR buttonIsr() { const int event = 1; BaseType_t higherPriorityTaskWoken = pdFALSE; if (events == nullptr || xQueueSendFromISR(events, &event, &higherPriorityTaskWoken) != pdPASS) { portENTER_CRITICAL_ISR(&dropMux); ++droppedEvents; portEXIT_CRITICAL_ISR(&dropMux); } if (higherPriorityTaskWoken == pdTRUE) portYIELD_FROM_ISR(); }`\nNe yapar: Kuyruk olayı ISR'den göreve aktarır; görev uzun işi interrupt'ları engellemeden yapar.\nNeden seçildi: ISR içinde delay, mutex, dinamik allocation veya uzun Serial çıktısı kullanmayın.\nAtlanır veya değiştirilirse: Buton bounce üretir; gerçek cihazda debounce ve kuyruk doluyken davranışı da planlayın.\n\n",
       "size": 16
     },
     {

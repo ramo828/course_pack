@@ -458,7 +458,7 @@
       "options": [
         "setup() runs once; loop() repeats.",
         "Compile and upload are separate; a successful build does not guarantee the selected port is correct.",
-        "Record the board package version so the build can be reproduced.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
         "Peripheral and pin mappings depend on the board's MCU."
       ],
       "answer": "Peripheral and pin mappings depend on the board's MCU.",
@@ -470,7 +470,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “MCU, memory, and pins” in a project, which action is recommended?",
       "options": [
-        "Record the board package version so the build can be reproduced.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
         "Check that sensors and communication hardware are ready during setup.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Compile and upload are separate; a successful build does not guarantee the selected port is correct."
@@ -485,9 +485,9 @@
       "prompt": "Which implementation detail matters in the “MCU, memory, and pins” example?",
       "options": [
         "The datasheet and board schematic specify pin voltage, current, and alternate functions.",
-        "Compile and upload are separate; a successful build does not guarantee the selected port is correct.",
-        "setup() runs once; loop() repeats.",
-        "Record the board package version so the build can be reproduced."
+        "IDE packages and Linux serial permissions vary by release and distribution; follow current vendor instructions.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
+        "Compile and upload are separate; a successful build does not guarantee the selected port is correct."
       ],
       "answer": "The datasheet and board schematic specify pin voltage, current, and alternate functions.",
       "explanation": "The datasheet and board schematic specify pin voltage, current, and alternate functions.\nWhy: A microcontroller combines a CPU, memory, and I/O peripherals. RAM is working memory, flash stores firmware, and pin capabilities depend on the board's datasheet.\n\nOrigin and date: the Arduino project began in 2005 in Ivrea, Italy, for education and physical computing. Arduino's official About page names Massimo Banzi, David Cuartielles, Tom Igoe, and David Mellis as co-founders. Its purpose was to lower the barrier between electronics and programming by making sensor-and-actuator projects approachable with an affordable board. Arduino is used in prototypes, education, measurement instruments, and IoT devices; it connects to careers in embedded development, electronics prototyping, and test engineering. If building systems that sense and affect the physical world inspires you, start by learning how pins, RAM, and flash fit together."
@@ -498,10 +498,10 @@
       "type": "multiple_choice",
       "prompt": "Which additional constraint or condition should be checked for “MCU, memory, and pins”?",
       "options": [
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits.",
         "Compile and upload are separate; a successful build does not guarantee the selected port is correct.",
-        "Record the board package version so the build can be reproduced.",
         "RAM is working memory, flash stores firmware, and pin capabilities depend on the board's datasheet",
-        "setup() runs once; loop() repeats."
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload."
       ],
       "answer": "RAM is working memory, flash stores firmware, and pin capabilities depend on the board's datasheet",
       "explanation": "RAM is working memory, flash stores firmware, and pin capabilities depend on the board's datasheet\nWhy: A microcontroller combines a CPU, memory, and I/O peripherals. RAM is working memory, flash stores firmware, and pin capabilities depend on the board's datasheet.\n\nOrigin and date: the Arduino project began in 2005 in Ivrea, Italy, for education and physical computing. Arduino's official About page names Massimo Banzi, David Cuartielles, Tom Igoe, and David Mellis as co-founders. Its purpose was to lower the barrier between electronics and programming by making sensor-and-actuator projects approachable with an affordable board. Arduino is used in prototypes, education, measurement instruments, and IoT devices; it connects to careers in embedded development, electronics prototyping, and test engineering. If building systems that sense and affect the physical world inspires you, start by learning how pins, RAM, and flash fit together."
@@ -518,7 +518,7 @@
         "setup() runs once; loop() repeats."
       ],
       "answer": "Compile and upload are separate; a successful build does not guarantee the selected port is correct.",
-      "explanation": "Compile and upload are separate; a successful build does not guarantee the selected port is correct.\nWhy: Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available."
+      "explanation": "Compile and upload are separate; a successful build does not guarantee the selected port is correct.\nWhy: Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available.\n\nDownload Arduino IDE 2 for Windows, macOS, or Linux only from arduino.cc. Let it check for updates, then install the exact board family's package through Boards Manager. Connect a USB data cable, choose the board and port under Tools, and compile and upload the Blink example. Windows may need the board maker's USB-serial driver; macOS may request a security confirmation. On Linux, follow the official AppImage/package guidance and serial-port permission instructions; after joining `dialout`, you may need to sign out and back in."
     },
     {
       "id": "arduino_arduino_setup_arduino_arduino_setup_2",
@@ -527,12 +527,12 @@
       "prompt": "When applying “Arduino IDE and board packages” in a project, which action is recommended?",
       "options": [
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
-        "Record the board package version so the build can be reproduced.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
         "Check that sensors and communication hardware are ready during setup.",
         "Peripheral and pin mappings depend on the board's MCU."
       ],
-      "answer": "Record the board package version so the build can be reproduced.",
-      "explanation": "Record the board package version so the build can be reproduced.\nWhy: Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available."
+      "answer": "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
+      "explanation": "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.\nWhy: Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available.\n\nDownload Arduino IDE 2 for Windows, macOS, or Linux only from arduino.cc. Let it check for updates, then install the exact board family's package through Boards Manager. Connect a USB data cable, choose the board and port under Tools, and compile and upload the Blink example. Windows may need the board maker's USB-serial driver; macOS may request a security confirmation. On Linux, follow the official AppImage/package guidance and serial-port permission instructions; after joining `dialout`, you may need to sign out and back in."
     },
     {
       "id": "arduino_arduino_setup_arduino_arduino_setup_3",
@@ -543,10 +543,10 @@
         "The datasheet and board schematic specify pin voltage, current, and alternate functions.",
         "Peripheral and pin mappings depend on the board's MCU.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
-        "Install the IDE from its official source, add the board package, then select the board and port"
+        "IDE packages and Linux serial permissions vary by release and distribution; follow current vendor instructions."
       ],
-      "answer": "Install the IDE from its official source, add the board package, then select the board and port",
-      "explanation": "Install the IDE from its official source, add the board package, then select the board and port\nWhy: Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available."
+      "answer": "IDE packages and Linux serial permissions vary by release and distribution; follow current vendor instructions.",
+      "explanation": "IDE packages and Linux serial permissions vary by release and distribution; follow current vendor instructions.\nWhy: Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available.\n\nDownload Arduino IDE 2 for Windows, macOS, or Linux only from arduino.cc. Let it check for updates, then install the exact board family's package through Boards Manager. Connect a USB data cable, choose the board and port under Tools, and compile and upload the Blink example. Windows may need the board maker's USB-serial driver; macOS may request a security confirmation. On Linux, follow the official AppImage/package guidance and serial-port permission instructions; after joining `dialout`, you may need to sign out and back in."
     },
     {
       "id": "arduino_arduino_setup_arduino_arduino_setup_4",
@@ -555,12 +555,12 @@
       "prompt": "Which additional constraint or condition should be checked for “Arduino IDE and board packages”?",
       "options": [
         "Peripheral and pin mappings depend on the board's MCU.",
-        "If no port appears, check that the USB cable carries data and the driver is available.",
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits.",
         "setup() runs once; loop() repeats.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family."
       ],
-      "answer": "If no port appears, check that the USB cable carries data and the driver is available.",
-      "explanation": "If no port appears, check that the USB cable carries data and the driver is available.\nWhy: Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available."
+      "answer": "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits.",
+      "explanation": "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits.\nWhy: Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available.\n\nDownload Arduino IDE 2 for Windows, macOS, or Linux only from arduino.cc. Let it check for updates, then install the exact board family's package through Boards Manager. Connect a USB data cable, choose the board and port under Tools, and compile and upload the Blink example. Windows may need the board maker's USB-serial driver; macOS may request a security confirmation. On Linux, follow the official AppImage/package guidance and serial-port permission instructions; after joining `dialout`, you may need to sign out and back in."
     },
     {
       "id": "arduino_arduino_sketch_arduino_arduino_sketch_1",
@@ -582,7 +582,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “setup() and loop()” in a project, which action is recommended?",
       "options": [
-        "Record the board package version so the build can be reproduced.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Check that sensors and communication hardware are ready during setup.",
         "Peripheral and pin mappings depend on the board's MCU."
@@ -611,7 +611,7 @@
       "prompt": "Which additional constraint or condition should be checked for “setup() and loop()”?",
       "options": [
         "Peripheral and pin mappings depend on the board's MCU.",
-        "Compile and upload are separate; a successful build does not guarantee the selected port is correct.",
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "loop() repeats while the program runs; short, non-blocking steps keep the system responsive."
       ],
@@ -638,7 +638,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “Digital GPIO input and output” in a project, which action is recommended?",
       "options": [
-        "Record the board package version so the build can be reproduced.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
         "Peripheral and pin mappings depend on the board's MCU.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Give a button input a defined idle level to reduce false transitions."
@@ -669,7 +669,7 @@
         "Peripheral and pin mappings depend on the board's MCU.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Logic levels and GPIO limits are board-specific; never exceed pin current ratings.",
-        "Compile and upload are separate; a successful build does not guarantee the selected port is correct."
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits."
       ],
       "answer": "Logic levels and GPIO limits are board-specific; never exceed pin current ratings.",
       "explanation": "Logic levels and GPIO limits are board-specific; never exceed pin current ratings.\nWhy: pinMode configures direction; digitalRead and digitalWrite handle logic levels. Inputs must not float: use a suitable pull-up/down and account for button bounce."
@@ -722,7 +722,7 @@
       "type": "multiple_choice",
       "prompt": "Which statement from the “pinMode, digitalRead, and digitalWrite” lesson is correct?",
       "options": [
-        "In a project, follow this guidance: Record the board package version so the build can be reproduced.",
+        "In a project, follow this guidance: Verify board and port separately",
         "`INPUT_PULLUP` enables a weak internal resistor, so a button between D2 and GND reads `LOW` when pressed.",
         "In a project, follow this guidance: Check that sensors and communication hardware are ready during setup.",
         "Predict the result first."
@@ -778,7 +778,7 @@
       "type": "multiple_choice",
       "prompt": "Which statement from the “analogRead: ADC, analog sensors, and voltage” lesson is correct?",
       "options": [
-        "In a project, follow this guidance: Record the board package version so the build can be reproduced.",
+        "In a project, follow this guidance: Verify board and port separately",
         "Predict the result first.",
         "In a project, follow this guidance: Check that sensors and communication hardware are ready during setup.",
         "A raw reading is not volts or temperature without range, reference voltage, and sensor calibration."
@@ -836,7 +836,7 @@
       "options": [
         "Important note Use a pin that supports PWM and check each board's frequency and resolution rules.",
         "In a project, follow this guidance: Check that sensors and communication hardware are ready during setup.",
-        "In a project, follow this guidance: Record the board package version so the build can be reproduced.",
+        "In a project, follow this guidance: Verify board and port separately",
         "Predict the result first."
       ],
       "answer": "Important note Use a pin that supports PWM and check each board's frequency and resolution rules.",
@@ -862,7 +862,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “ADC, PWM, and analog input” in a project, which action is recommended?",
       "options": [
-        "Record the board package version so the build can be reproduced.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Use the board's documented ADC range and calibrate raw values to physical units.",
         "Peripheral and pin mappings depend on the board's MCU."
@@ -892,7 +892,7 @@
       "options": [
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Never connect 5 V directly to a 3.3 V ADC input; check the board's limits.",
-        "Compile and upload are separate; a successful build does not guarantee the selected port is correct.",
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits.",
         "Peripheral and pin mappings depend on the board's MCU."
       ],
       "answer": "Never connect 5 V directly to a 3.3 V ADC input; check the board's limits.",
@@ -921,7 +921,7 @@
         "Both ends must agree on baud rate and line endings.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Peripheral and pin mappings depend on the board's MCU.",
-        "Record the board package version so the build can be reproduced."
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload."
       ],
       "answer": "Both ends must agree on baud rate and line endings.",
       "explanation": "Both ends must agree on baud rate and line endings.\nWhy: Serial.begin sets the baud rate; the monitor can display logs and simple commands. Define a line format, validate received input, and keep secrets out of serial output."
@@ -949,7 +949,7 @@
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Define a line format, validate received input, and keep secrets out of serial output.",
         "Peripheral and pin mappings depend on the board's MCU.",
-        "Compile and upload are separate; a successful build does not guarantee the selected port is correct."
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits."
       ],
       "answer": "Define a line format, validate received input, and keep secrets out of serial output.",
       "explanation": "Define a line format, validate received input, and keep secrets out of serial output.\nWhy: Serial.begin sets the baud rate; the monitor can display logs and simple commands. Define a line format, validate received input, and keep secrets out of serial output."
@@ -977,7 +977,7 @@
         "Two I2C devices with the same address can conflict on one bus.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Peripheral and pin mappings depend on the board's MCU.",
-        "Record the board package version so the build can be reproduced."
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload."
       ],
       "answer": "Two I2C devices with the same address can conflict on one bus.",
       "explanation": "Two I2C devices with the same address can conflict on one bus.\nWhy: UART is point-to-point serial, I2C is an addressed two-wire bus, and SPI uses clock and chip-select for fast transfers. Choose pins and electrical levels from the board documentation."
@@ -1004,7 +1004,7 @@
       "options": [
         "Choose pins and electrical levels from the board documentation.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
-        "Compile and upload are separate; a successful build does not guarantee the selected port is correct.",
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits.",
         "Peripheral and pin mappings depend on the board's MCU."
       ],
       "answer": "Choose pins and electrical levels from the board documentation.",
@@ -1030,7 +1030,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “millis(), buttons, and interrupts” in a project, which action is recommended?",
       "options": [
-        "Record the board package version so the build can be reproduced.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
         "Peripheral and pin mappings depend on the board's MCU.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Use unsigned elapsed-time arithmetic so timer wraparound is handled safely."
@@ -1058,7 +1058,7 @@
       "type": "multiple_choice",
       "prompt": "Which additional constraint or condition should be checked for “millis(), buttons, and interrupts”?",
       "options": [
-        "Compile and upload are separate; a successful build does not guarantee the selected port is correct.",
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Serial output, delays, and blocking I/O inside an ISR can cause unreliable behavior.",
         "Peripheral and pin mappings depend on the board's MCU."
@@ -1086,7 +1086,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “Sensors, actuators, and power safety” in a project, which action is recommended?",
       "options": [
-        "Record the board package version so the build can be reproduced.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
         "Peripheral and pin mappings depend on the board's MCU.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Verify supply voltage, current budget, and grounding before powering the circuit."
@@ -1117,7 +1117,7 @@
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Peripheral and pin mappings depend on the board's MCU.",
         "Mains voltage is hazardous; use current-limited low-voltage supplies for beginner projects.",
-        "Compile and upload are separate; a successful build does not guarantee the selected port is correct."
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits."
       ],
       "answer": "Mains voltage is hazardous; use current-limited low-voltage supplies for beginner projects.",
       "explanation": "Mains voltage is hazardous; use current-limited low-voltage supplies for beginner projects.\nWhy: Sensors measure physical quantities; actuators turn electricity into motion, light, or sound. Do not drive motors or relays directly from GPIO; use suitable drivers and protection."
@@ -2192,7 +2192,7 @@
       "type": "multiple_choice",
       "prompt": "Which statement gives the core rule for “ESP32 family and board selection”?",
       "options": [
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "ESP32 family members do not all have the same radios and peripherals.",
         "Pin selection must be checked against the exact module and board schematic.",
         "ESP-IDF selects the chip target before building."
@@ -2209,7 +2209,7 @@
         "ESP-IDF selects the chip target before building.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "A GPIO number is not necessarily the connector's physical pin position.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build."
+        "Start with the official `hello_world` example and record the working toolchain version."
       ],
       "answer": "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
       "explanation": "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.\nWhy: ESP32, S2, S3, C2/C3/C6, and H2 variants differ in CPU, radio, USB, and peripherals. Check the exact module datasheet, board schematic, and framework support before choosing.\n\nOrigin and date: Espressif Systems developed the ESP32 family, and the first ESP32 chip was introduced in 2016. The goal was to combine Wi‑Fi and Bluetooth in one MCU, reducing the cost and complexity of separate radio and processor components. ESP32 boards power sensor nodes, smart devices, gateways, and low-cost IoT products; they connect to careers in embedded firmware, IoT platforms, radio testing, and power optimization. If small, energy-aware devices that move sensor readings to network services inspire you, learn to choose the exact ESP32 variant before designing.\n\nThe additional `idf.py` commands configure and build an ESP-IDF project only. They have no direct Arduino-sketch equivalent; Arduino-ESP32 selects a board package and builds sketches with Arduino IDE/CLI."
@@ -2220,8 +2220,8 @@
       "type": "multiple_choice",
       "prompt": "Which implementation detail matters in the “ESP32 family and board selection” example?",
       "options": [
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
-        "ESP-IDF Installation Manager and official setup guides provide OS-specific toolchain steps.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
+        "Linux may need distribution-specific serial-device permissions; apply only the permission steps in Espressif's official instructions.",
         "ESP-IDF selects the chip target before building.",
         "Some variants, such as ESP32-H2, focus on IEEE 802.15.4/Bluetooth LE rather than Wi-Fi."
       ],
@@ -2234,10 +2234,10 @@
       "type": "multiple_choice",
       "prompt": "Which additional constraint or condition should be checked for “ESP32 family and board selection”?",
       "options": [
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
-        "Check the exact module datasheet, board schematic, and framework support before choosing",
         "ESP-IDF selects the chip target before building.",
-        "ESP32 GPIO inputs are not 5 V tolerant; use a suitable level shifter or sensor."
+        "Check the exact module datasheet, board schematic, and framework support before choosing",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
+        "Start with the official `hello_world` example and record the working toolchain version."
       ],
       "answer": "Check the exact module datasheet, board schematic, and framework support before choosing",
       "explanation": "Check the exact module datasheet, board schematic, and framework support before choosing\nWhy: ESP32, S2, S3, C2/C3/C6, and H2 variants differ in CPU, radio, USB, and peripherals. Check the exact module datasheet, board schematic, and framework support before choosing.\n\nOrigin and date: Espressif Systems developed the ESP32 family, and the first ESP32 chip was introduced in 2016. The goal was to combine Wi‑Fi and Bluetooth in one MCU, reducing the cost and complexity of separate radio and processor components. ESP32 boards power sensor nodes, smart devices, gateways, and low-cost IoT products; they connect to careers in embedded firmware, IoT platforms, radio testing, and power optimization. If small, energy-aware devices that move sensor readings to network services inspire you, learn to choose the exact ESP32 variant before designing.\n\nThe additional `idf.py` commands configure and build an ESP-IDF project only. They have no direct Arduino-sketch equivalent; Arduino-ESP32 selects a board package and builds sketches with Arduino IDE/CLI."
@@ -2254,7 +2254,7 @@
         "ESP32 family members do not all have the same radios and peripherals."
       ],
       "answer": "ESP-IDF selects the chip target before building.",
-      "explanation": "ESP-IDF selects the chip target before building.\nWhy: Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n`idf.py` commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands."
+      "explanation": "ESP-IDF selects the chip target before building.\nWhy: Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n`idf.py` commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands.\n\nOn Windows, macOS, and Linux, use Espressif's official ESP-IDF Installation Manager or the current installation path in the ESP-IDF documentation. The manager can install compatible Python, Git, CMake, Ninja, compiler, and debug tools. Open the ESP-IDF terminal after setup, select the exact ESP32 target, build an official example, and flash the board's USB port. Arduino-ESP32 Core is installed as an Arduino IDE board package and is a different workflow from ESP-IDF."
     },
     {
       "id": "esp32_esp_setup_esp32_esp_setup_2",
@@ -2263,12 +2263,12 @@
       "prompt": "When applying “Installing Arduino Core and ESP-IDF” in a project, which action is recommended?",
       "options": [
         "A GPIO number is not necessarily the connector's physical pin position.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "ESP32 family members do not all have the same radios and peripherals."
       ],
-      "answer": "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
-      "explanation": "Keep board package, toolchain, and framework versions stable while diagnosing a first build.\nWhy: Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n`idf.py` commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands."
+      "answer": "Start with the official `hello_world` example and record the working toolchain version.",
+      "explanation": "Start with the official `hello_world` example and record the working toolchain version.\nWhy: Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n`idf.py` commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands.\n\nOn Windows, macOS, and Linux, use Espressif's official ESP-IDF Installation Manager or the current installation path in the ESP-IDF documentation. The manager can install compatible Python, Git, CMake, Ninja, compiler, and debug tools. Open the ESP-IDF terminal after setup, select the exact ESP32 target, build an official example, and flash the board's USB port. Arduino-ESP32 Core is installed as an Arduino IDE board package and is a different workflow from ESP-IDF."
     },
     {
       "id": "esp32_esp_setup_esp32_esp_setup_3",
@@ -2277,12 +2277,12 @@
       "prompt": "Which implementation detail matters in the “Installing Arduino Core and ESP-IDF” example?",
       "options": [
         "Some variants, such as ESP32-H2, focus on IEEE 802.15.4/Bluetooth LE rather than Wi-Fi.",
-        "ESP-IDF Installation Manager and official setup guides provide OS-specific toolchain steps.",
+        "Linux may need distribution-specific serial-device permissions; apply only the permission steps in Espressif's official instructions.",
         "ESP32 family members do not all have the same radios and peripherals.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part."
       ],
-      "answer": "ESP-IDF Installation Manager and official setup guides provide OS-specific toolchain steps.",
-      "explanation": "ESP-IDF Installation Manager and official setup guides provide OS-specific toolchain steps.\nWhy: Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n`idf.py` commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands."
+      "answer": "Linux may need distribution-specific serial-device permissions; apply only the permission steps in Espressif's official instructions.",
+      "explanation": "Linux may need distribution-specific serial-device permissions; apply only the permission steps in Espressif's official instructions.\nWhy: Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n`idf.py` commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands.\n\nOn Windows, macOS, and Linux, use Espressif's official ESP-IDF Installation Manager or the current installation path in the ESP-IDF documentation. The manager can install compatible Python, Git, CMake, Ninja, compiler, and debug tools. Open the ESP-IDF terminal after setup, select the exact ESP32 target, build an official example, and flash the board's USB port. Arduino-ESP32 Core is installed as an Arduino IDE board package and is a different workflow from ESP-IDF."
     },
     {
       "id": "esp32_esp_setup_esp32_esp_setup_4",
@@ -2292,11 +2292,11 @@
       "options": [
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "ESP32 GPIO inputs are not 5 V tolerant; use a suitable level shifter or sensor.",
-        "ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "ESP32 family members do not all have the same radios and peripherals."
       ],
-      "answer": "ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version",
-      "explanation": "ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version\nWhy: Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n`idf.py` commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands."
+      "answer": "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
+      "explanation": "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.\nWhy: Arduino-ESP32 offers the familiar sketch model. ESP-IDF is Espressif's component-based CMake/Kconfig and FreeRTOS framework; choose for project needs and pin the version.\n\n`idf.py` commands are specific to an ESP-IDF project and toolchain. Arduino-ESP32 uses its own Arduino CLI/IDE board package and build workflow; these commands are not Arduino sketch commands.\n\nOn Windows, macOS, and Linux, use Espressif's official ESP-IDF Installation Manager or the current installation path in the ESP-IDF documentation. The manager can install compatible Python, Git, CMake, Ninja, compiler, and debug tools. Open the ESP-IDF terminal after setup, select the exact ESP32 target, build an official example, and flash the board's USB port. Arduino-ESP32 Core is installed as an Arduino IDE board package and is a different workflow from ESP-IDF."
     },
     {
       "id": "esp32_esp_pins_esp32_esp_pins_1",
@@ -2320,7 +2320,7 @@
       "options": [
         "ESP32 family members do not all have the same radios and peripherals.",
         "A GPIO number is not necessarily the connector's physical pin position.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part."
       ],
       "answer": "A GPIO number is not necessarily the connector's physical pin position.",
@@ -2348,7 +2348,7 @@
       "options": [
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "ESP32 family members do not all have the same radios and peripherals.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "ESP32 GPIO inputs are not 5 V tolerant; use a suitable level shifter or sensor."
       ],
       "answer": "ESP32 GPIO inputs are not 5 V tolerant; use a suitable level shifter or sensor.",
@@ -2374,7 +2374,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “GPIO, interrupts, and debouncing” in a project, which action is recommended?",
       "options": [
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "Choose the interrupt source and trigger mode deliberately.",
         "ESP32 family members do not all have the same radios and peripherals."
@@ -2403,7 +2403,7 @@
       "prompt": "Which additional constraint or condition should be checked for “GPIO, interrupts, and debouncing”?",
       "options": [
         "Shared data between tasks and ISRs requires proper synchronization and ISR-safe APIs.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "ESP32 family members do not all have the same radios and peripherals."
       ],
@@ -2433,7 +2433,7 @@
         "Account for noise, calibration, and input range in ADC measurements.",
         "ESP32 family members do not all have the same radios and peripherals.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build."
+        "Start with the official `hello_world` example and record the working toolchain version."
       ],
       "answer": "Account for noise, calibration, and input range in ADC measurements.",
       "explanation": "Account for noise, calibration, and input range in ADC measurements.\nWhy: ADC units, channels, and attenuation vary by ESP32; raw readings are not automatically voltage. LEDC generates PWM with timers/channels, while touch support depends on the variant."
@@ -2460,7 +2460,7 @@
       "options": [
         "ESP32 family members do not all have the same radios and peripherals.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "Do not exceed the documented ADC input range."
       ],
       "answer": "Do not exceed the documented ADC input range.",
@@ -2489,7 +2489,7 @@
         "When debugging a bus, first check wiring, ground, speed, and address.",
         "ESP32 family members do not all have the same radios and peripherals.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build."
+        "Start with the official `hello_world` example and record the working toolchain version."
       ],
       "answer": "When debugging a bus, first check wiring, ground, speed, and address.",
       "explanation": "When debugging a bus, first check wiring, ground, speed, and address.\nWhy: Consider the pin matrix, board-reserved pins, and driver API together. I2C may need pull-ups; SPI needs chip select; UART requires matching baud and signal levels."
@@ -2516,7 +2516,7 @@
       "options": [
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "I2C may need pull-ups; SPI needs chip select; UART requires matching baud and signal levels.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "ESP32 family members do not all have the same radios and peripherals."
       ],
       "answer": "I2C may need pull-ups; SPI needs chip select; UART requires matching baud and signal levels.",
@@ -2543,7 +2543,7 @@
       "prompt": "When applying “Wi-Fi station and access point” in a project, which action is recommended?",
       "options": [
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "Do not embed network credentials in firmware source.",
         "ESP32 family members do not all have the same radios and peripherals."
       ],
@@ -2571,7 +2571,7 @@
       "prompt": "Which additional constraint or condition should be checked for “Wi-Fi station and access point”?",
       "options": [
         "ESP32 family members do not all have the same radios and peripherals.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "Do not ship an open access point or fixed default password."
       ],
@@ -2598,7 +2598,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “Bluetooth LE and GATT” in a project, which action is recommended?",
       "options": [
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "ESP32 family members do not all have the same radios and peripherals.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "Read-only characteristics can still expose sensitive data; consider pairing and authorization."
@@ -2627,7 +2627,7 @@
       "prompt": "Which additional constraint or condition should be checked for “Bluetooth LE and GATT”?",
       "options": [
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "Advertising, connections, MTU, and power behavior vary by chip and SDK; define access control for each characteristic",
         "ESP32 family members do not all have the same radios and peripherals."
       ],
@@ -2656,7 +2656,7 @@
       "options": [
         "ESP32 family members do not all have the same radios and peripherals.",
         "Writing a frequently changing counter on every loop can wear flash.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part."
       ],
       "answer": "Writing a frequently changing counter on every loop can wear flash.",
@@ -2684,7 +2684,7 @@
       "options": [
         "ESP32 family members do not all have the same radios and peripherals.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "Limit write frequency, version the format, and provide safe defaults if migration fails."
       ],
       "answer": "Limit write frequency, version the format, and provide safe defaults if migration fails.",
@@ -2710,7 +2710,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “Deep sleep and power budgets” in a project, which action is recommended?",
       "options": [
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "ESP32 family members do not all have the same radios and peripherals.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "Chip sleep current is not the total development-board current."
@@ -2739,7 +2739,7 @@
       "prompt": "Which additional constraint or condition should be checked for “Deep sleep and power budgets”?",
       "options": [
         "Plan wake sources and retained state, then measure on the actual board",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "ESP32 family members do not all have the same radios and peripherals."
       ],
@@ -2766,7 +2766,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “Monitor, core dumps, and production readiness” in a project, which action is recommended?",
       "options": [
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "ESP32 family members do not all have the same radios and peripherals.",
         "Keep logs useful, concise, and free of secrets."
@@ -2796,7 +2796,7 @@
       "options": [
         "ESP32 family members do not all have the same radios and peripherals.",
         "Document firmware versions, reset reasons, crash capture, log levels, and recovery for production",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part."
       ],
       "answer": "Document firmware versions, reset reasons, crash capture, log levels, and recovery for production",
@@ -3777,7 +3777,7 @@
         "Test update recovery under power loss, poor connectivity, and incompatible versions.",
         "ESP32 family members do not all have the same radios and peripherals.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build."
+        "Start with the official `hello_world` example and record the working toolchain version."
       ],
       "answer": "Test update recovery under power loss, poor connectivity, and incompatible versions.",
       "explanation": "Test update recovery under power loss, poor connectivity, and incompatible versions.\nWhy: OTA can write firmware to an inactive partition. Design partition layout, image size, signature/version checks, health confirmation, and rollback together.\n\nThis example calls the ESP-IDF OTA partition API from an Arduino-ESP32 sketch. Partition selection, rollback, and signature verification are not generic Arduino APIs. ArduinoOTA/Update can support simpler update flows, but secure rollback needs explicit ESP-IDF partition and verification configuration."
@@ -3803,7 +3803,7 @@
       "prompt": "Which additional constraint or condition should be checked for “OTA, partitions, and rollback”?",
       "options": [
         "ESP32 family members do not all have the same radios and peripherals.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "Do not boot an OTA image before validating its signature."
       ],
@@ -5512,7 +5512,7 @@
       "options": [
         "Protect mutable data shared between tasks with synchronization or message queues.",
         "ESP32 family members do not all have the same radios and peripherals.",
-        "Keep board package, toolchain, and framework versions stable while diagnosing a first build.",
+        "Start with the official `hello_world` example and record the working toolchain version.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part."
       ],
       "answer": "Protect mutable data shared between tasks with synchronization or message queues.",
@@ -5539,7 +5539,7 @@
       "prompt": "Which additional constraint or condition should be checked for “FreeRTOS on ESP32: Arduino and ESP-IDF”?",
       "options": [
         "ESP32 family members do not all have the same radios and peripherals.",
-        "ESP-IDF selects the chip target before building.",
+        "Obtain the installer only from Espressif; a wrong chip target or port causes flashing failures.",
         "The ESP32 name alone does not guarantee pin or radio compatibility; check the exact part.",
         "Do not hide a stall by disabling the watchdog; diagnose why the task stopped progressing."
       ],
@@ -6632,11 +6632,11 @@
       "options": [
         "Breadboard - for building temporary circuits",
         "Simple but very important.",
-        "Before applying power, check the module's VCC, GND, and signal labels.",
+        "From sensor input to PWM output From sensor input to PWM output",
         "Middle area - every 5 pins connected vertically (separated by channel)"
       ],
-      "answer": "Before applying power, check the module's VCC, GND, and signal labels.",
-      "explanation": "Before applying power, check the module's VCC, GND, and signal labels."
+      "answer": "From sensor input to PWM output From sensor input to PWM output",
+      "explanation": "From sensor input to PWM output From sensor input to PWM output"
     },
     {
       "id": "arduino_potentiometer_q3",
@@ -6646,11 +6646,11 @@
       "options": [
         "Resistor (220Ω, 10kΩ) - current limiting and pull-up",
         "Arduino UNO (or similar)",
-        "Verify the board input-voltage limit and module current requirements in their documentation.",
+        "Before applying power, check the module's VCC, GND, and signal labels.",
         "Side rails (+/-) - connected horizontally along the length (power rails) RULES 1."
       ],
-      "answer": "Verify the board input-voltage limit and module current requirements in their documentation.",
-      "explanation": "Verify the board input-voltage limit and module current requirements in their documentation."
+      "answer": "Before applying power, check the module's VCC, GND, and signal labels.",
+      "explanation": "Before applying power, check the module's VCC, GND, and signal labels."
     },
     {
       "id": "arduino_potentiometer_q4",
@@ -6659,12 +6659,12 @@
       "prompt": "Which statement from the “Potentiometer as analog input” lesson is correct?",
       "options": [
         "Jumper wires SIMPLE EXPLANATION An LED only allows current to flow one way.",
-        "Use a suitable driver and separate supply if an external load exceeds the pin-current limit.",
+        "Verify the board input-voltage limit and module current requirements in their documentation.",
         "Push button - manual input",
         "Use side rails for power (VCC/GND)"
       ],
-      "answer": "Use a suitable driver and separate supply if an external load exceeds the pin-current limit.",
-      "explanation": "Use a suitable driver and separate supply if an external load exceeds the pin-current limit."
+      "answer": "Verify the board input-voltage limit and module current requirements in their documentation.",
+      "explanation": "Verify the board input-voltage limit and module current requirements in their documentation."
     },
     {
       "id": "arduino_photoresistor_q1",
@@ -6689,10 +6689,10 @@
         "Breadboard - for building temporary circuits",
         "Middle area - every 5 pins connected vertically (separated by channel)",
         "Simple but very important.",
-        "Before applying power, check the module's VCC, GND, and signal labels."
+        "From sensor input to PWM output From sensor input to PWM output"
       ],
-      "answer": "Before applying power, check the module's VCC, GND, and signal labels.",
-      "explanation": "Before applying power, check the module's VCC, GND, and signal labels."
+      "answer": "From sensor input to PWM output From sensor input to PWM output",
+      "explanation": "From sensor input to PWM output From sensor input to PWM output"
     },
     {
       "id": "arduino_photoresistor_q3",
@@ -6700,13 +6700,13 @@
       "type": "multiple_choice",
       "prompt": "Which practical detail should be considered when using “Photoresistor (LDR) light sensor”?",
       "options": [
-        "Verify the board input-voltage limit and module current requirements in their documentation.",
+        "Before applying power, check the module's VCC, GND, and signal labels.",
         "Side rails (+/-) - connected horizontally along the length (power rails) RULES 1.",
         "Arduino UNO (or similar)",
         "Resistor (220Ω, 10kΩ) - current limiting and pull-up"
       ],
-      "answer": "Verify the board input-voltage limit and module current requirements in their documentation.",
-      "explanation": "Verify the board input-voltage limit and module current requirements in their documentation."
+      "answer": "Before applying power, check the module's VCC, GND, and signal labels.",
+      "explanation": "Before applying power, check the module's VCC, GND, and signal labels."
     },
     {
       "id": "arduino_photoresistor_q4",
@@ -6717,10 +6717,10 @@
         "Use side rails for power (VCC/GND)",
         "Jumper wires SIMPLE EXPLANATION An LED only allows current to flow one way.",
         "Push button - manual input",
-        "Use a suitable driver and separate supply if an external load exceeds the pin-current limit."
+        "Verify the board input-voltage limit and module current requirements in their documentation."
       ],
-      "answer": "Use a suitable driver and separate supply if an external load exceeds the pin-current limit.",
-      "explanation": "Use a suitable driver and separate supply if an external load exceeds the pin-current limit."
+      "answer": "Verify the board input-voltage limit and module current requirements in their documentation.",
+      "explanation": "Verify the board input-voltage limit and module current requirements in their documentation."
     },
     {
       "id": "arduino_rgb_led_q1",
@@ -6742,13 +6742,13 @@
       "type": "multiple_choice",
       "prompt": "Which additional fact about “RGB LED: common cathode/anode and color mixing” is accurate?",
       "options": [
-        "Before applying power, check the module's VCC, GND, and signal labels.",
+        "Wire an LED safely Wire an LED safely",
         "Breadboard - for building temporary circuits",
         "Middle area - every 5 pins connected vertically (separated by channel)",
         "Simple but very important."
       ],
-      "answer": "Before applying power, check the module's VCC, GND, and signal labels.",
-      "explanation": "Before applying power, check the module's VCC, GND, and signal labels."
+      "answer": "Wire an LED safely Wire an LED safely",
+      "explanation": "Wire an LED safely Wire an LED safely"
     },
     {
       "id": "arduino_rgb_led_q3",
@@ -6756,13 +6756,13 @@
       "type": "multiple_choice",
       "prompt": "Which practical detail should be considered when using “RGB LED: common cathode/anode and color mixing”?",
       "options": [
-        "Verify the board input-voltage limit and module current requirements in their documentation.",
+        "Before applying power, check the module's VCC, GND, and signal labels.",
         "Side rails (+/-) - connected horizontally along the length (power rails) RULES 1.",
         "Arduino UNO (or similar)",
         "Resistor (220Ω, 10kΩ) - current limiting and pull-up"
       ],
-      "answer": "Verify the board input-voltage limit and module current requirements in their documentation.",
-      "explanation": "Verify the board input-voltage limit and module current requirements in their documentation."
+      "answer": "Before applying power, check the module's VCC, GND, and signal labels.",
+      "explanation": "Before applying power, check the module's VCC, GND, and signal labels."
     },
     {
       "id": "arduino_rgb_led_q4",
@@ -6771,12 +6771,12 @@
       "prompt": "Which statement from the “RGB LED: common cathode/anode and color mixing” lesson is correct?",
       "options": [
         "Push button - manual input",
-        "Use a suitable driver and separate supply if an external load exceeds the pin-current limit.",
+        "Verify the board input-voltage limit and module current requirements in their documentation.",
         "Use side rails for power (VCC/GND)",
         "Jumper wires SIMPLE EXPLANATION An LED only allows current to flow one way."
       ],
-      "answer": "Use a suitable driver and separate supply if an external load exceeds the pin-current limit.",
-      "explanation": "Use a suitable driver and separate supply if an external load exceeds the pin-current limit."
+      "answer": "Verify the board input-voltage limit and module current requirements in their documentation.",
+      "explanation": "Verify the board input-voltage limit and module current requirements in their documentation."
     },
     {
       "id": "arduino_ultrasonic_q1",

@@ -1,0 +1,153 @@
+{
+  "id": "sql_sql_command_toolbox",
+  "title": "More SQL commands: ALTER, CASE, UNION, VIEW, and UPSERT",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_command_toolbox_en",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“More SQL commands: ALTER, CASE, UNION, VIEW, and UPSERT” is a tool for solving a concrete programming problem. Identify the input and desired result, then trace what role the construct plays in the example. Study it not only as syntax, but also for its effects on readability, correctness, resource use, and future changes.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "-- MySQL:\nCREATE DATABASE school;\nUSE school;\n\n-- PostgreSQL:\n-- CREATE DATABASE school;\n-- psql command: \\connect school\n\n-- SQLite opens or creates a database file:\n-- sqlite3 school.db\n\nALTER TABLE products ADD COLUMN active INTEGER NOT NULL DEFAULT 1;\n\nSELECT name,\n       CASE WHEN price_cents >= 1000 THEN 'premium'\n            ELSE 'standard' END AS price_group\nFROM products;\n\nSELECT name FROM products WHERE active = 1\nUNION ALL\nSELECT name FROM products WHERE price_cents = 0;\n\nCREATE VIEW active_products AS\nSELECT product_id, name, price_cents\nFROM products WHERE active = 1;\n\nINSERT INTO products (product_id, name, price_cents)\nVALUES (1, 'Sensor', 1300)\nON CONFLICT(product_id) DO UPDATE\nSET price_cents = excluded.price_cents;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The query returns a price group; on conflict, the product with that unique key is updated.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQL statements can be grouped by purpose: DDL defines schema (CREATE, ALTER, DROP), DML changes data (INSERT, UPDATE, DELETE), DQL queries it (SELECT), TCL controls transactions (COMMIT, ROLLBACK), and DCL manages permissions (GRANT, REVOKE). ALTER TABLE changes an existing table; CASE chooses a value by condition; UNION combines results and removes duplicates, while UNION ALL preserves them. A VIEW names a saved SELECT query without copying the data. UPSERT inserts or updates on a unique-key conflict. Database creation and upsert syntax vary by DBMS: MySQL uses `ON DUPLICATE KEY UPDATE`, while SQLite and PostgreSQL use `ON CONFLICT ... DO UPDATE`. Triggers run automatically after INSERT, UPDATE, or DELETE and should be used carefully because they can hide side effects.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: `-- MySQL:`\nWhat it does: The schema gains a column; CASE assigns a category; UNION ALL combines results; VIEW names a reusable query; UPSERT updates on conflict.\nWhy it is used: Test schema changes on a disposable database first; do not assume dialect portability without checking the target DBMS.\nIf omitted or changed: SQLite/PostgreSQL use `ON CONFLICT ... DO UPDATE` for upserts; the MySQL equivalent is `ON DUPLICATE KEY UPDATE`.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "DROP TABLE, DROP VIEW, and triggers can remove or automatically change data; understand the effect and keep a backup."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The schema gains a column; CASE assigns a category; UNION ALL combines results; VIEW names a reusable query; UPSERT updates on conflict.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Test schema changes on a disposable database first; do not assume dialect portability without checking the target DBMS."
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "SQLite/PostgreSQL use `ON CONFLICT ... DO UPDATE` for upserts; the MySQL equivalent is `ON DUPLICATE KEY UPDATE`."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "DROP TABLE, DROP VIEW, and triggers can remove or automatically change data; understand the effect and keep a backup."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_query_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
+}

@@ -18,59 +18,7 @@
     },
     {
       "type": "text",
-      "text": "Goal: apply “Strings, UTF-8, and slices” to a real program or device. The key principle is: ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "String",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " owns the text; ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "&str",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " borrows a view. In a project, follow this guidance: Use ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "String",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " when text must be owned or changed; accept ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "&str",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " when a function only needs to read it.\n\n",
+      "text": "Goal: apply “Strings, UTF-8, and slices” to a real program or device. The key principle is: `String` owns the text; `&str` borrows a view. In a project, follow this guidance: Use `String` when text must be owned or changed; accept `&str` when a function only needs to read it.\n\n",
       "size": 17,
       "color": "#212121"
     },
@@ -121,91 +69,7 @@
     },
     {
       "type": "text",
-      "text": "A Rust ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "String",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " owns growable UTF-8 text on the heap; ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "&str",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " is a borrowed view. UTF-8 characters can use multiple bytes, so ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "text[0]",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " indexing is unavailable: ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "len()",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " counts bytes, while ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "chars()",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " iterates Unicode scalar values. A slice views part of text or an array without copying it; a function accepting ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "&str",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " can work with both a ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "String",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " and a string literal.\n\n",
+      "text": "A Rust `String` owns growable UTF-8 text on the heap; `&str` is a borrowed view. UTF-8 characters can use multiple bytes, so `text[0]` indexing is unavailable: `len()` counts bytes, while `chars()` iterates Unicode scalar values. A slice views part of text or an array without copying it; a function accepting `&str` can work with both a `String` and a string literal.\n\n",
       "size": 17
     },
     {
@@ -217,79 +81,7 @@
     },
     {
       "type": "text",
-      "text": "Key line: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "text.split_whitespace().next().unwrap_or(\"\")",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nWhat it does: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "String",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " owns the text; ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "&str",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " borrows a view.\nWhy it is used: Use ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "String",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " when text must be owned or changed; accept ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "&str",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " when a function only needs to read it.\nIf omitted or changed: UTF-8 byte boundaries are not character boundaries; ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "&text[..1]",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " is not a safe character slice for every string.\n\n",
+      "text": "Key line: `text.split_whitespace().next().unwrap_or(\"\")`\nWhat it does: `String` owns the text; `&str` borrows a view.\nWhy it is used: Use `String` when text must be owned or changed; accept `&str` when a function only needs to read it.\nIf omitted or changed: UTF-8 byte boundaries are not character boundaries; `&text[..1]` is not a safe character slice for every string.\n\n",
       "size": 16
     },
     {
@@ -306,31 +98,7 @@
     },
     {
       "type": "text",
-      "text": "String",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true,
-      "italic": true
-    },
-    {
-      "type": "text",
-      "text": " owns the text; ",
-      "size": 17,
-      "color": "#00695C",
-      "bold": true,
-      "italic": true
-    },
-    {
-      "type": "text",
-      "text": "&str",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true,
-      "italic": true
-    },
-    {
-      "type": "text",
-      "text": " borrows a view.\n\n",
+      "text": "`String` owns the text; `&str` borrows a view.\n\n",
       "size": 17,
       "color": "#00695C",
       "bold": true,
@@ -390,31 +158,7 @@
     },
     {
       "type": "text",
-      "text": "Answer: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "String",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " owns the text; ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "&str",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " borrows a view.\n\n",
+      "text": "Answer: `String` owns the text; `&str` borrows a view.\n\n",
       "size": 16
     }
   ],

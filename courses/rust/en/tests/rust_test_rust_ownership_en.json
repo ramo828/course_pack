@@ -8,7 +8,7 @@
       "type": "multiple_choice",
       "prompt": "Which statement gives the core rule for “Ownership and moves”?",
       "options": [
-        "Use rustup to keep toolchain updates and installed versions explicit.",
+        "Obtain the installer from rust-lang.org and install native prerequisites only for the target you need.",
         "Rust bindings are immutable unless declared mut.",
         "Cargo is the main tool for creating, building, and testing projects.",
         "Non-`Copy` values such as String move, while `Copy` types such as integers are copied. Heap allocation alone does not determine which behavior applies."
@@ -25,7 +25,7 @@
         "After a move, the previous binding no longer owns the value; the compiler checks this.",
         "Enable mutability only where it is needed.",
         "Cargo is the main tool for creating, building, and testing projects.",
-        "Use rustup to keep toolchain updates and installed versions explicit."
+        "Obtain the installer from rust-lang.org and install native prerequisites only for the target you need."
       ],
       "answer": "After a move, the previous binding no longer owns the value; the compiler checks this.",
       "explanation": "After a move, the previous binding no longer owns the value; the compiler checks this.\nWhy: Rust gives each value an owner, and resources are released when the owner leaves scope. Some values move; Copy values are duplicated cheaply.\n\nOwnership means each value has one owner and its resource is released when that owner leaves scope. Moving a String with `let second = first` makes `first` unusable; `Copy` values such as i32 are copied instead. The compiler checks this without a garbage collector."
@@ -36,10 +36,10 @@
       "type": "multiple_choice",
       "prompt": "Which implementation detail matters in the “Ownership and moves” example?",
       "options": [
-        "Rust bindings are immutable unless declared mut.",
-        "Use rustup to keep toolchain updates and installed versions explicit.",
+        "Obtain the installer from rust-lang.org and install native prerequisites only for the target you need.",
+        "Cargo is the main tool for creating, building, and testing projects.",
         "Ownership uses language rules instead of manual memory management or a garbage collector.",
-        "Cargo is the main tool for creating, building, and testing projects."
+        "rustup manages toolchains and targets; Cargo manages project builds, dependencies, and tests."
       ],
       "answer": "Ownership uses language rules instead of manual memory management or a garbage collector.",
       "explanation": "Ownership uses language rules instead of manual memory management or a garbage collector.\nWhy: Rust gives each value an owner, and resources are released when the owner leaves scope. Some values move; Copy values are duplicated cheaply.\n\nOwnership means each value has one owner and its resource is released when that owner leaves scope. Moving a String with `let second = first` makes `first` unusable; `Copy` values such as i32 are copied instead. The compiler checks this without a garbage collector."
@@ -51,9 +51,9 @@
       "prompt": "Which additional constraint or condition should be checked for “Ownership and moves”?",
       "options": [
         "Some values move; Copy values are duplicated cheaply",
-        "Use rustup to keep toolchain updates and installed versions explicit.",
         "Cargo is the main tool for creating, building, and testing projects.",
-        "Rust bindings are immutable unless declared mut."
+        "Check PATH changes on managed computers; MSVC and GNU targets can require different linkers and native dependencies.",
+        "Obtain the installer from rust-lang.org and install native prerequisites only for the target you need."
       ],
       "answer": "Some values move; Copy values are duplicated cheaply",
       "explanation": "Some values move; Copy values are duplicated cheaply\nWhy: Rust gives each value an owner, and resources are released when the owner leaves scope. Some values move; Copy values are duplicated cheaply.\n\nOwnership means each value has one owner and its resource is released when that owner leaves scope. Moving a String with `let second = first` makes `first` unusable; `Copy` values such as i32 are copied instead. The compiler checks this without a garbage collector."

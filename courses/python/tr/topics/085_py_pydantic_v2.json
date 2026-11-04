@@ -1,0 +1,82 @@
+{
+  "id": "python_py_pydantic_v2",
+  "title": "Pydantic v2: dış veriyi doğrulama",
+  "difficulty": "hard",
+  "testId": "python_test_py_pydantic_v2_tr",
+  "sources": [
+    "https://docs.python.org/3/tutorial/",
+    "https://docs.python.org/3/using/",
+    "https://docs.python.org/3/library/",
+    "https://docs.python.org/3/library/turtle.html",
+    "https://docs.python.org/3/library/tkinter.html",
+    "https://fastapi.tiangolo.com/tutorial/",
+    "https://www.python.org/about/success/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Python tür ipuçları okuyucuya ve statik analize yardım eder, ancak çalışma sırasında JSON girdisini kendiliğinden doğrulamaz. Pydantic v2 modeli dış dict/JSON verisini türlere dönüştürür ve kısıtları denetler. `BaseModel`, `Field` ve `model_validate()` kullanılır; geçersiz veri `ValidationError` üretir. Pydantic verinin kaynağına güven sağlamaz; iş kuralları ve yetkilendirme ayrıca uygulanmalıdır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from pydantic import BaseModel, Field\n\nclass SensorReading(BaseModel):\n    device_id: str\n    celsius: float = Field(ge=-80, le=150)\n\nreading = SensorReading.model_validate(\n    {'device_id': 'sensor-1', 'celsius': 21.5}\n)\nprint(reading.device_id, reading.celsius)",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "sensor-1 21.5",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Model alanları denetler ve gerektiğinde dönüştürür; geçerli örnek `sensor-1 21.5` yazdırır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Pydantic v2 için etkin sanal ortamda `python -m pip install 'pydantic>=2,<3'` çalıştırın ve projede sürümü sabitleyin."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Hataları kullanıcıya uygun yanıta dönüştürün; günlüğe hassas veri yazmayın. Pydantic v1 örneklerinin API'si v2 ile aynı değildir."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

@@ -1,0 +1,62 @@
+{
+  "id": "sql_test_sql_transactions_az",
+  "title": "Transaction və ACID",
+  "questions": [
+    {
+      "id": "sql_sql_transactions_1",
+      "topicId": "sql_sql_transactions",
+      "type": "multiple_choice",
+      "prompt": "“Transaction və ACID” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
+      "options": [
+        "Əvvəlcə kiçik, oxunaqlı SELECT sorğusu qurun; nəticəni başa düşdükdən sonra onu tətbiqə qoşun.",
+        "Hər iki yeniləmə eyni transaction daxilində birlikdə təsdiqlənir.",
+        "Sorğu Ada və 42 dəyərlərini iki sütunda qaytarır.",
+        "SQLite çox vaxt tətbiqin daxilində işləyir; MySQL və PostgreSQL adətən ayrıca server prosesi kimi işləyir."
+      ],
+      "answer": "Hər iki yeniləmə eyni transaction daxilində birlikdə təsdiqlənir.",
+      "explanation": "Hər iki yeniləmə eyni transaction daxilində birlikdə təsdiqlənir.\nİzah: Transaction bir neçə dəyişiklik əməliyyatını vahid məntiqi iş kimi birləşdirir. COMMIT dəyişiklikləri təsdiqləyir, ROLLBACK isə geri alır. ACID atomarlıq, uyğunluq, izolə olunma və davamlılıq prinsipləridir. SAVEPOINT əməliyyatın içində aralıq nöqtə yaradır; ROLLBACK TO həmin nöqtədən sonrakı dəyişiklikləri geri ala bilər. Eyni məlumatı bir neçə istifadəçi dəyişəndə izolə səviyyəsi və kilidləmə qaydaları toqquşmaların necə idarə olunmasını müəyyən edir; bu davranış DBMS-ə görə fərqlənir. Məsələn, bir hesabdan pul çıxarılması və digər hesaba əlavə edilməsi birlikdə uğurlu olmalıdır."
+    },
+    {
+      "id": "sql_sql_transactions_2",
+      "topicId": "sql_sql_transactions",
+      "type": "multiple_choice",
+      "prompt": "“Transaction və ACID” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
+      "options": [
+        "Sorğu Ada və 42 dəyərlərini iki sütunda qaytarır.",
+        "Əvvəlcə kiçik, oxunaqlı SELECT sorğusu qurun; nəticəni başa düşdükdən sonra onu tətbiqə qoşun.",
+        "Transaction-u qısa saxlayın, xətanı yoxlayın və tətbiq dilində rollback/commit siyasətini aydın qurun.",
+        "Əvvəlcə layihənin serverə ehtiyacı olub-olmadığını, eyni vaxtda neçə istifadəçinin yazacağını və hansı idarəetmə imkanlarının lazım olduğunu müəyyən edin."
+      ],
+      "answer": "Transaction-u qısa saxlayın, xətanı yoxlayın və tətbiq dilində rollback/commit siyasətini aydın qurun.",
+      "explanation": "Transaction-u qısa saxlayın, xətanı yoxlayın və tətbiq dilində rollback/commit siyasətini aydın qurun.\nİzah: Transaction bir neçə dəyişiklik əməliyyatını vahid məntiqi iş kimi birləşdirir. COMMIT dəyişiklikləri təsdiqləyir, ROLLBACK isə geri alır. ACID atomarlıq, uyğunluq, izolə olunma və davamlılıq prinsipləridir. SAVEPOINT əməliyyatın içində aralıq nöqtə yaradır; ROLLBACK TO həmin nöqtədən sonrakı dəyişiklikləri geri ala bilər. Eyni məlumatı bir neçə istifadəçi dəyişəndə izolə səviyyəsi və kilidləmə qaydaları toqquşmaların necə idarə olunmasını müəyyən edir; bu davranış DBMS-ə görə fərqlənir. Məsələn, bir hesabdan pul çıxarılması və digər hesaba əlavə edilməsi birlikdə uğurlu olmalıdır."
+    },
+    {
+      "id": "sql_sql_transactions_3",
+      "topicId": "sql_sql_transactions",
+      "type": "multiple_choice",
+      "prompt": "“Transaction və ACID” nümunəsində hansı implementasiya detalı vacibdir?",
+      "options": [
+        "Əvvəlcə kiçik, oxunaqlı SELECT sorğusu qurun; nəticəni başa düşdükdən sonra onu tətbiqə qoşun.",
+        "İzolasiya səviyyələri və kilidləmə davranışı mühərrikə görə dəyişir; SQLite və PostgreSQL eyni concurrency modelinə malik deyil.",
+        "SQL verilənlər bazası sistemi deyil, həmin sistemlərlə işləmək üçün dildir; SQLite, PostgreSQL, MySQL və SQL Server SQL dialektlərindən istifadə edir.",
+        "Sorğu Ada və 42 dəyərlərini iki sütunda qaytarır."
+      ],
+      "answer": "İzolasiya səviyyələri və kilidləmə davranışı mühərrikə görə dəyişir; SQLite və PostgreSQL eyni concurrency modelinə malik deyil.",
+      "explanation": "İzolasiya səviyyələri və kilidləmə davranışı mühərrikə görə dəyişir; SQLite və PostgreSQL eyni concurrency modelinə malik deyil.\nİzah: Transaction bir neçə dəyişiklik əməliyyatını vahid məntiqi iş kimi birləşdirir. COMMIT dəyişiklikləri təsdiqləyir, ROLLBACK isə geri alır. ACID atomarlıq, uyğunluq, izolə olunma və davamlılıq prinsipləridir. SAVEPOINT əməliyyatın içində aralıq nöqtə yaradır; ROLLBACK TO həmin nöqtədən sonrakı dəyişiklikləri geri ala bilər. Eyni məlumatı bir neçə istifadəçi dəyişəndə izolə səviyyəsi və kilidləmə qaydaları toqquşmaların necə idarə olunmasını müəyyən edir; bu davranış DBMS-ə görə fərqlənir. Məsələn, bir hesabdan pul çıxarılması və digər hesaba əlavə edilməsi birlikdə uğurlu olmalıdır."
+    },
+    {
+      "id": "sql_sql_transactions_4",
+      "topicId": "sql_sql_transactions",
+      "type": "multiple_choice",
+      "prompt": "“Transaction və ACID” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
+      "options": [
+        "COMMIT-dən əvvəl xəta baş verərsə rollback edin; qismən dəyişiklik biznes qaydasını poza bilər.",
+        "SQL standartdır, amma verilənlər bazalarının dialektləri, tipləri və bəzi funksiyaları fərqlənir. Hədəf sistemin sənədlərini yoxlayın.",
+        "Əvvəlcə kiçik, oxunaqlı SELECT sorğusu qurun; nəticəni başa düşdükdən sonra onu tətbiqə qoşun.",
+        "Sorğu Ada və 42 dəyərlərini iki sütunda qaytarır."
+      ],
+      "answer": "COMMIT-dən əvvəl xəta baş verərsə rollback edin; qismən dəyişiklik biznes qaydasını poza bilər.",
+      "explanation": "COMMIT-dən əvvəl xəta baş verərsə rollback edin; qismən dəyişiklik biznes qaydasını poza bilər.\nİzah: Transaction bir neçə dəyişiklik əməliyyatını vahid məntiqi iş kimi birləşdirir. COMMIT dəyişiklikləri təsdiqləyir, ROLLBACK isə geri alır. ACID atomarlıq, uyğunluq, izolə olunma və davamlılıq prinsipləridir. SAVEPOINT əməliyyatın içində aralıq nöqtə yaradır; ROLLBACK TO həmin nöqtədən sonrakı dəyişiklikləri geri ala bilər. Eyni məlumatı bir neçə istifadəçi dəyişəndə izolə səviyyəsi və kilidləmə qaydaları toqquşmaların necə idarə olunmasını müəyyən edir; bu davranış DBMS-ə görə fərqlənir. Məsələn, bir hesabdan pul çıxarılması və digər hesaba əlavə edilməsi birlikdə uğurlu olmalıdır."
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "id": "sql_sql_filter_sort",
+  "title": "WHERE, NULL, ordering, and limits",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_filter_sort_en",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/about/history/",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“WHERE, NULL, ordering, and limits” is a tool for solving a concrete programming problem. Identify the input and desired result, then trace what role the construct plays in the example. Study it not only as syntax, but also for its effects on readability, correctness, resource use, and future changes.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT name, price_cents\nFROM products\nWHERE price_cents >= 500 AND discontinued IS NULL\nORDER BY price_cents DESC, name ASC\nLIMIT 10;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Returns up to ten matching products, with name as a tie-breaker for equal prices.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "WHERE filters rows by a condition, ORDER BY sorts ascending (ASC) or descending (DESC), and LIMIT caps the number of returned rows. NULL represents missing or unknown data: do not compare it with =; use IS NULL or IS NOT NULL. Use parentheses to make combined AND/OR logic explicit.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: `SELECT name, price_cents`\nWhat it does: Returns up to ten matching products, with name as a tie-breaker for equal prices.\nWhy it is used: Test whether the filter selects the intended rows on a small sample, and handle NULL as a separate case.\nIf omitted or changed: LIMIT without ordering does not define which rows are returned; add a unique ordering key for stable pagination.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "NULL = NULL evaluates to UNKNOWN, not TRUE, so a row may fail a WHERE condition."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Returns up to ten matching products, with name as a tie-breaker for equal prices.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Test whether the filter selects the intended rows on a small sample, and handle NULL as a separate case."
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "LIMIT without ordering does not define which rows are returned; add a unique ordering key for stable pagination."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "NULL = NULL evaluates to UNKNOWN, not TRUE, so a row may fail a WHERE condition."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "A separate visual is not essential; a small runnable code example and its expected output explain the topic."
+}

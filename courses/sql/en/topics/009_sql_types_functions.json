@@ -1,0 +1,153 @@
+{
+  "id": "sql_sql_types_functions",
+  "title": "Data types, operators, and built-in functions",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_types_functions_en",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Data types, operators, and built-in functions” is a tool for solving a concrete programming problem. Identify the input and desired result, then trace what role the construct plays in the example. Study it not only as syntax, but also for its effects on readability, correctness, resource use, and future changes.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT LOWER('SQL'), ROUND(12.345, 2),\n       COALESCE(NULL, 'boş'),\n       CAST('42' AS INTEGER),\n       7 BETWEEN 1 AND 10 AS in_range;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The example returns lowercase sql, rounded 12.35, a fallback text, integer 42, and TRUE.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A column's type determines which values it stores and how comparisons work. Use TEXT for text, INTEGER for whole numbers, and integer minor units or DECIMAL/NUMERIC where supported for exact money; date/time types differ between systems. SQL expressions use arithmetic and comparison operators plus AND, OR, NOT, and concatenation such as `||`. Useful built-ins include `LOWER`, `UPPER`, `LENGTH`, `ROUND`, `COALESCE`, `NULLIF`, and `CAST`. SQLite can represent dates as ISO-8601 text, Julian day numbers, or Unix timestamps; PostgreSQL and MySQL also provide date/time types and functions. Function names and date syntax vary by DBMS.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: `SELECT LOWER('SQL'), ROUND(12.345, 2),`\nWhat it does: The example returns lowercase sql, rounded 12.35, a fallback text, integer 42, and TRUE.\nWhy it is used: Do not store money in FLOAT; verify numeric and date functions on the target DBMS.\nIf omitted or changed: NULL is not an ordinary value: COALESCE picks the first non-NULL value; NULLIF returns NULL when its arguments match.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "The same function name can behave differently across DBMSs; verify date and time-zone behavior."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The example returns lowercase sql, rounded 12.35, a fallback text, integer 42, and TRUE.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Do not store money in FLOAT; verify numeric and date functions on the target DBMS."
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "NULL is not an ordinary value: COALESCE picks the first non-NULL value; NULLIF returns NULL when its arguments match."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "The same function name can behave differently across DBMSs; verify date and time-zone behavior."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_query_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
+}

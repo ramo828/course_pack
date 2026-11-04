@@ -1,0 +1,127 @@
+{
+  "id": "sql_sql_window_functions",
+  "title": "Window funksiyaları",
+  "difficulty": "advanced",
+  "testId": "sql_test_sql_window_functions_az",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/about/history/",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Window funksiyaları” real proqramda konkret problemi həll etmək üçün seçilir. Əvvəl giriş və gözlənilən nəticəni müəyyənləşdirin, sonra nümunədəki anlayışın hansı işi gördüyünü izləyin. Bu mövzu kursda tək sintaksis deyil: oxunaqlılıq, düzgünlük, resurs istifadəsi və gələcək dəyişikliklərə təsiri ilə birlikdə öyrənilməlidir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT student_id, course_id, score,\n       ROW_NUMBER() OVER (\n         PARTITION BY course_id\n         ORDER BY score DESC, student_id\n       ) AS position\nFROM enrollments;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Hər kursda tələbələr bal azalan və student_id artan qaydada nömrələnir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Window funksiyası əlaqəli sətirlər qrupu üzərində hesablayır, amma GROUP BY kimi nəticəni bir sətirə yığmır. OVER bölməsində PARTITION BY qrupları, ORDER BY isə qrup daxilində ardıcıllığı müəyyən edir. ROW_NUMBER, RANK və SUM OVER hər sətirlə yanaşı sıra, reytinq və çalışan cəmi göstərə bilər.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: `SELECT student_id, course_id, score,`\nNə edir: Hər kursda tələbələr bal azalan və student_id artan qaydada nömrələnir.\nNiyə seçilib: OVER daxilində sıralama qaydasını və bərabər dəyərlərin rank davranışını dəqiq müəyyən edin.\nBuraxılsa və ya dəyişdirilsə: ROW_NUMBER bərabər sıralama dəyərlərində də unikal sıra verir, RANK isə bərabər nəticələrə eyni reytinq verir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Window sintaksisi və frame default-ları dialektə görə fərqlənə bilər; mühərrik versiyasını yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Hər kursda tələbələr bal azalan və student_id artan qaydada nömrələnir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "OVER daxilində sıralama qaydasını və bərabər dəyərlərin rank davranışını dəqiq müəyyən edin."
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "ROW_NUMBER bərabər sıralama dəyərlərində də unikal sıra verir, RANK isə bərabər nəticələrə eyni reytinq verir."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Window sintaksisi və frame default-ları dialektə görə fərqlənə bilər; mühərrik versiyasını yoxlayın."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

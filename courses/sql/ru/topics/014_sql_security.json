@@ -1,0 +1,123 @@
+{
+  "id": "sql_sql_security",
+  "title": "SQL-инъекция и параметризованные запросы",
+  "difficulty": "hard",
+  "testId": "sql_test_sql_security_ru",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "«SQL-инъекция и параметризованные запросы» помогает решать конкретную задачу программы. Сначала определите входные данные и ожидаемый результат, затем проследите роль конструкции в примере. Изучайте её не только как синтаксис, но и с точки зрения читаемости, корректности, ресурсов и будущих изменений.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "import sqlite3\n\nuser_id = 7\nwith sqlite3.connect('school.db') as db:\n    rows = db.execute(\n        'SELECT name FROM students WHERE student_id = ?',\n        (user_id,),\n    ).fetchall()",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "student_id передаётся отдельно как данные и не интерпретируется как синтаксис SQL.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQL-инъекция меняет смысл запроса, если недоверенный ввод склеивается с SQL. Передавайте значения через placeholders: SQLite в Python использует `?`, драйверы PostgreSQL задают свой синтаксис. Параметры предназначены для значений, не для имён таблиц и столбцов; динамические идентификаторы выбирайте из строгого списка.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: `'SELECT name FROM students WHERE student_id = ?',`\nЧто она делает: student_id передаётся отдельно как данные и не интерпретируется как синтаксис SQL.\nЗачем она нужна: Не вставляйте пользовательские значения в SQL-строку; используйте параметры и минимальные привилегии.\nЕсли пропустить или изменить: В production выдавайте только необходимые права и не раскрывайте секреты или персональные данные в ошибках.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Параметризация защищает структуру запроса, но не заменяет авторизацию; отдельно проверяйте доступ пользователя к записям."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "student_id передаётся отдельно как данные и не интерпретируется как синтаксис SQL.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Не вставляйте пользовательские значения в SQL-строку; используйте параметры и минимальные привилегии."
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "В production выдавайте только необходимые права и не раскрывайте секреты или персональные данные в ошибках."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Параметризация защищает структуру запроса, но не заменяет авторизацию; отдельно проверяйте доступ пользователя к записям."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Отдельная иллюстрация не обязательна; небольшого запускаемого примера и ожидаемого результата достаточно."
+}

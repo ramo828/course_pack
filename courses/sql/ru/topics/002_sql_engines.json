@@ -1,0 +1,153 @@
+{
+  "id": "sql_sql_engines",
+  "title": "SQL и системы управления базами данных",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_engines_ru",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "«SQL и системы управления базами данных» помогает решать конкретную задачу программы. Сначала определите входные данные и ожидаемый результат, затем проследите роль конструкции в примере. Изучайте её не только как синтаксис, но и с точки зрения читаемости, корректности, ресурсов и будущих изменений.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SQLite: app.db faylı\nMySQL / PostgreSQL: müştəri proqramı -> verilənlər bazası serveri",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLite работает с файлом; MySQL и PostgreSQL обычно используют архитектуру клиент-сервер.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQL — язык запросов, а не база данных. SQLite, MySQL и PostgreSQL — системы управления базами данных (СУБД), принимающие SQL. Проект SQLite начался в 2000 году; системе не нужен отдельный сервер, данные хранятся в файле, поэтому её используют в мобильных и настольных приложениях, браузерах и устройствах. MySQL появился в 1990-х и стал распространён для веб-приложений и серверов с множеством одновременных подключений. PostgreSQL начался как проект POSTGRES в Беркли в 1986 году под руководством Майкла Стоунбрейкера; SQL добавили в 1994 году, а название PostgreSQL приняли в 1996 году. Систему используют для серверных и аналитических задач, требующих широких возможностей SQL и надёжности. Основные идеи SQL общие, но типы, функции, команды администрирования и часть синтаксиса различаются.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: `SQLite: app.db faylı`\nЧто она делает: SQLite часто работает внутри приложения; MySQL и PostgreSQL обычно запускаются отдельным сервером.\nЗачем она нужна: Выбирайте СУБД с учётом необходимости сервера, параллельной записи и нужных эксплуатационных функций.\nЕсли пропустить или изменить: SQLite — открытая серверless-библиотека/движок; MySQL и PostgreSQL — серверные системы для множества сетевых клиентов.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Стандарт SQL не гарантирует одинаковое поведение СУБД; при переносе проверьте диалект и миграции."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLite часто работает внутри приложения; MySQL и PostgreSQL обычно запускаются отдельным сервером.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Выбирайте СУБД с учётом необходимости сервера, параллельной записи и нужных эксплуатационных функций."
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "SQLite — открытая серверless-библиотека/движок; MySQL и PostgreSQL — серверные системы для множества сетевых клиентов."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Стандарт SQL не гарантирует одинаковое поведение СУБД; при переносе проверьте диалект и миграции."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_query_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

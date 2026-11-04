@@ -4,7 +4,8 @@
   "difficulty": "easy",
   "testId": "arduino_test_arduino_setup_az",
   "sources": [
-    "https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-board-manager",
+    "https://docs.arduino.cc/software/ide-v2/tutorials/getting-started-ide-v2/",
+    "https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-board-manager/",
     "https://commons.wikimedia.org/wiki/File:Arduino-uno.jpg"
   ],
   "estimatedMinutes": 12,
@@ -18,7 +19,7 @@
     },
     {
       "type": "text",
-      "text": "Bu dərsin məqsədi “Arduino IDE və board paketi” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Compile və upload iki ayrı mərhələdir: kod uğurla yığılsa da port səhv ola bilər. Real layihədə bu göstərişə əməl edin: Board package versiyasını layihə qeydlərində saxlayın ki, build təkrarlana bilsin.\n\n",
+      "text": "Bu dərsin məqsədi “Arduino IDE və board paketi” anlayışını praktik vəziyyətdə tətbiq etməyi öyrənməkdir. Əsas nəticə: Compile və upload iki ayrı mərhələdir: kod uğurla yığılsa da port səhv ola bilər. Real layihədə bu göstərişə əməl edin: Board və port seçimini ayrıca yoxlayın; kodun compile olması onun düzgün lövhəyə yükləndiyini göstərmir.\n\n",
       "size": 17,
       "color": "#212121"
     },
@@ -43,8 +44,8 @@
     },
     {
       "type": "code",
-      "language": "cpp",
-      "code": "// Select the exact board and port in the IDE.\nvoid setup() {}\nvoid loop() {}",
+      "language": "text",
+      "code": "Arduino IDE 2\n1. Boards Manager: install the exact board package\n2. Tools > Board: select your board\n3. Tools > Port: select its serial port\n4. Open Blink > Verify > Upload",
       "showCopyButton": true
     },
     {
@@ -69,7 +70,7 @@
     },
     {
       "type": "text",
-      "text": "IDE-ni rəsmi mənbədən qurun, lövhə üçün uyğun board package əlavə edin, sonra board və port seçin. Port görünmürsə USB kabelin məlumat xətti olduğunu və uyğun sürücünün mövcudluğunu yoxlayın.\n\n",
+      "text": "IDE-ni rəsmi mənbədən qurun, lövhə üçün uyğun board package əlavə edin, sonra board və port seçin. Port görünmürsə USB kabelin məlumat xətti olduğunu və uyğun sürücünün mövcudluğunu yoxlayın.\n\nWindows, macOS və Linux üçün Arduino IDE 2-ni yalnız arduino.cc saytından yükləyin. İlk dəfə açıldıqda IDE yenilənmələri yoxlaya bilər; sonra Boards Manager-dən dəqiq lövhə ailəsinin board package-ini quraşdırın. USB məlumat kabelini qoşun, Tools menyusunda lövhə və portu seçin, Blink nümunəsini compile və upload edin. Windows-da istehsalçıya məxsus USB-serial sürücüsü tələb oluna bilər; macOS-da təhlükəsizlik təsdiqi soruşula bilər. Linux-da AppImage/package təlimatına və serial port icazəsinə əməl edin; `dialout` qrupuna əlavə edildikdə sessiyadan çıxıb yenidən daxil olmaq lazım gələ bilər.\n\n",
       "size": 17
     },
     {
@@ -81,25 +82,13 @@
     },
     {
       "type": "text",
-      "text": "Kod sətri: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "// Select the exact board and port in the IDE.",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nNə edir: Compile və upload iki ayrı mərhələdir: kod uğurla yığılsa da port səhv ola bilər.\nNiyə seçilib: Board package versiyasını layihə qeydlərində saxlayın ki, build təkrarlana bilsin.\nBuraxılsa və ya dəyişdirilsə: Board package versiyasını layihə qeydlərində saxlayın ki, build təkrarlana bilsin.\n\n",
+      "text": "Kod sətri: `Arduino IDE 2`\nNə edir: Compile və upload iki ayrı mərhələdir: kod uğurla yığılsa da port səhv ola bilər.\nNiyə seçilib: Board və port seçimini ayrıca yoxlayın; kodun compile olması onun düzgün lövhəyə yükləndiyini göstərmir.\nBuraxılsa və ya dəyişdirilsə: Rəsmi IDE paketləri və Linux serial icazə qaydaları distro və versiyaya görə dəyişə bilər; istehsalçının aktual təlimatını izləyin.\n\n",
       "size": 16
     },
     {
       "type": "detail",
       "title": "Yayğın səhv",
-      "text": "Bu qaydanı tətbiq etmədən əvvəl yoxlamanı buraxmaq: Board package versiyasını layihə qeydlərində saxlayın ki, build təkrarlana bilsin."
+      "text": "Naməlum mənbədən driver yükləməyin və MCU gərginlik səviyyəsini keçən periferiyanı qoşmayın."
     },
     {
       "type": "text",
@@ -119,7 +108,7 @@
     {
       "type": "tip",
       "title": "Vacib ipucu",
-      "text": "Board package versiyasını layihə qeydlərində saxlayın ki, build təkrarlana bilsin."
+      "text": "Board və port seçimini ayrıca yoxlayın; kodun compile olması onun düzgün lövhəyə yükləndiyini göstərmir."
     },
     {
       "type": "text",
@@ -149,16 +138,16 @@
     {
       "type": "detail",
       "title": "Vacib detal",
-      "text": "Port görünmürsə USB kabelin məlumat xətti olduğunu və uyğun sürücünün mövcudluğunu yoxlayın."
+      "text": "Rəsmi IDE paketləri və Linux serial icazə qaydaları distro və versiyaya görə dəyişə bilər; istehsalçının aktual təlimatını izləyin."
     },
     {
       "type": "warning",
       "title": "Xəbərdarlıq",
-      "text": "Pinlər, gərginlik/cərəyan limitləri, timing və periferik imkanlar lövhədən asılıdır; naqilləmədən və yükləmədən əvvəl dəqiq board sənədini yoxlayın."
+      "text": "Naməlum mənbədən driver yükləməyin və MCU gərginlik səviyyəsini keçən periferiyanı qoşmayın."
     },
     {
       "type": "diagram",
-      "id": "embedded_stack",
+      "id": "tool_install_flow",
       "caption": "Sensor məlumatı MCU-da emal olunur, lazım olduqda gateway və şəbəkə xidmətinə ötürülür."
     }
   ],

@@ -1,0 +1,153 @@
+{
+  "id": "sql_sql_sqlite",
+  "title": "SQLite: quraşdırma, əmr sətri və xüsusi əmrlər",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_sqlite_az",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“SQLite: quraşdırma, əmr sətri və xüsusi əmrlər” real proqramda konkret problemi həll etmək üçün seçilir. Əvvəl giriş və gözlənilən nəticəni müəyyənləşdirin, sonra nümunədəki anlayışın hansı işi gördüyünü izləyin. Bu mövzu kursda tək sintaksis deyil: oxunaqlılıq, düzgünlük, resurs istifadəsi və gələcək dəyişikliklərə təsiri ilə birlikdə öyrənilməlidir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "sqlite3 school.db\n.tables\n.schema students\n.mode column\n.headers on\n.read setup.sql\n.backup copy.db\n.quit\n\nPRAGMA foreign_keys = ON;\nSELECT sqlite_version();",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLite versiyası göstərilir; mövcud cədvəllər və sxem də terminalda yoxlanıla bilər.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLite ayrıca server quraşdırmadan SQL öyrənmək və cihazda məlumat saxlamaq üçün əlverişlidir. `sqlite3 school.db` terminalda verilənlər bazası faylını açır və ya yaradır. `.tables` cədvəlləri, `.schema students` cədvəlin sxemini göstərir; `.mode column` və `.headers on` nəticələri oxunaqlı edir; `.read setup.sql` SQL faylını icra edir; `.backup copy.db` ehtiyat nüsxə yaradır; `.quit` proqramdan çıxır. Nöqtə ilə başlayan əmrlər SQLite əmr sətrinə aiddir, SQL standartının hissəsi deyil. SQL daxilində `PRAGMA foreign_keys = ON;` cari qoşulmada xarici açar yoxlamasını aktivləşdirir. Python-da `sqlite3.connect` qoşulma açır, `execute` metodu isə parametrli sorğuları icra edir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: `sqlite3 school.db`\nNə edir: İlk əmrlər SQLite shell-də işləyir; PRAGMA və SELECT isə verilənlər bazasına göndərilən SQL ifadələridir.\nNiyə seçilib: Əvvəl `.tables` və `.schema` ilə düzgün faylda işlədiyinizi yoxlayın; shell əmrlərini SQL sorğusu ilə qarışdırmayın.\nBuraxılsa və ya dəyişdirilsə: SQLite-də `CREATE DATABASE` əmri yoxdur: `sqlite3 school.db` yazmaq verilənlər bazası faylını açır və ya yaradır. MySQL və PostgreSQL-də isə verilənlər bazası yaratmaq serverə göndərilən ayrıca SQL əmri ola bilər.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "`.backup` üçün təhlükəsiz fayl yolu seçin; verilənlər bazası faylını düzgün ehtiyat nüsxə yaratmadan əl ilə köçürməyin."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "İlk əmrlər SQLite shell-də işləyir; PRAGMA və SELECT isə verilənlər bazasına göndərilən SQL ifadələridir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Əvvəl `.tables` və `.schema` ilə düzgün faylda işlədiyinizi yoxlayın; shell əmrlərini SQL sorğusu ilə qarışdırmayın."
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "SQLite-də `CREATE DATABASE` əmri yoxdur: `sqlite3 school.db` yazmaq verilənlər bazası faylını açır və ya yaradır. MySQL və PostgreSQL-də isə verilənlər bazası yaratmaq serverə göndərilən ayrıca SQL əmri ola bilər."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "`.backup` üçün təhlükəsiz fayl yolu seçin; verilənlər bazası faylını düzgün ehtiyat nüsxə yaratmadan əl ilə köçürməyin."
+    },
+    {
+      "type": "diagram",
+      "id": "tool_install_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

@@ -9,7 +9,7 @@
       "prompt": "“ESP32 ailəsi və lövhə seçimi” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
       "options": [
         "Pin seçimi konkret modula və board sxeminə görə yoxlanmalıdır.",
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
         "ESP-IDF layihə hədəfini build-dən əvvəl seçir."
       ],
@@ -22,7 +22,7 @@
       "type": "multiple_choice",
       "prompt": "“ESP32 ailəsi və lövhə seçimi” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
       "options": [
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
         "ESP-IDF layihə hədəfini build-dən əvvəl seçir.",
         "GPIO nömrəsi lövhə üzərindəki fiziki konektor sırası ilə eyni olmaya bilər."
@@ -38,8 +38,8 @@
       "options": [
         "ESP32-H2 kimi bəzi variantlar Wi-Fi əvəzinə IEEE 802.15.4/Bluetooth LE yönümlü ola bilər.",
         "ESP-IDF layihə hədəfini build-dən əvvəl seçir.",
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
-        "ESP-IDF quraşdırma meneceri və rəsmi sənədlər OS-ə görə toolchain addımlarını verir."
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
+        "Linux-da serial cihazına giriş üçün distro qaydaları lazım ola bilər; yalnız rəsmi ESP-IDF təlimatındakı icazə dəyişikliklərini edin."
       ],
       "answer": "ESP32-H2 kimi bəzi variantlar Wi-Fi əvəzinə IEEE 802.15.4/Bluetooth LE yönümlü ola bilər.",
       "explanation": "ESP32-H2 kimi bəzi variantlar Wi-Fi əvəzinə IEEE 802.15.4/Bluetooth LE yönümlü ola bilər.\nİzah: ESP32, S2, S3, C2/C3/C6 və H2 kimi variantların CPU arxitekturası, radio imkanları, USB və periferiyaları fərqlənir. Layihəyə başlamazdan əvvəl konkret modulun datasheet-i, dev board sxemi və framework dəstəyini yoxlayın.\n\nMənşə və il: ESP32 ailəsini Espressif Systems hazırlayıb; ilk ESP32 çipi 2016-cı ildə təqdim edildi. Layihənin məqsədi Wi‑Fi və Bluetooth-u bir MCU-da birləşdirərək ayrıca radio və prosessor komponentlərinin xərcini və mürəkkəbliyini azaltmaq idi. ESP32 sensor qovşaqları, ağıllı cihazlar, şlüzlər və aşağı qiymətli IoT məhsullarında istifadə olunur; embedded firmware, IoT platforması, radio sınağı və enerji optimallaşdırması rollarına uyğundur. Sensorun ölçüsünü simsiz xidmətə çatdıran kiçik, enerjiyə həssas cihazlar sizi maraqlandırırsa, dəqiq ESP32 modelini seçməyi öyrənin.\n\nƏlavə `idf.py` əmrləri yalnız ESP-IDF layihəsini konfiqurasiya və build etmək üçündür. Arduino sketch-in birbaşa ekvivalenti yoxdur; Arduino-ESP32-də board package seçilir və sketch Arduino IDE/CLI ilə build edilir."
@@ -50,10 +50,10 @@
       "type": "multiple_choice",
       "prompt": "“ESP32 ailəsi və lövhə seçimi” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
       "options": [
+        "Quraşdırma manager-i yalnız Espressif-in rəsmi mənbəsindən götürün; yanlış chip target və ya port flash uğursuzluğuna səbəb olur.",
         "ESP-IDF layihə hədəfini build-dən əvvəl seçir.",
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
         "Layihəyə başlamazdan əvvəl konkret modulun datasheet-i, dev board sxemi və framework dəstəyini yoxlayın",
-        "ESP32 GPIO girişləri 5 V tolerant deyil; uyğun level shifter və sensor istifadə edin."
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin."
       ],
       "answer": "Layihəyə başlamazdan əvvəl konkret modulun datasheet-i, dev board sxemi və framework dəstəyini yoxlayın",
       "explanation": "Layihəyə başlamazdan əvvəl konkret modulun datasheet-i, dev board sxemi və framework dəstəyini yoxlayın\nİzah: ESP32, S2, S3, C2/C3/C6 və H2 kimi variantların CPU arxitekturası, radio imkanları, USB və periferiyaları fərqlənir. Layihəyə başlamazdan əvvəl konkret modulun datasheet-i, dev board sxemi və framework dəstəyini yoxlayın.\n\nMənşə və il: ESP32 ailəsini Espressif Systems hazırlayıb; ilk ESP32 çipi 2016-cı ildə təqdim edildi. Layihənin məqsədi Wi‑Fi və Bluetooth-u bir MCU-da birləşdirərək ayrıca radio və prosessor komponentlərinin xərcini və mürəkkəbliyini azaltmaq idi. ESP32 sensor qovşaqları, ağıllı cihazlar, şlüzlər və aşağı qiymətli IoT məhsullarında istifadə olunur; embedded firmware, IoT platforması, radio sınağı və enerji optimallaşdırması rollarına uyğundur. Sensorun ölçüsünü simsiz xidmətə çatdıran kiçik, enerjiyə həssas cihazlar sizi maraqlandırırsa, dəqiq ESP32 modelini seçməyi öyrənin.\n\nƏlavə `idf.py` əmrləri yalnız ESP-IDF layihəsini konfiqurasiya və build etmək üçündür. Arduino sketch-in birbaşa ekvivalenti yoxdur; Arduino-ESP32-də board package seçilir və sketch Arduino IDE/CLI ilə build edilir."
@@ -70,7 +70,7 @@
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun."
       ],
       "answer": "ESP-IDF layihə hədəfini build-dən əvvəl seçir.",
-      "explanation": "ESP-IDF layihə hədəfini build-dən əvvəl seçir.\nİzah: Arduino-ESP32 sürücüsü Arduino ekosisteminin sadə sketch modelini təqdim edir. ESP-IDF isə Espressif-in komponent, CMake, Kconfig və FreeRTOS əsaslı framework-üdür; layihə tələbinə görə birini seçin və versiyanı sabitləyin.\n\n`idf.py` əmrləri yalnız ESP-IDF layihəsi və onun toolchain-i üçündür. Arduino-ESP32 üçün ayrıca Arduino CLI/IDE board package və uyğun build workflow istifadə edilir; bu əmrləri Arduino sketch-i ilə eyniləşdirməyin."
+      "explanation": "ESP-IDF layihə hədəfini build-dən əvvəl seçir.\nİzah: Arduino-ESP32 sürücüsü Arduino ekosisteminin sadə sketch modelini təqdim edir. ESP-IDF isə Espressif-in komponent, CMake, Kconfig və FreeRTOS əsaslı framework-üdür; layihə tələbinə görə birini seçin və versiyanı sabitləyin.\n\n`idf.py` əmrləri yalnız ESP-IDF layihəsi və onun toolchain-i üçündür. Arduino-ESP32 üçün ayrıca Arduino CLI/IDE board package və uyğun build workflow istifadə edilir; bu əmrləri Arduino sketch-i ilə eyniləşdirməyin.\n\nWindows, macOS və Linux-da Espressif-in rəsmi ESP-IDF Installation Manager-ini və ya cari ESP-IDF sənədlərində göstərilən quraşdırma yolunu seçin. Manager uyğun Python, Git, CMake, Ninja, compiler və debug alətlərini quraşdıra bilər. Quraşdırmadan sonra ESP-IDF terminalını açın, konkret ESP32 hədəfini seçin, rəsmi nümunəni build edin və board-un USB portuna flash edin. Arduino-ESP32 Core Arduino IDE-də board package kimi quraşdırılır və ESP-IDF-dən fərqli workflow-dur."
     },
     {
       "id": "esp32_esp_setup_2",
@@ -78,13 +78,13 @@
       "type": "multiple_choice",
       "prompt": "“Arduino Core və ESP-IDF quraşdırılması” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
       "options": [
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
         "GPIO nömrəsi lövhə üzərindəki fiziki konektor sırası ilə eyni olmaya bilər.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır."
       ],
-      "answer": "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
-      "explanation": "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.\nİzah: Arduino-ESP32 sürücüsü Arduino ekosisteminin sadə sketch modelini təqdim edir. ESP-IDF isə Espressif-in komponent, CMake, Kconfig və FreeRTOS əsaslı framework-üdür; layihə tələbinə görə birini seçin və versiyanı sabitləyin.\n\n`idf.py` əmrləri yalnız ESP-IDF layihəsi və onun toolchain-i üçündür. Arduino-ESP32 üçün ayrıca Arduino CLI/IDE board package və uyğun build workflow istifadə edilir; bu əmrləri Arduino sketch-i ilə eyniləşdirməyin."
+      "answer": "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
+      "explanation": "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.\nİzah: Arduino-ESP32 sürücüsü Arduino ekosisteminin sadə sketch modelini təqdim edir. ESP-IDF isə Espressif-in komponent, CMake, Kconfig və FreeRTOS əsaslı framework-üdür; layihə tələbinə görə birini seçin və versiyanı sabitləyin.\n\n`idf.py` əmrləri yalnız ESP-IDF layihəsi və onun toolchain-i üçündür. Arduino-ESP32 üçün ayrıca Arduino CLI/IDE board package və uyğun build workflow istifadə edilir; bu əmrləri Arduino sketch-i ilə eyniləşdirməyin.\n\nWindows, macOS və Linux-da Espressif-in rəsmi ESP-IDF Installation Manager-ini və ya cari ESP-IDF sənədlərində göstərilən quraşdırma yolunu seçin. Manager uyğun Python, Git, CMake, Ninja, compiler və debug alətlərini quraşdıra bilər. Quraşdırmadan sonra ESP-IDF terminalını açın, konkret ESP32 hədəfini seçin, rəsmi nümunəni build edin və board-un USB portuna flash edin. Arduino-ESP32 Core Arduino IDE-də board package kimi quraşdırılır və ESP-IDF-dən fərqli workflow-dur."
     },
     {
       "id": "esp32_esp_setup_3",
@@ -95,10 +95,10 @@
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
         "ESP32-H2 kimi bəzi variantlar Wi-Fi əvəzinə IEEE 802.15.4/Bluetooth LE yönümlü ola bilər.",
-        "ESP-IDF quraşdırma meneceri və rəsmi sənədlər OS-ə görə toolchain addımlarını verir."
+        "Linux-da serial cihazına giriş üçün distro qaydaları lazım ola bilər; yalnız rəsmi ESP-IDF təlimatındakı icazə dəyişikliklərini edin."
       ],
-      "answer": "ESP-IDF quraşdırma meneceri və rəsmi sənədlər OS-ə görə toolchain addımlarını verir.",
-      "explanation": "ESP-IDF quraşdırma meneceri və rəsmi sənədlər OS-ə görə toolchain addımlarını verir.\nİzah: Arduino-ESP32 sürücüsü Arduino ekosisteminin sadə sketch modelini təqdim edir. ESP-IDF isə Espressif-in komponent, CMake, Kconfig və FreeRTOS əsaslı framework-üdür; layihə tələbinə görə birini seçin və versiyanı sabitləyin.\n\n`idf.py` əmrləri yalnız ESP-IDF layihəsi və onun toolchain-i üçündür. Arduino-ESP32 üçün ayrıca Arduino CLI/IDE board package və uyğun build workflow istifadə edilir; bu əmrləri Arduino sketch-i ilə eyniləşdirməyin."
+      "answer": "Linux-da serial cihazına giriş üçün distro qaydaları lazım ola bilər; yalnız rəsmi ESP-IDF təlimatındakı icazə dəyişikliklərini edin.",
+      "explanation": "Linux-da serial cihazına giriş üçün distro qaydaları lazım ola bilər; yalnız rəsmi ESP-IDF təlimatındakı icazə dəyişikliklərini edin.\nİzah: Arduino-ESP32 sürücüsü Arduino ekosisteminin sadə sketch modelini təqdim edir. ESP-IDF isə Espressif-in komponent, CMake, Kconfig və FreeRTOS əsaslı framework-üdür; layihə tələbinə görə birini seçin və versiyanı sabitləyin.\n\n`idf.py` əmrləri yalnız ESP-IDF layihəsi və onun toolchain-i üçündür. Arduino-ESP32 üçün ayrıca Arduino CLI/IDE board package və uyğun build workflow istifadə edilir; bu əmrləri Arduino sketch-i ilə eyniləşdirməyin.\n\nWindows, macOS və Linux-da Espressif-in rəsmi ESP-IDF Installation Manager-ini və ya cari ESP-IDF sənədlərində göstərilən quraşdırma yolunu seçin. Manager uyğun Python, Git, CMake, Ninja, compiler və debug alətlərini quraşdıra bilər. Quraşdırmadan sonra ESP-IDF terminalını açın, konkret ESP32 hədəfini seçin, rəsmi nümunəni build edin və board-un USB portuna flash edin. Arduino-ESP32 Core Arduino IDE-də board package kimi quraşdırılır və ESP-IDF-dən fərqli workflow-dur."
     },
     {
       "id": "esp32_esp_setup_4",
@@ -107,12 +107,12 @@
       "prompt": "“Arduino Core və ESP-IDF quraşdırılması” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
       "options": [
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
-        "ESP-IDF isə Espressif-in komponent, CMake, Kconfig və FreeRTOS əsaslı framework-üdür; layihə tələbinə görə birini seçin və versiyanı sabitləyin",
+        "Quraşdırma manager-i yalnız Espressif-in rəsmi mənbəsindən götürün; yanlış chip target və ya port flash uğursuzluğuna səbəb olur.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
         "ESP32 GPIO girişləri 5 V tolerant deyil; uyğun level shifter və sensor istifadə edin."
       ],
-      "answer": "ESP-IDF isə Espressif-in komponent, CMake, Kconfig və FreeRTOS əsaslı framework-üdür; layihə tələbinə görə birini seçin və versiyanı sabitləyin",
-      "explanation": "ESP-IDF isə Espressif-in komponent, CMake, Kconfig və FreeRTOS əsaslı framework-üdür; layihə tələbinə görə birini seçin və versiyanı sabitləyin\nİzah: Arduino-ESP32 sürücüsü Arduino ekosisteminin sadə sketch modelini təqdim edir. ESP-IDF isə Espressif-in komponent, CMake, Kconfig və FreeRTOS əsaslı framework-üdür; layihə tələbinə görə birini seçin və versiyanı sabitləyin.\n\n`idf.py` əmrləri yalnız ESP-IDF layihəsi və onun toolchain-i üçündür. Arduino-ESP32 üçün ayrıca Arduino CLI/IDE board package və uyğun build workflow istifadə edilir; bu əmrləri Arduino sketch-i ilə eyniləşdirməyin."
+      "answer": "Quraşdırma manager-i yalnız Espressif-in rəsmi mənbəsindən götürün; yanlış chip target və ya port flash uğursuzluğuna səbəb olur.",
+      "explanation": "Quraşdırma manager-i yalnız Espressif-in rəsmi mənbəsindən götürün; yanlış chip target və ya port flash uğursuzluğuna səbəb olur.\nİzah: Arduino-ESP32 sürücüsü Arduino ekosisteminin sadə sketch modelini təqdim edir. ESP-IDF isə Espressif-in komponent, CMake, Kconfig və FreeRTOS əsaslı framework-üdür; layihə tələbinə görə birini seçin və versiyanı sabitləyin.\n\n`idf.py` əmrləri yalnız ESP-IDF layihəsi və onun toolchain-i üçündür. Arduino-ESP32 üçün ayrıca Arduino CLI/IDE board package və uyğun build workflow istifadə edilir; bu əmrləri Arduino sketch-i ilə eyniləşdirməyin.\n\nWindows, macOS və Linux-da Espressif-in rəsmi ESP-IDF Installation Manager-ini və ya cari ESP-IDF sənədlərində göstərilən quraşdırma yolunu seçin. Manager uyğun Python, Git, CMake, Ninja, compiler və debug alətlərini quraşdıra bilər. Quraşdırmadan sonra ESP-IDF terminalını açın, konkret ESP32 hədəfini seçin, rəsmi nümunəni build edin və board-un USB portuna flash edin. Arduino-ESP32 Core Arduino IDE-də board package kimi quraşdırılır və ESP-IDF-dən fərqli workflow-dur."
     },
     {
       "id": "esp32_esp_pins_1",
@@ -134,7 +134,7 @@
       "type": "multiple_choice",
       "prompt": "“GPIO, boot strap və elektrik limitləri” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
       "options": [
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
         "GPIO nömrəsi lövhə üzərindəki fiziki konektor sırası ilə eyni olmaya bilər.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun."
@@ -165,7 +165,7 @@
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
         "ESP32 GPIO girişləri 5 V tolerant deyil; uyğun level shifter və sensor istifadə edin.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
-        "ESP-IDF layihə hədəfini build-dən əvvəl seçir."
+        "Quraşdırma manager-i yalnız Espressif-in rəsmi mənbəsindən götürün; yanlış chip target və ya port flash uğursuzluğuna səbəb olur."
       ],
       "answer": "ESP32 GPIO girişləri 5 V tolerant deyil; uyğun level shifter və sensor istifadə edin.",
       "explanation": "ESP32 GPIO girişləri 5 V tolerant deyil; uyğun level shifter və sensor istifadə edin.\nİzah: ESP32 GPIO-larının bəzisi boot zamanı oxunur, bəzisi yalnız giriş və ya xüsusi periferiyaya aiddir. Board sxemində flash/PSRAM, USB və strapping pinlərini yoxlayın; gərginlik səviyyəsini çipə uyğunlaşdırın."
@@ -190,7 +190,7 @@
       "type": "multiple_choice",
       "prompt": "“GPIO, interrupt və debouncing” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
       "options": [
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
         "Interrupt mənbəyini və pin trigger rejimini dəqiq seçin.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun."
@@ -218,7 +218,7 @@
       "type": "multiple_choice",
       "prompt": "“GPIO, interrupt və debouncing” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
       "options": [
-        "ESP-IDF layihə hədəfini build-dən əvvəl seçir.",
+        "Quraşdırma manager-i yalnız Espressif-in rəsmi mənbəsindən götürün; yanlış chip target və ya port flash uğursuzluğuna səbəb olur.",
         "FreeRTOS task-ları ilə paylaşılan dəyişənlərdə uyğun sinxronizasiya və ISR-safe API tələb olunur.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır."
@@ -246,7 +246,7 @@
       "type": "multiple_choice",
       "prompt": "“ADC, LEDC PWM və toxunma” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
       "options": [
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
         "ADC ölçmələrində səs-küy, kalibrləmə və giriş diapazonunu nəzərə alın.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır."
@@ -276,7 +276,7 @@
       "options": [
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
         "ADC pinini datasheet-də icazə verilən gərginlik diapazonundan kənara çıxarmayın.",
-        "ESP-IDF layihə hədəfini build-dən əvvəl seçir.",
+        "Quraşdırma manager-i yalnız Espressif-in rəsmi mənbəsindən götürün; yanlış chip target və ya port flash uğursuzluğuna səbəb olur.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır."
       ],
       "answer": "ADC pinini datasheet-də icazə verilən gərginlik diapazonundan kənara çıxarmayın.",
@@ -302,7 +302,7 @@
       "type": "multiple_choice",
       "prompt": "“I2C, SPI və UART periferiyaları” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
       "options": [
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
         "Rabitə xətasını axtararkən əvvəlcə naqil, GND, tezlik və ünvanı yoxlayın.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır."
@@ -333,7 +333,7 @@
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
         "I2C pull-up rezistoru tələb edə bilər; SPI chip-select, UART isə uyğun baud və xətt səviyyəsi tələb edir.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
-        "ESP-IDF layihə hədəfini build-dən əvvəl seçir."
+        "Quraşdırma manager-i yalnız Espressif-in rəsmi mənbəsindən götürün; yanlış chip target və ya port flash uğursuzluğuna səbəb olur."
       ],
       "answer": "I2C pull-up rezistoru tələb edə bilər; SPI chip-select, UART isə uyğun baud və xətt səviyyəsi tələb edir.",
       "explanation": "I2C pull-up rezistoru tələb edə bilər; SPI chip-select, UART isə uyğun baud və xətt səviyyəsi tələb edir.\nİzah: ESP32 periferiyasını seçərkən pin matrix, board-da ayrılmış pin və driver API-ni birlikdə nəzərə alın. I2C pull-up rezistoru tələb edə bilər; SPI chip-select, UART isə uyğun baud və xətt səviyyəsi tələb edir."
@@ -358,7 +358,7 @@
       "type": "multiple_choice",
       "prompt": "“Wi-Fi station və access point” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
       "options": [
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
         "Şəbəkə adını və parolu firmware mənbə koduna daxil etməyin.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun."
@@ -388,7 +388,7 @@
       "options": [
         "İstehsal cihazında açıq access point və sabit default parol buraxmayın.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
-        "ESP-IDF layihə hədəfini build-dən əvvəl seçir.",
+        "Quraşdırma manager-i yalnız Espressif-in rəsmi mənbəsindən götürün; yanlış chip target və ya port flash uğursuzluğuna səbəb olur.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun."
       ],
       "answer": "İstehsal cihazında açıq access point və sabit default parol buraxmayın.",
@@ -414,7 +414,7 @@
       "type": "multiple_choice",
       "prompt": "“Bluetooth LE və GATT” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
       "options": [
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
         "Yalnızca oxunmalı characteristic belə məxfi məlumatı qoruya bilər; pairing və icazə siyasətini düşünün.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun."
@@ -442,7 +442,7 @@
       "type": "multiple_choice",
       "prompt": "“Bluetooth LE və GATT” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
       "options": [
-        "ESP-IDF layihə hədəfini build-dən əvvəl seçir.",
+        "Quraşdırma manager-i yalnız Espressif-in rəsmi mənbəsindən götürün; yanlış chip target və ya port flash uğursuzluğuna səbəb olur.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
         "Reklam, qoşulma, MTU və enerji davranışı variant və SDK-dan asılıdır; icazəni və məlumatın kim tərəfindən oxuna biləcəyini əvvəlcədən müəyyən edin",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun."
@@ -472,7 +472,7 @@
       "options": [
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
         "Task arasında paylaşılmış mutable məlumatı lock və ya message queue ilə qoruyun."
       ],
       "answer": "Task arasında paylaşılmış mutable məlumatı lock və ya message queue ilə qoruyun.",
@@ -501,7 +501,7 @@
         "Watchdog-u deaktiv etməklə bloklanmanı ört-basdır etməyin; task-ın niyə irəliləmədiyini tapın.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
-        "ESP-IDF layihə hədəfini build-dən əvvəl seçir."
+        "Quraşdırma manager-i yalnız Espressif-in rəsmi mənbəsindən götürün; yanlış chip target və ya port flash uğursuzluğuna səbəb olur."
       ],
       "answer": "Watchdog-u deaktiv etməklə bloklanmanı ört-basdır etməyin; task-ın niyə irəliləmədiyini tapın.",
       "explanation": "Watchdog-u deaktiv etməklə bloklanmanı ört-basdır etməyin; task-ın niyə irəliləmədiyini tapın.\nİzah: ESP-IDF FreeRTOS task və queue vasitəsilə işi bölüşdürür. Stack ölçüsü, prioritet, core affinity və bloklanma müddətini ölçün; uzun müddət irəliləməyən task watchdog-u işə sala bilər."
@@ -529,7 +529,7 @@
         "Tez-tez dəyişən sayğacı hər dövrədə flash-a yazmaq yaddaş ömrünü azalda bilər.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin."
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin."
       ],
       "answer": "Tez-tez dəyişən sayğacı hər dövrədə flash-a yazmaq yaddaş ömrünü azalda bilər.",
       "explanation": "Tez-tez dəyişən sayğacı hər dövrədə flash-a yazmaq yaddaş ömrünü azalda bilər.\nİzah: NVS kiçik açar-dəyər konfiqurasiyasını flash-da saxlamaq üçün nəzərdə tutulub. Yazma tezliyini məhdudlaşdırın, format versiyası saxlayın və uğursuz migrasiyada default-a təhlükəsiz qayıdış təmin edin."
@@ -555,7 +555,7 @@
       "prompt": "“NVS və davamlı konfiqurasiya” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
       "options": [
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
-        "ESP-IDF layihə hədəfini build-dən əvvəl seçir.",
+        "Quraşdırma manager-i yalnız Espressif-in rəsmi mənbəsindən götürün; yanlış chip target və ya port flash uğursuzluğuna səbəb olur.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
         "Yazma tezliyini məhdudlaşdırın, format versiyası saxlayın və uğursuz migrasiyada default-a təhlükəsiz qayıdış təmin edin."
       ],
@@ -582,7 +582,7 @@
       "type": "multiple_choice",
       "prompt": "“Deep sleep və enerji büdcəsi” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
       "options": [
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
         "Datasheet-dəki çip cərəyanı bütün development board-un yuxu cərəyanı demək deyil."
@@ -613,7 +613,7 @@
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
         "Deep sleep zamanı oyanma mənbəyini, saxlanılan vəziyyəti və yenidən provisioning ehtiyacını planlayın; real board-da ölçün",
-        "ESP-IDF layihə hədəfini build-dən əvvəl seçir."
+        "Quraşdırma manager-i yalnız Espressif-in rəsmi mənbəsindən götürün; yanlış chip target və ya port flash uğursuzluğuna səbəb olur."
       ],
       "answer": "Deep sleep zamanı oyanma mənbəyini, saxlanılan vəziyyəti və yenidən provisioning ehtiyacını planlayın; real board-da ölçün",
       "explanation": "Deep sleep zamanı oyanma mənbəyini, saxlanılan vəziyyəti və yenidən provisioning ehtiyacını planlayın; real board-da ölçün\nİzah: Batareyalı cihazın enerji büdcəsinə CPU, radio, sensor, regulator və yuxu cərəyanı daxildir. Deep sleep zamanı oyanma mənbəyini, saxlanılan vəziyyəti və yenidən provisioning ehtiyacını planlayın; real board-da ölçün.\n\nNümunədəki `esp_sleep_*` funksiyaları Espressif-in ESP-IDF API-sidir və Arduino-ESP32 core tərəfindən açıq edilir; generic Arduino lövhələrində uyğun API zəmanəti yoxdur."
@@ -638,7 +638,7 @@
       "type": "multiple_choice",
       "prompt": "“OTA, partition və rollback” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
       "options": [
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
         "Yenilənməni enerji kəsilməsi, zəif şəbəkə və uyğun olmayan versiya ilə sınaqdan keçirin.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun."
@@ -666,7 +666,7 @@
       "type": "multiple_choice",
       "prompt": "“OTA, partition və rollback” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
       "options": [
-        "ESP-IDF layihə hədəfini build-dən əvvəl seçir.",
+        "Quraşdırma manager-i yalnız Espressif-in rəsmi mənbəsindən götürün; yanlış chip target və ya port flash uğursuzluğuna səbəb olur.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
         "İmzanı yoxlamadan OTA image-i boot üçün seçməyin.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır."
@@ -694,7 +694,7 @@
       "type": "multiple_choice",
       "prompt": "“Monitor, core dump və istehsala hazırlıq” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
       "options": [
-        "İlk testdə eyni anda board paketi, toolchain və framework versiyasını dəyişməyin.",
+        "İlk build üçün rəsmi `hello_world` nümunəsindən başlayın və işləyən toolchain versiyasını qeyd edin.",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
         "Log-ları faydalı, qısa və məxfi məlumatlardan azad saxlayın."
@@ -725,7 +725,7 @@
         "ESP32 ailəsinin hər variantı eyni radio və periferiyaları daşımır.",
         "İstehsal üçün firmware versiyası, reset səbəbi, crash capture, log səviyyəsi və recovery prosedurunu sənədləşdirin",
         "ESP32 adı pin uyğunluğuna və Wi-Fi/Bluetooth dəstəyinə zəmanət vermir; model kodunu oxuyun.",
-        "ESP-IDF layihə hədəfini build-dən əvvəl seçir."
+        "Quraşdırma manager-i yalnız Espressif-in rəsmi mənbəsindən götürün; yanlış chip target və ya port flash uğursuzluğuna səbəb olur."
       ],
       "answer": "İstehsal üçün firmware versiyası, reset səbəbi, crash capture, log səviyyəsi və recovery prosedurunu sənədləşdirin",
       "explanation": "İstehsal üçün firmware versiyası, reset səbəbi, crash capture, log səviyyəsi və recovery prosedurunu sənədləşdirin\nİzah: Serial monitor başlanğıc loglarını, xəta kodlarını və build məlumatını göstərir. İstehsal üçün firmware versiyası, reset səbəbi, crash capture, log səviyyəsi və recovery prosedurunu sənədləşdirin.\n\n`idf.py monitor` və `idf.py size` ESP-IDF alətləridir. Arduino-ESP32 layihəsində build/serial monitor Arduino IDE və ya Arduino CLI ilə aparılır; aşağıdakı əlavə nümunə Serial diaqnostikasını göstərir."

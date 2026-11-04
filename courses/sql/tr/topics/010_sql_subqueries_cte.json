@@ -1,0 +1,128 @@
+{
+  "id": "sql_sql_subqueries_cte",
+  "title": "Alt sorgular ve CTE",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_subqueries_cte_tr",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Alt sorgular ve CTE” gerçek bir programlama problemine çözüm üretmek için kullanılır. Önce girdiyi ve beklenen sonucu belirleyin; sonra örnekteki yapının hangi işi üstlendiğini izleyin. Konuyu yalnızca sözdizimi olarak değil, okunabilirlik, doğruluk, kaynak kullanımı ve ilerideki değişikliklere etkisiyle değerlendirin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "WITH course_counts AS (\n  SELECT course_id, COUNT(*) AS learners\n  FROM enrollments\n  GROUP BY course_id\n)\nSELECT course_id, learners\nFROM course_counts\nWHERE learners >= 2;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Önce kurs başına kayıt sayısı hesaplanır, sonra en az iki katılımcısı olan kurslar seçilir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Alt sorgu başka bir sorgunun içinde çalışır. WITH ile başlayan CTE ara sonuca ad vererek karmaşık sorguyu okunabilir parçalara ayırır. CTE çoğunlukla sorgu kapsamındadır; otomatik olarak kalıcı ve yeniden kullanılabilir bir materialized tablo değildir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: `WITH course_counts AS (`\nNe yapar: Önce kurs başına kayıt sayısı hesaplanır, sonra en az iki katılımcısı olan kurslar seçilir.\nNeden seçildi: Her CTE'ye açıklayıcı bir ad verin ve ara sonuçları adım adım çalıştırarak denetleyin.\nAtlanır veya değiştirilirse: CTE okunabilirliği artırabilir, ancak her veritabanında daha hızlı olacağı garanti değildir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "CTE ve alt sorgu performansı eniyileyici ve motora bağlıdır; büyük veride EXPLAIN ile denetleyin."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Önce kurs başına kayıt sayısı hesaplanır, sonra en az iki katılımcısı olan kurslar seçilir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Her CTE'ye açıklayıcı bir ad verin ve ara sonuçları adım adım çalıştırarak denetleyin."
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "CTE okunabilirliği artırabilir, ancak her veritabanında daha hızlı olacağı garanti değildir."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "CTE ve alt sorgu performansı eniyileyici ve motora bağlıdır; büyük veride EXPLAIN ile denetleyin."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_query_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı."
+}

@@ -1,0 +1,127 @@
+{
+  "id": "sql_sql_ddl_constraints",
+  "title": "Tablo oluşturma, türler ve kısıtlamalar",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_ddl_constraints_tr",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/about/history/",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Tablo oluşturma, türler ve kısıtlamalar” gerçek bir programlama problemine çözüm üretmek için kullanılır. Önce girdiyi ve beklenen sonucu belirleyin; sonra örnekteki yapının hangi işi üstlendiğini izleyin. Konuyu yalnızca sözdizimi olarak değil, okunabilirlik, doğruluk, kaynak kullanımı ve ilerideki değişikliklere etkisiyle değerlendirin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "CREATE TABLE products (\n  product_id INTEGER PRIMARY KEY,\n  name TEXT NOT NULL UNIQUE,\n  price_cents INTEGER NOT NULL CHECK (price_cents >= 0)\n);",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "name boş olamaz ve yinelenemez; fiyat kuruş olarak saklanır ve negatif olamaz.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "DDL şemayı oluşturur ve değiştirir: CREATE TABLE tablo kurar, ALTER TABLE şemayı değiştirir, DROP TABLE siler. Motorunuza uygun türleri seçin; SQLite türleri daha esnek saklar, PostgreSQL daha sıkı denetler. NOT NULL, UNIQUE, CHECK ve FOREIGN KEY kuralları hatalı veriyi veritabanında engeller.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: `CREATE TABLE products (`\nNe yapar: name boş olamaz ve yinelenemez; fiyat kuruş olarak saklanır ve negatif olamaz.\nNeden seçildi: Kuralı yalnız uygulamada değil, veritabanında da tanımlayın; veritabanına başka uygulamalar da yazabilir.\nAtlanır veya değiştirilirse: Parasal değerleri hassas hesaplamak için kayan nokta yerine kuruş gibi tam sayı ya da motorun kesin decimal türünü kullanın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "DROP TABLE veriyi silebilir; üretim değişikliklerini yedek ve migration ile yapın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "name boş olamaz ve yinelenemez; fiyat kuruş olarak saklanır ve negatif olamaz.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Kuralı yalnız uygulamada değil, veritabanında da tanımlayın; veritabanına başka uygulamalar da yazabilir."
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Parasal değerleri hassas hesaplamak için kayan nokta yerine kuruş gibi tam sayı ya da motorun kesin decimal türünü kullanın."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "DROP TABLE veriyi silebilir; üretim değişikliklerini yedek ve migration ile yapın."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

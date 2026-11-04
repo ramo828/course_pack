@@ -18,59 +18,7 @@
     },
     {
       "type": "text",
-      "text": "Bu dersin amacı “ESP32 Arduino'da FreeRTOS: sensör görevi ve kuyruk” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Kuyruk veriyi değer olarak kopyalar; sensör görevi yarım saniyede bir ölçüm yollar, ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "loop()",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " alınanları yazdırır. Gerçek ölçümde ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "A0",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " kartın ADC destekli piniyle değiştirilmelidir. Gerçek projede şu öneriyi izleyin: Uygulama sırası: 1) kuyruk oluştur; 2) görev oluşturma sonucunu denetle; 3) görev içinde sensörü okuyup zaman aşımıyla kuyruk'ya gönder; 4) ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "loop()",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " içinde sıradaki veriyi al; 5) kuyruk dolduğunda ne olacağını belirle. ",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "xTaskCreatePinnedToCore",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " yalnızca özel bir gerekçe varsa kullanılır; çekirdeğe sabitlemek işi kendiliğinden hızlandırmaz. ESP-IDF SMP zamanlaması ve Arduino-ESP32 API davranışı sürüme bağlıdır.\n\n",
+      "text": "Bu dersin amacı “ESP32 Arduino'da FreeRTOS: sensör görevi ve kuyruk” kavramını gerçek bir durumda uygulamayı öğrenmektir. Temel sonuç: Kuyruk veriyi değer olarak kopyalar; sensör görevi yarım saniyede bir ölçüm yollar, `loop()` alınanları yazdırır. Gerçek ölçümde `A0` kartın ADC destekli piniyle değiştirilmelidir. Gerçek projede şu öneriyi izleyin: Uygulama sırası: 1) kuyruk oluştur; 2) görev oluşturma sonucunu denetle; 3) görev içinde sensörü okuyup zaman aşımıyla kuyruk'ya gönder; 4) `loop()` içinde sıradaki veriyi al; 5) kuyruk dolduğunda ne olacağını belirle. `xTaskCreatePinnedToCore` yalnızca özel bir gerekçe varsa kullanılır; çekirdeğe sabitlemek işi kendiliğinden hızlandırmaz. ESP-IDF SMP zamanlaması ve Arduino-ESP32 API davranışı sürüme bağlıdır.\n\n",
       "size": 17,
       "color": "#212121"
     },
@@ -115,19 +63,7 @@
     },
     {
       "type": "text",
-      "text": "Arduino-ESP32 Çekirdek, FreeRTOS çekirdeğini beraberinde getirir; ayrıca RTOS kitaplığı kurmanız gerekmez. Sensörü okuyan görev veriyi kuyruk'ya yollar, ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "loop()",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " alıp ekrana yazar. Böylece sensör işi ile çıktı işi ayrılır ve korumasız ortak değişken ihtiyacı azalır. Klasik UNO'nun standart program ortamı ESP32 ile aynı görev API'sini sunmaz; başka kartlarda uyumlu RTOS portunu ve bellek gereksinimini ayrıca denetleyin.\n\n",
+      "text": "Arduino-ESP32 Çekirdek, FreeRTOS çekirdeğini beraberinde getirir; ayrıca RTOS kitaplığı kurmanız gerekmez. Sensörü okuyan görev veriyi kuyruk'ya yollar, `loop()` alıp ekrana yazar. Böylece sensör işi ile çıktı işi ayrılır ve korumasız ortak değişken ihtiyacı azalır. Klasik UNO'nun standart program ortamı ESP32 ile aynı görev API'sini sunmaz; başka kartlarda uyumlu RTOS portunu ve bellek gereksinimini ayrıca denetleyin.\n\n",
       "size": 17
     },
     {
@@ -139,79 +75,7 @@
     },
     {
       "type": "text",
-      "text": "Kod satırı: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "if (xTaskCreate(sensorTask, \"sensor\", 3072, nullptr, 1, nullptr) != pdPASS) {",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nNe yapar: Kuyruk veriyi değer olarak kopyalar; sensör görevi yarım saniyede bir ölçüm yollar, ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "loop()",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " alınanları yazdırır. Gerçek ölçümde ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "A0",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " kartın ADC destekli piniyle değiştirilmelidir.\nNeden seçildi: Uygulama sırası: 1) kuyruk oluştur; 2) görev oluşturma sonucunu denetle; 3) görev içinde sensörü okuyup zaman aşımıyla kuyruk'ya gönder; 4) ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "loop()",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " içinde sıradaki veriyi al; 5) kuyruk dolduğunda ne olacağını belirle. ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "xTaskCreatePinnedToCore",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " yalnızca özel bir gerekçe varsa kullanılır; çekirdeğe sabitlemek işi kendiliğinden hızlandırmaz. ESP-IDF SMP zamanlaması ve Arduino-ESP32 API davranışı sürüme bağlıdır.\nAtlanır veya değiştirilirse: Arduino-ESP32 Çekirdek FreeRTOS API'sini içerir; örnekteki yığın boyutu ve ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "A0",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " pini her kart için evrensel değildir. Kuyruk ve görev oluşturmayı denetleyin; kuyruk dolduğunda ne olacağını belirleyin. Sensör okuma ve Serial yazma bloklanabilir; bu nedenle yüksek öncelik ya da kesin zaman garantisi gereken sistemlerde ayrıca ölçüm yapın.\n\n",
+      "text": "Kod satırı: `if (xTaskCreate(sensorTask, \"sensor\", 3072, nullptr, 1, nullptr) != pdPASS) {`\nNe yapar: Kuyruk veriyi değer olarak kopyalar; sensör görevi yarım saniyede bir ölçüm yollar, `loop()` alınanları yazdırır. Gerçek ölçümde `A0` kartın ADC destekli piniyle değiştirilmelidir.\nNeden seçildi: Uygulama sırası: 1) kuyruk oluştur; 2) görev oluşturma sonucunu denetle; 3) görev içinde sensörü okuyup zaman aşımıyla kuyruk'ya gönder; 4) `loop()` içinde sıradaki veriyi al; 5) kuyruk dolduğunda ne olacağını belirle. `xTaskCreatePinnedToCore` yalnızca özel bir gerekçe varsa kullanılır; çekirdeğe sabitlemek işi kendiliğinden hızlandırmaz. ESP-IDF SMP zamanlaması ve Arduino-ESP32 API davranışı sürüme bağlıdır.\nAtlanır veya değiştirilirse: Arduino-ESP32 Çekirdek FreeRTOS API'sini içerir; örnekteki yığın boyutu ve `A0` pini her kart için evrensel değildir. Kuyruk ve görev oluşturmayı denetleyin; kuyruk dolduğunda ne olacağını belirleyin. Sensör okuma ve Serial yazma bloklanabilir; bu nedenle yüksek öncelik ya da kesin zaman garantisi gereken sistemlerde ayrıca ölçüm yapın.\n\n",
       "size": 16
     },
     {
@@ -228,39 +92,7 @@
     },
     {
       "type": "text",
-      "text": "Kuyruk veriyi değer olarak kopyalar; sensör görevi yarım saniyede bir ölçüm yollar, ",
-      "size": 17,
-      "color": "#00695C",
-      "bold": true,
-      "italic": true
-    },
-    {
-      "type": "text",
-      "text": "loop()",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true,
-      "italic": true
-    },
-    {
-      "type": "text",
-      "text": " alınanları yazdırır. Gerçek ölçümde ",
-      "size": 17,
-      "color": "#00695C",
-      "bold": true,
-      "italic": true
-    },
-    {
-      "type": "text",
-      "text": "A0",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true,
-      "italic": true
-    },
-    {
-      "type": "text",
-      "text": " kartın ADC destekli piniyle değiştirilmelidir.\n\n",
+      "text": "Kuyruk veriyi değer olarak kopyalar; sensör görevi yarım saniyede bir ölçüm yollar, `loop()` alınanları yazdırır. Gerçek ölçümde `A0` kartın ADC destekli piniyle değiştirilmelidir.\n\n",
       "size": 17,
       "color": "#00695C",
       "bold": true,
@@ -293,19 +125,7 @@
     },
     {
       "type": "text",
-      "text": "Kuyruk görevi çalışırken Serial Monitor yaklaşık yarım saniyede bir ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "sample=7",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " gösterir.\n\n",
+      "text": "Kuyruk görevi çalışırken Serial Monitor yaklaşık yarım saniyede bir `sample=7` gösterir.\n\n",
       "size": 16
     },
     {

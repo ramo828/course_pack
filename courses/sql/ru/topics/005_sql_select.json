@@ -1,0 +1,128 @@
+{
+  "id": "sql_sql_select",
+  "title": "SELECT: чтение данных",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_select_ru",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "«SELECT: чтение данных» помогает решать конкретную задачу программы. Сначала определите входные данные и ожидаемый результат, затем проследите роль конструкции в примере. Изучайте её не только как синтаксис, но и с точки зрения читаемости, корректности, ресурсов и будущих изменений.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT name, price_cents / 100.0 AS price\nFROM products\nORDER BY name;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Возвращает названия и вычисленные цены товаров в порядке названий.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SELECT формирует набор результатов. FROM задаёт источник; явный список столбцов понятнее и устойчивее, чем *, при изменении схемы. AS задаёт удобный псевдоним. Без ORDER BY порядок строк не гарантирован.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: `SELECT name, price_cents / 100.0 AS price`\nЧто она делает: Возвращает названия и вычисленные цены товаров в порядке названий.\nЗачем она нужна: Выбирайте только нужные столбцы: так результат понятнее, а изменения схемы менее неожиданны.\nЕсли пропустить или изменить: AS задаёт имя столбца результата, но не переименовывает столбец таблицы.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "Преобразование цены в float может дать ошибку округления; сохраняйте точное представление для финансовых расчётов."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Возвращает названия и вычисленные цены товаров в порядке названий.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Выбирайте только нужные столбцы: так результат понятнее, а изменения схемы менее неожиданны."
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "AS задаёт имя столбца результата, но не переименовывает столбец таблицы."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "Преобразование цены в float может дать ошибку округления; сохраняйте точное представление для финансовых расчётов."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_query_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

@@ -10,7 +10,7 @@
       "options": [
         "setup() runs once; loop() repeats.",
         "Compile and upload are separate; a successful build does not guarantee the selected port is correct.",
-        "Record the board package version so the build can be reproduced.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
         "Peripheral and pin mappings depend on the board's MCU."
       ],
       "answer": "Peripheral and pin mappings depend on the board's MCU.",
@@ -22,7 +22,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “MCU, memory, and pins” in a project, which action is recommended?",
       "options": [
-        "Record the board package version so the build can be reproduced.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
         "Check that sensors and communication hardware are ready during setup.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Compile and upload are separate; a successful build does not guarantee the selected port is correct."
@@ -37,9 +37,9 @@
       "prompt": "Which implementation detail matters in the “MCU, memory, and pins” example?",
       "options": [
         "The datasheet and board schematic specify pin voltage, current, and alternate functions.",
-        "Compile and upload are separate; a successful build does not guarantee the selected port is correct.",
-        "setup() runs once; loop() repeats.",
-        "Record the board package version so the build can be reproduced."
+        "IDE packages and Linux serial permissions vary by release and distribution; follow current vendor instructions.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
+        "Compile and upload are separate; a successful build does not guarantee the selected port is correct."
       ],
       "answer": "The datasheet and board schematic specify pin voltage, current, and alternate functions.",
       "explanation": "The datasheet and board schematic specify pin voltage, current, and alternate functions.\nWhy: A microcontroller combines a CPU, memory, and I/O peripherals. RAM is working memory, flash stores firmware, and pin capabilities depend on the board's datasheet.\n\nOrigin and date: the Arduino project began in 2005 in Ivrea, Italy, for education and physical computing. Arduino's official About page names Massimo Banzi, David Cuartielles, Tom Igoe, and David Mellis as co-founders. Its purpose was to lower the barrier between electronics and programming by making sensor-and-actuator projects approachable with an affordable board. Arduino is used in prototypes, education, measurement instruments, and IoT devices; it connects to careers in embedded development, electronics prototyping, and test engineering. If building systems that sense and affect the physical world inspires you, start by learning how pins, RAM, and flash fit together."
@@ -50,10 +50,10 @@
       "type": "multiple_choice",
       "prompt": "Which additional constraint or condition should be checked for “MCU, memory, and pins”?",
       "options": [
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits.",
         "Compile and upload are separate; a successful build does not guarantee the selected port is correct.",
-        "Record the board package version so the build can be reproduced.",
         "RAM is working memory, flash stores firmware, and pin capabilities depend on the board's datasheet",
-        "setup() runs once; loop() repeats."
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload."
       ],
       "answer": "RAM is working memory, flash stores firmware, and pin capabilities depend on the board's datasheet",
       "explanation": "RAM is working memory, flash stores firmware, and pin capabilities depend on the board's datasheet\nWhy: A microcontroller combines a CPU, memory, and I/O peripherals. RAM is working memory, flash stores firmware, and pin capabilities depend on the board's datasheet.\n\nOrigin and date: the Arduino project began in 2005 in Ivrea, Italy, for education and physical computing. Arduino's official About page names Massimo Banzi, David Cuartielles, Tom Igoe, and David Mellis as co-founders. Its purpose was to lower the barrier between electronics and programming by making sensor-and-actuator projects approachable with an affordable board. Arduino is used in prototypes, education, measurement instruments, and IoT devices; it connects to careers in embedded development, electronics prototyping, and test engineering. If building systems that sense and affect the physical world inspires you, start by learning how pins, RAM, and flash fit together."
@@ -70,7 +70,7 @@
         "setup() runs once; loop() repeats."
       ],
       "answer": "Compile and upload are separate; a successful build does not guarantee the selected port is correct.",
-      "explanation": "Compile and upload are separate; a successful build does not guarantee the selected port is correct.\nWhy: Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available."
+      "explanation": "Compile and upload are separate; a successful build does not guarantee the selected port is correct.\nWhy: Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available.\n\nDownload Arduino IDE 2 for Windows, macOS, or Linux only from arduino.cc. Let it check for updates, then install the exact board family's package through Boards Manager. Connect a USB data cable, choose the board and port under Tools, and compile and upload the Blink example. Windows may need the board maker's USB-serial driver; macOS may request a security confirmation. On Linux, follow the official AppImage/package guidance and serial-port permission instructions; after joining `dialout`, you may need to sign out and back in."
     },
     {
       "id": "arduino_arduino_setup_2",
@@ -79,12 +79,12 @@
       "prompt": "When applying “Arduino IDE and board packages” in a project, which action is recommended?",
       "options": [
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
-        "Record the board package version so the build can be reproduced.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
         "Check that sensors and communication hardware are ready during setup.",
         "Peripheral and pin mappings depend on the board's MCU."
       ],
-      "answer": "Record the board package version so the build can be reproduced.",
-      "explanation": "Record the board package version so the build can be reproduced.\nWhy: Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available."
+      "answer": "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
+      "explanation": "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.\nWhy: Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available.\n\nDownload Arduino IDE 2 for Windows, macOS, or Linux only from arduino.cc. Let it check for updates, then install the exact board family's package through Boards Manager. Connect a USB data cable, choose the board and port under Tools, and compile and upload the Blink example. Windows may need the board maker's USB-serial driver; macOS may request a security confirmation. On Linux, follow the official AppImage/package guidance and serial-port permission instructions; after joining `dialout`, you may need to sign out and back in."
     },
     {
       "id": "arduino_arduino_setup_3",
@@ -95,10 +95,10 @@
         "The datasheet and board schematic specify pin voltage, current, and alternate functions.",
         "Peripheral and pin mappings depend on the board's MCU.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
-        "Install the IDE from its official source, add the board package, then select the board and port"
+        "IDE packages and Linux serial permissions vary by release and distribution; follow current vendor instructions."
       ],
-      "answer": "Install the IDE from its official source, add the board package, then select the board and port",
-      "explanation": "Install the IDE from its official source, add the board package, then select the board and port\nWhy: Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available."
+      "answer": "IDE packages and Linux serial permissions vary by release and distribution; follow current vendor instructions.",
+      "explanation": "IDE packages and Linux serial permissions vary by release and distribution; follow current vendor instructions.\nWhy: Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available.\n\nDownload Arduino IDE 2 for Windows, macOS, or Linux only from arduino.cc. Let it check for updates, then install the exact board family's package through Boards Manager. Connect a USB data cable, choose the board and port under Tools, and compile and upload the Blink example. Windows may need the board maker's USB-serial driver; macOS may request a security confirmation. On Linux, follow the official AppImage/package guidance and serial-port permission instructions; after joining `dialout`, you may need to sign out and back in."
     },
     {
       "id": "arduino_arduino_setup_4",
@@ -107,12 +107,12 @@
       "prompt": "Which additional constraint or condition should be checked for “Arduino IDE and board packages”?",
       "options": [
         "Peripheral and pin mappings depend on the board's MCU.",
-        "If no port appears, check that the USB cable carries data and the driver is available.",
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits.",
         "setup() runs once; loop() repeats.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family."
       ],
-      "answer": "If no port appears, check that the USB cable carries data and the driver is available.",
-      "explanation": "If no port appears, check that the USB cable carries data and the driver is available.\nWhy: Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available."
+      "answer": "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits.",
+      "explanation": "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits.\nWhy: Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available.\n\nDownload Arduino IDE 2 for Windows, macOS, or Linux only from arduino.cc. Let it check for updates, then install the exact board family's package through Boards Manager. Connect a USB data cable, choose the board and port under Tools, and compile and upload the Blink example. Windows may need the board maker's USB-serial driver; macOS may request a security confirmation. On Linux, follow the official AppImage/package guidance and serial-port permission instructions; after joining `dialout`, you may need to sign out and back in."
     },
     {
       "id": "arduino_arduino_sketch_1",
@@ -134,7 +134,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “setup() and loop()” in a project, which action is recommended?",
       "options": [
-        "Record the board package version so the build can be reproduced.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Check that sensors and communication hardware are ready during setup.",
         "Peripheral and pin mappings depend on the board's MCU."
@@ -163,7 +163,7 @@
       "prompt": "Which additional constraint or condition should be checked for “setup() and loop()”?",
       "options": [
         "Peripheral and pin mappings depend on the board's MCU.",
-        "Compile and upload are separate; a successful build does not guarantee the selected port is correct.",
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "loop() repeats while the program runs; short, non-blocking steps keep the system responsive."
       ],
@@ -190,7 +190,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “Digital GPIO input and output” in a project, which action is recommended?",
       "options": [
-        "Record the board package version so the build can be reproduced.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
         "Peripheral and pin mappings depend on the board's MCU.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Give a button input a defined idle level to reduce false transitions."
@@ -221,7 +221,7 @@
         "Peripheral and pin mappings depend on the board's MCU.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Logic levels and GPIO limits are board-specific; never exceed pin current ratings.",
-        "Compile and upload are separate; a successful build does not guarantee the selected port is correct."
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits."
       ],
       "answer": "Logic levels and GPIO limits are board-specific; never exceed pin current ratings.",
       "explanation": "Logic levels and GPIO limits are board-specific; never exceed pin current ratings.\nWhy: pinMode configures direction; digitalRead and digitalWrite handle logic levels. Inputs must not float: use a suitable pull-up/down and account for button bounce."
@@ -246,7 +246,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “ADC, PWM, and analog input” in a project, which action is recommended?",
       "options": [
-        "Record the board package version so the build can be reproduced.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Use the board's documented ADC range and calibrate raw values to physical units.",
         "Peripheral and pin mappings depend on the board's MCU."
@@ -276,7 +276,7 @@
       "options": [
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Never connect 5 V directly to a 3.3 V ADC input; check the board's limits.",
-        "Compile and upload are separate; a successful build does not guarantee the selected port is correct.",
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits.",
         "Peripheral and pin mappings depend on the board's MCU."
       ],
       "answer": "Never connect 5 V directly to a 3.3 V ADC input; check the board's limits.",
@@ -305,7 +305,7 @@
         "Both ends must agree on baud rate and line endings.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Peripheral and pin mappings depend on the board's MCU.",
-        "Record the board package version so the build can be reproduced."
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload."
       ],
       "answer": "Both ends must agree on baud rate and line endings.",
       "explanation": "Both ends must agree on baud rate and line endings.\nWhy: Serial.begin sets the baud rate; the monitor can display logs and simple commands. Define a line format, validate received input, and keep secrets out of serial output."
@@ -333,7 +333,7 @@
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Define a line format, validate received input, and keep secrets out of serial output.",
         "Peripheral and pin mappings depend on the board's MCU.",
-        "Compile and upload are separate; a successful build does not guarantee the selected port is correct."
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits."
       ],
       "answer": "Define a line format, validate received input, and keep secrets out of serial output.",
       "explanation": "Define a line format, validate received input, and keep secrets out of serial output.\nWhy: Serial.begin sets the baud rate; the monitor can display logs and simple commands. Define a line format, validate received input, and keep secrets out of serial output."
@@ -358,7 +358,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “millis(), buttons, and interrupts” in a project, which action is recommended?",
       "options": [
-        "Record the board package version so the build can be reproduced.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
         "Peripheral and pin mappings depend on the board's MCU.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Use unsigned elapsed-time arithmetic so timer wraparound is handled safely."
@@ -386,7 +386,7 @@
       "type": "multiple_choice",
       "prompt": "Which additional constraint or condition should be checked for “millis(), buttons, and interrupts”?",
       "options": [
-        "Compile and upload are separate; a successful build does not guarantee the selected port is correct.",
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Serial output, delays, and blocking I/O inside an ISR can cause unreliable behavior.",
         "Peripheral and pin mappings depend on the board's MCU."
@@ -417,7 +417,7 @@
         "Two I2C devices with the same address can conflict on one bus.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Peripheral and pin mappings depend on the board's MCU.",
-        "Record the board package version so the build can be reproduced."
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload."
       ],
       "answer": "Two I2C devices with the same address can conflict on one bus.",
       "explanation": "Two I2C devices with the same address can conflict on one bus.\nWhy: UART is point-to-point serial, I2C is an addressed two-wire bus, and SPI uses clock and chip-select for fast transfers. Choose pins and electrical levels from the board documentation."
@@ -444,7 +444,7 @@
       "options": [
         "Choose pins and electrical levels from the board documentation.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
-        "Compile and upload are separate; a successful build does not guarantee the selected port is correct.",
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits.",
         "Peripheral and pin mappings depend on the board's MCU."
       ],
       "answer": "Choose pins and electrical levels from the board documentation.",
@@ -470,7 +470,7 @@
       "type": "multiple_choice",
       "prompt": "When applying “Sensors, actuators, and power safety” in a project, which action is recommended?",
       "options": [
-        "Record the board package version so the build can be reproduced.",
+        "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.",
         "Peripheral and pin mappings depend on the board's MCU.",
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Verify supply voltage, current budget, and grounding before powering the circuit."
@@ -501,7 +501,7 @@
         "Do not assume Arduino UNO pin mappings apply to a different MCU family.",
         "Peripheral and pin mappings depend on the board's MCU.",
         "Mains voltage is hazardous; use current-limited low-voltage supplies for beginner projects.",
-        "Compile and upload are separate; a successful build does not guarantee the selected port is correct."
+        "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits."
       ],
       "answer": "Mains voltage is hazardous; use current-limited low-voltage supplies for beginner projects.",
       "explanation": "Mains voltage is hazardous; use current-limited low-voltage supplies for beginner projects.\nWhy: Sensors measure physical quantities; actuators turn electricity into motion, light, or sound. Do not drive motors or relays directly from GPIO; use suitable drivers and protection."
@@ -864,11 +864,11 @@
       "options": [
         "Breadboard - for building temporary circuits",
         "Simple but very important.",
-        "Before applying power, check the module's VCC, GND, and signal labels.",
+        "From sensor input to PWM output From sensor input to PWM output",
         "Middle area - every 5 pins connected vertically (separated by channel)"
       ],
-      "answer": "Before applying power, check the module's VCC, GND, and signal labels.",
-      "explanation": "Before applying power, check the module's VCC, GND, and signal labels."
+      "answer": "From sensor input to PWM output From sensor input to PWM output",
+      "explanation": "From sensor input to PWM output From sensor input to PWM output"
     },
     {
       "id": "kit_arduino_potentiometer_q3",
@@ -878,11 +878,11 @@
       "options": [
         "Resistor (220Ω, 10kΩ) - current limiting and pull-up",
         "Arduino UNO (or similar)",
-        "Verify the board input-voltage limit and module current requirements in their documentation.",
+        "Before applying power, check the module's VCC, GND, and signal labels.",
         "Side rails (+/-) - connected horizontally along the length (power rails) RULES 1."
       ],
-      "answer": "Verify the board input-voltage limit and module current requirements in their documentation.",
-      "explanation": "Verify the board input-voltage limit and module current requirements in their documentation."
+      "answer": "Before applying power, check the module's VCC, GND, and signal labels.",
+      "explanation": "Before applying power, check the module's VCC, GND, and signal labels."
     },
     {
       "id": "kit_arduino_potentiometer_q4",
@@ -891,12 +891,12 @@
       "prompt": "Which statement from the “Potentiometer as analog input” lesson is correct?",
       "options": [
         "Jumper wires SIMPLE EXPLANATION An LED only allows current to flow one way.",
-        "Use a suitable driver and separate supply if an external load exceeds the pin-current limit.",
+        "Verify the board input-voltage limit and module current requirements in their documentation.",
         "Push button - manual input",
         "Use side rails for power (VCC/GND)"
       ],
-      "answer": "Use a suitable driver and separate supply if an external load exceeds the pin-current limit.",
-      "explanation": "Use a suitable driver and separate supply if an external load exceeds the pin-current limit."
+      "answer": "Verify the board input-voltage limit and module current requirements in their documentation.",
+      "explanation": "Verify the board input-voltage limit and module current requirements in their documentation."
     },
     {
       "id": "kit_arduino_photoresistor_q1",
@@ -921,10 +921,10 @@
         "Breadboard - for building temporary circuits",
         "Middle area - every 5 pins connected vertically (separated by channel)",
         "Simple but very important.",
-        "Before applying power, check the module's VCC, GND, and signal labels."
+        "From sensor input to PWM output From sensor input to PWM output"
       ],
-      "answer": "Before applying power, check the module's VCC, GND, and signal labels.",
-      "explanation": "Before applying power, check the module's VCC, GND, and signal labels."
+      "answer": "From sensor input to PWM output From sensor input to PWM output",
+      "explanation": "From sensor input to PWM output From sensor input to PWM output"
     },
     {
       "id": "kit_arduino_photoresistor_q3",
@@ -932,13 +932,13 @@
       "type": "multiple_choice",
       "prompt": "Which practical detail should be considered when using “Photoresistor (LDR) light sensor”?",
       "options": [
-        "Verify the board input-voltage limit and module current requirements in their documentation.",
+        "Before applying power, check the module's VCC, GND, and signal labels.",
         "Side rails (+/-) - connected horizontally along the length (power rails) RULES 1.",
         "Arduino UNO (or similar)",
         "Resistor (220Ω, 10kΩ) - current limiting and pull-up"
       ],
-      "answer": "Verify the board input-voltage limit and module current requirements in their documentation.",
-      "explanation": "Verify the board input-voltage limit and module current requirements in their documentation."
+      "answer": "Before applying power, check the module's VCC, GND, and signal labels.",
+      "explanation": "Before applying power, check the module's VCC, GND, and signal labels."
     },
     {
       "id": "kit_arduino_photoresistor_q4",
@@ -949,10 +949,10 @@
         "Use side rails for power (VCC/GND)",
         "Jumper wires SIMPLE EXPLANATION An LED only allows current to flow one way.",
         "Push button - manual input",
-        "Use a suitable driver and separate supply if an external load exceeds the pin-current limit."
+        "Verify the board input-voltage limit and module current requirements in their documentation."
       ],
-      "answer": "Use a suitable driver and separate supply if an external load exceeds the pin-current limit.",
-      "explanation": "Use a suitable driver and separate supply if an external load exceeds the pin-current limit."
+      "answer": "Verify the board input-voltage limit and module current requirements in their documentation.",
+      "explanation": "Verify the board input-voltage limit and module current requirements in their documentation."
     },
     {
       "id": "kit_arduino_rgb_led_q1",
@@ -974,13 +974,13 @@
       "type": "multiple_choice",
       "prompt": "Which additional fact about “RGB LED: common cathode/anode and color mixing” is accurate?",
       "options": [
-        "Before applying power, check the module's VCC, GND, and signal labels.",
+        "Wire an LED safely Wire an LED safely",
         "Breadboard - for building temporary circuits",
         "Middle area - every 5 pins connected vertically (separated by channel)",
         "Simple but very important."
       ],
-      "answer": "Before applying power, check the module's VCC, GND, and signal labels.",
-      "explanation": "Before applying power, check the module's VCC, GND, and signal labels."
+      "answer": "Wire an LED safely Wire an LED safely",
+      "explanation": "Wire an LED safely Wire an LED safely"
     },
     {
       "id": "kit_arduino_rgb_led_q3",
@@ -988,13 +988,13 @@
       "type": "multiple_choice",
       "prompt": "Which practical detail should be considered when using “RGB LED: common cathode/anode and color mixing”?",
       "options": [
-        "Verify the board input-voltage limit and module current requirements in their documentation.",
+        "Before applying power, check the module's VCC, GND, and signal labels.",
         "Side rails (+/-) - connected horizontally along the length (power rails) RULES 1.",
         "Arduino UNO (or similar)",
         "Resistor (220Ω, 10kΩ) - current limiting and pull-up"
       ],
-      "answer": "Verify the board input-voltage limit and module current requirements in their documentation.",
-      "explanation": "Verify the board input-voltage limit and module current requirements in their documentation."
+      "answer": "Before applying power, check the module's VCC, GND, and signal labels.",
+      "explanation": "Before applying power, check the module's VCC, GND, and signal labels."
     },
     {
       "id": "kit_arduino_rgb_led_q4",
@@ -1003,12 +1003,12 @@
       "prompt": "Which statement from the “RGB LED: common cathode/anode and color mixing” lesson is correct?",
       "options": [
         "Push button - manual input",
-        "Use a suitable driver and separate supply if an external load exceeds the pin-current limit.",
+        "Verify the board input-voltage limit and module current requirements in their documentation.",
         "Use side rails for power (VCC/GND)",
         "Jumper wires SIMPLE EXPLANATION An LED only allows current to flow one way."
       ],
-      "answer": "Use a suitable driver and separate supply if an external load exceeds the pin-current limit.",
-      "explanation": "Use a suitable driver and separate supply if an external load exceeds the pin-current limit."
+      "answer": "Verify the board input-voltage limit and module current requirements in their documentation.",
+      "explanation": "Verify the board input-voltage limit and module current requirements in their documentation."
     },
     {
       "id": "kit_arduino_ultrasonic_q1",

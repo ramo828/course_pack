@@ -1,0 +1,148 @@
+{
+  "id": "sql_sql_triggers_procedures",
+  "title": "Görünüşlər, tətikləyicilər və saxlanılan prosedurlar",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_triggers_procedures_az",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Görünüşlər, tətikləyicilər və saxlanılan prosedurlar” real proqramda konkret problemi həll etmək üçün seçilir. Əvvəl giriş və gözlənilən nəticəni müəyyənləşdirin, sonra nümunədəki anlayışın hansı işi gördüyünü izləyin. Bu mövzu kursda tək sintaksis deyil: oxunaqlılıq, düzgünlük, resurs istifadəsi və gələcək dəyişikliklərə təsiri ilə birlikdə öyrənilməlidir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "CREATE TABLE price_audit (\n  product_id INTEGER,\n  old_price INTEGER,\n  new_price INTEGER\n);\n\nCREATE TRIGGER audit_price_change\nAFTER UPDATE OF price_cents ON products\nWHEN OLD.price_cents <> NEW.price_cents\nBEGIN\n  INSERT INTO price_audit\n  VALUES (NEW.product_id, OLD.price_cents, NEW.price_cents);\nEND;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Qiymət dəyişdikdə tətikləyici köhnə və yeni qiyməti price_audit cədvəlinə yazır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Görünüş (VIEW) ad verilmiş SELECT sorğusudur, məlumatın ayrıca nüsxəsi deyil. Tətikləyici cədvəldə INSERT, UPDATE və ya DELETE əməliyyatı baş verəndə avtomatik işə düşür; məsələn, dəyişiklik tarixçəsini yaza bilər. Saxlanılan prosedur və funksiya verilənlər bazasında saxlanılan proqram məntiqidir; PostgreSQL və MySQL bunları dəstəkləsə də, dilləri və yazılış qaydaları fərqlənir. SQLite tətikləyiciləri dəstəkləyir, lakin server tipli saxlanılan prosedur sistemi təqdim etmir. Eyni qaydanı həm tətbiqdə, həm də tətikləyicidə təkrarlamaq əvəzinə, məntiqin harada yerləşəcəyini müəyyən edin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: `CREATE TABLE price_audit (`\nNə edir: Qiymət dəyişdikdə tətikləyici köhnə və yeni qiyməti price_audit cədvəlinə yazır.\nNiyə seçilib: Tətikləyicinin yan təsirlərini və zəncirvari işə düşə bilən başqa tətikləyiciləri sənədləşdirin; dəyişiklikləri köçürmə skriptləri və testlərlə yoxlayın.\nBuraxılsa və ya dəyişdirilsə: Saxlanılan prosedurun yazılış qaydası PostgreSQL və MySQL arasında eyni deyil; SQLite nümunəsi yalnız tətikləyicinin yazılışını göstərir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Tətikləyicinin yan təsirləri sorğudan görünməyə bilər; işlək verilənlər bazasında yaratmazdan əvvəl təsirini yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Qiymət dəyişdikdə tətikləyici köhnə və yeni qiyməti price_audit cədvəlinə yazır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Tətikləyicinin yan təsirlərini və zəncirvari işə düşə bilən başqa tətikləyiciləri sənədləşdirin; dəyişiklikləri köçürmə skriptləri və testlərlə yoxlayın."
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Saxlanılan prosedurun yazılış qaydası PostgreSQL və MySQL arasında eyni deyil; SQLite nümunəsi yalnız tətikləyicinin yazılışını göstərir."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Tətikləyicinin yan təsirləri sorğudan görünməyə bilər; işlək verilənlər bazasında yaratmazdan əvvəl təsirini yoxlayın."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

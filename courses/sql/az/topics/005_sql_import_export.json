@@ -1,0 +1,153 @@
+{
+  "id": "sql_sql_import_export",
+  "title": "Məlumatların köçürülməsi və ehtiyat nüsxə",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_import_export_az",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Məlumatların köçürülməsi və ehtiyat nüsxə” real proqramda konkret problemi həll etmək üçün seçilir. Əvvəl giriş və gözlənilən nəticəni müəyyənləşdirin, sonra nümunədəki anlayışın hansı işi gördüyünü izləyin. Bu mövzu kursda tək sintaksis deyil: oxunaqlılıq, düzgünlük, resurs istifadəsi və gələcək dəyişikliklərə təsiri ilə birlikdə öyrənilməlidir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "sqlite3 school.db\n.mode csv\n.import students.csv students\n.headers on\n.once students_export.csv\nSELECT student_id, name FROM students;\n\n-- PostgreSQL psql client:\n-- \\copy students(name) FROM 'students.csv' CSV HEADER\n\n-- Backups:\n-- SQLite: .backup school-backup.db\n-- PostgreSQL: pg_dump school > school.sql\n-- MySQL: mysqldump school > school.sql",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLite əmrləri cədvələ CSV yükləyir və sorğu nəticəsini fayla çıxarır; başqa DBMS-lər öz alətlərindən istifadə edir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cədvəli CSV faylından yükləmək və nəticəni fayla çıxarmaq analitika və sistemlərarası köçürmədə tez-tez lazım olur. SQLite terminalında `.mode csv` və `.import students.csv students` CSV-ni cədvələ gətirir; `.headers on`, `.once result.csv` və SELECT nəticəni CSV-yə yaza bilər. PostgreSQL-in psql alətində `\\copy` müştəri kompüterində faylla işləyir; MySQL-də `LOAD DATA` istifadə edilə bilər, lakin server icazələri tələb oluna bilər. Cədvəl sxemini və kodlaşdırmanı əvvəlcədən yoxlayın, etibarsız CSV dəyərlərini sorğu mətninə birləşdirməyin. Ehtiyat nüsxə üçün SQLite `.backup`, PostgreSQL `pg_dump`, MySQL `mysqldump` kimi alətlər mövcuddur; nüsxəni ayrıca saxlayın və bərpanı sınaqdan keçirin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: `sqlite3 school.db`\nNə edir: SQLite əmrləri cədvələ CSV yükləyir və sorğu nəticəsini fayla çıxarır; başqa DBMS-lər öz alətlərindən istifadə edir.\nNiyə seçilib: Əvvəlcə bir neçə sətri sınaq cədvəlinə yükləyin; CSV-də ayırıcı, başlıq, kodlaşdırma və boş dəyərlərin qaydasını dəqiqləşdirin.\nBuraxılsa və ya dəyişdirilsə: CSV yalnız dəyərləri daşıyır; sütun tiplərini, məhdudiyyətləri və əlaqələri ayrıca sxemdən yaratmaq lazımdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "İxrac olunan faylda şəxsi məlumat ola bilər; giriş icazəsini məhdudlaşdırın və ehtiyat nüsxənin bərpasını müntəzəm yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLite əmrləri cədvələ CSV yükləyir və sorğu nəticəsini fayla çıxarır; başqa DBMS-lər öz alətlərindən istifadə edir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Əvvəlcə bir neçə sətri sınaq cədvəlinə yükləyin; CSV-də ayırıcı, başlıq, kodlaşdırma və boş dəyərlərin qaydasını dəqiqləşdirin."
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "CSV yalnız dəyərləri daşıyır; sütun tiplərini, məhdudiyyətləri və əlaqələri ayrıca sxemdən yaratmaq lazımdır."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "İxrac olunan faylda şəxsi məlumat ola bilər; giriş icazəsini məhdudlaşdırın və ehtiyat nüsxənin bərpasını müntəzəm yoxlayın."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_transaction",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

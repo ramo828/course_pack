@@ -1,0 +1,62 @@
+{
+  "id": "sql_test_sql_query_plans_en",
+  "title": "Query plans and performance checks",
+  "questions": [
+    {
+      "id": "sql_sql_query_plans_1",
+      "topicId": "sql_sql_query_plans",
+      "type": "multiple_choice",
+      "prompt": "Which statement gives the core rule for “Query plans and performance checks”?",
+      "options": [
+        "Start with a small, readable SELECT query; connect it to an application only after you understand its result.",
+        "The plan shows how the student_id lookup is performed; index use depends on the data and optimizer.",
+        "SQLite often runs inside the application; MySQL and PostgreSQL commonly run as separate server processes.",
+        "The query returns Ada and 42 in two columns."
+      ],
+      "answer": "The plan shows how the student_id lookup is performed; index use depends on the data and optimizer.",
+      "explanation": "The plan shows how the student_id lookup is performed; index use depends on the data and optimizer.\nWhy: When a query is slow, measure it on a small representative dataset before investigating its plan. `EXPLAIN` shows the operations selected by the DBMS; use `EXPLAIN QUERY PLAN` in SQLite and `EXPLAIN` in PostgreSQL and MySQL. A plan may reveal a full table scan, index lookup, or join strategy. Appropriate indexes on filter/join columns, refreshed statistics with `ANALYZE`, and avoiding unnecessary rows and columns can help. Plan output can change between engine versions, so do not parse it as a stable application format."
+    },
+    {
+      "id": "sql_sql_query_plans_2",
+      "topicId": "sql_sql_query_plans",
+      "type": "multiple_choice",
+      "prompt": "When applying “Query plans and performance checks” in a project, which action is recommended?",
+      "options": [
+        "EXPLAIN ANALYZE executes the query on some engines; use care with statements that modify data.",
+        "Choose an engine by checking whether you need a server, concurrent writes, and the required operational features.",
+        "The query returns Ada and 42 in two columns.",
+        "Start with a small, readable SELECT query; connect it to an application only after you understand its result."
+      ],
+      "answer": "EXPLAIN ANALYZE executes the query on some engines; use care with statements that modify data.",
+      "explanation": "EXPLAIN ANALYZE executes the query on some engines; use care with statements that modify data.\nWhy: When a query is slow, measure it on a small representative dataset before investigating its plan. `EXPLAIN` shows the operations selected by the DBMS; use `EXPLAIN QUERY PLAN` in SQLite and `EXPLAIN` in PostgreSQL and MySQL. A plan may reveal a full table scan, index lookup, or join strategy. Appropriate indexes on filter/join columns, refreshed statistics with `ANALYZE`, and avoiding unnecessary rows and columns can help. Plan output can change between engine versions, so do not parse it as a stable application format."
+    },
+    {
+      "id": "sql_sql_query_plans_3",
+      "topicId": "sql_sql_query_plans",
+      "type": "multiple_choice",
+      "prompt": "Which implementation detail matters in the “Query plans and performance checks” example?",
+      "options": [
+        "Start with a small, readable SELECT query; connect it to an application only after you understand its result.",
+        "PostgreSQL EXPLAIN ANALYZE measures actual execution; SQLite documents that EXPLAIN QUERY PLAN output may change between releases.",
+        "The query returns Ada and 42 in two columns.",
+        "SQL is not a database itself. SQLite, PostgreSQL, MySQL, and SQL Server are database systems with their own SQL dialect details."
+      ],
+      "answer": "PostgreSQL EXPLAIN ANALYZE measures actual execution; SQLite documents that EXPLAIN QUERY PLAN output may change between releases.",
+      "explanation": "PostgreSQL EXPLAIN ANALYZE measures actual execution; SQLite documents that EXPLAIN QUERY PLAN output may change between releases.\nWhy: When a query is slow, measure it on a small representative dataset before investigating its plan. `EXPLAIN` shows the operations selected by the DBMS; use `EXPLAIN QUERY PLAN` in SQLite and `EXPLAIN` in PostgreSQL and MySQL. A plan may reveal a full table scan, index lookup, or join strategy. Appropriate indexes on filter/join columns, refreshed statistics with `ANALYZE`, and avoiding unnecessary rows and columns can help. Plan output can change between engine versions, so do not parse it as a stable application format."
+    },
+    {
+      "id": "sql_sql_query_plans_4",
+      "topicId": "sql_sql_query_plans",
+      "type": "multiple_choice",
+      "prompt": "Which additional constraint or condition should be checked for “Query plans and performance checks”?",
+      "options": [
+        "SQL is standardized, but database dialects, types, and some functions differ. Check the target engine's documentation.",
+        "A table scan can beat an index on a small table; test with realistic data volume.",
+        "The query returns Ada and 42 in two columns.",
+        "Start with a small, readable SELECT query; connect it to an application only after you understand its result."
+      ],
+      "answer": "A table scan can beat an index on a small table; test with realistic data volume.",
+      "explanation": "A table scan can beat an index on a small table; test with realistic data volume.\nWhy: When a query is slow, measure it on a small representative dataset before investigating its plan. `EXPLAIN` shows the operations selected by the DBMS; use `EXPLAIN QUERY PLAN` in SQLite and `EXPLAIN` in PostgreSQL and MySQL. A plan may reveal a full table scan, index lookup, or join strategy. Appropriate indexes on filter/join columns, refreshed statistics with `ANALYZE`, and avoiding unnecessary rows and columns can help. Plan output can change between engine versions, so do not parse it as a stable application format."
+    }
+  ]
+}

@@ -62,31 +62,7 @@
     },
     {
       "type": "text",
-      "text": "Task ayrı stack və icra kontekstinə sahib funksiyadır; ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "xTaskCreate",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " onu scheduler-ə əlavə edir. Prioritet yalnız həqiqi vaxt ehtiyacı ilə seçilməlidir: yüksək prioritetli task CPU-nu həddən artıq tutarsa aşağı prioritetlilər aclıq çəkə bilər. Arduino ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "loop()",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " da RTOS task-ında işləyir, buna görə serial və GPIO resurslarını task-lar arasında paylaşarkən qayda müəyyən edin.\n\n",
+      "text": "Task ayrı stack və icra kontekstinə sahib funksiyadır; `xTaskCreate` onu scheduler-ə əlavə edir. Prioritet yalnız həqiqi vaxt ehtiyacı ilə seçilməlidir: yüksək prioritetli task CPU-nu həddən artıq tutarsa aşağı prioritetlilər aclıq çəkə bilər. Arduino `loop()` da RTOS task-ında işləyir, buna görə serial və GPIO resurslarını task-lar arasında paylaşarkən qayda müəyyən edin.\n\n",
       "size": 17
     },
     {
@@ -98,19 +74,7 @@
     },
     {
       "type": "text",
-      "text": "Kod sətri: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "void setup() { Serial.begin(115200); if (xTaskCreate(fastTask, \"fast\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"fast task creation failed\"); if (xTaskCreate(slowTask, \"slow\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"slow task creation failed\"); }",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nNə edir: Hər task üçün stack ayrılır, prioritet scheduler qərarına təsir edir.\nNiyə seçilib: Sonsuz dövrədə işləyən hər task vaxtaşırı gözləməli və ya bloklanmalıdır; əks halda CPU-nu inhisara ala bilər.\nBuraxılsa və ya dəyişdirilsə: Serial yazıları bir neçə task-dan qarışa bilər; ortaq çıxışı serializasiya edin və task stack ölçüsünü ölçün.\n\n",
+      "text": "Kod sətri: `void setup() { Serial.begin(115200); if (xTaskCreate(fastTask, \"fast\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"fast task creation failed\"); if (xTaskCreate(slowTask, \"slow\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"slow task creation failed\"); }`\nNə edir: Hər task üçün stack ayrılır, prioritet scheduler qərarına təsir edir.\nNiyə seçilib: Sonsuz dövrədə işləyən hər task vaxtaşırı gözləməli və ya bloklanmalıdır; əks halda CPU-nu inhisara ala bilər.\nBuraxılsa və ya dəyişdirilsə: Serial yazıları bir neçə task-dan qarışa bilər; ortaq çıxışı serializasiya edin və task stack ölçüsünü ölçün.\n\n",
       "size": 16
     },
     {
@@ -160,19 +124,7 @@
     },
     {
       "type": "text",
-      "text": "Sensor task təxminən hər 500 ms-də ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "sample",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " çap edir.\n\n",
+      "text": "Sensor task təxminən hər 500 ms-də `sample` çap edir.\n\n",
       "size": 16
     },
     {

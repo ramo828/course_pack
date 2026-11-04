@@ -9,7 +9,7 @@
       "prompt": "“Result, ? ve hata tasarımı” konusunda hangi ifade temel kuralı doğru açıklar?",
       "options": [
         "Cargo proje oluşturma, derleme ve test için temel araçtır.",
-        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.",
+        "Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun.",
         "Rust değişkenleri mut yazılmadıkça değişmezdir.",
         "? başarısız sonucu çağırana aktarır, başarı değerini sonraki ifadeye verir."
       ],
@@ -24,7 +24,7 @@
       "options": [
         "Cargo proje oluşturma, derleme ve test için temel araçtır.",
         "Hatayı yutup sahte başarı döndürmeyin; retry yalnız işlem yinelenebilirse ve sınırlıysa yapılmalıdır.",
-        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.",
+        "Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun.",
         "Değişkenliği yalnızca gerektiğinde etkinleştirin."
       ],
       "answer": "Hatayı yutup sahte başarı döndürmeyin; retry yalnız işlem yinelenebilirse ve sınırlıysa yapılmalıdır.",
@@ -36,10 +36,10 @@
       "type": "multiple_choice",
       "prompt": "“Result, ? ve hata tasarımı” örneğinde hangi uygulama ayrıntısı önemlidir?",
       "options": [
-        "Cargo proje oluşturma, derleme ve test için temel araçtır.",
+        "rustup araç zinciri ve hedef bileşenlerini yönetir; Cargo proje, bağımlılık, derleme ve test işlerini yürütür.",
         "Result<T, E> başarı ve hatayı tür düzeyinde ifade eder; `?` hatayı uygun dönüş türüne aktararak çağrı zincirini sadeleştirir",
-        "Rust değişkenleri mut yazılmadıkça değişmezdir.",
-        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar."
+        "Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun.",
+        "Cargo proje oluşturma, derleme ve test için temel araçtır."
       ],
       "answer": "Result<T, E> başarı ve hatayı tür düzeyinde ifade eder; `?` hatayı uygun dönüş türüne aktararak çağrı zincirini sadeleştirir",
       "explanation": "Result<T, E> başarı ve hatayı tür düzeyinde ifade eder; `?` hatayı uygun dönüş türüne aktararak çağrı zincirini sadeleştirir\nAçıklama: Result<T, E> başarı ve hatayı tür düzeyinde ifade eder; `?` hatayı uygun dönüş türüne aktararak çağrı zincirini sadeleştirir. Program sınırında somut hatayı kullanıcıya anlaşılır mesaja çevirin; iç katmanlarda neden ve bağlamı koruyun. `unwrap()` yalnızca invariantın kanıtlandığı ve panic'in kabul edildiği küçük örneklerde uygundur.\n\n`Option<T>` doğal olarak bulunmayan değeri (`None`), `Result<T, E>` ise açıklanabilir başarı/hata sonucunu belirtir. `?` hatayı çağırana iletir ve gereksiz panic oluşturmaz; `main -> Result` hata döndürmeyi sağlar. `unwrap()` yalnızca testte veya invariant'ın kesin olduğu yerde bilinçli kullanılmalıdır."
@@ -51,9 +51,9 @@
       "prompt": "“Result, ? ve hata tasarımı” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
       "options": [
         "Program sınırında somut hatayı kullanıcıya anlaşılır mesaja çevirin; iç katmanlarda neden ve bağlamı koruyun",
-        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.",
         "Cargo proje oluşturma, derleme ve test için temel araçtır.",
-        "Rust değişkenleri mut yazılmadıkça değişmezdir."
+        "İş bilgisayarında PATH değişikliklerini denetleyin; MSVC ve GNU hedefleri farklı linker ve yerel bağımlılıklar isteyebilir.",
+        "Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun."
       ],
       "answer": "Program sınırında somut hatayı kullanıcıya anlaşılır mesaja çevirin; iç katmanlarda neden ve bağlamı koruyun",
       "explanation": "Program sınırında somut hatayı kullanıcıya anlaşılır mesaja çevirin; iç katmanlarda neden ve bağlamı koruyun\nAçıklama: Result<T, E> başarı ve hatayı tür düzeyinde ifade eder; `?` hatayı uygun dönüş türüne aktararak çağrı zincirini sadeleştirir. Program sınırında somut hatayı kullanıcıya anlaşılır mesaja çevirin; iç katmanlarda neden ve bağlamı koruyun. `unwrap()` yalnızca invariantın kanıtlandığı ve panic'in kabul edildiği küçük örneklerde uygundur.\n\n`Option<T>` doğal olarak bulunmayan değeri (`None`), `Result<T, E>` ise açıklanabilir başarı/hata sonucunu belirtir. `?` hatayı çağırana iletir ve gereksiz panic oluşturmaz; `main -> Result` hata döndürmeyi sağlar. `unwrap()` yalnızca testte veya invariant'ın kesin olduğu yerde bilinçli kullanılmalıdır."

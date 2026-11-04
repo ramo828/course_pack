@@ -8,7 +8,7 @@
       "type": "multiple_choice",
       "prompt": "“Thread'ler ve paylaşılan durum” konusunda hangi ifade temel kuralı doğru açıklar?",
       "options": [
-        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.",
+        "Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun.",
         "Cargo proje oluşturma, derleme ve test için temel araçtır.",
         "Rust değişkenleri mut yazılmadıkça değişmezdir.",
         "Mutex paylaşılan değere eşzamanlı erişimi korur."
@@ -24,7 +24,7 @@
       "options": [
         "Cargo proje oluşturma, derleme ve test için temel araçtır.",
         "Değişkenliği yalnızca gerektiğinde etkinleştirin.",
-        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.",
+        "Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun.",
         "Kilidi uzun I/O veya bekleme sırasında tutmak diğer iş parçacıklarını engelleyebilir."
       ],
       "answer": "Kilidi uzun I/O veya bekleme sırasında tutmak diğer iş parçacıklarını engelleyebilir.",
@@ -36,10 +36,10 @@
       "type": "multiple_choice",
       "prompt": "“Thread'ler ve paylaşılan durum” örneğinde hangi uygulama ayrıntısı önemlidir?",
       "options": [
+        "rustup araç zinciri ve hedef bileşenlerini yönetir; Cargo proje, bağımlılık, derleme ve test işlerini yürütür.",
         "Cargo proje oluşturma, derleme ve test için temel araçtır.",
-        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.",
         "Rust iş parçacıklarını ve mesajlaşmayı standart kütüphaneyle sunar",
-        "Rust değişkenleri mut yazılmadıkça değişmezdir."
+        "Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun."
       ],
       "answer": "Rust iş parçacıklarını ve mesajlaşmayı standart kütüphaneyle sunar",
       "explanation": "Rust iş parçacıklarını ve mesajlaşmayı standart kütüphaneyle sunar\nAçıklama: Rust iş parçacıklarını ve mesajlaşmayı standart kütüphaneyle sunar. Paylaşılan durumda Send/Sync, Mutex koruması ve kilit kapsamını anlayın; önce basit mesajlaşmayı tercih edin.\n\n`Send`, sahipliğin thread'ler arasında aktarılabilmesini; `Sync`, `&T` referansının thread'ler arasında güvenle paylaşılabilmesini belirtir. Compiler bu trait'leri çoğunlukla otomatik türetir. `Rc<T>` thread-safe değildir; `Arc<T>` atomik referans sayımı sunar, paylaşılan değişebilir durum için `Mutex`/`RwLock` gerekir. `Arc` iç veriyi tek başına güvenli yapmaz. Tokio `spawn` için Future genellikle `Send + 'static` olmalıdır."
@@ -50,10 +50,10 @@
       "type": "multiple_choice",
       "prompt": "“Thread'ler ve paylaşılan durum” uygulamasında hangi ek koşul veya sınırlama denetlenmelidir?",
       "options": [
-        "Araç zincirini rustup ile güncellemek kurulu sürümleri izlenebilir kılar.",
+        "Cargo proje oluşturma, derleme ve test için temel araçtır.",
         "Mutex zehirlendiğinde lock sonucunu denetleyin ve kilit içinde riskli callback çağırmayın.",
-        "Rust değişkenleri mut yazılmadıkça değişmezdir.",
-        "Cargo proje oluşturma, derleme ve test için temel araçtır."
+        "Yükleyiciyi yalnızca rust-lang.org üzerinden alın; native bileşenleri hedefe göre kurun.",
+        "İş bilgisayarında PATH değişikliklerini denetleyin; MSVC ve GNU hedefleri farklı linker ve yerel bağımlılıklar isteyebilir."
       ],
       "answer": "Mutex zehirlendiğinde lock sonucunu denetleyin ve kilit içinde riskli callback çağırmayın.",
       "explanation": "Mutex zehirlendiğinde lock sonucunu denetleyin ve kilit içinde riskli callback çağırmayın.\nAçıklama: Rust iş parçacıklarını ve mesajlaşmayı standart kütüphaneyle sunar. Paylaşılan durumda Send/Sync, Mutex koruması ve kilit kapsamını anlayın; önce basit mesajlaşmayı tercih edin.\n\n`Send`, sahipliğin thread'ler arasında aktarılabilmesini; `Sync`, `&T` referansının thread'ler arasında güvenle paylaşılabilmesini belirtir. Compiler bu trait'leri çoğunlukla otomatik türetir. `Rc<T>` thread-safe değildir; `Arc<T>` atomik referans sayımı sunar, paylaşılan değişebilir durum için `Mutex`/`RwLock` gerekir. `Arc` iç veriyi tek başına güvenli yapmaz. Tokio `spawn` için Future genellikle `Send + 'static` olmalıdır."

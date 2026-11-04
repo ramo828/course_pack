@@ -1,0 +1,153 @@
+{
+  "id": "sql_sql_sqlite",
+  "title": "SQLite: setup, CLI, and shell commands",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_sqlite_en",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“SQLite: setup, CLI, and shell commands” is a tool for solving a concrete programming problem. Identify the input and desired result, then trace what role the construct plays in the example. Study it not only as syntax, but also for its effects on readability, correctness, resource use, and future changes.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "sqlite3 school.db\n.tables\n.schema students\n.mode column\n.headers on\n.read setup.sql\n.backup copy.db\n.quit\n\nPRAGMA foreign_keys = ON;\nSELECT sqlite_version();",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The SQLite version is displayed; tables and schema can also be inspected in the terminal.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLite is useful for learning SQL and storing local data without installing a separate server. `sqlite3 school.db` opens or creates a file in the terminal. `.tables` lists tables and `.schema students` shows a table definition; `.mode column` and `.headers on` make results readable; `.read setup.sql` runs a SQL file; `.backup copy.db` creates a backup; `.quit` exits. Dot-prefixed commands belong to the SQLite shell, not standard SQL. The SQL statement `PRAGMA foreign_keys = ON;` enables foreign-key checks for the current connection. In Python, `sqlite3.connect` opens the database and parameterized `execute` calls run queries.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: `sqlite3 school.db`\nWhat it does: The first commands run in the SQLite shell; PRAGMA and SELECT are SQL statements sent to the database.\nWhy it is used: Use `.tables` and `.schema` to confirm the right file is open; do not confuse shell commands with SQL statements.\nIf omitted or changed: SQLite has no `CREATE DATABASE` statement: opening `sqlite3 school.db` creates or opens the database file. MySQL/PostgreSQL can create databases with a separate server-side SQL command.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Choose a safe destination for `.backup`; do not rely on copying a live database file without a backup strategy."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The first commands run in the SQLite shell; PRAGMA and SELECT are SQL statements sent to the database.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Use `.tables` and `.schema` to confirm the right file is open; do not confuse shell commands with SQL statements."
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "SQLite has no `CREATE DATABASE` statement: opening `sqlite3 school.db` creates or opens the database file. MySQL/PostgreSQL can create databases with a separate server-side SQL command."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Choose a safe destination for `.backup`; do not rely on copying a live database file without a backup strategy."
+    },
+    {
+      "type": "diagram",
+      "id": "tool_install_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
+}

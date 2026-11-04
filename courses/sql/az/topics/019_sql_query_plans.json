@@ -1,0 +1,148 @@
+{
+  "id": "sql_sql_query_plans",
+  "title": "Sorğu planı və icra sürətinin yoxlanması",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_query_plans_az",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Sorğu planı və icra sürətinin yoxlanması” real proqramda konkret problemi həll etmək üçün seçilir. Əvvəl giriş və gözlənilən nəticəni müəyyənləşdirin, sonra nümunədəki anlayışın hansı işi gördüyünü izləyin. Bu mövzu kursda tək sintaksis deyil: oxunaqlılıq, düzgünlük, resurs istifadəsi və gələcək dəyişikliklərə təsiri ilə birlikdə öyrənilməlidir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "EXPLAIN QUERY PLAN\nSELECT course_id\nFROM enrollments\nWHERE student_id = 7;\n\n-- PostgreSQL/MySQL:\n-- EXPLAIN SELECT course_id\n-- FROM enrollments WHERE student_id = 7;\n\n-- SQLite/PostgreSQL:\nANALYZE;\n-- MySQL:\n-- ANALYZE TABLE enrollments;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Plan student_id üzrə axtarışı necə apardığını göstərir; indeksin istifadə olunması məlumatdan və optimizatordan asılıdır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sorğu yavaş işləyirsə, əvvəlcə kiçik və təmsilçi məlumat dəstində onu ölçün, sonra planı araşdırın. `EXPLAIN` DBMS-in seçdiyi əməliyyatları göstərir; SQLite-da `EXPLAIN QUERY PLAN`, PostgreSQL və MySQL-də `EXPLAIN` işlədilir. Plan tam cədvəl oxunuşunu, indeks axtarışını və birləşdirmə addımlarını göstərə bilər. Süzgəc və birləşdirmədə işlənən sütunlara uyğun indeks, statistikaların yenilənməsi üçün `ANALYZE`, lazımsız sütun və sətirləri oxumamaq performansa kömək edə bilər. Plan çıxışı mühərrik versiyasında dəyişə bilər; onu tətbiq kodunda sabit format kimi emal etməyin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: `EXPLAIN QUERY PLAN`\nNə edir: Plan student_id üzrə axtarışı necə apardığını göstərir; indeksin istifadə olunması məlumatdan və optimizatordan asılıdır.\nNiyə seçilib: EXPLAIN ANALYZE bəzi sistemlərdə sorğunu həqiqətən icra edir; dəyişiklik yaradan sorğuda ehtiyatlı olun və ölçmənin təsirini anlayın.\nBuraxılsa və ya dəyişdirilsə: PostgreSQL-in EXPLAIN ANALYZE əməli icranı ölçür; SQLite sənədləri EXPLAIN QUERY PLAN çıxışının versiyalar arasında dəyişə biləcəyini bildirir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Kiçik cədvəldə tam oxunuş indeksdən daha sürətli ola bilər; planı real həcmə yaxın məlumatla ölçün."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Plan student_id üzrə axtarışı necə apardığını göstərir; indeksin istifadə olunması məlumatdan və optimizatordan asılıdır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "EXPLAIN ANALYZE bəzi sistemlərdə sorğunu həqiqətən icra edir; dəyişiklik yaradan sorğuda ehtiyatlı olun və ölçmənin təsirini anlayın."
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "PostgreSQL-in EXPLAIN ANALYZE əməli icranı ölçür; SQLite sənədləri EXPLAIN QUERY PLAN çıxışının versiyalar arasında dəyişə biləcəyini bildirir."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Kiçik cədvəldə tam oxunuş indeksdən daha sürətli ola bilər; planı real həcmə yaxın məlumatla ölçün."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrıca vizual vacib deyil; kiçik işlək kod nümunəsi və gözlənilən nəticə mövzunu aydın göstərir."
+}

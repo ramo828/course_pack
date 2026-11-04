@@ -1,0 +1,132 @@
+{
+  "id": "sql_sql_relational_model",
+  "title": "The relational model: tables, rows, columns, and keys",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_relational_model_en",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/about/history/",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“The relational model: tables, rows, columns, and keys” is a tool for solving a concrete programming problem. Identify the input and desired result, then trace what role the construct plays in the example. Study it not only as syntax, but also for its effects on readability, correctness, resource use, and future changes.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "CREATE TABLE students (\n  student_id INTEGER PRIMARY KEY,\n  name TEXT NOT NULL\n);\n\nCREATE TABLE enrollments (\n  course_id INTEGER NOT NULL,\n  student_id INTEGER NOT NULL,\n  PRIMARY KEY (course_id, student_id),\n  FOREIGN KEY (student_id) REFERENCES students(student_id)\n);",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "student_id identifies a student; the course_id/student_id pair identifies an enrollment.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A relational database stores data in tables. A row is one record; a column is one attribute, and the schema defines column names and types. A primary key uniquely identifies a row; a foreign key links it to a row in another table. Connecting students and enrollments through student_id is safer than copying a student's details into every enrollment.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: `CREATE TABLE students (`\nWhat it does: student_id identifies a student; the course_id/student_id pair identifies an enrollment.\nWhy it is used: Choose a stable identifier as the primary key; names and email addresses can change.\nIf omitted or changed: An entity-relationship diagram shows tables as boxes, keys as marked columns, and links with cardinality.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "SQLite may require foreign-key enforcement to be enabled per connection; verify constraints on your chosen engine."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "student_id identifies a student; the course_id/student_id pair identifies an enrollment.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Choose a stable identifier as the primary key; names and email addresses can change."
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "An entity-relationship diagram shows tables as boxes, keys as marked columns, and links with cardinality."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "SQLite may require foreign-key enforcement to be enabled per connection; verify constraints on your chosen engine."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_model",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
+}

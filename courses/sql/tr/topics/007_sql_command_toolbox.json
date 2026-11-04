@@ -1,0 +1,132 @@
+{
+  "id": "sql_sql_command_toolbox",
+  "title": "Ek SQL komutları: ALTER, CASE, UNION, VIEW ve UPSERT",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_command_toolbox_tr",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/about/history/",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Ek SQL komutları: ALTER, CASE, UNION, VIEW ve UPSERT” gerçek bir programlama problemine çözüm üretmek için kullanılır. Önce girdiyi ve beklenen sonucu belirleyin; sonra örnekteki yapının hangi işi üstlendiğini izleyin. Konuyu yalnızca sözdizimi olarak değil, okunabilirlik, doğruluk, kaynak kullanımı ve ilerideki değişikliklere etkisiyle değerlendirin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "ALTER TABLE products ADD COLUMN active INTEGER NOT NULL DEFAULT 1;\n\nSELECT name,\n       CASE WHEN price_cents >= 1000 THEN 'premium'\n            ELSE 'standard' END AS price_group\nFROM products;\n\nSELECT name FROM products WHERE active = 1\nUNION ALL\nSELECT name FROM products WHERE price_cents = 0;\n\nCREATE VIEW active_products AS\nSELECT product_id, name, price_cents\nFROM products WHERE active = 1;\n\nINSERT INTO products (product_id, name, price_cents)\nVALUES (1, 'Sensor', 1300)\nON CONFLICT(product_id) DO UPDATE\nSET price_cents = excluded.price_cents;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sorgu koşula göre fiyat grubunu döndürür; çakışmada benzersiz anahtarlı ürünün fiyatı güncellenir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Temel SELECT ve DML komutlarının yanında ALTER TABLE mevcut tablo şemasını değiştirir; CASE koşula göre değer seçer; UNION sonuçları birleştirip tekrarları kaldırır, UNION ALL tekrarları korur. VIEW, saklanan bir SELECT sorgusuna ad verir; verinin ayrı bir kopyasını oluşturmaz. UPSERT, benzersiz anahtar çakıştığında ekleme veya güncelleme yapar. DCL içindeki GRANT ve REVOKE izin verir ve geri alır; CREATE/DROP DATABASE komutları motora göre değişir. Örneklerin çoğu SQLite ve PostgreSQL'de çalışır; MySQL UPSERT için `ON DUPLICATE KEY UPDATE` kullanır. Trigger'lar INSERT, UPDATE ve DELETE olaylarında otomatik çalışabilir; yan etkileri gizleyebilecekleri için dikkatli kullanılmalıdır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: `ALTER TABLE products ADD COLUMN active INTEGER NOT NULL DEFAULT 1;`\nNe yapar: Şemaya sütun eklenir; CASE kategori seçer; UNION ALL sonuçları birleştirir; VIEW yeniden kullanılabilir sorgu, UPSERT çakışmada güncelleme sağlar.\nNeden seçildi: Şema değişikliğini önce test veritabanında deneyin; hedef DBMS'te doğrulamadan lehçeler arası uyumluluk varsaymayın.\nAtlanır veya değiştirilirse: SQLite/PostgreSQL UPSERT için `ON CONFLICT ... DO UPDATE` kullanır; MySQL karşılığı `ON DUPLICATE KEY UPDATE` biçimindedir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "DROP TABLE, DROP VIEW ve trigger'lar veriyi silebilir veya otomatik değiştirebilir; etkisini anlayın ve yedek alın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Şemaya sütun eklenir; CASE kategori seçer; UNION ALL sonuçları birleştirir; VIEW yeniden kullanılabilir sorgu, UPSERT çakışmada güncelleme sağlar.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Şema değişikliğini önce test veritabanında deneyin; hedef DBMS'te doğrulamadan lehçeler arası uyumluluk varsaymayın."
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "SQLite/PostgreSQL UPSERT için `ON CONFLICT ... DO UPDATE` kullanır; MySQL karşılığı `ON DUPLICATE KEY UPDATE` biçimindedir."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "DROP TABLE, DROP VIEW ve trigger'lar veriyi silebilir veya otomatik değiştirebilir; etkisini anlayın ve yedek alın."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_query_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı."
+}

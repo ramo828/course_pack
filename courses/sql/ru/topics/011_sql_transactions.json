@@ -1,0 +1,128 @@
+{
+  "id": "sql_sql_transactions",
+  "title": "Транзакции и ACID",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_transactions_ru",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "ЦЕЛЬ УРОКА\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "«Транзакции и ACID» помогает решать конкретную задачу программы. Сначала определите входные данные и ожидаемый результат, затем проследите роль конструкции в примере. Изучайте её не только как синтаксис, но и с точки зрения читаемости, корректности, ресурсов и будущих изменений.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "ВОПРОС: Что сделает этот пример? Сначала предположите результат.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ПРИМЕР КОДА\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "BEGIN;\nUPDATE accounts SET cents = cents - 500\nWHERE account_id = 1;\nUPDATE accounts SET cents = cents + 500\nWHERE account_id = 2;\nCOMMIT;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Оба изменения фиксируются вместе в одной транзакции.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ОСНОВНОЕ ОБЪЯСНЕНИЕ\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Транзакция объединяет несколько записей в одну логическую операцию. COMMIT фиксирует изменения, ROLLBACK отменяет их. ACID означает атомарность, согласованность, изоляцию и надёжность сохранения. Например, списание и зачисление между счетами должны пройти вместе.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "РАЗБОР ВАЖНЫХ СТРОК\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ключевая строка: `BEGIN;`\nЧто она делает: Оба изменения фиксируются вместе в одной транзакции.\nЗачем она нужна: Делайте транзакции короткими, проверяйте ошибки и явно задавайте политику commit/rollback.\nЕсли пропустить или изменить: Уровни изоляции и блокировки зависят от СУБД; модели параллельности SQLite и PostgreSQL различаются.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Типичная ошибка",
+      "text": "При ошибке до COMMIT выполните откат: частичное изменение может нарушить бизнес-правило."
+    },
+    {
+      "type": "text",
+      "text": "ЗАПОМНИТЕ\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Оба изменения фиксируются вместе в одной транзакции.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Полезный совет",
+      "text": "Делайте транзакции короткими, проверяйте ошибки и явно задавайте политику commit/rollback."
+    },
+    {
+      "type": "detail",
+      "title": "Важная деталь",
+      "text": "Уровни изоляции и блокировки зависят от СУБД; модели параллельности SQLite и PostgreSQL различаются."
+    },
+    {
+      "type": "warning",
+      "title": "Внимание",
+      "text": "При ошибке до COMMIT выполните откат: частичное изменение может нарушить бизнес-правило."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_transaction",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Добавьте блок-схему шагов кода, потока управления и изменения ключевых данных."
+}

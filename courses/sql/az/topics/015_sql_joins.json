@@ -1,0 +1,153 @@
+{
+  "id": "sql_sql_joins",
+  "title": "JOIN: əlaqəli cədvəlləri birləşdirmək",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_joins_az",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“JOIN: əlaqəli cədvəlləri birləşdirmək” real proqramda konkret problemi həll etmək üçün seçilir. Əvvəl giriş və gözlənilən nəticəni müəyyənləşdirin, sonra nümunədəki anlayışın hansı işi gördüyünü izləyin. Bu mövzu kursda tək sintaksis deyil: oxunaqlılıq, düzgünlük, resurs istifadəsi və gələcək dəyişikliklərə təsiri ilə birlikdə öyrənilməlidir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT s.name, e.course_id\nFROM students AS s\nLEFT JOIN enrollments AS e\n  ON e.student_id = s.student_id\nORDER BY s.name, e.course_id;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bütün tələbələr göstərilir; qeydiyyatı olmayanların course_id dəyəri NULL olur.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "JOIN əlaqəli cədvəllərin məlumatlarını bir nəticədə birləşdirir. INNER JOIN yalnız uyğun sətirləri saxlayır; LEFT JOIN sol cədvəlin bütün sətirlərini, sağda uyğun məlumat olmadıqda NULL dəyərləri ilə qaytarır. RIGHT JOIN sağ cədvəlin, FULL OUTER JOIN isə hər iki cədvəlin uyğun gəlməyən sətirlərini də saxlayır; bu növlərin dəstəyi DBMS-ə görə dəyişir. CROSS JOIN mümkün sətir cütlərinin hamısını yaradır. ON əlaqə şərtini açıq göstərir. Öz-özünə qoşulma (self join) eyni cədvəlin sətirlərini bir-biri ilə əlaqələndirir. Birdən-çoxa əlaqədə bir sol sətir nəticədə bir neçə sətir yarada bilər.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: `SELECT s.name, e.course_id`\nNə edir: Bütün tələbələr göstərilir; qeydiyyatı olmayanların course_id dəyəri NULL olur.\nNiyə seçilib: JOIN açarlarını yazın və bir sətrin neçə uyğun qeydi ola biləcəyini əvvəlcədən təxmin edin.\nBuraxılsa və ya dəyişdirilsə: RIGHT və FULL OUTER JOIN dəstəyi sistemlərə görə dəyişə bilər; nümunəni hədəf DBMS-də yoxlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "Yanlış və ya natamam ON şərti çoxlu cüt yarada və nəticə sətirlərini gözlənilmədən artıra bilər."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bütün tələbələr göstərilir; qeydiyyatı olmayanların course_id dəyəri NULL olur.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "JOIN açarlarını yazın və bir sətrin neçə uyğun qeydi ola biləcəyini əvvəlcədən təxmin edin."
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "RIGHT və FULL OUTER JOIN dəstəyi sistemlərə görə dəyişə bilər; nümunəni hədəf DBMS-də yoxlayın."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "Yanlış və ya natamam ON şərti çoxlu cüt yarada və nəticə sətirlərini gözlənilmədən artıra bilər."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_join",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

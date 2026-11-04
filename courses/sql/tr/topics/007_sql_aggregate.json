@@ -1,0 +1,123 @@
+{
+  "id": "sql_sql_aggregate",
+  "title": "COUNT, SUM ve gruplama",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_aggregate_tr",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“COUNT, SUM ve gruplama” gerçek bir programlama problemine çözüm üretmek için kullanılır. Önce girdiyi ve beklenen sonucu belirleyin; sonra örnekteki yapının hangi işi üstlendiğini izleyin. Konuyu yalnızca sözdizimi olarak değil, okunabilirlik, doğruluk, kaynak kullanımı ve ilerideki değişikliklere etkisiyle değerlendirin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT course_id, COUNT(*) AS learners,\n       AVG(score) AS average_score\nFROM enrollments\nGROUP BY course_id\nHAVING COUNT(*) >= 2;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Her kurs için en az iki kayıt varsa sayı ve ortalama puanı gösterilir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "COUNT, SUM, AVG, MIN ve MAX çok satırdan özet üretir. GROUP BY satırları gruplar; HAVING özet hesaplandıktan sonra grupları, WHERE ise gruplamadan önce satırları filtreler. COUNT(*) tüm satırları, COUNT(column) ise o sütunun NULL olmayan değerlerini sayar.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: `SELECT course_id, COUNT(*) AS learners,`\nNe yapar: Her kurs için en az iki kayıt varsa sayı ve ortalama puanı gösterilir.\nNeden seçildi: Koşul satırlarla ilgiliyse WHERE, SUM veya COUNT sonucuyla ilgiliyse HAVING kullanın.\nAtlanır veya değiştirilirse: Çoğu aggregate işlev NULL değerleri yok sayar; boş grup ile COUNT(*) farkını anlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "GROUP BY olmadan toplama ve normal sütunları karıştırmak motora göre hata ya da belirsiz sonuç verebilir."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Her kurs için en az iki kayıt varsa sayı ve ortalama puanı gösterilir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Koşul satırlarla ilgiliyse WHERE, SUM veya COUNT sonucuyla ilgiliyse HAVING kullanın."
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Çoğu aggregate işlev NULL değerleri yok sayar; boş grup ile COUNT(*) farkını anlayın."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "GROUP BY olmadan toplama ve normal sütunları karıştırmak motora göre hata ya da belirsiz sonuç verebilir."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

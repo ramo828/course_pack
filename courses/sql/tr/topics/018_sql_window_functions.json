@@ -1,0 +1,127 @@
+{
+  "id": "sql_sql_window_functions",
+  "title": "Window fonksiyonları",
+  "difficulty": "advanced",
+  "testId": "sql_test_sql_window_functions_tr",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/about/history/",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Window fonksiyonları” gerçek bir programlama problemine çözüm üretmek için kullanılır. Önce girdiyi ve beklenen sonucu belirleyin; sonra örnekteki yapının hangi işi üstlendiğini izleyin. Konuyu yalnızca sözdizimi olarak değil, okunabilirlik, doğruluk, kaynak kullanımı ve ilerideki değişikliklere etkisiyle değerlendirin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT student_id, course_id, score,\n       ROW_NUMBER() OVER (\n         PARTITION BY course_id\n         ORDER BY score DESC, student_id\n       ) AS position\nFROM enrollments;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Her kursta öğrenciler puana göre azalan, student_id'ye göre artan sırada numaralanır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Window fonksiyonu ilişkili satırlar üzerinde hesaplama yapar ancak GROUP BY gibi sonucu tek satıra indirmez. OVER içinde PARTITION BY grupları, ORDER BY grup içi sırayı tanımlar. ROW_NUMBER, RANK ve SUM OVER her satırla birlikte sıra, derece veya birikimli toplam verebilir.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: `SELECT student_id, course_id, score,`\nNe yapar: Her kursta öğrenciler puana göre azalan, student_id'ye göre artan sırada numaralanır.\nNeden seçildi: OVER içindeki sıralamayı ve eşit değerlerde rank davranışını açıkça belirleyin.\nAtlanır veya değiştirilirse: ROW_NUMBER eşit sıralama değerlerinde bile benzersiz numara verir; RANK eşit sonuçlara aynı dereceyi verir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Window sözdizimi ve frame varsayılanları lehçeye göre değişebilir; motor sürümünü kontrol edin."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Her kursta öğrenciler puana göre azalan, student_id'ye göre artan sırada numaralanır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "OVER içindeki sıralamayı ve eşit değerlerde rank davranışını açıkça belirleyin."
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "ROW_NUMBER eşit sıralama değerlerinde bile benzersiz numara verir; RANK eşit sonuçlara aynı dereceyi verir."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Window sözdizimi ve frame varsayılanları lehçeye göre değişebilir; motor sürümünü kontrol edin."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

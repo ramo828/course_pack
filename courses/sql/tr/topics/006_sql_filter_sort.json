@@ -1,0 +1,123 @@
+{
+  "id": "sql_sql_filter_sort",
+  "title": "WHERE, NULL, sıralama ve sınır",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_filter_sort_tr",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“WHERE, NULL, sıralama ve sınır” gerçek bir programlama problemine çözüm üretmek için kullanılır. Önce girdiyi ve beklenen sonucu belirleyin; sonra örnekteki yapının hangi işi üstlendiğini izleyin. Konuyu yalnızca sözdizimi olarak değil, okunabilirlik, doğruluk, kaynak kullanımı ve ilerideki değişikliklere etkisiyle değerlendirin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT name, price_cents\nFROM products\nWHERE price_cents >= 500 AND discontinued IS NULL\nORDER BY price_cents DESC, name ASC\nLIMIT 10;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Koşula uyan en fazla 10 pahalı ürün döner; eşit fiyatlarda ad sırası uygulanır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "WHERE satırları koşula göre filtreler; ORDER BY ASC artan veya DESC azalan sırayla düzenler; LIMIT dönen satır sayısını sınırlar. NULL bilinmeyen veya bulunmayan değerdir: eşitlik karşılaştırması yapmayın, IS NULL ve IS NOT NULL kullanın. AND/OR koşullarını parantezle açık yazın.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: `SELECT name, price_cents`\nNe yapar: Koşula uyan en fazla 10 pahalı ürün döner; eşit fiyatlarda ad sırası uygulanır.\nNeden seçildi: Sorgunun satır seçip seçmediğini önce küçük bir örnek tabloda deneyin; NULL için ayrı durum düşünün.\nAtlanır veya değiştirilirse: Sıralama olmadan LIMIT hangi satırların döneceğini belirlemez; kararlı sayfalama için benzersiz bir sıralama anahtarı ekleyin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "NULL = NULL sonucu TRUE değil UNKNOWN olur; bu yüzden satır WHERE koşulunu geçmeyebilir."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Koşula uyan en fazla 10 pahalı ürün döner; eşit fiyatlarda ad sırası uygulanır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Sorgunun satır seçip seçmediğini önce küçük bir örnek tabloda deneyin; NULL için ayrı durum düşünün."
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Sıralama olmadan LIMIT hangi satırların döneceğini belirlemez; kararlı sayfalama için benzersiz bir sıralama anahtarı ekleyin."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "NULL = NULL sonucu TRUE değil UNKNOWN olur; bu yüzden satır WHERE koşulunu geçmeyebilir."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "Ayrı bir görsel gerekli değil; küçük, çalışan bir kod örneği ve beklenen çıktı konuyu açıklar."
+}

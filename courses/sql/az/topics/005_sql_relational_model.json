@@ -1,0 +1,132 @@
+{
+  "id": "sql_sql_relational_model",
+  "title": "Əlaqəli model: cədvəl, sətir, sütun və açar",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_relational_model_az",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/about/history/",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DƏRSİN MƏQSƏDİ\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Əlaqəli model: cədvəl, sətir, sütun və açar” real proqramda konkret problemi həll etmək üçün seçilir. Əvvəl giriş və gözlənilən nəticəni müəyyənləşdirin, sonra nümunədəki anlayışın hansı işi gördüyünü izləyin. Bu mövzu kursda tək sintaksis deyil: oxunaqlılıq, düzgünlük, resurs istifadəsi və gələcək dəyişikliklərə təsiri ilə birlikdə öyrənilməlidir.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SUAL: Bu nümunənin nəticəsi nə olacaq? Əvvəlcə özün təxmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "NÜMUNƏ KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "CREATE TABLE students (\n  student_id INTEGER PRIMARY KEY,\n  name TEXT NOT NULL\n);\n\nCREATE TABLE enrollments (\n  course_id INTEGER NOT NULL,\n  student_id INTEGER NOT NULL,\n  PRIMARY KEY (course_id, student_id),\n  FOREIGN KEY (student_id) REFERENCES students(student_id)\n);",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "GÖZLƏNİLƏN NƏTİCƏ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "student_id tələbəni, course_id və student_id cütü isə qeydiyyatı identifikasiya edir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS İZAH\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Əlaqəli verilənlər bazası məlumatı cədvəllərdə saxlayır. Sətir bir qeydi, sütun isə həmin qeydin atributunu göstərir; sxem sütunların adını və tipini müəyyən edir. İlkin açar sətri unikal tanıdır, xarici açar isə başqa cədvəldəki qeydə əlaqə yaradır. Məsələn, students və enrollments cədvəllərini student_id ilə bağlamaq tələbə məlumatını hər dərs qeydində təkrar yazmaqdan daha etibarlıdır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "VACİB SƏTRLƏRİN İZAHI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod sətri: `CREATE TABLE students (`\nNə edir: student_id tələbəni, course_id və student_id cütü isə qeydiyyatı identifikasiya edir.\nNiyə seçilib: Hər cədvəldə sabit identifikator üçün PRIMARY KEY seçin; ad və e-poçt kimi dəyişə bilən sahələri avtomatik açar saymayın.\nBuraxılsa və ya dəyişdirilsə: Münasibət diaqramında cədvəllər qutu, açarlar açıq işarə, əlaqələr isə xətt və kardinallıqla göstərilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Yayğın səhv",
+      "text": "SQLite xarici açarları bağlantıda aktivləşdirməyi tələb edə bilər; seçilmiş mühərrikdə məhdudiyyətlərin işlədiyini yoxlayın."
+    },
+    {
+      "type": "text",
+      "text": "YADDA SAXLA\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "student_id tələbəni, course_id və student_id cütü isə qeydiyyatı identifikasiya edir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Vacib ipucu",
+      "text": "Hər cədvəldə sabit identifikator üçün PRIMARY KEY seçin; ad və e-poçt kimi dəyişə bilən sahələri avtomatik açar saymayın."
+    },
+    {
+      "type": "detail",
+      "title": "Vacib detal",
+      "text": "Münasibət diaqramında cədvəllər qutu, açarlar açıq işarə, əlaqələr isə xətt və kardinallıqla göstərilir."
+    },
+    {
+      "type": "warning",
+      "title": "Xəbərdarlıq",
+      "text": "SQLite xarici açarları bağlantıda aktivləşdirməyi tələb edə bilər; seçilmiş mühərrikdə məhdudiyyətlərin işlədiyini yoxlayın."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_model",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Əlavə edin: kod addımlarını, idarəetmə axınını və əsas məlumatların dəyişməsini göstərən axın diaqramı."
+}

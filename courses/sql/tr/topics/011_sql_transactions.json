@@ -1,0 +1,128 @@
+{
+  "id": "sql_sql_transactions",
+  "title": "Transaction ve ACID",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_transactions_tr",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Transaction ve ACID” gerçek bir programlama problemine çözüm üretmek için kullanılır. Önce girdiyi ve beklenen sonucu belirleyin; sonra örnekteki yapının hangi işi üstlendiğini izleyin. Konuyu yalnızca sözdizimi olarak değil, okunabilirlik, doğruluk, kaynak kullanımı ve ilerideki değişikliklere etkisiyle değerlendirin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "BEGIN;\nUPDATE accounts SET cents = cents - 500\nWHERE account_id = 1;\nUPDATE accounts SET cents = cents + 500\nWHERE account_id = 2;\nCOMMIT;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "İki güncelleme aynı transaction içinde birlikte onaylanır.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Transaction birden çok yazmayı tek mantıksal işte birleştirir. COMMIT değişiklikleri kabul eder, ROLLBACK başarısız işin değişikliklerini geri alır. ACID; atomiklik, tutarlılık, yalıtım ve kalıcılığı ifade eder. Örneğin hesaptan para çıkarma ve diğer hesaba ekleme birlikte başarılı olmalıdır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: `BEGIN;`\nNe yapar: İki güncelleme aynı transaction içinde birlikte onaylanır.\nNeden seçildi: Transaction'ı kısa tutun, hataları denetleyin ve uygulamada commit/rollback politikasını açık kurun.\nAtlanır veya değiştirilirse: Yalıtım düzeyleri ve kilit davranışı motora göre değişir; SQLite ve PostgreSQL aynı eşzamanlılık modelini kullanmaz.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "COMMIT öncesi hata oluşursa rollback yapın; kısmi değişiklik iş kuralını bozabilir."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "İki güncelleme aynı transaction içinde birlikte onaylanır.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Transaction'ı kısa tutun, hataları denetleyin ve uygulamada commit/rollback politikasını açık kurun."
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Yalıtım düzeyleri ve kilit davranışı motora göre değişir; SQLite ve PostgreSQL aynı eşzamanlılık modelini kullanmaz."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "COMMIT öncesi hata oluşursa rollback yapın; kısmi değişiklik iş kuralını bozabilir."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_transaction",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı."
+}

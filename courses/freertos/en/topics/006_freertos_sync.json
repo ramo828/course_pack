@@ -74,19 +74,7 @@
     },
     {
       "type": "text",
-      "text": "Key line: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "void writer(void*) { for (;;) { if (xSemaphoreTake(mutex, pdMS_TO_TICKS(100)) == pdTRUE) { ++sharedValue; xSemaphoreGive(mutex); } vTaskDelay(pdMS_TO_TICKS(250)); } }",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nWhat it does: A mutex protects a short critical section; a queue transfers values, so they solve different problems.\nWhy it is used: Acquire before shared access and release on every path after a successful take.\nIf omitted or changed: Forgetting to release a lock can block tasks indefinitely; check every error and early-return path.\n\n",
+      "text": "Key line: `void writer(void*) { for (;;) { if (xSemaphoreTake(mutex, pdMS_TO_TICKS(100)) == pdTRUE) { ++sharedValue; xSemaphoreGive(mutex); } vTaskDelay(pdMS_TO_TICKS(250)); } }`\nWhat it does: A mutex protects a short critical section; a queue transfers values, so they solve different problems.\nWhy it is used: Acquire before shared access and release on every path after a successful take.\nIf omitted or changed: Forgetting to release a lock can block tasks indefinitely; check every error and early-return path.\n\n",
       "size": 16
     },
     {

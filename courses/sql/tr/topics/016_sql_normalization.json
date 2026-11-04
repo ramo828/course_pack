@@ -1,0 +1,132 @@
+{
+  "id": "sql_sql_normalization",
+  "title": "Normalleştirme ve veri bütünlüğü",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_normalization_tr",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/about/history/",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“Normalleştirme ve veri bütünlüğü” gerçek bir programlama problemine çözüm üretmek için kullanılır. Önce girdiyi ve beklenen sonucu belirleyin; sonra örnekteki yapının hangi işi üstlendiğini izleyin. Konuyu yalnızca sözdizimi olarak değil, okunabilirlik, doğruluk, kaynak kullanımı ve ilerideki değişikliklere etkisiyle değerlendirin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "CREATE TABLE courses (\n  course_id INTEGER PRIMARY KEY,\n  title TEXT NOT NULL\n);\n\nCREATE TABLE enrollments (\n  student_id INTEGER NOT NULL,\n  course_id INTEGER NOT NULL REFERENCES courses(course_id),\n  PRIMARY KEY (student_id, course_id)\n);",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kurs adı courses tablosunda bir kez saklanır; kayıtlar anahtarlarla ilişkilendirilir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Normalleştirme aynı bilginin farklı yerlerde yinelenmesini azaltıp güncelleme anomalilerini önler. 1NF sütunlarda bölünemez değerler ve satır tanımlaması ister; 2NF bileşik anahtarın yalnızca bir bölümüne bağımlılığı kaldırır; 3NF anahtar olmayan sütunun başka bir anahtar olmayan sütuna bağımlılığını azaltır. Önce gerçek iş bağımlılıklarını belirleyin.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: `CREATE TABLE courses (`\nNe yapar: Kurs adı courses tablosunda bir kez saklanır; kayıtlar anahtarlarla ilişkilendirilir.\nNeden seçildi: Aynı bilgi birden çok satırda yineleniyorsa değişiklikte hangi kopyaların güncellenmesi gerektiğini düşünün.\nAtlanır veya değiştirilirse: Denormalizasyon bazen okuma performansı için bilinçli yapılır; ancak yinelenen verinin tutarlılığını koruma sorumluluğu getirir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "Normalleştirmeyi ezber şablon gibi değil, iş bağımlılıklarına göre uygulayın; aşırı normalleştirme sorguları zorlaştırabilir."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kurs adı courses tablosunda bir kez saklanır; kayıtlar anahtarlarla ilişkilendirilir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Aynı bilgi birden çok satırda yineleniyorsa değişiklikte hangi kopyaların güncellenmesi gerektiğini düşünün."
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "Denormalizasyon bazen okuma performansı için bilinçli yapılır; ancak yinelenen verinin tutarlılığını koruma sorumluluğu getirir."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "Normalleştirmeyi ezber şablon gibi değil, iş bağımlılıklarına göre uygulayın; aşırı normalleştirme sorguları zorlaştırabilir."
+    },
+    {
+      "type": "diagram",
+      "id": "sql_model",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı."
+}

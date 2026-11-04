@@ -9,7 +9,7 @@
       "prompt": "“Async/await, Future və executor” mövzusunda hansı fikir əsas qaydanı düzgün ifadə edir?",
       "options": [
         "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
-        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın.",
         "Runtime Future-ları planlayır, amma HTTP client kimi kitabxana da runtime-ın async ekosistemi ilə uyğun olmalıdır.",
         "Cargo layihə yaratmaq, build və test üçün əsas vasitədir."
       ],
@@ -22,7 +22,7 @@
       "type": "multiple_choice",
       "prompt": "“Async/await, Future və executor” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
       "options": [
-        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın.",
         "Dəyişənliyi yalnız həqiqətən lazım olduqda aktiv edin.",
         "Async CPU intensiv işi paralel etmir; uzun hesablamanı blocking pool və ya ayrıca thread-də icra etmək lazım ola bilər.",
         "Cargo layihə yaratmaq, build və test üçün əsas vasitədir."
@@ -36,9 +36,9 @@
       "type": "multiple_choice",
       "prompt": "“Async/await, Future və executor” nümunəsində hansı implementasiya detalı vacibdir?",
       "options": [
-        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın.",
+        "rustup toolchain və target komponentlərini idarə edir; Cargo layihə, dependency, build və test işlərini görür.",
         "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
-        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
         "Rust async funksiyası işi dərhal icra etmək əvəzinə Future qaytarır; executor bu Future-ları poll edib hazır olduqda davam etdirir"
       ],
       "answer": "Rust async funksiyası işi dərhal icra etmək əvəzinə Future qaytarır; executor bu Future-ları poll edib hazır olduqda davam etdirir",
@@ -50,10 +50,10 @@
       "type": "multiple_choice",
       "prompt": "“Async/await, Future və executor” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
       "options": [
-        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
-        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
         "Çoxlu task yaratmaq limitsiz paralellik demək deyil; concurrency limitləri, timeout və cancellation siyasəti müəyyən edin.",
-        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir."
+        "İş kompüterində PATH dəyişikliklərini yoxlayın; MSVC və GNU target-ları fərqli linker və native asılılıq tələb edə bilər."
       ],
       "answer": "Çoxlu task yaratmaq limitsiz paralellik demək deyil; concurrency limitləri, timeout və cancellation siyasəti müəyyən edin.",
       "explanation": "Çoxlu task yaratmaq limitsiz paralellik demək deyil; concurrency limitləri, timeout və cancellation siyasəti müəyyən edin.\nİzah: Rust async funksiyası işi dərhal icra etmək əvəzinə Future qaytarır; executor bu Future-ları poll edib hazır olduqda davam etdirir. `await` gözləyən task-ın idarəni buraxmasına imkan verir, buna görə şəbəkə və disk I/O kimi gözləmə yönümlü işlərdə faydalı ola bilər. Rust standart kitabxanası ümumi executor vermir; layihələr adətən Tokio kimi runtime və ona uyğun async kitabxanalar seçir.\n\nBu kiçik host nümunəsi yalnız dərhal Ready olan Future-u poll edir; real network I/O üçün Tokio kimi executor seçin, bu nümunəni istehsal executor-u kimi istifadə etməyin."

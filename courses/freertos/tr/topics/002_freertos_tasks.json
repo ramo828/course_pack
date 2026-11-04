@@ -62,31 +62,7 @@
     },
     {
       "type": "text",
-      "text": "Task, ayrı stack ve yürütme bağlamına sahip bir fonksiyondur; ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "xTaskCreate",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " onu scheduler'a ekler. Önceliği gerçek zaman gereksinimine göre seçin: yüksek öncelikli bir task CPU'yu fazla kullanırsa düşük öncelikliler aç kalabilir. Arduino ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "loop()",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " da bir RTOS task'ında çalışır; Serial ve GPIO paylaşımını planlayın.\n\n",
+      "text": "Task, ayrı stack ve yürütme bağlamına sahip bir fonksiyondur; `xTaskCreate` onu scheduler'a ekler. Önceliği gerçek zaman gereksinimine göre seçin: yüksek öncelikli bir task CPU'yu fazla kullanırsa düşük öncelikliler aç kalabilir. Arduino `loop()` da bir RTOS task'ında çalışır; Serial ve GPIO paylaşımını planlayın.\n\n",
       "size": 17
     },
     {
@@ -98,19 +74,7 @@
     },
     {
       "type": "text",
-      "text": "Kod satırı: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "void setup() { Serial.begin(115200); if (xTaskCreate(fastTask, \"fast\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"fast task creation failed\"); if (xTaskCreate(slowTask, \"slow\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"slow task creation failed\"); }",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nNe yapar: Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.\nNeden seçildi: Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.\nAtlanır veya değiştirilirse: Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.\n\n",
+      "text": "Kod satırı: `void setup() { Serial.begin(115200); if (xTaskCreate(fastTask, \"fast\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"fast task creation failed\"); if (xTaskCreate(slowTask, \"slow\", 2048, nullptr, 1, nullptr) != pdPASS) Serial.println(\"slow task creation failed\"); }`\nNe yapar: Her görev için stack ayrılır ve öncelik scheduler kararını etkiler.\nNeden seçildi: Sonsuz döngülü her görev beklemeli veya gecikmeli; aksi halde CPU'yu diğer görevlerden alabilir.\nAtlanır veya değiştirilirse: Birden çok task'tan Serial yazıları karışabilir; ortak çıkışı sıralayın ve stack kullanımını ölçün.\n\n",
       "size": 16
     },
     {
@@ -160,19 +124,7 @@
     },
     {
       "type": "text",
-      "text": "Sensor görevi yaklaşık her 500 ms'de ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "sample",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " yazdırır.\n\n",
+      "text": "Sensor görevi yaklaşık her 500 ms'de `sample` yazdırır.\n\n",
       "size": 16
     },
     {

@@ -1,0 +1,82 @@
+{
+  "id": "python_py_fastapi_testing",
+  "title": "FastAPI dependencies, async work, and tests",
+  "difficulty": "advanced",
+  "testId": "python_test_py_fastapi_testing_en",
+  "sources": [
+    "https://docs.python.org/3/tutorial/",
+    "https://docs.python.org/3/using/",
+    "https://docs.python.org/3/library/",
+    "https://docs.python.org/3/library/turtle.html",
+    "https://docs.python.org/3/library/tkinter.html",
+    "https://fastapi.tiangolo.com/tutorial/",
+    "https://www.python.org/about/success/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Dependency injection separates reusable authentication, database sessions, and configuration from endpoint logic. async def helps only when the libraries provide asynchronous I/O; blocking code still stalls the event loop. Use TestClient to verify requests, responses, validation errors, and status codes, then select an ASGI server and worker count for deployment.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "from fastapi.testclient import TestClient\n\nclient = TestClient(app)\nresponse = client.post('/items', json={'name': 'pen', 'price': 1.5})\nassert response.status_code == 200",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "No console output; the assertion passes when POST /items returns HTTP 200.",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "TestClient checks HTTP behavior without opening a network port.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "A synchronous database call can block inside an async endpoint; use a suitable async driver or separate worker."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Do not expose the development server; review production proxy and secret configuration separately."
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
+}

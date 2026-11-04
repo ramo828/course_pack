@@ -10,7 +10,7 @@
       "options": [
         "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
         "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
-        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın.",
         "no_std tətbiqdə panic handler tələb olunur və platformaya uyğun startup/linker quruluşu da lazımdır."
       ],
       "answer": "no_std tətbiqdə panic handler tələb olunur və platformaya uyğun startup/linker quruluşu da lazımdır.",
@@ -23,7 +23,7 @@
       "prompt": "“no_std, embedded və resurs büdcəsi” yanaşmasını real layihəyə tətbiq edərkən hansı addımı atmaq lazımdır?",
       "options": [
         "Dəyişənliyi yalnız həqiqətən lazım olduqda aktiv edin.",
-        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir.",
+        "Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın.",
         "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
         "Target triple ilə toolchain uyğunluğunu, hər task-ın stack ölçüsünü və RAM çatışmazlığı zamanı davranışı yoxlayın."
       ],
@@ -36,10 +36,10 @@
       "type": "multiple_choice",
       "prompt": "“no_std, embedded və resurs büdcəsi” nümunəsində hansı implementasiya detalı vacibdir?",
       "options": [
-        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
+        "rustup toolchain və target komponentlərini idarə edir; Cargo layihə, dependency, build və test işlərini görür.",
         "Rust embedded proqramlarında `no_std` ilə standart kitabxananın əməliyyat sistemi tələb edən hissələri olmadan işləyə bilər; `core` və platformaya uyğun `embedded-hal` abstraksiyaları qalır",
-        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
-        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir."
+        "Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir."
       ],
       "answer": "Rust embedded proqramlarında `no_std` ilə standart kitabxananın əməliyyat sistemi tələb edən hissələri olmadan işləyə bilər; `core` və platformaya uyğun `embedded-hal` abstraksiyaları qalır",
       "explanation": "Rust embedded proqramlarında `no_std` ilə standart kitabxananın əməliyyat sistemi tələb edən hissələri olmadan işləyə bilər; `core` və platformaya uyğun `embedded-hal` abstraksiyaları qalır\nİzah: Rust embedded proqramlarında `no_std` ilə standart kitabxananın əməliyyat sistemi tələb edən hissələri olmadan işləyə bilər; `core` və platformaya uyğun `embedded-hal` abstraksiyaları qalır. Firmware-də heap, stack, flash, RAM və interrupt latency büdcəsini target chip və linker konfiqurasiyasına görə ölçmək lazımdır. `no_std` təkbaşına real-time zəmanəti və ya hardware təhlükəsizliyi vermir; HAL, driver və unsafe sərhədləri ayrıca nəzərdən keçirilməlidir."
@@ -50,10 +50,10 @@
       "type": "multiple_choice",
       "prompt": "“no_std, embedded və resurs büdcəsi” tətbiqində hansı əlavə məhdudiyyəti və ya şərti yoxlamaq lazımdır?",
       "options": [
-        "Rust dəyişənləri mut yazılmayınca dəyişməzdir.",
+        "Quraşdırıcını yalnız rust-lang.org-dan açın; əlavə native komponentləri tələb olunan hədəfə görə quraşdırın.",
         "Fiziki pin, gərginlik və cərəyan limitlərini lövhənin sənədindən yoxlayın; yanlış elektrik bağlantısı komponentləri zədələyə bilər.",
-        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir.",
-        "Toolchain-i rustup ilə yeniləmək quraşdırılmış versiyaları izlənə bilən edir."
+        "İş kompüterində PATH dəyişikliklərini yoxlayın; MSVC və GNU target-ları fərqli linker və native asılılıq tələb edə bilər.",
+        "Cargo layihə yaratmaq, build və test üçün əsas vasitədir."
       ],
       "answer": "Fiziki pin, gərginlik və cərəyan limitlərini lövhənin sənədindən yoxlayın; yanlış elektrik bağlantısı komponentləri zədələyə bilər.",
       "explanation": "Fiziki pin, gərginlik və cərəyan limitlərini lövhənin sənədindən yoxlayın; yanlış elektrik bağlantısı komponentləri zədələyə bilər.\nİzah: Rust embedded proqramlarında `no_std` ilə standart kitabxananın əməliyyat sistemi tələb edən hissələri olmadan işləyə bilər; `core` və platformaya uyğun `embedded-hal` abstraksiyaları qalır. Firmware-də heap, stack, flash, RAM və interrupt latency büdcəsini target chip və linker konfiqurasiyasına görə ölçmək lazımdır. `no_std` təkbaşına real-time zəmanəti və ya hardware təhlükəsizliyi vermir; HAL, driver və unsafe sərhədləri ayrıca nəzərdən keçirilməlidir."

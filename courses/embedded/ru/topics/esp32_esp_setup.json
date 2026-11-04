@@ -4,7 +4,9 @@
   "difficulty": "medium",
   "testId": "esp32_test_esp_setup_ru",
   "sources": [
-    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/"
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/linux-macos-setup.html",
+    "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/windows-setup.html"
   ],
   "estimatedMinutes": 25,
   "spans": [
@@ -17,7 +19,7 @@
     },
     {
       "type": "text",
-      "text": "Цель урока — применить тему «Установка Arduino Ядро и ESP-IDF» в программе или устройстве. Основной принцип: ESP-IDF выбирает целевой чип перед сборкой. В проекте следуйте рекомендации: При диагностике первой сборки не меняйте одновременно пакет платы, toolchain и framework.\n\n",
+      "text": "Цель урока — применить тему «Установка Arduino Ядро и ESP-IDF» в программе или устройстве. Основной принцип: ESP-IDF выбирает целевой чип перед сборкой. В проекте следуйте рекомендации: Начните с официального примера `hello_world` и запишите рабочие версии инструментов.\n\n",
       "size": 17,
       "color": "#212121"
     },
@@ -37,7 +39,7 @@
     {
       "type": "code",
       "language": "bash",
-      "code": "idf.py --version\nidf.py set-target esp32\nidf.py build",
+      "code": "idf.py --version\nidf.py set-target esp32\nidf.py build\nidf.py -p PORT flash monitor",
       "showCopyButton": true
     },
     {
@@ -62,19 +64,7 @@
     },
     {
       "type": "text",
-      "text": "Arduino-ESP32 предлагает модель программа. ESP-IDF — компонентный framework Espressif на CMake/Kconfig и FreeRTOS; выберите подходящий и зафиксируйте версию.\n\nКоманды ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "idf.py",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " предназначены только для проекта и toolchain ESP-IDF. Arduino-ESP32 использует отдельный пакет поддержки платы и workflow Arduino CLI/IDE; эти команды не являются командами скетча Arduino.\n\n",
+      "text": "Arduino-ESP32 предлагает модель программа. ESP-IDF — компонентный framework Espressif на CMake/Kconfig и FreeRTOS; выберите подходящий и зафиксируйте версию.\n\nКоманды `idf.py` предназначены только для проекта и toolchain ESP-IDF. Arduino-ESP32 использует отдельный пакет поддержки платы и workflow Arduino CLI/IDE; эти команды не являются командами скетча Arduino.\n\nВ Windows, macOS и Linux используйте официальный ESP-IDF Installation Manager от Espressif или актуальный способ из документации ESP-IDF. Менеджер может установить совместимые Python, Git, CMake, Ninja, compiler и средства отладки. После установки откройте терминал ESP-IDF, выберите точный целевая система ESP32, соберите официальный пример и прошейте плату через USB-порт. Arduino-ESP32 Ядро устанавливается как пакет плат Arduino IDE и использует другой рабочий процесс.\n\n",
       "size": 17
     },
     {
@@ -86,25 +76,13 @@
     },
     {
       "type": "text",
-      "text": "Ключевая строка: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "idf.py --version",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nЧто она делает: ESP-IDF выбирает целевой чип перед сборкой.\nЗачем она нужна: При диагностике первой сборки не меняйте одновременно пакет платы, toolchain и framework.\nЕсли пропустить или изменить: ESP-IDF Installation Manager и официальные руководства описывают установку для разных ОС.\n\n",
+      "text": "Ключевая строка: `idf.py --version`\nЧто она делает: ESP-IDF выбирает целевой чип перед сборкой.\nЗачем она нужна: Начните с официального примера `hello_world` и запишите рабочие версии инструментов.\nЕсли пропустить или изменить: В Linux могут потребоваться права на serial-устройство; выполняйте только шаги из официальной инструкции Espressif.\n\n",
       "size": 16
     },
     {
       "type": "detail",
       "title": "Типичная ошибка",
-      "text": "Пропустить эту проверку перед применением правила: При диагностике первой сборки не меняйте одновременно пакет платы, toolchain и framework."
+      "text": "Загружайте установщик только с сайта Espressif; неверный целевая система или порт приведёт к ошибке прошивки."
     },
     {
       "type": "text",
@@ -124,7 +102,7 @@
     {
       "type": "tip",
       "title": "Полезный совет",
-      "text": "При диагностике первой сборки не меняйте одновременно пакет платы, toolchain и framework."
+      "text": "Начните с официального примера `hello_world` и запишите рабочие версии инструментов."
     },
     {
       "type": "text",
@@ -154,16 +132,16 @@
     {
       "type": "detail",
       "title": "Важная деталь",
-      "text": "ESP-IDF Installation Manager и официальные руководства описывают установку для разных ОС."
+      "text": "В Linux могут потребоваться права на serial-устройство; выполняйте только шаги из официальной инструкции Espressif."
     },
     {
       "type": "warning",
       "title": "Внимание",
-      "text": "Выводы, пределы напряжения/тока, тайминги и периферия зависят от платы; проверьте её документацию перед подключением и загрузкой."
+      "text": "Загружайте установщик только с сайта Espressif; неверный целевая система или порт приведёт к ошибке прошивки."
     },
     {
       "type": "diagram",
-      "id": "embedded_stack",
+      "id": "tool_install_flow",
       "caption": "Данные датчика обрабатываются в MCU и при необходимости передаются шлюзу и сетевому сервису."
     }
   ],

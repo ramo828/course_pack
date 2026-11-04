@@ -1,0 +1,123 @@
+{
+  "id": "sql_sql_dml",
+  "title": "INSERT, UPDATE, and DELETE",
+  "difficulty": "medium",
+  "testId": "sql_test_sql_dml_en",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "LESSON PURPOSE\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“INSERT, UPDATE, and DELETE” is a tool for solving a concrete programming problem. Identify the input and desired result, then trace what role the construct plays in the example. Study it not only as syntax, but also for its effects on readability, correctness, resource use, and future changes.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "QUESTION: What will this example do? Predict the result first.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "EXAMPLE CODE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "INSERT INTO products (product_id, name, price_cents)\nVALUES (1, 'Sensor', 1250);\n\nUPDATE products\nSET price_cents = 1300\nWHERE product_id = 1;\n\nDELETE FROM products\nWHERE product_id = 1;",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "EXPECTED RESULT\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "INSERT adds a row, UPDATE changes the matching row, and DELETE removes it.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "CORE EXPLANATION\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "DML changes table data. INSERT adds rows, UPDATE changes matching rows, and DELETE removes matching rows. Preview the same WHERE condition with SELECT before changing data, and use a transaction when several writes must act as one unit.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT LINE BREAKDOWN\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Key line: `INSERT INTO products (product_id, name, price_cents)`\nWhat it does: INSERT adds a row, UPDATE changes the matching row, and DELETE removes it.\nWhy it is used: Preview the target rows with SELECT before UPDATE or DELETE, and understand the backup policy first.\nIf omitted or changed: Naming INSERT columns makes the statement resilient to later schema changes.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Common mistake",
+      "text": "Forgetting WHERE in UPDATE or DELETE can change or remove every row."
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "INSERT adds a row, UPDATE changes the matching row, and DELETE removes it.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Important tip",
+      "text": "Preview the target rows with SELECT before UPDATE or DELETE, and understand the backup policy first."
+    },
+    {
+      "type": "detail",
+      "title": "Important detail",
+      "text": "Naming INSERT columns makes the statement resilient to later schema changes."
+    },
+    {
+      "type": "warning",
+      "title": "Warning",
+      "text": "Forgetting WHERE in UPDATE or DELETE can change or remove every row."
+    }
+  ],
+  "requires_visual": false,
+  "visual_description": "A separate visual is not essential; a small runnable code example and its expected output explain the topic."
+}

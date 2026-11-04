@@ -4,10 +4,8 @@
   "difficulty": "easy",
   "testId": "rust_test_rust_install_en",
   "sources": [
-    "https://rust-lang.org/",
     "https://rust-lang.org/tools/install/",
-    "https://doc.rust-lang.org/cargo/",
-    "https://blog.rust-lang.org/2015/05/15/Rust-1.0.html"
+    "https://doc.rust-lang.org/cargo/"
   ],
   "estimatedMinutes": 18,
   "spans": [
@@ -20,7 +18,7 @@
     },
     {
       "type": "text",
-      "text": "Goal: apply “rustup, Cargo, and a first project” to a real program or device. The key principle is: Cargo is the main tool for creating, building, and testing projects. In a project, follow this guidance: Use rustup to keep toolchain updates and installed versions explicit.\n\n",
+      "text": "Goal: apply “rustup, Cargo, and a first project” to a real program or device. The key principle is: Cargo is the main tool for creating, building, and testing projects. In a project, follow this guidance: Obtain the installer from rust-lang.org and install native prerequisites only for the target you need.\n\n",
       "size": 17,
       "color": "#212121"
     },
@@ -40,7 +38,7 @@
     {
       "type": "code",
       "language": "bash",
-      "code": "cargo new hello-rust\ncd hello-rust\ncargo run\ncargo test",
+      "code": "rustc --version\ncargo --version\ncargo new hello-rust\ncd hello-rust\ncargo run",
       "showCopyButton": true
     },
     {
@@ -65,43 +63,7 @@
     },
     {
       "type": "text",
-      "text": "Install Rust with the official rustup installer. It manages rustc, Cargo, and components such as rustfmt; Cargo handles project creation, builds, tests, and dependencies.\n\nOrigin and dates: Graydon Hoare began Rust as a personal project in 2006; Mozilla sponsored the work from 2009, and Rust 1.0 shipped on May 15, 2015. Its purpose was to combine low-level control with memory safety and safe concurrency, addressing risks such as use-after-free and data races. Rust is now used for command-line tools, servers, browser components, and embedded firmware; it is relevant to systems, backend, embedded, compiler, and tooling careers. If you enjoy making ownership and resource use explicit while building fast, reliable software, Rust is worth exploring.\n\nrustup installs and updates toolchain components and targets. rustc checks and compiles source code; Cargo manages the manifest, builds, tests, and dependency resolution. ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "cargo new",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " creates a binary or library crate, ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "cargo check",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " performs a fast type check, and ",
-      "size": 17
-    },
-    {
-      "type": "text",
-      "text": "cargo run",
-      "size": 17,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " builds and executes. Release builds enable optimizations and differ from development builds.\n\n",
+      "text": "Install Rust with the official rustup installer. It manages rustc, Cargo, and components such as rustfmt; Cargo handles project creation, builds, tests, and dependencies.\n\nOrigin and dates: Graydon Hoare began Rust as a personal project in 2006; Mozilla sponsored the work from 2009, and Rust 1.0 shipped on May 15, 2015. Its purpose was to combine low-level control with memory safety and safe concurrency, addressing risks such as use-after-free and data races. Rust is now used for command-line tools, servers, browser components, and embedded firmware; it is relevant to systems, backend, embedded, compiler, and tooling careers. If you enjoy making ownership and resource use explicit while building fast, reliable software, Rust is worth exploring.\n\nOn Windows, download the official rustup-init.exe from the Rust site; an MSVC target may also need the C++ build tools from Visual Studio Build Tools. On macOS, use the official rustup installer and install Xcode Command Line Tools if native builds require them. On Linux, run the official rustup installer; crates needing a C library may also require your distribution's compiler and development packages. Reopen the terminal and check rustc and Cargo versions. Select the target triple explicitly for production builds.\n\nrustup installs and updates toolchain components and targets. rustc checks and compiles source code; Cargo manages the manifest, builds, tests, and dependency resolution. `cargo new` creates a binary or library crate, `cargo check` performs a fast type check, and `cargo run` builds and executes. Release builds enable optimizations and differ from development builds.\n\n",
       "size": 17
     },
     {
@@ -113,25 +75,13 @@
     },
     {
       "type": "text",
-      "text": "Key line: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "cargo new hello-rust",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nWhat it does: Cargo is the main tool for creating, building, and testing projects.\nWhy it is used: Use rustup to keep toolchain updates and installed versions explicit.\nIf omitted or changed: Use rustup to keep toolchain updates and installed versions explicit.\n\n",
+      "text": "Key line: `cargo new hello-rust`\nWhat it does: Cargo is the main tool for creating, building, and testing projects.\nWhy it is used: Obtain the installer from rust-lang.org and install native prerequisites only for the target you need.\nIf omitted or changed: rustup manages toolchains and targets; Cargo manages project builds, dependencies, and tests.\n\n",
       "size": 16
     },
     {
       "type": "detail",
       "title": "Common mistake",
-      "text": "Skipping this check before applying the rule: Use rustup to keep toolchain updates and installed versions explicit."
+      "text": "Check PATH changes on managed computers; MSVC and GNU targets can require different linkers and native dependencies."
     },
     {
       "type": "text",
@@ -151,7 +101,7 @@
     {
       "type": "tip",
       "title": "Important tip",
-      "text": "Use rustup to keep toolchain updates and installed versions explicit."
+      "text": "Obtain the installer from rust-lang.org and install native prerequisites only for the target you need."
     },
     {
       "type": "text",
@@ -181,12 +131,17 @@
     {
       "type": "detail",
       "title": "Important detail",
-      "text": "If you enjoy making ownership and resource use explicit while building fast, reliable software, Rust is worth exploring."
+      "text": "rustup manages toolchains and targets; Cargo manages project builds, dependencies, and tests."
     },
     {
       "type": "warning",
       "title": "Warning",
-      "text": "Examples focus on the concept; compile and test with the selected toolchain and target because APIs and diagnostics can vary by version."
+      "text": "Check PATH changes on managed computers; MSVC and GNU targets can require different linkers and native dependencies."
+    },
+    {
+      "type": "diagram",
+      "id": "tool_install_flow",
+      "caption": "Rust checks the relationship between a value's owner, its borrower, and the code using it at compile time."
     },
     {
       "type": "text",
@@ -206,6 +161,6 @@
       "size": 16
     }
   ],
-  "requires_visual": false,
-  "visual_description": "A separate visual is not essential; a small runnable code example and its expected output explain the topic."
+  "requires_visual": true,
+  "visual_description": "Add a flowchart showing code steps, control flow, and how the key data changes."
 }

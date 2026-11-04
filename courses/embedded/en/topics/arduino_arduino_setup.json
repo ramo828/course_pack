@@ -4,7 +4,8 @@
   "difficulty": "easy",
   "testId": "arduino_test_arduino_setup_en",
   "sources": [
-    "https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-board-manager"
+    "https://docs.arduino.cc/software/ide-v2/tutorials/getting-started-ide-v2/",
+    "https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-board-manager/"
   ],
   "estimatedMinutes": 12,
   "spans": [
@@ -17,7 +18,7 @@
     },
     {
       "type": "text",
-      "text": "Goal: apply “Arduino IDE and board packages” to a real program or device. The key principle is: Compile and upload are separate; a successful build does not guarantee the selected port is correct. In a project, follow this guidance: Record the board package version so the build can be reproduced.\n\n",
+      "text": "Goal: apply “Arduino IDE and board packages” to a real program or device. The key principle is: Compile and upload are separate; a successful build does not guarantee the selected port is correct. In a project, follow this guidance: Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.\n\n",
       "size": 17,
       "color": "#212121"
     },
@@ -36,8 +37,8 @@
     },
     {
       "type": "code",
-      "language": "cpp",
-      "code": "// Select the exact board and port in the IDE.\nvoid setup() {}\nvoid loop() {}",
+      "language": "text",
+      "code": "Arduino IDE 2\n1. Boards Manager: install the exact board package\n2. Tools > Board: select your board\n3. Tools > Port: select its serial port\n4. Open Blink > Verify > Upload",
       "showCopyButton": true
     },
     {
@@ -62,7 +63,7 @@
     },
     {
       "type": "text",
-      "text": "Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available.\n\n",
+      "text": "Install the IDE from its official source, add the board package, then select the board and port. If no port appears, check that the USB cable carries data and the driver is available.\n\nDownload Arduino IDE 2 for Windows, macOS, or Linux only from arduino.cc. Let it check for updates, then install the exact board family's package through Boards Manager. Connect a USB data cable, choose the board and port under Tools, and compile and upload the Blink example. Windows may need the board maker's USB-serial driver; macOS may request a security confirmation. On Linux, follow the official AppImage/package guidance and serial-port permission instructions; after joining `dialout`, you may need to sign out and back in.\n\n",
       "size": 17
     },
     {
@@ -74,25 +75,13 @@
     },
     {
       "type": "text",
-      "text": "Key line: ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "// Select the exact board and port in the IDE.",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "\nWhat it does: Compile and upload are separate; a successful build does not guarantee the selected port is correct.\nWhy it is used: Record the board package version so the build can be reproduced.\nIf omitted or changed: Record the board package version so the build can be reproduced.\n\n",
+      "text": "Key line: `Arduino IDE 2`\nWhat it does: Compile and upload are separate; a successful build does not guarantee the selected port is correct.\nWhy it is used: Verify board and port separately; a successful compile does not prove that the correct board was selected for upload.\nIf omitted or changed: IDE packages and Linux serial permissions vary by release and distribution; follow current vendor instructions.\n\n",
       "size": 16
     },
     {
       "type": "detail",
       "title": "Common mistake",
-      "text": "Skipping this check before applying the rule: Record the board package version so the build can be reproduced."
+      "text": "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits."
     },
     {
       "type": "text",
@@ -112,7 +101,7 @@
     {
       "type": "tip",
       "title": "Important tip",
-      "text": "Record the board package version so the build can be reproduced."
+      "text": "Verify board and port separately; a successful compile does not prove that the correct board was selected for upload."
     },
     {
       "type": "text",
@@ -142,16 +131,16 @@
     {
       "type": "detail",
       "title": "Important detail",
-      "text": "If no port appears, check that the USB cable carries data and the driver is available."
+      "text": "IDE packages and Linux serial permissions vary by release and distribution; follow current vendor instructions."
     },
     {
       "type": "warning",
       "title": "Warning",
-      "text": "Pins, voltage/current limits, timing, and peripheral support are board-dependent; verify the exact board documentation before wiring or uploading."
+      "text": "Do not install drivers from unknown sources or connect peripherals that exceed the MCU voltage limits."
     },
     {
       "type": "diagram",
-      "id": "embedded_stack",
+      "id": "tool_install_flow",
       "caption": "Sensor data is processed by the MCU and, when needed, passed to a gateway and network service."
     }
   ],

@@ -1,0 +1,153 @@
+{
+  "id": "sql_sql_sqlite",
+  "title": "SQLite: kurulum, CLI ve özel komutlar",
+  "difficulty": "easy",
+  "testId": "sql_test_sql_sqlite_tr",
+  "sources": [
+    "https://www.iso.org/standard/76583.html",
+    "https://www.sqlite.org/docs.html",
+    "https://www.sqlite.org/about.html",
+    "https://www.sqlite.org/foreignkeys.html",
+    "https://www.postgresql.org/docs/current/",
+    "https://www.postgresql.org/docs/current/history.html",
+    "https://dev.mysql.com/doc/",
+    "https://www.mysql.com/about/",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/tutorial.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/history.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/sql-statements.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/load-data.html",
+    "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/using-explain.html",
+    "https://www.sqlite.org/lang_select.html",
+    "https://www.sqlite.org/lang_expr.html",
+    "https://www.sqlite.org/lang_corefunc.html",
+    "https://www.sqlite.org/lang_createtable.html",
+    "https://www.sqlite.org/lang_transaction.html",
+    "https://www.sqlite.org/lang_upsert.html",
+    "https://www.sqlite.org/lang_createtrigger.html",
+    "https://www.sqlite.org/windowfunctions.html",
+    "https://www.sqlite.org/cli.html",
+    "https://www.sqlite.org/eqp.html",
+    "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "https://www.postgresql.org/docs/current/queries.html",
+    "https://www.postgresql.org/docs/current/queries-with.html",
+    "https://www.postgresql.org/docs/current/functions.html",
+    "https://www.postgresql.org/docs/current/using-explain.html",
+    "https://www.postgresql.org/docs/current/sql-copy.html",
+    "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "https://www.postgresql.org/docs/current/sql-createtrigger.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 22,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "“SQLite: kurulum, CLI ve özel komutlar” gerçek bir programlama problemine çözüm üretmek için kullanılır. Önce girdiyi ve beklenen sonucu belirleyin; sonra örnekteki yapının hangi işi üstlendiğini izleyin. Konuyu yalnızca sözdizimi olarak değil, okunabilirlik, doğruluk, kaynak kullanımı ve ilerideki değişikliklere etkisiyle değerlendirin.\n\n",
+      "size": 17,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "SORU: Bu örneğin sonucu ne olacak? Önce kendin tahmin et.\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "ÖRNEK KOD\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "sqlite3 school.db\n.tables\n.schema students\n.mode column\n.headers on\n.read setup.sql\n.backup copy.db\n.quit\n\nPRAGMA foreign_keys = ON;\nSELECT sqlite_version();",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BEKLENEN SONUÇ\n",
+      "size": 20,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLite sürümü gösterilir; tablolar ve şema terminalda listelenebilir.\n\n",
+      "size": 16,
+      "color": "#2E7D32"
+    },
+    {
+      "type": "text",
+      "text": "KONU ANLATIMI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "SQLite, ayrı bir sunucu kurmadan SQL öğrenmek ve yerel veri saklamak için elverişlidir. `sqlite3 school.db` terminalda dosyayı açar veya oluşturur. `.tables` tabloları, `.schema students` şemayı gösterir; `.mode column` ve `.headers on` sonuçları okunur yapar; `.read setup.sql` SQL dosyasını çalıştırır; `.backup copy.db` yedek oluşturur; `.quit` çıkar. Noktayla başlayanlar SQLite kabuk komutlarıdır, SQL standardının parçası değildir. SQL içindeki `PRAGMA foreign_keys = ON;` geçerli bağlantıda yabancı anahtar denetimini açar. Python'da `sqlite3.connect` bağlantı açar ve parametreli `execute` sorguları çalıştırılır.\n\n",
+      "size": 17
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ SATIRLARIN AÇIKLAMASI\n",
+      "size": 20,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kod satırı: `sqlite3 school.db`\nNe yapar: İlk komutlar SQLite kabuğunda çalışır; PRAGMA ve SELECT veritabanına gönderilen SQL ifadeleridir.\nNeden seçildi: Önce `.tables` ve `.schema` ile doğru dosyada olduğunuzu kontrol edin; kabuk komutlarını SQL sorgusuyla karıştırmayın.\nAtlanır veya değiştirilirse: SQLite'ta `CREATE DATABASE` yoktur: `sqlite3 school.db` ile veritabanı dosyasını açmak veya oluşturmak yeterlidir. MySQL/PostgreSQL'de veritabanı oluşturmak sunucuya gönderilen ayrı bir SQL komutu olabilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "detail",
+      "title": "Sık yapılan hata",
+      "text": "`.backup` hedef yolunu dikkatle seçin; veritabanı dosyasını yedekleme stratejisi olmadan elle kopyalamayın."
+    },
+    {
+      "type": "text",
+      "text": "AKLINDA TUT\n",
+      "size": 19,
+      "color": "#00897B",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "İlk komutlar SQLite kabuğunda çalışır; PRAGMA ve SELECT veritabanına gönderilen SQL ifadeleridir.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true,
+      "italic": true
+    },
+    {
+      "type": "tip",
+      "title": "Önemli ipucu",
+      "text": "Önce `.tables` ve `.schema` ile doğru dosyada olduğunuzu kontrol edin; kabuk komutlarını SQL sorgusuyla karıştırmayın."
+    },
+    {
+      "type": "detail",
+      "title": "Önemli ayrıntı",
+      "text": "SQLite'ta `CREATE DATABASE` yoktur: `sqlite3 school.db` ile veritabanı dosyasını açmak veya oluşturmak yeterlidir. MySQL/PostgreSQL'de veritabanı oluşturmak sunucuya gönderilen ayrı bir SQL komutu olabilir."
+    },
+    {
+      "type": "warning",
+      "title": "Uyarı",
+      "text": "`.backup` hedef yolunu dikkatle seçin; veritabanı dosyasını yedekleme stratejisi olmadan elle kopyalamayın."
+    },
+    {
+      "type": "diagram",
+      "id": "tool_install_flow",
+      "caption": null
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Ekleyin: kod adımlarını, kontrol akışını ve temel verilerin değişimini gösteren akış diyagramı."
+}
