@@ -37,78 +37,13 @@
     },
     {
       "type": "text",
-      "text": "Для локального запуска установите ",
+      "text": "Для локального запуска установите `pip install fastapi uvicorn httpx` и дополнительные пакеты, указанные в уроке. Сохраните сервер как `app.py` и запустите `uvicorn app:app --reload`. `--reload` предназначен только для разработки.\n\n",
       "size": 16,
       "color": "#212121"
     },
     {
       "type": "text",
-      "text": "pip install fastapi uvicorn httpx",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " и дополнительные пакеты, указанные в уроке. Сохраните сервер как ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "app.py",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " и запустите ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "uvicorn app:app --reload",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": ". ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "--reload",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " предназначен только для разработки.\n\n",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "ГДЕ ЭТО ВСТРЕЧАЕТСЯ В ЖИЗНИ?\nАдрес ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "/books/12?limit=5",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " указывает книгу 12 и ограничивает список пятью элементами.\n\n",
+      "text": "ГДЕ ЭТО ВСТРЕЧАЕТСЯ В ЖИЗНИ?\nАдрес `/books/12?limit=5` указывает книгу 12 и ограничивает список пятью элементами.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -152,85 +87,7 @@
     },
     {
       "type": "text",
-      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi import FastAPI, Query",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "app = FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — ",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "@app.get(\"/books/{book_id}\")",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "async def read_book(book_id: int, limit: int = Query(default=10, ge=1, le=50)):",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "return {\"book_id\": book_id, \"limit\": limit}",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n\n",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n`from fastapi import FastAPI, Query` — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n`app = FastAPI()` — `FastAPI()` создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n`@app.get(\"/books/{book_id}\")` — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n`async def read_book(book_id: int, limit: int = Query(default=10, ge=1, le=50)):` — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n`return {\"book_id\": book_id, \"limit\": limit}` — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -243,20 +100,7 @@
     },
     {
       "type": "text",
-      "text": "Полный файл ниже локально вызывает приложение через TestClient, не открывая порт. Для TestClient установите ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "httpx",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": ".\n\n",
+      "text": "Полный файл ниже локально вызывает приложение через TestClient, не открывая порт. Для TestClient установите `httpx`.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -294,137 +138,7 @@
     },
     {
       "type": "text",
-      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi import FastAPI, Query",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "app = FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — ",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "@app.get(\"/books/{book_id}\")",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "async def read_book(book_id: int, limit: int = Query(default=10, ge=1, le=50)):",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "return {\"book_id\": book_id, \"limit\": limit}",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi.testclient import TestClient",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Импортирует TestClient, чтобы отправить приложению HTTP-запрос без открытия серверного порта.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "with TestClient(app) as client:",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Создаёт тестовый HTTP-клиент приложения и закрывает его при выходе из блока.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "response = client.get(\"/books/12?limit=5\")",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Отправляет указанный GET-запрос через тестовый клиент и сохраняет ответ.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "print(response.json())",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Выполняет работу для запроса; результат или побочный эффект влияет на ответ.\n\n",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n`from fastapi import FastAPI, Query` — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n`app = FastAPI()` — `FastAPI()` создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n`@app.get(\"/books/{book_id}\")` — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n`async def read_book(book_id: int, limit: int = Query(default=10, ge=1, le=50)):` — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n`return {\"book_id\": book_id, \"limit\": limit}` — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n`from fastapi.testclient import TestClient` — Импортирует TestClient, чтобы отправить приложению HTTP-запрос без открытия серверного порта.\n`with TestClient(app) as client:` — Создаёт тестовый HTTP-клиент приложения и закрывает его при выходе из блока.\n`response = client.get(\"/books/12?limit=5\")` — Отправляет указанный GET-запрос через тестовый клиент и сохраняет ответ.\n`print(response.json())` — Выполняет работу для запроса; результат или побочный эффект влияет на ответ.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -437,20 +151,7 @@
     },
     {
       "type": "text",
-      "text": "Записывать query-значение в путь и не ограничивать ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "limit",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": "; проверяйте формат URL и диапазон.\n\n",
+      "text": "Записывать query-значение в путь и не ограничивать `limit`; проверяйте формат URL и диапазон.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -483,67 +184,7 @@
     },
     {
       "type": "text",
-      "text": "Ответ: Проверьте ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "/books/12?limit=5",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " в ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "/docs",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": ": ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "book_id",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " входит в путь, ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "limit",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " — в query-часть после ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "?",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": ".\n\n",
+      "text": "Ответ: Проверьте `/books/12?limit=5` в `/docs`: `book_id` входит в путь, `limit` — в query-часть после `?`.\n\n",
       "size": 16
     }
   ],

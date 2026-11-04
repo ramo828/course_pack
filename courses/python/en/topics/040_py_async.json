@@ -17,6 +17,12 @@
     },
     {
       "type": "text",
+      "text": "asyncio schedules I/O-waiting tasks on an event loop, usually in one thread. `async def` defines a coroutine and `await` yields control; `gather` returns results in input order, while a Semaphore bounds concurrent work. Blocking I/O and CPU-heavy code stall the loop. Design timeouts, cancellation, and task lifetimes; use a process pool or suitable executor for CPU parallelism.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
       "text": "asyncio schedules I/O-waiting tasks on an event loop, usually in one thread. ",
       "size": 16,
       "color": "#212121"
@@ -80,6 +86,12 @@
       "bold": true
     },
     {
+      "type": "image",
+      "path": "images/course_visual_python_async_en.png",
+      "alt": "The asyncio event loop",
+      "caption": "The asyncio event loop"
+    },
+    {
       "type": "diagram",
       "id": "python_async_flow",
       "caption": "asyncio and asynchronous I/O"
@@ -111,7 +123,7 @@
     },
     {
       "type": "text",
-      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "text": "LINE-BY-LINE WALKTHROUGH\n`import asyncio` — Imports functionality from a module; without it, the name is unavailable and may raise NameError.\n`async def read_sensor(name: str, gate: asyncio.Semaphore) -> str:` — Defines a coroutine for I/O work; without the function and an await, that work does not run.\n`async with gate:` — Manages a resource for the block; without the context manager, a file or connection may remain open.\n`await asyncio.sleep(0)` — Suspends this coroutine and lets the event loop run other tasks; a zero delay is not a real-time wait.\n`return f'{name}:ready'` — Sends a result to the caller; without it, a function usually returns None.\n`async def main() -> None:` — Defines a coroutine for I/O work; without the function and an await, that work does not run.\n`gate = asyncio.Semaphore(2)` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`results = await asyncio.gather(` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`read_sensor('temperature', gate),` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`read_sensor('humidity', gate),` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`)` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`print(results)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`asyncio.run(main())` — Creates an event loop, runs the coroutine to completion, and then closes the loop.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -343,7 +355,7 @@
     },
     {
       "type": "text",
-      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "text": "LINE-BY-LINE WALKTHROUGH\n`import asyncio` — Imports functionality from a module; without it, the name is unavailable and may raise NameError.\n`async def main() -> None:` — Defines a coroutine for I/O work; without the function and an await, that work does not run.\n`try:` — Marks operations that may fail; without a handler, an expected error can stop the caller.\n`await asyncio.wait_for(asyncio.sleep(1), timeout=0.01)` — Suspends this coroutine for the requested delay so the event loop can run other tasks; it is not itself a network I/O operation.\n`except TimeoutError:` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`print('operation timed out')` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`asyncio.run(main())` — Creates an event loop, runs the coroutine to completion, and then closes the loop.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -472,7 +484,7 @@
     },
     {
       "type": "text",
-      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "text": "LINE-BY-LINE WALKTHROUGH\n`import asyncio` — Imports functionality from a module; without it, the name is unavailable and may raise NameError.\n`async def read(name: str) -> str:` — Defines a coroutine for I/O work; without the function and an await, that work does not run.\n`await asyncio.sleep(0)` — Suspends this coroutine and lets the event loop run other tasks; a zero delay is not a real-time wait.\n`return name` — Sends a result to the caller; without it, a function usually returns None.\n`async def main() -> None:` — Defines a coroutine for I/O work; without the function and an await, that work does not run.\n`print(await asyncio.gather(read('A'), read('B')))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`asyncio.run(main())` — Creates an event loop, runs the coroutine to completion, and then closes the loop.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -584,6 +596,50 @@
       "text": "Avoid blocking I/O inside an async endpoint; use an async-compatible client.\n\n",
       "size": 16,
       "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “asyncio and asynchronous I/O”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: asyncio schedules I/O-waiting tasks on an event loop, usually in one thread.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “asyncio and asynchronous I/O”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: asyncio schedules I/O-waiting tasks on an event loop, usually in one thread.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “asyncio and asynchronous I/O”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: asyncio schedules I/O-waiting tasks on an event loop, usually in one thread.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “asyncio and asynchronous I/O”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: asyncio schedules I/O-waiting tasks on an event loop, usually in one thread.\n\n",
+      "size": 16
     },
     {
       "type": "text",

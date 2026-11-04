@@ -30,78 +30,13 @@
     },
     {
       "type": "text",
-      "text": "Зависимости FastAPI выносят повторяющуюся подготовку из endpoint: параметры, пользователя, настройки или сессию БД. ",
+      "text": "Зависимости FastAPI выносят повторяющуюся подготовку из endpoint: параметры, пользователя, настройки или сессию БД. `Depends` передаёт результат и позволяет подменить зависимость в тесте.\n\n",
       "size": 17,
       "color": "#212121"
     },
     {
       "type": "text",
-      "text": "Depends",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " передаёт результат и позволяет подменить зависимость в тесте.\n\n",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "Для локального запуска установите ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "pip install fastapi uvicorn httpx",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " и дополнительные пакеты, указанные в уроке. Сохраните сервер как ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "app.py",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " и запустите ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "uvicorn app:app --reload",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": ". ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "--reload",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " предназначен только для разработки.\n\n",
+      "text": "Для локального запуска установите `pip install fastapi uvicorn httpx` и дополнительные пакеты, указанные в уроке. Сохраните сервер как `app.py` и запустите `uvicorn app:app --reload`. `--reload` предназначен только для разработки.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -151,111 +86,7 @@
     },
     {
       "type": "text",
-      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi import Depends, FastAPI",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "app = FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — ",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "async def get_current_user():",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "return {\"username\": \"ada\"}",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "@app.get(\"/profile\")",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "async def read_profile(user: dict = Depends(get_current_user)):",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "return {\"username\": user[\"username\"]}",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n\n",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n`from fastapi import Depends, FastAPI` — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n`app = FastAPI()` — `FastAPI()` создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n`async def get_current_user():` — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n`return {\"username\": \"ada\"}` — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n`@app.get(\"/profile\")` — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n`async def read_profile(user: dict = Depends(get_current_user)):` — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n`return {\"username\": user[\"username\"]}` — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -268,20 +99,7 @@
     },
     {
       "type": "text",
-      "text": "Полный файл ниже локально вызывает приложение через TestClient, не открывая порт. Для TestClient установите ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "httpx",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": ".\n\n",
+      "text": "Полный файл ниже локально вызывает приложение через TestClient, не открывая порт. Для TestClient установите `httpx`.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -319,163 +137,7 @@
     },
     {
       "type": "text",
-      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi import Depends, FastAPI",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "app = FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — ",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "async def get_current_user():",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "return {\"username\": \"ada\"}",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "@app.get(\"/profile\")",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "async def read_profile(user: dict = Depends(get_current_user)):",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "return {\"username\": user[\"username\"]}",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi.testclient import TestClient",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Импортирует TestClient, чтобы отправить приложению HTTP-запрос без открытия серверного порта.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "with TestClient(app) as client:",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Создаёт тестовый HTTP-клиент приложения и закрывает его при выходе из блока.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "response = client.get(\"/profile\")",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Отправляет указанный GET-запрос через тестовый клиент и сохраняет ответ.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "print(response.status_code, response.json())",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Читает и выводит HTTP-статус и разобранный JSON-ответ.\n\n",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n`from fastapi import Depends, FastAPI` — Импортирует нужный тип или инструмент; без этого имени оно недоступно.\n`app = FastAPI()` — `FastAPI()` создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n`async def get_current_user():` — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n`return {\"username\": \"ada\"}` — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n`@app.get(\"/profile\")` — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n`async def read_profile(user: dict = Depends(get_current_user)):` — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n`return {\"username\": user[\"username\"]}` — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n`from fastapi.testclient import TestClient` — Импортирует TestClient, чтобы отправить приложению HTTP-запрос без открытия серверного порта.\n`with TestClient(app) as client:` — Создаёт тестовый HTTP-клиент приложения и закрывает его при выходе из блока.\n`response = client.get(\"/profile\")` — Отправляет указанный GET-запрос через тестовый клиент и сохраняет ответ.\n`print(response.status_code, response.json())` — Читает и выводит HTTP-статус и разобранный JSON-ответ.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -488,20 +150,7 @@
     },
     {
       "type": "text",
-      "text": "Вручную вызывать подготовку и затенять параметр; объявляйте ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "Depends(...)",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": ", чтобы ей управлял FastAPI.\n\n",
+      "text": "Вручную вызывать подготовку и затенять параметр; объявляйте `Depends(...)`, чтобы ей управлял FastAPI.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -534,19 +183,7 @@
     },
     {
       "type": "text",
-      "text": "Ответ: Вынесите поиск пользователя в зависимость и задайте тестового пользователя через ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "app.dependency_overrides",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": ".\n\n",
+      "text": "Ответ: Вынесите поиск пользователя в зависимость и задайте тестового пользователя через `app.dependency_overrides`.\n\n",
       "size": 16
     }
   ],

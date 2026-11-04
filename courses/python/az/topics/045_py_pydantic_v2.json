@@ -18,6 +18,12 @@
     },
     {
       "type": "text",
+      "text": "Samuel Colvin-in yaratdığı Pydantic v2 `BaseModel` ilə xarici məlumatı parse və validate etmək üçündür; `Field` diapazon və uzunluq kimi məhdudiyyətlər qoyur. `ValidationError` gözlənilən giriş xətasıdır. Tip annotasiyası təkbaşına runtime yoxlaması deyil; Pydantic authorization və biznes qaydasını əvəz etmir.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
       "text": "Samuel Colvin-in yaratdığı Pydantic v2 ",
       "size": 16,
       "color": "#212121"
@@ -160,7 +166,7 @@
     },
     {
       "type": "text",
-      "text": "SƏTİR-SƏTİR İZAH\n",
+      "text": "SƏTİR-SƏTİR İZAH\n`from pydantic import BaseModel, Field` — Moduldan konkret adları gətirir; sətir olmasa idxal edilən ad əlçatan olmaz.\n`class SensorReading(BaseModel):` — Əlaqəli məlumat və davranış üçün yeni tip yaradır; sinif olmasa nümunə obyektini həmin müqavilə ilə yaratmaq olmaz.\n`device_id: str` — Dəyəri ada bağlayır, annotasiya isə tipi oxucuya və statik alətə bildirir; annotasiya runtime yoxlaması etmir.\n`celsius: float = Field(ge=-80, le=150)` — Dəyəri ada bağlayır, annotasiya isə tipi oxucuya və statik alətə bildirir; annotasiya runtime yoxlaması etmir.\n`reading = SensorReading.model_validate(` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`{'device_id': 'sensor-1', 'celsius': 21.5}` — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n`)` — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n`print(reading.device_id, reading.celsius)` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -343,7 +349,7 @@
     },
     {
       "type": "text",
-      "text": "SƏTİR-SƏTİR İZAH\n",
+      "text": "SƏTİR-SƏTİR İZAH\n`from pydantic import BaseModel, ValidationError` — Moduldan konkret adları gətirir; sətir olmasa idxal edilən ad əlçatan olmaz.\n`class Reading(BaseModel):` — Əlaqəli məlumat və davranış üçün yeni tip yaradır; sinif olmasa nümunə obyektini həmin müqavilə ilə yaratmaq olmaz.\n`celsius: float` — Dəyəri ada bağlayır, annotasiya isə tipi oxucuya və statik alətə bildirir; annotasiya runtime yoxlaması etmir.\n`try:` — Xəta verə bilən hissəni ayırır; tutma bloku olmasa gözlənən xəta çağıranı dayandıra bilər.\n`Reading.model_validate({'celsius': 'not-a-number'})` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n`except ValidationError:` — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n`print('invalid reading')` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -472,7 +478,7 @@
     },
     {
       "type": "text",
-      "text": "SƏTİR-SƏTİR İZAH\n",
+      "text": "SƏTİR-SƏTİR İZAH\n`from pydantic import BaseModel, Field` — Moduldan konkret adları gətirir; sətir olmasa idxal edilən ad əlçatan olmaz.\n`class Account(BaseModel):` — Əlaqəli məlumat və davranış üçün yeni tip yaradır; sinif olmasa nümunə obyektini həmin müqavilə ilə yaratmaq olmaz.\n`username: str = Field(min_length=3)` — Dəyəri ada bağlayır, annotasiya isə tipi oxucuya və statik alətə bildirir; annotasiya runtime yoxlaması etmir.\n`account = Account.model_validate({'username': 'ada'})` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`print(account.model_dump())` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -596,12 +602,6 @@
     },
     {
       "type": "text",
-      "text": "ÖZÜNÜ YOXLA\n",
-      "size": 20,
-      "bold": true
-    },
-    {
-      "type": "text",
       "text": "Sual: “Pydantic v2: xarici məlumatı doğrulamaq” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
       "size": 16,
       "bold": true
@@ -633,6 +633,56 @@
     {
       "type": "text",
       "text": " diapazon və uzunluq kimi məhdudiyyətlər qoyur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Pydantic v2: xarici məlumatı doğrulamaq” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Samuel Colvin-in yaratdığı Pydantic v2 `BaseModel` ilə xarici məlumatı parse və validate etmək üçündür; `Field` diapazon və uzunluq kimi məhdudiyyətlər qoyur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Pydantic v2: xarici məlumatı doğrulamaq” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Samuel Colvin-in yaratdığı Pydantic v2 `BaseModel` ilə xarici məlumatı parse və validate etmək üçündür; `Field` diapazon və uzunluq kimi məhdudiyyətlər qoyur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Pydantic v2: xarici məlumatı doğrulamaq” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Samuel Colvin-in yaratdığı Pydantic v2 `BaseModel` ilə xarici məlumatı parse və validate etmək üçündür; `Field` diapazon və uzunluq kimi məhdudiyyətlər qoyur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “Pydantic v2: xarici məlumatı doğrulamaq” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: Samuel Colvin-in yaratdığı Pydantic v2 `BaseModel` ilə xarici məlumatı parse və validate etmək üçündür; `Field` diapazon və uzunluq kimi məhdudiyyətlər qoyur.\n\n",
       "size": 16
     }
   ],

@@ -30,78 +30,13 @@
     },
     {
       "type": "text",
-      "text": "FastAPI bağımlılıkları uç noktaların ortak hazırlığını ayrı işleve taşır: sorgu parametresi, geçerli kullanıcı, ayar veya DB oturumu. ",
+      "text": "FastAPI bağımlılıkları uç noktaların ortak hazırlığını ayrı işleve taşır: sorgu parametresi, geçerli kullanıcı, ayar veya DB oturumu. `Depends` sonucu uç nokta parametresine verir; testte bağımlılık değiştirilebilir.\n\n",
       "size": 17,
       "color": "#212121"
     },
     {
       "type": "text",
-      "text": "Depends",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " sonucu uç nokta parametresine verir; testte bağımlılık değiştirilebilir.\n\n",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "Örnekleri yerelde çalıştırmak için ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "pip install fastapi uvicorn httpx",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " kurun; derste belirtilen ek paketleri de ekleyin. Sunucu örneğini ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "app.py",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " olarak kaydedip ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "uvicorn app:app --reload",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " ile başlatın. ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "--reload",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " yalnızca geliştirme içindir.\n\n",
+      "text": "Örnekleri yerelde çalıştırmak için `pip install fastapi uvicorn httpx` kurun; derste belirtilen ek paketleri de ekleyin. Sunucu örneğini `app.py` olarak kaydedip `uvicorn app:app --reload` ile başlatın. `--reload` yalnızca geliştirme içindir.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -151,111 +86,7 @@
     },
     {
       "type": "text",
-      "text": "KODUN SATIR SATIR AÇIKLAMASI\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi import Depends, FastAPI",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "app = FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — ",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " uygulama nesnesi ASGI sunucusuna verilir ve rotaları tutar.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "async def get_current_user():",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "return {\"username\": \"ada\"}",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "@app.get(\"/profile\")",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — HTTP yöntemini ve URL yolunu bu işleve bağlar; dekoratör olmadan işlev bir API uç noktası olmaz.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "async def read_profile(user: dict = Depends(get_current_user)):",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "return {\"username\": user[\"username\"]}",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n\n",
+      "text": "KODUN SATIR SATIR AÇIKLAMASI\n`from fastapi import Depends, FastAPI` — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n`app = FastAPI()` — `FastAPI()` uygulama nesnesi ASGI sunucusuna verilir ve rotaları tutar.\n`async def get_current_user():` — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n`return {\"username\": \"ada\"}` — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n`@app.get(\"/profile\")` — HTTP yöntemini ve URL yolunu bu işleve bağlar; dekoratör olmadan işlev bir API uç noktası olmaz.\n`async def read_profile(user: dict = Depends(get_current_user)):` — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n`return {\"username\": user[\"username\"]}` — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -268,20 +99,7 @@
     },
     {
       "type": "text",
-      "text": "Aşağıdaki tam dosya uygulamayı TestClient ile yerel çağırır; ayrı bir port açmanız gerekmez. TestClient için ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "httpx",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " kurun.\n\n",
+      "text": "Aşağıdaki tam dosya uygulamayı TestClient ile yerel çağırır; ayrı bir port açmanız gerekmez. TestClient için `httpx` kurun.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -319,176 +137,7 @@
     },
     {
       "type": "text",
-      "text": "KODUN SATIR SATIR AÇIKLAMASI\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi import Depends, FastAPI",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "app = FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — ",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " uygulama nesnesi ASGI sunucusuna verilir ve rotaları tutar.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "async def get_current_user():",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "return {\"username\": \"ada\"}",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "@app.get(\"/profile\")",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — HTTP yöntemini ve URL yolunu bu işleve bağlar; dekoratör olmadan işlev bir API uç noktası olmaz.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "async def read_profile(user: dict = Depends(get_current_user)):",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "return {\"username\": user[\"username\"]}",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi.testclient import TestClient",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Uygulamaya sunucu portu açmadan HTTP isteği gönderecek TestClient sınıfını içe aktarır.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "with TestClient(app) as client:",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Uygulama için bir test HTTP istemcisi açar ve blok bittiğinde kapatır.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "response = client.get(\"/profile\")",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Test istemcisiyle belirtilen GET isteğini gönderir ve yanıtı ",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "response",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " değişkeninde tutar.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "print(response.status_code, response.json())",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — HTTP durum kodunu ve JSON yanıtını okuyup terminalde gösterir.\n\n",
+      "text": "KODUN SATIR SATIR AÇIKLAMASI\n`from fastapi import Depends, FastAPI` — Gerekli türü veya aracı modülden içe aktarır; bu ad kullanılmazsa bulunamaz.\n`app = FastAPI()` — `FastAPI()` uygulama nesnesi ASGI sunucusuna verilir ve rotaları tutar.\n`async def get_current_user():` — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n`return {\"username\": \"ada\"}` — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n`@app.get(\"/profile\")` — HTTP yöntemini ve URL yolunu bu işleve bağlar; dekoratör olmadan işlev bir API uç noktası olmaz.\n`async def read_profile(user: dict = Depends(get_current_user)):` — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n`return {\"username\": user[\"username\"]}` — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n`from fastapi.testclient import TestClient` — Uygulamaya sunucu portu açmadan HTTP isteği gönderecek TestClient sınıfını içe aktarır.\n`with TestClient(app) as client:` — Uygulama için bir test HTTP istemcisi açar ve blok bittiğinde kapatır.\n`response = client.get(\"/profile\")` — Test istemcisiyle belirtilen GET isteğini gönderir ve yanıtı `response` değişkeninde tutar.\n`print(response.status_code, response.json())` — HTTP durum kodunu ve JSON yanıtını okuyup terminalde gösterir.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -501,20 +150,7 @@
     },
     {
       "type": "text",
-      "text": "Bağımlılık işlevini uç noktada elle çağırıp parametreyle gölgelemek; FastAPI'de ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "Depends(...)",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " kullanın.\n\n",
+      "text": "Bağımlılık işlevini uç noktada elle çağırıp parametreyle gölgelemek; FastAPI'de `Depends(...)` kullanın.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -547,19 +183,7 @@
     },
     {
       "type": "text",
-      "text": "Yanıt: Yetki denetimini bağımlılığa taşıyın, sonra testte ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "app.dependency_overrides",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " ile sahte kullanıcı verin.\n\n",
+      "text": "Yanıt: Yetki denetimini bağımlılığa taşıyın, sonra testte `app.dependency_overrides` ile sahte kullanıcı verin.\n\n",
       "size": 16
     }
   ],

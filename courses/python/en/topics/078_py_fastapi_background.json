@@ -30,78 +30,13 @@
     },
     {
       "type": "text",
-      "text": "FastAPI ",
+      "text": "FastAPI `BackgroundTasks` schedules short work in the same process after the response is sent, such as recording a lightweight notification. Long or durable work belongs in a task queue. This demo writes to an in-memory list, which is not persistent.\n\n",
       "size": 17,
       "color": "#212121"
     },
     {
       "type": "text",
-      "text": "BackgroundTasks",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " schedules short work in the same process after the response is sent, such as recording a lightweight notification. Long or durable work belongs in a task queue. This demo writes to an in-memory list, which is not persistent.\n\n",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "To run these examples locally, install ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "pip install fastapi uvicorn httpx",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " plus any extra package named in the lesson. Save the server example as ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "app.py",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " and start ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "uvicorn app:app --reload",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": ". ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "--reload",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " is for development only.\n\n",
+      "text": "To run these examples locally, install `pip install fastapi uvicorn httpx` plus any extra package named in the lesson. Save the server example as `app.py` and start `uvicorn app:app --reload`. `--reload` is for development only.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -151,137 +86,7 @@
     },
     {
       "type": "text",
-      "text": "LINE-BY-LINE CODE EXPLANATION\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi import BackgroundTasks, FastAPI",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Imports a required type or tool; without it, the name is unavailable.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "app = FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — ",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " creates the ASGI application that holds the routes and is passed to the server.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "completed_messages = []",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Continues the application's data handling or control flow.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "def record_message(message: str):",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "completed_messages.append(message)",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Runs work for this request; its result or side effect affects the response.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "@app.post(\"/notify\")",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Binds an HTTP method and URL path to this function; without the decorator, it is not an API endpoint.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "def notify(message: str, tasks: BackgroundTasks):",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "tasks.add_task(record_message, message)",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Runs work for this request; its result or side effect affects the response.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "return {\"accepted\": True}",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n\n",
+      "text": "LINE-BY-LINE CODE EXPLANATION\n`from fastapi import BackgroundTasks, FastAPI` — Imports a required type or tool; without it, the name is unavailable.\n`app = FastAPI()` — `FastAPI()` creates the ASGI application that holds the routes and is passed to the server.\n`completed_messages = []` — Continues the application's data handling or control flow.\n`def record_message(message: str):` — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n`completed_messages.append(message)` — Runs work for this request; its result or side effect affects the response.\n`@app.post(\"/notify\")` — Binds an HTTP method and URL path to this function; without the decorator, it is not an API endpoint.\n`def notify(message: str, tasks: BackgroundTasks):` — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n`tasks.add_task(record_message, message)` — Runs work for this request; its result or side effect affects the response.\n`return {\"accepted\": True}` — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -294,20 +99,7 @@
     },
     {
       "type": "text",
-      "text": "This complete file calls the app locally with TestClient; it does not open a server port. Install ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "httpx",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " for TestClient.\n\n",
+      "text": "This complete file calls the app locally with TestClient; it does not open a server port. Install `httpx` for TestClient.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -345,189 +137,7 @@
     },
     {
       "type": "text",
-      "text": "LINE-BY-LINE CODE EXPLANATION\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi import BackgroundTasks, FastAPI",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Imports a required type or tool; without it, the name is unavailable.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "app = FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — ",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " creates the ASGI application that holds the routes and is passed to the server.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "completed_messages = []",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Continues the application's data handling or control flow.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "def record_message(message: str):",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "completed_messages.append(message)",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Runs work for this request; its result or side effect affects the response.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "@app.post(\"/notify\")",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Binds an HTTP method and URL path to this function; without the decorator, it is not an API endpoint.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "def notify(message: str, tasks: BackgroundTasks):",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "tasks.add_task(record_message, message)",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Runs work for this request; its result or side effect affects the response.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "return {\"accepted\": True}",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi.testclient import TestClient",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Imports TestClient so an HTTP request can exercise the app without opening a server port.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "with TestClient(app) as client:",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Creates a test HTTP client for the app and closes it when the context ends.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "response = client.post(\"/notify\", params={\"message\": \"saved\"})",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Runs work for this request; its result or side effect affects the response.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "print(response.status_code, response.json())",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Reads and prints both the HTTP status code and parsed JSON response.\n\n",
+      "text": "LINE-BY-LINE CODE EXPLANATION\n`from fastapi import BackgroundTasks, FastAPI` — Imports a required type or tool; without it, the name is unavailable.\n`app = FastAPI()` — `FastAPI()` creates the ASGI application that holds the routes and is passed to the server.\n`completed_messages = []` — Continues the application's data handling or control flow.\n`def record_message(message: str):` — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n`completed_messages.append(message)` — Runs work for this request; its result or side effect affects the response.\n`@app.post(\"/notify\")` — Binds an HTTP method and URL path to this function; without the decorator, it is not an API endpoint.\n`def notify(message: str, tasks: BackgroundTasks):` — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n`tasks.add_task(record_message, message)` — Runs work for this request; its result or side effect affects the response.\n`return {\"accepted\": True}` — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n`from fastapi.testclient import TestClient` — Imports TestClient so an HTTP request can exercise the app without opening a server port.\n`with TestClient(app) as client:` — Creates a test HTTP client for the app and closes it when the context ends.\n`response = client.post(\"/notify\", params={\"message\": \"saved\"})` — Runs work for this request; its result or side effect affects the response.\n`print(response.status_code, response.json())` — Reads and prints both the HTTP status code and parsed JSON response.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -573,19 +183,7 @@
     },
     {
       "type": "text",
-      "text": "Answer: Keep ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "BackgroundTasks",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " for short work and tell the client what was accepted in the response.\n\n",
+      "text": "Answer: Keep `BackgroundTasks` for short work and tell the client what was accepted in the response.\n\n",
       "size": 16
     }
   ],

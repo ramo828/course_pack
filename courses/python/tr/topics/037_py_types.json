@@ -17,6 +17,12 @@
     },
     {
       "type": "text",
+      "text": "Modern anotasyonlar `list[str]`, `str | None`, `TypedDict` ve `Protocol` gibi sözleşmeleri açıklar; Python normal çalışmada bunları doğrulamaz. Pyright veya mypy gibi statik denetleyiciler anotasyonları analiz eder. `Protocol`, belirli bir kalıtım zorunluluğu olmadan gerekli davranışı tanımlar; `TypedDict` dict anahtarlarının biçimini belirtir. Dış veriyi yine Pydantic gibi çalışma zamanı doğrulayıcısıyla denetleyin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
       "text": "Modern anotasyonlar ",
       "size": 16,
       "color": "#212121"
@@ -150,7 +156,7 @@
     },
     {
       "type": "text",
-      "text": "SATIR SATIR AÇIKLAMA\n",
+      "text": "SATIR SATIR AÇIKLAMA\n`from dataclasses import dataclass` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`from typing import TypedDict` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`class Config(TypedDict):` — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n`device_id: str` — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n`enabled: bool` — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n`@dataclass(slots=True)` — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n`class Sensor:` — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n`name: str` — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n`value: float` — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n`def label(sensor: Sensor, unit: str | None = None) -> str:` — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n`suffix = f' {unit}' if unit else ''` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`return f'{sensor.name}: {sensor.value}{suffix}'` — Sonucu çağırana verir; return olmazsa fonksiyon çoğunlukla None döndürür.\n`config: Config = {'device_id': 'sensor-1', 'enabled': True}` — Değeri ada bağlar; tür açıklaması okuyucuya ve statik araca bilgi verir, ancak çalışma zamanı denetimi değildir.\n`print(label(Sensor(config['device_id'], 21.5), 'C'))` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -390,7 +396,7 @@
     },
     {
       "type": "text",
-      "text": "SATIR SATIR AÇIKLAMA\n",
+      "text": "SATIR SATIR AÇIKLAMA\n`from typing import Protocol` — Modülden belirli adları getirir; satır olmazsa içe aktarılan ad kullanılamaz.\n`class HasValue(Protocol):` — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n`@property` — Bu satır hesaplama veya akışı sürdürür; atlanırsa bu adım gerçekleşmez ve sonraki sonuç değişebilir.\n`def value(self) -> int: ...` — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n`def describe(item: HasValue) -> str:` — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n`return f'value={item.value}'` — Sonucu çağırana verir; return olmazsa fonksiyon çoğunlukla None döndürür.\n`class Sample:` — İlgili veri ve davranış için yeni tür tanımlar; sınıf olmadan aynı sözleşmeyle nesne oluşturulamaz.\n`value = 7` — İfadeyi ada bağlar; atama olmazsa sonraki satırlar hesaplanan değere erişemez.\n`print(describe(Sample()))` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -545,7 +551,7 @@
     },
     {
       "type": "text",
-      "text": "SATIR SATIR AÇIKLAMA\n",
+      "text": "SATIR SATIR AÇIKLAMA\n`def label(name: str, unit: str | None = None) -> str:` — Yeniden kullanılabilir fonksiyon oluşturur; tanım olmadan çağrılamaz ve kural ortaklaştırılamaz.\n`return f'{name}: {unit or \"unknown\"}'` — Sonucu çağırana verir; return olmazsa fonksiyon çoğunlukla None döndürür.\n`print(label('temperature'))` — İfadeyi çalıştırır; print sonucu gösterir, çağrı yan etki oluşturabilir—satır olmazsa işlem de olmaz.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -672,12 +678,6 @@
     },
     {
       "type": "text",
-      "text": "KENDİNİ DENE\n",
-      "size": 20,
-      "bold": true
-    },
-    {
-      "type": "text",
       "text": "Soru: “Tür ipuçları ve dataclass” konusunu doğru tanımlayan ifade hangisidir?\n",
       "size": 16,
       "bold": true
@@ -733,6 +733,56 @@
     {
       "type": "text",
       "text": " gibi sözleşmeleri açıklar; Python normal çalışmada bunları doğrulamaz.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Tür ipuçları ve dataclass” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Modern anotasyonlar `list[str]`, `str | None`, `TypedDict` ve `Protocol` gibi sözleşmeleri açıklar; Python normal çalışmada bunları doğrulamaz.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Tür ipuçları ve dataclass” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Modern anotasyonlar `list[str]`, `str | None`, `TypedDict` ve `Protocol` gibi sözleşmeleri açıklar; Python normal çalışmada bunları doğrulamaz.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Tür ipuçları ve dataclass” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Modern anotasyonlar `list[str]`, `str | None`, `TypedDict` ve `Protocol` gibi sözleşmeleri açıklar; Python normal çalışmada bunları doğrulamaz.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "KENDİNİ DENE\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Soru: “Tür ipuçları ve dataclass” konusunu doğru tanımlayan ifade hangisidir?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yanıt: Modern anotasyonlar `list[str]`, `str | None`, `TypedDict` ve `Protocol` gibi sözleşmeleri açıklar; Python normal çalışmada bunları doğrulamaz.\n\n",
       "size": 16
     }
   ],

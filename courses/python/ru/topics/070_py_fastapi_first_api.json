@@ -31,78 +31,13 @@
     },
     {
       "type": "text",
-      "text": "Мы создадим API целиком: приложение FastAPI принимает GET-запрос по адресу ",
+      "text": "Мы создадим API целиком: приложение FastAPI принимает GET-запрос по адресу `/` и возвращает приветствие в формате JSON. GET используют для чтения данных; такие endpoint вызывают браузеры, мобильные приложения и другие сервисы.\n\n",
       "size": 17,
       "color": "#212121"
     },
     {
       "type": "text",
-      "text": "/",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " и возвращает приветствие в формате JSON. GET используют для чтения данных; такие endpoint вызывают браузеры, мобильные приложения и другие сервисы.\n\n",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "Для локального запуска установите ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "pip install fastapi uvicorn httpx",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " и дополнительные пакеты, указанные в уроке. Сохраните сервер как ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "app.py",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " и запустите ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "uvicorn app:app --reload",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": ". ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "--reload",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " предназначен только для разработки.\n\n",
+      "text": "Для локального запуска установите `pip install fastapi uvicorn httpx` и дополнительные пакеты, указанные в уроке. Сохраните сервер как `app.py` и запустите `uvicorn app:app --reload`. `--reload` предназначен только для разработки.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -114,46 +49,7 @@
     },
     {
       "type": "text",
-      "text": "Если убрать эту часть: Без объекта ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "FastAPI()",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " негде регистрировать маршруты. Без ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "@app.get(\"/\")",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " функция останется обычной функцией Python и не будет связана с HTTP-запросом ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "GET /",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": ".\n\n",
+      "text": "Если убрать эту часть: Без объекта `FastAPI()` негде регистрировать маршруты. Без `@app.get(\"/\")` функция останется обычной функцией Python и не будет связана с HTTP-запросом `GET /`.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -191,137 +87,7 @@
     },
     {
       "type": "text",
-      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi import FastAPI",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Импортирует FastAPI для создания объекта приложения; без этого имени ",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "FastAPI",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " не определено.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "app = FastAPI(title=\"Привет API\", version=\"1.0.0\")",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — ",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "@app.get(\"/\", tags=[\"Начало\"])",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "async def read_root():",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "return {",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "\"message\": \"Привет, мир!\",",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Этот ключ словаря становится полем JSON-ответа; его изменение меняет контракт для клиента.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "\"lesson\": \"Первый API\"",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Этот ключ словаря становится полем JSON-ответа; его изменение меняет контракт для клиента.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "}",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Продолжает обработку данных или ход выполнения приложения.\n\n",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n`from fastapi import FastAPI` — Импортирует FastAPI для создания объекта приложения; без этого имени `FastAPI` не определено.\n`app = FastAPI(title=\"Привет API\", version=\"1.0.0\")` — `FastAPI()` создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n`@app.get(\"/\", tags=[\"Начало\"])` — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n`async def read_root():` — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n`return {` — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n`\"message\": \"Привет, мир!\",` — Этот ключ словаря становится полем JSON-ответа; его изменение меняет контракт для клиента.\n`\"lesson\": \"Первый API\"` — Этот ключ словаря становится полем JSON-ответа; его изменение меняет контракт для клиента.\n`}` — Продолжает обработку данных или ход выполнения приложения.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -339,20 +105,7 @@
     },
     {
       "type": "text",
-      "text": "Полный файл ниже локально вызывает приложение через TestClient, не открывая порт. Для TestClient установите ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "httpx",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": ".\n\n",
+      "text": "Полный файл ниже локально вызывает приложение через TestClient, не открывая порт. Для TestClient установите `httpx`.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -390,189 +143,7 @@
     },
     {
       "type": "text",
-      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi import FastAPI",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Импортирует FastAPI для создания объекта приложения; без этого имени ",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "FastAPI",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " не определено.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "app = FastAPI(title=\"Привет API\", version=\"1.0.0\")",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — ",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "@app.get(\"/\", tags=[\"Начало\"])",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "async def read_root():",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "return {",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "\"message\": \"Привет, мир!\",",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Этот ключ словаря становится полем JSON-ответа; его изменение меняет контракт для клиента.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "\"lesson\": \"Первый API\"",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Этот ключ словаря становится полем JSON-ответа; его изменение меняет контракт для клиента.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "}",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Продолжает обработку данных или ход выполнения приложения.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi.testclient import TestClient",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Импортирует TestClient, чтобы отправить приложению HTTP-запрос без открытия серверного порта.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "with TestClient(app) as client:",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Создаёт тестовый HTTP-клиент приложения и закрывает его при выходе из блока.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "response = client.get(\"/\")",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Отправляет указанный GET-запрос через тестовый клиент и сохраняет ответ.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "print(response.status_code, response.json())",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Читает и выводит HTTP-статус и разобранный JSON-ответ.\n\n",
+      "text": "ПОСТРОЧНОЕ ОБЪЯСНЕНИЕ КОДА\n`from fastapi import FastAPI` — Импортирует FastAPI для создания объекта приложения; без этого имени `FastAPI` не определено.\n`app = FastAPI(title=\"Привет API\", version=\"1.0.0\")` — `FastAPI()` создаёт ASGI-приложение с маршрутами, которое передаётся серверу.\n`@app.get(\"/\", tags=[\"Начало\"])` — Связывает HTTP-метод и путь URL с функцией; без декоратора это не API-endpoint.\n`async def read_root():` — Определяет endpoint, вызываемый сервером; имена параметров связывают путь, query или тело.\n`return {` — Возвращает значение HTTP-ответа; FastAPI преобразует его в JSON и применяет модель ответа.\n`\"message\": \"Привет, мир!\",` — Этот ключ словаря становится полем JSON-ответа; его изменение меняет контракт для клиента.\n`\"lesson\": \"Первый API\"` — Этот ключ словаря становится полем JSON-ответа; его изменение меняет контракт для клиента.\n`}` — Продолжает обработку данных или ход выполнения приложения.\n`from fastapi.testclient import TestClient` — Импортирует TestClient, чтобы отправить приложению HTTP-запрос без открытия серверного порта.\n`with TestClient(app) as client:` — Создаёт тестовый HTTP-клиент приложения и закрывает его при выходе из блока.\n`response = client.get(\"/\")` — Отправляет указанный GET-запрос через тестовый клиент и сохраняет ответ.\n`print(response.status_code, response.json())` — Читает и выводит HTTP-статус и разобранный JSON-ответ.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -585,20 +156,7 @@
     },
     {
       "type": "text",
-      "text": "При прямом вызове ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "async def",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " можно получить coroutine вместо HTTP-ответа. Вызывайте endpoint через сервер или HTTP-тест-клиент.\n\n",
+      "text": "При прямом вызове `async def` можно получить coroutine вместо HTTP-ответа. Вызывайте endpoint через сервер или HTTP-тест-клиент.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -626,72 +184,7 @@
     },
     {
       "type": "text",
-      "text": "Выполните ",
-      "size": 16,
-      "color": "#00695C"
-    },
-    {
-      "type": "text",
-      "text": "pip install fastapi uvicorn",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": ", сохраните код как ",
-      "size": 16,
-      "color": "#00695C"
-    },
-    {
-      "type": "text",
-      "text": "app.py",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " и запустите ",
-      "size": 16,
-      "color": "#00695C"
-    },
-    {
-      "type": "text",
-      "text": "uvicorn app:app --reload",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": ". Вызовите endpoint в ",
-      "size": 16,
-      "color": "#00695C"
-    },
-    {
-      "type": "text",
-      "text": "/docs",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": ". ",
-      "size": 16,
-      "color": "#00695C"
-    },
-    {
-      "type": "text",
-      "text": "--reload",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " подходит только для локальной разработки.\n\n",
+      "text": "Выполните `pip install fastapi uvicorn`, сохраните код как `app.py` и запустите `uvicorn app:app --reload`. Вызовите endpoint в `/docs`. `--reload` подходит только для локальной разработки.\n\n",
       "size": 16,
       "color": "#00695C"
     },
@@ -709,43 +202,7 @@
     },
     {
       "type": "text",
-      "text": "Ответ: Запустите сервер командой ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "fastapi dev main.py",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": "; откройте ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "GET /",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " на странице ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "/docs",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": " и отправьте запрос кнопкой **Try it out**.\n\n",
+      "text": "Ответ: Запустите сервер командой `fastapi dev main.py`; откройте `GET /` на странице `/docs` и отправьте запрос кнопкой **Try it out**.\n\n",
       "size": 16
     }
   ],

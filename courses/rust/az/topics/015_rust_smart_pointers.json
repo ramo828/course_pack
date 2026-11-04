@@ -35,6 +35,12 @@
       "bold": true
     },
     {
+      "type": "image",
+      "path": "images/course_visual_rust_ownership_az.png",
+      "alt": "Ownership və move",
+      "caption": "Ownership və move"
+    },
+    {
       "type": "code",
       "language": "rust",
       "code": "use std::sync::{Arc, Mutex};\nuse std::thread;\nfn main() {\n    let count = Arc::new(Mutex::new(0));\n    let worker_count = Arc::clone(&count);\n    let worker = thread::spawn(move || {\n        if let Ok(mut value) = worker_count.lock() { *value += 1; }\n    });\n    if worker.join().is_err() { eprintln!(\"worker panicked\"); return; }\n    match count.lock() {\n        Ok(value) => println!(\"{value}\"),\n        Err(_) => eprintln!(\"count lock was poisoned\"),\n    };\n}",

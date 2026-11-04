@@ -31,78 +31,13 @@
     },
     {
       "type": "text",
-      "text": "A local development server is not a production deployment. Uvicorn can serve an ASGI app, but real deployments also need environment configuration, secrets, TLS termination, health checks, logs, and restart policy. ",
+      "text": "A local development server is not a production deployment. Uvicorn can serve an ASGI app, but real deployments also need environment configuration, secrets, TLS termination, health checks, logs, and restart policy. `--reload` is for development only.\n\n",
       "size": 17,
       "color": "#212121"
     },
     {
       "type": "text",
-      "text": "--reload",
-      "size": 17,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " is for development only.\n\n",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "To run these examples locally, install ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "pip install fastapi uvicorn httpx",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " plus any extra package named in the lesson. Save the server example as ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "app.py",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " and start ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "uvicorn app:app --reload",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": ". ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "--reload",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " is for development only.\n\n",
+      "text": "To run these examples locally, install `pip install fastapi uvicorn httpx` plus any extra package named in the lesson. Save the server example as `app.py` and start `uvicorn app:app --reload`. `--reload` is for development only.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -152,98 +87,7 @@
     },
     {
       "type": "text",
-      "text": "LINE-BY-LINE CODE EXPLANATION\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi import FastAPI",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Imports FastAPI so the program can create its application object; without it, ",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "FastAPI",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " is undefined.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "app = FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — ",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " creates the ASGI application that holds the routes and is passed to the server.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "@app.get(\"/health\")",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Binds an HTTP method and URL path to this function; without the decorator, it is not an API endpoint.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "async def health():",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "return {\"status\": \"ready\"}",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n\n",
+      "text": "LINE-BY-LINE CODE EXPLANATION\n`from fastapi import FastAPI` — Imports FastAPI so the program can create its application object; without it, `FastAPI` is undefined.\n`app = FastAPI()` — `FastAPI()` creates the ASGI application that holds the routes and is passed to the server.\n`@app.get(\"/health\")` — Binds an HTTP method and URL path to this function; without the decorator, it is not an API endpoint.\n`async def health():` — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n`return {\"status\": \"ready\"}` — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -256,20 +100,7 @@
     },
     {
       "type": "text",
-      "text": "This complete file calls the app locally with TestClient; it does not open a server port. Install ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "httpx",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " for TestClient.\n\n",
+      "text": "This complete file calls the app locally with TestClient; it does not open a server port. Install `httpx` for TestClient.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -307,150 +138,7 @@
     },
     {
       "type": "text",
-      "text": "LINE-BY-LINE CODE EXPLANATION\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi import FastAPI",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Imports FastAPI so the program can create its application object; without it, ",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "FastAPI",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " is undefined.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "app = FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — ",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "FastAPI()",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " creates the ASGI application that holds the routes and is passed to the server.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "@app.get(\"/health\")",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Binds an HTTP method and URL path to this function; without the decorator, it is not an API endpoint.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "async def health():",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "return {\"status\": \"ready\"}",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "from fastapi.testclient import TestClient",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Imports TestClient so an HTTP request can exercise the app without opening a server port.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "with TestClient(app) as client:",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Creates a test HTTP client for the app and closes it when the context ends.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "response = client.get(\"/health\")",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Sends the stated GET request through the test client and stores the response.\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "print(response.status_code, response.json())",
-      "size": 15,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": " — Reads and prints both the HTTP status code and parsed JSON response.\n\n",
+      "text": "LINE-BY-LINE CODE EXPLANATION\n`from fastapi import FastAPI` — Imports FastAPI so the program can create its application object; without it, `FastAPI` is undefined.\n`app = FastAPI()` — `FastAPI()` creates the ASGI application that holds the routes and is passed to the server.\n`@app.get(\"/health\")` — Binds an HTTP method and URL path to this function; without the decorator, it is not an API endpoint.\n`async def health():` — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n`return {\"status\": \"ready\"}` — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n`from fastapi.testclient import TestClient` — Imports TestClient so an HTTP request can exercise the app without opening a server port.\n`with TestClient(app) as client:` — Creates a test HTTP client for the app and closes it when the context ends.\n`response = client.get(\"/health\")` — Sends the stated GET request through the test client and stores the response.\n`print(response.status_code, response.json())` — Reads and prints both the HTTP status code and parsed JSON response.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -463,20 +151,7 @@
     },
     {
       "type": "text",
-      "text": "Using ",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "--reload",
-      "size": 16,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": ", exposing debug details, or hardcoding secrets in production; use external environment configuration.\n\n",
+      "text": "Using `--reload`, exposing debug details, or hardcoding secrets in production; use external environment configuration.\n\n",
       "size": 16,
       "color": "#212121"
     },
@@ -509,19 +184,7 @@
     },
     {
       "type": "text",
-      "text": "Answer: Start with ",
-      "size": 16
-    },
-    {
-      "type": "text",
-      "text": "uvicorn app:app --host 127.0.0.1 --port 8000",
-      "size": 16,
-      "bold": true,
-      "color": "#1565C0"
-    },
-    {
-      "type": "text",
-      "text": ", then adapt process and health checks to your hosting platform.\n\n",
+      "text": "Answer: Start with `uvicorn app:app --host 127.0.0.1 --port 8000`, then adapt process and health checks to your hosting platform.\n\n",
       "size": 16
     }
   ],

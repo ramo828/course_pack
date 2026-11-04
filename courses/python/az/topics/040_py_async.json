@@ -17,6 +17,12 @@
     },
     {
       "type": "text",
+      "text": "asyncio bir thread-də event loop vasitəsilə I/O gözləyən task-ları növbələşdirir. `async def` coroutine yaradır, `await` idarəetməni loop-a qaytarır; `gather` nəticələri input sırası ilə qaytarır, Semaphore eyni vaxtda işi məhdudlaşdırır. Bloklayan I/O və CPU-intensiv iş loop-u saxlayır; timeout, ləğvetmə və task-ların ömrünü nəzərə alın. CPU paralelliyi üçün process pool və ya uyğun executor seçin.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
       "text": "asyncio bir thread-də event loop vasitəsilə I/O gözləyən task-ları növbələşdirir. ",
       "size": 16,
       "color": "#212121"
@@ -80,6 +86,12 @@
       "bold": true
     },
     {
+      "type": "image",
+      "path": "images/course_visual_python_async_az.png",
+      "alt": "asyncio hadisə dövrü",
+      "caption": "asyncio hadisə dövrü"
+    },
+    {
       "type": "diagram",
       "id": "python_async_flow",
       "caption": "asyncio və asinxron I/O"
@@ -111,7 +123,7 @@
     },
     {
       "type": "text",
-      "text": "SƏTİR-SƏTİR İZAH\n",
+      "text": "SƏTİR-SƏTİR İZAH\n`import asyncio` — Modul funksionallığını gətirir; sətir olmasa ad əlçatan deyil və istifadədə NameError yaranar.\n`async def read_sensor(name: str, gate: asyncio.Semaphore) -> str:` — I/O gözləyə bilən coroutine yaradır; funksiya tərifi və onu await edən kod olmasa asinxron iş başlamaz.\n`async with gate:` — Resursu blok boyunca idarə edir; kontekst meneceri olmasa fayl və ya əlaqə bağlanmaya bilər.\n`await asyncio.sleep(0)` — Coroutine-u dayandırır və event loop-a başqa task-ları işə salmaq imkanı verir; sıfır gecikmə real müddətli gözləmə deyil.\n`return f'{name}:ready'` — Nəticəni çağırana verir; return olmasa funksiya adətən None qaytarar və endpoint cavabı itər.\n`async def main() -> None:` — I/O gözləyə bilən coroutine yaradır; funksiya tərifi və onu await edən kod olmasa asinxron iş başlamaz.\n`gate = asyncio.Semaphore(2)` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`results = await asyncio.gather(` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`read_sensor('temperature', gate),` — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n`read_sensor('humidity', gate),` — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n`)` — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n`print(results)` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n`asyncio.run(main())` — Event loop yaradır, coroutine-u tamamlanana qədər icra edir və sonra loop-u bağlayır.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -343,7 +355,7 @@
     },
     {
       "type": "text",
-      "text": "SƏTİR-SƏTİR İZAH\n",
+      "text": "SƏTİR-SƏTİR İZAH\n`import asyncio` — Modul funksionallığını gətirir; sətir olmasa ad əlçatan deyil və istifadədə NameError yaranar.\n`async def main() -> None:` — I/O gözləyə bilən coroutine yaradır; funksiya tərifi və onu await edən kod olmasa asinxron iş başlamaz.\n`try:` — Xəta verə bilən hissəni ayırır; tutma bloku olmasa gözlənən xəta çağıranı dayandıra bilər.\n`await asyncio.wait_for(asyncio.sleep(1), timeout=0.01)` — Coroutine-u göstərilən müddətə dayandırır; event loop bu vaxt başqa task-ları işlədə bilər. Bu, şəbəkə I/O əməliyyatı deyil.\n`except TimeoutError:` — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n`print('operation timed out')` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n`asyncio.run(main())` — Event loop yaradır, coroutine-u tamamlanana qədər icra edir və sonra loop-u bağlayır.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -472,7 +484,7 @@
     },
     {
       "type": "text",
-      "text": "SƏTİR-SƏTİR İZAH\n",
+      "text": "SƏTİR-SƏTİR İZAH\n`import asyncio` — Modul funksionallığını gətirir; sətir olmasa ad əlçatan deyil və istifadədə NameError yaranar.\n`async def read(name: str) -> str:` — I/O gözləyə bilən coroutine yaradır; funksiya tərifi və onu await edən kod olmasa asinxron iş başlamaz.\n`await asyncio.sleep(0)` — Coroutine-u dayandırır və event loop-a başqa task-ları işə salmaq imkanı verir; sıfır gecikmə real müddətli gözləmə deyil.\n`return name` — Nəticəni çağırana verir; return olmasa funksiya adətən None qaytarar və endpoint cavabı itər.\n`async def main() -> None:` — I/O gözləyə bilən coroutine yaradır; funksiya tərifi və onu await edən kod olmasa asinxron iş başlamaz.\n`print(await asyncio.gather(read('A'), read('B')))` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n`asyncio.run(main())` — Event loop yaradır, coroutine-u tamamlanana qədər icra edir və sonra loop-u bağlayır.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -584,6 +596,50 @@
       "text": "Asinxron funksiya daxilində bloklayan I/O kitabxanası çağırmayın; uyğun async klient seçin.\n\n",
       "size": 16,
       "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Sual: “asyncio və asinxron I/O” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: asyncio bir thread-də event loop vasitəsilə I/O gözləyən task-ları növbələşdirir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: “asyncio və asinxron I/O” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: asyncio bir thread-də event loop vasitəsilə I/O gözləyən task-ları növbələşdirir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: “asyncio və asinxron I/O” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: asyncio bir thread-də event loop vasitəsilə I/O gözləyən task-ları növbələşdirir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: “asyncio və asinxron I/O” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: asyncio bir thread-də event loop vasitəsilə I/O gözləyən task-ları növbələşdirir.\n\n",
+      "size": 16
     },
     {
       "type": "text",

@@ -17,6 +17,12 @@
     },
     {
       "type": "text",
+      "text": "`__slots__` yaddaş düzənini dəyişir: instance üçün avtomatik `__dict__` olmur, yalnız elan edilmiş atributlara icazə verilir. Bu, çox sayda kiçik obyekt üçün faydalı ola bilər, amma ölçmə ilə təsdiqlənməlidir. `dataclass(slots=True)` rahat variantdır; dynamic atribut, weak reference və inheritance tələblərini yoxlayın.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
       "text": "__slots__",
       "size": 16,
       "color": "#1565C0",
@@ -105,6 +111,12 @@
       "bold": true
     },
     {
+      "type": "image",
+      "path": "images/course_visual_python_slots_az.png",
+      "alt": "Obyekt yaddaşı",
+      "caption": "Obyekt yaddaşı"
+    },
+    {
       "type": "diagram",
       "id": "python_slots_layout",
       "caption": "__slots__ ile bellek kullanımını ölçerek azaltma"
@@ -136,7 +148,7 @@
     },
     {
       "type": "text",
-      "text": "SƏTİR-SƏTİR İZAH\n",
+      "text": "SƏTİR-SƏTİR İZAH\n`class Sample:` — Əlaqəli məlumat və davranış üçün yeni tip yaradır; sinif olmasa nümunə obyektini həmin müqavilə ilə yaratmaq olmaz.\n`__slots__ = ('value',)` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`def __init__(self, value: int) -> None:` — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n`self.value = value` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`sample = Sample(7)` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`print(sample.value)` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -301,7 +313,7 @@
     },
     {
       "type": "text",
-      "text": "SƏTİR-SƏTİR İZAH\n",
+      "text": "SƏTİR-SƏTİR İZAH\n`from dataclasses import dataclass` — Moduldan konkret adları gətirir; sətir olmasa idxal edilən ad əlçatan olmaz.\n`@dataclass(slots=True)` — Bu sətir nümunənin hesablamasını və ya idarəetmə axınını davam etdirir; buraxılsa həmin addım baş verməyəcək və sonrakı nəticə dəyişə bilər.\n`class Point:` — Əlaqəli məlumat və davranış üçün yeni tip yaradır; sinif olmasa nümunə obyektini həmin müqavilə ilə yaratmaq olmaz.\n`x: float` — Dəyəri ada bağlayır, annotasiya isə tipi oxucuya və statik alətə bildirir; annotasiya runtime yoxlaması etmir.\n`y: float` — Dəyəri ada bağlayır, annotasiya isə tipi oxucuya və statik alətə bildirir; annotasiya runtime yoxlaması etmir.\n`point = Point(3, 4)` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`print(point.x + point.y)` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -430,7 +442,7 @@
     },
     {
       "type": "text",
-      "text": "SƏTİR-SƏTİR İZAH\n",
+      "text": "SƏTİR-SƏTİR İZAH\n`class Reading:` — Əlaqəli məlumat və davranış üçün yeni tip yaradır; sinif olmasa nümunə obyektini həmin müqavilə ilə yaratmaq olmaz.\n`__slots__ = ('value',)` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`def __init__(self, value: int) -> None:` — Təkrar istifadə edilən funksiya yaradır; tərif olmasa onu çağırmaq və eyni qaydanı bölüşmək mümkün deyil.\n`self.value = value` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`reading = Reading(12)` — İfadəni ada bağlayır; bunu etməsək sonrakı sətirlərdə həmin hesablanmış dəyər əlçatan olmaz.\n`print(hasattr(reading, '__dict__'), reading.value)` — İfadəni icra edir; print çıxışı göstərir, çağırışın özü isə yan təsir yarada bilər—sətir olmasa nəticə/əməliyyat baş verməz.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -567,12 +579,6 @@
     },
     {
       "type": "text",
-      "text": "ÖZÜNÜ YOXLA\n",
-      "size": 20,
-      "bold": true
-    },
-    {
-      "type": "text",
       "text": "Sual: “__slots__ ile bellek kullanımını ölçerek azaltma” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
       "size": 16,
       "bold": true
@@ -604,6 +610,56 @@
     {
       "type": "text",
       "text": " olmur, yalnız elan edilmiş atributlara icazə verilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: “__slots__ ile bellek kullanımını ölçerek azaltma” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: `__slots__` yaddaş düzənini dəyişir: instance üçün avtomatik `__dict__` olmur, yalnız elan edilmiş atributlara icazə verilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: “__slots__ ile bellek kullanımını ölçerek azaltma” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: `__slots__` yaddaş düzənini dəyişir: instance üçün avtomatik `__dict__` olmur, yalnız elan edilmiş atributlara icazə verilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Sual: “__slots__ ile bellek kullanımını ölçerek azaltma” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: `__slots__` yaddaş düzənini dəyişir: instance üçün avtomatik `__dict__` olmur, yalnız elan edilmiş atributlara icazə verilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ÖZÜNÜ YOXLA\n",
+      "size": 20,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Sual: “__slots__ ile bellek kullanımını ölçerek azaltma” mövzusunu dəqiq təsvir edən fikir hansıdır?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cavab: `__slots__` yaddaş düzənini dəyişir: instance üçün avtomatik `__dict__` olmur, yalnız elan edilmiş atributlara icazə verilir.\n\n",
       "size": 16
     }
   ],

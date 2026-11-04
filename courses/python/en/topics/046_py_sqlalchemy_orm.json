@@ -18,6 +18,12 @@
     },
     {
       "type": "text",
+      "text": "SQLAlchemy began under Michael Bayer's authorship as a Python SQL toolkit and ORM, designed to provide flexible, efficient database access in a Pythonic API. Version 2 uses `Mapped`, `select()`, and scoped `Session` objects; transactions and parameterized queries remain essential.\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "text",
       "text": "SQLAlchemy began under Michael Bayer's authorship as a Python SQL toolkit and ORM, designed to provide flexible, efficient database access in a Pythonic API. Version 2 uses ",
       "size": 16,
       "color": "#212121"
@@ -172,7 +178,7 @@
     },
     {
       "type": "text",
-      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "text": "LINE-BY-LINE WALKTHROUGH\n`from sqlalchemy import create_engine, select` — Imports specific names from a module; without it, those names are unavailable.\n`from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column` — Imports specific names from a module; without it, those names are unavailable.\n`class Base(DeclarativeBase):` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`pass` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`class Device(Base):` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`__tablename__ = 'devices'` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`id: Mapped[int] = mapped_column(primary_key=True)` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`name: Mapped[str]` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`engine = create_engine('sqlite+pysqlite:///:memory:')` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`Base.metadata.create_all(engine)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`with Session(engine) as session:` — Manages a resource for the block; without the context manager, a file or connection may remain open.\n`session.add(Device(name='sensor-1'))` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`session.commit()` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`names = session.scalars(select(Device.name)).all()` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`print(names)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -446,7 +452,7 @@
     },
     {
       "type": "text",
-      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "text": "LINE-BY-LINE WALKTHROUGH\n`from sqlalchemy import create_engine, select` — Imports specific names from a module; without it, those names are unavailable.\n`from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column` — Imports specific names from a module; without it, those names are unavailable.\n`class Base(DeclarativeBase):` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`pass` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`class Device(Base):` — Defines a type that groups related data and behavior; without it, objects cannot follow this class contract.\n`__tablename__ = 'devices'` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`id: Mapped[int] = mapped_column(primary_key=True)` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`name: Mapped[str]` — Binds a value and records a type hint for readers and static tools; the annotation is not runtime validation.\n`engine = create_engine('sqlite+pysqlite:///:memory:')` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`Base.metadata.create_all(engine)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`with Session(engine) as session:` — Manages a resource for the block; without the context manager, a file or connection may remain open.\n`session.add_all([Device(name='a'), Device(name='b')])` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`session.commit()` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n`names = session.scalars(select(Device.name).where(Device.name == 'b')).all()` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`print(names)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -679,7 +685,7 @@
     },
     {
       "type": "text",
-      "text": "LINE-BY-LINE WALKTHROUGH\n",
+      "text": "LINE-BY-LINE WALKTHROUGH\n`from sqlalchemy import create_engine, text` — Imports specific names from a module; without it, those names are unavailable.\n`engine = create_engine('sqlite+pysqlite:///:memory:')` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`with engine.connect() as connection:` — Manages a resource for the block; without the context manager, a file or connection may remain open.\n`value = connection.execute(` — Binds the evaluated expression to a name; without the assignment, later lines cannot reuse that result.\n`text('select :value'), {'value': 'safe'}` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`).scalar_one()` — This line continues the calculation or control flow; omitting it removes that step and may change later results.\n`print(value)` — Runs an expression; print displays a value and calls may have side effects—without the line, that action does not occur.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -791,6 +797,50 @@
       "text": "Distinguish a variable name, indentation, and comment: whitespace affects syntax, while comments explain intent.\n\n",
       "size": 16,
       "color": "#212121"
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “SQLAlchemy 2 ORM: working with databases”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: SQLAlchemy began under Michael Bayer's authorship as a Python SQL toolkit and ORM, designed to provide flexible, efficient database access in a Pythonic API.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “SQLAlchemy 2 ORM: working with databases”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: SQLAlchemy began under Michael Bayer's authorship as a Python SQL toolkit and ORM, designed to provide flexible, efficient database access in a Pythonic API.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “SQLAlchemy 2 ORM: working with databases”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: SQLAlchemy began under Michael Bayer's authorship as a Python SQL toolkit and ORM, designed to provide flexible, efficient database access in a Pythonic API.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Question: Which statement accurately describes “SQLAlchemy 2 ORM: working with databases”?\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Answer: SQLAlchemy began under Michael Bayer's authorship as a Python SQL toolkit and ORM, designed to provide flexible, efficient database access in a Pythonic API.\n\n",
+      "size": 16
     },
     {
       "type": "text",
