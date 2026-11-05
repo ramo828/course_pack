@@ -29,8 +29,8 @@
           "kind": "concept",
           "short": "Bir anahtar benzersiz ve değişmez/hashlenebilir olmalıdır.",
           "detail": "Dizeler, tam sayılar ve değişmez öğelerden oluşan demetler genellikle anahtar olabilir. Listeler ve sözlükler değiştirilebilir olduklarından anahtar olamaz. `True` ve `1` gibi eşit sayılan anahtarlar aynı girdiyi temsil edebilir.",
-          "example": "lookup = {(2, 3): 'nöqtə'}\nprint(lookup[(2, 3)])",
-          "output": "nöqtə"
+          "example": "lookup = {(2, 3): 'nokta'}\nprint(lookup[(2, 3)])",
+          "output": "nokta"
         },
         {
           "term": "d[key]",
@@ -289,7 +289,7 @@
           "kind": "file mode",
           "short": "Yazmak için açar ve var olan içeriği siler.",
           "detail": "Dosya yoksa oluşturur; varsa önceki içerik hemen silinir. Üzerine yazma niyetinizi kontrol edin.",
-          "example": "with open('notes.txt', 'w', encoding='utf-8') as f:\n    f.write('yeni mətn')",
+          "example": "with open('notes.txt', 'w', encoding='utf-8') as f:\n    f.write('yeni metin')",
           "output": "Dosyada yalnızca yeni metin"
         },
         {
@@ -496,14 +496,14 @@
           "short": "Nesnenin küme öğesi veya sözlük anahtarı olmasını sağlayan hash değerini verir.",
           "detail": "Eşit nesneler aynı hash değerini vermeli; hash değerini etkileyen veriler değişmez kalmalıdır. `__eq__` geçersiz kılınıp `__hash__` tanımlanmazsa Python genellikle sınıfı hashlenemez yapar.",
           "example": "class Key:\n    def __init__(self, value): self.value = value\n    def __eq__(self, other): return isinstance(other, Key) and self.value == other.value\n    def __hash__(self): return hash(self.value)",
-          "output": "hash(Key('a')) → tam ədəd"
+          "output": "hash(Key('a')) → tam sayı"
         },
         {
           "term": "__del__(self)",
           "kind": "magic method",
           "short": "Nesne temizlenirken çağrılabilen yıkıcı yöntemdir.",
           "detail": "Ne zaman çağrılacağı garanti edilmez ve döngüsel başvurularda gecikebilir. Kaynakları kapatmak için kullanmayın; `with`/`__exit__` tercih edin. Tanımlanmazsa belleği Python yönetir.",
-          "example": "# Resursu __del__ ilə deyil, with ilə bağlayın\nwith open('notes.txt', encoding='utf-8') as f:\n    text = f.read()",
+          "example": "# Kaynağı __del__ yerine with kullanarak kapatın\nwith open('notes.txt', encoding='utf-8') as f:\n    text = f.read()",
           "output": "Blokdan çıxanda fayl bağlanır"
         },
         {

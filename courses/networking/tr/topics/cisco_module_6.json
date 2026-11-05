@@ -1,0 +1,154 @@
+{
+  "id": "cisco_module_6",
+  "title": "Modül 6 — savunma odaklı ağ güvenliği",
+  "difficulty": "medium",
+  "testId": "networking_test_cisco_module_6_tr",
+  "sources": [
+    "https://learn.microsoft.com/en-us/microsoft-365/admin/",
+    "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview",
+    "https://skillsforall.com/resources/lab-downloads",
+    "https://support.microsoft.com/en-us/office/introduction-to-outlook-data-files-pst-and-ost-222eaf92-a995-45d9-bde2-f331f60e2790",
+    "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+    "https://www.netacad.com/cisco-packet-tracer",
+    "https://www.netacad.com/courses/ccst-it-support",
+    "https://www.netacad.com/courses/ccst-networking",
+    "https://www.nist.gov/cyberframework",
+    "https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1",
+    "https://www.rfc-editor.org/rfc/rfc1034",
+    "https://www.rfc-editor.org/rfc/rfc1035",
+    "https://www.rfc-editor.org/rfc/rfc1918",
+    "https://www.rfc-editor.org/rfc/rfc2131",
+    "https://www.rfc-editor.org/rfc/rfc791",
+    "https://www.rfc-editor.org/rfc/rfc792",
+    "https://www.rfc-editor.org/rfc/rfc8200",
+    "https://www.rfc-editor.org/rfc/rfc826"
+  ],
+  "estimatedMinutes": 45,
+  "spans": [
+    {
+      "type": "text",
+      "text": "[GÖRSEL/DİYAGRAM ÖNERİSİ: Kullanıcı, MFA’lı VPN, güvenlik duvarı, EDR ve yalıtılmış güvenlik olayı.]\n\n",
+      "size": 16,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Savunma ilkeleri\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Amaç riski azaltmak ve güvenilir hizmeti korumaktır: en az ayrıcalık, katmanlı savunma, güncelleme, yedekleme ve izleme. Olayda önce kullanıcı ve iş hizmeti etkisini belirleyin; izinsiz inceleme veya değişiklik yapmayın. Olayları kaydedin, kanıtı koruyun ve eskalasyon sürecini izleyin. Eğitimde gerçek sistemlere saldırı değil, onaylı simülasyon kullanılır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "AnyConnect benzeri VPN çalışma biçimi\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cisco AnyConnect/Secure Client türü uzaktan erişim VPN’i, cihazla kurum VPN ağ geçidi arasında şifreli tünel kurar; tüm trafik veya yalnızca kurum trafiği tünelden geçebilir. Kullanıcı kurumca onaylı sunucu adresi, sertifika ve MFA ile oturum açar. SSL/TLS VPN çoğunlukla TCP 443, bazı uygulamalar UDP 443 kullanabilir; IPsec/IKEv2’de UDP 500/4500 yaygındır. Kesin port ve politika ürüne göre değişir. Bilinmeyen profili veya sertifika uyarısını kabul etmeyin; beklemediğiniz MFA isteğini reddedip IT’ye bildirin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Uç nokta AV ve EDR\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Antivirüs (AV) bilinen zararlı dosyaları tarar ve politikaya göre engeller; EDR uç nokta olaylarını izleyip şüpheli davranış için uyarı ve inceleme olanağı sağlar. Aynı şey değildirler ve tüm riskleri ortadan kaldırmazlar. Kullanıcı uyarı görürse dosyayı açmamalı, karantinadan çıkarmamalı ve ajanı kapatmamalıdır. Uyarı zamanı, cihaz adı ve görünür mesajı güvenli yoldan IT’ye iletin; yalıtma/silme kararını yetkili olay ekibi verir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Güvenlik duvarı kuralları\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Güvenlik duvarı kuralı kaynak, hedef, protokol, port, yön ve eylemi tanımlar. Varsayılan ret ve en az ayrıcalıkla yalnızca iş için gereken trafiğe izin verin; geniş `any-any` kuralları risklidir. Örneğin onaylı resolver’a DNS için UDP/TCP 53, uygun sunucuya HTTPS için TCP 443 gerekebilir. Değişiklikten önce sahip, amaç, kapsam, süre ve geri dönüş planını belirleyin; uygulama sonrası kayıt ve hizmet testiyle doğrulayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Kimlik avını güvenli analiz etme\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Şüpheli e-postada gönderen adresini ve alan adını dikkatle karşılaştırın; beklenmeyen bağlantı veya eki açmayın, parola ya da MFA kodu vermeyin. Acil ödeme, hesap kapatma veya gizlilik talebi risk işaretidir; görünen gönderen adı taklit edilebilir. Bağlantıyı açmadan kurumun “Report phishing” düğmesi veya onaylı IT kanalıyla bildirin; başlığı ve zamanı koruyun. Şüpheli postayı başkasına iletmeyin, ekin yayılmasına yol açabilir. Bu ders kimlik avı yazmayı değil, güvenle tanımayı öğretir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Ağ bölümlendirme ve güvenli erişim\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "İş cihazları, konuk Wi-Fi ve sunucuları uygun VLAN ve güvenlik bölgelerinde ayırmak olayın yayılmasını sınırlayabilir. Router ACL ve güvenlik duvarı yalnızca gerekli bölgeler arası trafiğe izin vermelidir. Uzaktan erişim yalnızca yönetilen cihaz, güncel güvenlik ajanı ve MFA ile verilmelidir. Kişisel cihazdan erişimde kurum politikasını izleyin; gizli veriyi kişisel ağ paylaşımıyla aktarmayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Olayda güvenli adımlar\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Şüpheli etkinlikte zamanı ve cihazı kaydedin, onaylı olay kaydı açın ve güvenlik ekibine hemen haber verin. Kendi başınıza cihazı kapatmayın, günlükleri silmeyin veya dosyayı açmayın; prosedür isterse ağ bağlantısını kesin. Kanıtı yalnızca yetkili kanaldan aktarın ve müşteriye doğrulanmamış neden söylemeyin. Amaç kullanıcıyı suçlamak değil, etkiyi azaltıp müdahale ekibine net bilgi sağlamaktır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Kayıtlar ve olay kanıtı\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Firewall, VPN ve EDR kayıtları olay zaman çizelgesine yardımcı olur; saat dilimini not edin. Yalnız yetkili kayıtlara bakın, değiştirmeyin ve kişisel e-postaya göndermeyin. Şüpheli IP veya dosya kararını güvenlik ekibi vermeli; IOC’yi gerçek sistemde denemeyin. Olgusal not ve güvenli kanıt aktarımı yeterlidir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Savunma katmanları\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Kullanıcı --MFA--> VPN ağ geçidi --onaylı kural--> iç hizmet\n                 |                         |\n              Uç nokta AV/EDR          Güvenlik duvarı kaydı\nŞüpheli posta -> açma -> bildir -> olay ekibi",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Kullanıcı, MFA’lı VPN, güvenlik duvarı, EDR ve yalıtılmış güvenlik olayı."
+}

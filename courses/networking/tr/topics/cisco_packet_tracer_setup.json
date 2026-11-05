@@ -1,0 +1,249 @@
+{
+  "id": "cisco_packet_tracer_setup",
+  "title": "Modül 3: Packet Tracer ile ilk lab",
+  "difficulty": "medium",
+  "testId": "networking_test_cisco_packet_tracer_tr",
+  "sources": [
+    "https://learn.microsoft.com/en-us/microsoft-365/admin/",
+    "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview",
+    "https://skillsforall.com/resources/lab-downloads",
+    "https://support.microsoft.com/en-us/office/introduction-to-outlook-data-files-pst-and-ost-222eaf92-a995-45d9-bde2-f331f60e2790",
+    "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+    "https://www.netacad.com/cisco-packet-tracer",
+    "https://www.netacad.com/courses/ccst-it-support",
+    "https://www.netacad.com/courses/ccst-networking",
+    "https://www.nist.gov/cyberframework",
+    "https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1",
+    "https://www.rfc-editor.org/rfc/rfc1034",
+    "https://www.rfc-editor.org/rfc/rfc1035",
+    "https://www.rfc-editor.org/rfc/rfc1918",
+    "https://www.rfc-editor.org/rfc/rfc2131",
+    "https://www.rfc-editor.org/rfc/rfc791",
+    "https://www.rfc-editor.org/rfc/rfc792",
+    "https://www.rfc-editor.org/rfc/rfc8200",
+    "https://www.rfc-editor.org/rfc/rfc826"
+  ],
+  "estimatedMinutes": 35,
+  "spans": [
+    {
+      "type": "text",
+      "text": "[GÖRSEL/DİYAGRAM ÖNERİSİ: Packet Tracer Logical çalışma alanında iki PC'nin Copper Straight-Through kabloyla bir 2960 switch'e bağlandığını; Fa0/1, Fa0/2 portlarını ve IPv4 adreslerini gösteren özgün topoloji çizimi.]\n\n",
+      "size": 16,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "DERSİN AMACI\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Packet Tracer'ı resmi Cisco kaynağından edinmek, arayüzde cihaz ve kablo seçmek, iki PC'yi switch üzerinden bağlamak ve bağlantıyı ping/Simulation Mode ile doğrulamak.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "PACKET TRACER NEDİR?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cisco Packet Tracer, öğrenme amaçlı bir ağ simülatörüdür. Sanal cihazları yerleştirip topoloji kurmayı, temel yapılandırmaları denemeyi ve paket olaylarını incelemeyi sağlar. Gerçek Cisco donanımının tüm davranışlarını ve lisanslı özelliklerini birebir karşılamaz; menüler ve cihaz modelleri sürüme göre değişebilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "RESMİ İNDİRME VE HESAP\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Yalnızca Cisco Networking Academy (NetAcad) veya Cisco Skills for All'ın resmi Packet Tracer kaynak sayfasını kullanın. Cisco hesabıyla kaydolun ya da oturum açın; kurs/kaynak sayfasındaki Packet Tracer indirme seçeneğinden işletim sisteminize sunulan dosyayı seçin. Hesap adımları, indirme yetkisi ve sunulan yükleyiciler zamanla değişebilir. Cisco dışındaki sitelerden yükleyici indirmeyin ve uygulama dosyasını ders paketiyle dağıtmayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "KURULUM: WINDOWS, macOS VE LINUX\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Windows: Cisco'nun sunduğu Windows yükleyicisini indirin, resmi kaynaktan geldiğini doğrulayın, kurulum sihirbazını izleyin ve uygulamayı Başlat menüsünden açın.\n\nmacOS: hesabınızda sunulan resmi macOS paketini indirin ve Cisco'nun o sürüm için verdiği adımları uygulayın. İlk açılışta macOS güvenlik izni isterse yalnızca Cisco'dan indirdiğiniz dosyayı onaylayın.\n\nLinux: Linux paketi yalnızca hesabınızda ve ilgili sürüm için Cisco tarafından resmi olarak sunuluyorsa kurun. Debian/Ubuntu için `.deb` sunulmuşsa indirilen dosyanın adını kullanıp dağıtımınızın resmi yönergelerini izleyin; paket sunulmuyorsa üçüncü taraf depolar veya değiştirilmiş yükleyiciler kullanmayın. Ubuntu/Debian'da resmi `.deb` sağlandığında `sudo apt install ./CiscoPacketTracer_*.deb`, yerel paketin bağımlılıklarını çözmeye yönelik bir örnektir; dosya adını indirdiğiniz pakete göre uyarlayın.\n\nUygulamayı başlatıp sunulan Cisco/NetAcad hesabıyla oturum açın. Çevrimdışı kullanım ve sonraki oturum açma seçenekleri sürümün giriş ekranına ve Cisco'nun güncel koşullarına bağlıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ARAYÜZ: ÇALIŞMA ALANI VE CİHAZLAR\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Logical workspace topolojinin ana görünümüdür; Physical workspace konum/oda görünümüne yöneliktir. Alt cihaz paleti Routers, Switches, Hubs, End Devices ve kablo türlerini gruplar. Cihazı seçip çalışma alanına bırakın; kabloyu Connections (şimşek) grubundan seçin. Realtime doğrudan çalışmayı, Simulation ise paket olaylarını adım adım izlemeyi sağlar. Menüler sürüme göre yer değiştirebilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "KABLO TÜRLERİ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Copper Straight-Through: PC–switch gibi farklı Ethernet cihazları arasında geleneksel temel seçimdir; bu laboratuvarda kullanılır. Copper Crossover: aynı tür Ethernet cihazlarını doğrudan bağlamak gibi özel durumlarda geleneksel olarak kullanılır; modern Auto MDI-X nedeniyle gerçek cihazlarda her zaman gerekmez. Fiber: iki uçta uyumlu optik port/modül ve fiber türü ister. Port arabirimlerinin uyumunu kontrol edin; kabloyu yalnızca rengine bakarak seçmeyin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "LAB: EV-OFİS TEMEL LAN'I\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "İki PC ve bir switch yerleştirin. PC0 FastEthernet0'ı switch FastEthernet0/1'e, PC1 FastEthernet0'ı FastEthernet0/2'ye Copper Straight-Through ile bağlayın. Switch Ethernet frame'lerini MAC adreslerine göre iletir; bu aynı alt ağ laboratuvarında router veya switch yönetim IP'si gerekmez.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "TOPOLOJİ METİN ŞEMASI\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "PC0 FastEthernet0                 PC1 FastEthernet0\n192.168.1.10/24                    192.168.1.11/24\n       | Copper Straight-Through          |\n       |                                   |\n       +-- Switch 2960 Fa0/1   Fa0/2 ------+\n\nTek LAN: 192.168.1.0/24 | Gateway: yapılandırılmaz",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "IP ADRESLERİNİ AYARLAMA\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "PC0'da Desktop > IP Configuration açın, Static seçin; IP Address `192.168.1.10`, Subnet Mask `255.255.255.0` girin. PC1'e `192.168.1.11` ve aynı maskeyi verin. Bu /24, 192.168.1.0–192.168.1.255 alt ağıdır. İki adres çakışmaz ve RFC1918 özel adres aralığındadır. Default Gateway'i boş bırakın: laboratuvarda router yoktur ve PC'ler aynı yerel alt ağdadır. IP adresiyle ping için DNS de gerekmez.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "PING İLE TEST\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "PC0'da Desktop > Command Prompt açıp `ping 192.168.1.11` çalıştırın. Başarılı durumda 192.168.1.11'den yanıt görünür; yaklaşık 4 gönderilen, 4 alınan, 0 kayıp paket beklenir. İlk ping ARP çözümlemesi nedeniyle yavaşlayabilir veya zaman aşımına uğrayabilir; ARP tamamlandıktan sonra tekrar deneyin. Bu, Packet Tracer'ın simüle ettiği sonuçtur; gerçek ağ performansı ölçümü değildir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "SIMULATION MODE: ARP VE ICMP\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Simulation'a geçin ve Event List'te ARP ile ICMP olaylarını bırakın. PC0'dan ping'i yeniden başlatıp Capture/Forward ile adım adım ilerleyin. Önce PC0, 192.168.1.11'in MAC adresini bilmediği için LAN'a ARP isteği gönderir; PC1 ARP yanıtı verir. Ardından ICMP Echo Request switch üzerinden PC1'e, ICMP Echo Reply geri gider. Paket zarfını açıp PDU Details içindeki Ethernet MAC, IPv4 kaynak/hedef adresi ve ICMP türünü inceleyin. ICMP, IPv4 protocol number 1'dir; Echo Request type 8, Echo Reply type 0'dır. ARP bir IPv4 protokol numarası değildir; yerel bağlantıda adres çözümleme protokolüdür.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "SWITCH YÖNETİM IP'Sİ — GEREKLİ DEĞİL\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Layer 2 switch, frame iletmek için yönetim IP'sine ihtiyaç duymaz. Yalnızca CLI'den switch yönetimini göstermek gerekirse VLAN 1'e ayrı bir `192.168.1.2/24` atanabilir. Bu adres PC'lerle çakışmaz ve switch'i router yapmaz. Ders amacı yoksa bu ek yapılandırmayı atlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "CISCO IOS CLI EK ÖRNEĞİ\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Aşağıdaki örnek yalnızca switch yönetim SVI'ı içindir. Cihaz modeline göre Packet Tracer seçenekleri değişebilir; IP'yi kullanılmayan bir yönetim adresiyle değiştirin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "enable\nconfigure terminal\ninterface vlan 1\nip address 192.168.1.2 255.255.255.0\nno shutdown\nend\nshow ip interface brief",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "HELPDESK: ADIM ADIM SORUN GİDERME\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Belirti: PC0 ping komutunda zaman aşımı.\n1) Link göstergelerini ve port durumunu kontrol edin; kablonun iki ucunun doğru FastEthernet portlarında olduğunu doğrulayın.\n2) İki PC'nin IP/maske ayarını kontrol edin: son oktetler farklı, ilk üç oktet aynı, maske 255.255.255.0 olmalı. Bu yerel testte gateway boş kalır.\n3) Switch'in iki uç cihaz portunun doğru seçildiğini ve bağlantının kurulduğunu doğrulayın; port durumunun oturması için kısa süre bekleyin.\n4) IP adresine ping'i yeniden deneyin. İlk tekil zaman aşımı ARP çözümlemesinden kaynaklanabilir.\n5) Simulation Mode'da ARP istek/yanıtı, ardından ICMP istek/yanıtının hangi adımda durduğunu görün. Düzeltmeden sonra ping'i yeniden çalıştırın ve sonucu kaydedin.\nBu adımları yetkili eğitim laboratuvarında uygulayın; üretim ağında değişiklik için kuruluşun değişiklik sürecini izleyin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "SORU VE DÜŞÜNME ALIŞTIRMASI\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Önce tahmin et: PC0'ın IP'si doğru, fakat PC1'in maskesi `255.255.0.0` ise aynı switch'e bağlı olmak iki tarafın aynı IP alt ağını hesaplamasını garanti eder mi? İlk ping neden yavaş olabilir?\n\nAçıklama: Farklı maskeler, hedefin yerel olup olmadığı kararını değiştirebilir; iki tarafa da aynı /24 maskeyi verin. İlk ping ARP ile IP'yi MAC'e çözdüğü için ek paket ve gecikme görülebilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "HATIRLA\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Önce fiziksel topoloji ve arayüzü, sonra IP ve maskeyi, son olarak ARP/ICMP olaylarını kontrol et. Bu sıra temel ping sorunlarını hızlıca daraltır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "packet_tracer_lan",
+      "caption": "Packet Tracer Logical çalışma alanında iki PC'nin Copper Straight-Through kabloyla bir 2960 switch'e bağlandığını; Fa0/1, Fa0/2 portlarını ve IPv4 adreslerini gösteren özgün topoloji çizimi."
+    },
+    {
+      "type": "text",
+      "text": "\nPC–switch için Copper Straight-Through; PC'lerde farklı IP ve aynı /24 maske; yerel ping'de gateway gerekmez.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Packet Tracer Logical çalışma alanında iki PC'nin Copper Straight-Through kabloyla bir 2960 switch'e bağlandığını; Fa0/1, Fa0/2 portlarını ve IPv4 adreslerini gösteren özgün topoloji çizimi."
+}

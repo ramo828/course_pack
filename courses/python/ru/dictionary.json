@@ -29,8 +29,8 @@
           "kind": "concept",
           "short": "Ключ должен быть уникальным, неизменяемым и хешируемым.",
           "detail": "Строки, целые числа и кортежи из неизменяемых элементов обычно подходят на роль ключей. Списки и словари изменяемы, поэтому ключами быть не могут. Равные ключи, например `True` и `1`, могут обозначать одну и ту же запись.",
-          "example": "lookup = {(2, 3): 'nöqtə'}\nprint(lookup[(2, 3)])",
-          "output": "nöqtə"
+          "example": "lookup = {(2, 3): 'точка'}\nprint(lookup[(2, 3)])",
+          "output": "точка"
         },
         {
           "term": "d[key]",
@@ -289,7 +289,7 @@
           "kind": "file mode",
           "short": "Открывает файл для записи и очищает его содержимое.",
           "detail": "Если файла нет, он создаётся; если есть — прежнее содержимое сразу удаляется. Убедитесь, что перезапись действительно нужна.",
-          "example": "with open('notes.txt', 'w', encoding='utf-8') as f:\n    f.write('yeni mətn')",
+          "example": "with open('notes.txt', 'w', encoding='utf-8') as f:\n    f.write('новый текст')",
           "output": "В файле остаётся только новый текст"
         },
         {
@@ -496,14 +496,14 @@
           "short": "Возвращает хеш, позволяющий использовать объект в множестве или как ключ словаря.",
           "detail": "Равные объекты должны иметь одинаковый хеш; данные, влияющие на хеш, должны оставаться неизменными. Если переопределён `__eq__`, но не задан `__hash__`, Python обычно делает класс нехешируемым.",
           "example": "class Key:\n    def __init__(self, value): self.value = value\n    def __eq__(self, other): return isinstance(other, Key) and self.value == other.value\n    def __hash__(self): return hash(self.value)",
-          "output": "hash(Key('a')) → tam ədəd"
+          "output": "hash(Key('a')) → целое число"
         },
         {
           "term": "__del__(self)",
           "kind": "magic method",
           "short": "Деструктор, который может вызываться при очистке объекта.",
           "detail": "Время вызова не гарантируется, а при циклических ссылках метод может выполниться с задержкой. Не используйте его для закрытия ресурсов — выбирайте `with`/`__exit__`. Если метода нет, памятью управляет Python.",
-          "example": "# Resursu __del__ ilə deyil, with ilə bağlayın\nwith open('notes.txt', encoding='utf-8') as f:\n    text = f.read()",
+          "example": "# Закройте ресурс через with, а не с помощью __del__\nwith open('notes.txt', encoding='utf-8') as f:\n    text = f.read()",
           "output": "Blokdan çıxanda fayl bağlanır"
         },
         {

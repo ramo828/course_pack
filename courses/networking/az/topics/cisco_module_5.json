@@ -1,0 +1,154 @@
+{
+  "id": "cisco_module_5",
+  "title": "Modul 5 — Active Directory, hesablar və Microsoft 365",
+  "difficulty": "medium",
+  "testId": "networking_test_cisco_module_5_az",
+  "sources": [
+    "https://learn.microsoft.com/en-us/microsoft-365/admin/",
+    "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview",
+    "https://skillsforall.com/resources/lab-downloads",
+    "https://support.microsoft.com/en-us/office/introduction-to-outlook-data-files-pst-and-ost-222eaf92-a995-45d9-bde2-f331f60e2790",
+    "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+    "https://www.netacad.com/cisco-packet-tracer",
+    "https://www.netacad.com/courses/ccst-it-support",
+    "https://www.netacad.com/courses/ccst-networking",
+    "https://www.nist.gov/cyberframework",
+    "https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1",
+    "https://www.rfc-editor.org/rfc/rfc1034",
+    "https://www.rfc-editor.org/rfc/rfc1035",
+    "https://www.rfc-editor.org/rfc/rfc1918",
+    "https://www.rfc-editor.org/rfc/rfc2131",
+    "https://www.rfc-editor.org/rfc/rfc791",
+    "https://www.rfc-editor.org/rfc/rfc792",
+    "https://www.rfc-editor.org/rfc/rfc8200",
+    "https://www.rfc-editor.org/rfc/rfc826"
+  ],
+  "estimatedMinutes": 45,
+  "spans": [
+    {
+      "type": "text",
+      "text": "[VİZUAL/SXEM TƏKLİFİ: Windows domeni: DC/DNS, domenə qoşulmuş kompüterlər, GPO və Outlook profili.]\n\n",
+      "size": 16,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "AD DS və domen\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Active Directory Domain Services (AD DS) domen istifadəçilərini, kompüterlərini və qruplarını mərkəzdən idarə edir. Domain Controller (DC) identifikasiyanı və kataloq sorğularını təmin edir; çox vaxt DNS də işləyir. Kerberos əsasən TCP/UDP 88, LDAP TCP/UDP 389, LDAPS TCP 636, DNS TCP/UDP 53, SMB TCP 445 istifadə edir. Bu portları kor-koranə açmayın; yalnız idarə olunan şəbəkə və təsdiqlənmiş qaydalar daxilində istifadə edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Domenə qoşulma və ilkin yoxlama\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Domenə qoşulmazdan əvvəl kompüterin təşkilat şəbəkəsinə və düzgün daxili DNS-ə çıxışı, vaxtı uyğun və unikal adı olmalıdır. Windows Settings > System > About > Domain or workgroup (və ya təşkilatın üsulu) ilə qoşulma başladılır; icazəli domen hesabı tələb oluna bilər. Uğursuzluqda DNS vasitəsilə DC-nin tapılmasını, saat fərqini, VPN/LAN bağlantısını və hesab icazəsini yoxlayın. İş qrupu ilə domen eyni deyil; istifadəçinin razılığı olmadan cihazı ayırmayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Hesabın həyat dövrü\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "İşə qəbulda unikal istifadəçi yaradın, təsdiqlənmiş adlandırma qaydasına əməl edin, yalnız tələb olunan qruplara əlavə edin və ilkin parolu təhlükəsiz kanalla çatdırın. Vəzifə dəyişikliyində artıq icazələri nəzərdən keçirin. İşdən çıxışda təsdiqlənmiş vaxtda hesabı deaktiv edin, aktiv sessiya və tokenləri ləğv edin, cihazları və məlumat sahibliyini təşkilat qaydasına görə təhvil alın. Parolu və MFA bərpasını dəstəkləyin, amma heç vaxt parol istəməyin və paylaşmayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Group Policy və tətbiq\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Group Policy (GPO) domen cihazlarına və istifadəçilərinə təhlükəsizlik və iş parametrlərini vahid tətbiq edir. GPO OU (Organizational Unit) və əlaqələndirmə sırasına görə tətbiq olunur; nəticəni `gpresult /r` və ya `gpresult /h report.html` ilə yoxlayın. `gpupdate /force` yeniləmə tələb edir, amma dərhal bütün parametrləri dəyişməyə bilər; bəzi siyasətlər yenidən giriş və ya restart istəyir. Problemi yoxlayarkən əhatə dairəsi, Security Filtering, miras və son dəyişiklikləri araşdırın; əvvəl təsdiq alın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "M365 identifikasiyası və xidmətlər\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Microsoft 365 hesabı bulud identifikasiyasıdır və yerli AD hesabı ilə sinxronlaşdırıla bilər, lakin bunlar avtomatik olaraq eyni parol və həyat dövrünə malik deyil. Lisenziya, MFA və şərti giriş təşkilat siyasətinə əsasən verilir. Outlook/Exchange Online üçün Autodiscover və HTTPS əsaslı xidmətlərdən istifadə olunur; müştəri trafiki adətən TCP 443 üzərindən gedir. Giriş problemini yoxlayarkən hesabın kilidli olub-olmadığını, lisenziyanı, MFA metodunu və xidmət statusunu yoxlayın; heç kimin MFA təsdiqini sizin üçün etməsini istəməyin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Outlook OST və PST\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "OST — keşlənmiş yerli nüsxədir; Exchange/M365 poçt qutusu ilə yenidən sinxronlaşdırıla bilər. PST — ixrac/arxiv faylıdır və ehtiyat nüsxə kimi qorunmalıdır; OST-ni arxiv, PST-ni isə server poçt qutusu hesab etməyin. OST problemi üçün əvvəl Outlook-u bağlayın, bağlantını və mailbox quota-nı yoxlayın; yalnız təlimat və ehtiyat nüsxə olduqda OST-ni yenidən yaratmağı düşünün. PST açılmırsa, fayl icazəsi, disk yeri, ölçü və ehtiyat nüsxə yoxlanır; `scanpst.exe` surətdə işlədilə bilər. Faylı silmək və köçürməkdən əvvəl məlumat sahibindən təsdiq alın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Təhlükəsiz ilkin diaqnostika\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "İstifadəçinin dəqiq xətasını, təsir dairəsini və son dəyişiklikləri soruşun. Tarixi qeyd edin; Outlook Web və ya başqa təsdiqli cihazla müqayisə edin, lakin məxfi məktubları şəxsi kanala göndərməyin. M365 xidmət statusunu, şəbəkə/VPN-ni, DNS-i, lisenziyanı və profili ardıcıllıqla yoxlayın. Profil silmək, OST/PST dəyişmək, hesabı yenidən qoşmaq kimi addımlar məlumat itkisi və fasilə yarada bilər; əvvəl backup, təsdiq və dəyişiklik qaydası lazımdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Domen saatı və Kerberos\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kerberos üçün kompüter və DC saatları uyğun olmalıdır; böyük fərq bilet alınmasına mane ola bilər. Giriş xətasında saat qurşağını, sinxronizasiyanı, daxili DNS-i və VPN/LAN bağlantısını yoxlayın. Vaxtı korporativ mənbədən sinxronlaşdırın, təsadüfi NTP serveri təyin etməyin. Düzəlişdən sonra yenidən giriş və ya GPO yenilənməsi lazım ola bilər.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Domen identifikasiyası\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "İstifadəçi -> DNS -> DC (Kerberos/88) -> qrup və GPO\nPC -> domen | Outlook -> Microsoft 365 (HTTPS/443)\nOST = sinxron keş | PST = ixrac/arxiv faylı",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Windows domeni: DC/DNS, domenə qoşulmuş kompüterlər, GPO və Outlook profili."
+}

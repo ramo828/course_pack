@@ -1,0 +1,166 @@
+{
+  "id": "cisco_module_4",
+  "title": "Модуль 4 — DHCP, DNS и лабораторные работы по маршрутизации",
+  "difficulty": "medium",
+  "testId": "networking_test_cisco_module_4_ru",
+  "sources": [
+    "https://learn.microsoft.com/en-us/microsoft-365/admin/",
+    "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview",
+    "https://skillsforall.com/resources/lab-downloads",
+    "https://support.microsoft.com/en-us/office/introduction-to-outlook-data-files-pst-and-ost-222eaf92-a995-45d9-bde2-f331f60e2790",
+    "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+    "https://www.netacad.com/cisco-packet-tracer",
+    "https://www.netacad.com/courses/ccst-it-support",
+    "https://www.netacad.com/courses/ccst-networking",
+    "https://www.nist.gov/cyberframework",
+    "https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1",
+    "https://www.rfc-editor.org/rfc/rfc1034",
+    "https://www.rfc-editor.org/rfc/rfc1035",
+    "https://www.rfc-editor.org/rfc/rfc1918",
+    "https://www.rfc-editor.org/rfc/rfc2131",
+    "https://www.rfc-editor.org/rfc/rfc791",
+    "https://www.rfc-editor.org/rfc/rfc792",
+    "https://www.rfc-editor.org/rfc/rfc8200",
+    "https://www.rfc-editor.org/rfc/rfc826"
+  ],
+  "estimatedMinutes": 45,
+  "spans": [
+    {
+      "type": "text",
+      "text": "[ПРЕДЛОЖЕНИЕ ПО ВИЗУАЛИЗАЦИИ/СХЕМЕ: Маршрутизатор Cisco соединяет две LAN; показаны DORA и DNS-запрос.]\n\n",
+      "size": 16,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "DHCP и DORA\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "DHCP назначает узлу IP-адрес, маску подсети, шлюз и DNS-сервер. DORA: Discover (широковещательный запрос клиента), Offer (предложение сервера), Request (выбор клиента), Acknowledge (подтверждение аренды). В IPv4 сервер DHCP использует UDP 67, клиент — UDP 68; аренда продлевается до истечения срока.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "DNS и разрешение имён\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "DNS преобразует имена, например `portal.example.test`, в IP-адреса. Клиент может проверить кэш до обращения к DNS-резолверу. Обычные запросы используют UDP 53; некоторые крупные ответы и передача зон — TCP 53. `nslookup` показывает сервер-ответчик; если IP работает, а имя нет, проверьте DNS-настройки и устаревший кэш.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Просмотр IP-параметров\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "В Windows команда `ipconfig /all` показывает IPv4, маску, шлюз, DHCP-сервер, DNS и сроки аренды. В Linux обычно используют `ip addr`, `ip route` и (если установлена) `resolvectl status`; в macOS — `ifconfig` и `scutil --dns`. Пример полей: `IPv4 Address: 192.168.10.21`, `Subnet Mask: 255.255.255.0`, `Default Gateway: 192.168.10.1`, `DHCP Server: 192.168.10.1`, `DNS Servers: 192.168.10.53`. Формат зависит от ОС и версии.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Команды диагностики и порты\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "`ping` проверяет связь с помощью ICMP Echo; отсутствие ответа не доказывает, что узел выключен — ICMP может блокироваться. В Windows `tracert`, в Linux/macOS `traceroute` показывают узлы маршрута. Пример `ping 192.168.20.1`: `Reply from 192.168.20.1: bytes=32 time<1ms TTL=255`; узлы трассировки: `1 192.168.10.1 <1 ms`, `2 192.168.20.10 1 ms`. Используйте `netstat -ano` в Windows или `ss -tuln` в Linux; пример `LISTEN 0 128 0.0.0.0:22`. Результат зависит от ОС, прав и фильтрации.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Лабораторная 2 — схема двух LAN\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "В Packet Tracer создайте LAN A `192.168.10.0/24` и LAN B `192.168.20.0/24`, между ними — маршрутизатор с двумя Ethernet-портами: `G0/0` к A, `G0/1` к B. Назначьте PC-A `192.168.10.10/24`, PC-B `192.168.20.10/24`. `.0` — адрес сети, `.255` — широковещательный адрес; узлам их не назначают. Шлюз A — `192.168.10.1`, шлюз B — `192.168.20.1`.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Лабораторная 2 — настройка IOS и шлюзов\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "В CLI маршрутизатора: `enable`, `configure terminal`, `interface g0/0`, `ip address 192.168.10.1 255.255.255.0`, `no shutdown`; затем `interface g0/1`, `ip address 192.168.20.1 255.255.255.0`, `no shutdown`, `end`. Имена зависят от модели (`g0/0/0`, `fa0/0`); проверьте выбранное устройство. Укажите каждому ПК локальный адрес шлюза. `show ip interface brief` должна показать `up/up` для обоих портов.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Лабораторная 2 — проверка ping и traceroute\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Сначала отправьте ping с каждого ПК на локальный шлюз, затем с PC-A на `192.168.20.10`. Первый пакет может потеряться при разрешении ARP; повторите. В `show ip route` должны быть подключённые маршруты `C 192.168.10.0/24` и `C 192.168.20.0/24`. `tracert 192.168.20.10` (Linux/macOS `traceroute`) должен показать первым узлом `192.168.10.1`. При сбое проверьте кабель, маску, шлюз, состояние интерфейсов и фильтрацию ICMP.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Лабораторная 3 — DHCP-пул маршрутизатора\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Эта работа с DHCP отделена от лабораторной 2. Исключите шлюз: `ip dhcp excluded-address 192.168.10.1 192.168.10.20`; затем введите `ip dhcp pool LAN10`, `network 192.168.10.0 255.255.255.0`, `default-router 192.168.10.1`, `dns-server 192.168.10.53`, `end`. Интерфейс LAN должен быть включён и иметь `192.168.10.1/24`. Исключение не позволяет выдать статический адрес другому узлу; при необходимости замените DNS на адрес сервера лаборатории.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Лабораторная 3 — наблюдение DORA\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Переключите PC Packet Tracer на DHCP и выполните `ipconfig /renew` (или выберите Desktop > IP Configuration > DHCP в симуляторе). `show ip dhcp binding` должна показать примерно `192.168.10.21  0060.5C...  Automatic`; MAC и формат могут отличаться. В Simulation Mode включите фильтр DHCP и пошагово проследите Discover, Offer, Request, ACK. Если аренды нет, проверьте сеть пула, интерфейс `up/up`, кабель и VLAN; для другой подсети может потребоваться relay, но не в этой работе.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "DORA и две LAN\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "PC-A .10.10 -- .10.1 [R1] .20.1 -- PC-B .20.10\nDiscover -> широковещание | Offer <- сервер\nRequest -> сервер | ACK <- сервер\nDNS: клиент --UDP/53--> DNS",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Маршрутизатор Cisco соединяет две LAN; показаны DORA и DNS-запрос."
+}

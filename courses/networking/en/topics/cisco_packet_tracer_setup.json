@@ -1,0 +1,249 @@
+{
+  "id": "cisco_packet_tracer_setup",
+  "title": "Module 3: First Packet Tracer lab",
+  "difficulty": "medium",
+  "testId": "networking_test_cisco_packet_tracer_en",
+  "sources": [
+    "https://learn.microsoft.com/en-us/microsoft-365/admin/",
+    "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview",
+    "https://skillsforall.com/resources/lab-downloads",
+    "https://support.microsoft.com/en-us/office/introduction-to-outlook-data-files-pst-and-ost-222eaf92-a995-45d9-bde2-f331f60e2790",
+    "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+    "https://www.netacad.com/cisco-packet-tracer",
+    "https://www.netacad.com/courses/ccst-it-support",
+    "https://www.netacad.com/courses/ccst-networking",
+    "https://www.nist.gov/cyberframework",
+    "https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1",
+    "https://www.rfc-editor.org/rfc/rfc1034",
+    "https://www.rfc-editor.org/rfc/rfc1035",
+    "https://www.rfc-editor.org/rfc/rfc1918",
+    "https://www.rfc-editor.org/rfc/rfc2131",
+    "https://www.rfc-editor.org/rfc/rfc791",
+    "https://www.rfc-editor.org/rfc/rfc792",
+    "https://www.rfc-editor.org/rfc/rfc8200",
+    "https://www.rfc-editor.org/rfc/rfc826"
+  ],
+  "estimatedMinutes": 35,
+  "spans": [
+    {
+      "type": "text",
+      "text": "[VISUAL/DIAGRAM SUGGESTION: An original Packet Tracer Logical workspace topology showing two PCs connected to a 2960 switch with Copper Straight-Through cables, Fa0/1 and Fa0/2 ports, and the IPv4 addresses.]\n\n",
+      "size": 16,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "LESSON GOAL\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Get Packet Tracer from an official Cisco source, identify devices and cables in the interface, connect two PCs through a switch, and verify connectivity with ping and Simulation Mode.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "WHAT IS PACKET TRACER?\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cisco Packet Tracer is a network simulator for learning. It lets you place virtual devices, build topologies, try basic configuration, and inspect packet events. It does not reproduce every behavior or licensed feature of physical Cisco equipment; menus and device models can vary by release.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "OFFICIAL DOWNLOAD AND ACCOUNT\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Use only the official Packet Tracer resource page from Cisco Networking Academy (NetAcad) or Cisco Skills for All. Register with a Cisco account or sign in, open the Packet Tracer download option on the course/resources page, and select the file currently offered for your operating system. Account steps, download eligibility, and available installers can change. Do not download installers from third-party sites or redistribute the application in this course pack.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "INSTALLATION: WINDOWS, macOS, AND LINUX\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Windows: download the Windows installer offered by Cisco, verify that it came from the official source, follow its setup wizard, and launch Packet Tracer from the Start menu.\n\nmacOS: download the official macOS package shown for your account and follow Cisco's instructions for that release. If macOS requests a security approval on first launch, approve only the file you downloaded from Cisco.\n\nLinux: install a Linux package only when Cisco officially offers one for your account and that release. If a `.deb` package is offered for Debian/Ubuntu, use the downloaded filename and follow your distribution's official instructions; if no package is offered, do not use third-party repositories or modified installers. When Cisco provides an official `.deb` for Ubuntu/Debian, `sudo apt install ./CiscoPacketTracer_*.deb` is an example of installing a local package and resolving dependencies; adjust the filename to the package you downloaded.\n\nLaunch the application and sign in with the Cisco/NetAcad account flow it presents. Offline use and later sign-in options depend on the release's login screen and Cisco's current terms.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "INTERFACE: WORKSPACE AND DEVICES\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Logical workspace is the main topology view; Physical workspace focuses on location/room layout. The device palette groups Routers, Switches, Hubs, End Devices, and cable types. Select a device and place it in the workspace; select a cable from Connections (the lightning-bolt group). Realtime is for direct interaction; Simulation steps through packet events. Menu locations may differ by release.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "CABLE TYPES\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Copper Straight-Through: the traditional default for different Ethernet device types, such as a PC-to-switch link; use it in this lab. Copper Crossover: traditionally used in special cases such as direct links between similar Ethernet device types; Auto MDI-X means it is not always required on modern physical devices. Fiber: requires compatible optical ports/modules and a matching fiber type at both ends. Check interface compatibility rather than identifying a cable by color alone.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "LAB: A BASIC HOME-TO-OFFICE LAN\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Place two PCs and one switch. Connect PC0 FastEthernet0 to switch FastEthernet0/1, and PC1 FastEthernet0 to FastEthernet0/2, using Copper Straight-Through. The switch forwards Ethernet frames using MAC addresses; this same-subnet lab needs neither a router nor a switch management IP.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "TOPOLOGY TEXT DIAGRAM\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "PC0 FastEthernet0                 PC1 FastEthernet0\n192.168.1.10/24                    192.168.1.11/24\n       | Copper Straight-Through          |\n       |                                   |\n       +-- Switch 2960 Fa0/1   Fa0/2 ------+\n\nOne LAN: 192.168.1.0/24 | Gateway: leave unset",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "CONFIGURE IP ADDRESSES\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "On PC0, open Desktop > IP Configuration, choose Static, and enter IP Address `192.168.1.10` and Subnet Mask `255.255.255.0`. Give PC1 `192.168.1.11` with the same mask. This is the /24 subnet 192.168.1.0–192.168.1.255. The addresses are distinct and in the RFC1918 private range. Leave Default Gateway blank: there is no router in this lab and both PCs are on the same local subnet. DNS is not needed to ping an IP address.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "VERIFY WITH PING\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "On PC0, open Desktop > Command Prompt and run `ping 192.168.1.11`. A successful result shows replies from 192.168.1.11, with approximately 4 sent, 4 received, and 0 lost. The first ping can be delayed or time out while ARP resolves the address; run it again after ARP completes. This is a Packet Tracer simulation result, not a measurement of real network performance.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "SIMULATION MODE: ARP AND ICMP\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Switch to Simulation and leave ARP and ICMP selected in the Event List. Start the ping again from PC0 and step through with Capture/Forward. First, PC0 broadcasts an ARP request on the LAN because it does not know 192.168.1.11's MAC address; PC1 replies. Then an ICMP Echo Request crosses the switch to PC1 and an ICMP Echo Reply returns. Open the packet envelope and inspect Ethernet MAC addresses, IPv4 source/destination addresses, and ICMP type under PDU Details. ICMP is IPv4 protocol number 1; Echo Request is type 8 and Echo Reply is type 0. ARP is not an IPv4 protocol number; it resolves link-layer addresses on the local link.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "SWITCH MANAGEMENT IP — OPTIONAL\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A Layer 2 switch does not need a management IP to forward frames. If you specifically want to demonstrate switch management from the CLI, you can assign a separate `192.168.1.2/24` address to VLAN 1. It must not overlap either PC address, and it does not turn the switch into a router. Skip this extra configuration unless needed for the lesson.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "OPTIONAL CISCO IOS CLI EXAMPLE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The following is only a switch management SVI example. Packet Tracer capabilities depend on the device model; replace the IP with an unused management address.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "enable\nconfigure terminal\ninterface vlan 1\nip address 192.168.1.2 255.255.255.0\nno shutdown\nend\nshow ip interface brief",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "HELPDESK: STEP-BY-STEP TROUBLESHOOTING\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Symptom: PC0's ping times out.\n1) Check link indicators and port status; confirm both cable ends use the intended FastEthernet ports.\n2) Check each PC's IP and mask: the last octets differ, the first three match, and the mask is 255.255.255.0. Leave the gateway blank for this local test.\n3) Confirm the two intended end-device switch ports are used and the links have come up; allow a brief moment for port status to settle.\n4) Retry ping by IP address. A one-time first timeout can occur during ARP resolution.\n5) In Simulation Mode, see whether ARP request/reply and then ICMP request/reply complete. Correct the fault, ping again, and record the result.\nPerform these steps in an authorized training lab. Follow the organization's change process before modifying a production network.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "QUESTION AND THINKING EXERCISE\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Predict before reading on: PC0's address is correct, but PC1 has mask `255.255.0.0`. Does connecting both to the same switch guarantee that they calculate the same local IP subnet? Why might the first ping be slow?\n\nExplanation: Different masks can change each host's decision about whether a destination is local; configure the same /24 mask on both. The first ping may trigger ARP resolution from an IP address to a MAC address, adding a packet and delay.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "REMEMBER\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Check physical topology and interfaces first, then IP addresses and masks, then inspect ARP/ICMP events. This order quickly narrows common ping failures.\n\n",
+      "size": 16
+    },
+    {
+      "type": "diagram",
+      "id": "packet_tracer_lan",
+      "caption": "An original Packet Tracer Logical workspace topology showing two PCs connected to a 2960 switch with Copper Straight-Through cables, Fa0/1 and Fa0/2 ports, and the IPv4 addresses."
+    },
+    {
+      "type": "text",
+      "text": "\nUse Copper Straight-Through for PC-to-switch; use distinct PC addresses and the same /24 mask; no gateway is needed for local ping.\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "An original Packet Tracer Logical workspace topology showing two PCs connected to a 2960 switch with Copper Straight-Through cables, Fa0/1 and Fa0/2 ports, and the IPv4 addresses."
+}

@@ -1,0 +1,166 @@
+{
+  "id": "cisco_module_4",
+  "title": "Module 4 — DHCP, DNS, and routing labs",
+  "difficulty": "medium",
+  "testId": "networking_test_cisco_module_4_en",
+  "sources": [
+    "https://learn.microsoft.com/en-us/microsoft-365/admin/",
+    "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview",
+    "https://skillsforall.com/resources/lab-downloads",
+    "https://support.microsoft.com/en-us/office/introduction-to-outlook-data-files-pst-and-ost-222eaf92-a995-45d9-bde2-f331f60e2790",
+    "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+    "https://www.netacad.com/cisco-packet-tracer",
+    "https://www.netacad.com/courses/ccst-it-support",
+    "https://www.netacad.com/courses/ccst-networking",
+    "https://www.nist.gov/cyberframework",
+    "https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1",
+    "https://www.rfc-editor.org/rfc/rfc1034",
+    "https://www.rfc-editor.org/rfc/rfc1035",
+    "https://www.rfc-editor.org/rfc/rfc1918",
+    "https://www.rfc-editor.org/rfc/rfc2131",
+    "https://www.rfc-editor.org/rfc/rfc791",
+    "https://www.rfc-editor.org/rfc/rfc792",
+    "https://www.rfc-editor.org/rfc/rfc8200",
+    "https://www.rfc-editor.org/rfc/rfc826"
+  ],
+  "estimatedMinutes": 45,
+  "spans": [
+    {
+      "type": "text",
+      "text": "[VISUAL/DIAGRAM SUGGESTION: A Cisco router joining two LANs, with DORA arrows and a DNS query.]\n\n",
+      "size": 16,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "DHCP and DORA\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "DHCP gives a host an IP address, subnet mask, default gateway, and DNS server. DORA means Discover (client broadcast), Offer (server proposal), Request (client selection), and Acknowledge (lease confirmation). IPv4 DHCP uses UDP 67 at the server and UDP 68 at the client; leases are renewed before expiry.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "DNS and name resolution\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "DNS translates names such as `portal.example.test` into IP addresses. A client may check its cache before querying a DNS resolver. Ordinary queries use UDP 53; some large replies and zone transfers use TCP 53. `nslookup` shows the responding server; if an IP works but a name fails, check DNS settings and stale cache.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Inspecting IP configuration\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "On Windows, `ipconfig /all` shows IPv4, mask, gateway, DHCP server, DNS, and lease times. Linux commonly uses `ip addr`, `ip route`, and (if installed) `resolvectl status`; macOS may use `ifconfig` and `scutil --dns`. Example fields: `IPv4 Address: 192.168.10.21`, `Subnet Mask: 255.255.255.0`, `Default Gateway: 192.168.10.1`, `DHCP Server: 192.168.10.1`, `DNS Servers: 192.168.10.53`. Labels and output vary by OS and version.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Diagnostic commands and ports\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "`ping` tests connectivity using ICMP Echo; silence does not prove a host is down because ICMP may be blocked. Windows `tracert` and Linux/macOS `traceroute` show hops. Example `ping 192.168.20.1`: `Reply from 192.168.20.1: bytes=32 time<1ms TTL=255`; trace hops: `1 192.168.10.1 <1 ms`, `2 192.168.20.10 1 ms`. Use Windows `netstat -ano` or Linux `ss -tuln`; sample `LISTEN 0 128 0.0.0.0:22`. OS, permissions, and firewall rules affect output.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Lab 2 — two-LAN topology\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "In Packet Tracer create LAN A `192.168.10.0/24` and LAN B `192.168.20.0/24`, with a two-Ethernet-port router between them: `G0/0` to A, `G0/1` to B. Set PC-A to `192.168.10.10/24` and PC-B to `192.168.20.10/24`. `.0` is the network and `.255` the broadcast address, so neither is a host address. Set gateways to `192.168.10.1` on A and `192.168.20.1` on B.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Lab 2 — configure IOS and gateways\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "At the router CLI: `enable`, `configure terminal`, `interface g0/0`, `ip address 192.168.10.1 255.255.255.0`, `no shutdown`; then `interface g0/1`, `ip address 192.168.20.1 255.255.255.0`, `no shutdown`, `end`. Interface names vary (`g0/0/0`, `fa0/0`); check the chosen model. Set each PC’s gateway to its local router address. `show ip interface brief` should report `up/up` for both ports.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Lab 2 — verify with ping and traceroute\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ping each PC’s local gateway first, then ping `192.168.20.10` from PC-A. The first packet may be lost during ARP resolution; retry. Router `show ip route` should list connected routes `C 192.168.10.0/24` and `C 192.168.20.0/24`. `tracert 192.168.20.10` (Linux/macOS `traceroute`) should show `192.168.10.1` as the first hop. If it fails, check cabling, mask, gateway, interface state, and ICMP filtering.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Lab 3 — router DHCP pool\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "This DHCP lab is separate from Lab 2. Exclude the gateway: `ip dhcp excluded-address 192.168.10.1 192.168.10.20`; then enter `ip dhcp pool LAN10`, `network 192.168.10.0 255.255.255.0`, `default-router 192.168.10.1`, `dns-server 192.168.10.53`, `end`. The router LAN interface must be enabled at `192.168.10.1/24`. Exclusion prevents a static address being leased to another host; adapt the DNS IP to the lab server.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Lab 3 — observe DORA\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Set a Packet Tracer PC to DHCP and run `ipconfig /renew` (or Desktop > IP Configuration > DHCP in the simulated PC). Router `show ip dhcp binding` should show something like `192.168.10.21  0060.5C...  Automatic`; MAC and formatting vary. In Simulation Mode, filter DHCP and step through Discover, Offer, Request, and ACK. If there is no lease, check pool network, `up/up` interface, cabling, and VLAN; a remote subnet may need relay, but this lab does not.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "DORA and two LANs\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "PC-A .10.10 -- .10.1 [R1] .20.1 -- PC-B .20.10\nDiscover -> broadcast | Offer <- server\nRequest -> server | ACK <- server\nDNS: client --UDP/53--> DNS",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "A Cisco router joining two LANs, with DORA arrows and a DNS query."
+}

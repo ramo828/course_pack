@@ -1,0 +1,166 @@
+{
+  "id": "cisco_module_4",
+  "title": "Modül 4 — DHCP, DNS ve yönlendirme laboratuvarları",
+  "difficulty": "medium",
+  "testId": "networking_test_cisco_module_4_tr",
+  "sources": [
+    "https://learn.microsoft.com/en-us/microsoft-365/admin/",
+    "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview",
+    "https://skillsforall.com/resources/lab-downloads",
+    "https://support.microsoft.com/en-us/office/introduction-to-outlook-data-files-pst-and-ost-222eaf92-a995-45d9-bde2-f331f60e2790",
+    "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+    "https://www.netacad.com/cisco-packet-tracer",
+    "https://www.netacad.com/courses/ccst-it-support",
+    "https://www.netacad.com/courses/ccst-networking",
+    "https://www.nist.gov/cyberframework",
+    "https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1",
+    "https://www.rfc-editor.org/rfc/rfc1034",
+    "https://www.rfc-editor.org/rfc/rfc1035",
+    "https://www.rfc-editor.org/rfc/rfc1918",
+    "https://www.rfc-editor.org/rfc/rfc2131",
+    "https://www.rfc-editor.org/rfc/rfc791",
+    "https://www.rfc-editor.org/rfc/rfc792",
+    "https://www.rfc-editor.org/rfc/rfc8200",
+    "https://www.rfc-editor.org/rfc/rfc826"
+  ],
+  "estimatedMinutes": 45,
+  "spans": [
+    {
+      "type": "text",
+      "text": "[GÖRSEL/DİYAGRAM ÖNERİSİ: İki LAN’ı birleştiren Cisco router, DORA okları ve DNS sorgusu.]\n\n",
+      "size": 16,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "DHCP ve DORA\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "DHCP cihaza IP, alt ağ maskesi, varsayılan ağ geçidi ve DNS verir. DORA: Discover (istemci yayını), Offer (sunucu teklifi), Request (istemci seçimi), Acknowledge (kira onayı). IPv4 DHCP sunucusu UDP 67, istemcisi UDP 68 kullanır; kira süresi dolmadan yenilenir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "DNS ve ad çözümleme\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "DNS, `portal.example.test` gibi adları IP adresine çevirir. İstemci önce önbelleği, sonra DNS çözümleyicisini kullanabilir. Normal sorgular UDP 53, bazı büyük yanıtlar ve bölge aktarımları TCP 53 kullanır. `nslookup` yanıt veren sunucuyu gösterir; IP çalışıp ad çalışmıyorsa DNS ayarını ve eski önbelleği denetleyin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "IP yapılandırmasını inceleme\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Windows’ta `ipconfig /all` IPv4, maske, ağ geçidi, DHCP sunucusu, DNS ve kira süresini gösterir. Linux’ta `ip addr`, `ip route`, varsa `resolvectl status`; macOS’ta `ifconfig` ve `scutil --dns` kullanılabilir. Örnek: `IPv4 Address: 192.168.10.21`, `Subnet Mask: 255.255.255.0`, `Default Gateway: 192.168.10.1`, `DHCP Server: 192.168.10.1`, `DNS Servers: 192.168.10.53`. Çıktı biçimi OS ve sürüme göre değişir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Tanılama komutları ve portlar\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "`ping`, ICMP Echo ile bağlantıyı sınar; yanıt olmaması cihazın kapalı olduğunu kanıtlamaz, ICMP engellenebilir. Windows `tracert`, Linux/macOS `traceroute` atlamaları gösterir. Örnek `ping 192.168.20.1`: `Reply from 192.168.20.1: bytes=32 time<1ms TTL=255`; `tracert` atlamaları: `1 192.168.10.1 <1 ms`, `2 192.168.20.10 1 ms`. Windows `netstat -ano`, Linux `ss -tuln`; örnek `LISTEN 0 128 0.0.0.0:22`. OS, yetki ve güvenlik duvarı sonucu etkiler.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Lab 2 — iki LAN topolojisi\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Packet Tracer’da LAN A `192.168.10.0/24`, LAN B `192.168.20.0/24` kurup iki Ethernet portlu router’ı araya bağlayın: `G0/0` A’ya, `G0/1` B’ye. PC-A `192.168.10.10/24`, PC-B `192.168.20.10/24` olsun. `.0` ağ, `.255` yayın adresidir; bilgisayara verilmez. A ağ geçidi `192.168.10.1`, B ağ geçidi `192.168.20.1` olur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Lab 2 — IOS ve ağ geçidi yapılandırması\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Router CLI: `enable`, `configure terminal`, `interface g0/0`, `ip address 192.168.10.1 255.255.255.0`, `no shutdown`; sonra `interface g0/1`, `ip address 192.168.20.1 255.255.255.0`, `no shutdown`, `end`. Bazı modellerde arayüz `g0/0/0` veya `fa0/0` olabilir; cihaz adını kontrol edin. PC’lere kendi LAN ağ geçidini yazın. `show ip interface brief` her iki portta `up/up` göstermelidir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Lab 2 — ping ve traceroute ile doğrulama\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Önce her PC’den kendi ağ geçidine, sonra PC-A’dan `192.168.20.10` adresine ping atın. İlk paket ARP nedeniyle kaybolabilir; yineleyin. Router `show ip route` çıktısında `C 192.168.10.0/24` ve `C 192.168.20.0/24` doğrudan bağlı yolları görünmelidir. `tracert 192.168.20.10` (Linux/macOS `traceroute`) ilk atlamada `192.168.10.1` göstermelidir. Başarısızsa kablo, maske, ağ geçidi, arayüz ve ICMP filtrelerini denetleyin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Lab 3 — router DHCP havuzu\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bu, Lab 2’den ayrı DHCP laboratuvarıdır. Ağ geçidini havuz dışında bırakın: `ip dhcp excluded-address 192.168.10.1 192.168.10.20`; ardından `ip dhcp pool LAN10`, `network 192.168.10.0 255.255.255.0`, `default-router 192.168.10.1`, `dns-server 192.168.10.53`, `end`. Router LAN arayüzü `192.168.10.1/24` ve etkin olmalı. Excluded-address statik adresin başka cihaza verilmesini önler; DNS IP’sini laboratuvar sunucusuna göre uyarlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Lab 3 — DORA’yı izleme\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Packet Tracer PC’sini DHCP’ye alın ve `ipconfig /renew` çalıştırın (simülasyon PC’sinde Desktop > IP Configuration > DHCP de kullanılabilir). Router’daki `show ip dhcp binding` yaklaşık `192.168.10.21  0060.5C...  Automatic` göstermeli; MAC/biçim değişebilir. Simulation Mode’da DHCP filtresiyle Discover, Offer, Request, ACK paketlerini adım adım izleyin. Kira yoksa havuz ağını, `up/up` arayüzü, kabloyu ve aynı VLAN’ı denetleyin; başka alt ağ için relay gerekebilir, bu laboratuvarda değil.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "DORA ve iki LAN\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "PC-A .10.10 -- .10.1 [R1] .20.1 -- PC-B .20.10\nDiscover -> yayın | Offer <- sunucu\nRequest -> sunucu | ACK <- sunucu\nDNS: istemci --UDP/53--> DNS",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "İki LAN’ı birleştiren Cisco router, DORA okları ve DNS sorgusu."
+}

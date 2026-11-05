@@ -1,0 +1,154 @@
+{
+  "id": "cisco_module_5",
+  "title": "Modül 5 — Active Directory, hesaplar ve Microsoft 365",
+  "difficulty": "medium",
+  "testId": "networking_test_cisco_module_5_tr",
+  "sources": [
+    "https://learn.microsoft.com/en-us/microsoft-365/admin/",
+    "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview",
+    "https://skillsforall.com/resources/lab-downloads",
+    "https://support.microsoft.com/en-us/office/introduction-to-outlook-data-files-pst-and-ost-222eaf92-a995-45d9-bde2-f331f60e2790",
+    "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+    "https://www.netacad.com/cisco-packet-tracer",
+    "https://www.netacad.com/courses/ccst-it-support",
+    "https://www.netacad.com/courses/ccst-networking",
+    "https://www.nist.gov/cyberframework",
+    "https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1",
+    "https://www.rfc-editor.org/rfc/rfc1034",
+    "https://www.rfc-editor.org/rfc/rfc1035",
+    "https://www.rfc-editor.org/rfc/rfc1918",
+    "https://www.rfc-editor.org/rfc/rfc2131",
+    "https://www.rfc-editor.org/rfc/rfc791",
+    "https://www.rfc-editor.org/rfc/rfc792",
+    "https://www.rfc-editor.org/rfc/rfc8200",
+    "https://www.rfc-editor.org/rfc/rfc826"
+  ],
+  "estimatedMinutes": 45,
+  "spans": [
+    {
+      "type": "text",
+      "text": "[GÖRSEL/DİYAGRAM ÖNERİSİ: Windows etki alanı: DC/DNS, etki alanına katılmış bilgisayarlar, GPO ve Outlook profili.]\n\n",
+      "size": 16,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "AD DS ve etki alanı\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Active Directory Domain Services (AD DS), etki alanı kullanıcılarını, bilgisayarlarını ve gruplarını merkezi yönetir. Domain Controller (DC) kimlik doğrulamayı ve dizin sorgularını sağlar; DNS de çoğunlukla burada çalışır. Kerberos genellikle TCP/UDP 88, LDAP TCP/UDP 389, LDAPS TCP 636, DNS TCP/UDP 53, SMB TCP 445 kullanır. Bu portları gelişigüzel açmayın; yalnızca yönetilen ağda onaylı kurallarla kullanın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Etki alanına katılma ve ön kontrol\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Katılmadan önce bilgisayarın kurum ağına ve doğru iç DNS’e erişimi, uygun saati ve benzersiz adı olmalıdır. Windows Settings > System > About > Domain or workgroup (veya kurum yöntemi) ile katılım başlatılır; yetkili etki alanı hesabı gerekebilir. Hata olursa DNS ile DC bulunmasını, saat farkını, VPN/LAN bağlantısını ve hesap iznini denetleyin. Çalışma grubu etki alanıyla aynı değildir; kullanıcı onayı olmadan cihazı ayırmayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Hesap yaşam döngüsü\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "İşe alımda benzersiz kullanıcı oluşturun, onaylı adlandırma kuralını uygulayın ve yalnızca gerekli gruplara ekleyin; ilk parol güvenli kanaldan iletilmelidir. Görev değişikliğinde gereksiz izinleri gözden geçirin. Ayrılışta onaylanan zamanda hesabı devre dışı bırakın, etkin oturum ve belirteçleri iptal edin, cihazları ve veri sahipliğini kurum sürecine göre devredin. Parola/MFA kurtarmasına yardımcı olun; parola istemeyin veya paylaşmayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Group Policy ve uygulama\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Group Policy (GPO), etki alanı cihazlarına ve kullanıcılarına güvenlik/iş ayarlarını tutarlı biçimde uygular. GPO, OU (Organizational Unit) ve bağlantı sırasına göre uygulanır; sonucu `gpresult /r` veya `gpresult /h report.html` ile inceleyin. `gpupdate /force` yenilemeyi ister ama tüm ayarlar anında değişmeyebilir; bazı ilkeler yeniden oturum veya yeniden başlatma gerektirir. Sorunda kapsamı, Security Filtering’i, kalıtımı ve son değişiklikleri inceleyin; önce onay alın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "M365 kimlik doğrulaması ve hizmetler\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Microsoft 365 hesabı bulut kimliğidir ve yerel AD hesabıyla eşitlenebilir; ancak otomatik olarak aynı parola ve yaşam döngüsüne sahip olduğu varsayılmaz. Lisans, MFA ve koşullu erişim kurum politikasına göre atanır. Outlook/Exchange Online Autodiscover ve HTTPS tabanlı hizmetleri kullanır; istemci trafiği çoğunlukla TCP 443’tür. Giriş sorununda hesabın kilitli, lisansın etkin, MFA yönteminin doğru ve hizmetin çalışır olduğunu denetleyin; kimsenin sizin adınıza MFA onayı vermesini istemeyin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Outlook OST ve PST\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "OST, Exchange/M365 posta kutusunun eşitlenen yerel önbelleğidir. PST dışa aktarma/arşiv dosyasıdır ve yedek olarak korunmalıdır; OST’yi arşiv, PST’yi sunucu posta kutusu sanmayın. OST sorununda önce Outlook’u kapatın, bağlantıyı ve posta kutusu kotasını kontrol edin; yalnızca talimat ve yedek varsa OST’yi yeniden oluşturmayı değerlendirin. PST açılmıyorsa izinleri, disk alanını, boyutu ve yedeği denetleyin; `scanpst.exe` bir kopyada çalıştırılabilir. Silmeden veya taşımadan önce veri sahibinden onay alın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Güvenli ilk tanılama\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kullanıcıdan tam hata metnini, etki alanını ve yakın zamandaki değişiklikleri öğrenin. Zamanı kaydedin; Outlook Web veya onaylı başka cihazla karşılaştırın, ancak özel e-postayı kişisel kanala taşımayın. M365 hizmet durumu, ağ/VPN, DNS, lisans ve profili sırayla denetleyin. Profil silme, OST/PST değiştirme veya hesabı yeniden bağlama veri kaybı ve kesinti yaratabilir; önce yedek, onay ve değişiklik prosedürü gerekir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Etki alanı saati ve Kerberos\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kerberos için bilgisayar ve DC saatları uyumlu olmalıdır; büyük fark bilet alınmasını engelleyebilir. Giriş hatasında saat dilimini, eşitlemeyi, iç DNS’i ve VPN/LAN bağlantısını denetleyin. Kurumsal saat kaynağını kullanın, rastgele NTP sunucusu seçmeyin. Düzeltmeden sonra yeniden oturum veya GPO yenilemesi gerekebilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Etki alanı kimlik doğrulaması\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Kullanıcı -> DNS -> DC (Kerberos/88) -> grup ve GPO\nPC -> etki alanı | Outlook -> Microsoft 365 (HTTPS/443)\nOST = eşitlenen önbellek | PST = dışa aktarma/arşiv",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Windows etki alanı: DC/DNS, etki alanına katılmış bilgisayarlar, GPO ve Outlook profili."
+}

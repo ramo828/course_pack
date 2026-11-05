@@ -1,0 +1,179 @@
+{
+  "id": "cisco_module_2",
+  "title": "Modül 2: OSI ve TCP/IP, IP adresleri, alt ağlar ve Ethernet kablolama",
+  "difficulty": "medium",
+  "testId": "networking_test_cisco_module_2_tr",
+  "sources": [
+    "https://learn.microsoft.com/en-us/microsoft-365/admin/",
+    "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview",
+    "https://skillsforall.com/resources/lab-downloads",
+    "https://support.microsoft.com/en-us/office/introduction-to-outlook-data-files-pst-and-ost-222eaf92-a995-45d9-bde2-f331f60e2790",
+    "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+    "https://www.netacad.com/cisco-packet-tracer",
+    "https://www.netacad.com/courses/ccst-it-support",
+    "https://www.netacad.com/courses/ccst-networking",
+    "https://www.nist.gov/cyberframework",
+    "https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1",
+    "https://www.rfc-editor.org/rfc/rfc1034",
+    "https://www.rfc-editor.org/rfc/rfc1035",
+    "https://www.rfc-editor.org/rfc/rfc1918",
+    "https://www.rfc-editor.org/rfc/rfc2131",
+    "https://www.rfc-editor.org/rfc/rfc791",
+    "https://www.rfc-editor.org/rfc/rfc792",
+    "https://www.rfc-editor.org/rfc/rfc8200",
+    "https://www.rfc-editor.org/rfc/rfc826"
+  ],
+  "estimatedMinutes": 45,
+  "spans": [
+    {
+      "type": "text",
+      "text": "[GÖRSEL/DİYAGRAM ÖNERİSİ: OSI ve TCP/IP katmanlarını yan yana gösteren bir şema, IPv4 /24 ve /26 adres aralıkları, IPv6 örneği ve T568A/T568B konnektör dizilimi.]\n\n",
+      "size": 16,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ağ ve protokol kavramı\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ağ, cihazların veri alışverişi yaptığı bağlantılar bütünüdür. Protokol bu alışverişin kurallarını, mesaj biçimini ve davranışını tanımlar. Ethernet yerel ağda çerçeveleri, IP ağlar arasında paketleri, TCP güvenilir akışı, UDP ise daha hafif mesajlaşmayı sağlayabilir. Tek bir protokol bütün işi yapmaz.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "OSI ve TCP/IP modelleri\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "OSI modeli iletişimi yedi kavramsal katmana ayırır: Fiziksel, Veri Bağlantısı, Ağ, Taşıma, Oturum, Sunum ve Uygulama. TCP/IP modeli genellikle Bağlantı, İnternet, Taşıma ve Uygulama katmanlarıyla öğretilir. Modeller gerçek protokol yığınlarını anlamaya yarayan öğretim haritalarıdır; eşleştirme kullanılan standarda göre değişebilir. Katmanlı düşünmek fiziksel kablodan uygulama hizmetine kadar sorunu daraltır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Kapsülleme ve cihazların rolleri\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Gönderen uygulama veri üretir; taşıma katmanı TCP/UDP bilgisi ekler, IP kaynak ve hedef adresli paket oluşturur, Ethernet ise sonraki yerel bağlantı için çerçeve hazırlar. Alıcıda başlıklar çıkarılır. Switch, yerel Ethernet çerçevelerini çoğunlukla MAC adreslerine göre iletir; router, IP ağları arasında paket yönlendirir. Router geçişinde Ethernet çerçevesi değişebilir, IP paketinin mantıksal uçları ise genellikle aynı kalır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "IPv4 adresinin yapısı\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "IPv4 adresi 32 bittir ve genellikle noktayla ayrılmış dört ondalık oktet olarak yazılır: 192.168.10.25. Her oktet 0–255 arasındadır. /24 gibi önek uzunluğu, baştaki kaç bitin ağ bölümünü oluşturduğunu gösterir; kalan bitler o ağdaki arabirimleri tanımlamak için kullanılır. Ağ sınırı IPv4 adresi ve alt ağ maskesi birlikte değerlendirilerek bulunur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "IPv6 temelleri\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "IPv6 adresi 128 bittir ve sekiz onaltılık 16 bitlik grup halinde yazılır; örnek: 2001:db8:1::25. Ardışık sıfır grupları yalnızca bir kez :: ile kısaltılır, gruplardaki baştaki sıfırlar atılabilir. 2001:db8::/32 dokümantasyon içindir, genel adresleme için değildir. IPv6 yayın (broadcast) kullanmaz; çoklu yayın ve yerel bağlantı adresleri kullanır. Yaygın bir LAN'da önek çoğu zaman /64'tür, ancak adres planı ağa bağlıdır. IPv6 yalnızca daha uzun IPv4 değildir; komşu keşfi, yapılandırma ve iletim kuralları farklıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Alt ağlara bölme: /24 ve /26\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Alt ağlara bölme, bir IP ağını daha küçük mantıksal ağlara ayırır. 192.168.1.0/24 için maske 255.255.255.0'dır: .0 ağ adresi, .255 yayın adresidir ve sıradan host adresleri .1–.254 aralığındadır (kullanılabilir 254 host). /26 maskesi 255.255.255.192, blok büyüklüğü 64'tür. 192.168.1.64/26 alt ağında aralık .64–.127, ağ adresi .64, yayın adresi .127, host adresleri .65–.126'dır (62 kullanılabilir host). Bir /24 dört /26'ya bölündüğünde ağlar .0, .64, .128 ve .192'de başlar.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Özel adresler, ağ geçidi ve önek\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Özel IPv4 aralıkları 10.0.0.0/8, 172.16.0.0/12 ve 192.168.0.0/16'dır; genel internette doğrudan yönlendirilmezler. Aynı alt ağdaki cihazlar yerel olarak iletişim kurabilir. Başka bir ağa trafik göndermek için host genellikle kendi alt ağındaki varsayılan ağ geçidine (default gateway) yollar. Yanlış maske, yinelenen IP veya hatalı ağ geçidi bağlantıyı bozabilir. IPv6'da da adres ve önek uyumu kontrol edilmelidir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Ethernet, MAC ve T568A/T568B\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Bükümlü çift Ethernet kablosunda RJ-45 denilen 8P8C konnektörde sekiz tel bulunur. İki uçta aynı pin sırası olan T568A–T568A veya T568B–T568B düz kablo, güncel Auto MDI-X portlarında host-switch bağlantısında genellikle çalışır. T568A ile T568B'de yeşil ve turuncu çiftlerin yerleri değişir; mavi ve kahverengi çiftler aynı pinlerde kalır. Bir uç A, diğeri B ise çapraz kablodur; modern donanım bunu otomatik uyarlayabilir. Renk standardını izleyin, kabloyu germeyin ve güç kablolarından uzak tutun.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Ağ sorunlarını katmanlara göre inceleme\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Önce fiziksel katmanı kontrol edin: güç, kablo, port ve bağlantı ışığı. Sonra IP yapılandırmasını, maske/önek ve ağ geçidini, yerel ve uzak erişimi; ardından DNS ve uygulamayı sınayın. Bir IP adresine `ping` atmak ad çözümlemesini test etmez; IP üzerinden erişim de uygulamanın sağlıklı olduğunu tek başına kanıtlamaz. Her seferinde tek değişiklik yapıp sonucu kaydedin; izinsiz ağ taraması veya değişiklik yapmayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "OSI ve TCP/IP eşleştirmesi\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "OSI                         TCP/IP\n7 Application  +\n6 Presentation +----------> Application\n5 Session      +\n4 Transport    -----------> Transport\n3 Network      -----------> Internet\n2 Data Link    +\n1 Physical     +----------> Link",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "192.168.1.0/24 içinde /26 bölünmesi\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "/24: 192.168.1.0 ----------------------------- 192.168.1.255\n     | .0/26 | .64/26 | .128/26 | .192/26 |\n       64       64        64        64 addresses\nExample .64/26: network .64 | hosts .65-.126 | broadcast .127",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "OSI ve TCP/IP katmanlarını yan yana gösteren bir şema, IPv4 /24 ve /26 adres aralıkları, IPv6 örneği ve T568A/T568B konnektör dizilimi."
+}

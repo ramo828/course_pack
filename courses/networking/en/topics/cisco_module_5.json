@@ -1,0 +1,154 @@
+{
+  "id": "cisco_module_5",
+  "title": "Module 5 — Active Directory, accounts, and Microsoft 365",
+  "difficulty": "medium",
+  "testId": "networking_test_cisco_module_5_en",
+  "sources": [
+    "https://learn.microsoft.com/en-us/microsoft-365/admin/",
+    "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview",
+    "https://skillsforall.com/resources/lab-downloads",
+    "https://support.microsoft.com/en-us/office/introduction-to-outlook-data-files-pst-and-ost-222eaf92-a995-45d9-bde2-f331f60e2790",
+    "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+    "https://www.netacad.com/cisco-packet-tracer",
+    "https://www.netacad.com/courses/ccst-it-support",
+    "https://www.netacad.com/courses/ccst-networking",
+    "https://www.nist.gov/cyberframework",
+    "https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1",
+    "https://www.rfc-editor.org/rfc/rfc1034",
+    "https://www.rfc-editor.org/rfc/rfc1035",
+    "https://www.rfc-editor.org/rfc/rfc1918",
+    "https://www.rfc-editor.org/rfc/rfc2131",
+    "https://www.rfc-editor.org/rfc/rfc791",
+    "https://www.rfc-editor.org/rfc/rfc792",
+    "https://www.rfc-editor.org/rfc/rfc8200",
+    "https://www.rfc-editor.org/rfc/rfc826"
+  ],
+  "estimatedMinutes": 45,
+  "spans": [
+    {
+      "type": "text",
+      "text": "[VISUAL/DIAGRAM SUGGESTION: A Windows domain with DC/DNS, joined PCs, Group Policy, and an Outlook profile.]\n\n",
+      "size": 16,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "AD DS and the domain\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Active Directory Domain Services (AD DS) centrally manages domain users, computers, and groups. A Domain Controller (DC) provides authentication and directory queries and often runs DNS. Common ports include Kerberos TCP/UDP 88, LDAP TCP/UDP 389, LDAPS TCP 636, DNS TCP/UDP 53, and SMB TCP 445. Do not open these indiscriminately; use approved rules within managed networks.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Joining a domain and prechecks\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Before joining, a PC needs access to the organization network and correct internal DNS, a reasonable clock, and a unique name. Start from Settings > System > About > Domain or workgroup (or the organization’s enrollment method); authorized domain credentials may be required. If it fails, check DC discovery through DNS, time difference, VPN/LAN connectivity, and account rights. A workgroup is not a domain; do not unjoin a device without approval.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Account lifecycle\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "At onboarding, create a unique identity, follow approved naming, grant only required group membership, and deliver an initial credential securely. Review and remove unneeded access when a role changes. At departure, disable the account at the approved time, revoke active sessions/tokens, and transfer devices and data ownership according to policy. Support password and MFA recovery, but never ask for or share a password.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Group Policy and application\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Group Policy (GPO) applies consistent security and work settings to domain users and devices. GPOs apply according to OU (Organizational Unit) scope and link order; inspect results with `gpresult /r` or `gpresult /h report.html`. `gpupdate /force` requests refresh, but not every setting changes immediately; some policies need sign-out or reboot. For issues, review scope, Security Filtering, inheritance, and recent changes, using approved change procedures.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Microsoft 365 identity and services\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A Microsoft 365 account is a cloud identity that may be synchronized with on-premises AD, but do not assume identical passwords or lifecycle by default. Licensing, MFA, and conditional access follow organization policy. Outlook/Exchange Online uses Autodiscover and HTTPS-based services; client traffic commonly uses TCP 443. For sign-in issues, check account state, assigned license, MFA method, and service health; never ask someone else to approve an MFA prompt for you.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Outlook OST and PST\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "An OST is a synchronized local cache for an Exchange/Microsoft 365 mailbox. A PST is an export/archive file and should be protected as data; do not mistake an OST for an archive or a PST for a server mailbox. For OST trouble, close Outlook, check connectivity and mailbox quota, and only consider rebuilding it under guidance with a backup. If a PST will not open, check permissions, disk space, size, and backup; run `scanpst.exe` on a copy. Get the data owner’s approval before moving or deleting files.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Safe first-line troubleshooting\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Ask for the exact error, scope, and recent changes, and record the time. Compare with Outlook on the web or another approved device, but do not forward confidential mail to a personal channel. Check Microsoft 365 service health, network/VPN, DNS, license, and profile in sequence. Deleting a profile, changing OST/PST files, or reconnecting an account may cause data loss or downtime; obtain authorization, backup, and change approval first.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Domain time and Kerberos\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Kerberos requires client and DC clocks to be aligned; a large difference can prevent ticket issuance. For sign-in errors, check time zone, synchronization, internal DNS, and VPN/LAN access. Use the organization’s time source, not a random NTP server. A new sign-in or GPO refresh may be needed after correction.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Domain identity flow\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "User -> DNS -> DC (Kerberos/88) -> groups and GPO\nPC -> domain | Outlook -> Microsoft 365 (HTTPS/443)\nOST = synchronized cache | PST = export/archive file",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "A Windows domain with DC/DNS, joined PCs, Group Policy, and an Outlook profile."
+}

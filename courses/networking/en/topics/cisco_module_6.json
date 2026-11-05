@@ -1,0 +1,154 @@
+{
+  "id": "cisco_module_6",
+  "title": "Module 6 — defensive network security",
+  "difficulty": "medium",
+  "testId": "networking_test_cisco_module_6_en",
+  "sources": [
+    "https://learn.microsoft.com/en-us/microsoft-365/admin/",
+    "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview",
+    "https://skillsforall.com/resources/lab-downloads",
+    "https://support.microsoft.com/en-us/office/introduction-to-outlook-data-files-pst-and-ost-222eaf92-a995-45d9-bde2-f331f60e2790",
+    "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+    "https://www.netacad.com/cisco-packet-tracer",
+    "https://www.netacad.com/courses/ccst-it-support",
+    "https://www.netacad.com/courses/ccst-networking",
+    "https://www.nist.gov/cyberframework",
+    "https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1",
+    "https://www.rfc-editor.org/rfc/rfc1034",
+    "https://www.rfc-editor.org/rfc/rfc1035",
+    "https://www.rfc-editor.org/rfc/rfc1918",
+    "https://www.rfc-editor.org/rfc/rfc2131",
+    "https://www.rfc-editor.org/rfc/rfc791",
+    "https://www.rfc-editor.org/rfc/rfc792",
+    "https://www.rfc-editor.org/rfc/rfc8200",
+    "https://www.rfc-editor.org/rfc/rfc826"
+  ],
+  "estimatedMinutes": 45,
+  "spans": [
+    {
+      "type": "text",
+      "text": "[VISUAL/DIAGRAM SUGGESTION: A user, MFA-protected VPN, firewall, EDR, and an isolated security alert.]\n\n",
+      "size": 16,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Defensive principles\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The goal is to reduce risk and preserve trusted service through least privilege, layered defenses, patching, backups, and monitoring. During an event, establish user and business impact first; do not investigate or change systems without authorization. Record actions, preserve evidence, and follow escalation procedures. Training uses approved simulations, not attacks on real systems.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "How an AnyConnect-style VPN works\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A Cisco AnyConnect/Secure Client-style remote-access VPN creates an encrypted tunnel between a device and the organization’s VPN gateway. Policy may tunnel all traffic or only organization traffic. Users authenticate to an approved server with its certificate and MFA. SSL/TLS VPN commonly uses TCP 443 and may use UDP 443; IPsec/IKEv2 commonly uses UDP 500/4500. Exact ports depend on product configuration. Do not accept unknown profiles or certificate warnings; deny and report unexpected MFA prompts.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Endpoint AV and EDR\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Antivirus (AV) scans for known malicious files and blocks them according to policy; EDR monitors endpoint events and supports alerts and investigation of suspicious behavior. They are complementary, not guarantees against every risk. If an alert appears, do not open the file, release it from quarantine, or disable the agent. Report the time, device name, and visible message through an approved channel; authorized responders decide on isolation or removal.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Firewall rules\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A firewall rule specifies source, destination, protocol, port, direction, and action. Default-deny and least privilege permit only required business traffic; broad `any-any` rules are risky. For example, DNS may require UDP/TCP 53 to an approved resolver and HTTPS TCP 443 to an intended server. Before changing a rule, establish owner, purpose, scope, duration, and rollback plan; verify afterward using logs and an approved service test.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Analyzing phishing safely\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Carefully compare the sender address and domain; do not open unexpected links or attachments or provide a password or MFA code. Urgent payment, account closure, or secrecy demands are warning signs, though display names can be spoofed. Report using the organization’s Report phishing control or approved IT channel without opening links; preserve the message header and time. Do not forward suspicious mail to coworkers because that can spread an attachment. This lesson teaches recognition, not phishing creation.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Segmentation and secure access\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Separating work devices, guest Wi-Fi, and servers into appropriate VLANs and security zones can limit incident spread. Router ACLs and firewalls should allow only necessary inter-zone traffic. Remote access should require a managed device, current security agent, and MFA. For personal devices, follow organization policy and approved support channels; never move confidential data through personal file sharing.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Safe incident actions\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "For suspicious activity, record time and device, open an approved incident record, and promptly alert the security team. Do not independently power off a device, erase logs, or open the file; disconnect network access only when procedure or responders direct it. Share evidence through authorized channels and do not give customers an unverified cause. The goal is to limit impact and give responders clear facts, not blame a user.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Logs and incident evidence\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Firewall, VPN, and EDR logs help responders build a timeline; record the time zone. Access only authorized logs, do not alter them, and never send them to personal email. Let the security team decide how to handle a suspicious IP or file; do not test an IOC on a real system. Provide a concise factual note and secure evidence handoff.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Defensive layers\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "User --MFA--> VPN gateway --approved rule--> internal service\n                 |                         |\n              Endpoint AV/EDR          Firewall log\nSuspicious mail -> do not open -> report -> incident team",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "A user, MFA-protected VPN, firewall, EDR, and an isolated security alert."
+}

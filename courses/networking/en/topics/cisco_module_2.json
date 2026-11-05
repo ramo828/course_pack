@@ -1,0 +1,179 @@
+{
+  "id": "cisco_module_2",
+  "title": "Module 2: OSI and TCP/IP, IP Addressing, Subnets, and Ethernet Cabling",
+  "difficulty": "medium",
+  "testId": "networking_test_cisco_module_2_en",
+  "sources": [
+    "https://learn.microsoft.com/en-us/microsoft-365/admin/",
+    "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview",
+    "https://skillsforall.com/resources/lab-downloads",
+    "https://support.microsoft.com/en-us/office/introduction-to-outlook-data-files-pst-and-ost-222eaf92-a995-45d9-bde2-f331f60e2790",
+    "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+    "https://www.netacad.com/cisco-packet-tracer",
+    "https://www.netacad.com/courses/ccst-it-support",
+    "https://www.netacad.com/courses/ccst-networking",
+    "https://www.nist.gov/cyberframework",
+    "https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1",
+    "https://www.rfc-editor.org/rfc/rfc1034",
+    "https://www.rfc-editor.org/rfc/rfc1035",
+    "https://www.rfc-editor.org/rfc/rfc1918",
+    "https://www.rfc-editor.org/rfc/rfc2131",
+    "https://www.rfc-editor.org/rfc/rfc791",
+    "https://www.rfc-editor.org/rfc/rfc792",
+    "https://www.rfc-editor.org/rfc/rfc8200",
+    "https://www.rfc-editor.org/rfc/rfc826"
+  ],
+  "estimatedMinutes": 45,
+  "spans": [
+    {
+      "type": "text",
+      "text": "[VISUAL/DIAGRAM SUGGESTION: A side-by-side OSI/TCP-IP layer map, IPv4 /24 and /26 address ranges, an IPv6 example, and the T568A/T568B connector pinout.]\n\n",
+      "size": 16,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Networks and protocols\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A network is a set of connected devices that exchange data. A protocol defines the rules, message format, and behavior for that exchange. Ethernet carries frames on a local link, IP carries packets between networks, TCP can provide a reliable byte stream, and UDP offers lightweight datagrams. No single protocol performs every job.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "OSI and TCP/IP models\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The OSI model describes communication in seven conceptual layers: Physical, Data Link, Network, Transport, Session, Presentation, and Application. The TCP/IP model is commonly taught as Link, Internet, Transport, and Application. These are learning maps for protocol stacks, and exact mappings can vary by convention. Layered reasoning helps narrow a fault from a cable to an application service.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Encapsulation and device roles\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A sending application creates data; the transport layer adds TCP or UDP information, IP forms a packet with source and destination addresses, and Ethernet builds a frame for the next local hop. The receiver removes these headers. A switch primarily forwards local Ethernet frames using MAC addresses; a router forwards IP packets between networks. The Ethernet frame can change at each routed hop while the IP packet's logical endpoints usually remain the same.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "IPv4 address structure\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "An IPv4 address is 32 bits, usually written as four dot-separated decimal octets, for example 192.168.10.25. Each octet ranges from 0 to 255. A prefix such as /24 states how many leading bits identify the network; remaining bits identify interfaces within that network. The prefix or subnet mask is needed to determine the network boundary.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "IPv6 basics\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "An IPv6 address is 128 bits, written as eight hexadecimal 16-bit groups, for example 2001:db8:1::25. Consecutive all-zero groups may be compressed once with ::, and leading zeros within a group may be omitted. 2001:db8::/32 is reserved for documentation, not public assignment. IPv6 has no broadcast; it uses multicast and link-local communication. A /64 is common for an ordinary LAN, but address plans depend on the network. IPv6 is not simply a longer IPv4: discovery, configuration, and delivery rules differ.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Subnetting: /24 and /26\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Subnetting divides an IP network into smaller logical networks. For 192.168.1.0/24, the mask is 255.255.255.0: .0 is the network address, .255 is the broadcast address, and ordinary host addresses are .1–.254 (254 usable hosts). A /26 mask is 255.255.255.192, with a block size of 64. The 192.168.1.64/26 subnet spans .64–.127: network .64, broadcast .127, and host addresses .65–.126 (62 usable hosts). Splitting a /24 into four /26s gives networks beginning at .0, .64, .128, and .192.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Private addresses, gateways, and prefixes\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "The IPv4 private ranges are 10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16; they are not routed directly across the public Internet. Devices in the same subnet can communicate locally. To send traffic to another network, a host normally uses a default gateway on its subnet. A wrong mask, duplicate IP, or incorrect gateway can break connectivity. IPv6 address and prefix compatibility must also be checked.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Ethernet, MAC, and T568A/T568B\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "A twisted-pair Ethernet cable has eight conductors terminated in an 8P8C connector commonly called RJ-45. A straight-through cable has the same pinout at both ends: T568A-to-T568A or T568B-to-T568B; it usually works for host-to-switch links with modern Auto MDI-X ports. T568A and T568B swap the green and orange pairs while blue and brown stay on the same pins. An A end and a B end make a crossover cable; modern equipment may automatically accommodate it. Follow the color standard, avoid sharp bends, and keep data cables away from power interference.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Troubleshoot by layer\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Start with the physical layer: power, cable, port, and link indicator. Then check IP configuration, mask/prefix, gateway, and local versus remote reachability; next check DNS and the application. Using `ping` with an IP address does not test name resolution, and reaching an IP alone does not prove an application is healthy. Change one thing at a time and record results; do not scan or alter networks without authorization.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "OSI and TCP/IP mapping\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "OSI                         TCP/IP\n7 Application  +\n6 Presentation +----------> Application\n5 Session      +\n4 Transport    -----------> Transport\n3 Network      -----------> Internet\n2 Data Link    +\n1 Physical     +----------> Link",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "/26 blocks inside 192.168.1.0/24\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "/24: 192.168.1.0 ----------------------------- 192.168.1.255\n     | .0/26 | .64/26 | .128/26 | .192/26 |\n       64       64        64        64 addresses\nExample .64/26: network .64 | hosts .65-.126 | broadcast .127",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "A side-by-side OSI/TCP-IP layer map, IPv4 /24 and /26 address ranges, an IPv6 example, and the T568A/T568B connector pinout."
+}

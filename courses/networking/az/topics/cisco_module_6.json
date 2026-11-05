@@ -1,0 +1,154 @@
+{
+  "id": "cisco_module_6",
+  "title": "Modul 6 — müdafiə yönümlü şəbəkə təhlükəsizliyi",
+  "difficulty": "medium",
+  "testId": "networking_test_cisco_module_6_az",
+  "sources": [
+    "https://learn.microsoft.com/en-us/microsoft-365/admin/",
+    "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview",
+    "https://skillsforall.com/resources/lab-downloads",
+    "https://support.microsoft.com/en-us/office/introduction-to-outlook-data-files-pst-and-ost-222eaf92-a995-45d9-bde2-f331f60e2790",
+    "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+    "https://www.netacad.com/cisco-packet-tracer",
+    "https://www.netacad.com/courses/ccst-it-support",
+    "https://www.netacad.com/courses/ccst-networking",
+    "https://www.nist.gov/cyberframework",
+    "https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1",
+    "https://www.rfc-editor.org/rfc/rfc1034",
+    "https://www.rfc-editor.org/rfc/rfc1035",
+    "https://www.rfc-editor.org/rfc/rfc1918",
+    "https://www.rfc-editor.org/rfc/rfc2131",
+    "https://www.rfc-editor.org/rfc/rfc791",
+    "https://www.rfc-editor.org/rfc/rfc792",
+    "https://www.rfc-editor.org/rfc/rfc8200",
+    "https://www.rfc-editor.org/rfc/rfc826"
+  ],
+  "estimatedMinutes": 45,
+  "spans": [
+    {
+      "type": "text",
+      "text": "[VİZUAL/SXEM TƏKLİFİ: İstifadəçi, MFA-li VPN, firewall, EDR və təcrid olunmuş təhlükəsizlik hadisəsi.]\n\n",
+      "size": 16,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Müdafiə prinsipləri\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Məqsəd riskin azaldılması və etibarlı xidmətin qorunmasıdır: ən az səlahiyyət, qatlı müdafiə, yeniləmə, ehtiyat nüsxə və monitorinq. Hadisədə əvvəl istifadəçinin və biznes xidmətinin təsirini müəyyən edin; təsdiqsiz araşdırma və ya dəyişiklik etməyin. Hadisələri qeyd edin, sübutu qoruyun və eskalasiya qaydasına əməl edin. Təlimdə real sistemlərə hücum deyil, təsdiqli simulyasiya istifadə olunur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "AnyConnect tipli VPN necə işləyir\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Cisco AnyConnect/Secure Client tipli uzaq giriş VPN-i cihazdan təşkilatın VPN gateway-inə şifrəli tunel yaradır; bütün trafik və ya yalnız təşkilat trafiki tuneldən keçə bilər. İstifadəçi təşkilat tərəfindən təsdiqlənmiş server ünvanı, sertifikat və MFA ilə giriş edir. SSL/TLS VPN çox vaxt TCP 443, bəzi tətbiqlər UDP 443 istifadə edə bilər; IPsec/IKEv2-də UDP 500/4500 yayğındır. Dəqiq port və siyasət məhsul konfiqurasiyasından asılıdır. Naməlum profili və sertifikat xəbərdarlığını qəbul etməyin; MFA sorğusunu gözlənilmədən alırsınızsa rədd edib IT-yə bildirin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Endpoint AV və EDR\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Antivirus (AV) məlum zərərli faylları skan edir və siyasətə görə bloklayır; EDR endpoint hadisələrini izləyib şübhəli davranış barədə xəbərdarlıq və araşdırma imkanı verir. Bunlar eyni deyil və heç biri bütün riskləri aradan qaldırmır. İstifadəçi xəbərdarlığı görərsə faylı açmamalı, özbaşına karantindən çıxarmamalı və agenti söndürməməlidir. Xəbərdarlığın vaxtını, cihaz adını və görünən mesajı təhlükəsiz kanalla IT-yə ötürün; təcrid və silmə qərarını səlahiyyətli cavab qrupu verir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Firewall qaydaları\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Firewall qaydası mənbə, təyinat, protokol, port, istiqamət və əməliyyatı müəyyən edir. Default-deny və ən az səlahiyyət yanaşması ilə yalnız biznes üçün zəruri trafikə icazə verin; geniş `any-any` qaydaları risklidir. Məsələn, DNS üçün təsdiqli resolver-ə UDP/TCP 53, HTTPS üçün uyğun serverə TCP 443 lazım ola bilər. Qaydanı dəyişməzdən əvvəl sahib, məqsəd, əhatə, müddət və geri qaytarma planı müəyyənləşdirin; tətbiqdən sonra log və xidmət testi ilə təsdiqləyin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Phishing-i təhlükəsiz təhlil\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Şübhəli məktubda göndərən ünvanını və domeni diqqətlə müqayisə edin, gözlənilməz link və əlavəni açmayın, parol və MFA kodu verməyin. Təcili ödəniş, hesab bağlanması və ya gizlilik tələbi risk göstəricisidir, lakin görünən göndərən adı saxtalaşdırıla bilər. Linki açmadan təşkilatın “Report phishing” düyməsi və ya IT-nin təsdiqli kanalı ilə bildirin; başlığı və vaxtı qoruyun. Şübhəli məktubu başqasına forward etməyin, çünki bu, əlavəni yayır. Bu dərs phishing məktubu yaratmağı deyil, təhlükəsiz tanımağı öyrədir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Şəbəkə bölmələndirməsi və təhlükəsiz giriş\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "İş cihazlarını, qonaq Wi-Fi-ni və serverləri uyğun VLAN və təhlükəsizlik zonalarında ayırmaq hadisənin yayılmasını məhdudlaşdıra bilər. Router ACL və firewall yalnız zəruri zonalararası əlaqəyə icazə verməlidir. Uzaqdan giriş yalnız idarə olunan cihaz, yenilənmiş təhlükəsizlik agenti və MFA ilə verilməlidir. İstifadəçi şəxsi cihazdan qoşulursa, təşkilat siyasəti və dəstək kanalı ilə hərəkət edin; məxfi məlumatı şəxsi şəbəkə paylaşımı ilə ötürməyin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Hadisə zamanı təhlükəsiz addımlar\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Şübhəli fəaliyyət görsəniz, saatı və cihazı qeyd edin, təsdiqli insident nömrəsi yaradın və dərhal təhlükəsizlik komandasına xəbər verin. Cihazı özbaşına söndürməyin, logları silməyin və şübhəli faylı açmayın; rəhbər proseduru tələb edərsə şəbəkədən ayırın. Sübutu yalnız səlahiyyətli kanalla ötürün və müştəriyə təsdiqlənməmiş səbəb deməyin. Məqsəd istifadəçini günahlandırmaq deyil, təsiri azaltmaq və cavab verən qrupa aydın faktlar verməkdir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Jurnallar və insident sübutları\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Firewall, VPN və EDR jurnalları hadisənin vaxt xəttini qurmağa kömək edir; saat qurşağını qeyd edin. Yalnız səlahiyyətli loglara baxın, onları dəyişməyin və şəxsi e-poçta göndərməyin. Şübhəli IP və ya fayl barədə qərarı təhlükəsizlik qrupu versin; IOC-ni real sistemdə sınaqdan keçirməyin. Faktlara əsaslanan qeyd və təhlükəsiz sübut ötürməsi kifayətdir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Müdafiə qatları\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "İstifadəçi --MFA--> VPN gateway --təsdiqli qayda--> daxili xidmət\n                 |                         |\n              Endpoint AV/EDR          Firewall log\nŞübhəli məktub -> açma -> report -> insident komandası",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "İstifadəçi, MFA-li VPN, firewall, EDR və təcrid olunmuş təhlükəsizlik hadisəsi."
+}

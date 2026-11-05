@@ -1,0 +1,154 @@
+{
+  "id": "cisco_module_5",
+  "title": "Модуль 5 — Active Directory, учётные записи и Microsoft 365",
+  "difficulty": "medium",
+  "testId": "networking_test_cisco_module_5_ru",
+  "sources": [
+    "https://learn.microsoft.com/en-us/microsoft-365/admin/",
+    "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview",
+    "https://skillsforall.com/resources/lab-downloads",
+    "https://support.microsoft.com/en-us/office/introduction-to-outlook-data-files-pst-and-ost-222eaf92-a995-45d9-bde2-f331f60e2790",
+    "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+    "https://www.netacad.com/cisco-packet-tracer",
+    "https://www.netacad.com/courses/ccst-it-support",
+    "https://www.netacad.com/courses/ccst-networking",
+    "https://www.nist.gov/cyberframework",
+    "https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1",
+    "https://www.rfc-editor.org/rfc/rfc1034",
+    "https://www.rfc-editor.org/rfc/rfc1035",
+    "https://www.rfc-editor.org/rfc/rfc1918",
+    "https://www.rfc-editor.org/rfc/rfc2131",
+    "https://www.rfc-editor.org/rfc/rfc791",
+    "https://www.rfc-editor.org/rfc/rfc792",
+    "https://www.rfc-editor.org/rfc/rfc8200",
+    "https://www.rfc-editor.org/rfc/rfc826"
+  ],
+  "estimatedMinutes": 45,
+  "spans": [
+    {
+      "type": "text",
+      "text": "[ПРЕДЛОЖЕНИЕ ПО ВИЗУАЛИЗАЦИИ/СХЕМЕ: Домен Windows: контроллер/DC, DNS, компьютеры, GPO и профиль Outlook.]\n\n",
+      "size": 16,
+      "color": "#6A1B9A",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "AD DS и домен\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Active Directory Domain Services (AD DS) централизованно управляет пользователями, компьютерами и группами домена. Контроллер домена (DC) выполняет аутентификацию и запросы каталога; часто он же обслуживает DNS. Основные порты: Kerberos TCP/UDP 88, LDAP TCP/UDP 389, LDAPS TCP 636, DNS TCP/UDP 53, SMB TCP 445. Не открывайте их без необходимости — соблюдайте утверждённые правила управляемой сети.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Ввод компьютера в домен и проверки\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Перед вводом в домен компьютеру нужны доступ к сети организации и правильному внутреннему DNS, корректное время и уникальное имя. Начните через Settings > System > About > Domain or workgroup (или корпоративный способ регистрации); может потребоваться разрешённая доменная учётная запись. При сбое проверьте обнаружение DC через DNS, разницу времени, VPN/LAN и права учётной записи. Рабочая группа — не домен; не выводите устройство из домена без согласования.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Жизненный цикл учётной записи\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "При приёме создайте уникальную запись, соблюдайте утверждённое именование, назначайте только необходимые группы и передавайте начальные данные безопасным каналом. При смене роли пересмотрите лишние права. При увольнении отключите запись в согласованное время, отзовите активные сеансы и токены, передайте устройства и владение данными по правилам организации. Помогайте восстановить пароль и MFA, но никогда не запрашивайте и не сообщайте пароль.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Групповые политики\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Group Policy (GPO) единообразно применяет настройки безопасности и работы к пользователям и устройствам домена. Политики применяются с учётом OU (Organizational Unit) и порядка связей; результат смотрят через `gpresult /r` или `gpresult /h report.html`. `gpupdate /force` запрашивает обновление, но отдельные параметры требуют выхода из системы или перезагрузки. При проблеме проверьте область, Security Filtering, наследование и недавние изменения; соблюдайте согласование изменений.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Идентификация и службы Microsoft 365\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Учётная запись Microsoft 365 — облачная идентичность; она может синхронизироваться с локальной AD, но одинаковые пароли и жизненный цикл не гарантированы. Лицензия, MFA и условный доступ назначаются согласно правилам организации. Outlook/Exchange Online использует Autodiscover и службы HTTPS; клиентский трафик обычно идёт по TCP 443. При сбое проверьте состояние записи, лицензию, метод MFA и состояние службы; не просите другого человека подтверждать ваш MFA-запрос.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Файлы Outlook OST и PST\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "OST — локальный кэш, синхронизируемый с почтовым ящиком Exchange/Microsoft 365. PST — файл экспорта или архива, который нужно беречь; не считайте OST архивом, а PST — серверным ящиком. При проблеме OST закройте Outlook, проверьте сеть и квоту; пересоздавайте файл только по инструкции и при наличии резервной копии. Если PST не открывается, проверьте права, свободное место, размер и резервную копию; `scanpst.exe` запускайте на копии. Перед переносом или удалением получите согласие владельца данных.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Безопасная первичная диагностика\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Уточните точный текст ошибки, масштаб влияния и недавние изменения; запишите время. Сравните с Outlook Web или другим разрешённым устройством, но не пересылайте конфиденциальную почту в личные каналы. По порядку проверьте состояние Microsoft 365, сеть/VPN, DNS, лицензию и профиль. Удаление профиля, изменение OST/PST или повторное подключение могут привести к потере данных и простою; сначала нужны разрешение, резервная копия и согласование изменений.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Время домена и Kerberos\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Для Kerberos время клиента и DC должно быть согласовано; большая разница мешает выдаче билета. При ошибке входа проверьте часовой пояс, синхронизацию, внутренний DNS и VPN/LAN. Используйте корпоративный источник времени, а не случайный NTP-сервер. После исправления может понадобиться повторный вход или обновление GPO.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "Доменная аутентификация\n",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Пользователь -> DNS -> DC (Kerberos/88) -> группы и GPO\nПК -> домен | Outlook -> Microsoft 365 (HTTPS/443)\nOST = синхронизируемый кэш | PST = экспорт/архив",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "\n\n",
+      "size": 17,
+      "color": "#00695C",
+      "bold": true
+    }
+  ],
+  "requires_visual": true,
+  "visual_description": "Домен Windows: контроллер/DC, DNS, компьютеры, GPO и профиль Outlook."
+}
