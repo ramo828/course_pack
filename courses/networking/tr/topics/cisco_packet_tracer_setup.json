@@ -1,6 +1,6 @@
 {
   "id": "cisco_packet_tracer_setup",
-  "title": "Modül 3: Packet Tracer ile ilk lab",
+  "title": "3. Modül: Packet Tracer ile ilk laboratuvar",
   "difficulty": "medium",
   "testId": "networking_test_cisco_packet_tracer_tr",
   "sources": [
@@ -26,11 +26,10 @@
   "estimatedMinutes": 35,
   "spans": [
     {
-      "type": "text",
-      "text": "[GÖRSEL/DİYAGRAM ÖNERİSİ: Packet Tracer Logical çalışma alanında iki PC'nin Copper Straight-Through kabloyla bir 2960 switch'e bağlandığını; Fa0/1, Fa0/2 portlarını ve IPv4 adreslerini gösteren özgün topoloji çizimi.]\n\n",
-      "size": 16,
-      "color": "#6A1B9A",
-      "bold": true
+      "type": "image",
+      "path": "images/course_visual_networking_3_tr.png",
+      "alt": "Ders şeması",
+      "caption": "Packet Tracer Logical çalışma alanında iki PC'nin Copper Straight-Through kabloyla bir 2960 ağ anahtarına bağlandığını; Fa0/1, Fa0/2 portlarını ve IPv4 adreslerini gösteren özgün topoloji çizimi."
     },
     {
       "type": "text",
@@ -41,7 +40,7 @@
     },
     {
       "type": "text",
-      "text": "Packet Tracer'ı resmi Cisco kaynağından edinmek, arayüzde cihaz ve kablo seçmek, iki PC'yi switch üzerinden bağlamak ve bağlantıyı ping/Simulation Mode ile doğrulamak.\n\n",
+      "text": "Packet Tracer'ı resmi Cisco kaynağından edinmek, arayüzde cihaz ve kablo seçmek, iki PC'yi ağ anahtarı üzerinden bağlamak ve bağlantıyı ping/Simulation Mode ile doğrulamak.\n\n",
       "size": 16
     },
     {
@@ -101,19 +100,19 @@
     },
     {
       "type": "text",
-      "text": "Copper Straight-Through: PC–switch gibi farklı Ethernet cihazları arasında geleneksel temel seçimdir; bu laboratuvarda kullanılır. Copper Crossover: aynı tür Ethernet cihazlarını doğrudan bağlamak gibi özel durumlarda geleneksel olarak kullanılır; modern Auto MDI-X nedeniyle gerçek cihazlarda her zaman gerekmez. Fiber: iki uçta uyumlu optik port/modül ve fiber türü ister. Port arabirimlerinin uyumunu kontrol edin; kabloyu yalnızca rengine bakarak seçmeyin.\n\n",
+      "text": "Copper Straight-Through: PC–ağ anahtarı gibi farklı Ethernet cihazları arasında geleneksel temel seçimdir; bu laboratuvarda kullanılır. Copper Crossover: aynı tür Ethernet cihazlarını doğrudan bağlamak gibi özel durumlarda geleneksel olarak kullanılır; modern Auto MDI-X nedeniyle gerçek cihazlarda her zaman gerekmez. Fiber: iki uçta uyumlu optik port/modül ve fiber türü ister. Port arabirimlerinin uyumunu kontrol edin; kabloyu yalnızca rengine bakarak seçmeyin.\n\n",
       "size": 16
     },
     {
       "type": "text",
-      "text": "LAB: EV-OFİS TEMEL LAN'I\n",
+      "text": "laboratuvar: EV-OFİS TEMEL LAN'I\n",
       "size": 20,
       "color": "#1565C0",
       "bold": true
     },
     {
       "type": "text",
-      "text": "İki PC ve bir switch yerleştirin. PC0 FastEthernet0'ı switch FastEthernet0/1'e, PC1 FastEthernet0'ı FastEthernet0/2'ye Copper Straight-Through ile bağlayın. Switch Ethernet frame'lerini MAC adreslerine göre iletir; bu aynı alt ağ laboratuvarında router veya switch yönetim IP'si gerekmez.\n\n",
+      "text": "İki PC ve bir ağ anahtarı yerleştirin. PC0 FastEthernet0'ı ağ anahtarı FastEthernet0/1'e, PC1 FastEthernet0'ı FastEthernet0/2'ye Copper Straight-Through ile bağlayın. Ağ anahtarı Ethernet frame'lerini MAC adreslerine göre iletir; bu aynı alt ağ laboratuvarında yönlendirici veya ağ anahtarı yönetim IP'si gerekmez.\n\n",
       "size": 16
     },
     {
@@ -138,7 +137,7 @@
     },
     {
       "type": "text",
-      "text": "PC0'da Desktop > IP Configuration açın, Static seçin; IP Address `192.168.1.10`, Subnet Mask `255.255.255.0` girin. PC1'e `192.168.1.11` ve aynı maskeyi verin. Bu /24, 192.168.1.0–192.168.1.255 alt ağıdır. İki adres çakışmaz ve RFC1918 özel adres aralığındadır. Default Gateway'i boş bırakın: laboratuvarda router yoktur ve PC'ler aynı yerel alt ağdadır. IP adresiyle ping için DNS de gerekmez.\n\n",
+      "text": "PC0'da Desktop > IP Configuration açın, Static seçin; IP Address `192.168.1.10`, alt ağ maskesi `255.255.255.0` girin. PC1'e `192.168.1.11` ve aynı maskeyi verin. Bu /24, 192.168.1.0–192.168.1.255 alt ağıdır. İki adres çakışmaz ve RFC1918 özel adres aralığındadır. varsayılan ağ geçidini boş bırakın: laboratuvarda yönlendirici yoktur ve PC'ler aynı yerel alt ağdadır. IP adresiyle ping için DNS de gerekmez.\n\n",
       "size": 16
     },
     {
@@ -162,19 +161,19 @@
     },
     {
       "type": "text",
-      "text": "Simulation'a geçin ve Event List'te ARP ile ICMP olaylarını bırakın. PC0'dan ping'i yeniden başlatıp Capture/Forward ile adım adım ilerleyin. Önce PC0, 192.168.1.11'in MAC adresini bilmediği için LAN'a ARP isteği gönderir; PC1 ARP yanıtı verir. Ardından ICMP Echo Request switch üzerinden PC1'e, ICMP Echo Reply geri gider. Paket zarfını açıp PDU Details içindeki Ethernet MAC, IPv4 kaynak/hedef adresi ve ICMP türünü inceleyin. ICMP, IPv4 protocol number 1'dir; Echo Request type 8, Echo Reply type 0'dır. ARP bir IPv4 protokol numarası değildir; yerel bağlantıda adres çözümleme protokolüdür.\n\n",
+      "text": "Simulation'a geçin ve Event List'te ARP ile ICMP olaylarını bırakın. PC0'dan ping'i yeniden başlatıp Capture/Forward ile adım adım ilerleyin. Önce PC0, 192.168.1.11'in MAC adresini bilmediği için LAN'a ARP isteği gönderir; PC1 ARP yanıtı verir. Ardından ICMP Echo Request ağ anahtarı üzerinden PC1'e, ICMP Echo Reply geri gider. Paket zarfını açıp PDU Details içindeki Ethernet MAC, IPv4 kaynak/hedef adresi ve ICMP türünü inceleyin. ICMP, IPv4 protocol number 1'dir; Echo Request type 8, Echo Reply type 0'dır. ARP bir IPv4 protokol numarası değildir; yerel bağlantıda adres çözümleme protokolüdür.\n\n",
       "size": 16
     },
     {
       "type": "text",
-      "text": "SWITCH YÖNETİM IP'Sİ — GEREKLİ DEĞİL\n",
+      "text": "Ağ anahtarı YÖNETİM IP'Sİ — GEREKLİ DEĞİL\n",
       "size": 20,
       "color": "#1565C0",
       "bold": true
     },
     {
       "type": "text",
-      "text": "Layer 2 switch, frame iletmek için yönetim IP'sine ihtiyaç duymaz. Yalnızca CLI'den switch yönetimini göstermek gerekirse VLAN 1'e ayrı bir `192.168.1.2/24` atanabilir. Bu adres PC'lerle çakışmaz ve switch'i router yapmaz. Ders amacı yoksa bu ek yapılandırmayı atlayın.\n\n",
+      "text": "2. katman ağ anahtarı, frame iletmek için yönetim IP'sine ihtiyaç duymaz. Yalnızca CLI'den ağ anahtarı yönetimini göstermek gerekirse VLAN 1'e ayrı bir `192.168.1.2/24` atanabilir. Bu adres PC'lerle çakışmaz ve ağ anahtarını yönlendirici yapmaz. Ders amacı yoksa bu ek yapılandırmayı atlayın.\n\n",
       "size": 16
     },
     {
@@ -186,7 +185,7 @@
     },
     {
       "type": "text",
-      "text": "Aşağıdaki örnek yalnızca switch yönetim SVI'ı içindir. Cihaz modeline göre Packet Tracer seçenekleri değişebilir; IP'yi kullanılmayan bir yönetim adresiyle değiştirin.\n\n",
+      "text": "Aşağıdaki örnek yalnızca ağ anahtarı yönetim SVI'ı içindir. Cihaz modeline göre Packet Tracer seçenekleri değişebilir; IP'yi kullanılmayan bir yönetim adresiyle değiştirin.\n\n",
       "size": 16
     },
     {
@@ -197,14 +196,14 @@
     },
     {
       "type": "text",
-      "text": "HELPDESK: ADIM ADIM SORUN GİDERME\n",
+      "text": "BT DESTEĞİ: ADIM ADIM SORUN GİDERME\n",
       "size": 20,
       "color": "#1565C0",
       "bold": true
     },
     {
       "type": "text",
-      "text": "Belirti: PC0 ping komutunda zaman aşımı.\n1) Link göstergelerini ve port durumunu kontrol edin; kablonun iki ucunun doğru FastEthernet portlarında olduğunu doğrulayın.\n2) İki PC'nin IP/maske ayarını kontrol edin: son oktetler farklı, ilk üç oktet aynı, maske 255.255.255.0 olmalı. Bu yerel testte gateway boş kalır.\n3) Switch'in iki uç cihaz portunun doğru seçildiğini ve bağlantının kurulduğunu doğrulayın; port durumunun oturması için kısa süre bekleyin.\n4) IP adresine ping'i yeniden deneyin. İlk tekil zaman aşımı ARP çözümlemesinden kaynaklanabilir.\n5) Simulation Mode'da ARP istek/yanıtı, ardından ICMP istek/yanıtının hangi adımda durduğunu görün. Düzeltmeden sonra ping'i yeniden çalıştırın ve sonucu kaydedin.\nBu adımları yetkili eğitim laboratuvarında uygulayın; üretim ağında değişiklik için kuruluşun değişiklik sürecini izleyin.\n\n",
+      "text": "Belirti: PC0 ping komutunda zaman aşımı.\n1) Link göstergelerini ve port durumunu kontrol edin; kablonun iki ucunun doğru FastEthernet portlarında olduğunu doğrulayın.\n2) İki PC'nin IP/maske ayarını kontrol edin: son oktetler farklı, ilk üç oktet aynı, maske 255.255.255.0 olmalı. Bu yerel testte ağ geçidi boş kalır.\n3) ağ anahtarının iki uç cihaz portunun doğru seçildiğini ve bağlantının kurulduğunu doğrulayın; port durumunun oturması için kısa süre bekleyin.\n4) IP adresine ping'i yeniden deneyin. İlk tekil zaman aşımı ARP çözümlemesinden kaynaklanabilir.\n5) Simulation Mode'da ARP istek/yanıtı, ardından ICMP istek/yanıtının hangi adımda durduğunu görün. Düzeltmeden sonra ping'i yeniden çalıştırın ve sonucu kaydedin.\nBu adımları yetkili eğitim laboratuvarında uygulayın; üretim ağında değişiklik için kuruluşun değişiklik sürecini izleyin.\n\n",
       "size": 16
     },
     {
@@ -216,7 +215,7 @@
     },
     {
       "type": "text",
-      "text": "Önce tahmin et: PC0'ın IP'si doğru, fakat PC1'in maskesi `255.255.0.0` ise aynı switch'e bağlı olmak iki tarafın aynı IP alt ağını hesaplamasını garanti eder mi? İlk ping neden yavaş olabilir?\n\nAçıklama: Farklı maskeler, hedefin yerel olup olmadığı kararını değiştirebilir; iki tarafa da aynı /24 maskeyi verin. İlk ping ARP ile IP'yi MAC'e çözdüğü için ek paket ve gecikme görülebilir.\n\n",
+      "text": "Önce tahmin et: PC0'ın IP'si doğru, fakat PC1'in maskesi `255.255.0.0` ise aynı ağ anahtarına bağlı olmak iki tarafın aynı IP alt ağını hesaplamasını garanti eder mi? İlk ping neden yavaş olabilir?\n\nAçıklama: Farklı maskeler, hedefin yerel olup olmadığı kararını değiştirebilir; iki tarafa da aynı /24 maskeyi verin. İlk ping ARP ile IP'yi MAC'e çözdüğü için ek paket ve gecikme görülebilir.\n\n",
       "size": 16
     },
     {
@@ -234,16 +233,16 @@
     {
       "type": "diagram",
       "id": "packet_tracer_lan",
-      "caption": "Packet Tracer Logical çalışma alanında iki PC'nin Copper Straight-Through kabloyla bir 2960 switch'e bağlandığını; Fa0/1, Fa0/2 portlarını ve IPv4 adreslerini gösteren özgün topoloji çizimi."
+      "caption": "Packet Tracer Logical çalışma alanında iki PC'nin Copper Straight-Through kabloyla bir 2960 ağ anahtarına bağlandığını; Fa0/1, Fa0/2 portlarını ve IPv4 adreslerini gösteren özgün topoloji çizimi."
     },
     {
       "type": "text",
-      "text": "\nPC–switch için Copper Straight-Through; PC'lerde farklı IP ve aynı /24 maske; yerel ping'de gateway gerekmez.\n\n",
+      "text": "\nPC–ağ anahtarı için Copper Straight-Through; PC'lerde farklı IP ve aynı /24 maske; yerel ping'de ağ geçidi gerekmez.\n\n",
       "size": 17,
       "color": "#00695C",
       "bold": true
     }
   ],
   "requires_visual": true,
-  "visual_description": "Packet Tracer Logical çalışma alanında iki PC'nin Copper Straight-Through kabloyla bir 2960 switch'e bağlandığını; Fa0/1, Fa0/2 portlarını ve IPv4 adreslerini gösteren özgün topoloji çizimi."
+  "visual_description": "Packet Tracer Logical çalışma alanında iki PC'nin Copper Straight-Through kabloyla bir 2960 ağ anahtarına bağlandığını; Fa0/1, Fa0/2 portlarını ve IPv4 adreslerini gösteren özgün topoloji çizimi."
 }

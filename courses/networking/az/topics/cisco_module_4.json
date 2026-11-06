@@ -26,11 +26,10 @@
   "estimatedMinutes": 45,
   "spans": [
     {
-      "type": "text",
-      "text": "[VİZUAL/SXEM TƏKLİFİ: İki LAN-ı birləşdirən Cisco router, DORA oxları və DNS sorğusu.]\n\n",
-      "size": 16,
-      "color": "#6A1B9A",
-      "bold": true
+      "type": "image",
+      "path": "images/course_visual_networking_4_az.png",
+      "alt": "Dərs sxemi",
+      "caption": "İki LAN-ı birləşdirən Cisco marşrutlaşdırıcı, DORA oxları və DNS sorğusu."
     },
     {
       "type": "text",
@@ -41,7 +40,7 @@
     },
     {
       "type": "text",
-      "text": "DHCP cihaza IP, subnet mask, default gateway və DNS verir. DORA: Discover (müştəri yayım sorğusu), Offer (server təklifi), Request (müştəri seçimi), Acknowledge (icarənin təsdiqi). IPv4-də DHCP server UDP 67, müştəri UDP 68 istifadə edir; icarə müddəti bitməzdən əvvəl yenilənir.\n\n",
+      "text": "DHCP cihaza IP, alt şəbəkə maskası, standart şlüz və DNS verir. DORA: Discover (müştəri yayım sorğusu), Offer (server təklifi), Request (müştəri seçimi), Acknowledge (icarənin təsdiqi). IPv4-də DHCP server UDP 67, müştəri UDP 68 istifadə edir; icarə müddəti bitməzdən əvvəl yenilənir.\n\n",
       "size": 16
     },
     {
@@ -53,7 +52,7 @@
     },
     {
       "type": "text",
-      "text": "DNS `portal.example.test` kimi adı IP ünvanına çevirir. Müştəri əvvəl keşini yoxlaya, sonra DNS resolver-ə müraciət edə bilər. Adi sorğular UDP 53, bəzi böyük cavablar və zona ötürmələri TCP 53 istifadə edir. `nslookup` cavab verən serveri göstərir; IP işləyib ad işləmirsə, DNS parametrlərini və köhnə keşi yoxlayın.\n\n",
+      "text": "DNS `portal.example.test` kimi adı IP ünvanına çevirir. Müştəri əvvəl keşini yoxlaya, sonra DNS ad həlli xidməti-ə müraciət edə bilər. Adi sorğular UDP 53, bəzi böyük cavablar və zona ötürmələri TCP 53 istifadə edir. `nslookup` cavab verən serveri göstərir; IP işləyib ad işləmirsə, DNS parametrlərini və köhnə keşi yoxlayın.\n\n",
       "size": 16
     },
     {
@@ -65,7 +64,7 @@
     },
     {
       "type": "text",
-      "text": "Windows-da `ipconfig /all` IPv4, maska, gateway, DHCP serveri, DNS və lease müddətini göstərir. Linux-da `ip addr`, `ip route`, `resolvectl status` (varsa), macOS-da `ifconfig` və `scutil --dns` istifadə oluna bilər. Nümunə: `IPv4 Address: 192.168.10.21`, `Subnet Mask: 255.255.255.0`, `Default Gateway: 192.168.10.1`, `DHCP Server: 192.168.10.1`, `DNS Servers: 192.168.10.53`. Çıxış formatı OS və versiyaya görə dəyişir.\n\n",
+      "text": "Windows-da `ipconfig /all` IPv4, maska, şlüz, DHCP serveri, DNS və icarə müddətini göstərir. Linux-da `ip addr`, `ip route`, `resolvectl status` (varsa), macOS-da `ifconfig` və `scutil --dns` istifadə oluna bilər. Nümunə: `IPv4 Address: 192.168.10.21`, `Subnet Mask: 255.255.255.0`, `Default Gateway: 192.168.10.1`, `DHCP Server: 192.168.10.1`, `DNS Servers: 192.168.10.53`. Çıxış formatı əməliyyat sistemi və versiyaya görə dəyişir.\n\n",
       "size": 16
     },
     {
@@ -77,67 +76,67 @@
     },
     {
       "type": "text",
-      "text": "`ping` ICMP Echo ilə əlaqəni sınayır; cavab yoxluğu cihazın sönük olduğunu sübut etmir, çünki ICMP bloklana bilər. Windows `tracert`, Linux/macOS `traceroute` hop-ları göstərir. Nümunə `ping 192.168.20.1`: `Reply from 192.168.20.1: bytes=32 time<1ms TTL=255`; `tracert` hop-ları: `1 192.168.10.1 <1 ms`, `2 192.168.20.10 1 ms`. Windows `netstat -ano`, Linux `ss -tuln`; nümunə `LISTEN 0 128 0.0.0.0:22`. OS, icazə və firewall nəticəyə təsir edir.\n\n",
+      "text": "`ping` ICMP Echo ilə əlaqəni sınayır; cavab yoxluğu cihazın sönük olduğunu sübut etmir, çünki ICMP bloklana bilər. Windows `tracert`, Linux/macOS `traceroute` şəbəkə keçidi-ları göstərir. Nümunə `ping 192.168.20.1`: `Reply from 192.168.20.1: bytes=32 time<1ms TTL=255`; `tracert` şəbəkə keçidi-ları: `1 192.168.10.1 <1 ms`, `2 192.168.20.10 1 ms`. Windows `netstat -ano`, Linux `ss -tuln`; nümunə `LISTEN 0 128 0.0.0.0:22`. əməliyyat sistemi, icazə və şəbəkə ekranı nəticəyə təsir edir.\n\n",
       "size": 16
     },
     {
       "type": "text",
-      "text": "Lab 2 — iki LAN topologiyası\n",
+      "text": "Laboratoriya 2 — iki LAN topologiyası\n",
       "size": 20,
       "color": "#1565C0",
       "bold": true
     },
     {
       "type": "text",
-      "text": "Packet Tracer-də LAN A `192.168.10.0/24`, LAN B `192.168.20.0/24` qurun və iki Ethernet portlu router-i araya qoşun: `G0/0` A-ya, `G0/1` B-yə. PC-A `192.168.10.10/24`, PC-B `192.168.20.10/24` olsun. `.0` şəbəkə, `.255` broadcast ünvanıdır, hosta verilməz. A gateway-i `192.168.10.1`, B gateway-i `192.168.20.1` olacaq.\n\n",
+      "text": "Packet Tracer-də LAN A `192.168.10.0/24`, LAN B `192.168.20.0/24` qurun və iki Ethernet portlu marşrutlaşdırıcını araya qoşun: `G0/0` A-ya, `G0/1` B-yə. PC-A `192.168.10.10/24`, PC-B `192.168.20.10/24` olsun. `.0` şəbəkə, `.255` yayım ünvanıdır, kompüterə verilməz. A şlüzü `192.168.10.1`, B şlüzü `192.168.20.1` olacaq.\n\n",
       "size": 16
     },
     {
       "type": "text",
-      "text": "Lab 2 — IOS və gateway qurulması\n",
+      "text": "Laboratoriya 2 — IOS və şlüz qurulması\n",
       "size": 20,
       "color": "#1565C0",
       "bold": true
     },
     {
       "type": "text",
-      "text": "Router CLI: `enable`, `configure terminal`, `interface g0/0`, `ip address 192.168.10.1 255.255.255.0`, `no shutdown`; sonra `interface g0/1`, `ip address 192.168.20.1 255.255.255.0`, `no shutdown`, `end`. Bəzi modellərdə interfeys `g0/0/0` və ya `fa0/0` adlanır; cihazın adını yoxlayın. PC-lərə öz LAN gateway-ini yazın. `show ip interface brief` hər iki port üçün `up/up` göstərməlidir.\n\n",
+      "text": "Marşrutlaşdırıcı CLI: `enable`, `configure terminal`, `interface g0/0`, `ip address 192.168.10.1 255.255.255.0`, `no shutdown`; sonra `interface g0/1`, `ip address 192.168.20.1 255.255.255.0`, `no shutdown`, `end`. Bəzi modellərdə interfeys `g0/0/0` və ya `fa0/0` adlanır; cihazın adını yoxlayın. PC-lərə öz LAN şlüzünü yazın. `show ip interface brief` hər iki port üçün `up/up` göstərməlidir.\n\n",
       "size": 16
     },
     {
       "type": "text",
-      "text": "Lab 2 — ping və traceroute ilə yoxlama\n",
+      "text": "Laboratoriya 2 — ping və traceroute ilə yoxlama\n",
       "size": 20,
       "color": "#1565C0",
       "bold": true
     },
     {
       "type": "text",
-      "text": "Əvvəl hər PC-dən öz gateway-inə ping, sonra PC-A-dan `192.168.20.10`-a ping edin. İlk paket ARP səbəbilə itə bilər; təkrarlayın. Router `show ip route` nəticəsində `C 192.168.10.0/24` və `C 192.168.20.0/24` birbaşa bağlı marşrutları görünməlidir. `tracert 192.168.20.10` (Linux/macOS `traceroute`) ilk hop-da `192.168.10.1` göstərməlidir. Uğursuzluqda kabel, maska, gateway, interfeys və ICMP filtrlərini yoxlayın.\n\n",
+      "text": "Əvvəl hər PC-dən öz şlüzünə ping, sonra PC-A-dan `192.168.20.10`-a ping edin. İlk paket ARP səbəbilə itə bilər; təkrarlayın. Marşrutlaşdırıcı `show ip route` nəticəsində `C 192.168.10.0/24` və `C 192.168.20.0/24` birbaşa bağlı marşrutları görünməlidir. `tracert 192.168.20.10` (Linux/macOS `traceroute`) ilk şəbəkə keçidi-da `192.168.10.1` göstərməlidir. Uğursuzluqda kabel, maska, şlüz, interfeys və ICMP filtrlərini yoxlayın.\n\n",
       "size": 16
     },
     {
       "type": "text",
-      "text": "Lab 3 — router DHCP pool\n",
+      "text": "Laboratoriya 3 — marşrutlaşdırıcı DHCP ünvan hovuzu\n",
       "size": 20,
       "color": "#1565C0",
       "bold": true
     },
     {
       "type": "text",
-      "text": "Bu, Lab 2-dən ayrı DHCP laboratoriyasıdır. Gateway-i hovuzdan çıxarın: `ip dhcp excluded-address 192.168.10.1 192.168.10.20`; sonra `ip dhcp pool LAN10`, `network 192.168.10.0 255.255.255.0`, `default-router 192.168.10.1`, `dns-server 192.168.10.53`, `end`. Router-in LAN interfeysi `192.168.10.1/24` və aktiv olmalıdır. Excluded-address statik ünvanın başqa qurğuya verilməsinin qarşısını alır; DNS IP-si laboratoriyadakı serverə uyğunlaşdırıla bilər.\n\n",
+      "text": "Bu, Laboratoriya 2-dən ayrı DHCP laboratoriyasıdır. Şlüzü hovuzdan çıxarın: `ip dhcp excluded-address 192.168.10.1 192.168.10.20`; sonra `ip dhcp pool LAN10`, `network 192.168.10.0 255.255.255.0`, `default-router 192.168.10.1`, `dns-server 192.168.10.53`, `end`. Marşrutlaşdırıcının LAN interfeysi `192.168.10.1/24` və aktiv olmalıdır. Ünvanı istisna edən əmr statik ünvanın başqa qurğuya verilməsinin qarşısını alır; DNS IP-si laboratoriyadakı serverə uyğunlaşdırıla bilər.\n\n",
       "size": 16
     },
     {
       "type": "text",
-      "text": "Lab 3 — DORA-nı izləmək\n",
+      "text": "Laboratoriya 3 — DORA-nı izləmək\n",
       "size": 20,
       "color": "#1565C0",
       "bold": true
     },
     {
       "type": "text",
-      "text": "Packet Tracer PC-ni DHCP-yə qoyub `ipconfig /renew` edin (simulyasiya PC-sində Desktop > IP Configuration > DHCP də mümkündür). Router-də `show ip dhcp binding` təxminən `192.168.10.21  0060.5C...  Automatic` göstərməlidir; MAC/format fərqlənə bilər. Simulation Mode-da DHCP filtri seçib Discover, Offer, Request, ACK paketlərini addım-addım izləyin. İcarə gəlmirsə pool network, `up/up` interfeys, kabel və eyni VLAN-ı yoxlayın; başqa subnet üçün relay lazım ola bilər, bu labda yox.\n\n",
+      "text": "Packet Tracer PC-ni DHCP-yə qoyub `ipconfig /renew` edin (simulyasiya PC-sində Desktop > IP Configuration > DHCP də mümkündür). marşrutlaşdırıcıda `show ip dhcp binding` təxminən `192.168.10.21  0060.5C...  Automatic` göstərməlidir; MAC/format fərqlənə bilər. Simulation Mode-da DHCP filtri seçib Discover, Offer, Request, ACK paketlərini addım-addım izləyin. İcarə gəlmirsə ünvan hovuzunun şəbəkəsi, `up/up` interfeys, kabel və eyni VLAN-ı yoxlayın; başqa alt şəbəkə üçün relay lazım ola bilər, bu laboratoriyada yox.\n\n",
       "size": 16
     },
     {
@@ -162,5 +161,5 @@
     }
   ],
   "requires_visual": true,
-  "visual_description": "İki LAN-ı birləşdirən Cisco router, DORA oxları və DNS sorğusu."
+  "visual_description": "İki LAN-ı birləşdirən Cisco marşrutlaşdırıcı, DORA oxları və DNS sorğusu."
 }
