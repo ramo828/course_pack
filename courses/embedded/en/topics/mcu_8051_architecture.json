@@ -1,0 +1,48 @@
+{
+  "id": "mcu_8051_architecture",
+  "title": "8051/MCS-51: CPU, memory, and peripherals",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://www.keil.com/dd/docs/datashts/atmel/at89s51_ds.pdf",
+    "https://www.microchip.com/en-us/product/AT89S51"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "The 8051, also called MCS-51, is an 8-bit microcontroller family. The classic core combines a CPU, program and data memory spaces, timers, serial communication, interrupts, and four 8-bit I/O ports. Many modern chips are compatible derivatives, not identical copies: memory sizes, clocking, peripherals, and timing must be checked in the exact device datasheet.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "IMPORTANT REGISTERS\n\nA (accumulator) is the main operand for many arithmetic and logic instructions; B supports operations such as multiply and divide. R0–R7 are working registers in one of four selectable banks. PSW holds flags and the bank-select bits. DPTR is a 16-bit data pointer, SP tracks the stack, and PC holds the next instruction address. Special Function Registers (SFRs) expose control registers and I/O ports at defined addresses.\n\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "MEMORY AND I/O\n\nThe architecture distinguishes code memory from data memory. MOVC reads a byte from code space; MOVX accesses external data space on devices that implement it. Internal RAM, bit-addressable locations, register banks, and SFRs have distinct roles and address rules. P0–P3 are byte-wide ports on the classic device; P0 has open-drain behavior and normally needs external pull-ups when used as general-purpose I/O. Consult the part's pin and electrical specifications before connecting a load.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Classic MCS-51 interrupt vectors (verify the selected derivative):\nReset       0000h\nExternal 0  0003h\nTimer 0     000Bh\nExternal 1  0013h\nTimer 1     001Bh\nSerial      0023h",
+      "showCopyButton": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "                 +------------------+\n                 |       CPU        |\n                 | A, B, PSW, PC    |\n                 | R0-R7, DPTR, SP  |\n                 +--------+---------+\n                          |\n       +------------------+------------------+\n       |                  |                  |\n+------v------+    +------v------+    +------v------+\n| Code space  |    | Data RAM /  |    | SFRs: ports,|\n| MOVC reads  |    | register bank|    | timers, etc.|\n      +-------------+    +-------------+    +-------------+ \n                                               |\n                                         +-----v-----+\n                                         | P0-P3 pins |",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Check the exact chip",
+      "text": "The original 8051 has well-known memory and timing characteristics, but compatible derivatives vary. Do not copy memory sizes, vector tables, port electrical assumptions, or machine-cycle calculations without checking the target datasheet."
+    }
+  ],
+  "testId": "embedded_test_mcu_8051_architecture_en",
+  "requires_visual": true,
+  "visual_description": "Show an 8051 block diagram with CPU registers, code/data memory spaces, SFRs, ports, timers, serial unit, and interrupt-vector table."
+}

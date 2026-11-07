@@ -1,0 +1,41 @@
+{
+  "id": "mcu_8051_assembly",
+  "title": "8051 assembly: təlimatlar, ünvanlama və kəsilmələr",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://support.arm.com/documentation/101655/latest/8051-Instruction-Set-Manual/Instructions",
+    "https://www.keil.com/dd/docs/datashts/atmel/at89s51_ds.pdf"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Assembly dili prosessorun yerinə yetirdiyi əməliyyatları adlandırır. Assembler təlimat adlarını maşın kodu baytlarına çevirir; ORG və END kimi direktivlər assembler-ə istiqamət verir, CPU təlimatı deyil. Sintaksis assembler-dən asılı olaraq dəyişə bilər.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "OPERANDLARIN OXUNMASI\n\n`#25h` birbaşa 25h sabitini bildirir; `#` olmadan `25h` adətən birbaşa ünvanı göstərir. `Rn` registr seçir, `@R0` və ya `@R1` isə registri daxili verilənlər ünvanı kimi istifadə edir. Bit ünvanı bit-ünvanlı baytdakı bir biti seçə bilər. Dəyəri onu saxlayan ünvandan fərqləndirin.\n\n`MOV` dəstəklənən operandlar arasında verilənləri ötürür. `MOVC` kod yaddaşını oxuyur, `MOVX` xarici verilənlər yaddaşına müraciət edir. `SETB` və `CLR` biti dəyişir; `DJNZ` azaldır və sıfır deyilsə keçid edir. `CALL`/`RET` stekdən istifadə edir; steki hədəf çipə uyğun şəkildə başladın və ölçüləndirin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "asm",
+      "code": "; İzah üçün 8051 assembly nümunəsi (assembler sintaksisi dəyişə bilər)\nORG 0000H\n    LJMP START\n\nORG 0030H\nSTART:\n    MOV SP, #5FH\n    SETB P1.0       ; port latch bitini qur\nMAIN:\n    CPL P1.0        ; çıxış bitini tərsinə çevir\n    ACALL DELAY\n    SJMP MAIN\n\nDELAY:\n    MOV R7, #200\nWAIT:\n    DJNZ R7, WAIT\n    RET\nEND",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "KƏSİLMƏLƏR VƏ VAXTLAMA\n\nKəsilmə vektoru emalçının başladığı və ya keçidlə çatdığı sabit giriş ünvanıdır. Emalçını qısa saxlayın, dəyişdirdiyi registrləri qoruyun və arxitekturanın tələb etdiyi kəsilmədən qayıdış təlimatından istifadə edin. Gecikmə dövrəsi yalnız nümunədir: müddət takt tezliyindən, təlimat vaxtlamasından və çip variantından asılıdır. Sabit period üçün datasheet-ə əsasən aparat taymerini qurun, nəticəni sazlayıcı və ya ölçü aləti ilə yoxlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "warning",
+      "title": "Aparat təhlükəsizliyi",
+      "text": "Port pini enerji mənbəyi deyil, məntiq siqnalıdır. LED, mühərrik və ya rele üçün uyğun sürücü işlədin və pinin cərəyan hədlərinə riayət edin. Hədəf datasheet-indən assembler sintaksisini, yaddaş xəritəsini, port davranışını, kəsilmə vektorlarını və təlimat vaxtlamasını yoxlayın."
+    }
+  ],
+  "testId": "embedded_test_mcu_8051_assembly_az",
+  "requires_visual": true,
+  "visual_description": "Təlimatın gətirilməsi və icrasını, immediate/direct/indirect ünvanlamanı, CALL və RET zamanı stekin istifadəsini və qısa kəsilmə emalçısının axınını göstərin."
+}

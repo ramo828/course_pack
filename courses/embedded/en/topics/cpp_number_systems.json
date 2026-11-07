@@ -40,6 +40,11 @@
       "type": "warning",
       "title": "Important note",
       "text": "To convert binary to decimal, add the place weights for each `1`. To convert decimal to binary, repeatedly divide by 2 and read remainders in reverse. Bit positions start at 0. Check shift width and target type; use the board's reference manual before writing hardware registers."
+    },
+    {
+      "type": "text",
+      "text": "SIGNED VALUES, BCD, AND BYTE ORDER\n\nA bit pattern has no signed meaning until its type and width are known. In 8-bit two's-complement representation, `1111 1111` is −1 and the range is −128 through 127; the same bits as `uint8_t` mean 255. BCD stores each decimal digit in a four-bit nibble: decimal 59 is BCD `0x59`, but ordinary hexadecimal `0x59` is decimal 89. These are different encodings.\n\nFor a multi-byte number, endianness describes the order of bytes in memory or a data format: big-endian stores the most-significant byte first; little-endian stores the least-significant byte first. It does not reverse bits inside a byte. Check the protocol or peripheral documentation before decoding bytes.",
+      "size": 16
     }
   ],
   "testId": "embedded_test_cpp_number_systems_en",

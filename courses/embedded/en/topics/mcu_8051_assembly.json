@@ -1,0 +1,41 @@
+{
+  "id": "mcu_8051_assembly",
+  "title": "8051 assembly: instructions, addressing, and interrupts",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://support.arm.com/documentation/101655/latest/8051-Instruction-Set-Manual/Instructions",
+    "https://www.keil.com/dd/docs/datashts/atmel/at89s51_ds.pdf"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Assembly language names the operations the processor executes. An assembler translates mnemonics into machine-code bytes; directives such as ORG and END guide the assembler and are not CPU instructions. The exact syntax can vary between assemblers.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "READING OPERANDS\n\n`#25h` means the immediate constant 25h; `25h` without `#` normally denotes a direct address. `Rn` selects a register, while `@R0` or `@R1` uses a register as an indirect internal-data address. A bit address can name a single bit in a bit-addressable byte. Always distinguish a value from the address that stores it.\n\n`MOV` transfers data between supported operands. `MOVC` reads code memory and `MOVX` transfers data to or from external data memory. `SETB` and `CLR` manipulate a bit; `DJNZ` decrements and branches when nonzero. `CALL`/`RET` use the stack, so initialize and size the stack safely for the chosen device.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "asm",
+      "code": "; Illustrative pseudocode-style 8051 assembly (assembler syntax varies)\nORG 0000H\n    LJMP START\n\nORG 0030H\nSTART:\n    MOV SP, #5FH\n    SETB P1.0       ; set the port latch bit\nMAIN:\n    CPL P1.0        ; toggle output bit\n    ACALL DELAY\n    SJMP MAIN\n\nDELAY:\n    MOV R7, #200\nWAIT:\n    DJNZ R7, WAIT\n    RET\nEND",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "INTERRUPTS AND TIMING\n\nAn interrupt vector is a fixed entry address where a handler begins or is reached by a jump. Keep the handler short, preserve any registers it changes, and return with the interrupt-return instruction required by the architecture. A delay loop is only illustrative: its duration depends on the clock, instruction timing, and derivative. For reliable periodic work, configure a hardware timer from the datasheet and verify the result with a debugger or measurement tool.\n\n",
+      "size": 16
+    },
+    {
+      "type": "warning",
+      "title": "Hardware safety",
+      "text": "A port pin is a logic signal, not a power supply. Use a suitable driver for LEDs, motors, or relays and respect pin current limits. Confirm the assembler's syntax, device memory map, port behavior, interrupt vectors, and instruction timing in the target datasheet."
+    }
+  ],
+  "testId": "embedded_test_mcu_8051_assembly_en",
+  "requires_visual": true,
+  "visual_description": "Show instruction fetch and execution, immediate/direct/indirect addressing, stack use by CALL and RET, and a short interrupt-handler flow."
+}

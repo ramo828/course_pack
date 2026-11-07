@@ -1,0 +1,48 @@
+{
+  "id": "mcu_8051_architecture",
+  "title": "8051/MCS-51: prosessor, yaddaş və periferiyalar",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://www.keil.com/dd/docs/datashts/atmel/at89s51_ds.pdf",
+    "https://www.microchip.com/en-us/product/AT89S51"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "8051, MCS-51 kimi də tanınan 8 bitlik mikrokontroller ailəsidir. Klassik nüvədə CPU, proqram və verilənlər yaddaşı sahələri, taymerlər, serial rabitə, kəsilmələr və dörd 8 bitlik giriş/çıxış portu var. Müasir uyğun çiplər tam eyni deyil: yaddaş ölçüsü, takt quruluşu, periferiyalar və vaxtlama üçün konkret çipin datasheet-ini yoxlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS REGİSTRLƏR\n\nA (akkumulyator) bir çox hesab və məntiq əməliyyatının əsas operandıdır; B registri vurma və bölmə kimi əməliyyatları dəstəkləyir. R0–R7 dörd seçilə bilən registr bankından birinin işçi registrləridir. PSW bayraqları və bank seçmə bitlərini saxlayır. DPTR 16 bitlik verilənlər göstəricisidir, SP steki izləyir, PC isə növbəti təlimatın ünvanını saxlayır. Xüsusi Funksiya Registrləri (SFR) idarəetmə registrlərinə və giriş/çıxış portlarına çıxış verir.\n\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "YADDAŞ VƏ GİRİŞ/ÇIXIŞ\n\nArxitektura kod yaddaşını verilənlər yaddaşından ayırır. MOVC kod sahəsindən bayt oxuyur; MOVX bunu dəstəkləyən çiplərdə xarici verilənlər sahəsinə müraciət edir. Daxili RAM, bit ünvanlı sahələr, registr bankları və SFR-lər fərqli funksiyalara və ünvanlama qaydalarına malikdir. Klassik çipdə P0–P3 bayt genişlikli portlardır; P0 açıq drenajlıdır və ümumi giriş/çıxış kimi istifadə edilərkən adətən xarici pull-up tələb edir. Yük qoşmazdan əvvəl çipin pin və elektrik göstəricilərini yoxlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Klassik MCS-51 kəsilmə vektorları (seçilən türevi yoxlayın):\nReset       0000h\nXarici 0    0003h\nTimer 0     000Bh\nXarici 1    0013h\nTimer 1     001Bh\nSerial      0023h",
+      "showCopyButton": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "                 +------------------+\n                 |       CPU        |\n                 | A, B, PSW, PC    |\n                 | R0-R7, DPTR, SP  |\n                 +--------+---------+\n                          |\n       +------------------+------------------+\n       |                  |                  |\n+------v------+    +------v------+    +------v------+\n| Kod sahəsi  |    | Verilənlər  |    | SFR: portlar,|\n| MOVC oxuyur |    | RAM / bank  |    | taymerlər və.|\n      +-------------+    +-------------+    +-------------+ \n                                               |\n                                         +-----v-----+\n                                         | P0-P3 pinləri|",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Dəqiq çip modelini yoxlayın",
+      "text": "Klassik 8051-in məlum yaddaş və vaxtlama xüsusiyyətlərinə baxmayaraq, uyğun türevlər fərqlənir. Hədəf datasheet-ini yoxlamadan yaddaş ölçülərini, vektor cədvəlini, portların elektrik xüsusiyyətlərini və ya maşın dövrü hesablamalarını tətbiq etməyin."
+    }
+  ],
+  "testId": "embedded_test_mcu_8051_architecture_az",
+  "requires_visual": true,
+  "visual_description": "CPU registrlərini, kod/verilənlər yaddaş sahələrini, SFR-ləri, portları, taymerləri, serial bloku və kəsilmə vektorları cədvəlini göstərən 8051 blok sxemi hazırlayın."
+}

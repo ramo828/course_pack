@@ -1,0 +1,48 @@
+{
+  "id": "mcu_8051_architecture",
+  "title": "8051/MCS-51: CPU, bellek ve çevre birimleri",
+  "difficulty": "medium",
+  "estimatedMinutes": 12,
+  "sources": [
+    "https://www.keil.com/dd/docs/datashts/atmel/at89s51_ds.pdf",
+    "https://www.microchip.com/en-us/product/AT89S51"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "8051, MCS-51 olarak da bilinen 8 bitlik bir mikrodenetleyici ailesidir. Klasik çekirdekte CPU, program ve veri bellek alanları, zamanlayıcılar, seri iletişim, kesmeler ve dört adet 8 bit G/Ç portu bulunur. Güncel uyumlu yongalar birebir aynı değildir: bellek boyutları, saat yapısı, çevre birimleri ve zamanlama için kullanılan parçanın veri sayfasına bakılmalıdır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ÖNEMLİ YAZMAÇLAR\n\nA (akümülatör), aritmetik ve mantık komutlarının çoğunda ana işlenendir; B, çarpma ve bölme gibi işlemleri destekler. R0–R7, seçilebilen dört yazmaç bankasından birindeki çalışma yazmaçlarıdır. PSW bayrakları ve banka seçim bitlerini tutar. DPTR 16 bitlik veri işaretçisidir, SP yığını izler ve PC sıradaki komutun adresini tutar. Özel İşlev Yazmaçları (SFR), denetim yazmaçlarına ve G/Ç portlarına erişim sağlar.\n\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "BELLEK VE G/Ç\n\nMimari, kod belleği ile veri belleğini birbirinden ayırır. MOVC kod alanından bayt okur; MOVX, destekleyen aygıtlarda harici veri alanına erişir. Dahili RAM, bit adreslenebilir konumlar, yazmaç bankaları ve SFR'lerin farklı görevleri ve adresleme kuralları vardır. Klasik yongada P0–P3 bayt genişliğinde portlardır; P0 açık drençlidir ve genel amaçlı G/Ç olarak kullanıldığında normalde harici pull-up gerekir. Yük bağlamadan önce yonganın pin ve elektrik özelliklerini kontrol edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Klasik MCS-51 kesme vektörleri (seçilen türevi doğrulayın):\nReset       0000h\nHarici 0    0003h\nTimer 0     000Bh\nHarici 1    0013h\nTimer 1     001Bh\nSeri        0023h",
+      "showCopyButton": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "                 +------------------+\n                 |       CPU        |\n                 | A, B, PSW, PC    |\n                 | R0-R7, DPTR, SP  |\n                 +--------+---------+\n                          |\n       +------------------+------------------+\n       |                  |                  |\n+------v------+    +------v------+    +------v------+\n| Kod alanı   |    | Verilənlər  |    | SFR: portlar,|\n| MOVC oxuyur |    | RAM / bank  |    | taymerlər və.|\n      +-------------+    +-------------+    +-------------+ \n                                               |\n                                         +-----v-----+\n                                         | P0-P3 pinləri|",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Tam yonga modelini kontrol edin",
+      "text": "Klasik 8051'in bilinen bellek ve zamanlama özellikleri olsa da uyumlu türevler farklılık gösterir. Hedef veri sayfasını kontrol etmeden bellek boyutlarını, vektör tablosunu, port elektrik özelliklerini veya makine çevrimi hesaplarını kullanmayın."
+    }
+  ],
+  "testId": "embedded_test_mcu_8051_architecture_tr",
+  "requires_visual": true,
+  "visual_description": "CPU yazmaçlarını, kod/veri bellek alanlarını, SFR'leri, portları, zamanlayıcıları, seri birimi ve kesme vektör tablosunu içeren bir 8051 blok şeması gösterin."
+}

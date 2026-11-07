@@ -1,0 +1,42 @@
+{
+  "id": "python_py_code_quality",
+  "title": "Code quality: formatting, linting, and tests",
+  "difficulty": "medium",
+  "estimatedMinutes": 9,
+  "sources": [
+    "https://docs.python.org/3/library/unittest.html",
+    "https://docs.astral.sh/ruff/",
+    "https://peps.python.org/pep-0008/",
+    "https://thomasweise.github.io/programmingWithPython/"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Code quality improves when checks are repeatable and automated. A formatter applies consistent layout; a linter flags suspicious patterns and style issues; a type checker reasons about annotated types; tests verify behavior. These tools complement one another and do not prove a program is bug-free.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "python -m unittest discover -s tests\nruff check .\nruff format --check .",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "A PRACTICAL CHECK LOOP\n\n1. Write a small test for expected behavior and important edge cases.\n2. Run the tests; fix failures rather than weakening a useful assertion.\n3. Run a linter and formatter check, then review the diff.\n4. Re-run the checks before sharing the change.\n\nKeep tests deterministic: control time, randomness, environment, and external services where practical. Put development tools in the project's documented development setup so another person can reproduce the checks. Start with a manageable set of rules, then tighten it as the project grows.\n\n",
+      "size": 16
+    },
+    {
+      "type": "warning",
+      "title": "Tools have different jobs",
+      "text": "Formatting is not linting, and passing lint or type checks is not a substitute for tests. A passing test suite only covers the cases it actually exercises."
+    },
+    {
+      "type": "text",
+      "text": "Related reading: Thomas Weise, Programming with Python (2024–2026), author-created material under CC BY-NC-SA 4.0. This lesson is newly written and reproduces no book passages or figures.",
+      "size": 14
+    }
+  ],
+  "testId": "python_test_py_code_quality_en",
+  "requires_visual": false
+}

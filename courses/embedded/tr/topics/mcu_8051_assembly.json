@@ -1,0 +1,41 @@
+{
+  "id": "mcu_8051_assembly",
+  "title": "8051 assembly: komutlar, adresleme ve kesmeler",
+  "difficulty": "medium",
+  "estimatedMinutes": 14,
+  "sources": [
+    "https://support.arm.com/documentation/101655/latest/8051-Instruction-Set-Manual/Instructions",
+    "https://www.keil.com/dd/docs/datashts/atmel/at89s51_ds.pdf"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Assembly dili, işlemcinin yürüttüğü işlemleri adlandırır. Assembler, komut adlarını makine kodu baytlarına çevirir; ORG ve END gibi yönergeler assembler'ı yönlendirir, CPU komutu değildir. Sözdizimi assembler'a göre değişebilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "İŞLENENLERİ OKUMA\n\n`#25h` doğrudan 25h sabitini belirtir; `#` olmadan `25h` genellikle doğrudan bir adresi gösterir. `Rn` bir yazmaç seçer; `@R0` veya `@R1` ise yazmacı dahili veri adresi olarak kullanır. Bit adresi, bit adreslenebilir bir bayttaki tek biti seçebilir. Değer ile bu değeri saklayan adresi birbirinden ayırın.\n\n`MOV` desteklenen işlenenler arasında veri aktarır. `MOVC` kod belleğini okur, `MOVX` harici veri belleğine erişir. `SETB` ve `CLR` tek bir biti değiştirir; `DJNZ` azaltıp sıfır değilse dallanır. `CALL`/`RET` yığını kullanır; yığını hedef aygıta uygun biçimde başlatıp boyutlandırın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "asm",
+      "code": "; Açıklayıcı 8051 assembly örneği (assembler sözdizimi değişebilir)\nORG 0000H\n    LJMP START\n\nORG 0030H\nSTART:\n    MOV SP, #5FH\n    SETB P1.0       ; port latch bitini ayarla\nMAIN:\n    CPL P1.0        ; çıkış bitini tersle\n    ACALL DELAY\n    SJMP MAIN\n\nDELAY:\n    MOV R7, #200\nWAIT:\n    DJNZ R7, WAIT\n    RET\nEND",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "KESMELER VE ZAMANLAMA\n\nKesme vektörü, işleyicinin başladığı ya da bir sıçramayla ulaşıldığı sabit giriş adresidir. İşleyiciyi kısa tutun, değiştirdiği yazmaçları koruyun ve mimarinin istediği kesmeden dönüş komutunu kullanın. Gecikme döngüsü yalnızca örnektir: süresi saat frekansına, komut zamanlamasına ve türeve bağlıdır. Düzenli zamanlama için veri sayfasına göre donanım zamanlayıcısını kurun ve sonucu hata ayıklayıcı ya da ölçüm aracıyla doğrulayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "warning",
+      "title": "Donanım güvenliği",
+      "text": "Port pini güç kaynağı değildir; yalnızca mantık sinyalidir. LED, motor veya röle için uygun sürücü kullanın ve pin akım sınırlarına uyun. Hedef veri sayfasından assembler sözdizimini, bellek eşlemesini, port davranışını, kesme vektörlerini ve komut sürelerini doğrulayın."
+    }
+  ],
+  "testId": "embedded_test_mcu_8051_assembly_tr",
+  "requires_visual": true,
+  "visual_description": "Komut getirme ve yürütmeyi, immediate/direct/indirect adreslemeyi, CALL ve RET ile yığın kullanımını ve kısa bir kesme işleyicisinin akışını gösterin."
+}
