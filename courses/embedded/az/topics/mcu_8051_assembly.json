@@ -26,6 +26,27 @@
     },
     {
       "type": "text",
+      "text": "NÜMUNƏNİN SƏTİR-SƏTİR OXUNMASI\n\nORG 0000H reset girişini assembler-in yaddaş xəritəsində yerləşdirir; bu, prosessor təlimatı deyil, direktivdir. LJMP START resetdən sonra əsas kodun ünvanına keçir. ORG 0030H START etiketini vektor sahəsindən sonra yerləşdirir. MOV SP,#5FH bu nümunədə steki başladır; konkret RAM xəritəsinə və kəsilmə/çağırış dərinliyinə uyğun təhlükəsiz qiymət seçin. SETB P1.0 port latch-inə 1 yazır. CPL P1.0 həmin biti tərsinə çevirir. ACALL DELAY qayıdış ünvanını stekə yazıb yaxın altproqrama keçir. MOV R7,#200 dövr sayını yükləyir. DJNZ R7,WAIT R7-ni azaldır və sıfır olmayana qədər təkrar edir. RET yadda saxlanmış qayıdış ünvanını stekdən götürür. SJMP MAIN çıxışın çevrilməsini təkrarlayır. END assembler-ə mənbə faylının bitdiyini bildirir; CPU-da icra olunmur.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "TƏLİMAT AİLƏLƏRİ VƏ VAXTLAMA\n\nMOV mənbəni dəyişmədən qiyməti köçürür. Hesab və məntiq təlimatlarının çoxu A registrindən istifadə edir və PSW bayraqlarının bəzilərini dəyişə bilər. SJMP, AJMP, LJMP, JZ, JC və DJNZ kimi keçidlərin məsafə və şərt qaydaları fərqlidir; kodlaşdırma və mümkün operandlar üçün təlimat kitabçasına baxın. Maşın dövrələrinin sayı nüvədən və bəzən təlimatın özündən asılıdır; müasir variantlarda takt/dövr nisbəti də fərqlənə bilər. İcra vaxtını mənbə kodundakı sətirlərin sayından çıxarmayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Klassik 8051 təlimat qrupları (operand formalarını yoxlayın):\nVerilənlər: MOV, MOVC (kod sahəsi), MOVX (xarici verilənlər), XCH, PUSH, POP\nHesab:     ADD, ADDC (CY-ni əlavə edir), SUBB (borcla çıxır), INC, DEC, MUL AB, DIV AB, DA A\nMəntiq:    ANL, ORL, XRL, CLR, SETB, CPL, RL, RLC, RR, RRC, SWAP\nKeçidlər:  SJMP, AJMP, LJMP, JZ, JNZ, JC, JNC, CJNE, DJNZ\nAltproqram: ACALL, LCALL, RET; kəsilmə emalçısı RETI ilə qayıdır",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "OPERAND VƏ QAYIDIŞ TƏLİMATI SƏHVLƏRİ\n\n`MOV A,30H` birbaşa 30h ünvanındakı baytı oxuyur; `MOV A,#30H` isə 30h sabitini yükləyir. `MOV A,@R0` R0-da saxlanılan daxili verilənlər ünvanını oxuyur. # və @ işarələri məna fərqi yaradır; həm qiyməti, həm ünvanı izləyin. ADDC cəmi CY ilə birlikdə hesablayır; SUBB mənbəni və CY-ni çıxır. DA A qablaşdırılmış BCD toplamasından sonra nəticəni düzəldir, ümumi onluğa çevirmə təlimatı deyil. RET altproqramdan qayıdır; RETI kəsilmə xidmətini bitirərək kəsilmə idarəedicisinə siqnal verir. Kəsilmə emalçısında RETI işlədin. Əsas proqramın gözlədiyi registrləri bərpa edin və ümumi dəyişənlər üçün sinxronlaşdırma ehtiyacını nəzərə alın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
       "text": "KƏSİLMƏLƏR VƏ VAXTLAMA\n\nKəsilmə vektoru emalçının başladığı və ya keçidlə çatdığı sabit giriş ünvanıdır. Emalçını qısa saxlayın, dəyişdirdiyi registrləri qoruyun və arxitekturanın tələb etdiyi kəsilmədən qayıdış təlimatından istifadə edin. Gecikmə dövrəsi yalnız nümunədir: müddət takt tezliyindən, təlimat vaxtlamasından və çip variantından asılıdır. Sabit period üçün datasheet-ə əsasən aparat taymerini qurun, nəticəni sazlayıcı və ya ölçü aləti ilə yoxlayın.\n\n",
       "size": 16
     },

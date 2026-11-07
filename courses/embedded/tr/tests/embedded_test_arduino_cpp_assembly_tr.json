@@ -1,0 +1,76 @@
+{
+  "id": "embedded_test_arduino_cpp_assembly_tr",
+  "title": "Arduino C++ içinde assembly: ekleme ve performans",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "arduino_cpp_assembly",
+      "type": "multiple_choice",
+      "prompt": "8051 assembly komutları Arduino Uno sketch'inde çalıştırılabilir mi?",
+      "options": [
+        "Hayır; Uno R3 genellikle farklı komut kümesine sahip bir AVR işlemci kullanır.",
+        "Evet; tüm Arduino kartlarında 8051 işlemci vardır.",
+        "Evet, komut setup() içine yazılırsa.",
+        "Yalnızca loop() boş olduğunda."
+      ],
+      "answer": "Hayır; Uno R3 genellikle farklı komut kümesine sahip bir AVR işlemci kullanır.",
+      "explanation": "Assembly, kartın işlemci mimarisi ve araç zinciriyle eşleşmelidir."
+    },
+    {
+      "id": "q2",
+      "topicId": "arduino_cpp_assembly",
+      "type": "multiple_choice",
+      "prompt": "AVR-GCC örneğinde `+r` kısıtı ne anlama gelir?",
+      "options": [
+        "Operand genel amaçlı bir yazmaçta okunur ve yazılır.",
+        "Operand yalnızca derleme zamanı sabitidir.",
+        "Operand flash bellekte saklanır ve değiştirilemez.",
+        "Assembly bildirilmemiş herhangi bir yazmacı kullanabilir."
+      ],
+      "answer": "Operand genel amaçlı bir yazmaçta okunur ve yazılır.",
+      "explanation": "Artı işareti okunup yazılan çıktı operandını, r ise yazmaç gereksinimini belirtir."
+    },
+    {
+      "id": "q3",
+      "topicId": "arduino_cpp_assembly",
+      "type": "multiple_choice",
+      "prompt": "`asm volatile`, çevredeki C++ değişkenlerini volatile veya işlemi atomik yapar mı?",
+      "options": [
+        "Hayır; GCC'ye assembly ifadesini korumasını söyler, bunlar ayrı özelliklerdir.",
+        "Evet, ikisini de otomatik yapar.",
+        "Tüm kesmeleri güvenli hâle getirir.",
+        "Bütün derleyici optimizasyonlarını kapatır."
+      ],
+      "answer": "Hayır; GCC'ye assembly ifadesini korumasını söyler, bunlar ayrı özelliklerdir.",
+      "explanation": "Inline assembly volatile özelliği C++ volatile nesnesi, atomiklik veya tam bellek bariyeri sağlamaz."
+    },
+    {
+      "id": "q4",
+      "topicId": "arduino_cpp_assembly",
+      "type": "multiple_choice",
+      "prompt": "Assembly hızıyla ilgili hangi ifade doğrudur?",
+      "options": [
+        "Genel bir garanti yoktur; optimize edilmiş C++ aynı veya daha iyi komutlara dönüşebilir.",
+        "Assembly her zaman C++'tan hızlıdır.",
+        "C++ her zaman assembly'den hızlıdır.",
+        "Kaynak kod satır sayısı çalışma süresini belirler."
+      ],
+      "answer": "Genel bir garanti yoktur; optimize edilmiş C++ aynı veya daha iyi komutlara dönüşebilir.",
+      "explanation": "Hedefte üretilen makine kodunu inceleyin ve gözlemlenebilir eşdeğer işi ölçün."
+    },
+    {
+      "id": "q5",
+      "topicId": "arduino_cpp_assembly",
+      "type": "multiple_choice",
+      "prompt": "C++ ve assembly performansını anlamlı biçimde karşılaştırmak için ne gerekir?",
+      "options": [
+        "Aynı hedef, derleyici ve seçenekler; disassembly incelemesi; silinmeyen sonuç ve uygun tekrarlı ölçüm.",
+        "İlgisiz iki kartı bir kez kronometreyle karşılaştırmak.",
+        "Yalnızca kaynak kodu uzunluğunu ölçmek.",
+        "Derleyici işi serbestçe silebilsin diye tüm sonuçları kaldırmak."
+      ],
+      "answer": "Aynı hedef, derleyici ve seçenekler; disassembly incelemesi; silinmeyen sonuç ve uygun tekrarlı ölçüm.",
+      "explanation": "Denetimli karşılaştırma eşdeğer işi ölçmeli, optimizasyonu ve ölçüm maliyetini hesaba katmalıdır."
+    }
+  ]
+}

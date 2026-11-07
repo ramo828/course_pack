@@ -26,6 +26,27 @@
     },
     {
       "type": "text",
+      "text": "LINE-BY-LINE READING OF THE EXAMPLE\n\nORG 0000H places the reset entry in the assembler's location map; it is a directive, not an instruction. LJMP START sends reset execution to the main code. ORG 0030H places START after the vector area. MOV SP,#5FH initializes the software stack location for this example; choose a safe value for the exact RAM map and interrupt/call depth. SETB P1.0 writes a 1 to the port latch. CPL P1.0 complements that bit. ACALL DELAY pushes the return address and branches to the nearby subroutine. MOV R7,#200 loads the loop count. DJNZ R7,WAIT subtracts one and repeats while R7 is nonzero. RET pops the saved return address. SJMP MAIN repeats the toggle loop. END tells the assembler the source unit ends; it does not execute on the CPU.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "INSTRUCTION FAMILIES AND TIMING\n\nMOV transfers values without changing the source. Arithmetic and logic instructions generally operate through A and may change selected PSW flags. Branches such as SJMP, AJMP, LJMP, JZ, JC, and DJNZ have different range and condition rules; use the instruction manual for encoding and legal operands. Machine-cycle counts are specific to the core and sometimes the instruction; modern derivatives can use different clock-to-cycle ratios. Do not infer elapsed time from source lines alone.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Common classic 8051 instruction groups (check legal operand forms):\nData:     MOV, MOVC (code space), MOVX (external data), XCH, PUSH, POP\nArithmetic: ADD, ADDC (adds CY), SUBB (subtracts with borrow), INC, DEC, MUL AB, DIV AB, DA A\nLogic:    ANL, ORL, XRL, CLR, SETB, CPL, RL, RLC, RR, RRC, SWAP\nBranches: SJMP, AJMP, LJMP, JZ, JNZ, JC, JNC, CJNE, DJNZ\nSubroutines: ACALL, LCALL, RET; interrupt handler returns with RETI",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "OPERAND AND RETURN-INSTRUCTION PITFALLS\n\n`MOV A,30H` reads the byte at direct address 30h; `MOV A,#30H` loads the literal 30h. `MOV A,@R0` reads from the internal-data address held by R0. The # marker and @ marker change meaning, so trace both value and address. ADDC includes CY in the sum; SUBB subtracts both the source and CY. DA A adjusts a result after packed-BCD addition and is not a general decimal conversion. RET returns from a subroutine; RETI ends an interrupt service and signals the interrupt controller. Use RETI in an interrupt handler. Save any registers the handler changes if the interrupted code expects them preserved, and account for shared data races with main code.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
       "text": "INTERRUPTS AND TIMING\n\nAn interrupt vector is a fixed entry address where a handler begins or is reached by a jump. Keep the handler short, preserve any registers it changes, and return with the interrupt-return instruction required by the architecture. A delay loop is only illustrative: its duration depends on the clock, instruction timing, and derivative. For reliable periodic work, configure a hardware timer from the datasheet and verify the result with a debugger or measurement tool.\n\n",
       "size": 16
     },

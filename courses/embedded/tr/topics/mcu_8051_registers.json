@@ -1,0 +1,53 @@
+{
+  "id": "mcu_8051_registers",
+  "title": "8051 yazmaçları, bayraklar ve bellek haritası",
+  "difficulty": "medium",
+  "estimatedMinutes": 16,
+  "sources": [
+    "https://www.keil.com/dd/docs/datashts/atmel/at89s51_ds.pdf",
+    "https://support.arm.com/documentation/101655/latest/8051-Instruction-Set-Manual/Instructions"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Yazmaç, CPU'da veya çevre birimi denetiminde bulunan küçük ve hızlı bir saklama alanıdır. Yazmaçların tümü genel amaçlı değişken değildir: genişliği, adresi, yan etkileri ve komut kuralları yongaya özgüdür. Klasik 8051 assembly dilindeki A, B, R0, DPTR, PSW, SP ve P1 adları farklı yazmaçları veya yazmaç görünümlerini belirtir. Uyumlu 8051 yongalarının bellek ve çevre birimleri değişebileceğinden seçilen parçanın veri sayfasını kontrol edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "TEMEL YAZMAÇLAR\n\nA (ACC, akümülatör), birçok aritmetik, mantık ve veri aktarım komutunda kullanılan temel 8 bitlik işlenen ve sonuç yazmacıdır. B başka bir 8 bitlik yazmaçtır: MUL AB, 16 bitlik çarpımı B:A çiftine; DIV AB ise bölümü A'ya ve kalanı B'ye yazar. R0–R7, seçili yazmaç bankındaki sekiz adet 8 bitlik çalışma yazmacıdır. DPTR, DPH (yüksek bayt) ve DPL'den (düşük bayt) oluşan 16 bitlik veri işaretçisidir. PC, 16 bitlik program sayacıdır. SP yığın işaretçisidir; klasik çekirdekte başlangıç değeri 07h'dir ve yığın daha yüksek iç RAM adreslerine doğru büyür. Başlangıç değerine güvenmeden önce parçayı ve başlangıç kodunu kontrol edin.\n\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "PSW (Program Status Word), bit 7'den bit 0'a:\nCY  AC  F0  RS1  RS0  OV  --  P\nelde, yardımcı elde, kullanıcı bayrağı, banka seçimi, taşma, ayrılmış, parite\n\nRS1:RS0  seçilen banka  doğrudan adresler\n00       banka 0        00h–07h\n01       banka 1        08h–0Fh\n10       banka 2        10h–17h\n11       banka 3        18h–1Fh",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "PSW BAYRAKLARI\n\nCY aritmetikte elde/ödünç davranışını ve elde üzerinden döndürmeyi kaydeder. AC, bit 3'ten bit 4'e eldeyi gösterir ve BCD işlemlerinde önemlidir. OV, işaretli ikinin tümleyeni taşmasını belirtir; işaretsiz elde ile aynı değildir. F0 yazılımın kullanabileceği bayraktır. RS1:RS0 etkin yazmaç bankını seçer. Klasik çekirdekte P, A yazmacında tek sayıda 1 biti varsa kurulur. Ayrılmış bit kullanıcı verisi olarak kullanılmamalıdır. Her komut tüm bayrakları değiştirmez; komut tablosuna bakın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "asm",
+      "code": "; Değerleri ve bayrakları izleyin (klasik 8051 sözdizimi)\nMOV  A, #25H       ; sabit değer: A = 25h\nADD  A, #17H       ; A = 3Ch; AC=1, CY=0, OV=0; P=0 (çift parite)\nMOV  R0, #30H      ; R0 içinde 30h adresi var\nMOV  @R0, A        ; iç RAM[30h] = 3Ch\nMOV  DPTR, #1234H  ; DPH=12h, DPL=34h",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "BELLEK HARİTASI (KLASİK 128 BAYT İÇ RAM SÜRÜMÜ)\n\nDört yazmaç bankı 00h–1Fh alanını kaplar. Bit adreslenebilir RAM 20h–2Fh adreslerindedir: 16 bayt, ayrı ayrı adreslenebilen 128 bit sağlar. Genel amaçlı iç RAM çoğunlukla 30h–7Fh aralığındadır. 80h–FFh doğrudan adresleri sıradan alt RAM'i değil, uygulanmış SFR yazmaçlarını seçer. Bazı 8052 türevlerinde dolaylı adresleme 80h–FFh üst iç RAM alanına erişebilirken, doğrudan adresleme aynı aralıkta SFR seçer. Kod belleği, iç veri RAM'i, SFR alanı ve varsa harici veri belleği ayrı adres uzaylarıdır; aynı sayısal adres, komut ve adresleme türüne göre farklı yeri gösterebilir.\n\n",
+      "size": 16
+    },
+    {
+      "type": "warning",
+      "title": "Yazmaç haritası tüm yongalarda aynı değildir",
+      "text": "Bu harita klasik 8051 düzenini anlatır; 8051 uyumlu her yonga için evrensel değildir. Parçanın bellek haritasını ve yazmaç açıklamalarını okuyun. Bir çevre birimi yazmacına yazmak donanımı başlatabilir, bir bayrağı temizleyebilir veya ayrılmış bit kurallarına tabi olabilir."
+    }
+  ],
+  "testId": "embedded_test_mcu_8051_registers_tr",
+  "requires_visual": true,
+  "visual_description": "8051 PSW bit alanlarını ve dört yazmaç bankını klasik iç RAM ve SFR bellek haritasıyla birlikte gösterin."
+}

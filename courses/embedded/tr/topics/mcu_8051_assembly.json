@@ -26,6 +26,27 @@
     },
     {
       "type": "text",
+      "text": "ÖRNEĞİ SATIR SATIR OKUMA\n\nORG 0000H sıfırlama girişini assembler'ın konum haritasına yerleştirir; bu bir yönergedir, işlemci komutu değildir. LJMP START, sıfırlamadan sonra ana koda dallanır. ORG 0030H, START etiketini vektör alanından sonra yerleştirir. MOV SP,#5FH bu örnek için yığını başlatır; parçanın RAM haritasına ve kesme/çağrı derinliğine uygun güvenli bir değer seçin. SETB P1.0 port mandalına 1 yazar. CPL P1.0 bu biti tersine çevirir. ACALL DELAY dönüş adresini yığına koyup yakındaki alt programa dallanır. MOV R7,#200 döngü sayısını yükler. DJNZ R7,WAIT R7'yi azaltır ve sıfır olmadığı sürece tekrarlar. RET kaydedilmiş dönüş adresini yığından alır. SJMP MAIN çıkışın durumunu değiştirme döngüsünü tekrarlar. END assembler'a kaynak biriminin bittiğini söyler; CPU'da çalıştırılmaz.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "KOMUT AİLELERİ VE ZAMANLAMA\n\nMOV kaynağı değiştirmeden değeri aktarır. Aritmetik ve mantık komutları genellikle A yazmacıyla çalışır ve bazı PSW bayraklarını değiştirebilir. SJMP, AJMP, LJMP, JZ, JC ve DJNZ gibi dallanmaların uzaklık ve koşul kuralları farklıdır; kodlama ve geçerli operandlar için komut kılavuzuna bakın. Makine çevrimi sayıları çekirdeğe ve bazen komuta bağlıdır; yeni türevlerde saat/çevrim oranı farklı olabilir. Geçen süreyi kaynak satırı sayısından çıkarmayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Klasik 8051 komut grupları (geçerli operand biçimlerini kontrol edin):\nVeri:      MOV, MOVC (kod alanı), MOVX (harici veri), XCH, PUSH, POP\nAritmetik: ADD, ADDC (CY'yi ekler), SUBB (ödünçle çıkarır), INC, DEC, MUL AB, DIV AB, DA A\nMantık:    ANL, ORL, XRL, CLR, SETB, CPL, RL, RLC, RR, RRC, SWAP\nDallanmalar: SJMP, AJMP, LJMP, JZ, JNZ, JC, JNC, CJNE, DJNZ\nAlt program: ACALL, LCALL, RET; kesme işleyicisi RETI ile döner",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "İŞLENEN VE DÖNÜŞ KOMUTU HATALARI\n\n`MOV A,30H`, doğrudan 30h adresindeki baytı okur; `MOV A,#30H`, 30h sabitini yükler. `MOV A,@R0`, R0'da tutulan iç veri adresinden okur. # ve @ işaretlerinin anlamı değişir; hem değeri hem adresi izleyin. ADDC toplama CY'yi de ekler; SUBB kaynağı ve CY'yi çıkarır. DA A, paketlenmiş BCD toplamasından sonra sonucu düzeltir; genel bir ondalık dönüştürme komutu değildir. RET alt programdan döner; RETI kesme hizmetini bitirip kesme denetleyicisine bildirim yapar. Kesme işleyicisinde RETI kullanın. İşleyicinin değiştirdiği yazmaçları, kesilen kod bunların korunmasını bekliyorsa saklayıp geri yükleyin; ana kodla paylaşılan verileri eşzamanlama açısından değerlendirin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
       "text": "KESMELER VE ZAMANLAMA\n\nKesme vektörü, işleyicinin başladığı ya da bir sıçramayla ulaşıldığı sabit giriş adresidir. İşleyiciyi kısa tutun, değiştirdiği yazmaçları koruyun ve mimarinin istediği kesmeden dönüş komutunu kullanın. Gecikme döngüsü yalnızca örnektir: süresi saat frekansına, komut zamanlamasına ve türeve bağlıdır. Düzenli zamanlama için veri sayfasına göre donanım zamanlayıcısını kurun ve sonucu hata ayıklayıcı ya da ölçüm aracıyla doğrulayın.\n\n",
       "size": 16
     },

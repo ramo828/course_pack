@@ -1,0 +1,54 @@
+{
+  "id": "arduino_cpp_assembly",
+  "title": "Arduino C++ daxilində assembly: qoşulma və məhsuldarlıq",
+  "difficulty": "advanced",
+  "estimatedMinutes": 18,
+  "sources": [
+    "https://docs.arduino.cc/learn/programming/sketches/",
+    "https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html",
+    "https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html",
+    "https://gcc.gnu.org/onlinedocs/binutils/objdump.html"
+  ],
+  "spans": [
+    {
+      "type": "warning",
+      "title": "Assembly prosessorun təlimat dəstindən asılıdır",
+      "text": "Arduino proqramlaşdırma mühiti və lövhələr ailəsidir, vahid CPU arxitekturası deyil. Arduino Uno R3 adətən AVR ATmega328P, digər lövhələr isə ARM, Xtensa və ya RISC-V nüvələrindən istifadə edir. 8051 təlimatları Uno-da işləməz. Sintaksisi, kompilyatoru və sənədləri konkret lövhəyə görə seçin."
+    },
+    {
+      "type": "text",
+      "text": "Sketch-dəki setup() və loop() funksiyaları C++ dilində yazılır. Seçilən Arduino nüvəsi və yığma alətləri C++ kodunu hədəf maşın koduna çevirir, assembly hissələrini yığır və proqramı əlaqələndirir. Əvvəlcə adi C++ istifadə edin: onu köçürmək, yoxlamaq və saxlamaq daha asandır. Assembly üçün ya C++ daxilində hədəfə xas GCC inline assembly yazın, ya da eyni hədəf alətləri ilə ayrıca assembly faylı yığıb həmin alətlərin ABI və çağırış qaydalarına uyğun əlaqələndirin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <stdint.h>\n\nconst uint8_t mask = 0x01;\n\nvoid setup() {\n  uint8_t cppValue = 0x0F;\n  cppValue ^= mask;  // daşına bilən C++ nəticəsi: 0x0E\n\n  uint8_t asmValue = 0x0F;\n  // AVR-GCC üçün inline assembly; bütün Arduino lövhələrinə uyğun deyil.\n  asm volatile (\n    \"eor %0, %1\"\n    : \"+r\" (asmValue)  // çıxış: registrdə oxunur və yazılır\n    : \"r\" (mask)       // giriş: mask registrdədir\n    : \"cc\"              // EOR şərt bayraqlarını dəyişir\n  );                  // asmValue də 0x0E olur\n  Serial.begin(9600);\n  Serial.print(cppValue);\n  Serial.print(' ');\n  Serial.println(asmValue);  // yalnız nümunə nəticəsi; Serial vaxtını ölçməyin\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "INLINE ASSEMBLY NÜMUNƏSİNİN OXUNMASI\n\nAVR-də EOR iki registrin bitlər üzrə exclusive-OR əməliyyatını aparır. C++-dakı cppValue ^= mask ifadəsi asmValue üzərindəki assembly əməliyyatı ilə eyni nəticəni verir; hər ikisi Serial çıxışında onluq 14 (0x0E) göstərir. Serial yalnız nümunə nəticəsini görünən etmək üçündür, vaxt ölçmək üçün deyil. GCC genişləndirilmiş assembly sintaksisində %0 və %1 yerlərini kompilyator doldurur; +r ilk operandın ümumi təyinatlı registrdə oxunub yazıldığını, r isə girişin registrdə olduğunu bildirir; cc şərt bayraqlarının dəyişdiyini elan edir. Hər çıxış, giriş, registr/yaddaş yan təsiri və dəyişən vəziyyət kompilyatora bildirilməlidir. Yanlış məhdudiyyətlər qiymətləri korlaya və optimallaşdırmadan asılı xətalar yarada bilər. asm volatile GCC-yə assembly ifadəsini saxlamağı bildirir, lakin C++ dəyişənini volatile etmir, əməliyyatı atomikləşdirmir və avtomatik yaddaş baryeri yaratmır.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "C++ VƏ ASSEMBLY NİYƏ FƏRQLİ OLA BİLƏR?\n\nKompilyator C++ ifadələrini seçilmiş CPU üçün təlimatlara çevirir. Optimallaşdırma aktiv olduqda sadə C++ əməliyyatı əllə yazılmış assembly ilə eyni təlimata və ya ətraf koddan yararlanan daha yaxşı ardıcıllığa çevrilə bilər. Əllə yazılmış assembly yalnız kompilyatorun çıxara bilmədiyi imkan verdikdə və ölçmə ilə təsdiqləndikdə fayda verə bilər; eyni zamanda optimallaşdırmanı zəiflədə, kodu böyüdə, daşınmanı çətinləşdirə və xətaların tapılmasını ağırlaşdıra bilər. Assembly-nin həmişə daha sürətli olması barədə ümumi qayda yoxdur.\n\nƏdalətli müqayisə üçün eyni çip, kompilyator və optimallaşdırma seçimlərini işlədin; yaranan disassembly-ni yoxlayın; optimallaşdırıcının işi silməməsi üçün nəticəni müşahidə edilən saxlayın; uyğun aparat taymeri və ya məntiq analizatoru ilə dəfələrlə ölçün; çağırış, dövr və ölçmə xərclərini nəzərə alın. Tək bir saniyəölçən nəticəsi deyil, düzgünlük, ən pis vaxt, flash/RAM həcmi, enerji və saxlanma rahatlığını müqayisə edin.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "avr-objdump -d -S sketch.elf",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Lövhənin alət zəncirini və ABI qaydalarını işlədin",
+      "text": "Nümunədəki EOR təlimatı və məhdudiyyətlər AVR-GCC üçündür. Digər GCC hədəflərində təlimat adları, registrlər, məhdudiyyətlər və clobber siyahısı fərqlənir; GCC olmayan alətlər bu sintaksisi ümumiyyətlə dəstəkləməyə bilər. Ayrı .S faylı hədəfin çağırış qaydasına əməl etməli, qorunmalı registrləri saxlamalı və sketch-ə düzgün qoşulmalıdır. Assembly əlavə etməzdən əvvəl lövhə nüvəsinin yığma prosesini yoxlayın."
+    }
+  ],
+  "testId": "embedded_test_arduino_cpp_assembly_az",
+  "requires_visual": true,
+  "visual_description": "Arduino sketch-in C++ və inline və ya ayrıca assembly mənbəyindən hədəf kompilyator, assembler, linker və lövhənin CPU-suna qədər yığılma axınını göstərin; mənbə kodunu yaranan disassembly ilə müqayisə edin."
+}

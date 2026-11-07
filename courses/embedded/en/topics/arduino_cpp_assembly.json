@@ -1,0 +1,54 @@
+{
+  "id": "arduino_cpp_assembly",
+  "title": "Assembly in Arduino C++: integration and performance",
+  "difficulty": "advanced",
+  "estimatedMinutes": 18,
+  "sources": [
+    "https://docs.arduino.cc/learn/programming/sketches/",
+    "https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html",
+    "https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html",
+    "https://gcc.gnu.org/onlinedocs/binutils/objdump.html"
+  ],
+  "spans": [
+    {
+      "type": "warning",
+      "title": "Assembly is tied to a processor instruction set",
+      "text": "Arduino is a programming environment and board ecosystem, not one CPU architecture. An Arduino Uno R3 commonly uses an AVR ATmega328P; other Arduino boards use ARM, Xtensa, or RISC-V cores. 8051 instructions cannot run on an Uno. Select assembly syntax, compiler, and documentation for the exact board and core."
+    },
+    {
+      "type": "text",
+      "text": "A sketch's setup() and loop() are C++ functions. The selected Arduino core and build tools compile C++ to target machine code, assemble any assembly, then link the program. Prefer ordinary C++ first: it is easier to port, review, test, and maintain. To use assembly, either add a target-specific GCC inline-assembly statement in C++ or compile a separate assembly source file with the same target toolchain and link it using that toolchain's ABI and calling convention.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <stdint.h>\n\nconst uint8_t mask = 0x01;\n\nvoid setup() {\n  uint8_t cppValue = 0x0F;\n  cppValue ^= mask;  // portable C++ result: 0x0E\n\n  uint8_t asmValue = 0x0F;\n  // AVR-GCC-specific inline assembly; not portable to every Arduino board.\n  asm volatile (\n    \"eor %0, %1\"\n    : \"+r\" (asmValue)  // output: read and written in a register\n    : \"r\" (mask)       // input: mask is in a register\n    : \"cc\"              // EOR changes condition flags\n  );                  // asmValue is also 0x0E\n  Serial.begin(9600);\n  Serial.print(cppValue);\n  Serial.print(' ');\n  Serial.println(asmValue);  // demonstration output only; do not time Serial\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "HOW TO READ THE INLINE ASSEMBLY\n\nOn AVR, EOR performs a bitwise exclusive-OR between two registers. The C++ expression cppValue ^= mask has the same result as the assembly operation on asmValue; both print 14 (decimal, 0x0E). Serial output is included only to make the example's results observable, not for timing. In GCC extended-asm syntax, %0 and %1 are placeholders filled by the compiler; +r says the first operand is read and then written in a general register; r says the input is in a register; cc declares that condition flags change. The compiler must be told about every output, input, register or memory side effect, and clobbered state. Incorrect constraints can silently corrupt values or produce optimization-dependent bugs. asm volatile asks GCC to keep the assembly statement, but it does not make C++ variables volatile, make an operation atomic, or automatically act as a memory barrier.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "WHY C++ AND ASSEMBLY CAN DIFFER\n\nThe compiler lowers C++ into instructions for the chosen CPU. With optimization enabled, a simple C++ operation may become the same instruction as hand-written assembly, or a better sequence based on surrounding code. Hand-written assembly can help only when it expresses something the compiler cannot infer and when its costs are measured; it can also block optimization, increase code size, reduce portability, and make bugs harder to find. There is no general rule that assembly is faster.\n\nFor a fair comparison, use the same chip, compiler and optimization flags; inspect the generated disassembly; keep observable results so the optimizer cannot remove the work; measure repeated runs with a suitable hardware timer or GPIO plus a logic analyzer; and account for call, loop, and measurement overhead. Compare correctness, worst-case timing, flash/RAM size, power, and maintainability—not one stopwatch result.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "avr-objdump -d -S sketch.elf",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Use the board's toolchain and ABI",
+      "text": "The example's EOR instruction and constraints target AVR-GCC. Other GCC targets use different instruction names, registers, constraints, and clobbers; non-GCC toolchains may not support this syntax at all. A separate .S file must follow the target calling convention, preserve required registers, and be linked into the sketch. Check the board core's build process before adding assembly."
+    }
+  ],
+  "testId": "embedded_test_arduino_cpp_assembly_en",
+  "requires_visual": true,
+  "visual_description": "Diagram the Arduino sketch build pipeline from C++ and inline or standalone assembly through target compiler, assembler, linker, and the board CPU; compare source intent with generated disassembly."
+}

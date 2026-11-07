@@ -1,0 +1,53 @@
+{
+  "id": "mcu_8051_registers",
+  "title": "8051 registers, flags, and memory map",
+  "difficulty": "medium",
+  "estimatedMinutes": 16,
+  "sources": [
+    "https://www.keil.com/dd/docs/datashts/atmel/at89s51_ds.pdf",
+    "https://support.arm.com/documentation/101655/latest/8051-Instruction-Set-Manual/Instructions"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "A register is a small, fast storage location inside the CPU or its peripheral interface. Registers are not all general-purpose variables: each has width, address, side effects, and instruction rules defined by the chip. In classic 8051 assembly, names such as A, B, R0, DPTR, PSW, SP, and P1 refer to distinct registers or register views. Verify the selected derivative's datasheet because expanded 8051-compatible devices can change memory and peripheral details.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "CORE REGISTERS\n\nA (ACC, accumulator) is the main 8-bit operand and result for many arithmetic, logic, and data-transfer instructions. B is another 8-bit register; MUL AB puts the 16-bit product in B:A, while DIV AB puts the quotient in A and remainder in B. R0–R7 are eight 8-bit working registers in the currently selected register bank. DPTR is a 16-bit data pointer made from DPH (high byte) and DPL (low byte). PC is the 16-bit program counter. SP is the stack pointer; the classic reset value is 07h and the stack grows toward higher internal-RAM addresses. Check the exact device and startup code before relying on reset state.\n\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "PSW (Program Status Word), bit 7..0:\nCY  AC  F0  RS1  RS0  OV  --  P\ncarry, auxiliary carry, user flag, bank select, overflow, reserved, parity\n\nRS1:RS0  selected bank  direct addresses\n00       bank 0         00h–07h\n01       bank 1         08h–0Fh\n10       bank 2         10h–17h\n11       bank 3         18h–1Fh",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "PSW FLAGS AND THEIR USE\n\nCY records carry/borrow behavior for arithmetic and is also used by rotate-through-carry operations. AC records carry from bit 3 to bit 4 for BCD-related arithmetic. OV indicates signed two's-complement overflow; it is not the same as unsigned carry. F0 is a software flag. RS1:RS0 choose the active register bank. P reflects the parity of A (set for odd parity on the classic core). A dash/reserved bit must not be treated as writable storage. Not every instruction changes every flag; consult the instruction table.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "asm",
+      "code": "; Example: follow the values and flags (classic 8051 syntax)\nMOV  A, #25H       ; immediate constant: A = 25h\nADD  A, #17H       ; A = 3Ch; AC=1, CY=0, OV=0; P=0 (even parity)\nMOV  R0, #30H      ; R0 contains address 30h\nMOV  @R0, A        ; internal RAM[30h] = 3Ch\nMOV  DPTR, #1234H  ; DPH=12h, DPL=34h",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "MEMORY MAP (CLASSIC 128-BYTE INTERNAL RAM VERSION)\n\nThe four register banks occupy 00h–1Fh. Bit-addressable RAM occupies 20h–2Fh: its 16 bytes provide 128 individually addressable bits. General-purpose internal RAM commonly occupies 30h–7Fh. Direct addresses 80h–FFh select implemented SFRs, not ordinary lower RAM. On some 8052-class derivatives, indirect addressing can reach an upper internal-RAM area at 80h–FFh while direct addressing there still selects SFRs. Code memory, internal data RAM, SFR space, and optional external data memory are separate address spaces; the same numeric address can mean different things depending on the instruction and addressing mode.\n\n",
+      "size": 16
+    },
+    {
+      "type": "warning",
+      "title": "Do not confuse register names with universal hardware",
+      "text": "The map above describes the classic 8051 organization, not every chip marketed as 8051-compatible. Read the device memory map and register descriptions. A write to a peripheral register may start hardware, clear a flag, or have reserved-bit rules."
+    }
+  ],
+  "testId": "embedded_test_mcu_8051_registers_en",
+  "requires_visual": true,
+  "visual_description": "Show the 8051 PSW bit fields and four register banks beside the classic internal RAM and SFR memory map."
+}

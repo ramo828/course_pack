@@ -1,0 +1,54 @@
+{
+  "id": "arduino_cpp_assembly",
+  "title": "Arduino C++ içinde assembly: ekleme ve performans",
+  "difficulty": "advanced",
+  "estimatedMinutes": 18,
+  "sources": [
+    "https://docs.arduino.cc/learn/programming/sketches/",
+    "https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html",
+    "https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html",
+    "https://gcc.gnu.org/onlinedocs/binutils/objdump.html"
+  ],
+  "spans": [
+    {
+      "type": "warning",
+      "title": "Assembly, işlemci komut kümesine bağlıdır",
+      "text": "Arduino bir programlama ortamı ve kart ekosistemidir; tek bir CPU mimarisi değildir. Arduino Uno R3 genellikle AVR ATmega328P kullanır; diğer kartlar ARM, Xtensa veya RISC-V çekirdeklerine sahiptir. 8051 komutları Uno'da çalışmaz. Sözdizimini, derleyiciyi ve belgeleri kullanılan karta göre seçin."
+    },
+    {
+      "type": "text",
+      "text": "Bir sketch içindeki setup() ve loop() C++ fonksiyonlarıdır. Seçilen Arduino çekirdeği ve derleme araçları C++ kodunu hedef makine koduna çevirir, assembly parçalarını birleştirir ve programı bağlar. Önce normal C++ kullanın: taşınması, incelenmesi, sınanması ve bakımı daha kolaydır. Assembly için C++ içine hedefe özgü GCC inline assembly yazabilir veya ayrı bir assembly kaynak dosyasını aynı hedef araç zinciriyle derleyip ABI ve çağrı kuralına uygun biçimde linkleyebilirsiniz.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "code": "#include <stdint.h>\n\nconst uint8_t mask = 0x01;\n\nvoid setup() {\n  uint8_t cppValue = 0x0F;\n  cppValue ^= mask;  // taşınabilir C++ sonucu: 0x0E\n\n  uint8_t asmValue = 0x0F;\n  // AVR-GCC'ye özgü inline assembly; her Arduino kartında taşınabilir değildir.\n  asm volatile (\n    \"eor %0, %1\"\n    : \"+r\" (asmValue)  // çıktı: yazmaçta okunur ve yazılır\n    : \"r\" (mask)       // girdi: mask bir yazmaçtadır\n    : \"cc\"              // EOR koşul bayraklarını değiştirir\n  );                  // asmValue de 0x0E olur\n  Serial.begin(9600);\n  Serial.print(cppValue);\n  Serial.print(' ');\n  Serial.println(asmValue);  // yalnız örnek çıktısı; Serial süresini ölçmeyin\n}\n\nvoid loop() {}",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "INLINE ASSEMBLY ÖRNEĞİNİ OKUMA\n\nAVR'de EOR iki yazmaç arasında bit düzeyinde exclusive-OR işlemi yapar. C++'taki cppValue ^= mask ifadesi, asmValue üzerinde yapılan assembly işlemiyle aynı sonucu verir; Serial çıktısında ikisi de ondalık 14 (0x0E) gösterir. Serial kullanımı yalnızca örnek sonucunu görünür yapmak içindir, süre ölçmek için değildir. GCC extended-asm sözdiziminde %0 ve %1 yerlerini derleyici doldurur; +r ilk işlenenin genel amaçlı yazmaçta okunup yazıldığını, r ise girdinin yazmaçta olduğunu belirtir; cc koşul bayraklarının değiştiğini bildirir. Her çıktı, girdi, yazmaç/bellek yan etkisi ve değişen durum derleyiciye bildirilmelidir. Yanlış kısıtlar değerleri bozabilir veya optimizasyona bağlı hatalar oluşturabilir. asm volatile, GCC'ye assembly satırını tutmasını söyler; C++ değişkenini volatile yapmaz, işlemi atomik hâle getirmez ve kendiliğinden bellek bariyeri oluşturmaz.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "C++ VE ASSEMBLY NEDEN FARKLI OLABİLİR?\n\nDerleyici C++ ifadelerini seçilen CPU'nun komutlarına dönüştürür. Optimizasyon açıkken basit bir C++ işlemi elle yazılmış assembly ile aynı komuta veya çevredeki koddan yararlanan daha iyi bir komut dizisine dönüşebilir. Elle yazılmış assembly ancak derleyicinin çıkaramadığı bir imkân sunuyor ve ölçümle doğrulanıyorsa yarar sağlar; optimizasyonu engelleyebilir, kod boyutunu artırabilir, taşınabilirliği azaltabilir ve hata ayıklamayı zorlaştırabilir. Assembly'nin her zaman daha hızlı olduğuna dair genel bir kural yoktur.\n\nAdil karşılaştırma için aynı yonga, derleyici ve optimizasyon seçeneklerini kullanın; oluşan disassembly'yi inceleyin; derleyicinin işi silmesini önlemek için sonucu gözlemlenebilir yapın; uygun donanım zamanlayıcısı veya GPIO ve mantık analizörüyle tekrarlı ölçün; çağrı, döngü ve ölçüm maliyetini hesaba katın. Tek bir kronometre değerini değil; doğruluk, en kötü süre, flash/RAM kullanımı, güç ve bakım kolaylığını karşılaştırın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "avr-objdump -d -S sketch.elf",
+      "showCopyButton": true
+    },
+    {
+      "type": "warning",
+      "title": "Kartın araç zincirini ve ABI'sini kullanın",
+      "text": "Örnekteki EOR komutu ve kısıtlar AVR-GCC içindir. Diğer GCC hedeflerinde komut adları, yazmaçlar, kısıtlar ve clobber listesi farklıdır; GCC dışı araçlar bu sözdizimini hiç desteklemeyebilir. Ayrı .S dosyası hedefin çağrı kuralına uymalı, korunması gereken yazmaçları saklamalı ve sketch'e doğru şekilde bağlanmalıdır. Assembly eklemeden önce kart çekirdeğinin derleme sürecini kontrol edin."
+    }
+  ],
+  "testId": "embedded_test_arduino_cpp_assembly_tr",
+  "requires_visual": true,
+  "visual_description": "Arduino sketch'inin C++ ve inline veya ayrı assembly kaynaklarından hedef derleyici, assembler, linker ve kart CPU'suna uzanan derleme akışını gösterin; kaynak ifadeyi oluşan disassembly ile karşılaştırın."
+}

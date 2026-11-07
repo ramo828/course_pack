@@ -1,0 +1,53 @@
+{
+  "id": "mcu_8051_registers",
+  "title": "8051 registrləri, bayraqlar və yaddaş xəritəsi",
+  "difficulty": "medium",
+  "estimatedMinutes": 16,
+  "sources": [
+    "https://www.keil.com/dd/docs/datashts/atmel/at89s51_ds.pdf",
+    "https://support.arm.com/documentation/101655/latest/8051-Instruction-Set-Manual/Instructions"
+  ],
+  "spans": [
+    {
+      "type": "text",
+      "text": "Registr CPU-da və ya periferiyanın idarəetmə hissəsində yerləşən kiçik və sürətli yaddaş sahəsidir. Registrlər ümumi məqsədli dəyişənlər deyil: hər birinin eni, ünvanı, mümkün yan təsirləri və təlimat qaydaları konkret mikrosxemlə müəyyən olunur. Klassik 8051 assembly dilində A, B, R0, DPTR, PSW, SP və P1 ayrı registrləri və ya registr görünüşlərini bildirir. Uyğun 8051 çiplərində yaddaş və periferiyalar dəyişə bildiyinə görə seçilmiş modelin datasheet-ini yoxlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "text",
+      "text": "ƏSAS REGİSTRLƏR\n\nA (ACC, akkumulyator) bir çox hesab, məntiq və verilən köçürmə təlimatlarında işlədilən əsas 8 bitlik operand və nəticə registridir. B başqa 8 bitlik registrdir: MUL AB 16 bitlik hasili B:A cütünə, DIV AB isə qisməti A-ya, qalığı B-yə yazır. R0–R7 cari registr bankındakı səkkiz 8 bitlik işçi registrdir. DPTR DPH (yuxarı bayt) və DPL (aşağı bayt) hissələrindən ibarət 16 bitlik verilənlər göstəricisidir. PC 16 bitlik proqram sayğacıdır. SP stek göstəricisidir; klassik nüvədə başlanğıc dəyəri 07h olur və stek daxili RAM-ın böyük ünvanlarına doğru artır. Başlanğıc qiymətinə güvənməzdən əvvəl konkret çipi və başlanğıc kodunu yoxlayın.\n\n",
+      "size": 16,
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "PSW (Program Status Word), 7-ci bitdən 0-cı bitə:\nCY  AC  F0  RS1  RS0  OV  --  P\nköçürmə, əlavə köçürmə, proqram bayrağı, bank seçimi, daşma, ayrılmış, paritet\n\nRS1:RS0  seçilən bank  birbaşa ünvanlar\n00       bank 0        00h–07h\n01       bank 1        08h–0Fh\n10       bank 2        10h–17h\n11       bank 3        18h–1Fh",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "PSW BAYRAQLARI\n\nCY hesablamadakı köçürməni/borcu və köçürmə ilə fırlatma əməliyyatlarını göstərir. AC bit 3-dən bit 4-ə əlavə köçürməni qeydə alır və BCD hesablamalarında əhəmiyyətlidir. OV işarəli ikinin tamamlayıcısı daşmasını bildirir; işarəsiz köçürmə ilə eyni deyil. F0 proqramın istifadə edə bildiyi bayraqdır. RS1:RS0 aktiv registr bankını seçir. P klassik nüvədə A registrində tək sayda 1 biti olduqda qurulur. Ayrılmış bit istifadəçi yaddaşı sayılmamalıdır. Hər təlimat bütün bayraqları dəyişmir; təlimat cədvəlini yoxlayın.\n\n",
+      "size": 16
+    },
+    {
+      "type": "code",
+      "language": "asm",
+      "code": "; Qiymətləri və bayraqları izləyin (klassik 8051 sintaksisi)\nMOV  A, #25H       ; sabit qiymət: A = 25h\nADD  A, #17H       ; A = 3Ch; AC=1, CY=0, OV=0; P=0 (cüt paritet)\nMOV  R0, #30H      ; R0 daxilində 30h ünvanı var\nMOV  @R0, A        ; daxili RAM[30h] = 3Ch\nMOV  DPTR, #1234H  ; DPH=12h, DPL=34h",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "YADDAŞ XƏRİTƏSİ (KLASSİK 128 BAYT DAXİLİ RAM VARİANTI)\n\nDörd registr bankı 00h–1Fh sahəsini tutur. Bit-ünvanlı RAM 20h–2Fh ünvanlarındadır: 16 baytda ayrıca ünvanlana bilən 128 bit var. Ümumi təyinatlı daxili RAM çox vaxt 30h–7Fh aralığındadır. 80h–FFh birbaşa ünvanları adi aşağı RAM-ı deyil, mövcud SFR registrlərini seçir. Bəzi 8052 variantlarında dolayı ünvanlama 80h–FFh yuxarı daxili RAM-a çata bilər, birbaşa ünvanlama isə həmin aralıqda yenə SFR seçir. Kod yaddaşı, daxili verilənlər RAM-ı, SFR sahəsi və varsa xarici verilənlər yaddaşı ayrı ünvan məkanlarıdır; eyni rəqəmli ünvan təlimat və ünvanlama üsuluna görə fərqli obyekt göstərə bilər.\n\n",
+      "size": 16
+    },
+    {
+      "type": "warning",
+      "title": "Registr xəritəsi bütün çiplərdə eyni deyil",
+      "text": "Bu xəritə klassik 8051 quruluşudur, 8051 ilə uyğun gələn bütün çiplər üçün ümumi qayda deyil. Konkret çipin yaddaş xəritəsini və registr təsvirlərini oxuyun. Periferiya registrinə yazmaq aparatı başlada, bayrağı silə və ya ayrılmış bit qaydalarına tabe ola bilər."
+    }
+  ],
+  "testId": "embedded_test_mcu_8051_registers_az",
+  "requires_visual": true,
+  "visual_description": "8051 PSW bit sahələrini və dörd registr bankını klassik daxili RAM və SFR yaddaş xəritəsi ilə birlikdə göstərin."
+}

@@ -1,0 +1,76 @@
+{
+  "id": "embedded_test_arduino_cpp_assembly_en",
+  "title": "Assembly in Arduino C++: integration and performance",
+  "questions": [
+    {
+      "id": "q1",
+      "topicId": "arduino_cpp_assembly",
+      "type": "multiple_choice",
+      "prompt": "Can 8051 assembly instructions be used in an Arduino Uno sketch?",
+      "options": [
+        "No; the Uno R3 commonly uses an AVR CPU with a different instruction set.",
+        "Yes; every Arduino uses an 8051 CPU.",
+        "Yes, if the instruction is inside setup().",
+        "Only when loop() is empty."
+      ],
+      "answer": "No; the Uno R3 commonly uses an AVR CPU with a different instruction set.",
+      "explanation": "Assembly must match the board's processor architecture and toolchain."
+    },
+    {
+      "id": "q2",
+      "topicId": "arduino_cpp_assembly",
+      "type": "multiple_choice",
+      "prompt": "In the AVR-GCC example, what does the `+r` constraint mean?",
+      "options": [
+        "The operand is read and written in a general-purpose register.",
+        "The operand is a compile-time immediate constant only.",
+        "The operand is stored in flash and cannot change.",
+        "The assembly may use any undeclared register."
+      ],
+      "answer": "The operand is read and written in a general-purpose register.",
+      "explanation": "The plus modifier marks a read-write output operand and r requests a register."
+    },
+    {
+      "id": "q3",
+      "topicId": "arduino_cpp_assembly",
+      "type": "multiple_choice",
+      "prompt": "Does `asm volatile` make surrounding C++ variables volatile or an operation atomic?",
+      "options": [
+        "No; it asks GCC to retain the assembly statement, but those are separate properties.",
+        "Yes, both automatically.",
+        "It makes all interrupts safe.",
+        "It disables every compiler optimization."
+      ],
+      "answer": "No; it asks GCC to retain the assembly statement, but those are separate properties.",
+      "explanation": "Inline-assembly volatility does not declare C++ volatile objects, atomicity, or a full memory barrier."
+    },
+    {
+      "id": "q4",
+      "topicId": "arduino_cpp_assembly",
+      "type": "multiple_choice",
+      "prompt": "Which claim about assembly speed is correct?",
+      "options": [
+        "There is no general guarantee; optimized C++ may compile to the same or better instructions.",
+        "Assembly is always faster than C++.",
+        "C++ is always faster than assembly.",
+        "Source-code line count determines execution time."
+      ],
+      "answer": "There is no general guarantee; optimized C++ may compile to the same or better instructions.",
+      "explanation": "Compare generated machine code and measure equivalent, observable work on the target."
+    },
+    {
+      "id": "q5",
+      "topicId": "arduino_cpp_assembly",
+      "type": "multiple_choice",
+      "prompt": "What is needed for a meaningful C++ versus assembly benchmark?",
+      "options": [
+        "Same target, compiler and flags, inspect disassembly, prevent dead-code removal, and use suitable repeated timing.",
+        "Compare two unrelated boards once with a stopwatch.",
+        "Measure only source-code length.",
+        "Remove all observable outputs so the compiler can optimize freely."
+      ],
+      "answer": "Same target, compiler and flags, inspect disassembly, prevent dead-code removal, and use suitable repeated timing.",
+      "explanation": "A controlled comparison must measure equivalent work and account for optimization and measurement overhead."
+    }
+  ]
+}
