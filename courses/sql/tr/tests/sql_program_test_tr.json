@@ -454,15 +454,15 @@
       "id": "sql_sql_types_functions_1",
       "topicId": "sql_sql_types_functions",
       "type": "multiple_choice",
-      "prompt": "“Veri türleri, işleçler ve yerleşik işlevler” konusunda hangi ifade temel kuralı doğru açıklar?",
+      "prompt": "Bu sorguyu SQLite'ta çalıştırın. Hangi satır döndürülür?\nSELECT LOWER('SQL'), ROUND(12.345, 2), COALESCE(NULL, 'empty'), CAST('42' AS INTEGER), 7 BETWEEN 1 AND 10;",
       "options": [
-        "Önce küçük ve okunabilir bir SELECT sorgusu yazın; sonucu anladıktan sonra uygulamaya bağlayın.",
-        "Sorgu, Ada ve 42 değerlerini iki sütunda döndürür.",
-        "SQLite çoğunlukla uygulamanın içinde çalışır; MySQL ve PostgreSQL genellikle ayrı sunucu süreçleridir.",
-        "Örnek küçük harfli sql, yuvarlanmış 12.35, boş yerine metin, 42 tam sayısı ve TRUE döndürür."
+        "('SQL', 12.35, NULL, 42, 1)",
+        "('sql', 12.35, 'empty', 42, 1)",
+        "('sql', 12.35, 'empty', 42, TRUE)",
+        "('sql', 12.34, 'empty', 42, 0)"
       ],
-      "answer": "Örnek küçük harfli sql, yuvarlanmış 12.35, boş yerine metin, 42 tam sayısı ve TRUE döndürür.",
-      "explanation": "Örnek küçük harfli sql, yuvarlanmış 12.35, boş yerine metin, 42 tam sayısı ve TRUE döndürür.\nAçıklama: Sütun türü hangi değerlerin saklanacağını ve karşılaştırmanın nasıl yapılacağını belirler. Metin için TEXT, tam sayılar için INTEGER, kesin para hesabı için kuruş cinsinden tam sayı veya desteklenen motorda DECIMAL/NUMERIC seçin; tarih ve saat türleri sistemler arasında değişir. SQL ifadelerinde `+`, `-`, `*`, `/`, karşılaştırma işaretleri, `AND`, `OR`, `NOT` ve `||` gibi metin birleştirme işleçleri kullanılır. `LOWER`, `UPPER`, `LENGTH`, `ROUND`, `COALESCE`, `NULLIF` ve `CAST` yararlı yerleşik işlevlerdir. SQLite tarihleri ISO-8601 metni, Julian günü veya Unix zamanı olarak saklayabilir; PostgreSQL ve MySQL tarih/saat türleri ve işlevleri sunar. İşlev adları ve tarih sözdizimi DBMS'e göre değişebilir."
+      "answer": "('sql', 12.35, 'empty', 42, 1)",
+      "explanation": "SQLite LOWER ile `sql`, ROUND ile 12.35, COALESCE ile `empty`, CAST ile 42 döndürür. Son BETWEEN ifadesi SQLite'ta tamsayı 1'dir; `TRUE` PostgreSQL tarzı gösterime benzeyen yanıltıcı seçenektir."
     },
     {
       "id": "sql_sql_types_functions_2",

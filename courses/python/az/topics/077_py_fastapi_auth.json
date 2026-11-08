@@ -3,188 +3,132 @@
   "title": "Autentifikasiyanın əsasları",
   "difficulty": "hard",
   "testId": "python_test_py_fastapi_auth_az",
-  "estimatedMinutes": 24,
+  "estimatedMinutes": 35,
   "sources": [
-    "https://fastapi.tiangolo.com/tutorial/security/"
+    "https://fastapi.tiangolo.com/tutorial/security/",
+    "https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/",
+    "https://pyjwt.readthedocs.io/en/stable/",
+    "https://frankie567.github.io/pwdlib/",
+    "https://fastapi.tiangolo.com/tutorial/testing/"
   ],
   "spans": [
     {
       "type": "text",
-      "text": "NİYƏ LAZIMDIR?\n",
+      "text": "NİYƏ VACİBDİR?",
       "size": 20,
       "color": "#1565C0",
       "bold": true
     },
     {
       "type": "text",
-      "text": "FastAPI veb və mobil tətbiqlərin HTTP ilə məlumat mübadiləsi etdiyi JSON API-lər qurmaq üçündür; tip annotasiyaları girişləri yoxlamağa və API müqaviləsini sənədləşdirməyə kömək edir.\n\n",
+      "text": "Autentifikasiya sorğunun kimdən gəldiyini yoxlayır; avtorizasiya həmin kimliyin nəyə giriş edə biləcəyini müəyyən edir. Bearer-token API-si real giriş endpoint-ində qısaömürlü token verir və qorunan endpoint-lərdə onu yoxlayır.\n\n",
       "size": 16,
       "color": "#212121"
     },
     {
       "type": "text",
-      "text": "MƏQSƏD VƏ REAL İSTİFADƏ\n",
-      "size": 20,
-      "color": "#6A1B9A",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": "Autentifikasiya sorğunun kimdən gəldiyini yoxlayır; icazə həmin istifadəçinin hansı resurslara çıxacağını müəyyən edir. OAuth2 bearer sxemində klient token göndərir, `HTTPBearer` və ya `OAuth2PasswordBearer` onu endpoint-dən əvvəl oxuyur. Aşağıdakı sabit token yalnız dərs demo-sudur.\n\n",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "Nümunələri yerli işlətmək üçün `pip install fastapi uvicorn httpx` quraşdırın; dərsdə göstərilən əlavə paketləri də əlavə edin. Server nümunəsini `app.py` saxlayıb `uvicorn app:app --reload` ilə başladın. `--reload` yalnız öyrənmə/inkişaf üçündür.\n\n",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "REAL HƏYATDA HARADA?\nŞəxsi profil endpoint-i token-si olmayan sorğunu rədd edir və tanınmış istifadəçi üçün məlumat qaytarır.\n\n",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "Bu hissə buraxılsa: Kimlik yoxlaması olmasa, endpoint-i çatan hər kəs qorunan məlumatı ala bilər; token yoxlaması olmadan istifadəçi kimliyini fərz etməyin.\n\n",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "TAM İŞLƏK NÜMUNƏ\n",
+      "text": "ADDIM 1 — YALNIZ ANLAYIŞ",
       "size": 20,
       "color": "#1565C0",
       "bold": true
     },
     {
       "type": "text",
-      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
+      "text": "`OAuth2PasswordBearer(tokenUrl=\"token\")` API sənədlərinə tokenin haradan istənəcəyini bildirir və sonrakı sorğulardakı bearer tokeni çıxarır. Təkbaşına `/token` yaratmır, parolu yoxlamır və JWT-ni təsdiqləmir; aşağıdakı fraqment qəsdən tam giriş sistemi deyil.\n\n",
       "size": 16,
-      "bold": true
+      "color": "#212121"
     },
     {
       "type": "code",
       "language": "python",
-      "code": "import secrets\nfrom fastapi import Depends, FastAPI, HTTPException, status\nfrom fastapi.security import OAuth2PasswordBearer\n\napp = FastAPI()\noauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")\n\nasync def current_user(token: str = Depends(oauth2_scheme)):\n    if not secrets.compare_digest(token, \"development-only-token\"):\n        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=\"Invalid token\", headers={\"WWW-Authenticate\": \"Bearer\"})\n    return {\"username\": \"ada\"}\n\n@app.get(\"/profile\")\nasync def profile(user: dict = Depends(current_user)):\n    return user\n",
+      "code": "oauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")\n\n@app.get(\"/users/me\")\nasync def read_users_me(token: str = Depends(oauth2_scheme)):\n    # Yalnız anlayış üçündür: tokenin olması kimliyi sübut etmir.\n    ...",
       "showCopyButton": true
     },
     {
       "type": "text",
-      "text": "SORĞU VƏ GÖZLƏNİLƏN CAVAB\n",
+      "text": "ADDIM 2 — İŞLƏK PAROL VƏ JWT AXINI",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "`fastapi`, `uvicorn`, `httpx`, `python-multipart`, `PyJWT` və `pwdlib[argon2]` paketlərini quraşdırın. `SECRET_KEY` üçün təsadüfi açar, `DEMO_PASSWORD` üçün mühit dəyişəni təyin edin; bu dəyərləri mənbə koduna yazmayın. Server kodunu `app.py` faylında saxlayın. İnkişaf serverini `uvicorn app:app --reload` ilə başladın (`--reload` yalnız inkişaf üçündür).\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import os\nfrom datetime import datetime, timedelta, timezone\n\nimport jwt\nfrom fastapi import Depends, FastAPI, HTTPException, status\nfrom fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm\nfrom jwt.exceptions import InvalidTokenError\nfrom pwdlib import PasswordHash\n\nSECRET_KEY = os.environ.get(\"SECRET_KEY\")\nif not SECRET_KEY:\n    raise RuntimeError(\"Set SECRET_KEY in the environment\")\n\nDEMO_USERNAME = os.environ.get(\"DEMO_USERNAME\", \"ada\")\nDEMO_PASSWORD = os.environ[\"DEMO_PASSWORD\"]\npassword_hash = PasswordHash.recommended()\nusers = {\n    DEMO_USERNAME: {\n        \"username\": DEMO_USERNAME,\n        \"hashed_password\": password_hash.hash(DEMO_PASSWORD),\n    }\n}\n\napp = FastAPI()\noauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")\n\n\ndef create_access_token(username: str) -> str:\n    expires_at = datetime.now(timezone.utc) + timedelta(minutes=30)\n    return jwt.encode(\n        {\"sub\": username, \"exp\": expires_at}, SECRET_KEY, algorithm=\"HS256\"\n    )\n\n\n@app.post(\"/token\")\nasync def login(form: OAuth2PasswordRequestForm = Depends()):\n    user = users.get(form.username)\n    if user is None or not password_hash.verify(\n        form.password, user[\"hashed_password\"]\n    ):\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Incorrect username or password\",\n            headers={\"WWW-Authenticate\": \"Bearer\"},\n        )\n    return {\n        \"access_token\": create_access_token(user[\"username\"]),\n        \"token_type\": \"bearer\",\n    }\n\n\n@app.get(\"/users/me\")\nasync def read_users_me(token: str = Depends(oauth2_scheme)):\n    try:\n        claims = jwt.decode(token, SECRET_KEY, algorithms=[\"HS256\"])\n    except InvalidTokenError as exc:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Invalid or expired token\",\n            headers={\"WWW-Authenticate\": \"Bearer\"},\n        ) from exc\n\n    username = claims.get(\"sub\")\n    user = users.get(username) if isinstance(username, str) else None\n    if user is None:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Invalid or expired token\",\n            headers={\"WWW-Authenticate\": \"Bearer\"},\n        )\n    return {\"username\": user[\"username\"]}\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "SORĞU VƏ GÖZLƏNİLƏN CAVAB",
       "size": 18,
       "color": "#2E7D32",
       "bold": true
     },
     {
-      "type": "code",
-      "language": "text",
-      "code": "Sorğu: GET /profile  Authorization: Bearer development-only-token\nCavab: Demo tokeni ilə 200 JSON; token yoxdursa 401 və `WWW-Authenticate: Bearer` başlığı.",
-      "showCopyButton": false
-    },
-    {
       "type": "text",
-      "text": "KODUN SƏTİR-SƏTİR İZAHI\n`import secrets` — Lazım olan tipi və aləti moduldan idxal edir; istifadə olunmasa həmin ad tapılmır.\n`from fastapi import Depends, FastAPI, HTTPException, status` — Lazım olan tipi və aləti moduldan idxal edir; istifadə olunmasa həmin ad tapılmır.\n`from fastapi.security import OAuth2PasswordBearer` — Lazım olan tipi və aləti moduldan idxal edir; istifadə olunmasa həmin ad tapılmır.\n`app = FastAPI()` — `FastAPI()` tətbiq obyekti ASGI serverinə verilir və marşrutları özündə saxlayır.\n`oauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")` — Sorğu zamanı bu əməliyyat icra olunur; onun nəticəsi və ya yan təsiri cavabın hazırlanmasına təsir edir.\n`async def current_user(token: str = Depends(oauth2_scheme)):` — Serverin çağıracağı endpoint funksiyasını müəyyən edir; parametr adları yol, query və body məlumatlarını bağlamağa kömək edir.\n`if not secrets.compare_digest(token, \"development-only-token\"):` — Şərt doğru olduqda uyğun budaq işləyir və kənar vəziyyətə qərar verir.\n`raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=\"Invalid token\", headers={\"WWW-Authenticate\": \"Bearer\"})` — Sorğunu uğursuz status və xəta detalı ilə dayandırır; xəta gizlədilmir.\n`return {\"username\": \"ada\"}` — HTTP cavabının dəyərini qaytarır; FastAPI bunu JSON və ya qeyd olunan response modelinə çevirir.\n`@app.get(\"/profile\")` — HTTP metodunu və URL yolunu bu funksiyaya bağlayır; bu dekorator olmasa funksiya API endpoint-i olmaz.\n`async def profile(user: dict = Depends(current_user)):` — Serverin çağıracağı endpoint funksiyasını müəyyən edir; parametr adları yol, query və body məlumatlarını bağlamağa kömək edir.\n`return user` — HTTP cavabının dəyərini qaytarır; FastAPI bunu JSON və ya qeyd olunan response modelinə çevirir.\n\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "TƏCRÜBƏ: HTTP MÜŞTƏRİSİ İLƏ YOXLAMA\n",
-      "size": 19,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": "Aşağıdakı tam fayl tətbiqi TestClient ilə yerli çağırır; ayrıca port açmağa ehtiyac yoxdur. TestClient üçün `httpx` quraşdırın.\n\n",
+      "text": "`username` və `password` form sahələri ilə `/token` ünvanına POST göndərin; endpoint 30 dəqiqədən sonra bitən imzalı token qaytarır. Tokeni `Authorization: Bearer <token>` başlığı ilə `GET /users/me` sorğusuna göndərin.\n\n",
       "size": 16,
       "color": "#212121"
     },
     {
       "type": "text",
-      "text": "TAM İŞLƏK TEST KODU\n",
-      "size": 20,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": "SUAL: Bu kod nə çap edəcək? Əvvəl təxmin et, sonra işə sal.\n",
-      "size": 16,
-      "bold": true
-    },
-    {
-      "type": "code",
-      "language": "python",
-      "code": "import secrets\nfrom fastapi import Depends, FastAPI, HTTPException, status\nfrom fastapi.security import OAuth2PasswordBearer\n\napp = FastAPI()\noauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")\n\nasync def current_user(token: str = Depends(oauth2_scheme)):\n    if not secrets.compare_digest(token, \"development-only-token\"):\n        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=\"Invalid token\", headers={\"WWW-Authenticate\": \"Bearer\"})\n    return {\"username\": \"ada\"}\n\n@app.get(\"/profile\")\nasync def profile(user: dict = Depends(current_user)):\n    return user\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    response = client.get(\"/profile\", headers={\"Authorization\": \"Bearer development-only-token\"})\n    print(response.status_code, response.json())\n",
-      "showCopyButton": true
-    },
-    {
-      "type": "text",
-      "text": "TESTİN GÖZLƏNİLƏN NƏTİCƏSİ\n",
-      "size": 18,
-      "color": "#2E7D32",
-      "bold": true
-    },
-    {
-      "type": "code",
-      "language": "text",
-      "code": "200 {'username': 'ada'}",
-      "showCopyButton": false
-    },
-    {
-      "type": "text",
-      "text": "KODUN SƏTİR-SƏTİR İZAHI\n`import secrets` — Lazım olan tipi və aləti moduldan idxal edir; istifadə olunmasa həmin ad tapılmır.\n`from fastapi import Depends, FastAPI, HTTPException, status` — Lazım olan tipi və aləti moduldan idxal edir; istifadə olunmasa həmin ad tapılmır.\n`from fastapi.security import OAuth2PasswordBearer` — Lazım olan tipi və aləti moduldan idxal edir; istifadə olunmasa həmin ad tapılmır.\n`app = FastAPI()` — `FastAPI()` tətbiq obyekti ASGI serverinə verilir və marşrutları özündə saxlayır.\n`oauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")` — Sorğu zamanı bu əməliyyat icra olunur; onun nəticəsi və ya yan təsiri cavabın hazırlanmasına təsir edir.\n`async def current_user(token: str = Depends(oauth2_scheme)):` — Serverin çağıracağı endpoint funksiyasını müəyyən edir; parametr adları yol, query və body məlumatlarını bağlamağa kömək edir.\n`if not secrets.compare_digest(token, \"development-only-token\"):` — Şərt doğru olduqda uyğun budaq işləyir və kənar vəziyyətə qərar verir.\n`raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=\"Invalid token\", headers={\"WWW-Authenticate\": \"Bearer\"})` — Sorğunu uğursuz status və xəta detalı ilə dayandırır; xəta gizlədilmir.\n`return {\"username\": \"ada\"}` — HTTP cavabının dəyərini qaytarır; FastAPI bunu JSON və ya qeyd olunan response modelinə çevirir.\n`@app.get(\"/profile\")` — HTTP metodunu və URL yolunu bu funksiyaya bağlayır; bu dekorator olmasa funksiya API endpoint-i olmaz.\n`async def profile(user: dict = Depends(current_user)):` — Serverin çağıracağı endpoint funksiyasını müəyyən edir; parametr adları yol, query və body məlumatlarını bağlamağa kömək edir.\n`return user` — HTTP cavabının dəyərini qaytarır; FastAPI bunu JSON və ya qeyd olunan response modelinə çevirir.\n`from fastapi.testclient import TestClient` — TestClient-i import edir ki, tətbiqə HTTP sorğusunu server portu açmadan sınaqdan göndərək.\n`with TestClient(app) as client:` — Tətbiq üçün sınaq HTTP müştərisi yaradır və kontekst bitəndə onu bağlayır.\n`response = client.get(\"/profile\", headers={\"Authorization\": \"Bearer development-only-token\"})` — Test müştərisi ilə göstərilən GET sorğusunu göndərir və cavabı `response` dəyişənində saxlayır.\n`print(response.status_code, response.json())` — HTTP status kodunu və cavab JSON-unu oxuyub terminalda göstərir.\n\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "TEZ-TEZ BURAXILAN SƏHVLƏR\n",
-      "size": 20,
-      "color": "#C62828",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": "Tokeni URL query-sində və ya logda saxlamaq; bearer tokeni `Authorization` başlığında göndərin və demo sirrini real mühitdə istifadə etməyin.\n\n",
+      "text": "Nümunə mühitdən götürülən demo parolunu tövsiyə edilən Argon2 sazlaması ilə heşləyir və JWT imzasını, alqoritmini, bitmə vaxtını yoxlayır. Real xidmətdə heşlənmiş parolları verilənlər bazasında saxlayın, idarə olunan gizli açardan istifadə edin, avtorizasiya və giriş cəhdlərinin məhdudlaşdırılmasını tətbiq edin, HTTPS işlədin.\n\n",
       "size": 16,
       "color": "#212121"
-    },
-    {
-      "type": "tip",
-      "title": "Praktik məsləhət",
-      "text": "`/docs`-da Authorize düyməsi ilə `Bearer` token əlavə edin və boş/yanlış token üçün 401 nəticəsini ayrıca yoxlayın."
-    },
-    {
-      "type": "detail",
-      "title": "Daha dərindən",
-      "text": "Autentifikasiya (kimlik) və avtorizasiya (icazə) fərqlidir. Etibarlı istifadəçi hər əməliyyatı edə bilməz; resurs sahibini və rolu da yoxlamaq lazımdır."
     },
     {
       "type": "warning",
-      "title": "Vacib xəbərdarlıq",
-      "text": "Bu sabit token bilərəkdən təhlükəsiz deyil; real tətbiqdə tokeni imzalayan standart OAuth2/OIDC provayderi, TLS, müddət/yenilənmə və sirr idarəsi qurun."
+      "title": "TƏHLÜKƏSİZLİK",
+      "text": "Açıq parolları saxlamayın və gizli açarları repoya əlavə etməyin. JWT məlumatı şifrələmir, yalnız imzalayır; parol və başqa həssas məlumatları tokenə daxil etməyin. Açıq qalmış imza açarını dəyişin və yayımlanmış sistemdə HTTPS istifadə edin. Kiçik tapşırıq üçün demo parolu tətbiq başlananda heşlənir; real xidmətdə yalnız heş saxlanılır, hesablar ayrıca idarə olunur."
+    },
+    {
+      "type": "tip",
+      "title": "SINAQ",
+      "text": "TestClient blokunu eyni `app.py` faylının sonuna əlavə edin, iki mühit dəyişənini təyin edin və `python app.py` işlədin. `if __name__ == \"__main__\"` şərti Uvicorn tətbiqi idxal edəndə testlərin işə düşməsinin qarşısını alır."
     },
     {
       "type": "text",
-      "text": "ÖZÜNÜ YOXLA\n",
+      "text": "TƏCRÜBƏ: UĞURLU VƏ UĞURSUZ HALLARI YOXLAYIN",
       "size": 20,
+      "color": "#1565C0",
       "bold": true
     },
     {
       "type": "text",
-      "text": "Sual: Dərsdəki tipik səhvi önləmək üçün hansı addım daha düzgündür?\n",
+      "text": "Aşağıda yalnız əlavə client-test kodu verilib; onu tətbiq kodundan sonra eyni fayla əlavə edin. Kod uğurlu girişi və profil sorğusunu, yanlış parolu, tokensiz və yanlış tokenli sorğuları yoxlayır.\n\n",
       "size": 16,
-      "bold": true
+      "color": "#212121"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "if __name__ == \"__main__\":\n    from fastapi.testclient import TestClient\n\n    with TestClient(app) as client:\n        bad_login = client.post(\n            \"/token\",\n            data={\"username\": DEMO_USERNAME, \"password\": DEMO_PASSWORD + \"wrong\"},\n        )\n        login = client.post(\n            \"/token\",\n            data={\"username\": DEMO_USERNAME, \"password\": DEMO_PASSWORD},\n        )\n        assert bad_login.status_code == 401\n        assert login.status_code == 200\n\n        token = login.json()[\"access_token\"]\n        profile = client.get(\n            \"/users/me\", headers={\"Authorization\": f\"Bearer {token}\"}\n        )\n        missing_token = client.get(\"/users/me\")\n        invalid_token = client.get(\n            \"/users/me\", headers={\"Authorization\": \"Bearer invalid\"}\n        )\n        assert profile.status_code == 200\n        assert missing_token.status_code == 401\n        assert invalid_token.status_code == 401\n\n        print(\"login:\", login.status_code)\n        print(\"profile:\", profile.status_code, profile.json())\n        print(\"missing token:\", missing_token.status_code)\n        print(\"invalid token:\", invalid_token.status_code)\n",
+      "showCopyButton": true
     },
     {
       "type": "text",
-      "text": "Cavab: `/docs`-da Authorize düyməsi ilə `Bearer` token əlavə edin və boş/yanlış token üçün 401 nəticəsini ayrıca yoxlayın.\n\n",
-      "size": 16
+      "text": "CLIENT TESTİN GÖZLƏNİLƏN NƏTİCƏSİ",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "login: 200\nprofile: 200 {'username': 'ada'}\nmissing token: 401\ninvalid token: 401",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "Tapşırıq: yerli sınaq üçün token müddətini qısaldın və müddəti bitmiş tokenin rədd edildiyini yoxlayın. Sonra 30 dəqiqəlik sazlamanı bərpa edin.\n\n",
+      "size": 16,
+      "color": "#212121"
     }
   ],
   "requires_visual": true,

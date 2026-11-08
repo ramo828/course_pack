@@ -69,7 +69,7 @@
     {
       "type": "code",
       "language": "python",
-      "code": "from fastapi import FastAPI\n\napp = FastAPI(title=\"Merhaba API\", version=\"1.0.0\")\n\n@app.get(\"/\", tags=[\"Başlangıç\"])\nasync def read_root():\n    return {\n        \"message\": \"Merhaba, dünya!\",\n        \"lesson\": \"İlk API\"\n    }\n",
+      "code": "from fastapi import FastAPI\n\napp = FastAPI(title=\"Hello API\", version=\"1.0.0\")\n\n@app.get(\"/\", tags=[\"Getting started\"])\nasync def read_root():\n    return {\n        \"message\": \"Hello, world!\",\n        \"lesson\": \"First API\"\n    }\n",
       "showCopyButton": true
     },
     {
@@ -82,12 +82,12 @@
     {
       "type": "code",
       "language": "text",
-      "code": "İstek: GET /\nYanıt: 200 OK; JSON: {\"message\":\"Merhaba, dünya!\",\"lesson\":\"İlk API\"}",
+      "code": "İstek: GET /\nYanıt: 200 OK; JSON: {\"message\":\"Hello, world!\",\"lesson\":\"First API\"}",
       "showCopyButton": false
     },
     {
       "type": "text",
-      "text": "KODUN SATIR SATIR AÇIKLAMASI\n`from fastapi import FastAPI` — FastAPI sınıfını uygulama nesnesini oluşturmak için içe aktarır; bu satır olmazsa `FastAPI` adı bulunamaz.\n`app = FastAPI(title=\"Merhaba API\", version=\"1.0.0\")` — `FastAPI()` uygulama nesnesi ASGI sunucusuna verilir ve rotaları tutar.\n`@app.get(\"/\", tags=[\"Başlangıç\"])` — HTTP yöntemini ve URL yolunu bu işleve bağlar; dekoratör olmadan işlev bir API uç noktası olmaz.\n`async def read_root():` — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n`return {` — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n`\"message\": \"Merhaba, dünya!\",` — Bu sözlük anahtarı JSON yanıtında istemcinin göreceği alan adıdır; değiştirirsen yanıt sözleşmesi de değişir.\n`\"lesson\": \"İlk API\"` — Bu sözlük anahtarı JSON yanıtında istemcinin göreceği alan adıdır; değiştirirsen yanıt sözleşmesi de değişir.\n`}` — Satır uygulamanın verisini veya akışını sürdürür.\n\n",
+      "text": "KODUN SATIR SATIR AÇIKLAMASI\n`from fastapi import FastAPI` — FastAPI sınıfını uygulama nesnesini oluşturmak için içe aktarır; bu satır olmazsa `FastAPI` adı bulunamaz.\n`app = FastAPI(title=\"Hello API\", version=\"1.0.0\")` — `FastAPI()` uygulama nesnesi ASGI sunucusuna verilir ve rotaları tutar.\n`@app.get(\"/\", tags=[\"Getting started\"])` — HTTP yöntemini ve URL yolunu bu işleve bağlar; dekoratör olmadan işlev bir API uç noktası olmaz.\n`async def read_root():` — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n`return {` — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n`\"message\": \"Hello, world!\",` — Bu sözlük anahtarı JSON yanıtında istemcinin göreceği alan adıdır; değiştirirsen yanıt sözleşmesi de değişir.\n`\"lesson\": \"First API\"` — Bu sözlük anahtarı JSON yanıtında istemcinin göreceği alan adıdır; değiştirirsen yanıt sözleşmesi de değişir.\n`}` — Satır uygulamanın verisini veya akışını sürdürür.\n\n",
       "size": 15,
       "color": "#37474F"
     },
@@ -125,7 +125,7 @@
     {
       "type": "code",
       "language": "python",
-      "code": "from fastapi import FastAPI\n\napp = FastAPI(title=\"Merhaba API\", version=\"1.0.0\")\n\n@app.get(\"/\", tags=[\"Başlangıç\"])\nasync def read_root():\n    return {\n        \"message\": \"Merhaba, dünya!\",\n        \"lesson\": \"İlk API\"\n    }\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    response = client.get(\"/\")\n    print(response.status_code, response.json())\n",
+      "code": "from fastapi import FastAPI\n\napp = FastAPI(title=\"Hello API\", version=\"1.0.0\")\n\n@app.get(\"/\", tags=[\"Getting started\"])\nasync def read_root():\n    return {\n        \"message\": \"Hello, world!\",\n        \"lesson\": \"First API\"\n    }\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    response = client.get(\"/\")\n    print(response.status_code, response.json())\n",
       "showCopyButton": true
     },
     {
@@ -138,12 +138,12 @@
     {
       "type": "code",
       "language": "text",
-      "code": "200 {'message': 'Merhaba, dünya!', 'lesson': 'İlk API'}",
+      "code": "200 {'message': 'Hello, world!', 'lesson': 'First API'}",
       "showCopyButton": false
     },
     {
       "type": "text",
-      "text": "KODUN SATIR SATIR AÇIKLAMASI\n`from fastapi import FastAPI` — FastAPI sınıfını uygulama nesnesini oluşturmak için içe aktarır; bu satır olmazsa `FastAPI` adı bulunamaz.\n`app = FastAPI(title=\"Merhaba API\", version=\"1.0.0\")` — `FastAPI()` uygulama nesnesi ASGI sunucusuna verilir ve rotaları tutar.\n`@app.get(\"/\", tags=[\"Başlangıç\"])` — HTTP yöntemini ve URL yolunu bu işleve bağlar; dekoratör olmadan işlev bir API uç noktası olmaz.\n`async def read_root():` — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n`return {` — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n`\"message\": \"Merhaba, dünya!\",` — Bu sözlük anahtarı JSON yanıtında istemcinin göreceği alan adıdır; değiştirirsen yanıt sözleşmesi de değişir.\n`\"lesson\": \"İlk API\"` — Bu sözlük anahtarı JSON yanıtında istemcinin göreceği alan adıdır; değiştirirsen yanıt sözleşmesi de değişir.\n`}` — Satır uygulamanın verisini veya akışını sürdürür.\n`from fastapi.testclient import TestClient` — Uygulamaya sunucu portu açmadan HTTP isteği gönderecek TestClient sınıfını içe aktarır.\n`with TestClient(app) as client:` — Uygulama için bir test HTTP istemcisi açar ve blok bittiğinde kapatır.\n`response = client.get(\"/\")` — Test istemcisiyle belirtilen GET isteğini gönderir ve yanıtı `response` değişkeninde tutar.\n`print(response.status_code, response.json())` — HTTP durum kodunu ve JSON yanıtını okuyup terminalde gösterir.\n\n",
+      "text": "KODUN SATIR SATIR AÇIKLAMASI\n`from fastapi import FastAPI` — FastAPI sınıfını uygulama nesnesini oluşturmak için içe aktarır; bu satır olmazsa `FastAPI` adı bulunamaz.\n`app = FastAPI(title=\"Hello API\", version=\"1.0.0\")` — `FastAPI()` uygulama nesnesi ASGI sunucusuna verilir ve rotaları tutar.\n`@app.get(\"/\", tags=[\"Getting started\"])` — HTTP yöntemini ve URL yolunu bu işleve bağlar; dekoratör olmadan işlev bir API uç noktası olmaz.\n`async def read_root():` — Sunucunun çağıracağı uç nokta işlevini tanımlar; parametre adları yol, sorgu ve gövde verisini bağlar.\n`return {` — HTTP yanıtının değerini döndürür; FastAPI bunu JSON'a veya yanıt modeline dönüştürür.\n`\"message\": \"Hello, world!\",` — Bu sözlük anahtarı JSON yanıtında istemcinin göreceği alan adıdır; değiştirirsen yanıt sözleşmesi de değişir.\n`\"lesson\": \"First API\"` — Bu sözlük anahtarı JSON yanıtında istemcinin göreceği alan adıdır; değiştirirsen yanıt sözleşmesi de değişir.\n`}` — Satır uygulamanın verisini veya akışını sürdürür.\n`from fastapi.testclient import TestClient` — Uygulamaya sunucu portu açmadan HTTP isteği gönderecek TestClient sınıfını içe aktarır.\n`with TestClient(app) as client:` — Uygulama için bir test HTTP istemcisi açar ve blok bittiğinde kapatır.\n`response = client.get(\"/\")` — Test istemcisiyle belirtilen GET isteğini gönderir ve yanıtı `response` değişkeninde tutar.\n`print(response.status_code, response.json())` — HTTP durum kodunu ve JSON yanıtını okuyup terminalde gösterir.\n\n",
       "size": 15,
       "color": "#37474F"
     },

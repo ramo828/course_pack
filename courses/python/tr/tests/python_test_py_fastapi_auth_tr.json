@@ -6,57 +6,57 @@
       "id": "q1",
       "topicId": "python_py_fastapi_auth",
       "type": "multiple_choice",
-      "prompt": "Bu gerçek HTTP isteğine API nasıl yanıt vermelidir?\nGET /profile  Authorization: Bearer development-only-token",
+      "prompt": "Korunan profil uç noktası için token alması gereken istemci hangi isteği göndermelidir?",
       "options": [
-        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
-        "Demo token ile 200 JSON; token yoksa 401 ve `WWW-Authenticate: Bearer` başlığı.",
-        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
-        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin."
+        "username ve password form alanlarıyla /token adresine POST.",
+        "Parolayı URL sorgu parametresinde göndererek /users/me adresine GET.",
+        "Tokensız JSON parola ile /users/me adresine POST.",
+        "Henüz verilmemiş bearer token ile /token adresine GET."
       ],
-      "answer": "Demo token ile 200 JSON; token yoksa 401 ve `WWW-Authenticate: Bearer` başlığı.",
-      "explanation": "Bu, `GET /profile  Authorization: Bearer development-only-token` isteğinin beklenen davranışıdır. Demo token ile 200 JSON; token yoksa 401 ve `WWW-Authenticate: Bearer` başlığı."
+      "answer": "username ve password form alanlarıyla /token adresine POST.",
+      "explanation": "Form alanlarıyla /token adresine POST, OAuth2PasswordRequestForm akışını çağırıp token verebilir. Parolayı URL içinde göndermek günlüklerde açığa çıkarabilir; /users/me giriş uç noktası değildir."
     },
     {
       "id": "q2",
       "topicId": "python_py_fastapi_auth",
       "type": "multiple_choice",
-      "prompt": "Bu konuda hangi tasarım ilkesi doğrudur?",
+      "prompt": "JWT verildikten sonra korunan uç nokta ne yapmalıdır?",
       "options": [
-        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
-        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
-        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
-        "Bearer token `Authorization` başlığında gönderilir; sunucu tokeni doğrulamalı ve kaynak iznini ayrıca değerlendirmelidir."
+        "Boş olmayan herhangi bir metni token kabul etmelidir.",
+        "Beklenen algoritmayla imzayı doğrulamalı ve sona erme süresini uygulamalıdır.",
+        "Tokenı doğrulamadan kullanıcı adı talebini okumalıdır.",
+        "İstemcinin ayrıca gönderdiği kullanıcı adına güvenmelidir."
       ],
-      "answer": "Bearer token `Authorization` başlığında gönderilir; sunucu tokeni doğrulamalı ve kaynak iznini ayrıca değerlendirmelidir.",
-      "explanation": "Bearer token `Authorization` başlığında gönderilir; sunucu tokeni doğrulamalı ve kaynak iznini ayrıca değerlendirmelidir. Kimlik doğrulama (kimlik) ve yetkilendirme (izin) ayrıdır. Geçerli kullanıcı her işlemi yapamaz; kaynak sahipliğini ve rolü de denetlemek gerekir."
+      "answer": "Beklenen algoritmayla imzayı doğrulamalı ve sona erme süresini uygulamalıdır.",
+      "explanation": "İmza ve süre denetimi tokenın geçerli ve güncel olduğunu doğrular. Boş olmayan bir metin veya doğrulanmamış talep taklit edilebilir; kimliği kanıtlamaz."
     },
     {
       "id": "q3",
       "topicId": "python_py_fastapi_auth",
       "type": "multiple_choice",
-      "prompt": "Derste gösterilen önemli bölüm çıkarılırsa ne değişir?",
+      "prompt": "Bearer token eksik veya geçersizse GET /users/me ne döndürmelidir?",
       "options": [
-        "Veriyi denetlemeden her isteğe aynı yanıtı verin.",
-        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
-        "Kimlik denetimi olmazsa uç noktaya ulaşan herkes korunan veriyi alabilir; token denetimi olmadan kullanıcı kimliğini varsaymayın.",
-        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin."
+        "Her isteğe demo profilini içeren 200.",
+        "İstek kimlik doğrulamasa da 403.",
+        "WWW-Authenticate: Bearer başlığıyla 401.",
+        "İstek gövdesinden tahmin edilen kullanıcı adı."
       ],
-      "answer": "Kimlik denetimi olmazsa uç noktaya ulaşan herkes korunan veriyi alabilir; token denetimi olmadan kullanıcı kimliğini varsaymayın.",
-      "explanation": "Kimlik denetimi olmazsa uç noktaya ulaşan herkes korunan veriyi alabilir; token denetimi olmadan kullanıcı kimliğini varsaymayın. Kimlik doğrulama isteğin kimden geldiğini denetler; yetkilendirme kullanıcının hangi kaynağa erişebileceğini belirler. OAuth2 bearer akışında istemci token gönderir, `HTTPBearer` veya `OAuth2PasswordBearer` bunu uç noktadan önce okur. Sabit token yalnızca eğitim demosudur."
+      "answer": "WWW-Authenticate: Bearer başlığıyla 401.",
+      "explanation": "Kimliği doğrulanmamış veya geçersiz tokenlı istek 401 ve bearer challenge alır. 200 döndürmek ya da kimliği tahmin etmek veriyi açığa çıkarır; 403, kimliği doğrulanmış fakat yetkisi olmayan kullanıcı içindir."
     },
     {
       "id": "q4",
       "topicId": "python_py_fastapi_auth",
       "type": "multiple_choice",
-      "prompt": "Dersteki yaygın hatayı önlemek için hangi adım daha doğrudur?",
+      "prompt": "Örnek parola nasıl ele almalıdır?",
       "options": [
-        "`/docs` içindeki Authorize düğmesiyle `Bearer` token ekleyin; boş ve yanlış token için 401 sonucunu ayrı sınayın.",
-        "Tüm durumu global değişkende tutup kimlik doğrulamayı atlayın.",
-        "HTTP durum kodlarını yok sayıp hatayı başarılı yanıt gibi gösterin.",
-        "Veriyi denetlemeden her isteğe aynı yanıtı verin."
+        "Özgün parolayı users sözlüğünde saklamalıdır.",
+        "Geri alınabilmesi için JWT imza anahtarıyla şifrelemelidir.",
+        "Girişten sonra JWT içeriğine koymalıdır.",
+        "Argon2 ile özetleyip gönderilen parolayı saklanan özetle doğrulamalıdır."
       ],
-      "answer": "`/docs` içindeki Authorize düğmesiyle `Bearer` token ekleyin; boş ve yanlış token için 401 sonucunu ayrı sınayın.",
-      "explanation": "`/docs` içindeki Authorize düğmesiyle `Bearer` token ekleyin; boş ve yanlış token için 401 sonucunu ayrı sınayın. Bu sabit token bilerek güvenli değildir; gerçek uygulamada standart OAuth2/OIDC sağlayıcısı, TLS, süre/yenileme ve gizli anahtar yönetimi kullanın."
+      "answer": "Argon2 ile özetleyip gönderilen parolayı saklanan özetle doğrulamalıdır.",
+      "explanation": "Parola özeti, özgün parolayı saklamadan doğrulama sağlar. Geri çözülebilen şifreleme ve JWT içeriği parola özetlemesinin yerini tutmaz; imza anahtarı parolalar için kullanılmamalıdır."
     }
   ]
 }

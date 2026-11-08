@@ -6,57 +6,57 @@
       "id": "q1",
       "topicId": "python_py_fastapi_auth",
       "type": "multiple_choice",
-      "prompt": "How should the API respond to this practical HTTP request?\nGET /profile  Authorization: Bearer development-only-token",
+      "prompt": "A client needs a token for the protected profile route. Which request is correct?",
       "options": [
-        "Return the same response to every request without checking its data.",
-        "Demo token returns 200 JSON; a missing token returns 401 with `WWW-Authenticate: Bearer`.",
-        "Ignore HTTP status codes and present failures as successful responses.",
-        "Keep all state in a global variable and skip authentication."
+        "POST /token with username and password as form fields.",
+        "GET /users/me with the password in the URL query.",
+        "POST /users/me with a JSON password and no token.",
+        "GET /token with a bearer token that has not been issued yet."
       ],
-      "answer": "Demo token returns 200 JSON; a missing token returns 401 with `WWW-Authenticate: Bearer`.",
-      "explanation": "This is the expected behavior for `GET /profile  Authorization: Bearer development-only-token`. Demo token returns 200 JSON; a missing token returns 401 with `WWW-Authenticate: Bearer`."
+      "answer": "POST /token with username and password as form fields.",
+      "explanation": "The form POST to /token invokes OAuth2PasswordRequestForm and can issue a token. Putting a password in a URL exposes it in logs; /users/me is protected, not the login route."
     },
     {
       "id": "q2",
       "topicId": "python_py_fastapi_auth",
       "type": "multiple_choice",
-      "prompt": "Which design principle is correct for this topic?",
+      "prompt": "After issuing a JWT, what must the protected endpoint do?",
       "options": [
-        "Return the same response to every request without checking its data.",
-        "Keep all state in a global variable and skip authentication.",
-        "Ignore HTTP status codes and present failures as successful responses.",
-        "A bearer token is sent in `Authorization`; the server must validate it and separately check resource permissions."
+        "Accept any non-empty string as a token.",
+        "Verify the signature with the expected algorithm and enforce the expiration claim.",
+        "Read the username claim without validating the token.",
+        "Trust a username sent separately by the client."
       ],
-      "answer": "A bearer token is sent in `Authorization`; the server must validate it and separately check resource permissions.",
-      "explanation": "A bearer token is sent in `Authorization`; the server must validate it and separately check resource permissions. Authentication and authorization are different. A valid identity is not permission for every action; also check ownership and roles."
+      "answer": "Verify the signature with the expected algorithm and enforce the expiration claim.",
+      "explanation": "Signature and expiration validation establish that the token is authentic and current. A non-empty string or unverified claim can be forged and is not proof of identity."
     },
     {
       "id": "q3",
       "topicId": "python_py_fastapi_auth",
       "type": "multiple_choice",
-      "prompt": "What changes if the important part shown in the lesson is omitted?",
+      "prompt": "What should GET /users/me return when the bearer token is missing or invalid?",
       "options": [
-        "Return the same response to every request without checking its data.",
-        "Keep all state in a global variable and skip authentication.",
-        "Without identity checks, anyone who can reach the endpoint may receive protected data; do not infer identity from a request.",
-        "Ignore HTTP status codes and present failures as successful responses."
+        "200 with the demo profile for every request.",
+        "403 even when the request lacks authentication.",
+        "401 with a WWW-Authenticate: Bearer challenge.",
+        "A guessed username from the request body."
       ],
-      "answer": "Without identity checks, anyone who can reach the endpoint may receive protected data; do not infer identity from a request.",
-      "explanation": "Without identity checks, anyone who can reach the endpoint may receive protected data; do not infer identity from a request. Authentication checks who made a request; authorization decides what that identity may access. In a bearer-token flow, the client sends a token and FastAPI extracts it before the endpoint. The fixed token below is for a lesson demo only."
+      "answer": "401 with a WWW-Authenticate: Bearer challenge.",
+      "explanation": "An unauthenticated or invalid-token request receives 401 and the bearer challenge. Returning 200 or guessing identity exposes protected data; 403 is for an authenticated identity lacking permission."
     },
     {
       "id": "q4",
       "topicId": "python_py_fastapi_auth",
       "type": "multiple_choice",
-      "prompt": "Which action best prevents the common mistake from this lesson?",
+      "prompt": "How should the demo handle the password?",
       "options": [
-        "Keep all state in a global variable and skip authentication.",
-        "Use Authorize in `/docs` to send a bearer token; test missing and incorrect tokens as separate 401 cases.",
-        "Return the same response to every request without checking its data.",
-        "Ignore HTTP status codes and present failures as successful responses."
+        "Store the original password in the users dictionary.",
+        "Encrypt it with the JWT signing key so it can be recovered.",
+        "Put it in the JWT payload after login.",
+        "Hash it with Argon2 and verify the submitted password against the stored hash."
       ],
-      "answer": "Use Authorize in `/docs` to send a bearer token; test missing and incorrect tokens as separate 401 cases.",
-      "explanation": "Use Authorize in `/docs` to send a bearer token; test missing and incorrect tokens as separate 401 cases. This fixed token is intentionally not secure. Use a standard OAuth2/OIDC provider, TLS, expiry/rotation, and secret management in a real system."
+      "answer": "Hash it with Argon2 and verify the submitted password against the stored hash.",
+      "explanation": "A password hash enables verification without storing the original password. Reversible encryption and JWT payloads do not replace password hashing, and the signing key should not be reused to protect stored passwords."
     }
   ]
 }

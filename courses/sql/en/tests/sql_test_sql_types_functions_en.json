@@ -6,15 +6,15 @@
       "id": "sql_sql_types_functions_1",
       "topicId": "sql_sql_types_functions",
       "type": "multiple_choice",
-      "prompt": "Which statement gives the core rule for “Data types, operators, and built-in functions”?",
+      "prompt": "Run this query in SQLite. Which row is returned?\nSELECT LOWER('SQL'), ROUND(12.345, 2), COALESCE(NULL, 'empty'), CAST('42' AS INTEGER), 7 BETWEEN 1 AND 10;",
       "options": [
-        "Start with a small, readable SELECT query; connect it to an application only after you understand its result.",
-        "SQLite often runs inside the application; MySQL and PostgreSQL commonly run as separate server processes.",
-        "The example returns lowercase sql, rounded 12.35, a fallback text, integer 42, and TRUE.",
-        "The query returns Ada and 42 in two columns."
+        "('SQL', 12.35, NULL, 42, 1)",
+        "('sql', 12.35, 'empty', 42, 1)",
+        "('sql', 12.35, 'empty', 42, TRUE)",
+        "('sql', 12.34, 'empty', 42, 0)"
       ],
-      "answer": "The example returns lowercase sql, rounded 12.35, a fallback text, integer 42, and TRUE.",
-      "explanation": "The example returns lowercase sql, rounded 12.35, a fallback text, integer 42, and TRUE.\nWhy: A column's type determines which values it stores and how comparisons work. Use TEXT for text, INTEGER for whole numbers, and integer minor units or DECIMAL/NUMERIC where supported for exact money; date/time types differ between systems. SQL expressions use arithmetic and comparison operators plus AND, OR, NOT, and concatenation such as `||`. Useful built-ins include `LOWER`, `UPPER`, `LENGTH`, `ROUND`, `COALESCE`, `NULLIF`, and `CAST`. SQLite can represent dates as ISO-8601 text, Julian day numbers, or Unix timestamps; PostgreSQL and MySQL also provide date/time types and functions. Function names and date syntax vary by DBMS."
+      "answer": "('sql', 12.35, 'empty', 42, 1)",
+      "explanation": "SQLite returns `sql` from LOWER, 12.35 from ROUND, `empty` from COALESCE, and integer 42 from CAST. The final BETWEEN expression is integer 1 in SQLite; `TRUE` is a tempting PostgreSQL-style display, not SQLite's result."
     },
     {
       "id": "sql_sql_types_functions_2",

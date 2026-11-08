@@ -3,188 +3,132 @@
   "title": "Authentication basics",
   "difficulty": "hard",
   "testId": "python_test_py_fastapi_auth_en",
-  "estimatedMinutes": 24,
+  "estimatedMinutes": 35,
   "sources": [
-    "https://fastapi.tiangolo.com/tutorial/security/"
+    "https://fastapi.tiangolo.com/tutorial/security/",
+    "https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/",
+    "https://pyjwt.readthedocs.io/en/stable/",
+    "https://frankie567.github.io/pwdlib/",
+    "https://fastapi.tiangolo.com/tutorial/testing/"
   ],
   "spans": [
     {
       "type": "text",
-      "text": "WHY USE THIS?\n",
+      "text": "WHY THIS MATTERS",
       "size": 20,
       "color": "#1565C0",
       "bold": true
     },
     {
       "type": "text",
-      "text": "FastAPI builds JSON APIs that web and mobile applications call over HTTP; type annotations help validate inputs and describe the API contract.\n\n",
+      "text": "Authentication checks who made a request; authorization decides what that identity may access. A bearer-token API issues a short-lived token at a real login endpoint and validates it on protected routes.\n\n",
       "size": 16,
       "color": "#212121"
     },
     {
       "type": "text",
-      "text": "PURPOSE AND REAL-WORLD USE\n",
-      "size": 20,
-      "color": "#6A1B9A",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": "Authentication checks who made a request; authorization decides what that identity may access. In a bearer-token flow, the client sends a token and FastAPI extracts it before the endpoint. The fixed token below is for a lesson demo only.\n\n",
-      "size": 17,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "To run these examples locally, install `pip install fastapi uvicorn httpx` plus any extra package named in the lesson. Save the server example as `app.py` and start `uvicorn app:app --reload`. `--reload` is for development only.\n\n",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "WHERE DOES THIS APPEAR IN REAL LIFE?\nA private profile endpoint rejects requests without a token and returns data for an identified user.\n\n",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "If this part is omitted: Without identity checks, anyone who can reach the endpoint may receive protected data; do not infer identity from a request.\n\n",
-      "size": 16,
-      "color": "#212121"
-    },
-    {
-      "type": "text",
-      "text": "COMPLETE RUNNABLE EXAMPLE\n",
+      "text": "STEP 1 — CONCEPT ONLY",
       "size": 20,
       "color": "#1565C0",
       "bold": true
     },
     {
       "type": "text",
-      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
+      "text": "`OAuth2PasswordBearer(tokenUrl=\"token\")` tells API documentation where clients request a token and extracts bearer tokens from later requests. By itself it does not create `/token`, verify a password, or validate a JWT; the snippet below is deliberately not a complete login system.\n\n",
       "size": 16,
-      "bold": true
+      "color": "#212121"
     },
     {
       "type": "code",
       "language": "python",
-      "code": "import secrets\nfrom fastapi import Depends, FastAPI, HTTPException, status\nfrom fastapi.security import OAuth2PasswordBearer\n\napp = FastAPI()\noauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")\n\nasync def current_user(token: str = Depends(oauth2_scheme)):\n    if not secrets.compare_digest(token, \"development-only-token\"):\n        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=\"Invalid token\", headers={\"WWW-Authenticate\": \"Bearer\"})\n    return {\"username\": \"ada\"}\n\n@app.get(\"/profile\")\nasync def profile(user: dict = Depends(current_user)):\n    return user\n",
+      "code": "oauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")\n\n@app.get(\"/users/me\")\nasync def read_users_me(token: str = Depends(oauth2_scheme)):\n    # Concept only: token presence does not prove identity.\n    ...",
       "showCopyButton": true
     },
     {
       "type": "text",
-      "text": "REQUEST AND EXPECTED RESPONSE\n",
+      "text": "STEP 2 — WORKING PASSWORD AND JWT FLOW",
+      "size": 20,
+      "color": "#1565C0",
+      "bold": true
+    },
+    {
+      "type": "text",
+      "text": "Install `fastapi`, `uvicorn`, `httpx`, `python-multipart`, `PyJWT`, and `pwdlib[argon2]`. Set `SECRET_KEY` to a randomly generated secret and `DEMO_PASSWORD` in the environment; never put either value in source control. Save the server code as `app.py`. Start the development server with `uvicorn app:app --reload` (`--reload` is for development only).\n\n",
+      "size": 16,
+      "color": "#212121"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import os\nfrom datetime import datetime, timedelta, timezone\n\nimport jwt\nfrom fastapi import Depends, FastAPI, HTTPException, status\nfrom fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm\nfrom jwt.exceptions import InvalidTokenError\nfrom pwdlib import PasswordHash\n\nSECRET_KEY = os.environ.get(\"SECRET_KEY\")\nif not SECRET_KEY:\n    raise RuntimeError(\"Set SECRET_KEY in the environment\")\n\nDEMO_USERNAME = os.environ.get(\"DEMO_USERNAME\", \"ada\")\nDEMO_PASSWORD = os.environ[\"DEMO_PASSWORD\"]\npassword_hash = PasswordHash.recommended()\nusers = {\n    DEMO_USERNAME: {\n        \"username\": DEMO_USERNAME,\n        \"hashed_password\": password_hash.hash(DEMO_PASSWORD),\n    }\n}\n\napp = FastAPI()\noauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")\n\n\ndef create_access_token(username: str) -> str:\n    expires_at = datetime.now(timezone.utc) + timedelta(minutes=30)\n    return jwt.encode(\n        {\"sub\": username, \"exp\": expires_at}, SECRET_KEY, algorithm=\"HS256\"\n    )\n\n\n@app.post(\"/token\")\nasync def login(form: OAuth2PasswordRequestForm = Depends()):\n    user = users.get(form.username)\n    if user is None or not password_hash.verify(\n        form.password, user[\"hashed_password\"]\n    ):\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Incorrect username or password\",\n            headers={\"WWW-Authenticate\": \"Bearer\"},\n        )\n    return {\n        \"access_token\": create_access_token(user[\"username\"]),\n        \"token_type\": \"bearer\",\n    }\n\n\n@app.get(\"/users/me\")\nasync def read_users_me(token: str = Depends(oauth2_scheme)):\n    try:\n        claims = jwt.decode(token, SECRET_KEY, algorithms=[\"HS256\"])\n    except InvalidTokenError as exc:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Invalid or expired token\",\n            headers={\"WWW-Authenticate\": \"Bearer\"},\n        ) from exc\n\n    username = claims.get(\"sub\")\n    user = users.get(username) if isinstance(username, str) else None\n    if user is None:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Invalid or expired token\",\n            headers={\"WWW-Authenticate\": \"Bearer\"},\n        )\n    return {\"username\": user[\"username\"]}\n",
+      "showCopyButton": true
+    },
+    {
+      "type": "text",
+      "text": "REQUEST AND EXPECTED RESPONSE",
       "size": 18,
       "color": "#2E7D32",
       "bold": true
     },
     {
-      "type": "code",
-      "language": "text",
-      "code": "Request: GET /profile  Authorization: Bearer development-only-token\nResponse: Demo token returns 200 JSON; a missing token returns 401 with `WWW-Authenticate: Bearer`.",
-      "showCopyButton": false
-    },
-    {
       "type": "text",
-      "text": "LINE-BY-LINE CODE EXPLANATION\n`import secrets` — Imports a required type or tool; without it, the name is unavailable.\n`from fastapi import Depends, FastAPI, HTTPException, status` — Imports a required type or tool; without it, the name is unavailable.\n`from fastapi.security import OAuth2PasswordBearer` — Imports a required type or tool; without it, the name is unavailable.\n`app = FastAPI()` — `FastAPI()` creates the ASGI application that holds the routes and is passed to the server.\n`oauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")` — Runs work for this request; its result or side effect affects the response.\n`async def current_user(token: str = Depends(oauth2_scheme)):` — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n`if not secrets.compare_digest(token, \"development-only-token\"):` — Chooses a branch when the condition is true and handles an edge case.\n`raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=\"Invalid token\", headers={\"WWW-Authenticate\": \"Bearer\"})` — Stops the request with an explicit status and error detail instead of hiding the failure.\n`return {\"username\": \"ada\"}` — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n`@app.get(\"/profile\")` — Binds an HTTP method and URL path to this function; without the decorator, it is not an API endpoint.\n`async def profile(user: dict = Depends(current_user)):` — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n`return user` — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "PRACTICE: CHECK IT WITH AN HTTP CLIENT\n",
-      "size": 19,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": "This complete file calls the app locally with TestClient; it does not open a server port. Install `httpx` for TestClient.\n\n",
+      "text": "POST `/token` with form fields `username` and `password`; the endpoint returns a signed token that expires after 30 minutes. Send it as `Authorization: Bearer <token>` to `GET /users/me`.\n\n",
       "size": 16,
       "color": "#212121"
     },
     {
       "type": "text",
-      "text": "COMPLETE RUNNABLE CLIENT TEST\n",
-      "size": 20,
-      "color": "#1565C0",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": "QUESTION: What will this code print? Predict first, then run it.\n",
-      "size": 16,
-      "bold": true
-    },
-    {
-      "type": "code",
-      "language": "python",
-      "code": "import secrets\nfrom fastapi import Depends, FastAPI, HTTPException, status\nfrom fastapi.security import OAuth2PasswordBearer\n\napp = FastAPI()\noauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")\n\nasync def current_user(token: str = Depends(oauth2_scheme)):\n    if not secrets.compare_digest(token, \"development-only-token\"):\n        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=\"Invalid token\", headers={\"WWW-Authenticate\": \"Bearer\"})\n    return {\"username\": \"ada\"}\n\n@app.get(\"/profile\")\nasync def profile(user: dict = Depends(current_user)):\n    return user\n\nfrom fastapi.testclient import TestClient\n\nwith TestClient(app) as client:\n    response = client.get(\"/profile\", headers={\"Authorization\": \"Bearer development-only-token\"})\n    print(response.status_code, response.json())\n",
-      "showCopyButton": true
-    },
-    {
-      "type": "text",
-      "text": "EXPECTED CLIENT-TEST OUTPUT\n",
-      "size": 18,
-      "color": "#2E7D32",
-      "bold": true
-    },
-    {
-      "type": "code",
-      "language": "text",
-      "code": "200 {'username': 'ada'}",
-      "showCopyButton": false
-    },
-    {
-      "type": "text",
-      "text": "LINE-BY-LINE CODE EXPLANATION\n`import secrets` — Imports a required type or tool; without it, the name is unavailable.\n`from fastapi import Depends, FastAPI, HTTPException, status` — Imports a required type or tool; without it, the name is unavailable.\n`from fastapi.security import OAuth2PasswordBearer` — Imports a required type or tool; without it, the name is unavailable.\n`app = FastAPI()` — `FastAPI()` creates the ASGI application that holds the routes and is passed to the server.\n`oauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")` — Runs work for this request; its result or side effect affects the response.\n`async def current_user(token: str = Depends(oauth2_scheme)):` — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n`if not secrets.compare_digest(token, \"development-only-token\"):` — Chooses a branch when the condition is true and handles an edge case.\n`raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=\"Invalid token\", headers={\"WWW-Authenticate\": \"Bearer\"})` — Stops the request with an explicit status and error detail instead of hiding the failure.\n`return {\"username\": \"ada\"}` — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n`@app.get(\"/profile\")` — Binds an HTTP method and URL path to this function; without the decorator, it is not an API endpoint.\n`async def profile(user: dict = Depends(current_user)):` — Defines the endpoint the server calls; parameter names help bind path, query, or body data.\n`return user` — Returns the HTTP response value; FastAPI converts it to JSON and applies the response model.\n`from fastapi.testclient import TestClient` — Imports TestClient so an HTTP request can exercise the app without opening a server port.\n`with TestClient(app) as client:` — Creates a test HTTP client for the app and closes it when the context ends.\n`response = client.get(\"/profile\", headers={\"Authorization\": \"Bearer development-only-token\"})` — Sends the stated GET request through the test client and stores the response.\n`print(response.status_code, response.json())` — Reads and prints both the HTTP status code and parsed JSON response.\n\n",
-      "size": 15,
-      "color": "#37474F"
-    },
-    {
-      "type": "text",
-      "text": "COMMON MISTAKES\n",
-      "size": 20,
-      "color": "#C62828",
-      "bold": true
-    },
-    {
-      "type": "text",
-      "text": "Putting tokens in URLs or logs; send bearer tokens in the `Authorization` header and never use a demo secret in production.\n\n",
+      "text": "The example hashes the environment-provided demo password with the recommended Argon2 configuration and validates JWT signature, algorithm, and expiration. A production service must load stored password hashes from a database, use a managed secret, apply authorization checks, rate-limit login attempts, and use HTTPS.\n\n",
       "size": 16,
       "color": "#212121"
-    },
-    {
-      "type": "tip",
-      "title": "Practical tip",
-      "text": "Use Authorize in `/docs` to send a bearer token; test missing and incorrect tokens as separate 401 cases."
-    },
-    {
-      "type": "detail",
-      "title": "One level deeper",
-      "text": "Authentication and authorization are different. A valid identity is not permission for every action; also check ownership and roles."
     },
     {
       "type": "warning",
-      "title": "Important warning",
-      "text": "This fixed token is intentionally not secure. Use a standard OAuth2/OIDC provider, TLS, expiry/rotation, and secret management in a real system."
+      "title": "SECURITY",
+      "text": "Never store plaintext passwords or commit secrets. JWT payloads are signed, not encrypted; do not put passwords or other sensitive data in them. Rotate exposed signing keys and use HTTPS in deployed systems. The app hashes the demo password at startup; a real service stores only the resulting hash and manages accounts separately."
+    },
+    {
+      "type": "tip",
+      "title": "TESTING",
+      "text": "Append the TestClient block to the same `app.py` file, set the two environment variables, and run `python app.py`. The `if __name__ == \"__main__\"` guard keeps those checks from running when Uvicorn imports the app."
     },
     {
       "type": "text",
-      "text": "QUICK RECALL\n",
+      "text": "PRACTICE: RUN THE SUCCESS AND FAILURE CASES",
       "size": 20,
+      "color": "#1565C0",
       "bold": true
     },
     {
       "type": "text",
-      "text": "Question: Which action best prevents the common mistake from this lesson?\n",
+      "text": "The following is only the additional client-test code; append it to the same file after the app code. It checks a successful login and profile request, a wrong password, a missing token, and an invalid token.\n\n",
       "size": 16,
-      "bold": true
+      "color": "#212121"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "if __name__ == \"__main__\":\n    from fastapi.testclient import TestClient\n\n    with TestClient(app) as client:\n        bad_login = client.post(\n            \"/token\",\n            data={\"username\": DEMO_USERNAME, \"password\": DEMO_PASSWORD + \"wrong\"},\n        )\n        login = client.post(\n            \"/token\",\n            data={\"username\": DEMO_USERNAME, \"password\": DEMO_PASSWORD},\n        )\n        assert bad_login.status_code == 401\n        assert login.status_code == 200\n\n        token = login.json()[\"access_token\"]\n        profile = client.get(\n            \"/users/me\", headers={\"Authorization\": f\"Bearer {token}\"}\n        )\n        missing_token = client.get(\"/users/me\")\n        invalid_token = client.get(\n            \"/users/me\", headers={\"Authorization\": \"Bearer invalid\"}\n        )\n        assert profile.status_code == 200\n        assert missing_token.status_code == 401\n        assert invalid_token.status_code == 401\n\n        print(\"login:\", login.status_code)\n        print(\"profile:\", profile.status_code, profile.json())\n        print(\"missing token:\", missing_token.status_code)\n        print(\"invalid token:\", invalid_token.status_code)\n",
+      "showCopyButton": true
     },
     {
       "type": "text",
-      "text": "Answer: Use Authorize in `/docs` to send a bearer token; test missing and incorrect tokens as separate 401 cases.\n\n",
-      "size": 16
+      "text": "EXPECTED CLIENT-TEST OUTPUT",
+      "size": 18,
+      "color": "#2E7D32",
+      "bold": true
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "login: 200\nprofile: 200 {'username': 'ada'}\nmissing token: 401\ninvalid token: 401",
+      "showCopyButton": false
+    },
+    {
+      "type": "text",
+      "text": "Exercise: shorten the token lifetime for a local test and confirm that an expired token is rejected. Restore the 30-minute setting afterward.\n\n",
+      "size": 16,
+      "color": "#212121"
     }
   ],
   "requires_visual": false,

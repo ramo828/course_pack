@@ -694,15 +694,15 @@
       "id": "q_python_py_fastapi_first_api",
       "topicId": "python_py_fastapi_first_api",
       "type": "multiple_choice",
-      "prompt": "Bu mövzuda hansı dizayn prinsipi doğrudur?",
+      "prompt": "Bu real HTTP sorğusuna API necə cavab verməlidir?\nGET /",
       "options": [
         "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
-        "GET `/` sorğusu body tələb etmir; server metod və yol uyğun gələndə salam JSON-u qaytarır.",
+        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın.",
         "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
-        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın."
+        "200 OK; JSON: {\"message\":\"Hello, world!\",\"lesson\":\"First API\"}"
       ],
-      "answer": "GET `/` sorğusu body tələb etmir; server metod və yol uyğun gələndə salam JSON-u qaytarır.",
-      "explanation": "GET `/` sorğusu body tələb etmir; server metod və yol uyğun gələndə salam JSON-u qaytarır. `@app.get` URL və HTTP metodunu funksiyaya bağlayır; `return` edilən lüğət FastAPI tərəfindən JSON-a çevrilir. HTTP sorğusu olmadan endpoint funksiyası çağırılmır."
+      "answer": "200 OK; JSON: {\"message\":\"Hello, world!\",\"lesson\":\"First API\"}",
+      "explanation": "Bu, `GET /` sorğusunun gözlənilən davranışıdır. 200 OK; JSON: {\"message\":\"Hello, world!\",\"lesson\":\"First API\"}"
     },
     {
       "id": "q_python_py_fastapi_path_query",
@@ -792,15 +792,15 @@
       "id": "q_python_py_fastapi_auth",
       "topicId": "python_py_fastapi_auth",
       "type": "multiple_choice",
-      "prompt": "Bu mövzuda hansı dizayn prinsipi doğrudur?",
+      "prompt": "Qorunan profil endpoint-i üçün token almaq istəyən müştəri hansı sorğunu göndərməlidir?",
       "options": [
-        "Bütün vəziyyəti qlobal dəyişəndə saxlayın və autentifikasiyanı buraxın.",
-        "HTTP status kodlarını nəzərə almadan xətanı uğurlu cavab kimi göstərin.",
-        "Bearer tokeni `Authorization` başlığında göndərilir; server onu yoxlamalı və ayrıca resurs icazəsini qiymətləndirməlidir.",
-        "Məlumatı yoxlamadan bütün sorğulara eyni cavabı qaytarın."
+        "username və password form sahələri ilə /token ünvanına POST.",
+        "Parolu URL sorğu parametrində göndərərək /users/me ünvanına GET.",
+        "Token olmadan JSON parolu ilə /users/me ünvanına POST.",
+        "Hələ verilməmiş bearer tokenlə /token ünvanına GET."
       ],
-      "answer": "Bearer tokeni `Authorization` başlığında göndərilir; server onu yoxlamalı və ayrıca resurs icazəsini qiymətləndirməlidir.",
-      "explanation": "Bearer tokeni `Authorization` başlığında göndərilir; server onu yoxlamalı və ayrıca resurs icazəsini qiymətləndirməlidir. Autentifikasiya (kimlik) və avtorizasiya (icazə) fərqlidir. Etibarlı istifadəçi hər əməliyyatı edə bilməz; resurs sahibini və rolu da yoxlamaq lazımdır."
+      "answer": "username və password form sahələri ilə /token ünvanına POST.",
+      "explanation": "Form sahələri ilə /token ünvanına POST sorğusu OAuth2PasswordRequestForm-u işə salır və token verə bilər. Parolu URL-də göndərmək onu jurnallarda aça bilər; /users/me giriş endpoint-i deyil."
     },
     {
       "id": "python_py_fastapi_testing",
