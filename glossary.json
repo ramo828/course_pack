@@ -4265,6 +4265,4341 @@
             "file": "courses/embedded/en/topics/arduino_cpp_assembly.json"
           }],
           "sources": ["https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html"]
-        }
+        },
+    {
+      "id": "move",
+      "term": {
+        "az": "Köçürmə (move)",
+        "tr": "Taşıma (move)",
+        "en": "Move",
+        "ru": "Перемещение (move)"
+      },
+      "general": {
+        "az": "Dəyərin sahibliyini yeni dəyişənə ötürür.",
+        "tr": "Değerin sahipliğini yeni değişkene aktarır.",
+        "en": "Transfers a value’s ownership to a new binding.",
+        "ru": "Передаёт владение значением новой переменной."
+      }
+    },
+    {
+      "id": "copy-type",
+      "term": {
+        "az": "Copy tipi",
+        "tr": "Copy türü",
+        "en": "Copy type",
+        "ru": "Тип Copy"
+      },
+      "general": {
+        "az": "Sadə dəyərlər ötürüləndə köçürülmək əvəzinə kopyalana bilər.",
+        "tr": "Basit değerler aktarılırken taşınmak yerine kopyalanabilir.",
+        "en": "Simple values can be copied instead of moved when assigned.",
+        "ru": "Простые значения при присваивании копируются, а не перемещаются."
+      }
+    },
+    {
+      "id": "mutable-reference",
+      "term": {
+        "az": "Dəyişən referans",
+        "tr": "Değiştirilebilir referans",
+        "en": "Mutable reference",
+        "ru": "Изменяемая ссылка"
+      },
+      "general": {
+        "az": "`&mut T` borc götürülmüş dəyəri dəyişməyə imkan verir.",
+        "tr": "`&mut T`, ödünç alınan değeri değiştirmeyi sağlar.",
+        "en": "`&mut T` allows a borrowed value to be changed.",
+        "ru": "`&mut T` позволяет изменять заимствованное значение."
+      }
+    },
+    {
+      "id": "lifetime",
+      "term": {
+        "az": "Ömür (lifetime)",
+        "tr": "Ömür (lifetime)",
+        "en": "Lifetime",
+        "ru": "Время жизни (lifetime)"
+      },
+      "general": {
+        "az": "Referansın hansı müddətdə etibarlı qaldığını ifadə edir.",
+        "tr": "Bir referansın ne kadar süre geçerli kaldığını belirtir.",
+        "en": "Describes how long a reference remains valid.",
+        "ru": "Описывает, как долго ссылка остаётся действительной."
+      }
+    },
+    {
+      "id": "slice",
+      "term": {
+        "az": "Slice",
+        "tr": "Dilim (slice)",
+        "en": "Slice",
+        "ru": "Срез (slice)"
+      },
+      "general": {
+        "az": "Kolleksiyanın bir hissəsinə borc referansı verir.",
+        "tr": "Bir koleksiyonun bir bölümüne ödünç referans verir.",
+        "en": "Borrows a view into part of a collection.",
+        "ru": "Предоставляет заимствованное представление части коллекции."
+      }
+    },
+    {
+      "id": "struct",
+      "term": {
+        "az": "Struct",
+        "tr": "Struct (yapı)",
+        "en": "Struct",
+        "ru": "Структура (struct)"
+      },
+      "general": {
+        "az": "Əlaqəli sahələri adlarla bir dəyərdə birləşdirir.",
+        "tr": "İlişkili alanları adlarıyla tek bir değerde birleştirir.",
+        "en": "Groups related named fields into one value.",
+        "ru": "Объединяет связанные именованные поля в одном значении."
+      }
+    },
+    {
+      "id": "enum",
+      "term": {
+        "az": "Enum",
+        "tr": "Enum (numaralandırma)",
+        "en": "Enum",
+        "ru": "Перечисление (enum)"
+      },
+      "general": {
+        "az": "Dəyərin mümkün variantlarını bir tip altında müəyyən edir.",
+        "tr": "Bir değerin olası seçeneklerini tek bir tür altında tanımlar.",
+        "en": "Defines the possible variants of a value under one type.",
+        "ru": "Задаёт возможные варианты значения в рамках одного типа."
+      }
+    },
+    {
+      "id": "match-expression",
+      "term": {
+        "az": "match ifadəsi",
+        "tr": "match ifadesi",
+        "en": "match expression",
+        "ru": "Выражение match"
+      },
+      "general": {
+        "az": "Bütün mümkün halları nümunələrlə yoxlayır və dəyər qaytara bilir.",
+        "tr": "Tüm olası durumları örüntülerle denetler ve değer döndürebilir.",
+        "en": "Checks cases with patterns and can produce a value.",
+        "ru": "Проверяет варианты с помощью образцов и может возвращать значение."
+      }
+    },
+    {
+      "id": "if-let",
+      "term": {
+        "az": "if let",
+        "tr": "if let",
+        "en": "if let",
+        "ru": "if let"
+      },
+      "general": {
+        "az": "Yalnız uyğun gələn bir variantı qısa şəkildə emal edir.",
+        "tr": "Yalnız eşleşen tek bir seçeneği kısa biçimde işler.",
+        "en": "Handles one matching case with less syntax.",
+        "ru": "Кратко обрабатывает один подходящий вариант."
+      }
+    },
+    {
+      "id": "option-t",
+      "term": {
+        "az": "Option<T>",
+        "tr": "Option<T>",
+        "en": "Option<T>",
+        "ru": "Option<T>"
+      },
+      "general": {
+        "az": "Dəyərin ola və ya olmaya biləcəyini göstərir.",
+        "tr": "Bir değerin bulunabileceğini ya da bulunmayabileceğini belirtir.",
+        "en": "Represents a value that may be present or absent.",
+        "ru": "Представляет значение, которое может присутствовать или отсутствовать."
+      }
+    },
+    {
+      "id": "result-t-e",
+      "term": {
+        "az": "Result<T, E>",
+        "tr": "Result<T, E>",
+        "en": "Result<T, E>",
+        "ru": "Result<T, E>"
+      },
+      "general": {
+        "az": "Uğurlu nəticəni və ya xətanı qaytarır.",
+        "tr": "Başarılı sonucu ya da hatayı döndürür.",
+        "en": "Returns either a successful value or an error.",
+        "ru": "Возвращает успешное значение или ошибку."
+      }
+    },
+    {
+      "id": "operator",
+      "term": {
+        "az": "? operatoru",
+        "tr": "? operatörü",
+        "en": "? operator",
+        "ru": "Оператор ?"
+      },
+      "general": {
+        "az": "Xəta olduqda onu qaytarır, uğurda dəyəri açır.",
+        "tr": "Hata varsa döndürür, başarılıysa değeri açar.",
+        "en": "Returns an error early, or unwraps a successful value.",
+        "ru": "При ошибке сразу возвращает её, а при успехе извлекает значение."
+      }
+    },
+    {
+      "id": "unwrap-or",
+      "term": {
+        "az": "unwrap_or",
+        "tr": "unwrap_or",
+        "en": "unwrap_or",
+        "ru": "unwrap_or"
+      },
+      "general": {
+        "az": "Xəta və ya boş nəticə üçün ehtiyat dəyər qaytarır.",
+        "tr": "Hata ya da boş sonuç için yedek değer döndürür.",
+        "en": "Supplies a fallback value for an error or absence.",
+        "ru": "Возвращает запасное значение при ошибке или отсутствии результата."
+      }
+    },
+    {
+      "id": "with-option",
+      "term": {
+        "az": "? ilə Option",
+        "tr": "Option ile ?",
+        "en": "? with Option",
+        "ru": "? с Option"
+      },
+      "general": {
+        "az": "`None` olduqda funksiyadan çıxır, `Some` dəyərini qaytarır.",
+        "tr": "`None` olduğunda işlevden çıkar, `Some` değerini döndürür.",
+        "en": "Returns early on `None` and yields the value inside `Some`.",
+        "ru": "При `None` сразу выходит из функции, а при `Some` извлекает значение."
+      }
+    },
+    {
+      "id": "panic",
+      "term": {
+        "az": "panic!",
+        "tr": "panic!",
+        "en": "panic!",
+        "ru": "panic!"
+      },
+      "general": {
+        "az": "Bərpa olunmayan proqram xətasını dərhal bildirir.",
+        "tr": "Kurtarılamayan bir program hatasını hemen bildirir.",
+        "en": "Immediately reports an unrecoverable program error.",
+        "ru": "Немедленно сообщает о невосстановимой ошибке программы."
+      }
+    },
+    {
+      "id": "saturating-operation",
+      "term": {
+        "az": "Saturating əməliyyat",
+        "tr": "Saturating işlem",
+        "en": "Saturating operation",
+        "ru": "Насыщаемая операция"
+      },
+      "general": {
+        "az": "Daşma baş verəndə nəticəni tipin sərhədində saxlayır.",
+        "tr": "Taşma olduğunda sonucu türün sınırında tutar.",
+        "en": "Clamps an overflowing result to the type’s numeric limit.",
+        "ru": "При переполнении ограничивает результат числовой границей типа."
+      }
+    },
+    {
+      "id": "trait",
+      "term": {
+        "az": "Trait",
+        "tr": "Trait",
+        "en": "Trait",
+        "ru": "Трейт (trait)"
+      },
+      "general": {
+        "az": "Tipin təqdim etməli olduğu davranışları müəyyən edir.",
+        "tr": "Bir türün sağlaması gereken davranışları tanımlar.",
+        "en": "Defines behavior that a type promises to provide.",
+        "ru": "Определяет поведение, которое тип обязуется предоставить."
+      }
+    },
+    {
+      "id": "impl-block",
+      "term": {
+        "az": "impl bloku",
+        "tr": "impl bloğu",
+        "en": "impl block",
+        "ru": "Блок impl"
+      },
+      "general": {
+        "az": "Tip üçün metod və ya trait davranışı yazır.",
+        "tr": "Bir tür için metot ya da trait davranışı yazar.",
+        "en": "Defines methods or trait behavior for a type.",
+        "ru": "Определяет методы или реализацию трейта для типа."
+      }
+    },
+    {
+      "id": "generic-function",
+      "term": {
+        "az": "Generik funksiya",
+        "tr": "Generic işlev",
+        "en": "Generic function",
+        "ru": "Обобщённая функция"
+      },
+      "general": {
+        "az": "Konkret tipdən asılı olmayan funksiya yazmağa imkan verir.",
+        "tr": "Belirli bir türe bağlı olmayan işlev yazmayı sağlar.",
+        "en": "Lets a function work with more than one concrete type.",
+        "ru": "Позволяет функции работать с разными конкретными типами."
+      }
+    },
+    {
+      "id": "trait-bound",
+      "term": {
+        "az": "Trait sərhədi",
+        "tr": "Trait sınırı",
+        "en": "Trait bound",
+        "ru": "Ограничение трейта"
+      },
+      "general": {
+        "az": "Generik tipdən tələb olunan davranışı bildirir.",
+        "tr": "Generic türden gereken davranışı belirtir.",
+        "en": "States which behavior a generic type must provide.",
+        "ru": "Указывает поведение, которое должен предоставлять обобщённый тип."
+      }
+    },
+    {
+      "id": "derive-macro",
+      "term": {
+        "az": "derive makrosu",
+        "tr": "derive makrosu",
+        "en": "derive macro",
+        "ru": "Макрос derive"
+      },
+      "general": {
+        "az": "Geniş yayılmış trait-lər üçün avtomatik implementasiya yaradır.",
+        "tr": "Yaygın trait’ler için otomatik uygulama üretir.",
+        "en": "Generates common trait implementations automatically.",
+        "ru": "Автоматически создаёт реализации распространённых трейтов."
+      }
+    },
+    {
+      "id": "closure",
+      "term": {
+        "az": "Closure",
+        "tr": "Closure (kapama)",
+        "en": "Closure",
+        "ru": "Замыкание (closure)"
+      },
+      "general": {
+        "az": "Dəyişənə verilə və davranış tuta bilən anonim funksiyadır.",
+        "tr": "Değişkene atanabilen ve davranış taşıyabilen anonim işlevdir.",
+        "en": "An anonymous function that can be stored and may capture values.",
+        "ru": "Анонимная функция, которую можно сохранить и которая может захватывать значения."
+      }
+    },
+    {
+      "id": "iterator",
+      "term": {
+        "az": "Iterator",
+        "tr": "Yineleyici (iterator)",
+        "en": "Iterator",
+        "ru": "Итератор (iterator)"
+      },
+      "general": {
+        "az": "Elementləri bir-bir təqdim edən ardıcıllıqdır.",
+        "tr": "Öğeleri sırayla sunan bir dizidir.",
+        "en": "A sequence that yields elements one at a time.",
+        "ru": "Последовательность, выдающая элементы по одному."
+      }
+    },
+    {
+      "id": "map-and-filter",
+      "term": {
+        "az": "map və filter",
+        "tr": "map ve filter",
+        "en": "map and filter",
+        "ru": "map и filter"
+      },
+      "general": {
+        "az": "Elementləri çevirir və ya şərtə görə saxlayır.",
+        "tr": "Öğeleri dönüştürür ya da koşula göre tutar.",
+        "en": "Transforms elements or keeps only those that match a condition.",
+        "ru": "Преобразует элементы или оставляет только подходящие."
+      }
+    },
+    {
+      "id": "collect",
+      "term": {
+        "az": "collect",
+        "tr": "collect",
+        "en": "collect",
+        "ru": "collect"
+      },
+      "general": {
+        "az": "Iterator nəticələrini kolleksiyada toplayır.",
+        "tr": "Yineleyici sonuçlarını bir koleksiyonda toplar.",
+        "en": "Collects iterator items into a collection.",
+        "ru": "Собирает элементы итератора в коллекцию."
+      }
+    },
+    {
+      "id": "vec-t",
+      "term": {
+        "az": "Vec<T>",
+        "tr": "Vec<T>",
+        "en": "Vec<T>",
+        "ru": "Vec<T>"
+      },
+      "general": {
+        "az": "Ölçüsü dəyişə bilən, eyni tipli elementlər saxlayır.",
+        "tr": "Boyutu değişebilen, aynı türden öğeler tutar.",
+        "en": "Stores same-typed items in a growable sequence.",
+        "ru": "Хранит элементы одного типа в изменяемой по размеру последовательности."
+      }
+    },
+    {
+      "id": "hashmap-k-v",
+      "term": {
+        "az": "HashMap<K, V>",
+        "tr": "HashMap<K, V>",
+        "en": "HashMap<K, V>",
+        "ru": "HashMap<K, V>"
+      },
+      "general": {
+        "az": "Açarları dəyərlərlə əlaqələndirir.",
+        "tr": "Anahtarları değerlerle eşleştirir.",
+        "en": "Associates keys with values.",
+        "ru": "Связывает ключи со значениями."
+      }
+    },
+    {
+      "id": "string-and-str",
+      "term": {
+        "az": "String və str",
+        "tr": "String ve str",
+        "en": "String and str",
+        "ru": "String и str"
+      },
+      "general": {
+        "az": "`String` sahib mətn, `str` isə adətən borc alınmış mətn görünüşüdür.",
+        "tr": "`String` sahip olunan metin, `str` ise genellikle ödünç metin görünümüdür.",
+        "en": "`String` owns text, while `str` is usually viewed through a borrow.",
+        "ru": "`String` владеет текстом, а `str` обычно используется через заимствованное представление."
+      }
+    },
+    {
+      "id": "module",
+      "term": {
+        "az": "Modul",
+        "tr": "Modül",
+        "en": "Module",
+        "ru": "Модуль"
+      },
+      "general": {
+        "az": "Əlaqəli kodu ad fəzasında qruplaşdırır.",
+        "tr": "İlişkili kodu bir ad alanında gruplar.",
+        "en": "Groups related code in a namespace.",
+        "ru": "Группирует связанный код в пространстве имён."
+      }
+    },
+    {
+      "id": "visibility-pub",
+      "term": {
+        "az": "Görünürlük (pub)",
+        "tr": "Görünürlük (pub)",
+        "en": "Visibility (`pub`)",
+        "ru": "Видимость (`pub`)"
+      },
+      "general": {
+        "az": "Modul daxilində hansı adların əlçatan olduğunu idarə edir.",
+        "tr": "Bir modül içindeki adların hangilerinin erişilebilir olduğunu yönetir.",
+        "en": "Controls which names are accessible outside a module.",
+        "ru": "Определяет, какие имена доступны за пределами модуля."
+      }
+    },
+    {
+      "id": "unit-test",
+      "term": {
+        "az": "Vahid testi",
+        "tr": "Birim testi",
+        "en": "Unit test",
+        "ru": "Модульный тест"
+      },
+      "general": {
+        "az": "Kiçik funksiyanı və ya modul davranışını ayrıca yoxlayır.",
+        "tr": "Küçük bir işlevi ya da modül davranışını ayrı ayrı sınar.",
+        "en": "Checks a small function or module behavior in isolation.",
+        "ru": "Отдельно проверяет небольшую функцию или поведение модуля."
+      }
+    },
+    {
+      "id": "cargo",
+      "term": {
+        "az": "Cargo",
+        "tr": "Cargo",
+        "en": "Cargo",
+        "ru": "Cargo"
+      },
+      "general": {
+        "az": "Rust layihələrini yaradır, qurur və yoxlayır.",
+        "tr": "Rust projelerini oluşturur, derler ve sınar.",
+        "en": "Creates, builds, and tests Rust projects.",
+        "ru": "Создаёт, собирает и тестирует проекты Rust."
+      }
+    },
+    {
+      "id": "cargo-toml",
+      "term": {
+        "az": "Cargo.toml",
+        "tr": "Cargo.toml",
+        "en": "Cargo.toml",
+        "ru": "Cargo.toml"
+      },
+      "general": {
+        "az": "Paketin adını, versiyasını və asılılıqlarını saxlayır.",
+        "tr": "Paketin adını, sürümünü ve bağımlılıklarını tutar.",
+        "en": "Stores a package’s name, version, and dependencies.",
+        "ru": "Содержит имя пакета, версию и зависимости."
+      }
+    },
+    {
+      "id": "cargo-test",
+      "term": {
+        "az": "cargo test",
+        "tr": "cargo test",
+        "en": "cargo test",
+        "ru": "cargo test"
+      },
+      "general": {
+        "az": "Layihənin testlərini tapır və icra edir.",
+        "tr": "Projedeki testleri bulur ve çalıştırır.",
+        "en": "Finds and runs a project’s tests.",
+        "ru": "Находит и запускает тесты проекта."
+      }
+    },
+    {
+      "id": "integration-test",
+      "term": {
+        "az": "İnteqrasiya testi",
+        "tr": "Bütünleşme testi",
+        "en": "Integration test",
+        "ru": "Интеграционный тест"
+      },
+      "general": {
+        "az": "Paketin xaricdən görünən hissələrini birlikdə yoxlayır.",
+        "tr": "Paketin dışarıdan görünen parçalarını birlikte sınar.",
+        "en": "Checks a package’s public behavior as an outside user sees it.",
+        "ru": "Проверяет публичное поведение пакета со стороны пользователя."
+      }
+    },
+    {
+      "id": "thread",
+      "term": {
+        "az": "Thread",
+        "tr": "İş parçacığı (thread)",
+        "en": "Thread",
+        "ru": "Поток (thread)"
+      },
+      "general": {
+        "az": "İşi əsas proqramla paralel icra etməyə imkan verir.",
+        "tr": "İşin ana programla eşzamanlı yürütülmesini sağlar.",
+        "en": "Runs work concurrently with the main program.",
+        "ru": "Позволяет выполнять работу одновременно с основной программой."
+      }
+    },
+    {
+      "id": "joinhandle",
+      "term": {
+        "az": "JoinHandle",
+        "tr": "JoinHandle",
+        "en": "JoinHandle",
+        "ru": "JoinHandle"
+      },
+      "general": {
+        "az": "Yeni axının bitməsini gözləmək üçün tutacaqdır.",
+        "tr": "Yeni iş parçacığının bitmesini beklemek için bir tutacıdır.",
+        "en": "A handle used to wait for a spawned thread.",
+        "ru": "Дескриптор, позволяющий дождаться завершения запущенного потока."
+      }
+    },
+    {
+      "id": "arc-t",
+      "term": {
+        "az": "Arc<T>",
+        "tr": "Arc<T>",
+        "en": "Arc<T>",
+        "ru": "Arc<T>"
+      },
+      "general": {
+        "az": "Thread-lər arasında dəyərə sayğaclı ortaq sahiblik verir.",
+        "tr": "İş parçacıkları arasında sayımlı ortak sahiplik sağlar.",
+        "en": "Provides reference-counted shared ownership across threads.",
+        "ru": "Предоставляет совместное владение со счётчиком ссылок между потоками."
+      }
+    },
+    {
+      "id": "mutex-t",
+      "term": {
+        "az": "Mutex<T>",
+        "tr": "Mutex<T>",
+        "en": "Mutex<T>",
+        "ru": "Mutex<T>"
+      },
+      "general": {
+        "az": "Paylaşılan dəyərə eyni anda bir təhlükəsiz giriş verir.",
+        "tr": "Paylaşılan değere aynı anda tek bir güvenli erişim sağlar.",
+        "en": "Provides exclusive, synchronized access to shared data.",
+        "ru": "Обеспечивает исключительный синхронизированный доступ к общим данным."
+      }
+    },
+    {
+      "id": "channel",
+      "term": {
+        "az": "Kanal (channel)",
+        "tr": "Kanal (channel)",
+        "en": "Channel",
+        "ru": "Канал (channel)"
+      },
+      "general": {
+        "az": "Thread-lər arasında mesaj ötürür.",
+        "tr": "İş parçacıkları arasında ileti gönderir.",
+        "en": "Sends messages between threads.",
+        "ru": "Передаёт сообщения между потоками."
+      }
+    },
+    {
+      "id": "send-and-sync",
+      "term": {
+        "az": "Send və Sync",
+        "tr": "Send ve Sync",
+        "en": "Send and Sync",
+        "ru": "Send и Sync"
+      },
+      "general": {
+        "az": "Tipin thread-lər arasında ötürülmə və paylaşılma təhlükəsizliyini bildirir.",
+        "tr": "Bir türün iş parçacıkları arasında aktarım ve paylaşım güvenliğini belirtir.",
+        "en": "Mark whether a type can safely move between or be shared across threads.",
+        "ru": "Обозначают безопасность передачи типа между потоками и совместного доступа."
+      }
+    },
+    {
+      "id": "async-fn",
+      "term": {
+        "az": "async fn",
+        "tr": "async fn",
+        "en": "async fn",
+        "ru": "async fn"
+      },
+      "general": {
+        "az": "Çağırıldıqda işin nəticəsini gələcək kimi təmsil edir.",
+        "tr": "Çağrıldığında işin sonucunu bir gelecek olarak temsil eder.",
+        "en": "Represents its eventual result as a future when called.",
+        "ru": "При вызове представляет будущий результат в виде future."
+      }
+    },
+    {
+      "id": "digital-level",
+      "term": {
+        "az": "Rəqəmsal səviyyə",
+        "tr": "Dijital seviye",
+        "en": "Digital level",
+        "ru": "Цифровой уровень"
+      },
+      "general": {
+        "az": "Siqnalın məntiqi LOW və ya HIGH vəziyyəti.",
+        "tr": "Bir sinyalin mantıksal LOW veya HIGH durumu.",
+        "en": "The logical LOW or HIGH state of a signal.",
+        "ru": "Логическое состояние сигнала: LOW или HIGH."
+      }
+    },
+    {
+      "id": "voltage",
+      "term": {
+        "az": "Gərginlik",
+        "tr": "Gerilim",
+        "en": "Voltage",
+        "ru": "Напряжение"
+      },
+      "general": {
+        "az": "İki nöqtə arasındakı elektrik potensialı fərqi; voltla ölçülür.",
+        "tr": "İki nokta arasındaki elektriksel potansiyel farkı; volt ile ölçülür.",
+        "en": "The electrical potential difference between two points, measured in volts.",
+        "ru": "Разность электрических потенциалов между двумя точками; измеряется в вольтах."
+      }
+    },
+    {
+      "id": "current",
+      "term": {
+        "az": "Cərəyan",
+        "tr": "Akım",
+        "en": "Current",
+        "ru": "Ток"
+      },
+      "general": {
+        "az": "Elektrik yükünün axın sürəti; amperlə ölçülür.",
+        "tr": "Elektrik yükünün akış hızı; amper ile ölçülür.",
+        "en": "The rate of electric charge flow, measured in amperes.",
+        "ru": "Скорость протекания электрического заряда; измеряется в амперах."
+      }
+    },
+    {
+      "id": "gnd-common-ground",
+      "term": {
+        "az": "GND (ümumi torpaq)",
+        "tr": "GND (ortak toprak)",
+        "en": "GND (common ground)",
+        "ru": "GND (общая земля)"
+      },
+      "general": {
+        "az": "Gərginliyin ölçüldüyü ümumi istinad və cərəyanın geri dönüş xətti.",
+        "tr": "Gerilimin ölçüldüğü ortak referans ve akımın dönüş yoludur.",
+        "en": "The shared electrical reference and return path for current.",
+        "ru": "Общая электрическая опора и путь возврата тока."
+      }
+    },
+    {
+      "id": "input-pull-up",
+      "term": {
+        "az": "Giriş pull-up",
+        "tr": "Giriş pull-up'ı",
+        "en": "Input pull-up",
+        "ru": "Подтяжка входа (pull-up)"
+      },
+      "general": {
+        "az": "Açıq girişin sabit HIGH qalmasına kömək edən rezistor.",
+        "tr": "Boştaki girişin HIGH kalmasına yardımcı olan direnç.",
+        "en": "A resistor that helps keep an unconnected input HIGH.",
+        "ru": "Резистор, помогающий удерживать неподключённый вход в состоянии HIGH."
+      }
+    },
+    {
+      "id": "esp32-adc",
+      "term": {
+        "az": "ADC",
+        "tr": "ADC",
+        "en": "ADC",
+        "ru": "ADC"
+      },
+      "general": {
+        "az": "Analoq gərginliyi rəqəmsal qiymətə çevirən çevirici.",
+        "tr": "Analog gerilimi sayısal değere dönüştüren çevirici.",
+        "en": "A converter that turns an analog voltage into a digital value.",
+        "ru": "Преобразователь аналогового напряжения в цифровое значение."
+      }
+    },
+    {
+      "id": "board-pinout",
+      "term": {
+        "az": "Lövhənin pinout-u",
+        "tr": "Kart pinout'u",
+        "en": "Board pinout",
+        "ru": "Распиновка платы"
+      },
+      "general": {
+        "az": "Lövhədəki pinlərin adını, funksiyasını və məhdudiyyətlərini göstərən xəritə.",
+        "tr": "Kart pinlerinin adını, işlevini ve kısıtlarını gösteren şema.",
+        "en": "A map of board pins, their names, functions, and limitations.",
+        "ru": "Схема с именами, функциями и ограничениями выводов платы."
+      }
+    },
+    {
+      "id": "boot-strapping-pin",
+      "term": {
+        "az": "Boot-strap pini",
+        "tr": "Boot-strap pini",
+        "en": "Boot-strapping pin",
+        "ru": "Загрузочный strapping-вывод"
+      },
+      "general": {
+        "az": "Yükləmə zamanı səviyyəsi başlanğıc rejiminə təsir edən pin.",
+        "tr": "Açılış sırasındaki seviyesi başlatma modunu etkileyen pin.",
+        "en": "A pin whose level during startup affects the boot mode.",
+        "ru": "Вывод, уровень которого при старте влияет на режим загрузки."
+      }
+    },
+    {
+      "id": "i2s",
+      "term": {
+        "az": "I2S",
+        "tr": "I2S",
+        "en": "I2S",
+        "ru": "I2S"
+      },
+      "general": {
+        "az": "Rəqəmsal səs nümunələrini ötürmək üçün sinxron şin.",
+        "tr": "Dijital ses örneklerini aktarmak için kullanılan eşzamanlı veri yolu.",
+        "en": "A synchronous bus for transferring digital audio samples.",
+        "ru": "Синхронная шина для передачи цифровых аудиосэмплов."
+      }
+    },
+    {
+      "id": "can",
+      "term": {
+        "az": "CAN",
+        "tr": "CAN",
+        "en": "CAN",
+        "ru": "CAN"
+      },
+      "general": {
+        "az": "Çox qovşaqlı, diferensial CAN_H/CAN_L xətləri ilə etibarlı rabitə şini.",
+        "tr": "Diferansiyel CAN_H/CAN_L hatlarıyla çok düğümlü ve güvenilir iletişim yolu.",
+        "en": "A robust multi-node bus using differential CAN_H/CAN_L lines.",
+        "ru": "Надёжная мног узловая шина с дифференциальными линиями CAN_H/CAN_L."
+      }
+    },
+    {
+      "id": "baud-rate",
+      "term": {
+        "az": "Baud sürəti",
+        "tr": "Baud hızı",
+        "en": "Baud rate",
+        "ru": "Скорость baud"
+      },
+      "general": {
+        "az": "Ardıcıl rabitədə saniyədəki siqnal vahidlərinin sürəti.",
+        "tr": "Seri iletişimde saniyedeki sinyal birimlerinin hızı.",
+        "en": "The rate of signal units per second in serial communication.",
+        "ru": "Скорость передачи сигнальных символов в последовательной связи."
+      }
+    },
+    {
+      "id": "wi-fi",
+      "term": {
+        "az": "Wi-Fi",
+        "tr": "Wi-Fi",
+        "en": "Wi-Fi",
+        "ru": "Wi-Fi"
+      },
+      "general": {
+        "az": "Cihazların simsiz lokal şəbəkəyə qoşulma texnologiyası.",
+        "tr": "Aygıtları kablosuz yerel ağa bağlama teknolojisi.",
+        "en": "Wireless technology for connecting devices to a local network.",
+        "ru": "Беспроводная технология подключения устройств к локальной сети."
+      }
+    },
+    {
+      "id": "station-sta-mode",
+      "term": {
+        "az": "Station (STA) rejimi",
+        "tr": "Station (STA) modu",
+        "en": "Station (STA) mode",
+        "ru": "Режим Station (STA)"
+      },
+      "general": {
+        "az": "ESP32-nin mövcud Wi-Fi routerinə qoşulduğu rejim.",
+        "tr": "ESP32'nin mevcut bir Wi-Fi yönlendiricisine bağlandığı mod.",
+        "en": "The mode in which an ESP32 joins an existing Wi-Fi router.",
+        "ru": "Режим, в котором ESP32 подключается к существующему Wi-Fi-роутеру."
+      }
+    },
+    {
+      "id": "access-point-ap",
+      "term": {
+        "az": "Access point (AP)",
+        "tr": "Access point (AP)",
+        "en": "Access point (AP)",
+        "ru": "Точка доступа (AP)"
+      },
+      "general": {
+        "az": "ESP32-nin digər cihazlar üçün Wi-Fi şəbəkəsi yaratdığı rejim.",
+        "tr": "ESP32'nin diğer aygıtlar için Wi-Fi ağı oluşturduğu mod.",
+        "en": "A mode in which the ESP32 creates a Wi-Fi network for other devices.",
+        "ru": "Режим, в котором ESP32 создаёт Wi-Fi-сеть для других устройств."
+      }
+    },
+    {
+      "id": "esp32-http",
+      "term": {
+        "az": "HTTP",
+        "tr": "HTTP",
+        "en": "HTTP",
+        "ru": "HTTP"
+      },
+      "general": {
+        "az": "Sorğu-cavab modeli ilə işləyən veb rabitə protokolu.",
+        "tr": "İstek-yanıt modeliyle çalışan web iletişim protokolü.",
+        "en": "A web communication protocol based on requests and responses.",
+        "ru": "Протокол веб-связи, работающий по модели запрос–ответ."
+      }
+    },
+    {
+      "id": "http-get",
+      "term": {
+        "az": "HTTP GET",
+        "tr": "HTTP GET",
+        "en": "HTTP GET",
+        "ru": "HTTP GET"
+      },
+      "general": {
+        "az": "Serverdən resurs və ya məlumat almaq üçün istifadə olunan HTTP metodu.",
+        "tr": "Sunucudan kaynak veya bilgi almak için kullanılan HTTP yöntemi.",
+        "en": "An HTTP method commonly used to retrieve a resource or information.",
+        "ru": "Метод HTTP для получения ресурса или данных с сервера."
+      }
+    },
+    {
+      "id": "http-post",
+      "term": {
+        "az": "HTTP POST",
+        "tr": "HTTP POST",
+        "en": "HTTP POST",
+        "ru": "HTTP POST"
+      },
+      "general": {
+        "az": "Məlumatı serverə göndərmək və ya resurs yaratmaq üçün HTTP metodu.",
+        "tr": "Sunucuya veri göndermek veya kaynak oluşturmak için kullanılan HTTP yöntemi.",
+        "en": "An HTTP method for sending data to a server or creating a resource.",
+        "ru": "Метод HTTP для отправки данных серверу или создания ресурса."
+      }
+    },
+    {
+      "id": "json",
+      "term": {
+        "az": "JSON",
+        "tr": "JSON",
+        "en": "JSON",
+        "ru": "JSON"
+      },
+      "general": {
+        "az": "Açar-dəyər cütləri və massivlərlə qurulan mətn məlumat formatı.",
+        "tr": "Nesneler ve dizilerle yapılandırılmış metin veri biçimi.",
+        "en": "A text data format made of objects, key-value pairs, and arrays.",
+        "ru": "Текстовый формат данных с объектами, парами ключ–значение и массивами."
+      }
+    },
+    {
+      "id": "ntp",
+      "term": {
+        "az": "NTP",
+        "tr": "NTP",
+        "en": "NTP",
+        "ru": "NTP"
+      },
+      "general": {
+        "az": "Cihaz saatını şəbəkədəki vaxt serveri ilə uyğunlaşdıran protokol.",
+        "tr": "Aygıt saatini ağdaki zaman sunucusuyla eşleştiren protokol.",
+        "en": "A protocol for synchronizing a device clock with a network time server.",
+        "ru": "Протокол синхронизации часов устройства с сетевым сервером времени."
+      }
+    },
+    {
+      "id": "socket",
+      "term": {
+        "az": "Socket",
+        "tr": "Socket",
+        "en": "Socket",
+        "ru": "Сокет (socket)"
+      },
+      "general": {
+        "az": "Şəbəkə proqramında bağlantı və məlumat axınının son nöqtəsi.",
+        "tr": "Ağ yazılımında bağlantı ve veri akışının uç noktası.",
+        "en": "An endpoint for a network connection and data stream in software.",
+        "ru": "Конечная точка сетевого соединения и потока данных в программе."
+      }
+    },
+    {
+      "id": "ble",
+      "term": {
+        "az": "BLE",
+        "tr": "BLE",
+        "en": "BLE",
+        "ru": "BLE"
+      },
+      "general": {
+        "az": "Az enerji sərfiyyatlı qısa məsafəli Bluetooth rabitəsi.",
+        "tr": "Düşük güç tüketimli, kısa mesafeli Bluetooth iletişimi.",
+        "en": "Low-power, short-range Bluetooth communication.",
+        "ru": "Энергоэффективная связь Bluetooth на небольшом расстоянии."
+      }
+    },
+    {
+      "id": "gatt",
+      "term": {
+        "az": "GATT",
+        "tr": "GATT",
+        "en": "GATT",
+        "ru": "GATT"
+      },
+      "general": {
+        "az": "BLE xidmət və xarakteristikalarının məlumat modelini müəyyən edən profil.",
+        "tr": "BLE hizmet ve karakteristiklerinin veri modelini tanımlayan profil.",
+        "en": "The profile that defines BLE services and characteristics as a data model.",
+        "ru": "Профиль, задающий модель данных BLE-сервисов и характеристик."
+      }
+    },
+    {
+      "id": "ble-characteristic",
+      "term": {
+        "az": "BLE xarakteristikası",
+        "tr": "BLE karakteristiği",
+        "en": "BLE characteristic",
+        "ru": "Характеристика BLE"
+      },
+      "general": {
+        "az": "GATT xidmətində müəyyən tipli məlumatı saxlayan və ya paylaşan dəyər.",
+        "tr": "GATT hizmetinde belirli türde veri tutan veya paylaşan değer.",
+        "en": "A value in a GATT service that holds or shares a particular kind of data.",
+        "ru": "Значение в сервисе GATT для хранения или передачи данных определённого типа."
+      }
+    },
+    {
+      "id": "mqtt-qos",
+      "term": {
+        "az": "MQTT QoS",
+        "tr": "MQTT QoS",
+        "en": "MQTT QoS",
+        "ru": "MQTT QoS"
+      },
+      "general": {
+        "az": "MQTT mesajının çatdırılma təminat səviyyəsi.",
+        "tr": "MQTT mesajı için teslimat güvence düzeyi.",
+        "en": "The delivery assurance level for an MQTT message.",
+        "ru": "Уровень гарантии доставки сообщения MQTT."
+      }
+    },
+    {
+      "id": "mqtt-retained-message",
+      "term": {
+        "az": "MQTT retained mesajı",
+        "tr": "MQTT retained mesajı",
+        "en": "MQTT retained message",
+        "ru": "Retained-сообщение MQTT"
+      },
+      "general": {
+        "az": "Brokerin mövzuda saxlayıb yeni abunəçiyə dərhal verdiyi son retained dəyər.",
+        "tr": "Brokerin konuda saklayıp yeni aboneye hemen ilettiği son retained değer.",
+        "en": "The latest retained value a broker stores and sends to a new subscriber.",
+        "ru": "Последнее retained-значение, которое брокер хранит и сразу отправляет новому подписчику."
+      }
+    },
+    {
+      "id": "esp-now",
+      "term": {
+        "az": "ESP-NOW",
+        "tr": "ESP-NOW",
+        "en": "ESP-NOW",
+        "ru": "ESP-NOW"
+      },
+      "general": {
+        "az": "ESP qurğuları arasında router olmadan birbaşa paket ötürmə üsulu.",
+        "tr": "ESP aygıtları arasında yönlendiricisiz doğrudan paket aktarımı.",
+        "en": "A way for ESP devices to exchange packets directly without a router.",
+        "ru": "Прямая передача пакетов между устройствами ESP без роутера."
+      }
+    },
+    {
+      "id": "ip-address",
+      "term": {
+        "az": "IP ünvanı",
+        "tr": "IP adresi",
+        "en": "IP address",
+        "ru": "IP-адрес"
+      },
+      "general": {
+        "az": "Şəbəkədə cihazı müəyyən edən rəqəmsal ünvan.",
+        "tr": "Bir aygıtı ağda tanımlayan sayısal adres.",
+        "en": "A numeric address that identifies a device on a network.",
+        "ru": "Числовой адрес, который идентифицирует устройство в сети."
+      }
+    },
+    {
+      "id": "timeout",
+      "term": {
+        "az": "Vaxt aşımı (timeout)",
+        "tr": "Zaman aşımı",
+        "en": "Timeout",
+        "ru": "Тайм-аут"
+      },
+      "general": {
+        "az": "Cavab gecikəndə əməliyyatı sonsuz gözləməkdən qoruyan limit.",
+        "tr": "Yanıt geciktiğinde işlemin sonsuza dek beklemesini önleyen sınır.",
+        "en": "A limit that prevents an operation from waiting forever for a reply.",
+        "ru": "Ограничение, не позволяющее бесконечно ждать ответ."
+      }
+    },
+    {
+      "id": "iot",
+      "term": {
+        "az": "IoT",
+        "tr": "IoT",
+        "en": "IoT",
+        "ru": "IoT"
+      },
+      "general": {
+        "az": "Sensor və aktuatorların şəbəkə ilə məlumat paylaşdığı Əşyaların İnterneti.",
+        "tr": "Sensör ve aktüatörlerin ağ üzerinden veri paylaştığı Nesnelerin İnterneti.",
+        "en": "The Internet of Things: connected sensors and actuators sharing data over a network.",
+        "ru": "Интернет вещей: датчики и исполнительные устройства обмениваются данными по сети."
+      }
+    },
+    {
+      "id": "aiot",
+      "term": {
+        "az": "AIoT",
+        "tr": "AIoT",
+        "en": "AIoT",
+        "ru": "AIoT"
+      },
+      "general": {
+        "az": "IoT qurğularında süni intellekt imkanlarının tətbiqi.",
+        "tr": "IoT aygıtlarında yapay zekâ yeteneklerinin kullanılması.",
+        "en": "The use of artificial-intelligence capabilities in IoT devices and systems.",
+        "ru": "Применение возможностей искусственного интеллекта в устройствах и системах IoT."
+      }
+    },
+    {
+      "id": "edge-inference",
+      "term": {
+        "az": "Kənar inferensiya",
+        "tr": "Uçta çıkarım",
+        "en": "Edge inference",
+        "ru": "Периферийный инференс"
+      },
+      "general": {
+        "az": "Öyrədilmiş modeldən nəticənin bulud əvəzinə cihazın özündə hesablanması.",
+        "tr": "Eğitilmiş modelin sonucunu bulut yerine aygıtın kendisinde hesaplama.",
+        "en": "Running a trained model on the device instead of in the cloud.",
+        "ru": "Вычисление результата обученной модели на устройстве, а не в облаке."
+      }
+    },
+    {
+      "id": "sensor",
+      "term": {
+        "az": "Sensor",
+        "tr": "Sensör",
+        "en": "Sensor",
+        "ru": "Датчик"
+      },
+      "general": {
+        "az": "Fiziki kəmiyyəti ölçüb elektrik siqnalına çevirən qurğu.",
+        "tr": "Fiziksel bir büyüklüğü ölçüp elektrik sinyaline dönüştüren aygıt.",
+        "en": "A device that measures a physical quantity and turns it into an electrical signal.",
+        "ru": "Устройство, измеряющее физическую величину и преобразующее её в электрический сигнал."
+      }
+    },
+    {
+      "id": "actuator",
+      "term": {
+        "az": "Aktuator",
+        "tr": "Aktüatör",
+        "en": "Actuator",
+        "ru": "Исполнительное устройство"
+      },
+      "general": {
+        "az": "Elektrik idarəetmə siqnalını fiziki hərəkətə və ya təsirə çevirən qurğu.",
+        "tr": "Elektrik kontrol sinyalini fiziksel harekete veya etkiye dönüştüren aygıt.",
+        "en": "A device that turns an electrical control signal into a physical action or effect.",
+        "ru": "Устройство, преобразующее электрический сигнал управления в физическое действие."
+      }
+    },
+    {
+      "id": "freertos",
+      "term": {
+        "az": "FreeRTOS",
+        "tr": "FreeRTOS",
+        "en": "FreeRTOS",
+        "ru": "FreeRTOS"
+      },
+      "general": {
+        "az": "Mikrokontrollerdə tapşırıqları planlaşdıran real vaxt əməliyyat sistemi.",
+        "tr": "Mikrodenetleyicide görevleri zamanlayan gerçek zamanlı işletim sistemi.",
+        "en": "A real-time operating system that schedules work on a microcontroller.",
+        "ru": "Операционная система реального времени, распределяющая задачи микроконтроллера."
+      }
+    },
+    {
+      "id": "task",
+      "term": {
+        "az": "Task (tapşırıq)",
+        "tr": "Task (görev)",
+        "en": "Task",
+        "ru": "Задача (task)"
+      },
+      "general": {
+        "az": "Ayrı stek və planlaşdırma vəziyyəti olan icra axını.",
+        "tr": "Kendi yığını ve zamanlama durumu olan yürütme akışı.",
+        "en": "An execution flow with its own stack and scheduling state.",
+        "ru": "Поток выполнения со своим стеком и состоянием планирования."
+      }
+    },
+    {
+      "id": "queue",
+      "term": {
+        "az": "Queue (növbə)",
+        "tr": "Queue (kuyruk)",
+        "en": "Queue",
+        "ru": "Очередь (queue)"
+      },
+      "general": {
+        "az": "Tapşırıqlar arasında məlumatı təhlükəsiz ötürən FIFO buferi.",
+        "tr": "Görevler arasında veriyi güvenli aktaran FIFO tamponu.",
+        "en": "A FIFO buffer that safely passes data between tasks.",
+        "ru": "FIFO-буфер для безопасной передачи данных между задачами."
+      }
+    },
+    {
+      "id": "semaphore",
+      "term": {
+        "az": "Semaphore (semafor)",
+        "tr": "Semaphore (semafor)",
+        "en": "Semaphore",
+        "ru": "Семафор"
+      },
+      "general": {
+        "az": "Tapşırıqların sinxronlaşması və hadisə xəbərdarlığı üçün vasitə.",
+        "tr": "Görevleri eşzamanlamak ve olay bildirmek için kullanılan araç.",
+        "en": "A tool for synchronizing tasks and signaling events.",
+        "ru": "Средство синхронизации задач и уведомления о событии."
+      }
+    },
+    {
+      "id": "rtos-timer",
+      "term": {
+        "az": "RTOS timer-i",
+        "tr": "RTOS zamanlayıcısı",
+        "en": "RTOS timer",
+        "ru": "Таймер RTOS"
+      },
+      "general": {
+        "az": "Müəyyən müddət və ya təkrarla callback başladan proqram taymeri.",
+        "tr": "Belirli sürede veya aralıklarla callback çalıştıran yazılım zamanlayıcısı.",
+        "en": "A software timer that runs a callback after a delay or on a schedule.",
+        "ru": "Программный таймер, запускающий callback после задержки или по расписанию."
+      }
+    },
+    {
+      "id": "isr-interrupt-service-routine",
+      "term": {
+        "az": "ISR (kəsilmə emalçısı)",
+        "tr": "ISR (kesme işleyicisi)",
+        "en": "ISR (interrupt service routine)",
+        "ru": "ISR (обработчик прерывания)"
+      },
+      "general": {
+        "az": "Hadisəyə cavab olaraq adi kod axınını müvəqqəti dayandıran rutin.",
+        "tr": "Bir olay geldiğinde normal kod akışını geçici durduran rutin.",
+        "en": "A routine that briefly interrupts normal code to respond to an event.",
+        "ru": "Подпрограмма, ненадолго прерывающая обычный код для реакции на событие."
+      }
+    },
+    {
+      "id": "non-blocking-code",
+      "term": {
+        "az": "Bloklamayan kod",
+        "tr": "Bloklamayan kod",
+        "en": "Non-blocking code",
+        "ru": "Неблокирующий код"
+      },
+      "general": {
+        "az": "Bir işi gözləyərkən digər işlərin davam etməsinə imkan verən kod quruluşu.",
+        "tr": "Bir işi beklerken diğer işlerin sürmesine izin veren kod düzeni.",
+        "en": "A code structure that lets other work continue instead of waiting.",
+        "ru": "Организация кода, позволяющая выполнять другие задачи вместо ожидания."
+      }
+    },
+    {
+      "id": "python-dict",
+      "term": {
+        "az": "dict",
+        "tr": "dict",
+        "ru": "dict",
+        "en": "dict"
+      },
+      "general": {
+        "az": "Unikal açarları dəyərlərlə əlaqələndirən dəyişən kolleksiya.",
+        "tr": "Benzersiz anahtarları değerlerle eşleştiren, değiştirilebilir koleksiyon.",
+        "ru": "Изменяемая коллекция, связывающая уникальные ключи со значениями.",
+        "en": "Mutable mapping from unique hashable keys to values."
+      }
+    },
+    {
+      "id": "python-dictionary-creation",
+      "term": {
+        "az": "dict yaratmaq",
+        "tr": "Sözlük oluşturma",
+        "ru": "Создание словаря",
+        "en": "dictionary creation"
+      },
+      "general": {
+        "az": "Literal `{}` və ya `dict(...)` ilə lüğət yaradılır.",
+        "tr": "Sözlükler `{}` değişmeziyle veya `dict(...)` kullanılarak oluşturulur.",
+        "ru": "Словарь создают с помощью литерала `{}` или `dict(...)`.",
+        "en": "Creates a dictionary from key-value pairs."
+      }
+    },
+    {
+      "id": "python-key-hashability",
+      "term": {
+        "az": "Açar və hash edilə bilənlik",
+        "tr": "Anahtar ve hashlenebilirlik",
+        "ru": "Ключ и хешируемость",
+        "en": "key hashability"
+      },
+      "general": {
+        "az": "Açar unikal və dəyişməz/hash edilə bilən olmalıdır.",
+        "tr": "Bir anahtar benzersiz ve değişmez/hashlenebilir olmalıdır.",
+        "ru": "Ключ должен быть уникальным, неизменяемым и хешируемым.",
+        "en": "Keys must be hashable so Python can locate them."
+      }
+    },
+    {
+      "id": "python-dictionary-lookup",
+      "term": {
+        "az": "d[key]",
+        "tr": "d[key]",
+        "ru": "d[key]",
+        "en": "dictionary lookup"
+      },
+      "general": {
+        "az": "Açarın dəyərini oxuyur və ya yazır.",
+        "tr": "Bir anahtarın değerini okur veya atar.",
+        "ru": "Читает или задаёт значение по ключу.",
+        "en": "Retrieves a value by its key."
+      }
+    },
+    {
+      "id": "python-dict-get",
+      "term": {
+        "az": "get(key, default=None)",
+        "tr": "get(key, default=None)",
+        "ru": "get(key, default=None)",
+        "en": "dict.get()"
+      },
+      "general": {
+        "az": "Açar yoxdursa ehtiyat dəyəri qaytarır.",
+        "tr": "Anahtar yoksa yedek değeri döndürür.",
+        "ru": "Возвращает запасное значение, если ключ отсутствует.",
+        "en": "Returns a value or a default when a key is absent."
+      }
+    },
+    {
+      "id": "python-dict-keys",
+      "term": {
+        "az": "keys()",
+        "tr": "keys()",
+        "ru": "keys()",
+        "en": "dict.keys()"
+      },
+      "general": {
+        "az": "Açarların dinamik view obyektini qaytarır.",
+        "tr": "Anahtarların dinamik bir görünümünü döndürür.",
+        "ru": "Возвращает динамическое представление ключей.",
+        "en": "Returns a dynamic view of keys."
+      }
+    },
+    {
+      "id": "python-dict-values",
+      "term": {
+        "az": "values()",
+        "tr": "values()",
+        "ru": "values()",
+        "en": "dict.values()"
+      },
+      "general": {
+        "az": "Dəyərlərin dinamik view obyektini qaytarır.",
+        "tr": "Değerlerin dinamik bir görünümünü döndürür.",
+        "ru": "Возвращает динамическое представление значений.",
+        "en": "Returns a dynamic view of values."
+      }
+    },
+    {
+      "id": "python-dict-items",
+      "term": {
+        "az": "items()",
+        "tr": "items()",
+        "ru": "items()",
+        "en": "dict.items()"
+      },
+      "general": {
+        "az": "(açar, dəyər) cütlərinin dinamik view obyektini qaytarır.",
+        "tr": "(anahtar, değer) çiftlerinin dinamik görünümünü döndürür.",
+        "ru": "Возвращает динамическое представление пар (ключ, значение).",
+        "en": "Returns a dynamic view of key-value pairs."
+      }
+    },
+    {
+      "id": "python-dict-update",
+      "term": {
+        "az": "update(other, **kwargs)",
+        "tr": "update(other, **kwargs)",
+        "ru": "update(other, **kwargs)",
+        "en": "dict.update()"
+      },
+      "general": {
+        "az": "Başqa mənbədən cütləri əlavə edir və ya yeniləyir.",
+        "tr": "Başka bir kaynaktaki çiftleri ekler veya günceller.",
+        "ru": "Добавляет или обновляет пары из другого источника.",
+        "en": "Adds or replaces entries from another mapping or iterable."
+      }
+    },
+    {
+      "id": "python-dict-pop",
+      "term": {
+        "az": "pop(key, default)",
+        "tr": "pop(key, default)",
+        "ru": "pop(key, default)",
+        "en": "dict.pop()"
+      },
+      "general": {
+        "az": "Açarı silir və onun dəyərini qaytarır.",
+        "tr": "Anahtarı siler ve değerini döndürür.",
+        "ru": "Удаляет ключ и возвращает его значение.",
+        "en": "Removes a key and returns its value."
+      }
+    },
+    {
+      "id": "python-dict-popitem",
+      "term": {
+        "az": "popitem()",
+        "tr": "popitem()",
+        "ru": "popitem()",
+        "en": "dict.popitem()"
+      },
+      "general": {
+        "az": "Son daxil edilmiş cütü silir və qaytarır.",
+        "tr": "En son eklenen çifti siler ve döndürür.",
+        "ru": "Удаляет и возвращает последнюю добавленную пару.",
+        "en": "Removes and returns the last inserted pair."
+      }
+    },
+    {
+      "id": "python-dict-setdefault",
+      "term": {
+        "az": "setdefault(key, default=None)",
+        "tr": "setdefault(key, default=None)",
+        "ru": "setdefault(key, default=None)",
+        "en": "dict.setdefault()"
+      },
+      "general": {
+        "az": "Açar varsa dəyərini, yoxdursa əlavə etdiyi default-u qaytarır.",
+        "tr": "Anahtar varsa değerini, yoksa eklediği varsayılan değeri döndürür.",
+        "ru": "Возвращает значение ключа или добавляет и возвращает значение по умолчанию.",
+        "en": "Returns a value and inserts the default only if absent."
+      }
+    },
+    {
+      "id": "python-dict-fromkeys",
+      "term": {
+        "az": "dict.fromkeys(iterable, value=None)",
+        "tr": "dict.fromkeys(iterable, value=None)",
+        "ru": "dict.fromkeys(iterable, value=None)",
+        "en": "dict.fromkeys()"
+      },
+      "general": {
+        "az": "Verilən açarların hamısı üçün eyni dəyərdən lüğət qurur.",
+        "tr": "Verilen tüm anahtarlar için aynı değeri kullanan bir sözlük oluşturur.",
+        "ru": "Создаёт словарь с одинаковым значением для всех заданных ключей.",
+        "en": "Builds a dictionary from keys and one initial value."
+      }
+    },
+    {
+      "id": "python-dict-clear",
+      "term": {
+        "az": "clear()",
+        "tr": "clear()",
+        "ru": "clear()",
+        "en": "dict.clear()"
+      },
+      "general": {
+        "az": "Lüğətdəki bütün cütləri silir.",
+        "tr": "Sözlükteki tüm çiftleri siler.",
+        "ru": "Удаляет все пары из словаря.",
+        "en": "Removes all pairs."
+      }
+    },
+    {
+      "id": "python-dict-copy",
+      "term": {
+        "az": "copy()",
+        "tr": "copy()",
+        "ru": "copy()",
+        "en": "dict.copy()"
+      },
+      "general": {
+        "az": "Lüğətin səthi surətini yaradır.",
+        "tr": "Sözlüğün sığ bir kopyasını oluşturur.",
+        "ru": "Создаёт поверхностную копию словаря.",
+        "en": "Creates a shallow copy."
+      }
+    },
+    {
+      "id": "python-dictionary-membership-test",
+      "term": {
+        "az": "key in d",
+        "tr": "key in d",
+        "ru": "key in d",
+        "en": "dictionary membership test"
+      },
+      "general": {
+        "az": "Açarın lüğətdə olub-olmadığını yoxlayır.",
+        "tr": "Bir anahtarın sözlükte bulunup bulunmadığını denetler.",
+        "ru": "Проверяет, есть ли ключ в словаре.",
+        "en": "Tests whether a key is present."
+      }
+    },
+    {
+      "id": "python-nested-dictionary",
+      "term": {
+        "az": "İç-içə lüğət",
+        "tr": "İç içe sözlük",
+        "ru": "Вложенный словарь",
+        "en": "nested dictionary"
+      },
+      "general": {
+        "az": "Dəyər kimi başqa lüğət və kolleksiya saxlamaq.",
+        "tr": "Başka sözlükleri veya koleksiyonları değer olarak saklama düzeni.",
+        "ru": "Хранение других словарей и коллекций в качестве значений.",
+        "en": "A dictionary stored as a value inside another dictionary."
+      }
+    },
+    {
+      "id": "python-dictionary-comprehension",
+      "term": {
+        "az": "Lüğət comprehension",
+        "tr": "Sözlük comprehension",
+        "ru": "Генератор словаря",
+        "en": "dictionary comprehension"
+      },
+      "general": {
+        "az": "Iterable-dən ifadə və şərtlə yeni lüğət qurur.",
+        "tr": "Bir yinelenebilirden kısa bir ifadeyle yeni sözlük oluşturur.",
+        "ru": "Создаёт словарь из итерируемого объекта с помощью краткого выражения.",
+        "en": "Builds a dictionary from key-value expressions over an iterable."
+      }
+    },
+    {
+      "id": "python-list-append",
+      "term": {
+        "az": "append(x)",
+        "tr": "append(x)",
+        "ru": "append(x)",
+        "en": "list.append()"
+      },
+      "general": {
+        "az": "Bir elementi siyahının sonuna əlavə edir.",
+        "tr": "Bir öğeyi listenin sonuna ekler.",
+        "ru": "Добавляет один элемент в конец списка.",
+        "en": "Adds one item to the end of a list."
+      }
+    },
+    {
+      "id": "python-list-extend",
+      "term": {
+        "az": "extend(iterable)",
+        "tr": "extend(iterable)",
+        "ru": "extend(iterable)",
+        "en": "list.extend()"
+      },
+      "general": {
+        "az": "Iterable-in elementlərini bir-bir sona əlavə edir.",
+        "tr": "Yinelenebilirdeki öğeleri listenin sonuna teker teker ekler.",
+        "ru": "Добавляет элементы итерируемого объекта в конец по одному.",
+        "en": "Adds items from an iterable to the end."
+      }
+    },
+    {
+      "id": "python-list-insert",
+      "term": {
+        "az": "insert(index, x)",
+        "tr": "insert(index, x)",
+        "ru": "insert(index, x)",
+        "en": "list.insert()"
+      },
+      "general": {
+        "az": "Elementi verilən mövqeyə əlavə edir.",
+        "tr": "Bir öğeyi verilen konuma ekler.",
+        "ru": "Вставляет элемент в заданную позицию.",
+        "en": "Inserts an item at a specified position."
+      }
+    },
+    {
+      "id": "python-list-remove",
+      "term": {
+        "az": "remove(x)",
+        "tr": "remove(x)",
+        "ru": "remove(x)",
+        "en": "list.remove()"
+      },
+      "general": {
+        "az": "Dəyərin ilk uyğun görünüşünü silir.",
+        "tr": "Değerin ilk eşleşmesini siler.",
+        "ru": "Удаляет первое совпадение со значением.",
+        "en": "Removes the first matching item."
+      }
+    },
+    {
+      "id": "python-list-pop",
+      "term": {
+        "az": "pop(index=-1)",
+        "tr": "pop(index=-1)",
+        "ru": "pop(index=-1)",
+        "en": "list.pop()"
+      },
+      "general": {
+        "az": "İndeksdəki elementi silir və qaytarır.",
+        "tr": "Belirtilen indeksteki öğeyi siler ve döndürür.",
+        "ru": "Удаляет и возвращает элемент по индексу.",
+        "en": "Removes and returns an item, by default the last."
+      }
+    },
+    {
+      "id": "python-list-index",
+      "term": {
+        "az": "index(x, start, stop)",
+        "tr": "index(x, start, stop)",
+        "ru": "index(x, start, stop)",
+        "en": "list.index()"
+      },
+      "general": {
+        "az": "İlk uyğun elementin indeksini qaytarır.",
+        "tr": "İlk eşleşen öğenin indeksini döndürür.",
+        "ru": "Возвращает индекс первого подходящего элемента.",
+        "en": "Returns the position of the first matching item."
+      }
+    },
+    {
+      "id": "python-list-count",
+      "term": {
+        "az": "count(x)",
+        "tr": "count(x)",
+        "ru": "count(x)",
+        "en": "list.count()"
+      },
+      "general": {
+        "az": "Dəyərin neçə dəfə olduğunu sayır.",
+        "tr": "Bir değerin kaç kez bulunduğunu sayar.",
+        "ru": "Считает, сколько раз встречается значение.",
+        "en": "Counts items equal to a value."
+      }
+    },
+    {
+      "id": "python-list-sort",
+      "term": {
+        "az": "sort(key=None, reverse=False)",
+        "tr": "sort(key=None, reverse=False)",
+        "ru": "sort(key=None, reverse=False)",
+        "en": "list.sort()"
+      },
+      "general": {
+        "az": "Siyahını yerində sıralayır.",
+        "tr": "Listeyi yerinde sıralar.",
+        "ru": "Сортирует список на месте.",
+        "en": "Sorts a list in place, optionally using a key or reverse order."
+      }
+    },
+    {
+      "id": "python-list-reverse",
+      "term": {
+        "az": "reverse()",
+        "tr": "reverse()",
+        "ru": "reverse()",
+        "en": "list.reverse()"
+      },
+      "general": {
+        "az": "Mövcud sıranı yerində tərsinə çevirir.",
+        "tr": "Mevcut sırayı yerinde tersine çevirir.",
+        "ru": "Разворачивает текущий порядок элементов на месте.",
+        "en": "Reverses a list in place."
+      }
+    },
+    {
+      "id": "python-list-copy",
+      "term": {
+        "az": "copy()",
+        "tr": "copy()",
+        "ru": "copy()",
+        "en": "list.copy()"
+      },
+      "general": {
+        "az": "Siyahının səthi surətini qaytarır.",
+        "tr": "Listenin sığ bir kopyasını döndürür.",
+        "ru": "Возвращает поверхностную копию списка.",
+        "en": "Creates a shallow copy."
+      }
+    },
+    {
+      "id": "python-list-clear",
+      "term": {
+        "az": "clear()",
+        "tr": "clear()",
+        "ru": "clear()",
+        "en": "list.clear()"
+      },
+      "general": {
+        "az": "Siyahıdakı bütün elementləri silir.",
+        "tr": "Listedeki tüm öğeleri siler.",
+        "ru": "Удаляет все элементы списка.",
+        "en": "Removes all items."
+      }
+    },
+    {
+      "id": "python-list-slicing",
+      "term": {
+        "az": "Dilimləmə [start:stop:step]",
+        "tr": "Dilimleme [start:stop:step]",
+        "ru": "Срез [start:stop:step]",
+        "en": "list slicing"
+      },
+      "general": {
+        "az": "Siyahının bir hissəsini yeni list kimi götürür.",
+        "tr": "Listenin bir bölümünü yeni bir liste olarak alır.",
+        "ru": "Получает часть списка в виде нового списка.",
+        "en": "Selects a subsequence using start, stop, and step indices."
+      }
+    },
+    {
+      "id": "python-list-comprehension",
+      "term": {
+        "az": "List comprehension",
+        "tr": "List comprehension",
+        "ru": "Генератор списка",
+        "en": "list comprehension"
+      },
+      "general": {
+        "az": "Iterable-dən qısa qayda ilə yeni list yaradır.",
+        "tr": "Bir yinelenebilirden kısa bir ifadeyle yeni liste oluşturur.",
+        "ru": "Создаёт новый список из итерируемого объекта с помощью краткого выражения.",
+        "en": "Builds a list by evaluating an expression for each input item."
+      }
+    },
+    {
+      "id": "python-open",
+      "term": {
+        "az": "open(file, mode, ...)",
+        "tr": "open(file, mode, ...)",
+        "ru": "open(file, mode, ...)",
+        "en": "open()"
+      },
+      "general": {
+        "az": "Faylı açıb fayl obyekti qaytarır.",
+        "tr": "Bir dosyayı açar ve dosya nesnesi döndürür.",
+        "ru": "Открывает файл и возвращает файловый объект.",
+        "en": "Opens a file and returns a file object."
+      }
+    },
+    {
+      "id": "python-read-mode-r",
+      "term": {
+        "az": "r rejimi",
+        "tr": "r modu",
+        "ru": "Режим r",
+        "en": "read mode (r)"
+      },
+      "general": {
+        "az": "Mövcud faylı yalnız oxumaq üçün açır.",
+        "tr": "Var olan bir dosyayı yalnızca okumak için açar.",
+        "ru": "Открывает существующий файл только для чтения.",
+        "en": "Opens an existing file for reading."
+      }
+    },
+    {
+      "id": "python-write-mode-w",
+      "term": {
+        "az": "w rejimi",
+        "tr": "w modu",
+        "ru": "Режим w",
+        "en": "write mode (w)"
+      },
+      "general": {
+        "az": "Yazmaq üçün açır və mövcud məzmunu sıfırlayır.",
+        "tr": "Yazmak için açar ve var olan içeriği siler.",
+        "ru": "Открывает файл для записи и очищает его содержимое.",
+        "en": "Opens a file for writing, replacing existing contents."
+      }
+    },
+    {
+      "id": "python-append-mode-a",
+      "term": {
+        "az": "a rejimi",
+        "tr": "a modu",
+        "ru": "Режим a",
+        "en": "append mode (a)"
+      },
+      "general": {
+        "az": "Yazını faylın sonuna əlavə edir.",
+        "tr": "Yazılanları dosyanın sonuna ekler.",
+        "ru": "Добавляет записываемые данные в конец файла.",
+        "en": "Opens a file to append data at its end."
+      }
+    },
+    {
+      "id": "python-exclusive-create-mode-x",
+      "term": {
+        "az": "x rejimi",
+        "tr": "x modu",
+        "ru": "Режим x",
+        "en": "exclusive-create mode (x)"
+      },
+      "general": {
+        "az": "Yalnız yeni fayl yaradır.",
+        "tr": "Yalnızca yeni bir dosya oluşturur.",
+        "ru": "Создаёт только новый файл.",
+        "en": "Creates a new file and fails if it already exists."
+      }
+    },
+    {
+      "id": "python-binary-and-text-modes",
+      "term": {
+        "az": "b və t rejimləri",
+        "tr": "b ve t modları",
+        "ru": "Режимы b и t",
+        "en": "binary and text modes"
+      },
+      "general": {
+        "az": "`b` byte, `t` mətn rejimidir; `t` standartdır.",
+        "tr": "`b` ikili, `t` metin modudur; varsayılan `t` modudur.",
+        "ru": "`b` — двоичный режим, `t` — текстовый; `t` используется по умолчанию.",
+        "en": "Selects byte-oriented or text-oriented file handling."
+      }
+    },
+    {
+      "id": "python-update-mode",
+      "term": {
+        "az": "+ rejimi",
+        "tr": "+ modu",
+        "ru": "Режим +",
+        "en": "update mode (+)"
+      },
+      "general": {
+        "az": "Rejimə həm oxu, həm yazı icazəsi əlavə edir.",
+        "tr": "Moda hem okuma hem yazma izni ekler.",
+        "ru": "Добавляет к режиму возможность чтения и записи.",
+        "en": "Adds reading or writing capability to a file mode."
+      }
+    },
+    {
+      "id": "python-encoding-errors-and-newline",
+      "term": {
+        "az": "encoding / errors / newline",
+        "tr": "encoding / errors / newline",
+        "ru": "encoding / errors / newline",
+        "en": "encoding, errors, and newline"
+      },
+      "general": {
+        "az": "Mətnin byte-a çevrilməsini və sətirsonunu idarə edir.",
+        "tr": "Metnin baytlara dönüştürülmesini ve satır sonlarını yönetir.",
+        "ru": "Управляют преобразованием текста в байты и обработкой переводов строк.",
+        "en": "Controls text encoding, errors, and newline conversion."
+      }
+    },
+    {
+      "id": "python-with-statement-context-manager",
+      "term": {
+        "az": "with / context manager",
+        "tr": "with / bağlam yöneticisi",
+        "ru": "with / менеджер контекста",
+        "en": "with statement / context manager"
+      },
+      "general": {
+        "az": "Blok bitəndə faylı avtomatik bağlayır.",
+        "tr": "Blok sona erdiğinde dosyayı otomatik olarak kapatır.",
+        "ru": "Автоматически закрывает файл при завершении блока.",
+        "en": "Ensures a resource is cleaned up when its block exits."
+      }
+    },
+    {
+      "id": "python-file-read",
+      "term": {
+        "az": "read(size=-1)",
+        "tr": "read(size=-1)",
+        "ru": "read(size=-1)",
+        "en": "file.read()"
+      },
+      "general": {
+        "az": "Qalan faylın hamısını və ya müəyyən hissəsini oxuyur.",
+        "tr": "Dosyanın kalanını veya belirtilen miktarda veriyi okur.",
+        "ru": "Читает остаток файла или заданное количество данных.",
+        "en": "Reads remaining text or a requested number of characters."
+      }
+    },
+    {
+      "id": "python-file-readline-readlines",
+      "term": {
+        "az": "readline() / readlines()",
+        "tr": "readline() / readlines()",
+        "ru": "readline() / readlines()",
+        "en": "file.readline() / readlines()"
+      },
+      "general": {
+        "az": "Bir sətir və ya sətirlərin hamısını oxuyur.",
+        "tr": "Tek bir satırı veya tüm satırları okur.",
+        "ru": "Читает одну строку или все строки.",
+        "en": "Reads one line or returns all remaining lines."
+      }
+    },
+    {
+      "id": "python-file-write-writelines",
+      "term": {
+        "az": "write(text) / writelines(lines)",
+        "tr": "write(text) / writelines(lines)",
+        "ru": "write(text) / writelines(lines)",
+        "en": "file.write() / writelines()"
+      },
+      "general": {
+        "az": "Mətn və ya mətn sətirlərini fayla yazır.",
+        "tr": "Metni veya metin satırlarını dosyaya yazar.",
+        "ru": "Записывает в файл текст или последовательность текстовых строк.",
+        "en": "Writes text or writes each string from an iterable."
+      }
+    },
+    {
+      "id": "python-tell-seek",
+      "term": {
+        "az": "tell() / seek(offset, whence=0)",
+        "tr": "tell() / seek(offset, whence=0)",
+        "ru": "tell() / seek(offset, whence=0)",
+        "en": "tell() / seek()"
+      },
+      "general": {
+        "az": "Cari oxu-yazı mövqeyini verir və ya dəyişir.",
+        "tr": "Geçerli okuma-yazma konumunu döndürür veya değiştirir.",
+        "ru": "Возвращают или изменяют текущую позицию чтения и записи.",
+        "en": "Reports the stream position or moves to a requested position."
+      }
+    },
+    {
+      "id": "python-flush-close",
+      "term": {
+        "az": "flush() / close()",
+        "tr": "flush() / close()",
+        "ru": "flush() / close()",
+        "en": "flush() / close()"
+      },
+      "general": {
+        "az": "`flush` buferi ötürür, `close` faylı bağlayır.",
+        "tr": "`flush` arabelleği boşaltır, `close` dosyayı kapatır.",
+        "ru": "`flush` сбрасывает буфер, а `close` закрывает файл.",
+        "en": "Flushes buffered data or closes the file."
+      }
+    },
+    {
+      "id": "python-manual-open-close-pattern",
+      "term": {
+        "az": "Köhnə aç-bağla üslubu",
+        "tr": "Eski aç-kapat düzeni",
+        "ru": "Старый шаблон открытия и закрытия",
+        "en": "manual open-close pattern"
+      },
+      "general": {
+        "az": "Faylı `try/finally` ilə əl ilə bağlamaq mümkündür.",
+        "tr": "Dosya `try/finally` ile elle kapatılabilir.",
+        "ru": "Файл можно закрывать вручную с помощью `try/finally`.",
+        "en": "An explicit open-and-close pattern for file handling."
+      }
+    },
+    {
+      "id": "python-class-object-and-self",
+      "term": {
+        "az": "class / object / self",
+        "tr": "class / object / self",
+        "ru": "class / object / self",
+        "en": "class, object, and self"
+      },
+      "general": {
+        "az": "Sinif tipin qaydası, obyekt nümunəsi, `self` cari nümunədir.",
+        "tr": "Sınıf türün tanımı, nesne örneği, `self` ise geçerli örnektir.",
+        "ru": "Класс задаёт тип, объект является экземпляром, а `self` — текущий экземпляр.",
+        "en": "A class defines a type, an object is its instance, and self refers to that instance."
+      }
+    },
+    {
+      "id": "python-new",
+      "term": {
+        "az": "__new__(cls, ...)",
+        "tr": "__new__(cls, ...)",
+        "ru": "__new__(cls, ...)",
+        "en": "__new__()"
+      },
+      "general": {
+        "az": "Yeni nümunəni yaradır.",
+        "tr": "Yeni bir örnek oluşturur.",
+        "ru": "Создаёт новый экземпляр.",
+        "en": "Creates an instance before initialization."
+      }
+    },
+    {
+      "id": "python-init",
+      "term": {
+        "az": "__init__(self, ...)",
+        "tr": "__init__(self, ...)",
+        "ru": "__init__(self, ...)",
+        "en": "__init__()"
+      },
+      "general": {
+        "az": "Yaradılmış nümunənin başlanğıc vəziyyətini qurur.",
+        "tr": "Oluşturulmuş örneğin başlangıç durumunu kurar.",
+        "ru": "Настраивает начальное состояние созданного экземпляра.",
+        "en": "Initializes an already-created instance."
+      }
+    },
+    {
+      "id": "python-str",
+      "term": {
+        "az": "__str__(self)",
+        "tr": "__str__(self)",
+        "ru": "__str__(self)",
+        "en": "__str__()"
+      },
+      "general": {
+        "az": "`str(obj)` və `print(obj)` üçün istifadəçi mətnini verir.",
+        "tr": "`str(obj)` ve `print(obj)` için kullanıcıya gösterilecek metni sağlar.",
+        "ru": "Задаёт текст для пользователя при вызовах `str(obj)` и `print(obj)`.",
+        "en": "Returns a readable string for users."
+      }
+    },
+    {
+      "id": "python-repr",
+      "term": {
+        "az": "__repr__(self)",
+        "tr": "__repr__(self)",
+        "ru": "__repr__(self)",
+        "en": "__repr__()"
+      },
+      "general": {
+        "az": "REPL və debugger üçün texniki təsvir yaradır.",
+        "tr": "REPL ve hata ayıklayıcı için teknik bir gösterim oluşturur.",
+        "ru": "Создаёт техническое представление для REPL и отладчика.",
+        "en": "Returns a representation useful for debugging."
+      }
+    },
+    {
+      "id": "python-len",
+      "term": {
+        "az": "__len__(self)",
+        "tr": "__len__(self)",
+        "ru": "__len__(self)",
+        "en": "__len__()"
+      },
+      "general": {
+        "az": "`len(obj)` nəticəsini təyin edir.",
+        "tr": "`len(obj)` sonucunu belirler.",
+        "ru": "Определяет результат вызова `len(obj)`.",
+        "en": "Defines the value returned by len()."
+      }
+    },
+    {
+      "id": "python-getitem",
+      "term": {
+        "az": "__getitem__(self, key)",
+        "tr": "__getitem__(self, key)",
+        "ru": "__getitem__(self, key)",
+        "en": "__getitem__()"
+      },
+      "general": {
+        "az": "`obj[key]` oxunuşunu həyata keçirir.",
+        "tr": "`obj[key]` okuma işlemini gerçekleştirir.",
+        "ru": "Реализует чтение `obj[key]`.",
+        "en": "Implements indexed lookup such as obj[key]."
+      }
+    },
+    {
+      "id": "python-setitem",
+      "term": {
+        "az": "__setitem__(self, key, value)",
+        "tr": "__setitem__(self, key, value)",
+        "ru": "__setitem__(self, key, value)",
+        "en": "__setitem__()"
+      },
+      "general": {
+        "az": "`obj[key] = value` təyinatını idarə edir.",
+        "tr": "`obj[key] = value` atamasını yönetir.",
+        "ru": "Управляет присваиванием `obj[key] = value`.",
+        "en": "Implements assignment to an indexed item."
+      }
+    },
+    {
+      "id": "python-delitem",
+      "term": {
+        "az": "__delitem__(self, key)",
+        "tr": "__delitem__(self, key)",
+        "ru": "__delitem__(self, key)",
+        "en": "__delitem__()"
+      },
+      "general": {
+        "az": "`del obj[key]` silməsini həyata keçirir.",
+        "tr": "`del obj[key]` silme işlemini gerçekleştirir.",
+        "ru": "Реализует удаление `del obj[key]`.",
+        "en": "Implements deletion of an indexed item."
+      }
+    },
+    {
+      "id": "python-enter-exit",
+      "term": {
+        "az": "__enter__ / __exit__",
+        "tr": "__enter__ / __exit__",
+        "ru": "__enter__ / __exit__",
+        "en": "__enter__() / __exit__()"
+      },
+      "general": {
+        "az": "`with` blokuna giriş və çıxışda işləyir.",
+        "tr": "`with` bloğuna giriş ve çıkışta çalışır.",
+        "ru": "Выполняются при входе в блок `with` и выходе из него.",
+        "en": "Enters and exits a context-managed block."
+      }
+    },
+    {
+      "id": "python-call",
+      "term": {
+        "az": "__call__(self, ...)",
+        "tr": "__call__(self, ...)",
+        "ru": "__call__(self, ...)",
+        "en": "__call__()"
+      },
+      "general": {
+        "az": "Obyektin funksiya kimi `obj(...)` çağırılmasına imkan verir.",
+        "tr": "`obj(...)` biçiminde nesnenin işlev gibi çağrılmasını sağlar.",
+        "ru": "Позволяет вызывать объект как функцию: `obj(...)`.",
+        "en": "Allows an object to be called like a function."
+      }
+    },
+    {
+      "id": "python-eq",
+      "term": {
+        "az": "__eq__(self, other)",
+        "tr": "__eq__(self, other)",
+        "ru": "__eq__(self, other)",
+        "en": "__eq__()"
+      },
+      "general": {
+        "az": "`==` bərabərliyinin mənasını müəyyən edir.",
+        "tr": "`==` eşitlik karşılaştırmasının anlamını belirler.",
+        "ru": "Определяет смысл сравнения на равенство `==`.",
+        "en": "Defines equality comparison."
+      }
+    },
+    {
+      "id": "python-hash",
+      "term": {
+        "az": "__hash__(self)",
+        "tr": "__hash__(self)",
+        "ru": "__hash__(self)",
+        "en": "__hash__()"
+      },
+      "general": {
+        "az": "Obyekti set üzvü və dict açarı edə bilən hash verir.",
+        "tr": "Nesnenin küme öğesi veya sözlük anahtarı olmasını sağlayan hash değerini verir.",
+        "ru": "Возвращает хеш, позволяющий использовать объект в множестве или как ключ словаря.",
+        "en": "Defines an object hash for hashed collections."
+      }
+    },
+    {
+      "id": "python-del",
+      "term": {
+        "az": "__del__(self)",
+        "tr": "__del__(self)",
+        "ru": "__del__(self)",
+        "en": "__del__()"
+      },
+      "general": {
+        "az": "Obyekt yığışdırılarkən çağırıla bilən destruktor metodudur.",
+        "tr": "Nesne temizlenirken çağrılabilen yıkıcı yöntemdir.",
+        "ru": "Деструктор, который может вызываться при очистке объекта.",
+        "en": "A finalizer invoked during destruction; timing is not guaranteed."
+      }
+    },
+    {
+      "id": "python-iter-next",
+      "term": {
+        "az": "__iter__ / __next__",
+        "tr": "__iter__ / __next__",
+        "ru": "__iter__ / __next__",
+        "en": "__iter__() / __next__()"
+      },
+      "general": {
+        "az": "Obyektin dövr ilə gəzilməsini təmin edir.",
+        "tr": "Nesnenin döngüyle dolaşılmasını sağlar.",
+        "ru": "Обеспечивают перебор объекта в цикле.",
+        "en": "Makes an object an iterator and supplies its next value."
+      }
+    },
+    {
+      "id": "python-contains",
+      "term": {
+        "az": "__contains__(self, item)",
+        "tr": "__contains__(self, item)",
+        "ru": "__contains__(self, item)",
+        "en": "__contains__()"
+      },
+      "general": {
+        "az": "`item in obj` yoxlamasını idarə edir.",
+        "tr": "`item in obj` denetimini yönetir.",
+        "ru": "Управляет проверкой `item in obj`.",
+        "en": "Defines membership testing with in."
+      }
+    },
+    {
+      "id": "python-bool",
+      "term": {
+        "az": "__bool__(self)",
+        "tr": "__bool__(self)",
+        "ru": "__bool__(self)",
+        "en": "__bool__()"
+      },
+      "general": {
+        "az": "`if obj` üçün doğru/yanlış dəyəri verir.",
+        "tr": "`if obj` için doğru/yanlış değerini belirler.",
+        "ru": "Определяет истинность объекта в выражении `if obj`.",
+        "en": "Defines whether an object is treated as true or false."
+      }
+    },
+    {
+      "id": "python-getattr-setattr",
+      "term": {
+        "az": "__getattr__ / __setattr__",
+        "tr": "__getattr__ / __setattr__",
+        "ru": "__getattr__ / __setattr__",
+        "en": "__getattr__() / __setattr__()"
+      },
+      "general": {
+        "az": "Atributun tapılmamasını və təyin edilməsini idarə edir.",
+        "tr": "Öznitelik bulunamadığında ve atanırken ne olacağını yönetir.",
+        "ru": "Управляют обработкой отсутствующего атрибута и присваиванием атрибутов.",
+        "en": "Customizes attribute lookup or assignment."
+      }
+    },
+    {
+      "id": "python-format",
+      "term": {
+        "az": "__format__(self, spec)",
+        "tr": "__format__(self, spec)",
+        "ru": "__format__(self, spec)",
+        "en": "__format__()"
+      },
+      "general": {
+        "az": "`format(obj, spec)` və f-string formatını idarə edir.",
+        "tr": "`format(obj, spec)` ve f-string biçimlendirmesini yönetir.",
+        "ru": "Управляет форматированием через `format(obj, spec)` и f-строки.",
+        "en": "Defines formatting behavior."
+      }
+    },
+    {
+      "id": "python-add-lt",
+      "term": {
+        "az": "__add__ / __lt__",
+        "tr": "__add__ / __lt__",
+        "ru": "__add__ / __lt__",
+        "en": "__add__() / __lt__()"
+      },
+      "general": {
+        "az": "Müvafiq olaraq `+` və `<` operatorlarına məna verir.",
+        "tr": "Sırasıyla `+` ve `<` işleçlerine anlam kazandırır.",
+        "ru": "Задают смысл операторов `+` и `<` соответственно.",
+        "en": "Implements addition or less-than comparison."
+      }
+    },
+    {
+      "id": "python-delattr-getattribute",
+      "term": {
+        "az": "__delattr__ / __getattribute__",
+        "tr": "__delattr__ / __getattribute__",
+        "ru": "__delattr__ / __getattribute__",
+        "en": "__delattr__() / __getattribute__()"
+      },
+      "general": {
+        "az": "Atribut silinməsini və bütün atribut oxunuşlarını idarə edir.",
+        "tr": "Öznitelik silmeyi ve tüm öznitelik okumalarını yönetir.",
+        "ru": "Управляют удалением атрибутов и чтением любого атрибута.",
+        "en": "Customizes attribute deletion and general attribute access."
+      }
+    },
+    {
+      "id": "support-ticket",
+      "term": {
+        "en": "Support ticket",
+        "az": "Dəstək müraciəti",
+        "tr": "Destek kaydı",
+        "ru": "Заявка в поддержку"
+      },
+      "general": {
+        "en": "A recorded support request with symptoms, owner, status, and resolution history.",
+        "az": "Əlamətləri, icraçısı, vəziyyəti və həll tarixçəsi qeydə alınan müraciət.",
+        "tr": "Belirtileri, sorumlusu, durumu ve çözüm geçmişi kaydedilen talep.",
+        "ru": "Зарегистрированное обращение с симптомами, ответственным, статусом и историей решения."
+      }
+    },
+    {
+      "id": "service-request",
+      "term": {
+        "en": "Service request",
+        "az": "Xidmət sorğusu",
+        "tr": "Hizmet talebi",
+        "ru": "Запрос на обслуживание"
+      },
+      "general": {
+        "en": "A request for a standard service such as access or equipment.",
+        "az": "Giriş və ya avadanlıq kimi standart xidmət üçün sorğu.",
+        "tr": "Erişim veya ekipman gibi standart bir hizmet için talep.",
+        "ru": "Запрос на стандартную услугу, например доступ или оборудование."
+      }
+    },
+    {
+      "id": "triage",
+      "term": {
+        "en": "Triage",
+        "az": "İlkin çeşidləmə",
+        "tr": "Önceliklendirme",
+        "ru": "Первичная оценка"
+      },
+      "general": {
+        "en": "Quick assessment and prioritization by impact, urgency, and scope.",
+        "az": "Təsir, təcililik və əhatəyə görə ilkin qiymətləndirmə və sıralama.",
+        "tr": "Etki, aciliyet ve kapsama göre hızlı değerlendirme ve sıralama.",
+        "ru": "Быстрая оценка и приоритизация по влиянию, срочности и охвату."
+      }
+    },
+    {
+      "id": "escalation",
+      "term": {
+        "en": "Escalation",
+        "az": "Yuxarı səviyyəyə yönləndirmə",
+        "tr": "Üst seviyeye aktarma",
+        "ru": "Эскалация"
+      },
+      "general": {
+        "en": "Routing an unresolved issue to a team with suitable authority or expertise.",
+        "az": "Həll olunmayan problemi uyğun səlahiyyətli komandaya ötürmə.",
+        "tr": "Çözülemeyen sorunu uygun yetkili ekibe aktarma.",
+        "ru": "Передача нерешённой проблемы команде с нужными полномочиями."
+      }
+    },
+    {
+      "id": "root-cause-analysis",
+      "term": {
+        "en": "Root cause analysis",
+        "az": "Kök səbəb təhlili",
+        "tr": "Kök neden analizi",
+        "ru": "Анализ первопричины"
+      },
+      "general": {
+        "en": "Investigation that identifies underlying causes rather than only symptoms.",
+        "az": "Yalnız əlamətləri deyil, problemin əsas səbəblərini müəyyən edən araşdırma.",
+        "tr": "Yalnız belirtileri değil, sorunun temel nedenlerini belirleyen inceleme.",
+        "ru": "Исследование, выявляющее глубинные причины, а не только симптомы."
+      }
+    },
+    {
+      "id": "patch-management",
+      "term": {
+        "en": "Patch management",
+        "az": "Yeniləmə düzəlişlərinin idarə edilməsi",
+        "tr": "Yama yönetimi",
+        "ru": "Управление исправлениями"
+      },
+      "general": {
+        "en": "Planning, testing, and applying software fixes to reduce defects and security exposure.",
+        "az": "Xətaları və təhlükəsizlik risklərini azaltmaq üçün proqram düzəlişlərini planlama, sınama və tətbiq etmə.",
+        "tr": "Hataları ve güvenlik risklerini azaltmak için yazılım düzeltmelerini planlama, sınama ve uygulama.",
+        "ru": "Планирование, проверка и установка исправлений для снижения ошибок и рисков безопасности."
+      }
+    },
+    {
+      "id": "backup",
+      "term": {
+        "en": "Backup",
+        "az": "Ehtiyat nüsxə",
+        "tr": "Yedek",
+        "ru": "Резервная копия"
+      },
+      "general": {
+        "en": "A separate copy of data kept for restoration after loss or damage.",
+        "az": "İtki və ya zədələnmədən sonra bərpa üçün ayrıca saxlanılan məlumat nüsxəsi.",
+        "tr": "Kayıp veya hasardan sonra geri yüklemek için ayrı tutulan veri kopyası.",
+        "ru": "Отдельная копия данных для восстановления после утраты или повреждения."
+      }
+    },
+    {
+      "id": "restore-point",
+      "term": {
+        "en": "Restore point",
+        "az": "Bərpa nöqtəsi",
+        "tr": "Geri yükleme noktası",
+        "ru": "Точка восстановления"
+      },
+      "general": {
+        "en": "A saved system state that can help roll back selected configuration changes.",
+        "az": "Bəzi konfiqurasiya dəyişikliklərini geri qaytarmağa kömək edən saxlanmış sistem vəziyyəti.",
+        "tr": "Bazı yapılandırma değişikliklerini geri almayı sağlayan kayıtlı sistem durumu.",
+        "ru": "Сохранённое состояние системы для отката отдельных изменений конфигурации."
+      }
+    },
+    {
+      "id": "event-log",
+      "term": {
+        "en": "Event log",
+        "az": "Hadisələr jurnalı",
+        "tr": "Olay günlüğü",
+        "ru": "Журнал событий"
+      },
+      "general": {
+        "en": "A time-ordered record of operating-system or application events and errors.",
+        "az": "Əməliyyat sistemi və tətbiq hadisələri ilə xətaların vaxt sıralı qeydi.",
+        "tr": "İşletim sistemi veya uygulama olayları ile hataların zaman sıralı kaydı.",
+        "ru": "Упорядоченная по времени запись событий и ошибок ОС или приложений."
+      }
+    },
+    {
+      "id": "authentication",
+      "term": {
+        "en": "Authentication",
+        "az": "Kimliyin yoxlanması",
+        "tr": "Kimlik doğrulama",
+        "ru": "Аутентификация"
+      },
+      "general": {
+        "en": "Verifying that a user, device, or service is who or what it claims to be.",
+        "az": "İstifadəçi, cihaz və ya xidmətin iddia etdiyi kimliyə malik olduğunu yoxlama.",
+        "tr": "Kullanıcı, aygıt veya hizmetin iddia ettiği kimliği doğrulama.",
+        "ru": "Проверка заявленной личности пользователя, устройства или службы."
+      }
+    },
+    {
+      "id": "authorization",
+      "term": {
+        "en": "Authorization",
+        "az": "Səlahiyyətlərin müəyyən edilməsi",
+        "tr": "Yetkilendirme",
+        "ru": "Авторизация"
+      },
+      "general": {
+        "en": "Determining which actions an authenticated identity is allowed to perform.",
+        "az": "Təsdiqlənmiş kimliyin hansı əməliyyatları edə biləcəyini müəyyənləşdirmə.",
+        "tr": "Kimliği doğrulanmış kullanıcının hangi işlemleri yapabileceğini belirleme.",
+        "ru": "Определение действий, разрешённых аутентифицированному субъекту."
+      }
+    },
+    {
+      "id": "multi-factor-authentication",
+      "term": {
+        "en": "Multi-factor authentication (MFA)",
+        "az": "Çoxfaktorlu autentifikasiya",
+        "tr": "Çok faktörlü kimlik doğrulama",
+        "ru": "Многофакторная аутентификация"
+      },
+      "general": {
+        "en": "Authentication requiring evidence from at least two different factor categories.",
+        "az": "Ən azı iki fərqli amil kateqoriyasından sübut tələb edən autentifikasiya.",
+        "tr": "En az iki farklı faktör türünden kanıt isteyen kimlik doğrulama.",
+        "ru": "Аутентификация, требующая подтверждения из двух разных категорий факторов."
+      }
+    },
+    {
+      "id": "access-control",
+      "term": {
+        "en": "Access control",
+        "az": "Girişə nəzarət",
+        "tr": "Erişim denetimi",
+        "ru": "Контроль доступа"
+      },
+      "general": {
+        "en": "Rules that determine who may access a resource and what they may do.",
+        "az": "Resursa kimin daxil ola və nə edə biləcəyini müəyyən edən qaydalar.",
+        "tr": "Bir kaynağa kimin erişebileceğini ve neler yapabileceğini belirleyen kurallar.",
+        "ru": "Правила, определяющие, кто и что может делать с ресурсом."
+      }
+    },
+    {
+      "id": "least-privilege",
+      "term": {
+        "en": "Principle of least privilege",
+        "az": "Ən az səlahiyyət prinsipi",
+        "tr": "En az ayrıcalık ilkesi",
+        "ru": "Принцип минимальных привилегий"
+      },
+      "general": {
+        "en": "Give each account only the permissions needed for its assigned tasks.",
+        "az": "Hər hesaba yalnız təyin olunmuş işi üçün lazım olan icazələri vermək.",
+        "tr": "Her hesaba yalnızca görevi için gereken izinleri verme ilkesi.",
+        "ru": "Предоставление учётной записи только тех прав, которые нужны для её задач."
+      }
+    },
+    {
+      "id": "confidentiality",
+      "term": {
+        "en": "Confidentiality",
+        "az": "Məxfilik",
+        "tr": "Gizlilik",
+        "ru": "Конфиденциальность"
+      },
+      "general": {
+        "en": "Information is accessible only to authorized parties.",
+        "az": "Məlumat yalnız səlahiyyətli tərəflər üçün əlçatandır.",
+        "tr": "Bilgi yalnız yetkili taraflarca erişilebilir.",
+        "ru": "Информация доступна только уполномоченным сторонам."
+      }
+    },
+    {
+      "id": "integrity",
+      "term": {
+        "en": "Integrity",
+        "az": "Bütövlük",
+        "tr": "Bütünlük",
+        "ru": "Целостность"
+      },
+      "general": {
+        "en": "Information remains accurate and changes only as authorized.",
+        "az": "Məlumat dəqiq qalır və yalnız icazəli şəkildə dəyişdirilir.",
+        "tr": "Bilgi doğru kalır ve yalnızca izinli biçimde değiştirilir.",
+        "ru": "Информация остаётся точной и меняется только с разрешения."
+      }
+    },
+    {
+      "id": "availability",
+      "term": {
+        "en": "Availability",
+        "az": "Əlçatanlıq",
+        "tr": "Kullanılabilirlik",
+        "ru": "Доступность"
+      },
+      "general": {
+        "en": "Systems and information are usable when authorized users need them.",
+        "az": "Sistem və məlumatlar səlahiyyətli istifadəçilərə lazım olduqda istifadəyə hazırdır.",
+        "tr": "Sistem ve bilgi, yetkili kullanıcıların ihtiyacında kullanılabilir durumdadır.",
+        "ru": "Системы и данные доступны уполномоченным пользователям, когда они нужны."
+      }
+    },
+    {
+      "id": "cia-triad",
+      "term": {
+        "en": "CIA triad",
+        "az": "Məxfilik, bütövlük və əlçatanlıq üçlüyü",
+        "tr": "Gizlilik, bütünlük ve kullanılabilirlik üçlüsü",
+        "ru": "Триада конфиденциальности, целостности и доступности"
+      },
+      "general": {
+        "en": "A model of three security goals: confidentiality, integrity, and availability.",
+        "az": "Təhlükəsizliyin üç əsas məqsədini birləşdirən model: məxfilik, bütövlük və əlçatanlıq.",
+        "tr": "Üç güvenlik hedefini birleştiren model: gizlilik, bütünlük ve kullanılabilirlik.",
+        "ru": "Модель трёх целей безопасности: конфиденциальности, целостности и доступности."
+      }
+    },
+    {
+      "id": "threat",
+      "term": {
+        "en": "Threat",
+        "az": "Təhdid",
+        "tr": "Tehdit",
+        "ru": "Угроза"
+      },
+      "general": {
+        "en": "A potential cause of harm to a system, organization, or information.",
+        "az": "Sistemə, təşkilata və ya məlumata zərər verə biləcək mümkün səbəb.",
+        "tr": "Bir sisteme, kuruma veya bilgiye zarar verebilecek olası neden.",
+        "ru": "Потенциальная причина ущерба системе, организации или информации."
+      }
+    },
+    {
+      "id": "vulnerability",
+      "term": {
+        "en": "Vulnerability",
+        "az": "Zəiflik",
+        "tr": "Güvenlik açığı",
+        "ru": "Уязвимость"
+      },
+      "general": {
+        "en": "A weakness that a threat could misuse to affect a system or data.",
+        "az": "Təhdidin sistemə və ya məlumata təsir etmək üçün istifadə edə biləcəyi zəiflik.",
+        "tr": "Bir tehdidin sisteme veya veriye zarar vermek için kullanabileceği zayıflık.",
+        "ru": "Слабое место, которое угроза может использовать для воздействия на систему или данные."
+      }
+    },
+    {
+      "id": "cyber-risk",
+      "term": {
+        "en": "Cybersecurity risk",
+        "az": "Kibertəhlükəsizlik riski",
+        "tr": "Siber güvenlik riski",
+        "ru": "Риск кибербезопасности"
+      },
+      "general": {
+        "en": "The likelihood and impact of a cyber threat exploiting a weakness.",
+        "az": "Kiber təhdidin zəiflikdən istifadə ehtimalı və bunun mümkün təsiri.",
+        "tr": "Bir siber tehdidin zayıflıktan yararlanma olasılığı ve olası etkisi.",
+        "ru": "Вероятность использования уязвимости киберугрозой и возможные последствия."
+      }
+    },
+    {
+      "id": "attack-surface",
+      "term": {
+        "en": "Attack surface",
+        "az": "Hücum səthi",
+        "tr": "Saldırı yüzeyi",
+        "ru": "Поверхность атаки"
+      },
+      "general": {
+        "en": "All exposed interfaces and components that could be targeted or misused.",
+        "az": "Hədəfə çevrilə və ya sui-istifadə oluna bilən bütün açıq interfeys və komponentlər.",
+        "tr": "Hedef alınabilecek veya kötüye kullanılabilecek tüm açık arayüz ve bileşenler.",
+        "ru": "Все открытые интерфейсы и компоненты, которые могут стать целью или объектом злоупотребления."
+      }
+    },
+    {
+      "id": "exploit",
+      "term": {
+        "en": "Exploit",
+        "az": "İstismar vasitəsi",
+        "tr": "Açık istismarı",
+        "ru": "Эксплойт"
+      },
+      "general": {
+        "en": "A method or code that takes advantage of a vulnerability.",
+        "az": "Zəiflikdən istifadə edən üsul və ya kod.",
+        "tr": "Bir güvenlik açığından yararlanan yöntem veya kod.",
+        "ru": "Метод или код, использующий уязвимость."
+      }
+    },
+    {
+      "id": "zero-day-vulnerability",
+      "term": {
+        "en": "Zero-day vulnerability",
+        "az": "Sıfır-gün zəifliyi",
+        "tr": "Sıfırıncı gün güvenlik açığı",
+        "ru": "Уязвимость нулевого дня"
+      },
+      "general": {
+        "en": "A vulnerability without an effective public fix or mitigation when exploited.",
+        "az": "İstismar olunduğu vaxt effektiv açıq düzəlişi və ya yumşaltması olmayan zəiflik.",
+        "tr": "İstismar edildiği sırada etkili, yayımlanmış düzeltmesi olmayan güvenlik açığı.",
+        "ru": "Уязвимость, для которой в момент эксплуатации нет эффективного общедоступного исправления."
+      }
+    },
+    {
+      "id": "malware",
+      "term": {
+        "en": "Malware",
+        "az": "Zərərli proqram",
+        "tr": "Zararlı yazılım",
+        "ru": "Вредоносное ПО"
+      },
+      "general": {
+        "en": "Software designed to disrupt, damage, spy on, or gain unauthorized access to systems.",
+        "az": "Sistemləri pozmaq, zədələmək, izləmək və ya icazəsiz giriş üçün hazırlanmış proqram.",
+        "tr": "Sistemleri bozmak, zarar vermek, izlemek veya izinsiz erişim sağlamak için yazılım.",
+        "ru": "ПО для нарушения работы, повреждения, слежки или несанкционированного доступа."
+      }
+    },
+    {
+      "id": "ransomware",
+      "term": {
+        "en": "Ransomware",
+        "az": "Fidyə proqramı",
+        "tr": "Fidye yazılımı",
+        "ru": "Программа-вымогатель"
+      },
+      "general": {
+        "en": "Malware that blocks access to data or systems and demands payment.",
+        "az": "Məlumat və ya sistemlərə girişi bloklayıb ödəniş tələb edən zərərli proqram.",
+        "tr": "Veri veya sistemlere erişimi engelleyip ödeme isteyen zararlı yazılım.",
+        "ru": "Вредоносное ПО, блокирующее доступ к данным или системам и требующее выкуп."
+      }
+    },
+    {
+      "id": "phishing",
+      "term": {
+        "en": "Phishing",
+        "az": "Fişinq",
+        "tr": "Oltalama",
+        "ru": "Фишинг"
+      },
+      "general": {
+        "en": "Deceptive messages or sites that try to steal information or induce unsafe actions.",
+        "az": "Məlumat oğurlamağa və ya təhlükəli əmələ sövq etməyə çalışan aldadıcı mesaj və saytlar.",
+        "tr": "Bilgi çalmaya veya güvensiz eyleme yöneltmeye çalışan aldatıcı mesajlar ya da siteler.",
+        "ru": "Обманные сообщения или сайты, пытающиеся украсть данные или побудить к опасным действиям."
+      }
+    },
+    {
+      "id": "social-engineering",
+      "term": {
+        "en": "Social engineering",
+        "az": "Sosial mühəndislik",
+        "tr": "Sosyal mühendislik",
+        "ru": "Социальная инженерия"
+      },
+      "general": {
+        "en": "Manipulating people into disclosing information or bypassing security procedures.",
+        "az": "İnsanları məlumat açıqlamağa və ya təhlükəsizlik qaydalarını keçməyə yönəltmə üsulu.",
+        "tr": "İnsanları bilgi açıklamaya veya güvenlik adımlarını aşmaya yönlendirme yöntemi.",
+        "ru": "Воздействие на людей с целью раскрытия данных или обхода мер безопасности."
+      }
+    },
+    {
+      "id": "brute-force-attack",
+      "term": {
+        "en": "Brute-force attack",
+        "az": "Tam axtarış hücumu",
+        "tr": "Kaba kuvvet saldırısı",
+        "ru": "Атака перебором"
+      },
+      "general": {
+        "en": "Repeatedly trying many possible credentials or values until one succeeds.",
+        "az": "Düzgün nəticə tapılana qədər mümkün giriş məlumatlarını təkrar sınamaq.",
+        "tr": "Doğru sonuç bulunana kadar olası kimlik bilgilerini tekrar tekrar deneme.",
+        "ru": "Повторная проверка множества вариантов учётных данных до успеха."
+      }
+    },
+    {
+      "id": "encryption",
+      "term": {
+        "en": "Encryption",
+        "az": "Şifrələmə",
+        "tr": "Şifreleme",
+        "ru": "Шифрование"
+      },
+      "general": {
+        "en": "Transforming data with a key so only parties with the right key can read it.",
+        "az": "Məlumatı yalnız uyğun açarı olan tərəflərin oxuya bilməsi üçün çevirmə.",
+        "tr": "Veriyi yalnız doğru anahtara sahip tarafların okuyabileceği biçime dönüştürme.",
+        "ru": "Преобразование данных, чтобы читать их могли только обладатели нужного ключа."
+      }
+    },
+    {
+      "id": "hashing",
+      "term": {
+        "en": "Hashing",
+        "az": "Heşləmə",
+        "tr": "Özetleme",
+        "ru": "Хеширование"
+      },
+      "general": {
+        "en": "Computing a fixed-size digest from data; cryptographic hashes resist reversal and collisions.",
+        "az": "Məlumatdan sabit uzunluqlu xülasə hesablama; kriptoqrafik heş geri çevirməyə və toqquşmalara davamlı olmalıdır.",
+        "tr": "Veriden sabit boyutlu özet üretme; kriptografik özet tersine çevirmeye ve çakışmalara dayanıklı olmalıdır.",
+        "ru": "Вычисление дайджеста фиксированного размера; криптографическая функция должна затруднять обращение и подбор коллизий."
+      }
+    },
+    {
+      "id": "digital-certificate",
+      "term": {
+        "en": "Digital certificate",
+        "az": "Rəqəmsal sertifikat",
+        "tr": "Dijital sertifika",
+        "ru": "Цифровой сертификат"
+      },
+      "general": {
+        "en": "A signed data object that binds an identity to a public key.",
+        "az": "Kimliyi açıq açarla əlaqələndirən rəqəmsal imzalı məlumat obyekti.",
+        "tr": "Bir kimliği açık anahtara bağlayan dijital imzalı veri nesnesi.",
+        "ru": "Подписанный объект данных, связывающий личность с открытым ключом."
+      }
+    },
+    {
+      "id": "firewall",
+      "term": {
+        "en": "Firewall",
+        "az": "Şəbəkə ekranı",
+        "tr": "Güvenlik duvarı",
+        "ru": "Межсетевой экран"
+      },
+      "general": {
+        "en": "Filters network traffic according to configured security rules.",
+        "az": "Şəbəkə trafikini təhlükəsizlik qaydalarına əsasən süzür.",
+        "tr": "Ağ trafiğini güvenlik kurallarına göre süzer.",
+        "ru": "Фильтрует сетевой трафик по заданным правилам безопасности."
+      }
+    },
+    {
+      "id": "ids",
+      "term": {
+        "en": "Intrusion detection system (IDS)",
+        "az": "Müdaxilənin aşkarlanması sistemi",
+        "tr": "Saldırı tespit sistemi",
+        "ru": "Система обнаружения вторжений"
+      },
+      "general": {
+        "en": "Monitors activity and alerts on suspected malicious or policy-violating behavior.",
+        "az": "Fəaliyyəti izləyərək ehtimal olunan zərərli və ya qayda pozan davranış barədə xəbərdarlıq edir.",
+        "tr": "Etkinliği izleyip şüpheli kötü amaçlı veya kural dışı davranış için uyarı verir.",
+        "ru": "Отслеживает активность и сообщает о подозрительном или нарушающем правила поведении."
+      }
+    },
+    {
+      "id": "ips",
+      "term": {
+        "en": "Intrusion prevention system (IPS)",
+        "az": "Müdaxilənin qarşısının alınması sistemi",
+        "tr": "Saldırı önleme sistemi",
+        "ru": "Система предотвращения вторжений"
+      },
+      "general": {
+        "en": "Inspects activity and can block traffic matching configured threat rules.",
+        "az": "Fəaliyyəti yoxlayır və təhdid qaydalarına uyğun trafiki bloklaya bilər.",
+        "tr": "Etkinliği inceler ve tehdit kurallarıyla eşleşen trafiği engelleyebilir.",
+        "ru": "Проверяет активность и может блокировать трафик, соответствующий правилам угроз."
+      }
+    },
+    {
+      "id": "siem",
+      "term": {
+        "en": "Security information and event management (SIEM)",
+        "az": "Təhlükəsizlik məlumatı və hadisələrin idarə edilməsi",
+        "tr": "Güvenlik bilgisi ve olay yönetimi",
+        "ru": "Управление информацией и событиями безопасности"
+      },
+      "general": {
+        "en": "Collects and correlates security logs for monitoring and investigation.",
+        "az": "Monitorinq və araşdırma üçün təhlükəsizlik jurnallarını toplayıb əlaqələndirir.",
+        "tr": "İzleme ve inceleme için güvenlik günlüklerini toplar ve ilişkilendirir.",
+        "ru": "Собирает и сопоставляет журналы безопасности для мониторинга и расследования."
+      }
+    },
+    {
+      "id": "ioc",
+      "term": {
+        "en": "Indicator of compromise (IOC)",
+        "az": "Komprometasiya göstəricisi",
+        "tr": "Ele geçirilme göstergesi",
+        "ru": "Индикатор компрометации"
+      },
+      "general": {
+        "en": "An observable clue, such as a hash or domain, that may indicate compromise.",
+        "az": "Heş və ya domen kimi təhlükəsizlik pozuntusuna işarə edə bilən müşahidə olunan əlamət.",
+        "tr": "Hash veya alan adı gibi, güvenlik ihlaline işaret edebilen gözlemlenebilir belirti.",
+        "ru": "Наблюдаемый признак, который может указывать на компрометацию."
+      }
+    },
+    {
+      "id": "incident-response",
+      "term": {
+        "en": "Incident response",
+        "az": "İnsidentə cavab",
+        "tr": "Olay müdahalesi",
+        "ru": "Реагирование на инцидент"
+      },
+      "general": {
+        "en": "Coordinated preparation, detection, containment, recovery, and learning for security incidents.",
+        "az": "Təhlükəsizlik insidentləri üçün hazırlıq, aşkarlama, məhdudlaşdırma, bərpa və nəticə çıxarma işi.",
+        "tr": "Güvenlik olayları için hazırlık, tespit, sınırlandırma, kurtarma ve öğrenme çalışması.",
+        "ru": "Подготовка, выявление, локализация, восстановление и анализ инцидентов безопасности."
+      }
+    },
+    {
+      "id": "data-breach",
+      "term": {
+        "en": "Data breach",
+        "az": "Məlumat sızması",
+        "tr": "Veri ihlali",
+        "ru": "Утечка данных"
+      },
+      "general": {
+        "en": "Unauthorized access to, disclosure of, or loss of protected information.",
+        "az": "Qorunan məlumata icazəsiz giriş, onun açıqlanması və ya itirilməsi.",
+        "tr": "Korunan bilgiye izinsiz erişim, açığa çıkma veya kayıp.",
+        "ru": "Несанкционированный доступ к защищённой информации, её раскрытие или утрата."
+      }
+    },
+    {
+      "id": "ddos",
+      "term": {
+        "en": "Distributed denial-of-service (DDoS)",
+        "az": "Paylanmış xidmətdən imtina hücumu",
+        "tr": "Dağıtık hizmet engelleme saldırısı",
+        "ru": "Распределённая атака типа «отказ в обслуживании»"
+      },
+      "general": {
+        "en": "Overwhelming a service with traffic from many sources to deny use to legitimate users.",
+        "az": "Qanuni istifadəçilərin xidmətdən istifadəsinə mane olmaq üçün onu çoxsaylı mənbədən gələn trafiklə yükləmək.",
+        "tr": "Meşru kullanıcıların hizmeti kullanmasını engellemek için çok sayıda kaynaktan trafik gönderme.",
+        "ru": "Перегрузка службы трафиком из множества источников, мешающая законным пользователям."
+      }
+    },
+    {
+      "id": "xss",
+      "term": {
+        "en": "Cross-site scripting (XSS)",
+        "az": "Saytlararası skript (XSS)",
+        "tr": "Siteler arası betik çalıştırma (XSS)",
+        "ru": "Межсайтовый скриптинг (XSS)"
+      },
+      "general": {
+        "en": "A web flaw that lets untrusted input run as script in another user's browser.",
+        "az": "Etibarsız girişin başqa istifadəçinin brauzerində skript kimi işləməsinə imkan verən veb zəifliyi.",
+        "tr": "Güvenilmeyen girdinin başka bir kullanıcının tarayıcısında betik olarak çalışmasına yol açan web açığı.",
+        "ru": "Уязвимость, позволяющая недоверенному вводу выполниться как скрипт в браузере другого пользователя."
+      }
+    },
+    {
+      "id": "csrf",
+      "term": {
+        "en": "Cross-site request forgery (CSRF)",
+        "az": "Saytlararası sorğu saxtalaşdırması",
+        "tr": "Siteler arası istek sahteciliği",
+        "ru": "Межсайтовая подделка запроса"
+      },
+      "general": {
+        "en": "A web attack that tricks an authenticated browser into sending an unwanted request.",
+        "az": "İstifadəçinin təsdiqlənmiş brauzerini istənməyən sorğu göndərməyə aldadan veb hücumu.",
+        "tr": "Oturumu açık tarayıcıyı istenmeyen bir istek göndermeye kandıran web saldırısı.",
+        "ru": "Веб-атака, побуждающая браузер с активной аутентификацией отправить нежелательный запрос."
+      }
+    },
+    {
+      "id": "ssrf",
+      "term": {
+        "en": "Server-side request forgery (SSRF)",
+        "az": "Server tərəfli sorğu saxtalaşdırması",
+        "tr": "Sunucu taraflı istek sahteciliği",
+        "ru": "Подделка серверного запроса"
+      },
+      "general": {
+        "en": "A flaw that induces an application server to make unintended network requests.",
+        "az": "Tətbiq serverinin nəzərdə tutulmamış şəbəkə sorğuları etməsinə səbəb olan zəiflik.",
+        "tr": "Uygulama sunucusuna istenmeyen ağ istekleri yaptırabilen güvenlik açığı.",
+        "ru": "Уязвимость, побуждающая сервер приложения выполнять нежелательные сетевые запросы."
+      }
+    },
+    {
+      "id": "command-injection",
+      "term": {
+        "en": "Command injection",
+        "az": "Əmr inyeksiyası",
+        "tr": "Komut enjeksiyonu",
+        "ru": "Инъекция команд"
+      },
+      "general": {
+        "en": "A flaw where untrusted input changes commands executed by an application or system.",
+        "az": "Etibarsız girişin tətbiqin və ya sistemin icra etdiyi əmrləri dəyişdirdiyi zəiflik.",
+        "tr": "Güvenilmeyen girdinin uygulama veya sistemin çalıştırdığı komutları değiştirdiği açık.",
+        "ru": "Уязвимость, при которой недоверенный ввод изменяет команды приложения или системы."
+      }
+    },
+    {
+      "id": "supply-chain-attack",
+      "term": {
+        "en": "Supply-chain attack",
+        "az": "Təchizat zənciri hücumu",
+        "tr": "Tedarik zinciri saldırısı",
+        "ru": "Атака на цепочку поставок"
+      },
+      "general": {
+        "en": "A compromise introduced through a supplier, dependency, update, or development process.",
+        "az": "Təchizatçı, asılılıq, yeniləmə və ya hazırlama prosesi vasitəsilə daxil olan komprometasiya.",
+        "tr": "Tedarikçi, bağımlılık, güncelleme veya geliştirme süreci üzerinden oluşan ihlal.",
+        "ru": "Компрометация через поставщика, зависимость, обновление или процесс разработки."
+      }
+    },
+    {
+      "id": "secure-boot",
+      "term": {
+        "en": "Secure boot",
+        "az": "Təhlükəsiz yükləmə",
+        "tr": "Güvenli önyükleme",
+        "ru": "Безопасная загрузка"
+      },
+      "general": {
+        "en": "Startup verification of trusted boot components before they are run.",
+        "az": "İşə salınmazdan əvvəl etibarlı yükləmə komponentlərini yoxlayan başlanğıc prosesi.",
+        "tr": "Çalıştırmadan önce güvenilir önyükleme bileşenlerini doğrulayan başlangıç süreci.",
+        "ru": "Проверка доверенных компонентов до их выполнения при запуске."
+      }
+    },
+    {
+      "id": "edr",
+      "term": {
+        "en": "Endpoint detection and response (EDR)",
+        "az": "Son nöqtənin aşkarlanması və cavablandırılması",
+        "tr": "Uç nokta algılama ve müdahale",
+        "ru": "Обнаружение и реагирование на конечных устройствах"
+      },
+      "general": {
+        "en": "Endpoint tools that monitor activity and support security investigation and response.",
+        "az": "Son nöqtələrdə fəaliyyəti izləyən, araşdırma və cavabı dəstəkləyən vasitələr.",
+        "tr": "Uç noktalardaki etkinliği izleyip inceleme ve müdahaleyi destekleyen araçlar.",
+        "ru": "Средства защиты конечных устройств, отслеживающие активность и помогающие реагировать."
+      }
+    },
+    {
+      "id": "vlan",
+      "term": {
+        "en": "Virtual LAN (VLAN)",
+        "az": "Virtual lokal şəbəkə",
+        "tr": "Sanal yerel ağ",
+        "ru": "Виртуальная локальная сеть"
+      },
+      "general": {
+        "en": "A logical network segment configured independently of physical cabling.",
+        "az": "Fiziki kabelləşmədən asılı olmayaraq konfiqurasiya edilən məntiqi şəbəkə seqmenti.",
+        "tr": "Fiziksel kablolamadan bağımsız yapılandırılan mantıksal ağ bölümü.",
+        "ru": "Логический сегмент сети, настраиваемый независимо от физической коммутации."
+      }
+    },
+    {
+      "id": "nat",
+      "term": {
+        "en": "Network address translation (NAT)",
+        "az": "Şəbəkə ünvanlarının çevrilməsi",
+        "tr": "Ağ adresi çevirisi",
+        "ru": "Трансляция сетевых адресов"
+      },
+      "general": {
+        "en": "A method for translating IP addresses, often between private and public networks.",
+        "az": "Özəl və açıq şəbəkələr arasında IP ünvanlarını çevirən üsul.",
+        "tr": "Özel ve genel ağlar arasında IP adreslerini dönüştürme yöntemi.",
+        "ru": "Метод преобразования IP-адресов, часто между частной и публичной сетью."
+      }
+    },
+    {
+      "id": "cidr",
+      "term": {
+        "en": "CIDR notation",
+        "az": "CIDR yazılışı",
+        "tr": "CIDR gösterimi",
+        "ru": "Запись CIDR"
+      },
+      "general": {
+        "en": "A compact representation of an IP network and prefix length, such as 192.0.2.0/24.",
+        "az": "192.0.2.0/24 kimi IP şəbəkəsini və prefiks uzunluğunu yığcam göstərən yazılış.",
+        "tr": "192.0.2.0/24 gibi IP ağını ve önek uzunluğunu kısa biçimde gösterme.",
+        "ru": "Компактная запись IP-сети и длины префикса, например 192.0.2.0/24."
+      }
+    },
+    {
+      "id": "bandwidth",
+      "term": {
+        "en": "Bandwidth",
+        "az": "Buraxılış qabiliyyəti",
+        "tr": "Bant genişliği",
+        "ru": "Пропускная способность"
+      },
+      "general": {
+        "en": "The maximum data-transfer capacity of a link over time.",
+        "az": "Bağlantının müəyyən müddətdə ötürə biləcəyi ən böyük məlumat həcmi.",
+        "tr": "Bir bağlantının belirli sürede aktarabileceği en yüksek veri miktarı.",
+        "ru": "Максимальный объём данных, передаваемый каналом за заданное время."
+      }
+    },
+    {
+      "id": "latency",
+      "term": {
+        "en": "Latency",
+        "az": "Gecikmə",
+        "tr": "Gecikme",
+        "ru": "Задержка"
+      },
+      "general": {
+        "en": "The time taken for data or a request to travel from source to destination.",
+        "az": "Məlumatın və ya sorğunun mənbədən təyinat nöqtəsinə çatma müddəti.",
+        "tr": "Verinin veya isteğin kaynaktan hedefe ulaşma süresi.",
+        "ru": "Время передачи данных или запроса от источника к получателю."
+      }
+    },
+    {
+      "id": "throughput",
+      "term": {
+        "en": "Throughput",
+        "az": "Faktiki ötürmə sürəti",
+        "tr": "Gerçek aktarım hızı",
+        "ru": "Фактическая пропускная способность"
+      },
+      "general": {
+        "en": "The amount of useful data successfully transferred per unit of time.",
+        "az": "Vahid zamanda uğurla ötürülən faydalı məlumat miqdarı.",
+        "tr": "Birim zamanda başarıyla aktarılan yararlı veri miktarı.",
+        "ru": "Объём полезных данных, успешно передаваемых за единицу времени."
+      }
+    },
+    {
+      "id": "mtu",
+      "term": {
+        "en": "Maximum transmission unit (MTU)",
+        "az": "Maksimum ötürmə vahidi",
+        "tr": "Maksimum iletim birimi",
+        "ru": "Максимальный размер блока передачи"
+      },
+      "general": {
+        "en": "The largest packet payload sent without fragmentation at a given network layer.",
+        "az": "Verilən şəbəkə səviyyəsində parçalanmadan göndərilə bilən ən böyük paket yükü.",
+        "tr": "Belirli ağ katmanında parçalanmadan gönderilebilen en büyük paket yükü.",
+        "ru": "Максимальная полезная нагрузка пакета без фрагментации на заданном уровне."
+      }
+    },
+    {
+      "id": "osi-model",
+      "term": {
+        "en": "OSI model",
+        "az": "OSI modeli",
+        "tr": "OSI modeli",
+        "ru": "Модель OSI"
+      },
+      "general": {
+        "en": "A seven-layer reference model for describing network communication functions.",
+        "az": "Şəbəkə rabitəsi funksiyalarını təsvir edən yeddi səviyyəli istinad modeli.",
+        "tr": "Ağ iletişim işlevlerini açıklayan yedi katmanlı başvuru modeli.",
+        "ru": "Семислойная эталонная модель для описания сетевого взаимодействия."
+      }
+    },
+    {
+      "id": "proxy",
+      "term": {
+        "en": "Proxy server",
+        "az": "Proksi server",
+        "tr": "Ara sunucu",
+        "ru": "Прокси-сервер"
+      },
+      "general": {
+        "en": "An intermediary that forwards requests between clients and other services.",
+        "az": "Müştərilərlə digər xidmətlər arasında sorğuları ötürən vasitəçi server.",
+        "tr": "İstemciler ile diğer hizmetler arasındaki istekleri ileten aracı sunucu.",
+        "ru": "Промежуточный сервер, передающий запросы между клиентами и другими службами."
+      }
+    },
+    {
+      "id": "reverse-proxy",
+      "term": {
+        "en": "Reverse proxy",
+        "az": "Tərs proksi",
+        "tr": "Ters proxy",
+        "ru": "Обратный прокси"
+      },
+      "general": {
+        "en": "A proxy that receives requests for backend servers and forwards them internally.",
+        "az": "Arxa tərəf serverləri üçün sorğuları qəbul edib daxilə ötürən proksi.",
+        "tr": "Arka uç sunucuları için istekleri alıp içeri ileten proxy.",
+        "ru": "Прокси, принимающий запросы к внутренним серверам и перенаправляющий их."
+      }
+    },
+    {
+      "id": "load-balancer",
+      "term": {
+        "en": "Load balancer",
+        "az": "Yük balanslaşdırıcısı",
+        "tr": "Yük dengeleyici",
+        "ru": "Балансировщик нагрузки"
+      },
+      "general": {
+        "en": "Distributes requests across servers to improve capacity or availability.",
+        "az": "Tutumu və əlçatanlığı artırmaq üçün sorğuları serverlər arasında paylayır.",
+        "tr": "Kapasiteyi veya kullanılabilirliği artırmak için istekleri sunuculara dağıtır.",
+        "ru": "Распределяет запросы между серверами для повышения производительности или доступности."
+      }
+    },
+    {
+      "id": "https",
+      "term": {
+        "en": "HTTPS",
+        "az": "HTTPS",
+        "tr": "HTTPS",
+        "ru": "HTTPS"
+      },
+      "general": {
+        "en": "HTTP protected by TLS to provide confidentiality, integrity, and server authentication in transit.",
+        "az": "Ötürmə zamanı məxfilik, bütövlük və server autentifikasiyası üçün TLS ilə qorunan HTTP.",
+        "tr": "Aktarım sırasında gizlilik, bütünlük ve sunucu doğrulaması sağlayan TLS korumalı HTTP.",
+        "ru": "HTTP, защищённый TLS для конфиденциальности, целостности и аутентификации сервера при передаче."
+      }
+    },
+    {
+      "id": "ssh",
+      "term": {
+        "en": "Secure Shell (SSH)",
+        "az": "Təhlükəsiz Shell",
+        "tr": "Güvenli Kabuk",
+        "ru": "Безопасная оболочка"
+      },
+      "general": {
+        "en": "A protocol for encrypted remote login and other secure network operations.",
+        "az": "Şifrələnmiş uzaq giriş və təhlükəsiz şəbəkə əməliyyatları üçün protokol.",
+        "tr": "Şifreli uzaktan oturum ve güvenli ağ işlemleri için protokol.",
+        "ru": "Протокол для зашифрованного удалённого входа и защищённых сетевых операций."
+      }
+    },
+    {
+      "id": "voltage-divider",
+      "term": {
+        "en": "Voltage divider",
+        "az": "Gərginlik bölücüsü",
+        "tr": "Gerilim bölücü",
+        "ru": "Делитель напряжения"
+      },
+      "general": {
+        "en": "A series network that provides a fraction of input voltage at an output node.",
+        "az": "Ardıcıl elementlərlə giriş gərginliyinin bir hissəsini çıxışda verən sxem.",
+        "tr": "Seri elemanlarla giriş geriliminin bir bölümünü çıkışta sağlayan devre.",
+        "ru": "Последовательная цепь, снимающая в выходном узле часть входного напряжения."
+      }
+    },
+    {
+      "id": "ac",
+      "term": {
+        "en": "Alternating current (AC)",
+        "az": "Dəyişən cərəyan",
+        "tr": "Alternatif akım",
+        "ru": "Переменный ток"
+      },
+      "general": {
+        "en": "Electric current whose direction or magnitude varies periodically with time.",
+        "az": "İstiqaməti və ya qiyməti zamanla periodik dəyişən elektrik cərəyanı.",
+        "tr": "Yönü veya büyüklüğü zamanla periyodik değişen elektrik akımı.",
+        "ru": "Электрический ток, направление или величина которого периодически меняется."
+      }
+    },
+    {
+      "id": "dc",
+      "term": {
+        "en": "Direct current (DC)",
+        "az": "Sabit cərəyan",
+        "tr": "Doğru akım",
+        "ru": "Постоянный ток"
+      },
+      "general": {
+        "en": "Electric current that flows with a constant direction.",
+        "az": "İstiqaməti sabit olan elektrik cərəyanı.",
+        "tr": "Yönü sabit olan elektrik akımı.",
+        "ru": "Электрический ток, протекающий в одном направлении."
+      }
+    },
+    {
+      "id": "ohms-law",
+      "term": {
+        "en": "Ohm's law",
+        "az": "Om qanunu",
+        "tr": "Ohm kanunu",
+        "ru": "Закон Ома"
+      },
+      "general": {
+        "en": "For an ohmic component under stated conditions, voltage equals current times resistance.",
+        "az": "Müəyyən şərtlərdə omik element üçün gərginlik cərəyanla müqavimətin hasilinə bərabərdir.",
+        "tr": "Belirtilen koşullardaki ohmik elemanda gerilim, akım ile direncin çarpımına eşittir.",
+        "ru": "Для омического элемента в заданных условиях напряжение равно произведению тока на сопротивление."
+      }
+    },
+    {
+      "id": "capacitor",
+      "term": {
+        "en": "Capacitor",
+        "az": "Kondensator",
+        "tr": "Kondansatör",
+        "ru": "Конденсатор"
+      },
+      "general": {
+        "en": "A component that stores energy in an electric field between conductors.",
+        "az": "Keçiricilər arasında elektrik sahəsində enerji saxlayan komponent.",
+        "tr": "İletkenler arasındaki elektrik alanında enerji depolayan bileşen.",
+        "ru": "Компонент, накапливающий энергию в электрическом поле между проводниками."
+      }
+    },
+    {
+      "id": "inductor",
+      "term": {
+        "en": "Inductor",
+        "az": "İnduktor",
+        "tr": "Bobin",
+        "ru": "Катушка индуктивности"
+      },
+      "general": {
+        "en": "A component that stores energy in a magnetic field when current flows.",
+        "az": "Cərəyan keçdikdə maqnit sahəsində enerji saxlayan komponent.",
+        "tr": "Akım geçtiğinde manyetik alanda enerji depolayan bileşen.",
+        "ru": "Компонент, накапливающий энергию в магнитном поле при протекании тока."
+      }
+    },
+    {
+      "id": "ground",
+      "term": {
+        "en": "Electrical ground",
+        "az": "Elektrik torpağı (GND)",
+        "tr": "Elektrik toprağı (GND)",
+        "ru": "Общий провод (GND)"
+      },
+      "general": {
+        "en": "A circuit reference node that is not necessarily connected to physical earth.",
+        "az": "Sxemin istinad nöqtəsidir və mütləq fiziki torpağa qoşulmur.",
+        "tr": "Devrenin referans noktasıdır ve fiziksel toprağa bağlı olması gerekmez.",
+        "ru": "Опорный узел схемы, не обязательно соединённый с физической землёй."
+      }
+    },
+    {
+      "id": "short-circuit",
+      "term": {
+        "en": "Short circuit",
+        "az": "Qısaqapanma",
+        "tr": "Kısa devre",
+        "ru": "Короткое замыкание"
+      },
+      "general": {
+        "en": "An unintended low-resistance path that can cause excessive current.",
+        "az": "Həddindən artıq cərəyan yarada bilən, nəzərdə tutulmamış aşağı müqavimətli yol.",
+        "tr": "Aşırı akıma neden olabilen istenmeyen düşük dirençli yol.",
+        "ru": "Непредусмотренный путь с малым сопротивлением, способный вызвать чрезмерный ток."
+      }
+    },
+    {
+      "id": "open-circuit",
+      "term": {
+        "en": "Open circuit",
+        "az": "Açıq dövrə",
+        "tr": "Açık devre",
+        "ru": "Разомкнутая цепь"
+      },
+      "general": {
+        "en": "An incomplete conducting path through which normal current cannot flow.",
+        "az": "Normal cərəyanın keçə bilmədiyi tamamlanmamış keçirici yol.",
+        "tr": "Normal akımın geçemediği tamamlanmamış iletken yol.",
+        "ru": "Незамкнутый проводящий путь, по которому не течёт обычный ток."
+      }
+    },
+    {
+      "id": "breadboard",
+      "term": {
+        "en": "Breadboard",
+        "az": "Maketsiz lövhə",
+        "tr": "Devre tahtası",
+        "ru": "Макетная плата"
+      },
+      "general": {
+        "en": "A reusable board for prototyping circuits without soldering components together.",
+        "az": "Komponentləri lehimləmədən dövrə prototipi qurmaq üçün təkrar istifadə olunan lövhə.",
+        "tr": "Bileşenleri lehimlemeden devre prototipi kurmak için yeniden kullanılabilir kart.",
+        "ru": "Многоразовая плата для макетирования схем без пайки компонентов."
+      }
+    },
+    {
+      "id": "pcb",
+      "term": {
+        "en": "Printed circuit board (PCB)",
+        "az": "Çaplı dövrə lövhəsi",
+        "tr": "Baskılı devre kartı",
+        "ru": "Печатная плата"
+      },
+      "general": {
+        "en": "A board that supports components and connects them with conductive paths.",
+        "az": "Komponentləri saxlayan və keçirici yollarla birləşdirən lövhə.",
+        "tr": "Bileşenleri taşıyan ve iletken yollarla bağlayan kart.",
+        "ru": "Плата, удерживающая компоненты и соединяющая их проводящими дорожками."
+      }
+    },
+    {
+      "id": "integrated-circuit",
+      "term": {
+        "en": "Integrated circuit (IC)",
+        "az": "İnteqral sxem",
+        "tr": "Tümleşik devre",
+        "ru": "Интегральная схема"
+      },
+      "general": {
+        "en": "A semiconductor device containing interconnected electronic components on one chip.",
+        "az": "Bir kristalda bir-birinə qoşulmuş elektron komponentləri olan yarımkeçirici qurğu.",
+        "tr": "Tek yonga üzerinde birbirine bağlı elektronik bileşenler içeren yarıiletken aygıt.",
+        "ru": "Полупроводниковое устройство с соединёнными электронными компонентами на одном кристалле."
+      }
+    },
+    {
+      "id": "logic-level",
+      "term": {
+        "en": "Logic level",
+        "az": "Məntiq səviyyəsi",
+        "tr": "Mantık seviyesi",
+        "ru": "Логический уровень"
+      },
+      "general": {
+        "en": "A voltage range interpreted as digital LOW or HIGH by a circuit.",
+        "az": "Dövrənin rəqəmsal LOW və ya HIGH kimi qəbul etdiyi gərginlik aralığı.",
+        "tr": "Bir devrenin dijital LOW veya HIGH olarak yorumladığı gerilim aralığı.",
+        "ru": "Диапазон напряжения, распознаваемый схемой как цифровой LOW или HIGH."
+      }
+    },
+    {
+      "id": "pull-down-resistor",
+      "term": {
+        "en": "Pull-down resistor",
+        "az": "Pull-down rezistoru",
+        "tr": "Pull-down direnci",
+        "ru": "Подтягивающий резистор к земле"
+      },
+      "general": {
+        "en": "Connects a signal to a defined LOW level when no active source drives it.",
+        "az": "Aktiv mənbə siqnalı idarə etmədikdə onu müəyyən LOW səviyyəsinə çəkir.",
+        "tr": "Etkin kaynak sürmediğinde sinyali belirli bir LOW düzeyine çeker.",
+        "ru": "Задаёт сигналу уровень LOW, когда активный источник его не управляет."
+      }
+    },
+    {
+      "id": "oscillator",
+      "term": {
+        "en": "Oscillator",
+        "az": "Generator (osillator)",
+        "tr": "Osilatör",
+        "ru": "Генератор колебаний"
+      },
+      "general": {
+        "en": "A circuit that generates a repeating signal, often used as a timing reference.",
+        "az": "Təkrarlanan siqnal yaradan və vaxt istinadı kimi işlədilən sxem.",
+        "tr": "Tekrarlanan sinyal üreten ve zamanlama referansı olarak kullanılan devre.",
+        "ru": "Схема, создающая периодический сигнал, часто используемый как временная опора."
+      }
+    },
+    {
+      "id": "clock-signal",
+      "term": {
+        "en": "Clock signal",
+        "az": "Saat siqnalı",
+        "tr": "Saat sinyali",
+        "ru": "Тактовый сигнал"
+      },
+      "general": {
+        "en": "A periodic timing signal used to coordinate digital circuit operations.",
+        "az": "Rəqəmsal sxemlərin işini əlaqələndirən periodik vaxt siqnalı.",
+        "tr": "Dijital devre işlemlerini eşgüdümleyen periyodik zamanlama sinyali.",
+        "ru": "Периодический сигнал синхронизации цифровых схем."
+      }
+    },
+    {
+      "id": "watchdog-timer",
+      "term": {
+        "en": "Watchdog timer",
+        "az": "Nəzarət taymeri",
+        "tr": "Bekçi zamanlayıcısı",
+        "ru": "Сторожевой таймер"
+      },
+      "general": {
+        "en": "A timer that resets or flags a system if software fails to respond on time.",
+        "az": "Proqram vaxtında cavab vermədikdə sistemi sıfırlayan və ya işarələyən taymer.",
+        "tr": "Yazılım zamanında yanıt vermezse sistemi sıfırlayan veya işaretleyen zamanlayıcı.",
+        "ru": "Таймер, перезапускающий систему или подающий сигнал, если программа не ответила вовремя."
+      }
+    },
+    {
+      "id": "flash-memory",
+      "term": {
+        "en": "Flash memory",
+        "az": "Flash yaddaş",
+        "tr": "Flash bellek",
+        "ru": "Флеш-память"
+      },
+      "general": {
+        "en": "Non-volatile memory that can be electrically erased and rewritten in blocks.",
+        "az": "Elektriklə silinib bloklarla yenidən yazıla bilən qeyri-uçucu yaddaş.",
+        "tr": "Elektrikle silinip bloklar halinde yazılabilen kalıcı bellek.",
+        "ru": "Энергонезависимая память с электрическим стиранием и записью блоками."
+      }
+    },
+    {
+      "id": "sram",
+      "term": {
+        "en": "Static random-access memory (SRAM)",
+        "az": "Statik təsadüfi girişli yaddaş",
+        "tr": "Statik rastgele erişimli bellek",
+        "ru": "Статическая оперативная память"
+      },
+      "general": {
+        "en": "Fast volatile memory that retains bits while powered without periodic refresh.",
+        "az": "Enerji olduqda bitləri periodik yeniləmə olmadan saxlayan sürətli uçucu yaddaş.",
+        "tr": "Güç varken bitleri periyodik yenileme olmadan tutan hızlı uçucu bellek.",
+        "ru": "Быстрая энергозависимая память, сохраняющая данные без периодического обновления при питании."
+      }
+    },
+    {
+      "id": "eeeprom",
+      "term": {
+        "en": "EEPROM",
+        "az": "Elektriklə silinən proqramlaşdırılan ROM",
+        "tr": "Elektrikle silinebilir programlanabilir ROM",
+        "ru": "Электрически стираемое ПЗУ"
+      },
+      "general": {
+        "en": "Non-volatile memory that can be electrically erased and rewritten, often in small units.",
+        "az": "Elektriklə silinib yenidən yazıla bilən qeyri-uçucu yaddaş.",
+        "tr": "Elektrikle silinip yazılabilen kalıcı bellek.",
+        "ru": "Энергонезависимая память с электрическим стиранием и записью."
+      }
+    },
+    {
+      "id": "debouncing",
+      "term": {
+        "en": "Debouncing",
+        "az": "Kontakt sıçramasının aradan qaldırılması",
+        "tr": "Kontak sıçramasını giderme",
+        "ru": "Подавление дребезга"
+      },
+      "general": {
+        "en": "Filtering rapid switch transitions so one press is read as one event.",
+        "az": "Bir basmanın bir hadisə sayılması üçün açarın sürətli keçidlərini süzmə.",
+        "tr": "Bir basışın tek olay sayılması için anahtarın hızlı geçişlerini filtreleme.",
+        "ru": "Фильтрация быстрых переходов контакта, чтобы одно нажатие считалось одним событием."
+      }
+    },
+    {
+      "id": "duty-cycle",
+      "term": {
+        "en": "Duty cycle",
+        "az": "Doldurma əmsalı",
+        "tr": "Görev döngüsü",
+        "ru": "Коэффициент заполнения"
+      },
+      "general": {
+        "en": "The fraction of a repeating period during which a signal remains active.",
+        "az": "Təkrarlanan periodun siqnalın aktiv qaldığı hissəsi.",
+        "tr": "Tekrarlanan bir periyodun sinyalin etkin olduğu bölümü.",
+        "ru": "Доля периода, в течение которой сигнал остаётся активным."
+      }
+    },
+    {
+      "id": "dac",
+      "term": {
+        "en": "Digital-to-analog converter (DAC)",
+        "az": "Rəqəmsal-analoq çevirici",
+        "tr": "Dijital-analog dönüştürücü",
+        "ru": "Цифро-аналоговый преобразователь"
+      },
+      "general": {
+        "en": "Converts digital values into a corresponding analog voltage or current.",
+        "az": "Rəqəmsal qiymətləri uyğun analoq gərginlik və ya cərəyana çevirir.",
+        "tr": "Dijital değerleri karşılık gelen analog gerilim veya akıma dönüştürür.",
+        "ru": "Преобразует цифровые значения в соответствующее аналоговое напряжение или ток."
+      }
+    },
+    {
+      "id": "python-exception",
+      "term": {
+        "en": "Exception",
+        "az": "İstisna",
+        "tr": "Özel durum",
+        "ru": "Исключение"
+      },
+      "general": {
+        "en": "An event that interrupts normal program flow and can be handled by the program.",
+        "az": "Proqramın adi gedişini dayandıran və proqramın emal edə bildiyi hadisə.",
+        "tr": "Programın normal akışını kesen ve programın işleyebildiği olay.",
+        "ru": "Событие, прерывающее обычный ход программы и обрабатываемое программой."
+      }
+    },
+    {
+      "id": "python-decorator",
+      "term": {
+        "en": "Decorator",
+        "az": "Dekorator",
+        "tr": "Dekoratör",
+        "ru": "Декоратор"
+      },
+      "general": {
+        "en": "A callable that wraps or modifies a function or class when it is defined.",
+        "az": "Təyin edilərkən funksiyanı və ya sinfi bükən və ya dəyişdirən çağırıla bilən obyekt.",
+        "tr": "Tanımlanırken bir işlevi veya sınıfı saran ya da değiştiren çağrılabilir nesne.",
+        "ru": "Вызываемый объект, оборачивающий или изменяющий функцию или класс при определении."
+      }
+    },
+    {
+      "id": "python-generator",
+      "term": {
+        "en": "Generator",
+        "az": "Generator",
+        "tr": "Üreteç",
+        "ru": "Генератор"
+      },
+      "general": {
+        "en": "An iterator that produces values lazily, usually with yield.",
+        "az": "Adətən yield ilə qiymətləri tələb olunduqca yaradan iterator.",
+        "tr": "Genellikle yield ile değerleri gerektiğinde üreten yineleyici.",
+        "ru": "Итератор, выдающий значения по мере необходимости, обычно с помощью yield."
+      }
+    },
+    {
+      "id": "python-coroutine",
+      "term": {
+        "en": "Coroutine",
+        "az": "Korutin (coroutine)",
+        "tr": "Eş yordam",
+        "ru": "Сопрограмма"
+      },
+      "general": {
+        "en": "An object that can suspend and resume execution, often for asynchronous work.",
+        "az": "İcra prosesini dayandırıb davam etdirə bilən, çox vaxt asinxron işdə işlədilən obyekt.",
+        "tr": "Yürütmeyi durdurup sürdürebilen, çoğunlukla eşzamansız işlerde kullanılan yapı.",
+        "ru": "Объект, способный приостанавливать и возобновлять выполнение, часто для асинхронных задач."
+      }
+    },
+    {
+      "id": "python-gil",
+      "term": {
+        "en": "Global Interpreter Lock (GIL)",
+        "az": "Qlobal interpretator kilidi",
+        "tr": "Global yorumlayıcı kilidi",
+        "ru": "Глобальная блокировка интерпретатора"
+      },
+      "general": {
+        "en": "A CPython lock allowing only one thread at a time to execute Python bytecode in a process.",
+        "az": "CPython-da prosesdə eyni anda yalnız bir axının Python baytkodunu icra etməsinə imkan verən kilid.",
+        "tr": "CPython'da süreçte aynı anda yalnızca bir iş parçacığının Python bayt kodu çalıştırmasını sağlayan kilit.",
+        "ru": "Блокировка CPython, позволяющая одному потоку за раз выполнять байткод Python в процессе."
+      }
+    },
+    {
+      "id": "python-type-hint",
+      "term": {
+        "en": "Type hint",
+        "az": "Tip göstərişi",
+        "tr": "Tür ipucu",
+        "ru": "Аннотация типа"
+      },
+      "general": {
+        "en": "An optional annotation communicating expected value types to readers and tools.",
+        "az": "Oxucu və alətlərə gözlənilən qiymət tiplərini bildirən istəyə bağlı annotasiya.",
+        "tr": "Okuyucu ve araçlara beklenen değer türlerini bildiren isteğe bağlı açıklama.",
+        "ru": "Необязательная аннотация ожидаемых типов значений для читателей и инструментов."
+      }
+    },
+    {
+      "id": "python-scope",
+      "term": {
+        "en": "Scope",
+        "az": "Görünmə sahəsi",
+        "tr": "Kapsam",
+        "ru": "Область видимости"
+      },
+      "general": {
+        "en": "The region of a program where a name can be accessed or resolved.",
+        "az": "Adın əlçatan və ya həll edilə bildiyi proqram sahəsi.",
+        "tr": "Bir adın erişilebildiği veya çözümlendiği program bölgesi.",
+        "ru": "Область программы, в которой имя доступно или может быть разрешено."
+      }
+    },
+    {
+      "id": "python-recursion",
+      "term": {
+        "en": "Recursion",
+        "az": "Rekursiya",
+        "tr": "Özyineleme",
+        "ru": "Рекурсия"
+      },
+      "general": {
+        "en": "A function solves a problem by calling itself for smaller cases.",
+        "az": "Funksiya problemi daha kiçik hallar üçün özünü çağıraraq həll edir.",
+        "tr": "Bir işlev problemi daha küçük durumlarda kendini çağırarak çözer.",
+        "ru": "Функция решает задачу, вызывая себя для меньших случаев."
+      }
+    },
+    {
+      "id": "rust-borrow-checker",
+      "term": {
+        "en": "Borrow checker",
+        "az": "Borc yoxlayıcısı",
+        "tr": "Ödünç denetleyicisi",
+        "ru": "Проверка заимствований"
+      },
+      "general": {
+        "en": "Rust compiler analysis that checks borrowing and reference rules at compile time.",
+        "az": "Rust kompilyatorunun borc və istinad qaydalarını kompilyasiya zamanı yoxlayan təhlili.",
+        "tr": "Rust derleyicisinin ödünç alma ve başvuru kurallarını derleme zamanında denetlemesi.",
+        "ru": "Анализ компилятора Rust, проверяющий правила заимствований и ссылок во время компиляции."
+      }
+    },
+    {
+      "id": "rust-reference",
+      "term": {
+        "en": "Reference",
+        "az": "İstinad",
+        "tr": "Başvuru",
+        "ru": "Ссылка"
+      },
+      "general": {
+        "en": "A non-owning way to access a value without taking its ownership.",
+        "az": "Dəyərin sahibliyini götürmədən ona müraciət etmə üsulu.",
+        "tr": "Değerin sahipliğini almadan ona erişme yolu.",
+        "ru": "Способ обратиться к значению без получения владения им."
+      }
+    },
+    {
+      "id": "rust-smart-pointer",
+      "term": {
+        "en": "Smart pointer",
+        "az": "Ağıllı göstərici",
+        "tr": "Akıllı işaretçi",
+        "ru": "Умный указатель"
+      },
+      "general": {
+        "en": "A pointer-like type that adds ownership, borrowing, or resource-management behavior.",
+        "az": "Sahiblik, borcvermə və ya resurs idarəetməsi davranışı əlavə edən göstərici tipli struktur.",
+        "tr": "Sahiplik, ödünç alma veya kaynak yönetimi davranışı ekleyen işaretçi benzeri tür.",
+        "ru": "Тип, похожий на указатель и добавляющий управление владением, заимствованием или ресурсами."
+      }
+    },
+    {
+      "id": "rust-crate",
+      "term": {
+        "en": "Crate",
+        "az": "Crate",
+        "tr": "Crate",
+        "ru": "Крейт"
+      },
+      "general": {
+        "en": "A Rust compilation unit that can be a library or executable target.",
+        "az": "Kitabxana və ya icra olunan hədəf ola bilən Rust kompilyasiya vahidi.",
+        "tr": "Kütüphane veya çalıştırılabilir hedef olabilen Rust derleme birimi.",
+        "ru": "Единица компиляции Rust, представляющая библиотеку или исполняемый файл."
+      }
+    },
+    {
+      "id": "rust-generic",
+      "term": {
+        "en": "Generic",
+        "az": "Generik",
+        "tr": "Jenerik",
+        "ru": "Обобщённый тип"
+      },
+      "general": {
+        "en": "A function, type, or trait parameterized over types or other values.",
+        "az": "Tiplər və ya digər qiymətlər üzrə parametrləşdirilən funksiya, tip və ya trait.",
+        "tr": "Türler veya değerler üzerinde parametreleştirilen işlev, tür veya trait.",
+        "ru": "Функция, тип или трейт с параметрами типов или других значений."
+      }
+    },
+    {
+      "id": "rust-macro",
+      "term": {
+        "en": "Macro",
+        "az": "Makro",
+        "tr": "Makro",
+        "ru": "Макрос"
+      },
+      "general": {
+        "en": "A construct that generates or transforms code during compilation.",
+        "az": "Kompilyasiya zamanı kod yaradan və ya dəyişdirən konstruksiya.",
+        "tr": "Derleme sırasında kod üreten veya dönüştüren yapı.",
+        "ru": "Конструкция, создающая или преобразующая код во время компиляции."
+      }
+    },
+    {
+      "id": "rust-unsafe",
+      "term": {
+        "en": "Unsafe block",
+        "az": "Unsafe blok",
+        "tr": "Unsafe bloğu",
+        "ru": "Блок unsafe"
+      },
+      "general": {
+        "en": "A Rust block permitting low-level operations whose safety is the programmer's responsibility.",
+        "az": "Bəzi aşağı səviyyəli əməliyyatlara icazə verilən və təhlükəsizliyinə proqramçının cavabdeh olduğu Rust bloku.",
+        "tr": "Düşük düzeyli işlemlere izin verilen ve güvenliğinden programcının sorumlu olduğu Rust bloğu.",
+        "ru": "Блок Rust, разрешающий операции, безопасность которых обеспечивает программист."
+      }
+    },
+    {
+      "id": "rust-pattern-matching",
+      "term": {
+        "en": "Pattern matching",
+        "az": "Şablon üzrə uyğunlaşdırma",
+        "tr": "Desen eşleme",
+        "ru": "Сопоставление с образцом"
+      },
+      "general": {
+        "en": "Selecting behavior by checking a value against patterns, commonly with match.",
+        "az": "Qiyməti şablonlarla yoxlayıb, adətən match vasitəsilə davranış seçmə.",
+        "tr": "Bir değeri desenlerle karşılaştırıp genellikle match ile davranış seçme.",
+        "ru": "Выбор поведения путём проверки значения по шаблонам, обычно с помощью match."
+      }
+    },
+    {
+      "id": "zero-cost-abstraction",
+      "term": {
+        "en": "Zero-cost abstraction",
+        "az": "Sıfır xərcli abstraksiya",
+        "tr": "Sıfır maliyetli soyutlama",
+        "ru": "Абстракция без накладных расходов"
+      },
+      "general": {
+        "en": "An abstraction intended to add no runtime cost after optimization compared with equivalent lower-level code.",
+        "az": "Optimallaşdırmadan sonra aşağı səviyyəli ekvivalent koddan əlavə icra xərci yaratmaması nəzərdə tutulan abstraksiya.",
+        "tr": "İyileştirme sonrası eşdeğer düşük düzeyli koda kıyasla ek çalışma maliyeti oluşturmaması amaçlanan soyutlama.",
+        "ru": "Абстракция, которая после оптимизации не должна добавлять расходы по сравнению с эквивалентным кодом."
+      }
+    },
+    {
+      "id": "access-control-list",
+      "term": {
+        "en": "Access control list (ACL)",
+        "az": "Girişə nəzarət siyahısı (ACL)",
+        "tr": "Erişim denetim listesi (ACL)",
+        "ru": "Список контроля доступа (ACL)"
+      },
+      "general": {
+        "en": "A list of subjects and the permissions each has for a resource.",
+        "az": "Resurs üzrə subyektləri və onların icazələrini sadalayan siyahı.",
+        "tr": "Bir kaynak için özneleri ve izinlerini listeleyen yapı.",
+        "ru": "Список субъектов и их разрешений для ресурса."
+      }
+    },
+    {
+      "id": "advanced-persistent-threat",
+      "term": {
+        "en": "Advanced persistent threat (APT)",
+        "az": "Qabaqcıl davamlı təhdid (APT)",
+        "tr": "Gelişmiş kalıcı tehdit (APT)",
+        "ru": "Усовершенствованная постоянная угроза (APT)"
+      },
+      "general": {
+        "en": "A capable threat actor that conducts sustained, targeted activity over time.",
+        "az": "Uzun müddət hədəfli fəaliyyət göstərən bacarıqlı təhdid aktoru.",
+        "tr": "Uzun süre hedefli faaliyet yürüten yetkin tehdit aktörü.",
+        "ru": "Способный субъект угрозы, длительно ведущий целенаправленную деятельность."
+      }
+    },
+    {
+      "id": "business-continuity-plan",
+      "term": {
+        "en": "Business continuity plan (BCP)",
+        "az": "Biznesin davamlılığı planı (BCP)",
+        "tr": "İş sürekliliği planı (BCP)",
+        "ru": "План обеспечения непрерывности бизнеса (BCP)"
+      },
+      "general": {
+        "en": "Documented arrangements for continuing critical services during disruption.",
+        "az": "Fasilə zamanı vacib xidmətləri davam etdirmək üçün sənədləşdirilmiş tədbirlər.",
+        "tr": "Kesinti sırasında kritik hizmetleri sürdürmeye yönelik belgeli düzenlemeler.",
+        "ru": "Документированные меры для продолжения критически важных услуг при сбое."
+      }
+    },
+    {
+      "id": "business-impact-analysis",
+      "term": {
+        "en": "Business impact analysis (BIA)",
+        "az": "Biznesə təsirin təhlili (BIA)",
+        "tr": "İş etkisi analizi (BIA)",
+        "ru": "Анализ влияния на бизнес (BIA)"
+      },
+      "general": {
+        "en": "Assessment of how disruption affects critical functions, dependencies, and recovery priorities.",
+        "az": "Fasilənin vacib funksiyalara, asılılıqlara və bərpa prioritetlərinə təsirinin qiymətləndirilməsi.",
+        "tr": "Kesintinin kritik işlevleri, bağımlılıkları ve kurtarma önceliklerini nasıl etkilediğinin değerlendirilmesi.",
+        "ru": "Оценка влияния сбоя на критические функции, зависимости и приоритеты восстановления."
+      }
+    },
+    {
+      "id": "dmz",
+      "term": {
+        "en": "Demilitarized zone (DMZ)",
+        "az": "Demilitarizə olunmuş zona (DMZ)",
+        "tr": "Askerden arındırılmış bölge (DMZ)",
+        "ru": "Демилитаризованная зона (DMZ)"
+      },
+      "general": {
+        "en": "A separated network segment for public-facing services, isolated from the internal network.",
+        "az": "İctimai xidmətlər üçün daxili şəbəkədən ayrılmış şəbəkə seqmenti.",
+        "tr": "Genel erişimli hizmetler için iç ağdan ayrılmış ağ bölümü.",
+        "ru": "Изолированный сегмент для публичных служб, отделённый от внутренней сети."
+      }
+    },
+    {
+      "id": "computer-security-incident-response-team",
+      "term": {
+        "en": "Computer security incident response team (CSIRT)",
+        "az": "Kompüter təhlükəsizliyi insidentlərinə cavab komandası (CSIRT)",
+        "tr": "Bilgisayar güvenliği olayı müdahale ekibi (CSIRT)",
+        "ru": "Группа реагирования на инциденты компьютерной безопасности (CSIRT)"
+      },
+      "general": {
+        "en": "A team that coordinates support and response for computer security incidents.",
+        "az": "Kompüter təhlükəsizliyi insidentləri üzrə dəstək və cavabı əlaqələndirən komanda.",
+        "tr": "Bilgisayar güvenliği olaylarında destek ve müdahaleyi koordine eden ekip.",
+        "ru": "Команда, координирующая помощь и реагирование на инциденты компьютерной безопасности."
+      }
+    },
+    {
+      "id": "open-source-intelligence",
+      "term": {
+        "en": "Open-source intelligence (OSINT)",
+        "az": "Açıq mənbə kəşfiyyatı (OSINT)",
+        "tr": "Açık kaynak istihbaratı (OSINT)",
+        "ru": "Разведка по открытым источникам (OSINT)"
+      },
+      "general": {
+        "en": "Information collected and analyzed from publicly available sources.",
+        "az": "Hamı üçün açıq mənbələrdən toplanıb təhlil edilən məlumat.",
+        "tr": "Kamuya açık kaynaklardan toplanıp çözümlenen bilgi.",
+        "ru": "Информация, собранная и проанализированная из общедоступных источников."
+      }
+    },
+    {
+      "id": "scada",
+      "term": {
+        "en": "Supervisory control and data acquisition (SCADA)",
+        "az": "Nəzarət və məlumat toplama sistemi (SCADA)",
+        "tr": "Denetleyici kontrol ve veri toplama (SCADA)",
+        "ru": "Диспетчерское управление и сбор данных (SCADA)"
+      },
+      "general": {
+        "en": "Systems that monitor and control industrial processes and infrastructure.",
+        "az": "Sənaye proseslərini və infrastrukturu izləyib idarə edən sistemlər.",
+        "tr": "Endüstriyel süreçleri ve altyapıyı izleyip denetleyen sistemler.",
+        "ru": "Системы мониторинга и управления промышленными процессами и инфраструктурой."
+      }
+    },
+    {
+      "id": "security-operations-center",
+      "term": {
+        "en": "Security operations center (SOC)",
+        "az": "Təhlükəsizlik əməliyyatları mərkəzi (SOC)",
+        "tr": "Güvenlik operasyonları merkezi (SOC)",
+        "ru": "Центр мониторинга безопасности (SOC)"
+      },
+      "general": {
+        "en": "A team or facility that monitors security events and coordinates response.",
+        "az": "Təhlükəsizlik hadisələrini izləyib cavabı əlaqələndirən komanda və ya mərkəz.",
+        "tr": "Güvenlik olaylarını izleyip müdahaleyi koordine eden ekip veya merkez.",
+        "ru": "Команда или центр, отслеживающий события безопасности и координирующий реагирование."
+      }
+    },
+    {
+      "id": "cve",
+      "term": {
+        "en": "Common Vulnerabilities and Exposures (CVE)",
+        "az": "Ümumi zəifliklər və məruzqalma halları (CVE)",
+        "tr": "Yaygın Güvenlik Açıkları ve Maruziyetler (CVE)",
+        "ru": "Общие уязвимости и воздействия (CVE)"
+      },
+      "general": {
+        "en": "A public identifier system for naming known cybersecurity vulnerabilities.",
+        "az": "Məlum kibertəhlükəsizlik zəifliklərinə ad vermək üçün açıq identifikator sistemi.",
+        "tr": "Bilinen siber güvenlik açıklarını adlandıran herkese açık tanımlayıcı sistemi.",
+        "ru": "Открытая система идентификаторов известных уязвимостей кибербезопасности."
+      }
+    },
+    {
+      "id": "cvss",
+      "term": {
+        "en": "Common Vulnerability Scoring System (CVSS)",
+        "az": "Ümumi zəifliklərin qiymətləndirilməsi sistemi (CVSS)",
+        "tr": "Yaygın Güvenlik Açığı Puanlama Sistemi (CVSS)",
+        "ru": "Общая система оценки уязвимостей (CVSS)"
+      },
+      "general": {
+        "en": "A framework for describing vulnerability severity using defined metrics.",
+        "az": "Zəifliyin ciddiliyini müəyyən göstəricilərlə təsvir edən çərçivə.",
+        "tr": "Güvenlik açığı önem derecesini tanımlı ölçütlerle açıklayan çerçeve.",
+        "ru": "Система описания серьёзности уязвимости с помощью заданных метрик."
+      }
+    },
+    {
+      "id": "security-control",
+      "term": {
+        "en": "Security control",
+        "az": "Təhlükəsizlik nəzarəti",
+        "tr": "Güvenlik kontrolü",
+        "ru": "Мера безопасности"
+      },
+      "general": {
+        "en": "A safeguard or process used to reduce security risk.",
+        "az": "Təhlükəsizlik riskini azaltmaq üçün istifadə olunan qoruyucu tədbir və ya proses.",
+        "tr": "Güvenlik riskini azaltmak için kullanılan koruma önlemi veya süreç.",
+        "ru": "Мера или процесс, снижающий риск безопасности."
+      }
+    },
+    {
+      "id": "risk-assessment",
+      "term": {
+        "en": "Risk assessment",
+        "az": "Riskin qiymətləndirilməsi",
+        "tr": "Risk değerlendirmesi",
+        "ru": "Оценка риска"
+      },
+      "general": {
+        "en": "Identifying and evaluating risks to decide how they should be treated.",
+        "az": "Riskləri müəyyən edib qiymətləndirərək onlarla necə davranılacağını seçmə.",
+        "tr": "Riskleri belirleyip değerlendirerek nasıl ele alınacaklarına karar verme.",
+        "ru": "Выявление и оценка рисков для выбора мер управления ими."
+      }
+    },
+    {
+      "id": "credential",
+      "term": {
+        "en": "Credential",
+        "az": "Giriş məlumatı",
+        "tr": "Kimlik bilgisi",
+        "ru": "Учётные данные"
+      },
+      "general": {
+        "en": "Information used to prove an identity, such as a password or key.",
+        "az": "Kimliyi təsdiqləmək üçün istifadə olunan parol və ya açar kimi məlumat.",
+        "tr": "Kimliği kanıtlamak için kullanılan parola veya anahtar gibi bilgi.",
+        "ru": "Данные, подтверждающие личность, например пароль или ключ."
+      }
+    },
+    {
+      "id": "security-token",
+      "term": {
+        "en": "Security token",
+        "az": "Təhlükəsizlik tokeni",
+        "tr": "Güvenlik belirteci",
+        "ru": "Токен безопасности"
+      },
+      "general": {
+        "en": "A value or device used to represent or prove an authenticated session or identity.",
+        "az": "Təsdiqlənmiş sessiyanı və ya kimliyi təmsil edən və təsdiqləyən dəyər və ya cihaz.",
+        "tr": "Doğrulanmış oturumu ya da kimliği temsil eden veya kanıtlayan değer ya da aygıt.",
+        "ru": "Значение или устройство для представления или подтверждения сеанса либо личности."
+      }
+    },
+    {
+      "id": "public-key",
+      "term": {
+        "en": "Public key",
+        "az": "Açıq açar",
+        "tr": "Açık anahtar",
+        "ru": "Открытый ключ"
+      },
+      "general": {
+        "en": "A cryptographic key that may be shared and is used in public-key operations.",
+        "az": "Paylaşıla bilən və açıq açarlı kriptoqrafik əməliyyatlarda istifadə olunan açar.",
+        "tr": "Paylaşılabilen ve açık anahtarlı işlemlerde kullanılan kriptografik anahtar.",
+        "ru": "Криптографический ключ, который можно распространять и использовать в операциях с открытым ключом."
+      }
+    },
+    {
+      "id": "private-key",
+      "term": {
+        "en": "Private key",
+        "az": "Gizli açar",
+        "tr": "Özel anahtar",
+        "ru": "Закрытый ключ"
+      },
+      "general": {
+        "en": "A secret cryptographic key that must be protected by its owner.",
+        "az": "Sahibi tərəfindən qorunmalı olan məxfi kriptoqrafik açar.",
+        "tr": "Sahibi tarafından korunması gereken gizli kriptografik anahtar.",
+        "ru": "Секретный криптографический ключ, который владелец должен защищать."
+      }
+    },
+    {
+      "id": "digital-signature",
+      "term": {
+        "en": "Digital signature",
+        "az": "Rəqəmsal imza",
+        "tr": "Dijital imza",
+        "ru": "Цифровая подпись"
+      },
+      "general": {
+        "en": "A cryptographic value used to verify data origin and detect unauthorized changes.",
+        "az": "Məlumatın mənbəyini yoxlamaq və icazəsiz dəyişiklikləri aşkarlamaq üçün kriptoqrafik dəyər.",
+        "tr": "Veri kaynağını doğrulamak ve izinsiz değişiklikleri saptamak için kriptografik değer.",
+        "ru": "Криптографическое значение для проверки источника данных и выявления изменений."
+      }
+    },
+    {
+      "id": "identity-and-access-management",
+      "term": {
+        "en": "Identity and access management (IAM)",
+        "az": "Kimlik və girişin idarə edilməsi (IAM)",
+        "tr": "Kimlik ve erişim yönetimi (IAM)",
+        "ru": "Управление идентификацией и доступом (IAM)"
+      },
+      "general": {
+        "en": "Policies and tools for managing digital identities and their access to resources.",
+        "az": "Rəqəmsal kimlikləri və onların resurslara girişini idarə edən qayda və vasitələr.",
+        "tr": "Dijital kimlikleri ve kaynak erişimlerini yöneten politika ve araçlar.",
+        "ru": "Правила и средства управления цифровыми идентификаторами и доступом к ресурсам."
+      }
+    },
+    {
+      "id": "role-based-access-control",
+      "term": {
+        "en": "Role-based access control (RBAC)",
+        "az": "Rola əsaslanan girişə nəzarət (RBAC)",
+        "tr": "Rol tabanlı erişim denetimi (RBAC)",
+        "ru": "Ролевое управление доступом (RBAC)"
+      },
+      "general": {
+        "en": "Permissions are assigned to roles, and users receive access through those roles.",
+        "az": "İcazələr rollara verilir, istifadəçilər isə həmin rollar vasitəsilə giriş əldə edir.",
+        "tr": "İzinler rollara atanır; kullanıcılar erişimi bu roller üzerinden alır.",
+        "ru": "Разрешения назначаются ролям, а пользователи получают доступ через роли."
+      }
+    },
+    {
+      "id": "single-sign-on",
+      "term": {
+        "en": "Single sign-on (SSO)",
+        "az": "Vahid giriş (SSO)",
+        "tr": "Tek oturum açma (SSO)",
+        "ru": "Единый вход (SSO)"
+      },
+      "general": {
+        "en": "An authentication arrangement that lets a user access multiple services with one login.",
+        "az": "İstifadəçiyə bir girişlə bir neçə xidmətə daxil olmağa imkan verən autentifikasiya quruluşu.",
+        "tr": "Kullanıcının tek oturum açmayla birden çok hizmete erişmesini sağlayan kimlik doğrulama düzeni.",
+        "ru": "Схема аутентификации, позволяющая входить в несколько служб с одной учётной записью."
+      }
+    },
+    {
+      "id": "botnet",
+      "term": {
+        "en": "Botnet",
+        "az": "Botnet şəbəkəsi",
+        "tr": "Botnet",
+        "ru": "Ботнет"
+      },
+      "general": {
+        "en": "A group of compromised devices remotely coordinated as a network.",
+        "az": "Uzaqdan əlaqələndirilən komprometasiya olunmuş cihazlar qrupu.",
+        "tr": "Uzaktan yönetilen ele geçirilmiş aygıtlardan oluşan ağ.",
+        "ru": "Группа скомпрометированных устройств, удалённо координируемых как сеть."
+      }
+    },
+    {
+      "id": "trojan",
+      "term": {
+        "en": "Trojan horse",
+        "az": "Troyan proqramı",
+        "tr": "Truva atı",
+        "ru": "Троянская программа"
+      },
+      "general": {
+        "en": "Malware disguised as legitimate software or content.",
+        "az": "Qanuni proqram və ya məzmun kimi görünən zərərli proqram.",
+        "tr": "Meşru yazılım veya içerik gibi görünen zararlı yazılım.",
+        "ru": "Вредоносная программа, маскирующаяся под легальное ПО или содержимое."
+      }
+    },
+    {
+      "id": "computer-worm",
+      "term": {
+        "en": "Computer worm",
+        "az": "Kompüter qurdu",
+        "tr": "Bilgisayar solucanı",
+        "ru": "Компьютерный червь"
+      },
+      "general": {
+        "en": "Malware that can spread between systems without attaching itself to a host file.",
+        "az": "Özünü fayla qoşmadan sistemlər arasında yayıla bilən zərərli proqram.",
+        "tr": "Bir dosyaya eklenmeden sistemler arasında yayılabilen zararlı yazılım.",
+        "ru": "Вредоносная программа, способная распространяться между системами без присоединения к файлу."
+      }
+    },
+    {
+      "id": "spyware",
+      "term": {
+        "en": "Spyware",
+        "az": "Casus proqram",
+        "tr": "Casus yazılım",
+        "ru": "Шпионское ПО"
+      },
+      "general": {
+        "en": "Software that secretly monitors activity or collects information.",
+        "az": "Fəaliyyəti gizli izləyən və ya məlumat toplayan proqram.",
+        "tr": "Etkinliği gizlice izleyen veya bilgi toplayan yazılım.",
+        "ru": "ПО, скрытно отслеживающее действия или собирающее информацию."
+      }
+    },
+    {
+      "id": "rootkit",
+      "term": {
+        "en": "Rootkit",
+        "az": "Rootkit",
+        "tr": "Rootkit",
+        "ru": "Руткит"
+      },
+      "general": {
+        "en": "Software designed to conceal privileged access or other malicious components.",
+        "az": "Yüksək səlahiyyətli girişi və ya başqa zərərli komponentləri gizlətmək üçün hazırlanmış proqram.",
+        "tr": "Ayrıcalıklı erişimi veya diğer zararlı bileşenleri gizlemek için tasarlanmış yazılım.",
+        "ru": "ПО для сокрытия привилегированного доступа или других вредоносных компонентов."
+      }
+    },
+    {
+      "id": "keylogger",
+      "term": {
+        "en": "Keylogger",
+        "az": "Klaviatura qeydedicisi",
+        "tr": "Tuş kaydedici",
+        "ru": "Кейлоггер"
+      },
+      "general": {
+        "en": "Software or hardware that records keystrokes, sometimes without the user's knowledge.",
+        "az": "Bəzən istifadəçidən xəbərsiz klaviatura basmalarını qeydə alan proqram və ya avadanlıq.",
+        "tr": "Bazen kullanıcının bilgisi olmadan tuş vuruşlarını kaydeden yazılım veya donanım.",
+        "ru": "ПО или устройство, записывающее нажатия клавиш, иногда без ведома пользователя."
+      }
+    },
+    {
+      "id": "credential-stuffing",
+      "term": {
+        "en": "Credential stuffing",
+        "az": "Oğurlanmış giriş məlumatlarının yoxlanması",
+        "tr": "Çalıntı kimlik bilgilerini deneme",
+        "ru": "Подстановка украденных учётных данных"
+      },
+      "general": {
+        "en": "Automated reuse of leaked username-password pairs against other services.",
+        "az": "Sızmış istifadəçi adı-parol cütlərini başqa xidmətlərdə avtomatik sınama.",
+        "tr": "Sızdırılmış kullanıcı adı-parola çiftlerini başka hizmetlerde otomatik deneme.",
+        "ru": "Автоматическая проверка утёкших пар логин-пароль в других службах."
+      }
+    },
+    {
+      "id": "password-spraying",
+      "term": {
+        "en": "Password spraying",
+        "az": "Parol səpələmə hücumu",
+        "tr": "Parola püskürtme saldırısı",
+        "ru": "Распыление паролей"
+      },
+      "general": {
+        "en": "Trying a small set of common passwords across many accounts to avoid repeated failures on one account.",
+        "az": "Bir hesabda təkrar uğursuz cəhdləri azaltmaq üçün az sayda ümumi parolu çox hesabda sınama.",
+        "tr": "Bir hesapta tekrarlı hataları azaltmak için az sayıda yaygın parolayı çok hesapta deneme.",
+        "ru": "Проверка небольшого набора распространённых паролей для множества учётных записей."
+      }
+    },
+    {
+      "id": "defense-in-depth",
+      "term": {
+        "en": "Defense in depth",
+        "az": "Çoxqatlı müdafiə",
+        "tr": "Derinlemesine savunma",
+        "ru": "Многоуровневая защита"
+      },
+      "general": {
+        "en": "Using complementary security measures so one control's failure does not expose everything.",
+        "az": "Bir nəzarət tədbiri sıradan çıxanda hər şeyin açıq qalmaması üçün tamamlayıcı müdafiələrdən istifadə.",
+        "tr": "Bir kontrol başarısız olduğunda her şeyin açığa çıkmaması için tamamlayıcı önlemler kullanma.",
+        "ru": "Использование дополняющих мер, чтобы отказ одной защиты не открыл всю систему."
+      }
+    },
+    {
+      "id": "zero-trust",
+      "term": {
+        "en": "Zero trust",
+        "az": "Sıfır etibar modeli",
+        "tr": "Sıfır güven",
+        "ru": "Нулевая модель доверия"
+      },
+      "general": {
+        "en": "A security approach that continuously verifies access rather than trusting location alone.",
+        "az": "Yalnız şəbəkə mövqeyinə güvənməyib girişi davamlı yoxlayan təhlükəsizlik yanaşması.",
+        "tr": "Yalnızca ağ konumuna güvenmeyip erişimi sürekli doğrulayan güvenlik yaklaşımı.",
+        "ru": "Подход, при котором доступ постоянно проверяется, а не определяется только местоположением."
+      }
+    },
+    {
+      "id": "ampere",
+      "term": {
+        "en": "Ampere (A)",
+        "az": "Amper (A)",
+        "tr": "Amper (A)",
+        "ru": "Ампер (А)"
+      },
+      "general": {
+        "en": "The SI base unit of electric current.",
+        "az": "Elektrik cərəyanının SI əsas vahidi.",
+        "tr": "Elektrik akımının SI temel birimi.",
+        "ru": "Основная единица СИ для электрического тока."
+      }
+    },
+    {
+      "id": "volt",
+      "term": {
+        "en": "Volt (V)",
+        "az": "Volt (V)",
+        "tr": "Volt (V)",
+        "ru": "Вольт (В)"
+      },
+      "general": {
+        "en": "The SI derived unit of electric potential difference.",
+        "az": "Elektrik potensialı fərqinin SI törəmə vahidi.",
+        "tr": "Elektrik potansiyel farkının SI türetilmiş birimi.",
+        "ru": "Производная единица СИ для разности электрических потенциалов."
+      }
+    },
+    {
+      "id": "ohm",
+      "term": {
+        "en": "Ohm (Ω)",
+        "az": "Om (Ω)",
+        "tr": "Ohm (Ω)",
+        "ru": "Ом (Ω)"
+      },
+      "general": {
+        "en": "The SI derived unit of electrical resistance.",
+        "az": "Elektrik müqavimətinin SI törəmə vahidi.",
+        "tr": "Elektrik direncinin SI türetilmiş birimi.",
+        "ru": "Производная единица СИ для электрического сопротивления."
+      }
+    },
+    {
+      "id": "watt",
+      "term": {
+        "en": "Watt (W)",
+        "az": "Vatt (W)",
+        "tr": "Watt (W)",
+        "ru": "Ватт (Вт)"
+      },
+      "general": {
+        "en": "The SI derived unit of power, equal to one joule per second.",
+        "az": "Gücün SI törəmə vahidi; saniyədə bir joulə bərabərdir.",
+        "tr": "Gücün SI türetilmiş birimidir; saniyede bir joule eşittir.",
+        "ru": "Производная единица СИ мощности, равная одному джоулю в секунду."
+      }
+    },
+    {
+      "id": "hertz",
+      "term": {
+        "en": "Hertz (Hz)",
+        "az": "Hers (Hz)",
+        "tr": "Hertz (Hz)",
+        "ru": "Герц (Гц)"
+      },
+      "general": {
+        "en": "The SI unit of frequency, equal to one cycle per second.",
+        "az": "Tezliyin SI vahidi; saniyədə bir dövrə bərabərdir.",
+        "tr": "Frekansın SI birimidir; saniyede bir çevrime eşittir.",
+        "ru": "Единица СИ частоты, равная одному циклу в секунду."
+      }
+    },
+    {
+      "id": "capacitance",
+      "term": {
+        "en": "Capacitance",
+        "az": "Tutum (kapasitans)",
+        "tr": "Kapasitans",
+        "ru": "Электрическая ёмкость"
+      },
+      "general": {
+        "en": "A component or system's ability to store electric charge per unit voltage.",
+        "az": "Komponentin və ya sistemin vahid gərginliyə düşən elektrik yükünü saxlama qabiliyyəti.",
+        "tr": "Bir bileşen veya sistemin birim gerilim başına elektrik yükü depolama kapasitesi.",
+        "ru": "Способность компонента или системы накапливать заряд на единицу напряжения."
+      }
+    },
+    {
+      "id": "inductance",
+      "term": {
+        "en": "Inductance",
+        "az": "İnduktivlik",
+        "tr": "Endüktans",
+        "ru": "Индуктивность"
+      },
+      "general": {
+        "en": "A property relating changing current to the induced voltage in a circuit.",
+        "az": "Dəyişən cərəyanla dövrədə induksiya olunan gərginlik arasındakı əlaqəni göstərən xüsusiyyət.",
+        "tr": "Değişen akımla devrede indüklenen gerilim arasındaki ilişkiyi gösteren özellik.",
+        "ru": "Свойство, связывающее изменение тока с индуцированным напряжением в цепи."
+      }
+    },
+    {
+      "id": "impedance",
+      "term": {
+        "en": "Impedance",
+        "az": "Tam müqavimət (impedans)",
+        "tr": "Empedans",
+        "ru": "Импеданс"
+      },
+      "general": {
+        "en": "The total opposition to alternating current, including resistance and reactance.",
+        "az": "Müqavimət və reaktansı əhatə edən dəyişən cərəyana ümumi qarşıdurma.",
+        "tr": "Direnç ve reaktansı içeren alternatif akıma toplam karşı koyma.",
+        "ru": "Полное противодействие переменному току, включающее сопротивление и реактивность."
+      }
+    },
+    {
+      "id": "reactance",
+      "term": {
+        "en": "Reactance",
+        "az": "Reaktiv müqavimət",
+        "tr": "Reaktans",
+        "ru": "Реактивное сопротивление"
+      },
+      "general": {
+        "en": "The frequency-dependent opposition to alternating current from capacitance or inductance.",
+        "az": "Tutum və ya induktivliyin dəyişən cərəyana tezlikdən asılı qarşıdurması.",
+        "tr": "Kapasitans veya endüktansın alternatif akıma frekansa bağlı karşı koyması.",
+        "ru": "Зависящее от частоты противодействие переменному току со стороны ёмкости или индуктивности."
+      }
+    }
   ]
 }
